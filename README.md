@@ -1,1 +1,3 @@
-# lusy
+# master
+# настроить conf.php
+#

@@ -1,0 +1,22 @@
+[11-Feb-2019 14:43:44 Europe/Moscow] PHP Fatal error:  Uncaught Error: Call to undefined function DBOnce() in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php:5
+Stack trace:
+#0 /home/richbeer/s.lusy.io/engine/ajax/nav-update.php(1): include()
+#1 {main}
+  thrown in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php on line 5
+[11-Feb-2019 14:43:51 Europe/Moscow] PHP Fatal error:  Uncaught Error: Call to undefined function DBOnce() in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php:5
+Stack trace:
+#0 /home/richbeer/s.lusy.io/engine/ajax/nav-update.php(1): include()
+#1 {main}
+  thrown in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php on line 5
+[11-Feb-2019 14:44:31 Europe/Moscow] PHP Notice:  Undefined index: id in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php on line 3
+[11-Feb-2019 14:44:31 Europe/Moscow] PHP Notice:  Undefined index: _tasks in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php on line 5
+[11-Feb-2019 14:44:31 Europe/Moscow] PHP Fatal error:  Uncaught Error: Call to undefined function DBOnce() in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php:5
+Stack trace:
+#0 /home/richbeer/s.lusy.io/engine/ajax/nav-update.php(5): include()
+#1 {main}
+  thrown in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php on line 5
+[11-Feb-2019 14:44:45 Europe/Moscow] PHP Fatal error:  Uncaught Error: Call to undefined function DBOnce() in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php:5
+Stack trace:
+#0 /home/richbeer/s.lusy.io/engine/ajax/nav-update.php(1): include()
+#1 {main}
+  thrown in /home/richbeer/s.lusy.io/engine/backend/nav/tasks.php on line 5
