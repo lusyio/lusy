@@ -72,6 +72,51 @@ $(document).ready(function(){
 			$("#reportarea").addClass('border-danger');
 		}
 	});
+
+// Кнопка принять для worker'a (в статусе "на рассмотрении""), переводит в статус done - завершен
+
+$( "#workdone" ).click(function() {
+		// var report = $("#reportarea").val();
+		// if (report) {
+			$.post("/ajax.php", {module: 'workdone', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			function controlUpdate(data) {
+				location.reload();
+			}
+		// } else {
+		// 	$("#reportarea").addClass('border-danger');
+		// }
+	});
+
+// Кнопка "принять" для worker'a (в статусе "на рассмотрении"")
+
+$( "#workreturn" ).click(function() {
+		// var report = $("#reportarea").val();
+		// if (report) {
+			$.post("/ajax.php", {module: 'workreturn', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			function controlUpdate(data) {
+				location.reload();
+			}
+		// } else {
+		// 	$("#reportarea").addClass('border-danger');
+		// }
+	});
+
+// Кнопка "В работу" для worker'a (на странице "возвращен")
+
+$( "#inwork" ).click(function() {
+		// var report = $("#reportarea").val();
+		// if (report) {
+			$.post("/ajax.php", {module: 'inwork', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			function controlUpdate(data) {
+				location.reload();
+			}
+		// } else {
+		// 	$("#reportarea").addClass('border-danger');
+		// }
+	});
+
+
+
 	
 	// перенос
 	$( "#sendpostpone" ).click(function() {

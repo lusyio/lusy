@@ -5,9 +5,9 @@
 	 	ini_set('display_errors', 1);
 	  	ini_set('display_startup_errors', 1);
   	}
-	$user = 'root';
-	$pass = '123456';
-	$pdo = new PDO('mysql:host=localhost;dbname=mybd', $user, $pass);
+	$user = 'richbeer_dev';
+	$pass = 'Metro2033228';
+	$pdo = new PDO('mysql:host=localhost;dbname=richbeer_dev', $user, $pass);
 	
 	// текущая дата
 	$now = date("Y-m-d");
@@ -71,20 +71,20 @@
 	}
 	
 	// функция создания задач
-	function createTask($name,$description,$worker,$datedone) {
-		global $pdo;
-		global $now;
-		global $id;
-		global $idc;
+	// function createTask($name,$description,$worker,$datedone) {
+	// 	global $pdo;
+	// 	global $now;
+	// 	global $id;
+	// 	global $idc;
 		
-		$sql = $pdo->prepare("INSERT INTO tasks SET name = :name, description = :description, datecreate = '".$now."', datedone = :datedone,status = 'new', manager = '".$id."', worker = :worker, idcompany = '".$idc."'");
-		$sql->execute(array('name' => $name, 'description' => $description, 'worker' => $worker, 'datedone' => $datedone));
-		$idtask = $pdo->lastInsertId();
+	// 	$sql = $pdo->prepare("INSERT INTO tasks SET name = :name, description = :description, datecreate = '".$now."', datedone = :datedone,status = 'new', manager = '".$id."', worker = :worker, idcompany = '".$idc."'");
+	// 	$sql->execute(array('name' => $name, 'description' => $description, 'worker' => $worker, 'datedone' => $datedone));
+	// 	$idtask = $pdo->lastInsertId();
 		
-		if (!empty($idtask)) {
-			newLog('createtask',$idtask,'',$id,$worker);
-		}
-	}
+	// 	if (!empty($idtask)) {
+	// 		newLog('createtask',$idtask,'',$id,$worker);
+	// 	}
+	// }
 	
 	// функция вывода карточки задачи
 

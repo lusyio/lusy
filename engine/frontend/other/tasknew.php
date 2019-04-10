@@ -31,7 +31,7 @@
                 <label>
                   Имя задачи
                 </label>
-                <input type="text" name="name" class="form-control" placeholder="Наименование задачи" required>
+                <input type="text" name="name" class="form-control" placeholder="Наименование задачи" value="Ntest" required>
               </div>
 
               <!-- Project name -->
@@ -39,7 +39,7 @@
                 <label>
                   Описание задачи
                 </label>
-                <textarea class="form-control" id="opis" name="description" s="3" placeholder="Опишите суть задания" required></textarea>
+                <textarea class="form-control" id="opis" name="description" s="3" placeholder="Опишите суть задания" value="hf" required></textarea>
               </div>
 
               <div class="row">

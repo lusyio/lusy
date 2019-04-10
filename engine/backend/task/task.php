@@ -24,8 +24,16 @@ if ($status == 'postpone') {
 	} else {
 		$border = 'border-primary'; $icon = '<i class="fab fa-gripfire text-warning"></i>';$color = 'text-primary';	}
 	}
+	
 if ($status == 'pending') {$border = 'border-success'; $icon = '<i class="fas fa-eye text-success"></i>';$color = 'text-success';}
+// тестовое размещение иконки ***
+if ($status == 'done') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';}
+if ($status == 'returned') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';}
+
+//тестовое размещение иконки ***
 }
+
+
 if ($id == $worker and $view == 0) {
 	$viewer = $pdo->prepare('UPDATE `tasks` SET view = "1" where id="'.$idtask.'"');
 	$viewer->execute();
@@ -36,4 +44,17 @@ $viewer->execute();
 }
 $viewer = $pdo->prepare('UPDATE `comments` SET view = "1" where idtask="'.$id_task.'" and iduser!='.$id);
 $viewer->execute();
+
+// echo $_POST['idtask'];
+
+// if(isset($_POST['idtask']) && !empty($_POST['idtask'])) {
+// 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "pending" WHERE id="'.$_POST['idtask'].'"');
+// 	$sql->execute();
+
+// 	var_dump($sql);
+// };
+
+
+
+
 ?>
