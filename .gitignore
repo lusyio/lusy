@@ -1,7 +1,7 @@
 ### custom ###
 
 *.htaccess
-engine/*conf.php
+engine/conf.php
 
 
 
