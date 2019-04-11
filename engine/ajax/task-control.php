@@ -69,5 +69,24 @@ if($_POST['module'] == 'inwork') {
 	// var_dump($sql);
 }
 
+// создание новой задачи
+
+if($_POST['module'] == 'createTask') {
+	$name = $_POST['name'];
+	$description = $_POST['description'];
+	$datedone = $_POST['datedone'];
+	$worker = $_POST['worker'];
+	$dbh = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status,  manager, worker, idcompany, report, view) VALUES (:name, :description,'".$now."', :datedone, '".$now."', 'new', '".$id."', :worker, '".$idc."', :description, '1') ";
+	$sql = $pdo->prepare($dbh);
+	$sql->execute(array('name' => $name, 'description' => $description, 'worker' => $worker, 'datedone' => $datedone));
+	
+	if ($sql) {
+		$idtask = $pdo->lastInsertId();
+		if (!empty($idtask)) {
+			echo $idtask;
+		}
+	}
+}
+
 ?>
 

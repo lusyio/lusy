@@ -29,7 +29,7 @@
 				</div> 
 			
 			<div id="control">
-						<? // inc('task/task','control');
+						<?php // inc('task/task','control');
 
 						if ($id != $worker and $id != $manager) {
 							echo "<script>document.location.href = '/tasks/'</script>";

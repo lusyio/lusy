@@ -1,5 +1,5 @@
 <?php
-
+global $id;
 // функция создания задач
 try {
 function createTask($name,$description,$worker,$datedone) {

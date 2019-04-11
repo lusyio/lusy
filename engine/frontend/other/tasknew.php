@@ -24,41 +24,41 @@
             </div>
 
             <!-- Form -->
-            <form class="mb-4" method="post">
+        
 
-              <!-- Project name -->
+              <!-- Project id -->
               <div class="form-group">
                 <label>
                   Имя задачи
                 </label>
-                <input type="text" name="name" class="form-control" placeholder="Наименование задачи"  required>
+                <input type="text" id="name" class="form-control" placeholder="Наименование задачи"  required>
               </div>
 
-              <!-- Project name -->
+              <!-- Project id -->
               <div class="form-group">
                 <label>
                   Описание задачи
                 </label>
-                <textarea class="form-control" id="opis" name="description" s="3" placeholder="Опишите суть задания"  required></textarea>
+                <textarea class="form-control" id="description" id="description" s="3" placeholder="Опишите суть задания"  required></textarea>
               </div>
 
               <div class="row">
 	              <div class="col-12 col-md-6">
-		              <!-- Project name -->
+		              <!-- Project id -->
 		              <div class="form-group">
 		                <label>
 		                  Дата окончания
 		                </label>
-		                <input type="date" class="form-control" name="datedone" value="" required>
+		                <input type="date" class="form-control" id="datedone" value="" required>
 		              </div>
 	              </div>
 				  <div class="col-12 col-md-6">
-		              <!-- Project name -->
+		              <!-- Project id -->
 		              <div class="form-group">
 		                <label>
 		                  Ответственный
 		                </label>
-		                <select class="form-control" name="worker" required>
+		                <select class="form-control" id="worker" required>
 			                 <?php
 					$users = DB('*','users','idcompany='.$GLOBALS["idc"]);
 					foreach ($users as $n) { ?>
@@ -73,15 +73,18 @@
               <hr class="mt-4 mb-5">
 
               
-не начислять баллы
+<!-- не начислять баллы -->
               <!-- Buttons -->
-              <button type="submit" name="Submit" class="btn btn-block btn-primary">Создать задачу</button>
+              <button id="createTask" class="btn btn-block btn-primary">Создать задачу</button>
               <a href="/" class="btn btn-block btn-link text-muted">
                 Отменить создание задачи
               </a>
 
-            </form>
 
           </div>
         </div>
 		</div>
+    <script>
+    var $usp = <?php echo $id + 345;  // айдишник юзера ?>; 
+    </script>
+    <script src="/assets/js/createtask.js"></script>

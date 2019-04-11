@@ -45,14 +45,6 @@ $viewer->execute();
 $viewer = $pdo->prepare('UPDATE `comments` SET view = "1" where idtask="'.$id_task.'" and iduser!='.$id);
 $viewer->execute();
 
-// echo $_POST['idtask'];
-
-// if(isset($_POST['idtask']) && !empty($_POST['idtask'])) {
-// 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "pending" WHERE id="'.$_POST['idtask'].'"');
-// 	$sql->execute();
-
-// 	var_dump($sql);
-// };
 
 
 
