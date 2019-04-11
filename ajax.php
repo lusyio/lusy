@@ -2,7 +2,7 @@
 if(isset($_POST['ajax']) && !empty($_POST['ajax'])) {
 	
 	// подключаем pdo
-	require_once(realpath('engine/conf.php'));
+	require_once(realpath('conf.php'));
 	
 	// вычисляем user id
 	$id = $_POST['usp'] - 345;
