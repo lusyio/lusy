@@ -29,4 +29,4 @@
 		if ($status == 'postpone') { $color = 'warning';}
 		echo '<li class="nav-item pb-2"><a href="/tasks/'.$status.'/" class="nav-link">' . $GLOBALS["_$status"] . ' <span class="badge badge-'.$color.' float-right">' . $n['count'] . '</span></a></li>';
 	}
-	echo '</ul></li></div></div>';
+	echo '</ul></li></div>';
