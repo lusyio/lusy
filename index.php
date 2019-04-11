@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include 'engine/conf.php'; 
+include 'conf.php'; 
 include 'engine/backend/other/header.php'; 
 include 'engine/frontend/other/header.php';
 
