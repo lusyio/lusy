@@ -19,3 +19,16 @@ $comments = DBOnce('COUNT(*) as count','comments','view="0" and idtask IN ("'.$i
 
 $overduetask2 = DB('*','tasks','view="0" and status = "overdue" and worker='.$id);
 $completetask2 = DB('*','tasks','view="0" and status = "done" and worker='.$id);
+// функция добавления записи в лог
+function newLog($action,$idtask,$comment,$sender,$recipient) {
+		global $pdo;
+		global $id;
+		global $idc;
+		global $datetime;
+		
+		if (empty($idtask)) {$idtask = 0;}
+		if (empty($comment)) {$comment = 0;}
+		
+		$intolog = $pdo->prepare("INSERT INTO log SET action = :action, task = :idtask, comment = :comment, sender = :sender, recipient = :recipient, idcompany = :idcompany, datetime = :datetime");
+		$intolog->execute(array('action' => $action, 'idtask' => $idtask, 'comment' => $comment, 'sender' => $sender, 'recipient' => $recipient, 'idcompany' => $idc, 'datetime' => $datetime));
+	}
