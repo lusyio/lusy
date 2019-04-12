@@ -29,30 +29,10 @@
 				</div> 
 			
 			<div id="control">
-						<?php // inc('task/task','control');
-
-						if ($id != $worker and $id != $manager) {
-							echo "<script>document.location.href = '/tasks/'</script>";
-						} else {
-
-						if ($id == $worker) {
-							$role = 'worker';
-						}
-						if ($id == $manager) {
-							$role = 'manager';
-						}
-						if ($id == $worker and $id == $manager) {
-							$role = 'manager';
-						}
-
-						if ($status == 'overdue') {
-							$status = 'new';
-						}
-						// раскидываем по статусам
-						include 'engine/backend/task/task/control/'.$role.'/'.$status.'.php';
-							
-						 }
-						?>
+<?php 
+include 'engine/backend/task/task/control/'.$role.'/'.$status.'.php';
+include 'engine/frontend/task/control/'.$role.'/'.$status.'.php';
+?>
 					</div>
 						
 				<hr>

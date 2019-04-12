@@ -11,7 +11,7 @@ if($url == 'inbox') {
 if($url == 'outbox') {
 	$otbor = 'manager='.$GLOBALS["id"].' and status!="done"';
 }
-if($url == 'new' or $url == 'overdue' or $url == 'pending' or $url == 'done' or $url == 'postpone' or $url == 'returned') {
+if($url == 'new' or $url == 'overdue' or $url == 'pending' or $url == 'done' or $url == 'postpone' or $url == 'returned'or $url == 'inwork') {
 	$otbor = '(worker='.$GLOBALS["id"].' or manager = '.$GLOBALS["id"].') and status="'.$url.'"';
 }
 

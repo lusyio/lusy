@@ -1,8 +1,6 @@
-<?php 
-
-$datedone=date("d.m.Y");
-
-?>
+<div class="text-center" id="f1">
+<p class="text-ligther"><?=$GLOBALS["_done"]?><?=$datedone?></p>
+<h3 class="mt-4 mb-4"><?=$GLOBALS["_done"]?></h3>
 
 
 <!-- <div id="status-block"> -->
@@ -16,3 +14,4 @@ $datedone=date("d.m.Y");
 	<!-- </form> -->
 <!-- </div> -->
 
+</div>

@@ -1,11 +1,8 @@
-<div class="text-center" id="f1">
-<p class="text-ligther"><?=$GLOBALS["_returned"]?><?=date("d.m", strtotime(DBOnce('datepostpone','tasks','id='.$idtask)))?></p>
-<h3 class="mt-4 mb-4"><?=$GLOBALS["_returned"]?></h3>
+<?php
+global $returndate;
 
+$returndate=date("d.m.Y");
+echo '1';
 
-
-<div id="status-block">
-	<button id ="inwork" class="btn btn-primary mt-3 mb-3">В работу </button>
-</div>
-
-</div>
+// include 'engine/frontend/task/control/worker/returned.php';
+?>

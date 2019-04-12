@@ -1,4 +1,9 @@
 <?php
+// session_start();
+
+
+
+
 $id_task = $_GET['task'];
 $id = $GLOBALS["id"];
 global $pdo;
@@ -29,7 +34,7 @@ if ($status == 'pending') {$border = 'border-success'; $icon = '<i class="fas fa
 // тестовое размещение иконки ***
 if ($status == 'done') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';}
 if ($status == 'returned') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';}
-
+if ($status == 'inwork') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';}
 //тестовое размещение иконки ***
 }
 
@@ -46,6 +51,44 @@ $viewer = $pdo->prepare('UPDATE `comments` SET view = "1" where idtask="'.$id_ta
 $viewer->execute();
 
 
+//измменяем статус "в работе"
+
+
+if ($id == $worker and $status == 'new' || $status == 'returned') {
+	$viewer = $pdo->prepare('UPDATE `tasks` SET status = "inwork" where id="'.$idtask.'"');
+	$viewer->execute();
+
+}
+
+
+// 
+
+if ($id != $worker and $id != $manager) {
+ echo "<script>document.location.href = '/tasks/'</script>";
+} else {
+if ($id == $worker) {
+	$role = 'worker';
+}
+if ($id == $manager) {
+	$role = 'manager';
+}
+if ($id == $worker and $id == $manager) {
+	$role = 'manager';
+}
+
+if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
+	$status = 'inwork';
+}
+
+
+// var_dump($role);
+// var_dump($manager);
+// var_dump($worker);
+
+// раскидываем по статусам
+// include 'engine/frontend/task/control/'.$role.'/'.$status.'.php';
+// include 'engine/backend/task/task/control/'.$role.'/'.$status.'.php';
+}
 
 
 
