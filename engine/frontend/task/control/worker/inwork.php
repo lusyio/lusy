@@ -1,5 +1,4 @@
 
-<div class="text-center">
 
 <div id="postpone-block" class="d-none">
 	<p class="text-ligther"><?=$GLOBALS["_postponenew"]?></p>
@@ -18,10 +17,6 @@
 </div>
 
 <div id="status-block">
-	<p class="text-ligther"><?=$text?></p>
-	<h1 class="mt-4"><?=$head?></h1>
-	<button type="button" id="postpone" class="btn btn-link mb-4"><?=$GLOBALS["_postponebutton"]?></button>
-	<button type="button" id="done" class="btn btn-primary mt-3 mb-3"><?=$GLOBALS["_completetask"]?></button>
-</div>
-
+	<button type="button" id="done" class="btn btn-primary"><?=$GLOBALS["_completetask"]?></button>
+	<button type="button" id="postpone" class="btn btn-link text-dark"><i class="far fa-calendar-plus"></i> <?=$GLOBALS["_postponebutton"]?></button>
 </div>

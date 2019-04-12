@@ -234,6 +234,15 @@ span.date {
     margin-left: -11px;
     padding-left: 14px;
 }
+#task .tab-content {
+	box-shadow: 0 0.35rem 1.5rem rgba(18,38,63,.13);
+}
+#task .nav-tabs {
+	border-bottom: none;
+}
+#task .nav-tabs .nav-link {
+	border: none;
+}
 @keyframes show{
 	 0%{
 		 opacity:0;
@@ -324,10 +333,6 @@ span.date {
 	    margin-top: 70px;
 	    flex: 1 1;
 	    align-items: stretch;
-	}
-	#task .card {
-		position: absolute;
-	    width: 100%;
 	}
 	#workzone {
 		padding: 0px 20px;
