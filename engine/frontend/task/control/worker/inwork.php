@@ -1,5 +1,6 @@
+<link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css">
 
-
+<!--
 <div id="postpone-block" class="d-none">
 	<p class="text-ligther"><?=$GLOBALS["_postponenew"]?></p>
 	<div class="form-group">
@@ -7,6 +8,7 @@
 		<button type="submit" id="sendpostpone" class="btn btn-primary mt-3 mb-3"><?=$GLOBALS["_postponebutton"]?></button>
 	</div>
 </div>
+-->
 
 <div id="report-block" class="d-none">
 	<p class="text-ligther"><?=$GLOBALS["_writereport"]?>:</p>
@@ -18,5 +20,17 @@
 
 <div id="status-block">
 	<button type="button" id="done" class="btn btn-primary"><?=$GLOBALS["_completetask"]?></button>
-	<button type="button" id="postpone" class="btn btn-link text-dark"><i class="far fa-calendar-plus"></i> <?=$GLOBALS["_postponebutton"]?></button>
+	<input type="text"  class='datepicker-here' />
+	<button type="button" id="postpone2" class="btn btn-link text-dark"><i class="far fa-calendar-plus"></i> <?=$GLOBALS["_postponebutton"]?></button>
 </div>
+
+
+<script> 
+
+	
+
+var b = 0;
+
+console.log(b);
+</script>
+<script src="/assets/js/datepicker.js"></script>
