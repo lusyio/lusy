@@ -212,6 +212,12 @@ span.date {
 .collapse.in {
     display: none;
 }
+#f1 {
+	display: flex !important;
+}
+.align-center {
+	align-self: center !important;
+}
 #inwork .card-title {
 	border-left: 5px solid;
     margin-left: -20px;

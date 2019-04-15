@@ -1,6 +1,7 @@
 <div class="text-center" id="f1">
-<p class="text-ligther">Задача на рассмотрении с <?=$pendingdate?></p>
-<h3 class="mt-4 mb-4"><?=$GLOBALS["_pending"]?></h3>
+
+<h3 class="align-center mb-0 mr-3"><?=$GLOBALS["_pending"]?></h3>
+<span class="text-ligther align-center mb-0">Задача на рассмотрении с <?=$pendingdate?></span>
 
 
 <!-- <div id="status-block">
