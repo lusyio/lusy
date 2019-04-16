@@ -6,6 +6,7 @@ $_report = 'Отчет';
 $_days = 'дней';
 $_awards = 'Заслуги';
 $_company = 'Компания';
+$_infobase = 'База знаний';
 $_notifications = 'Уведомления';
 $_login = 'Авторизация';
 $_logout = 'Выйти';
