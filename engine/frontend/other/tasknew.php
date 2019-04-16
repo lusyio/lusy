@@ -49,7 +49,7 @@
 		                <label>
 		                  Дата окончания
 		                </label>
-		                <input type="date" class="form-control" id="datedone" value="" min="<?=$GLOBALS["now"]?>" value="<?=$GLOBALS["now"]?>" required>
+		                <input type="date" class="form-control" id="datedone" min="<?=$GLOBALS["now"]?>" value="<?=$GLOBALS["now"]?>" required>
 		              </div>
 	              </div>
 				  <div class="col-12 col-md-6">
