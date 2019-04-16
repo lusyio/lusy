@@ -11,11 +11,13 @@ if($url == 'inbox') {
 if($url == 'outbox') {
 	$otbor = 'manager='.$GLOBALS["id"].' and status!="done"';
 }
-if($url == 'new' or $url == 'overdue' or $url == 'pending' or $url == 'done' or $url == 'postpone' or $url == 'returned'or $url == 'inwork') {
+if($url == 'new' or $url == 'returned' or $url == 'inwork') {
+	$otbor = '(status = "new" or status = "inwork" or status = "returned" or status = "overdue") and (worker='.$GLOBALS["id"].' or manager = '.$GLOBALS["id"].')';
+}
+if($url == 'overdue' or $url == 'pending' or $url == 'done' or $url == 'postpone' ) {
 	$otbor = '(worker='.$GLOBALS["id"].' or manager = '.$GLOBALS["id"].') and status="'.$url.'"';
 }
-
-$tasks = DB('*','tasks',$otbor);
+$tasks = DB('*','tasks',$otbor . ' order by datedone');
 
 
 // функция вывода карточки задачи

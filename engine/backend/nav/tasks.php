@@ -19,14 +19,25 @@
 	
 	
 	$sql = DB('COUNT(*) as count, status','tasks',$otbor.' group by status');
-	
+	$inwork = 0;
 	foreach ($sql as $n) {
 		$status = $n['status'];
+		$count = $n['count'];
 		$color = '';
-		if ($status == 'new') { $color = 'primary';}
+		if ($status == 'new' or $status == 'inwork' or $status == 'returned') { 
+			$color = 'primary';
+			if ($inwork == 0) {
+				$count = DBOnce('COUNT(*) as count','tasks','(status = "new" or status = "inwork" or status = "returned") and worker='.$GLOBALS["id"]);
+				echo '<li class="nav-item pb-2"><a href="/tasks/inwork/" class="nav-link">' . $GLOBALS["_$status"] . ' <span class="badge badge-'.$color.' float-right">' . $count . '</span></a></li>';
+				$inwork = 1;
+			}
+		} else {
 		if ($status == 'pending') { $color = 'success';}
 		if ($status == 'overdue') { $color = 'danger';}
 		if ($status == 'postpone') { $color = 'warning';}
-		echo '<li class="nav-item pb-2"><a href="/tasks/'.$status.'/" class="nav-link">' . $GLOBALS["_$status"] . ' <span class="badge badge-'.$color.' float-right">' . $n['count'] . '</span></a></li>';
+		
+		echo '<li class="nav-item pb-2"><a href="/tasks/'.$status.'/" class="nav-link">' . $GLOBALS["_$status"] . ' <span class="badge badge-'.$color.' float-right">' . $count . '</span></a></li>';
+		}
+		
 	}
 	echo '</ul></li></div>';
