@@ -28,6 +28,102 @@ body {
 #comments {
 	display: none;
 }
+
+#okdatapicker {
+    border-radius: 4px;
+    right: 0;
+    position: absolute;
+    padding: 5px 15px;
+    margin-top: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+#minMaxExample {
+    background-image: url("/upload/calendar-alt-regular.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    padding: 10px;
+    border-radius: .25rem;
+    margin: 5px;
+    border: 1px solid #ced4da;
+    height: 35px;
+}
+
+.noty2.custom {
+    display: flex;
+    background: #f7f7f7;
+    height: 25px;
+    position: relative;
+    left: -9px;
+    z-index: 2;
+    padding-right: 0;
+    width: 105px;
+    border-radius: 5px;
+}
+
+.status-icon.rounded-circle.noty-m {
+    border-radius: 100px;
+    height: 30px;
+    width: 30px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.far.fa-clock.custom {
+    font-size: 25px;
+    top: 5px;
+    line-height: 30px;
+}
+
+.far.fa-check-circle.custom {
+    font-size: 25px;
+    top: 5px;
+    line-height: 30px;
+}
+
+.fas.fa-ban.custom {
+    font-size: 25px;
+    top: 5px;
+    line-height: 30px;
+}
+
+.status-icon.rounded-circle.noty-m :focus{
+    border-radius: 100px;
+}
+
+.status-icon.rounded-circle.noty-m ::after {
+    content: ' ';
+    width: 9px;
+    position: absolute;
+    right: -9px;
+    top: 14px;
+    border-bottom: 2px solid #c7c1c1;
+}
+
+.noty-m {
+    font-size: 9px !important;
+    color: #f7f7f7;
+    padding: 3px;
+    position: relative;
+    width: 19px;
+    display: inline-block;
+    height: 19px;
+    text-align: center;
+    z-index: 3;
+    background-color: #b9b9b9;
+}
+
+.status-icon-last.rounded-circle.noty-m {
+    border-radius: 100px;
+    height: 30px;
+    width: 30px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+
+}
+
 .navbar-vertical {
 	background: rgb(238,240,249);
 	background: -moz-linear-gradient(-45deg, rgb(238,240,249) 0%, rgb(252,252,252) 100%);

@@ -112,22 +112,30 @@ $( "#inwork" ).click(function() {
 			}
 		// } else {
 		// 	$("#reportarea").addClass('border-danger');
-		// }
+	});
+
+// Минимальная дата
+	$('#minMaxExample').datepicker({
+		minDate: new Date()
 	});
 
 
-
-	
-	// перенос
-	$( "#sendpostpone" ).click(function() {
-		var datepostpone = $("#datepostpone").val();
-		$.post("/ajax.php", {module: 'sendpostpone', datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+// перенос
+	$( "#okdatapicker" ).click(function() {
+		var newDated = window.dated;
+		$.post("/ajax.php", {module: 'sendpostpone', datepostpone: newDated, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
+		if(newDated === undefined || newDated === null || newDated.length > 10) {
+
+			$("input.datepicker-here").css("border-color", "#dc3545");
+			// alert('Введите дату');
+		}else {
+			$("input.datepicker-here").css("border-color", "#28a745");
+		}
+		$("#okdatapicker").off('click');
 	});
-
-
 
 
 

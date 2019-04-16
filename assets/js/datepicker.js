@@ -546,27 +546,25 @@
             }
 
             _this.views[this.currentView]._render();
-            
-            var d = date;
-            var curr_date = d.getDate();
-            var curr_month = d.getMonth() + 1;
-            var curr_year = d.getFullYear();
+
+
+
+            // console.log(dated);
+
+            var d1 = date;
+            var curr_date = d1.getDate();
+            var curr_month = d1.getMonth() + 1;
+            var curr_year = d1.getFullYear();
             if(curr_month<10) {
-	            curr_month = '0' + curr_month
+                curr_month = '0' + curr_month
             }
             if(curr_date<10) {
-	            curr_date = '0' + curr_date
+                curr_date = '0' + curr_date
             }
-            var dated = curr_year + "-" + curr_month + "-" + curr_date;
+            dated = curr_year + "-" + curr_month + "-" + curr_date;
 
-            console.log(dated);
-            
-			var b = 0;
-			if (b == 0) {
-				$('.datepicker--body').append('<button id="btndate" class="btn btn-success"><i class="fas fa-check"></i></button>');
-				var b = 1;
-			}	
-			 console.log(b); 
+
+
         },
 
         removeDate: function (date) {
@@ -1520,6 +1518,7 @@
         '<div class="datepicker--days datepicker--body">' +
         '<div class="datepicker--days-names"></div>' +
         '<div class="datepicker--cells datepicker--cells-days"></div>' +
+        '<button class="btn-success" id="okdatapicker">OK</button>' +
         '</div>',
         months: '' +
         '<div class="datepicker--months datepicker--body">' +

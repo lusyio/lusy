@@ -20,17 +20,11 @@
 
 <div id="status-block">
 	<button type="button" id="done" class="btn btn-primary"><?=$GLOBALS["_completetask"]?></button>
-	<input type="text"  class='datepicker-here' />
-	<button type="button" id="postpone2" class="btn btn-link text-dark"><i class="far fa-calendar-plus"></i> <?=$GLOBALS["_postponebutton"]?></button>
+	<input type="text" id="minMaxExample" class='datepicker-here' placeholder="Перенести срок" />
 </div>
 
 
-<script> 
+<script>
 
-	
-
-var b = 0;
-
-console.log(b);
 </script>
 <script src="/assets/js/datepicker.js"></script>
