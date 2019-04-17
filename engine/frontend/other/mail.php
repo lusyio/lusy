@@ -23,6 +23,21 @@
 	</div>
 </div>
 
-<?php foreach ($dialog as $n) { ?>
-	<p><?=$n?></p>
-<?php } ?>
+<div class="card mt-3">
+	<div class="card-header">
+		<h4 class="mb-0">Диалоги</h4>
+	</div>
+	<div class="list-group">
+	<?php foreach ($dialog as $n) { ?>
+	
+	<a href="#" class="list-group-item list-group-item-action border-0">
+		<p class="font-weight-bold"><?=fiomess($n)?></p>
+		<p><?=lastmess($n)?></p>
+	</a>
+	
+	<?php } ?>
+	</div>
+	
+</div>
+
+
