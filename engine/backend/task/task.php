@@ -40,7 +40,7 @@ if ($status == 'postpone') {
 	$bg2 = 'bg-warning'; $ic2 = 'far fa-clock';
 	}
 	
-if ($status == 'pending') {$border = 'border-success'; $icon = '<i class="fas fa-eye text-success"></i>';$color = 'text-success';$bg2 = 'bg-success';}
+if ($status == 'pending') {$border = 'border-success'; $icon = '<i class="fas fa-eye text-success"></i>';$color = 'text-success';$bg2 = 'bg-warning';}
 // тестовое размещение иконки ***
 if ($status == 'done') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg3 = 'bg-success';}
 if ($status == 'returned') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg1 = 'bg-primary';$ic1 = 'fas fa-bolt';}
