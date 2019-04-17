@@ -28,6 +28,178 @@ body {
 #comments {
 	display: none;
 }
+
+#okdatapicker {
+    border-radius: 4px;
+    right: 0;
+    position: absolute;
+    padding: 5px 15px;
+    margin-top: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+#minMaxExample {
+    padding: 10px;
+    border-radius: .25rem;
+    margin: 5px;
+    border: 0px;
+    height: 35px;
+
+}
+
+#minMaxExample:focus {
+    outline: none;
+}
+
+#attachbutton {
+    background-color: #eaeaea;
+}
+
+#backbutton {
+    background-color: #888e94;
+    border: 0;
+}
+
+#backbutton:hover {
+    background-color: #6c757d;;
+}
+
+/*.noty2.custom2 {*/
+/*    display: flex;*/
+/*    background: #f7f7f7;*/
+/*    height: 25px;*/
+/*    position: relative;*/
+/*    left: -9px;*/
+/*    z-index: 2;*/
+/*    padding-right: 0;*/
+/*    width: 105px;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+.status-icon.rounded-circle.noty-m {
+    border-radius: 100px;
+    height: 30px;
+    width: 30px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.far.fa-eye.custom {
+    font-size: 25px;
+    top: 5px;
+    line-height: 30px;
+}
+
+.icon-title-status-bar {
+
+}
+
+.custom {
+    font-size: 22px;
+    top: 5px;
+    line-height: 30px !important;
+}
+
+.custom-date {
+    color: #898989;
+    font-size: 25px;
+}
+
+.btn btn-light.custom-date-button {
+    padding: 4px 10px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    top: 8px;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
+
+.statustitle {
+    list-style: none;
+    padding: 0px;
+    border: 1px solid #aaa;
+    background: #fff;
+    margin-top: 30px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,.3);
+    width: 300px;
+    position: absolute;
+    right: 10px;
+    display: none;
+}
+
+.statustitle.active {
+    display: block;
+}
+
+.far.fa-check-circle.custom {
+    font-size: 25px;
+    top: 5px;
+    line-height: 30px;
+}
+
+.fas.fa-ban.custom {
+    font-size: 25px;
+    top: 5px;
+    line-height: 30px;
+}
+
+.bg-custom-color {
+    background-color: #b9b9b9;
+}
+
+.status-icon.rounded-circle.noty-m :focus{
+    border-radius: 100px;
+}
+
+.status-icon.rounded-circle.noty-m ::after {
+    content: ' ';
+    width: 9px;
+    position: absolute;
+    right: -9px;
+    top: 14px;
+    border-bottom: 2px solid #c7c1c1;
+}
+
+.noty-m {
+    font-size: 9px !important;
+    color: #f7f7f7;
+    padding: 3px;
+    position: relative;
+    width: 19px;
+    display: inline-block;
+    height: 19px;
+    text-align: center;
+    z-index: 3;
+    background-color: #b9b9b9;
+}
+
+.status-icon-last.rounded-circle.noty-m {
+    border-radius: 100px;
+    height: 30px;
+    width: 30px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+
+}
+
 .navbar-vertical {
 	background: rgb(238,240,249);
 	background: -moz-linear-gradient(-45deg, rgb(238,240,249) 0%, rgb(252,252,252) 100%);
@@ -211,6 +383,12 @@ span.date {
 }
 .collapse.in {
     display: none;
+}
+#f1 {
+	display: flex !important;
+}
+.align-center {
+	align-self: center !important;
 }
 #inwork .card-title {
 	border-left: 5px solid;

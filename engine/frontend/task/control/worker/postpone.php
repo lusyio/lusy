@@ -1,6 +1,6 @@
 <div id="status-block" class="d-flex flex-row">
 	<button type="button" id="done" class="btn btn-primary mt-3 mb-3"><?=$GLOBALS["_completetask"]?></button>
-	<p class="text-ligther ml-3 mt-3"><?= $postponedate?></h1>
+	<p class="text-ligther ml-3 mt-3"><?= $postponedate?></p>
 	<p class="text-primary ml-3 mt-3"><?=$GLOBALS["_newdate"]?></p>
 </div>
 <div id="report-block" class="d-none">
