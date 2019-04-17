@@ -22,9 +22,9 @@ $dayost = (strtotime ($datedone)-strtotime ($nowdate))/(60*60*24);
 
 $status = $n['status'];
 
-$bg1 = 'bg-light';
-$bg2 = 'bg-light';
-$bg3 = 'bg-light';
+$bg1 = 'bg-custom-color';
+$bg2 = 'bg-custom-color';
+$bg3 = 'bg-custom-color';
 $ic1 = 'fas fa-bolt';
 $ic2 = 'fas fa-eye';
 $ic3 = 'fas fa-check';

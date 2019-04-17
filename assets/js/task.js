@@ -54,11 +54,12 @@ $(document).ready(function(){
 		
 	});
 	
-	// отчет о завершении
+	// // отчет о завершении
 	$( "#done" ).click(function() {
 		$('#status-block').addClass('d-none');
-		$('#report-block').removeClass('d-none');
+	// 	$('#report-block').removeClass('d-none');
 	});
+
 	
 	// на рассмотрение
 	$( "#sendonreview" ).click(function() {
@@ -137,16 +138,22 @@ $( "#inwork" ).click(function() {
 		$("#okdatapicker").off('click');
 	});
 
+	// $("#done").attr('onclick', 'this.style.opacity = "0.4"; return false;');
 
-//Подсказка статус-бар
-	$(".icon-title-status-bar").on("click", function () {
-		alert("xad");
-		// var statustitle = $(this).parent().find('.statustitle');
-		// statustitle.fadeIn(500);
-		//
-		// $('.icon-title-status-bar').on('mouseleave', function () {
-		// 	statustitle.fadeOut(300);
-		// });
+	// $("#done").click(function () {
+	// 	$("#done").attr("disabled", true);
+	// });
+	$("#backbutton").click(function () {
+		$("#status-block").removeClass('d-none');
+
 	});
+
+	$( "#return-manager" ).click(function() {
+		$('#status-block').addClass('d-none');
+	});
+
+	$("#datepicker-button").click(function () {
+		$("#datepicker-button").addClass("datepicker-here");
+	})
 
 }); 

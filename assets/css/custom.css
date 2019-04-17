@@ -39,27 +39,42 @@ body {
 }
 
 #minMaxExample {
-    background-image: url("/upload/calendar-alt-regular.svg");
-    background-repeat: no-repeat;
-    background-position: right;
     padding: 10px;
     border-radius: .25rem;
     margin: 5px;
-    border: 1px solid #ced4da;
+    border: 0px;
     height: 35px;
+
 }
 
-.noty2.custom {
-    display: flex;
-    background: #f7f7f7;
-    height: 25px;
-    position: relative;
-    left: -9px;
-    z-index: 2;
-    padding-right: 0;
-    width: 105px;
-    border-radius: 5px;
+#minMaxExample:focus {
+    outline: none;
 }
+
+#attachbutton {
+    background-color: #eaeaea;
+}
+
+#backbutton {
+    background-color: #888e94;
+    border: 0;
+}
+
+#backbutton:hover {
+    background-color: #6c757d;;
+}
+
+/*.noty2.custom2 {*/
+/*    display: flex;*/
+/*    background: #f7f7f7;*/
+/*    height: 25px;*/
+/*    position: relative;*/
+/*    left: -9px;*/
+/*    z-index: 2;*/
+/*    padding-right: 0;*/
+/*    width: 105px;*/
+/*    border-radius: 5px;*/
+/*}*/
 
 .status-icon.rounded-circle.noty-m {
     border-radius: 100px;
@@ -80,6 +95,41 @@ body {
 
 }
 
+.custom {
+    font-size: 22px;
+    top: 5px;
+    line-height: 30px !important;
+}
+
+.custom-date {
+    color: #898989;
+    font-size: 25px;
+}
+
+.btn btn-light.custom-date-button {
+    padding: 4px 10px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    top: 8px;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
 
 .statustitle {
     list-style: none;
@@ -108,6 +158,10 @@ body {
     font-size: 25px;
     top: 5px;
     line-height: 30px;
+}
+
+.bg-custom-color {
+    background-color: #b9b9b9;
 }
 
 .status-icon.rounded-circle.noty-m :focus{
