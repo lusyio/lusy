@@ -138,5 +138,15 @@ $( "#inwork" ).click(function() {
 	});
 
 
+//Подсказка статус-бар
+	$(".icon-title-status-bar").on("click", function () {
+		alert("xad");
+		// var statustitle = $(this).parent().find('.statustitle');
+		// statustitle.fadeIn(500);
+		//
+		// $('.icon-title-status-bar').on('mouseleave', function () {
+		// 	statustitle.fadeOut(300);
+		// });
+	});
 
 }); 

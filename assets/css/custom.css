@@ -70,10 +70,32 @@ body {
     padding: 0;
 }
 
-.far.fa-clock.custom {
+.far.fa-eye.custom {
     font-size: 25px;
     top: 5px;
     line-height: 30px;
+}
+
+.icon-title-status-bar {
+
+}
+
+
+.statustitle {
+    list-style: none;
+    padding: 0px;
+    border: 1px solid #aaa;
+    background: #fff;
+    margin-top: 30px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,.3);
+    width: 300px;
+    position: absolute;
+    right: 10px;
+    display: none;
+}
+
+.statustitle.active {
+    display: block;
 }
 
 .far.fa-check-circle.custom {

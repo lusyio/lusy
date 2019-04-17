@@ -21,10 +21,13 @@
 <!--							<p class="font-weight-bold text-ligther text-uppercase">Дедлайн</p>-->
 <!--							<p class="mb-0"><i class="far fa-calendar-alt mr-2 --><?//=$color?><!--"></i> --><?//=$datedone?><!--</p>-->
                             <p class="font-weight-bold text-ligther text-uppercase">Статус</p>
+                        <div class="icon-title-status-bar" data-trigger="dropdown">
                             <span class="status-icon rounded-circle noty-m"><i class="fas fa-ban custom"></i></span>
-                            <span class="status-icon rounded-circle noty-m"><i class="far fa-clock custom"></i></span>
+                            <span class="status-icon rounded-circle noty-m"><i class="far fa-eye custom"></i></span>
                             <span class="status-icon-last rounded-circle noty-m"><i class="far fa-check-circle custom"></i></span>
+                            <span class="statustitle"><?=$GLOBALS["_$status"]?></span>
                             <span class="noty2 custom"><?=$datedone?></span>
+                        </div>
 						</div>
 
 <!--						<div class="col- ml-4">-->
