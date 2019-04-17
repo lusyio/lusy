@@ -21,30 +21,20 @@ $nowdate = date("d.m.Y");
 $dayost = (strtotime ($datedone)-strtotime ($nowdate))/(60*60*24);
 
 $status = $n['status'];
-
-$bg1 = 'bg-light';
-$bg2 = 'bg-light';
-$bg3 = 'bg-light';
-$ic1 = 'fas fa-bolt';
-$ic2 = 'fas fa-eye';
-$ic3 = 'fas fa-check';
-
-if ($status == 'new') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg1 = 'bg-primary';$ic1 = 'fas fa-bolt';}
-if ($status == 'overdue') {$border = 'border-danger'; $icon = '<i class="fab fa-gripfire text-danger"></i>';$color = 'text-danger';$bg1 = 'bg-danger';$ic1 = 'fab fa-gripfire';}
+if ($status == 'new') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';}
+if ($status == 'overdue') {$border = 'border-danger'; $icon = '<i class="fab fa-gripfire text-danger"></i>';$color = 'text-danger';}
 if ($status == 'postpone') {
 	if ($dayost<0) {
 		$border = 'border-danger'; $icon = '<i class="fab fa-gripfire text-warning"></i>';$color = 'text-danger';
 	} else {
-		$border = 'border-primary'; $icon = '<i class="fab fa-gripfire text-warning"></i>';$color = 'text-primary';	
-	}
-	$bg2 = 'bg-warning'; $ic2 = 'far fa-clock';
+		$border = 'border-primary'; $icon = '<i class="fab fa-gripfire text-warning"></i>';$color = 'text-primary';	}
 	}
 	
-if ($status == 'pending') {$border = 'border-success'; $icon = '<i class="fas fa-eye text-success"></i>';$color = 'text-success';$bg2 = 'bg-success';}
+if ($status == 'pending') {$border = 'border-success'; $icon = '<i class="fas fa-eye text-success"></i>';$color = 'text-success';}
 // тестовое размещение иконки ***
-if ($status == 'done') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg3 = 'bg-success';}
-if ($status == 'returned') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg1 = 'bg-primary';$ic1 = 'fas fa-bolt';}
-if ($status == 'inwork') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg1 = 'bg-primary';$ic1 = 'fas fa-bolt';}
+if ($status == 'done') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';}
+if ($status == 'returned') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';}
+if ($status == 'inwork') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';}
 //тестовое размещение иконки ***
 }
 

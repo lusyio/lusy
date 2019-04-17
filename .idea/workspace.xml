@@ -13,20 +13,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/js/task.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="145" column="10" lean-forward="true" selection-start-line="145" selection-start-column="10" selection-end-line="145" selection-end-column="10" />
+            <state relative-caret-position="580">
+              <caret line="140" column="22" lean-forward="true" selection-start-line="140" selection-start-column="22" selection-end-line="140" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/engine/frontend/task/task.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="26" column="64" selection-start-line="26" selection-start-column="64" selection-end-line="26" selection-end-column="64" />
+            <state relative-caret-position="235">
+              <caret line="27" column="41" lean-forward="true" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -214,12 +214,12 @@
       <updated>1555329468874</updated>
       <workItem from="1555329471903" duration="2833000" />
       <workItem from="1555405672008" duration="20781000" />
-      <workItem from="1555487739225" duration="2401000" />
+      <workItem from="1555487739225" duration="2299000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26015000" />
+    <option name="totallyTimeSpent" value="25913000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="672" y="23" width="1248" height="977" extended-state="0" />
@@ -277,6 +277,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/engine/frontend/task/task.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="27" column="41" lean-forward="true" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/datepicker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
@@ -303,15 +310,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/task.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="145" column="10" lean-forward="true" selection-start-line="145" selection-start-column="10" selection-end-line="145" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/frontend/task/task.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="26" column="64" selection-start-line="26" selection-start-column="64" selection-end-line="26" selection-end-column="64" />
+        <state relative-caret-position="580">
+          <caret line="140" column="22" lean-forward="true" selection-start-line="140" selection-start-column="22" selection-end-line="140" selection-end-column="22" />
         </state>
       </provider>
     </entry>
