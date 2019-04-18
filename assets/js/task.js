@@ -120,7 +120,6 @@ $( "#inwork" ).click(function() {
 		minDate: new Date()
 	});
 
-
 // перенос
 	$( "#okdatapicker" ).click(function() {
 		var newDated = window.dated;
@@ -142,8 +141,7 @@ $( "#inwork" ).click(function() {
 	$( "#cancelTask" ).click(function() {
 		$.post("/ajax.php", {module: 'cancelTask', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 		function controlUpdate(data) {
-			// location.reload();
-			alert(data);
+			location.reload();
 		}
 	});
 
@@ -162,6 +160,7 @@ $( "#inwork" ).click(function() {
 	// $("#done").click(function () {
 	// 	$("#done").attr("disabled", true);
 	// });
+
 	$("#backbutton").click(function () {
 		$("#status-block").removeClass('d-none');
 
@@ -176,7 +175,17 @@ $( "#inwork" ).click(function() {
 	});
 
 	$("#confirmDate").click(function () {
-		alert("asd")
+		$.post("/ajax.php", {module: 'confirmDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		function controlUpdate(data) {
+			location.reload();
+		}
+	});
 
-	})
+	$("#cancelDate").click(function () {
+		$.post("/ajax.php", {module: 'cancelDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		function controlUpdate(data) {
+			location.reload();
+		}
+	});
+
 }); 

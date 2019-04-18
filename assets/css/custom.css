@@ -82,7 +82,7 @@ body {
 
 .postpone-manager {
     background-color: #f7f7f7;
-    display: inline-flex;
+    display: block;
     margin: 5px;
     border-radius: 10px;
     padding: 15px;
@@ -93,6 +93,7 @@ body {
 .fas.fa-check.custom-date.accept {
     color: #2da64d;
     margin-left: 5px;
+    margin-top: 5px;
 }
 
 .fas.fa-times.custom-date.cancel {
@@ -417,6 +418,11 @@ span.date {
 .collapse.in {
     display: none;
 }
+
+.done {
+    display: block;
+}
+
 #f1 {
 	display: flex !important;
 }
