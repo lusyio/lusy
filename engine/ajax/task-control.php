@@ -88,5 +88,12 @@ if($_POST['module'] == 'createTask') {
 	}
 }
 
+// отмена задачи
+	
+if($_POST['module'] == 'cancelTask') {
+	$idtask = $_POST['it'];
+	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "canceled" WHERE id='.$idtask);
+	$sql->execute();
+}
 ?>
 
