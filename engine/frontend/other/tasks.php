@@ -32,10 +32,10 @@
 			<a href="/task/<?=$idtask?>/"><span class="card-title mb-3 border-primary"><?=$name?></span></a>
 		</td>
 		<td>
-			<a href="/profile/<?=$worker?>"><?=$namew.' '.$surnamew?></a>
+			<a href="/profile/<?=$idworker?>/"><?=$namew.' '.$surnamew?></a>
 		</td>
 		<td>
-			<a href="/profile/<?=$manager?>"><?=$namem.' '.$surnamem?></a>
+			<a href="/profile/<?=$idmanager?>/"><?=$namem.' '.$surnamem?></a>
 		</td>
 		<td><?=$datedone?></td>
 		<td><?=$GLOBALS["_$status"]?></td>
