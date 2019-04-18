@@ -1,7 +1,9 @@
-<div class="text-center" id="f1">
-<p class="text-ligther"><?=$GLOBALS["_done"]?><?=$datedone?></p>
-<h3 class="mt-4 mb-4"><?=$GLOBALS["_done"]?></h3>
 
+
+<div class="text-center postpone-manager done">
+    <h3 class="mt-4 mb-4"><?=$GLOBALS["_done"]?> &#x1f389</h3>
+    <p class="text-ligther"> <?=$datedone?></p>
+</div>
 
 <!-- <div id="status-block"> -->
 
@@ -14,4 +16,3 @@
 	<!-- </form> -->
 <!-- </div> -->
 
-</div>
