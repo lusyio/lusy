@@ -27,7 +27,8 @@
                             <span class="status-icon-last rounded-circle noty-m <?=$bg3?>"><i class="<?=$ic3?> custom"></i></span>
                         </div>
 
-<!--						<div class="col- ml-4">-->
+<!--
+<div class="col- ml-4">-->
 <!--							<p class="font-weight-bold text-ligther text-uppercase">Статус</p>-->
 <!--							<p class="mb-0">--><?//=$icon?><!-- --><?//=$GLOBALS["_$status"]?><!--</p>-->
 <!--						</div>-->
