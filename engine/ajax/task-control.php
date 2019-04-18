@@ -10,7 +10,7 @@ if($_POST['module'] == 'sendonreview') {
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "pending" WHERE id='.$idtask);
 	$sql->execute();
 
-	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'report', `datetime` = :datetime");
+	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'report', `view`=0 ,`datetime` = :datetime");
 	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
 
 	if ($sql) {
@@ -26,7 +26,7 @@ if($_POST['module'] == 'sendpostpone') {
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "postpone", `datepostpone` = :datepostpone WHERE id='.$idtask);
 	$sql->execute(array('datepostpone' => $datepostpone));
 
-	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'request', `datetime` = :datetime");
+	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'request', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('report' => $report, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
 
 	if ($sql) {
