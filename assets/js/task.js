@@ -138,6 +138,24 @@ $( "#inwork" ).click(function() {
 		$("#okdatapicker").off('click');
 	});
 
+	//Отмена таска
+	$( "#canceltask" ).click(function() {
+		$.post("/ajax.php", {module: 'canceltask', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		function controlUpdate(data) {
+			location.reload();
+		}
+	});
+
+// 	Памятка
+// 	<a href="delete.php?id=22" class="confirmation">Link</a>
+// ...
+// 	Include jQuery - see http://jquery.com
+// 		<script type="text/javascript">
+// 		$('.confirmation').on('click', function () {
+// 			return confirm('Are you sure?');
+// 		});
+// </script>
+
 	// $("#done").attr('onclick', 'this.style.opacity = "0.4"; return false;');
 
 	// $("#done").click(function () {

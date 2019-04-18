@@ -76,6 +76,21 @@ body {
 /*    border-radius: 5px;*/
 /*}*/
 
+#return-manager {
+    color: white;
+}
+
+.postpone-manager {
+    background-color: #f7f7f7;
+    display: inline-flex;
+    margin: 5px;
+}
+
+.text-ligther.postpone-manager-box {
+    margin: 10px;
+}
+
+
 .status-icon.rounded-circle.noty-m {
     border-radius: 100px;
     height: 30px;
