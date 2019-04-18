@@ -82,3 +82,4 @@
 var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '<?=$idtask?>';
 </script>
 <script src="/assets/js/task.js"></script>
+<script src="/assets/js/datepicker.js"></script>

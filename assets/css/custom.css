@@ -80,6 +80,10 @@ body {
     color: white;
 }
 
+status-block-inwork-worker{
+    margin-top: 5px;
+}
+
 .postpone-manager {
     background-color: #f7f7f7;
     display: block;

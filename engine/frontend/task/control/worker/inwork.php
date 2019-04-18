@@ -23,9 +23,20 @@
 	</div>
 </div>
 
-<div id="status-block">
-    <button type="button" id="done" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><?=$GLOBALS["_completetask"]?></button>
-	<input type="text" id="minMaxExample" class='datepicker-here' placeholder="Перенести срок" />
+<div id="change-date" class="collapse">
+    <div class="form-group">
+        <div class="col-7">
+            <textarea name="report" id="reportarea" class="form-control" rows="4" placeholder="<?=$GLOBALS["_report"]?>" required></textarea>
+            <input class="form-control" type="date" value="2019-08-19" id="example-date-input">
+            <button type="button" id="backbutton1" class="btn btn-secondary w-30 text-center mt-3" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><?=$GLOBALS["_back"]?></button>
+            <button type="submit" id="sendRequest" class="btn btn-success text-center mt-3"><?=$GLOBALS["_sendpending"]?></button>
+        </div>
+    </div>
+</div>
+
+<div id="status-block" class="status-block-inwork-worker">
+    <button type="button" id="done" class="btn btn-primary" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><?=$GLOBALS["_completetask"]?></button>
+    <button type="button" id="changeDate" class="btn btn-warning" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date">Перенести срок</button>
 <!--    <button id="datepicker-button" class="btn btn-light custom-date-button"><i class="far fa-calendar-alt custom-date"></i></button>-->
 </div>
 <!--<button type="button" id="done" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block">--><?//=$GLOBALS["_completetask"]?><!--</button>-->

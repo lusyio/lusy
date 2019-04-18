@@ -63,9 +63,22 @@ $(document).ready(function(){
 	
 	// на рассмотрение
 	$( "#sendonreview" ).click(function() {
-		var report = $("#reportarea").val();
-		if (report) {
-			$.post("/ajax.php", {module: 'sendonreview', report: report, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		var text = $("#reportarea").val();
+		if (text) {
+			$.post("/ajax.php", {module: 'sendonreview', text: text, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			function controlUpdate(data) {
+				location.reload();
+			}
+		} else {
+			$("#reportarea").addClass('border-danger');
+		}
+	});
+
+	// Перенос срока
+	$( "#sendRequest" ).click(function() {
+		var text = $("#reportarea").val();
+		if (text) {
+			$.post("/ajax.php", {module: 'sendRequest', text: text, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
@@ -163,10 +176,18 @@ $( "#inwork" ).click(function() {
 
 	$("#backbutton").click(function () {
 		$("#status-block").removeClass('d-none');
-
 	});
 
+	$("#backbutton1").click(function () {
+		$("#status-block").removeClass('d-none');
+	});
+
+
 	$( "#return-manager" ).click(function() {
+		$('#status-block').addClass('d-none');
+	});
+
+	$( "#changeDate" ).click(function() {
 		$('#status-block').addClass('d-none');
 	});
 
@@ -188,4 +209,4 @@ $( "#inwork" ).click(function() {
 		}
 	});
 
-}); 
+});
