@@ -57,7 +57,7 @@
 	  	<div class="row">
 			<div class="col-sm-12 comin">
 				<input class="form-control" id="comin" name="comment" type="text" autocomplete="off" placeholder="<?=$GLOBALS["_writecomment"]?>..." required>
-				<button type="submit" id="comment" class="btn btn-primary" title="<?=$_send?>"><i class="fas fa-paper-plane"></i></button>
+				<button type="submit" id="comment" class="btn btn-primary" title="<?=$GLOBALS['_send']?>"><i class="fas fa-paper-plane"></i></button>
 			</div>
 		</div>
 		<div id="comments"></div>
