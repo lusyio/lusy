@@ -84,10 +84,28 @@ body {
     background-color: #f7f7f7;
     display: inline-flex;
     margin: 5px;
+    border-radius: 10px;
+    padding: 15px;
+    color: rgba(0, 0, 0, 1);
+    font-weight: 500;
 }
 
-.text-ligther.postpone-manager-box {
-    margin: 10px;
+.fas.fa-check.custom-date.accept {
+    color: #2da64d;
+    margin-left: 5px;
+}
+
+.fas.fa-times.custom-date.cancel {
+    color: #da3248;
+    margin-left: 13px;
+}
+
+.fas.fa-check.custom-date.accept:hover {
+    text-shadow: 1px 1px 2px black, 0 0 1em #2da64d;
+}
+
+.fas.fa-times.custom-date.cancel:hover {
+    text-shadow: 1px 1px 2px black, 0 0 1em #da3248;
 }
 
 

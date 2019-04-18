@@ -23,14 +23,12 @@
 
 <div id="status-block">
     <div class="postpone-manager">
-        <p class="text-ligther postpone-manager-box"> <?=$workername?> <?=$workersurname?> Запрашивает перенос срока на дату <?=$postponedate?> </p>
+        <?=$workername?> <?=$workersurname?> запрашивает перенос срока на дату <?=$postponedate?>
     </div>
-    <p class="text-ligther"><?=$GLOBALS["_postpone"]?></p>
-    <h3 class="mt-4"><?=$postponedate?></h3>
-    <p class="text-primary mb-4"><?=$GLOBALS["_newdate"]?></p>
+    <div class="pl-2"><i class="fas fa-check custom-date accept" id="confirmDate"></i><i class="fas fa-times custom-date cancel" id="cancelDate"></i></div>
     <button id ="return-manager" type="button" class="btn btn-warning mt-3 mb-3 w-10"   data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block">Вернуть</button>
-    <button id="confirmdate" type="button" class="btn btn-success mt-3 mb-3"><?=$GLOBALS["_confirmdate"]?></button>
-    <button id="canseltask" type="button" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')" ><?=$GLOBALS["_cancel"]?></button>
+    <button id="workdone" type="button" class="btn btn-success mt-3 mb-3"><?=$GLOBALS["_done"]?></button>
+    <button id="cancelTask" type="button" class="btn btn-outline-danger"><?=$GLOBALS["_cancel"]?></button>
 </div>
 
 

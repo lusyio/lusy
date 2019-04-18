@@ -139,10 +139,11 @@ $( "#inwork" ).click(function() {
 	});
 
 	//Отмена таска
-	$( "#canceltask" ).click(function() {
-		$.post("/ajax.php", {module: 'canceltask', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+	$( "#cancelTask" ).click(function() {
+		$.post("/ajax.php", {module: 'cancelTask', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 		function controlUpdate(data) {
-			location.reload();
+			// location.reload();
+			alert(data);
 		}
 	});
 
@@ -172,6 +173,10 @@ $( "#inwork" ).click(function() {
 
 	$("#datepicker-button").click(function () {
 		$("#datepicker-button").addClass("datepicker-here");
-	})
+	});
 
+	$("#confirmDate").click(function () {
+		alert("asd")
+
+	})
 }); 

@@ -15,7 +15,7 @@
 
 <div id="status-block">
     <button id ="workdone" type="button" class="btn btn-success mt-3 mb-3 w-10"><?=$GLOBALS["_done"]?></button>
-    <button type="button" id="canceltask" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')"><?=$GLOBALS["_cancel"]?></button>
+    <button type="button" id="cancelTask" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')"><?=$GLOBALS["_cancel"]?></button>
     <input type="text" id="minMaxExample" class='datepicker-here' placeholder="Перенести срок" />
 </div>
 
