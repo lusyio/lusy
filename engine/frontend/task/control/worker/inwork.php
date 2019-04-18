@@ -26,10 +26,10 @@
 <div id="change-date" class="collapse">
     <div class="form-group">
         <div class="col-7">
-            <textarea name="report" id="reportarea" class="form-control" rows="4" placeholder="<?=$GLOBALS["_report"]?>" required></textarea>
-            <input class="form-control" type="date" value="2019-08-19" id="example-date-input">
+            <textarea name="report" id="reportarea1" class="form-control" rows="4" placeholder="<?=$GLOBALS["_report"]?>" required></textarea>
+            <input class="form-control" type="date" value="2019-08-19" id="datepostpone">
             <button type="button" id="backbutton1" class="btn btn-secondary w-30 text-center mt-3" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><?=$GLOBALS["_back"]?></button>
-            <button type="submit" id="sendRequest" class="btn btn-success text-center mt-3"><?=$GLOBALS["_sendpending"]?></button>
+            <button type="submit" id="sendpostpone" class="btn btn-success text-center mt-3"><?=$GLOBALS["_sendpending"]?></button>
         </div>
     </div>
 </div>

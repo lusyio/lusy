@@ -75,15 +75,16 @@ $(document).ready(function(){
 	});
 
 	// Перенос срока
-	$( "#sendRequest" ).click(function() {
-		var text = $("#reportarea").val();
+	$( "#sendpostpone" ).click(function() {
+		var datepostpone = $("#datepostpone").val();
+		var text = $("#reportarea1").val();
 		if (text) {
-			$.post("/ajax.php", {module: 'sendRequest', text: text, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			$.post("/ajax.php", {module: 'sendpostpone', text: text, datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
 		} else {
-			$("#reportarea").addClass('border-danger');
+			$("#reportarea1").addClass('border-danger');
 		}
 	});
 
@@ -129,26 +130,25 @@ $( "#inwork" ).click(function() {
 	});
 
 // Минимальная дата
-	$('#minMaxExample').datepicker({
-		minDate: new Date()
-	});
+// 	$('#minMaxExample').datepicker({
+// 		minDate: new Date()
+// 	});
 
 // перенос
-	$( "#okdatapicker" ).click(function() {
-		var newDated = window.dated;
-		$.post("/ajax.php", {module: 'sendpostpone', datepostpone: newDated, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
-			function controlUpdate(data) {
-				location.reload();
-			}
-		if(newDated === undefined || newDated === null || newDated.length > 10) {
-
-			$("input.datepicker-here").css("border-color", "#dc3545");
-			// alert('Введите дату');
-		}else {
-			$("input.datepicker-here").css("border-color", "#28a745");
-		}
-		$("#okdatapicker").off('click');
-	});
+// 	$( "#okdatapicker" ).click(function() {
+// 		var newDated = window.dated;
+// 		$.post("/ajax.php", {module: 'sendpostpone', datepostpone: newDated, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+// 			function controlUpdate(data) {
+// 				location.reload();
+// 			}
+// 		if(newDated === undefined || newDated === null || newDated.length > 10) {
+//
+// 			$("input.datepicker-here").css("border-color", "#dc3545");
+// 		}else {
+// 			$("input.datepicker-here").css("border-color", "#28a745");
+// 		}
+// 		$("#okdatapicker").off('click');
+// 	});
 
 	//Отмена таска
 	$( "#cancelTask" ).click(function() {

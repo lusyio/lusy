@@ -11,12 +11,22 @@
 <!--	</div>-->
 <!--</div>-->
 
+<div id="change-date" class="collapse">
+    <div class="form-group">
+        <div class="col-7">
+            <input class="form-control" type="date" value="2019-08-19" id="example-date-input">
+            <button type="button" id="backbutton1" class="btn btn-secondary w-30 text-center mt-3" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><?=$GLOBALS["_back"]?></button>
+            <button type="submit" id="sendRequest" class="btn btn-success text-center mt-3"><?=$GLOBALS["_send"]?></button>
+        </div>
+    </div>
+</div>
+
 
 
 <div id="status-block">
     <button id ="workdone" type="button" class="btn btn-success mt-3 mb-3 w-10"><?=$GLOBALS["_done"]?></button>
     <button type="button" id="cancelTask" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')"><?=$GLOBALS["_cancel"]?></button>
-    <input type="text" id="minMaxExample" class='datepicker-here' placeholder="Перенести срок" />
+    <button type="button" id="changeDate" class="btn btn-warning" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><?=$GLOBALS["_postponebutton"]?></button>
 </div>
 
 
