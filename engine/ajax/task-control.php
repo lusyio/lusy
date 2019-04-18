@@ -4,22 +4,31 @@
 // отправка на проеврку
 
 if($_POST['module'] == 'sendonreview') {
-	$report = $_POST['report'];
+	$text = $_POST['text'];
 	$idtask = $_POST['it'];
-	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "pending", `report` = :report WHERE id='.$idtask);
-	$sql->execute(array('report' => $report));
-	
+
+	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "pending" WHERE id='.$idtask);
+	$sql->execute();
+
+	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'report', `datetime` = :datetime");
+	$sql->execute(array('report' => $report, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+
 	if ($sql) {
 		echo '<p>Успешно</p>';
 	}
 }
 
 if($_POST['module'] == 'sendpostpone') {
+	$text = $_POST['text'];
 	$datepostpone = $_POST['datepostpone'];
 	$idtask = $_POST['it'];
+
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "postpone", `datepostpone` = :datepostpone WHERE id='.$idtask);
 	$sql->execute(array('datepostpone' => $datepostpone));
-	
+
+	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'request', `datetime` = :datetime");
+	$sql->execute(array('report' => $report, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+
 	if ($sql) {
 		echo '<p>Успешно</p>';
 	}
