@@ -27,7 +27,7 @@ if($_POST['module'] == 'sendpostpone') {
 	$sql->execute(array('datepostpone' => $datepostpone));
 
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'request', `view`=0, `datetime` = :datetime");
-	$sql->execute(array('report' => $report, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
 
 	if ($sql) {
 		echo '<p>Успешно</p>';
