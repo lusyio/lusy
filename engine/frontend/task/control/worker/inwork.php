@@ -2,9 +2,12 @@
 
 <link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css" xmlns="http://www.w3.org/1999/html">
 
-<p>
-    <?=$request?>
-</p>
+
+<div class="report">
+    <h4 class="text-ligther">Причина возврата:</h4>
+    <p><?=$request?></p>
+</div>
+
 
 <div id="report-block" class="collapse">
 	<p class="text-ligther"><?=$GLOBALS["_writereport"]?>:</p>

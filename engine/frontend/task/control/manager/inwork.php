@@ -2,9 +2,12 @@
 
 <link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css">
 
-<p>
-    <?=$request?>
-</p>
+
+<div class="report">
+    <h4 class="text-ligther">Причина возврата:</h4>
+    <p><?=$request?></p>
+</div>
+
 
 <div id="change-date" class="collapse">
     <div class="form-group">
