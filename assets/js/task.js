@@ -88,6 +88,7 @@ $(document).ready(function(){
 		}
 	});
 
+	// Манагер ставит дату
 	$( "#sendDate" ).click(function() {
 		var sendDate = $("#example-date-input").val();
 		if (sendDate) {
@@ -100,6 +101,7 @@ $(document).ready(function(){
 		}
 	});
 
+	// Манагер принимает дату
 	$("#confirmDate").click(function () {
 		$.post("/ajax.php", {module: 'confirmDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 		function controlUpdate(data) {
@@ -107,6 +109,7 @@ $(document).ready(function(){
 		}
 	});
 
+	// Манагер отменят дату
 	$("#cancelDate").click(function () {
 		$.post("/ajax.php", {module: 'cancelDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 		function controlUpdate(data) {
@@ -199,6 +202,7 @@ $( "#inwork" ).click(function() {
 		curr_date = '0' + curr_date
 	}
 	dated = curr_year + "-" + curr_month + "-" + curr_date;
+	dateControl.min = dated;
 	dateControl.value = dated;
 
 
