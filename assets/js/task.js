@@ -88,6 +88,7 @@ $(document).ready(function(){
 		}
 	});
 
+	// Манагер ставит дату
 	$( "#sendDate" ).click(function() {
 		var sendDate = $("#example-date-input").val();
 		if (sendDate) {
@@ -100,6 +101,7 @@ $(document).ready(function(){
 		}
 	});
 
+	// Манагер принимает дату
 	$("#confirmDate").click(function () {
 		$.post("/ajax.php", {module: 'confirmDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 		function controlUpdate(data) {
@@ -107,6 +109,7 @@ $(document).ready(function(){
 		}
 	});
 
+	// Манагер отменят дату
 	$("#cancelDate").click(function () {
 		$.post("/ajax.php", {module: 'cancelDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 		function controlUpdate(data) {
@@ -187,19 +190,26 @@ $( "#inwork" ).click(function() {
 	});
 
 
-	var dateControl = document.querySelector('input[type="date"]');
-	var d1 = new Date();
-	var curr_date = d1.getDate();
-	var curr_month = d1.getMonth() + 1;
-	var curr_year = d1.getFullYear();
-	if(curr_month<10) {
-		curr_month = '0' + curr_month
-	}
-	if(curr_date<10) {
-		curr_date = '0' + curr_date
-	}
-	dated = curr_year + "-" + curr_month + "-" + curr_date;
-	dateControl.value = dated;
+	// var dateControl = document.querySelector('input[type="date"]');
+	// var d1 = new Date();
+	// var curr_date = d1.getDate();
+	// var curr_month = d1.getMonth() + 1;
+	// var curr_year = d1.getFullYear();
+	// if(curr_month<10) {
+	// 	curr_month = '0' + curr_month
+	// }
+	// if(curr_date<10) {
+	// 	curr_date = '0' + curr_date
+	// }
+	// dated = curr_year + "-" + curr_month + "-" + curr_date;
+	// dateControl.min = dated;
+	// dateControl.value = dated;
+
+	$(function(){
+		$('[type="date"].min-today').prop('min', function(){
+			return new Date().toJSON().split('T')[0];
+		});
+	});
 
 
 });

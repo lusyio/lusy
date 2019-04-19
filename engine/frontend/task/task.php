@@ -27,12 +27,12 @@
 
                                 <div class="col- ml-3">
                                     <p class="font-weight-bold text-ligther text-uppercase">Постановщик</p>
-                                    <p class="mb-0"><img src="/upload/avatar/<?=$manager?>.jpg" class="avatar mr-1"> <?=$managername?> <?=$managersurname?></p>
+                                    <p class="mb-0"><img src="/upload/avatar/<?=$manager?>.jpg" alt="manager image" class="avatar mr-1"> <?=$managername?> <?=$managersurname?></p>
                                 </div>
 
                                 <div class="col- ml-3 mr-3">
                                     <p class="font-weight-bold text-ligther text-uppercase">Исполнитель</p>
-                                    <p class="mb-0"><img src="/upload/avatar/<?=$worker?>.jpg" class="avatar mr-1"> <?=$workername?> <?=$workersurname?></p>
+                                    <p class="mb-0"><img src="/upload/avatar/<?=$worker?>.jpg" alt="worker image" class="avatar mr-1"> <?=$workername?> <?=$workersurname?></p>
                                 </div>
                             </div>
                         </div>
