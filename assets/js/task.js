@@ -190,20 +190,26 @@ $( "#inwork" ).click(function() {
 	});
 
 
-	var dateControl = document.querySelector('input[type="date"]');
-	var d1 = new Date();
-	var curr_date = d1.getDate();
-	var curr_month = d1.getMonth() + 1;
-	var curr_year = d1.getFullYear();
-	if(curr_month<10) {
-		curr_month = '0' + curr_month
-	}
-	if(curr_date<10) {
-		curr_date = '0' + curr_date
-	}
-	dated = curr_year + "-" + curr_month + "-" + curr_date;
-	dateControl.min = dated;
-	dateControl.value = dated;
+	// var dateControl = document.querySelector('input[type="date"]');
+	// var d1 = new Date();
+	// var curr_date = d1.getDate();
+	// var curr_month = d1.getMonth() + 1;
+	// var curr_year = d1.getFullYear();
+	// if(curr_month<10) {
+	// 	curr_month = '0' + curr_month
+	// }
+	// if(curr_date<10) {
+	// 	curr_date = '0' + curr_date
+	// }
+	// dated = curr_year + "-" + curr_month + "-" + curr_date;
+	// dateControl.min = dated;
+	// dateControl.value = dated;
+
+	$(function(){
+		$('[type="date"].min-today').prop('min', function(){
+			return new Date().toJSON().split('T')[0];
+		});
+	});
 
 
 });
