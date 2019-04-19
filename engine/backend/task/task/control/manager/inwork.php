@@ -12,4 +12,8 @@ if ($dayost < 0) {
 	$head = $GLOBALS["_overdue"];
 }
 $request = DBOnce('comment', 'comments', "idtask=" . $idtask . " and status = 'returned' order by `datetime` desc");
+$note = '';
+if ($request != '') {
+	$note = 'Причина возврата:';
+}
 ?>
