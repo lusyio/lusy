@@ -53,7 +53,7 @@ if($_POST['module'] == 'workdone') {
 // Кнопка вернуть для worker'a
 
 if($_POST['module'] == 'workreturn') {
-	$text = $_POST['text']
+	$text = $_POST['text'];
 	$idtask = $_POST['it'];
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "returned" WHERE id='.$idtask);
 	$sql->execute();
