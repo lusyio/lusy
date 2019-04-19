@@ -43,8 +43,7 @@ $(document).ready(function(){
 		});
 		
 	}
-	
-	 	
+
 	// управление задачами
 	
 	// перенос срока задачи
@@ -82,6 +81,7 @@ $(document).ready(function(){
 			$.post("/ajax.php", {module: 'sendpostpone', text: text, datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
+				location.reload();
 			}
 		} else {
 			$("#reportarea1").addClass('border-danger');
@@ -91,7 +91,7 @@ $(document).ready(function(){
 	$( "#sendDate" ).click(function() {
 		var sendDate = $("#example-date-input").val();
 		if (sendDate) {
-			$.post("/ajax.php", {module: 'sendDate', datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			$.post("/ajax.php", {module: 'sendDate', sendDate: sendDate, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
@@ -99,7 +99,6 @@ $(document).ready(function(){
 			$("#example-date-input").addClass('border-danger');
 		}
 	});
-
 
 	$("#confirmDate").click(function () {
 		$.post("/ajax.php", {module: 'confirmDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
@@ -132,10 +131,10 @@ $( "#workdone" ).click(function() {
 // Кнопка "принять" для worker'a (в статусе "на рассмотрении"")
 
 $( "#workreturn" ).click(function() {
-		var datepostpone = $("#example-date-input").val();
+		// var datepostpone = $("#example-date-input").val();
 		var text = $("#reportarea").val();
 		if (text) {
-			$.post("/ajax.php", {module: 'workreturn', text: text, datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			$.post("/ajax.php", {module: 'workreturn', text: text, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
