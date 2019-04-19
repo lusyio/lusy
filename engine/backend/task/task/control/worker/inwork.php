@@ -11,4 +11,5 @@ if ($dayost < 0) {
 	$text = $GLOBALS["_endfast"];
 	$head = $GLOBALS["_overdue"];
 }
+$request = DBOnce('comment', 'comments', "idtask=" . $idtask . " and status = 'returned' order by `datetime` desc");
 ?>
