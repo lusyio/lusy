@@ -63,78 +63,78 @@ foreach ($task as $n) {
 			break;
 		default:
 	}
+}
 
-	function setTaskBorder($status)
-	{
-		global $dayost;
-		switch ($status) {
-			case 'new':
-			case 'done':
-			case 'returned':
-			case 'inwork':
-				return 'border-primary';
-			case 'postpone':
-				if ($dayost < 0) {
-					return 'border-danger';
-				} else {
-					return 'border-primary';
-				}
-			case 'overdue':
+function setTaskBorder($status)
+{
+	global $dayost;
+	switch ($status) {
+		case 'new':
+		case 'done':
+		case 'returned':
+		case 'inwork':
+			return 'border-primary';
+		case 'postpone':
+			if ($dayost < 0) {
 				return 'border-danger';
-			case 'pending':
-				return 'border-success';
-			default:
-				return '';
-		}
+			} else {
+				return 'border-primary';
+			}
+		case 'overdue':
+			return 'border-danger';
+		case 'pending':
+			return 'border-success';
+		default:
+			return '';
 	}
+}
 
-	function setTaskColor($status)
-	{
-		global $dayost;
-		switch ($status) {
-			case 'new':
-			case 'done':
-			case 'returned':
-			case 'inwork':
-				return 'text-primary';
-			case 'postpone':
-				if ($dayost < 0) {
-					return 'text-danger';
-				} else {
-					return 'text-primary';
-				}
-			case 'overdue':
+function setTaskColor($status)
+{
+	global $dayost;
+	switch ($status) {
+		case 'new':
+		case 'done':
+		case 'returned':
+		case 'inwork':
+			return 'text-primary';
+		case 'postpone':
+			if ($dayost < 0) {
 				return 'text-danger';
-			case 'pending':
-				return 'text-success';
-			default:
-				return '';
-		}
+			} else {
+				return 'text-primary';
+			}
+		case 'overdue':
+			return 'text-danger';
+		case 'pending':
+			return 'text-success';
+		default:
+			return '';
 	}
+}
 
-	function setTaskIcon($status)
-	{
-		$result = '<i class="';
-		switch ($status) {
-			case 'new':
-			case 'done':
-			case 'returned':
-			case 'inwork':
-				$result .= 'fas fa-bolt text-warning';
-				break;
-			case 'postpone':
-			case 'overdue':
-				$result .= 'fab fa-gripfire text-warning';
-				break;
-			case 'pending':
-				$result .= 'fas fa-eye text-success';
-				break;
-			default:
-				return '';
-		}
-		$result .= '"></i>';
-		return $result;
+function setTaskIcon($status)
+{
+	$result = '<i class="';
+	switch ($status) {
+		case 'new':
+		case 'done':
+		case 'returned':
+		case 'inwork':
+			$result .= 'fas fa-bolt text-warning';
+			break;
+		case 'postpone':
+		case 'overdue':
+			$result .= 'fab fa-gripfire text-warning';
+			break;
+		case 'pending':
+			$result .= 'fas fa-eye text-success';
+			break;
+		default:
+			return '';
 	}
+	$result .= '"></i>';
+	return $result;
 }
 
 
