@@ -9,43 +9,132 @@ $id = $GLOBALS["id"];
 global $pdo;
 $task = DB('id, name, status, description, manager, worker, view, datecreate, datedone','tasks','id = "'.$id_task.'" LIMIT 1');
 foreach ($task as $n) { 
-$idtask = $n['id'];
-$nametask = $n['name'];
-$description = $n['description'];
-$manager = $n['manager']; $managername = DBOnce('name','users','id='.$manager); $managersurname = DBOnce('surname','users','id='.$manager);
-$worker = $n['worker']; $workername = DBOnce('name','users','id='.$worker); $workersurname = DBOnce('surname','users','id='.$worker);
-$view = $n['view'];
-$datecreate = date("d.m.Y", strtotime($n['datecreate']));
-$datedone = date("d.m.Y", strtotime($n['datedone']));
-$nowdate = date("d.m.Y");
-$dayost = (strtotime ($datedone)-strtotime ($nowdate))/(60*60*24);
+	$idtask = $n['id'];
+	$nametask = $n['name'];
+	$description = $n['description'];
+	$manager = $n['manager'];
+	$managername = DBOnce('name', 'users', 'id=' . $manager);
+	$managersurname = DBOnce('surname', 'users', 'id=' . $manager);
+	$worker = $n['worker'];
+	$workername = DBOnce('name', 'users', 'id=' . $worker);
+	$workersurname = DBOnce('surname', 'users', 'id=' . $worker);
+	$view = $n['view'];
+	$datecreate = date("d.m.Y", strtotime($n['datecreate']));
+	$datedone = date("d.m.Y", strtotime($n['datedone']));
+	$nowdate = date("d.m.Y");
+	$dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 
-$status = $n['status'];
+	$status = $n['status'];
 
-$bg1 = 'bg-custom-color';
-$bg2 = 'bg-custom-color';
-$bg3 = 'bg-custom-color';
-$ic1 = 'fas fa-bolt';
-$ic2 = 'fas fa-eye';
-$ic3 = 'fas fa-check';
+	$bg1 = 'bg-custom-color';
+	$bg2 = 'bg-custom-color';
+	$bg3 = 'bg-custom-color';
+	$ic1 = 'fas fa-bolt';
+	$ic2 = 'fas fa-eye';
+	$ic3 = 'fas fa-check';
 
-if ($status == 'new') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg1 = 'bg-primary';$ic1 = 'fas fa-bolt';}
-if ($status == 'overdue') {$border = 'border-danger'; $icon = '<i class="fab fa-gripfire text-danger"></i>';$color = 'text-danger';$bg1 = 'bg-danger';$ic1 = 'fab fa-gripfire';}
-if ($status == 'postpone') {
-	if ($dayost<0) {
-		$border = 'border-danger'; $icon = '<i class="fab fa-gripfire text-warning"></i>';$color = 'text-danger';
-	} else {
-		$border = 'border-primary'; $icon = '<i class="fab fa-gripfire text-warning"></i>';$color = 'text-primary';	
+	$border = setTaskBorder($status);
+	$icon = setTaskIcon($status);
+	$color = setTaskIcon($status);
+
+	switch ($status) {
+		case 'new':
+			$bg1 = 'bg-primary';
+			$ic1 = 'fas fa-bolt';
+			break;
+		case 'overdue':
+			$bg1 = 'bg-danger';
+			$ic1 = 'fab fa-gripfire';
+			break;
+		case 'postpone':
+			$bg2 = 'bg-warning';
+			$ic2 = 'far fa-clock';
+			break;
+		case 'pending':
+			$bg2 = 'bg-warning';
+			break;
+		case 'done':
+			$bg3 = 'bg-success';
+			break;
+		case 'returned':
+		case 'inwork':
+			$bg1 = 'bg-primary';
+			$ic1 = 'fas fa-bolt';
+			break;
+		default:
 	}
-	$bg2 = 'bg-warning'; $ic2 = 'far fa-clock';
+
+	function setTaskBorder($status)
+	{
+		global $dayost;
+		switch ($status) {
+			case 'new':
+			case 'done':
+			case 'returned':
+			case 'inwork':
+				return 'border-primary';
+			case 'postpone':
+				if ($dayost < 0) {
+					return 'border-danger';
+				} else {
+					return 'border-primary';
+				}
+			case 'overdue':
+				return 'border-danger';
+			case 'pending':
+				return 'border-success';
+			default:
+				return '';
+		}
 	}
-	
-if ($status == 'pending') {$border = 'border-success'; $icon = '<i class="fas fa-eye text-success"></i>';$color = 'text-success';$bg2 = 'bg-warning';}
-// тестовое размещение иконки ***
-if ($status == 'done') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg3 = 'bg-success';}
-if ($status == 'returned') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg1 = 'bg-primary';$ic1 = 'fas fa-bolt';}
-if ($status == 'inwork') {$border = 'border-primary'; $icon = '<i class="fas fa-bolt text-warning"></i>';$color = 'text-primary';$bg1 = 'bg-primary';$ic1 = 'fas fa-bolt';}
-//тестовое размещение иконки ***
+
+	function setTaskColor($status)
+	{
+		global $dayost;
+		switch ($status) {
+			case 'new':
+			case 'done':
+			case 'returned':
+			case 'inwork':
+				return 'text-primary';
+			case 'postpone':
+				if ($dayost < 0) {
+					return 'text-danger';
+				} else {
+					return 'text-primary';
+				}
+			case 'overdue':
+				return 'text-danger';
+			case 'pending':
+				return 'text-success';
+			default:
+				return '';
+		}
+	}
+
+	function setTaskIcon($status)
+	{
+		$result = '<i class="';
+		switch ($status) {
+			case 'new':
+			case 'done':
+			case 'returned':
+			case 'inwork':
+				$result .= 'fas fa-bolt text-warning';
+				break;
+			case 'postpone':
+			case 'overdue':
+				$result .= 'fab fa-gripfire text-warning';
+				break;
+			case 'pending':
+				$result .= 'fas fa-eye text-success';
+				break;
+			default:
+				return '';
+		}
+		$result .= '"></i>';
+		return $result;
+	}
 }
 
 
