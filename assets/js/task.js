@@ -96,7 +96,7 @@ $(document).ready(function(){
 				location.reload();
 			}
 		} else {
-			$("#examp	le-date-input").addClass('border-danger');
+			$("#example-date-input").addClass('border-danger');
 		}
 	});
 
