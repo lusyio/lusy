@@ -7,7 +7,7 @@
 $id_task = $_GET['task'];
 $id = $GLOBALS["id"];
 global $pdo;
-$task = DB('id, name, status, description, manager, worker, view, datecreate, datedone','tasks','id = "'.$id_task.'" LIMIT 1');
+$task = DB('id, name, status, description, manager, worker, view, datecreate, datedone, datepostpone','tasks','id = "'.$id_task.'" LIMIT 1');
 foreach ($task as $n) { 
 	$idtask = $n['id'];
 	$nametask = $n['name'];
@@ -21,6 +21,12 @@ foreach ($task as $n) {
 	$view = $n['view'];
 	$datecreate = date("d.m.Y", strtotime($n['datecreate']));
 	$datedone = date("d.m", strtotime($n['datedone']));
+	if ($n['datepostpone'] == '') {
+		$datepostpone = '';
+	} else {
+		$datepostpone = " >> " . date("d.m", strtotime($n['datepostpone']));
+	}
+
 	$nowdate = date("d.m.Y");
 	$dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 
