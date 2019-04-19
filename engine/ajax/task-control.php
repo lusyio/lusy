@@ -22,12 +22,13 @@ if($_POST['module'] == 'sendpostpone') {
 	$text = $_POST['text'];
 	$datepostpone = $_POST['datepostpone'];
 	$idtask = $_POST['it'];
+	$status = 'request:' . $datepostpone;
 
-	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "postpone", `datepostpone` = :datepostpone WHERE id='.$idtask);
-	$sql->execute(array('datepostpone' => $datepostpone));
+	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "postpone" WHERE id='.$idtask);
+	$sql->execute();
 
-	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'request', `view`=0, `datetime` = :datetime");
-	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = :status, `view`=0, `datetime` = :datetime");
+	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'status' => $status, 'datetime' => $datetime));
 
 	if ($sql) {
 		echo '<p>Успешно</p>';
@@ -115,8 +116,10 @@ if ($_POST['module'] == 'cancelDate') {
 
 if ($_POST['module'] == 'confirmDate') {
 	$idtask = $_POST['it'];
-	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork' WHERE id=" . $idtask);
-	$sql->execute();
+	$statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
+	$datepostpone = preg_split('~:~', $statusWithDate)[1];
+	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = :datepostpone WHERE id=" . $idtask);
+	$sql->execute(array('datepostpone' => $datepostpone));
 }
 
 if ($_POST['module'] == 'sendDate') {
