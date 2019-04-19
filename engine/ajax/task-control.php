@@ -117,6 +117,7 @@ if ($_POST['module'] == 'cancelDate') {
 //одобрение запроса на перенос срока
 
 if ($_POST['module'] == 'confirmDate') {
+	$idtask = $_POST['it'];
 	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', WHERE id=" . $idtask);
 	$sql->execute();
 }
