@@ -88,6 +88,34 @@ $(document).ready(function(){
 		}
 	});
 
+	$( "#sendDate" ).click(function() {
+		var sendDate = $("#example-date-input").val();
+		if (sendDate) {
+			$.post("/ajax.php", {module: 'sendDate', datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			function controlUpdate(data) {
+				location.reload();
+			}
+		} else {
+			$("#example-date-input").addClass('border-danger');
+		}
+	});
+
+	$("#confirmDate").click(function () {
+		$.post("/ajax.php", {module: 'confirmDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		function controlUpdate(data) {
+			// location.reload();
+			alert(data);
+		}
+	});
+
+	$("#cancelDate").click(function () {
+		$.post("/ajax.php", {module: 'cancelDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		function controlUpdate(data) {
+			// location.reload();
+			alert(data);
+		}
+	});
+
 // Кнопка принять для worker'a (в статусе "на рассмотрении""), переводит в статус done - завершен
 
 $( "#workdone" ).click(function() {
@@ -128,6 +156,23 @@ $( "#inwork" ).click(function() {
 		// } else {
 		// 	$("#reportarea").addClass('border-danger');
 	});
+
+	var dateControl = document.querySelector('input[type="date"]');
+	var d1 = new Date();
+	var curr_date = d1.getDate();
+	var curr_month = d1.getMonth() + 1;
+	var curr_year = d1.getFullYear();
+	if(curr_month<10) {
+		curr_month = '0' + curr_month
+	}
+	if(curr_date<10) {
+		curr_date = '0' + curr_date
+	}
+	dated = curr_year + "-" + curr_month + "-" + curr_date;
+	dateControl.value = dated;
+
+
+
 
 // Минимальная дата
 // 	$('#minMaxExample').datepicker({
@@ -182,7 +227,6 @@ $( "#inwork" ).click(function() {
 		$("#status-block").removeClass('d-none');
 	});
 
-
 	$( "#return-manager" ).click(function() {
 		$('#status-block').addClass('d-none');
 	});
@@ -195,18 +239,5 @@ $( "#inwork" ).click(function() {
 		$("#datepicker-button").addClass("datepicker-here");
 	});
 
-	$("#confirmDate").click(function () {
-		$.post("/ajax.php", {module: 'confirmDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
-		function controlUpdate(data) {
-			location.reload();
-		}
-	});
-
-	$("#cancelDate").click(function () {
-		$.post("/ajax.php", {module: 'cancelDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
-		function controlUpdate(data) {
-			location.reload();
-		}
-	});
 
 });

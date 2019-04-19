@@ -155,7 +155,7 @@ status-block-inwork-worker{
 .btn-file {
     position: relative;
     overflow: hidden;
-    top: 8px;
+    top: 0px;
 }
 
 .btn-file input[type=file] {

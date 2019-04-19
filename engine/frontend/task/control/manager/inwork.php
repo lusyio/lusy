@@ -14,9 +14,9 @@
 <div id="change-date" class="collapse">
     <div class="form-group">
         <div class="col-7">
-            <input class="form-control" type="date" value="2019-08-19" id="example-date-input">
+            <input class="form-control" type="date" value="dateControl" id="example-date-input">
             <button type="button" id="backbutton1" class="btn btn-secondary w-30 text-center mt-3" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><?=$GLOBALS["_back"]?></button>
-            <button type="submit" id="sendRequest" class="btn btn-success text-center mt-3"><?=$GLOBALS["_send"]?></button>
+            <button type="submit" id="sendDate" class="btn btn-success text-center mt-3"><?=$GLOBALS["_send"]?></button>
         </div>
     </div>
 </div>
