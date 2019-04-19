@@ -45,6 +45,7 @@ foreach ($task as $n) {
 
 	switch ($status) {
 		case 'new':
+		case 'inwork':
 			$bg1 = 'bg-primary';
 			$ic1 = 'fas fa-bolt';
 			break;
@@ -53,8 +54,8 @@ foreach ($task as $n) {
 			$ic1 = 'fab fa-gripfire';
 			break;
 		case 'postpone':
-			$bg2 = 'bg-warning';
-			$ic2 = 'far fa-clock';
+			$bg1 = 'bg-warning';
+			$ic1 = 'far fa-clock';
 			break;
 		case 'pending':
 			$bg2 = 'bg-warning';
@@ -63,10 +64,6 @@ foreach ($task as $n) {
 			$bg3 = 'bg-success';
 			break;
 		case 'returned':
-		case 'inwork':
-			$bg1 = 'bg-primary';
-			$ic1 = 'fas fa-bolt';
-			break;
 		default:
 	}
 }
