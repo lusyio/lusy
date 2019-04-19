@@ -85,7 +85,7 @@ if($_POST['module'] == 'createTask') {
 	$description = $_POST['description'];
 	$datedone = $_POST['datedone'];
 	$worker = $_POST['worker'];
-	$dbh = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status,  manager, worker, idcompany, report, view) VALUES (:name, :description,'".$now."', :datedone, '".$now."', 'new', '".$id."', :worker, '".$idc."', :description, '0') ";
+	$dbh = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status,  manager, worker, idcompany, report, view) VALUES (:name, :description,'".$now."', :datedone, NULL, 'new', '".$id."', :worker, '".$idc."', :description, '0') ";
 	$sql = $pdo->prepare($dbh);
 	$sql->execute(array('name' => $name, 'description' => $description, 'worker' => $worker, 'datedone' => $datedone));
 	
@@ -104,6 +104,21 @@ if($_POST['module'] == 'cancelTask') {
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "canceled" WHERE id='.$idtask);
 	$sql->execute();
 	echo 'success';
+}
+
+//отклонение запроса на перенос срока
+
+if ($_POST['module'] == 'cancelDate') {
+	$idtask = $_POST['it'];
+	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = null WHERE id=" . $idtask); //TODO нужно разобраться со статусами
+	$sql->execute();
+}
+
+//одобрение запроса на перенос срока
+
+if ($_POST['module'] == 'confirmDate') {
+	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', WHERE id=" . $idtask);
+	$sql->execute();
 }
 ?>
 

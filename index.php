@@ -4,6 +4,28 @@ include 'conf.php';
 include 'engine/backend/other/header.php'; 
 include 'engine/frontend/other/header.php';
 
+function isPostponedateColumnNotNull()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `tasks`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'datepostpone' && $column['Null'] == 'NO') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (isPostponedateColumnNotNull())
+{
+    global $pdo;
+    $sql = 'alter table tasks modify datepostpone date null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
 
 function isColumnStatusExist()
 {
