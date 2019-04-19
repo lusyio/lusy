@@ -1,3 +1,5 @@
+
+
 <link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css">
 
 
@@ -14,7 +16,6 @@
             <span class="btn btn-light btn-file mt-3 mb-1">
                 <i class="fas fa-file-upload custom-date"></i><input type="file">
             </span>
-            <!--        <button type="file" id="attachbutton" class="btn btn-light w-30 text-center mt-3"><i class="fas fa-file-upload custom-date"></i></button>-->
         </div>
     </div>
 </div>
@@ -27,7 +28,9 @@
             Причина:
             <?=$request?>
         </div>
-        <div class="pl-2"><i class="fas fa-check custom-date accept" id="confirmDate"></i><i class="fas fa-times custom-date cancel" id="cancelDate"></i></div>
+        <div class="pl-2">
+            <i class="fas fa-check custom-date accept" id="confirmDate"></i><i class="fas fa-times custom-date cancel" id="cancelDate"></i>
+        </div>
     </div>
     <button id ="return-manager" type="button" class="btn btn-warning mt-3 mb-1 w-10"   data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><?=$GLOBALS["_return"]?></button>
     <button id="workdone" type="button" class="btn btn-success mt-3 mb-1"><?=$GLOBALS["_done"]?></button>
@@ -36,6 +39,4 @@
 
 
 <script>
-
 </script>
-<script src="/assets/js/datepicker.js"></script>

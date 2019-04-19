@@ -76,7 +76,7 @@ $(document).ready(function(){
 
 	// Перенос срока
 	$( "#sendpostpone" ).click(function() {
-		var datepostpone = $("#datepostpone").val();
+		var datepostpone = $("#example-date-input").val();
 		var text = $("#reportarea1").val();
 		if (text) {
 			$.post("/ajax.php", {module: 'sendpostpone', text: text, datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
@@ -99,6 +99,7 @@ $(document).ready(function(){
 			$("#example-date-input").addClass('border-danger');
 		}
 	});
+
 
 	$("#confirmDate").click(function () {
 		$.post("/ajax.php", {module: 'confirmDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);

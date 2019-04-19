@@ -1,6 +1,4 @@
-
-
-<link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css" xmlns="http://www.w3.org/1999/html">
 
 
 <div id="report-block" class="collapse">
@@ -20,7 +18,7 @@
     <div class="form-group">
         <div class="col-7">
             <textarea name="report" id="reportarea1" class="form-control" rows="4" placeholder="<?=$GLOBALS["_report"]?>" required></textarea>
-            <input class="form-control" type="date" value="dateControl" id="datepostpone">
+            <input class="form-control" type="date" value="dateControl" id="example-date-input">
             <button type="button" id="backbutton1" class="btn btn-secondary w-30 text-center mt-3 mb-1" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><?=$GLOBALS["_back"]?></button>
             <button type="submit" id="sendpostpone" class="btn btn-success text-center mt-3 mb-1"><?=$GLOBALS["_change"]?></button>
         </div>
