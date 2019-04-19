@@ -120,7 +120,7 @@ if ($_POST['module'] == 'confirmDate') {
 }
 
 if ($_POST['module'] == 'sendDate') {
-	$datepostpone = $_POST['datepostpone'];
+	$datepostpone = $_POST['sendDate'];
 	$idtask = $_POST['it'];
 	$sql = $pdo->prepare('UPDATE `tasks` SET `datepostpone` = :datepostpone WHERE id='.$idtask);
 	$sql->execute(array('datepostpone' => $datepostpone));
