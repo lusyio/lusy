@@ -1,6 +1,7 @@
 <?php 
-
-$postponedate = date("d.m", strtotime(DBOnce('datepostpone','tasks','id='.$idtask)));
-$request = DBOnce('comment', 'comments', "idtask=" . $idtask . " and status = 'request' order by `datetime` desc");
+$statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
+$requestedDate = preg_split('~:~', $statusWithDate)[1];
+$postponedate = date("d.m", strtotime($requestedDate));
+$request = DBOnce('comment', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
 
 ?>
