@@ -21,7 +21,7 @@ foreach ($task as $n) {
 	$view = $n['view'];
 	$datecreate = date("d.m.Y", strtotime($n['datecreate']));
 	$datedone = date("d.m", strtotime($n['datedone']));
-	if ($n['datepostpone'] == '') {
+	if ($n['datepostpone'] == '0000-00-00') {
 		$datepostpone = '';
 	} else {
 		$datepostpone = " >> " . date("d.m", strtotime($n['datepostpone']));
