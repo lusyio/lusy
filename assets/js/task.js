@@ -134,15 +134,16 @@ $( "#workdone" ).click(function() {
 // Кнопка "принять" для worker'a (в статусе "на рассмотрении"")
 
 $( "#workreturn" ).click(function() {
-		// var report = $("#reportarea").val();
-		// if (report) {
-			$.post("/ajax.php", {module: 'workreturn', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		var datepostpone = $("#example-date-input").val();
+		var report = $("#reportarea").val();
+		if (report) {
+			$.post("/ajax.php", {module: 'workreturn', text: text, datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
-		// } else {
-		// 	$("#reportarea").addClass('border-danger');
-		// }
+		} else {
+			$("#reportarea").addClass('border-danger');
+		}
 	});
 
 // Кнопка "В работу" для worker'a (на странице "возвращен")
