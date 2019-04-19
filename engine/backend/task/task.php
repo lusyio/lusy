@@ -174,6 +174,14 @@ if ($id == $manager) {
 if ($id == $worker and $id == $manager) {
 	$role = 'manager';
 }
+// TODO много if'ов, лучше так:
+//if ($id == $manager){
+//	$role = 'manager';
+//} elseif ($id == $worker){
+//	$role = 'worker';
+//} else {
+//	echo "<script>document.location.href = '/tasks/'</script>";
+//}
 
 if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
 	$status = 'inwork';
