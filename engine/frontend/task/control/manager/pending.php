@@ -25,7 +25,7 @@
 <div id="status-block">
     <button id ="return-manager" type="button" class="btn btn-warning mt-3 mb-3 w-10"  data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><?=$GLOBALS["_return"]?></button>
     <button id ="workdone" type="button" class="btn btn-success mt-3 mb-3 w-10"><?=$GLOBALS["_done"]?></button>
-    <button id="canseltask" type="button" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')"><?=$GLOBALS["_cancel"]?></button>
+    <button id="canseltask" type="button" class="btn btn-outline-danger mt-3 mb-3 w-10" onclick="return confirm('Are you sure?')"><?=$GLOBALS["_cancel"]?></button>
 </div>
 
 
