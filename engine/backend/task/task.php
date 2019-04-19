@@ -20,7 +20,7 @@ foreach ($task as $n) {
 	$workersurname = DBOnce('surname', 'users', 'id=' . $worker);
 	$view = $n['view'];
 	$datecreate = date("d.m.Y", strtotime($n['datecreate']));
-	$datedone = date("d.m.Y", strtotime($n['datedone']));
+	$datedone = date("d.m", strtotime($n['datedone']));
 	$nowdate = date("d.m.Y");
 	$dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 
