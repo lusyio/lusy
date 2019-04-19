@@ -118,7 +118,7 @@ if ($_POST['module'] == 'cancelDate') {
 
 if ($_POST['module'] == 'confirmDate') {
 	$idtask = $_POST['it'];
-	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', WHERE id=" . $idtask);
+	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork' WHERE id=" . $idtask);
 	$sql->execute();
 }
 ?>
