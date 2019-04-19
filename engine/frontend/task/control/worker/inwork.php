@@ -4,7 +4,7 @@
 
 
 <div class="report">
-    <h4 class="text-ligther">Причина возврата:</h4>
+    <h4 class="text-ligther"><?=$note?></h4>
     <p><?=$request?></p>
 </div>
 
