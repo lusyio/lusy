@@ -2,11 +2,14 @@
 
 <link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css">
 
+<p>
+    <?=$request?>
+</p>
 
 <div id="change-date" class="collapse">
     <div class="form-group">
         <div class="col-7">
-            <input class="form-control" type="date" id="example-date-input" value="dateControl">
+            <input class="form-control" type="date" id="example-date-input" value="" min="">
             <button type="button" id="backbutton1" class="btn btn-secondary w-30 text-center mt-3" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><?=$GLOBALS["_back"]?></button>
             <button type="submit" id="sendDate" class="btn btn-success text-center mt-3"><?=$GLOBALS["_send"]?></button>
         </div>
