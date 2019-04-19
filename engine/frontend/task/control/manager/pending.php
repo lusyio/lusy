@@ -16,7 +16,7 @@
                 <input class="form-control" type="date" value="dateControl" id="example-date-input">
             </div>
             <button type="button" id="backbutton" class="btn btn-secondary w-30 text-center mt-3 mb-1 ml-3" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><?=$GLOBALS["_back"]?></button>
-            <button type="submit" id="sendonreview" class="btn btn-success w-50 text-center mt-3 mb-1"><?=$GLOBALS["_return"]?></button>
+            <button type="submit" id="workreturn" class="btn btn-success w-50 text-center mt-3 mb-1"><?=$GLOBALS["_return"]?></button>
             <span class="btn btn-light btn-file mt-3 mb-1">
                 <i class="fas fa-file-upload custom-date"></i><input type="file">
             </span>
