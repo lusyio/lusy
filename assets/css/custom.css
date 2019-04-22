@@ -88,6 +88,7 @@ body {
 .btn-warning {
     color: white;
     background-color: #edc345;
+    border-color: #edc345;
 }
 
 .btn-outline-danger{
