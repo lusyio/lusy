@@ -19,7 +19,7 @@ $nameuser = $result[0];
 $surnameuser = $result[1];
 $d = date("d"); // текущий день
 $dc = date("d", strtotime($c['datetime'])); // день из лога
-if ($d == $dc and $id == $c['iduser'] and $c['status'] != 'system') {
+if ($d == $dc and $id == $c['iduser'] and $c['status'] == 'comment') {
 	$delete = '<button type="button" value="#'.$c['id'].'" class="btn btn-link text-danger delc"><i class="fas fa-times"></i></button>';
 } else {
 	$delete = '';
