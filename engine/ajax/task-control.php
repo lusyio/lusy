@@ -112,6 +112,9 @@ if ($_POST['module'] == 'cancelDate') {
 	$idtask = $_POST['it'];
 	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = null WHERE id=" . $idtask); //TODO нужно разобраться со статусами
 	$sql->execute();
+	$text = "Перенос отклонен";
+	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
+	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
 }
 
 //одобрение запроса на перенос срока
@@ -122,13 +125,19 @@ if ($_POST['module'] == 'confirmDate') {
 	$datepostpone = preg_split('~:~', $statusWithDate)[1];
 	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = :datepostpone WHERE id=" . $idtask);
 	$sql->execute(array('datepostpone' => $datepostpone));
+	$text = "Перенос одобрен. Новый срок: " . date("d.m", strtotime($datepostpone));
+	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
+	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
 }
 
 if ($_POST['module'] == 'sendDate') {
 	$datepostpone = $_POST['sendDate'];
 	$idtask = $_POST['it'];
-	$sql = $pdo->prepare('UPDATE `tasks` SET `datepostpone` = :datepostpone WHERE id='.$idtask);
+	$sql = $pdo->prepare('UPDATE `tasks` SET `datepostpone` = :datepostpone, `view` = 0 WHERE id='.$idtask);
 	$sql->execute(array('datepostpone' => $datepostpone));
+	$text = "Новый срок: " . date("d.m", strtotime($datepostpone));
+	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
+	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
 }
 ?>
 
