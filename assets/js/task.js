@@ -202,6 +202,4 @@ $( "#inwork" ).click(function() {
 	dateControl.value = dated;
 
 
-
-
 });

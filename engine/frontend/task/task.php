@@ -19,7 +19,7 @@
                         <div class="card-footer pb-3">
                             <div class="col">
                             <div class="row">
-                                <div class="col- ml-3">
+                                <div class="col- ml-3" title="<?=$GLOBALS["_$status"]?>">
                                     <p class="font-weight-bold text-ligther text-uppercase">Статус</p>
                                     <span class="status-icon rounded-circle noty-m <?=$bg1?>"><i class="<?=$ic1?> custom"></i></span>
                                     <span class="status-icon rounded-circle noty-m <?=$bg2?>"><i class="<?=$ic2?> custom"></i></span>
