@@ -4,8 +4,8 @@ $text = $_POST['text'];
 
 $datetime = date("Y-m-d H:i:s");
 // создаем комментаприй
-$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :comment, `iduser` = :iduser, `idtask` = :idtask, `datetime` = :datetime");
-$sql->execute(array('comment' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :comment, `status` = :status, `iduser` = :iduser, `idtask` = :idtask, `datetime` = :datetime");
+$sql->execute(array('comment' => $text, 'status' => 'comment', 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
 $idcomment = $pdo->lastInsertId();
 			
 if ($id != $worker) {
