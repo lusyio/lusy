@@ -28,6 +28,7 @@ $_inwork = 'В работе';
 $_confirmdate = 'Подтвердить';
 $_cancel = 'Отменить задачу';
 $_canceled = 'Отмененные';
+$_canceledtask = 'Отменено';
 $_back = 'Назад';
 $_change = 'Перенести';
 

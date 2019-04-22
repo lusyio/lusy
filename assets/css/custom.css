@@ -60,8 +60,17 @@ body {
     border: 0;
 }
 
+.btn-secondary{
+    background-color: #888e94;
+    border: 0;
+}
+
+.btn-secondary:hover{
+    background-color: #6c757d;
+}
+
 #backbutton:hover {
-    background-color: #6c757d;;
+    background-color: #6c757d;
 }
 
 #cancel-icon-button{
