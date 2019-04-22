@@ -189,6 +189,11 @@ $( "#inwork" ).click(function() {
 		$("#datepicker-button").addClass("datepicker-here");
 	});
 
+	$("#sendpostpone").click(function () {
+		$("#inwork-postpone-manager").removeClass('d-none');
+
+	});
+
 
 	var dateControl = document.querySelector('input[type="date"]');
 	var d1 = new Date();
@@ -210,6 +215,7 @@ $( "#inwork" ).click(function() {
 	// 		return new Date().toJSON().split('T')[0];
 	// 	});
 	// });
+
 
 
 });
