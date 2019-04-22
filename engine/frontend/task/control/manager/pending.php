@@ -1,9 +1,10 @@
 
-
-<div class="report">
-    <h4 class="text-ligther">Отчет:</h4>
-    <p><?=$report?></p>
-    <span class="text-ligther align-center mb-0">Задача на рассмотрении с <?=$pendingdate?></span>
+<div class="postpone-manager">
+    <div class="report">
+        <h4 class="text-ligther">Отчет:</h4>
+        <p><?=$report?></p>
+        <span class="text-ligther align-center mb-0">Задача на рассмотрении с <?=$pendingdate?></span>
+    </div>
 </div>
 
 
