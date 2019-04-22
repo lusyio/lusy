@@ -64,6 +64,11 @@ body {
     background-color: #6c757d;;
 }
 
+#cancel-icon-button{
+    font-size: 15px;
+
+}
+
 /*.noty2.custom2 {*/
 /*    display: flex;*/
 /*    background: #f7f7f7;*/
@@ -80,8 +85,15 @@ body {
     color: white;
 }
 
-
 .btn-warning {
+    color: white;
+}
+
+.btn-outline-danger{
+    border: none;
+}
+
+.btn.btn-warning:hover{
     color: white;
 }
 
