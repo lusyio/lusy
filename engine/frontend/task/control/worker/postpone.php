@@ -3,6 +3,14 @@
 <link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css">
 
 
+<div class="postpone-manager">
+    <?=$workername?> <?=$workersurname?> запрашивает перенос срока на дату <?=$postponedate?>
+    <div>
+        Причина:
+        <?=$request?>
+    </div>
+</div>
+
 <div id="report-block" class="collapse">
     <p class="text-ligther"><?=$GLOBALS["_writereport"]?>:</p>
     <div class="form-group mb-0">
