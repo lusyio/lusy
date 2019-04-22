@@ -77,9 +77,14 @@ foreach ($task as $n) {
 function setTaskBorder($status)
 {
 	global $dayost;
+	global $view;
+	if ($view == 0) {
+		return 'border-secondary';
+	}
 	switch ($status) {
 		case 'new':
 		case 'done':
+			return 'border-success';
 		case 'returned':
 		case 'inwork':
 			return 'border-primary';
@@ -87,12 +92,12 @@ function setTaskBorder($status)
 			if ($dayost < 0) {
 				return 'border-danger';
 			} else {
-				return 'border-primary';
+				return 'border-warning';
 			}
 		case 'overdue':
 			return 'border-danger';
 		case 'pending':
-			return 'border-success';
+			return 'border-warning';
 		default:
 			return '';
 	}
