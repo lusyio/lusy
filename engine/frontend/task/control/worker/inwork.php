@@ -2,10 +2,11 @@
 
 <link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css" xmlns="http://www.w3.org/1999/html">
 
-
-<div class="report">
-    <h4 class="text-ligther"><?=$note?></h4>
-    <p><?=$request?></p>
+<div class="postpone-manager" id="inwork-postpone-manager">
+    <div class="report">
+        <h4 class="text-ligther"><?=$note?></h4>
+        <p><?=$request?></p>
+    </div>
 </div>
 
 

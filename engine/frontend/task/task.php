@@ -6,6 +6,7 @@
                     <div class="card mb-5">
                         <div class="card-body">
                             <h2 class="<?=$border?>"><?=$nametask?></h2>
+                            <p class="text-ligther"><?=$viewState?></p>
                             <h6 class="text-ligther"><i class="far fa-calendar-times custom"></i>  <?=$datedone?> <?=$datepostpone?> <?=$GLOBALS["_$status"]?> </h6>
                             <div class="mt-5 mb-5 text-justify"><?=$description?></div>
                             <div id="control">
@@ -41,12 +42,13 @@
 
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Комментарии (1)</a>
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Лента уведомлений (1)</a>
                             <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Файлы (0)</a>
                             <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Информация</a>
-                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-log" role="tab" aria-controls="nav-log" aria-selected="false">Журнал</a>
+<!--                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-log" role="tab" aria-controls="nav-log" aria-selected="false">Журнал</a>-->
                         </div>
                     </nav>
+
                     <div class="tab-content bg-white p-3" id="nav-tabContent">
                         <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                             <div class="row">
