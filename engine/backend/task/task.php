@@ -145,7 +145,7 @@ function setTaskIcon($status)
 if ($id == $worker and $view == 0) {
 	$viewer = $pdo->prepare('UPDATE `tasks` SET view = "1" where id="'.$idtask.'"');
 	$viewer->execute();
-	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = 'Просмотрено', `iduser` = :iduser, `idtask` = :idtask, `status` = 'comment', `view`=0, `datetime` = :datetime");
+	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = 'Просмотрено', `iduser` = :iduser, `idtask` = :idtask, `status` = 'system', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
 	$points = DBOnce('points','users','id='.$id);
 $points = $points + 5;
