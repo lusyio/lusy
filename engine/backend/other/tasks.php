@@ -17,6 +17,9 @@ if($url == 'new' or $url == 'returned' or $url == 'inwork') {
 if($url == 'overdue' or $url == 'pending' or $url == 'done' or $url == 'postpone' ) {
 	$otbor = '(worker='.$GLOBALS["id"].' or manager = '.$GLOBALS["id"].') and status="'.$url.'"';
 }
+if ($url == 'canceled') {
+	$otbor = 'status="canceled" and (worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ')';
+}
 $tasks = DB('*','tasks',$otbor . ' order by datedone');
 
 
