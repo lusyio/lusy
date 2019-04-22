@@ -22,9 +22,7 @@ foreach ($task as $n) {
 	$workersurname = DBOnce('surname', 'users', 'id=' . $worker);
 	$view = $n['view'];
 	$viewState = '';
-	if ($view == 0) {
-		$viewState = '(не просмотрено)';
-	}
+
 	$datecreate = date("d.m.Y", strtotime($n['datecreate']));
 	$datedone = date("d.m", strtotime($n['datedone']));
 	if ($n['datepostpone'] == '0000-00-00'|| $n['datepostpone'] == '') {
@@ -44,8 +42,12 @@ foreach ($task as $n) {
 	$ic1 = 'fas fa-bolt';
 	$ic2 = 'fas fa-eye';
 	$ic3 = 'fas fa-check';
-
-	$border = setTaskBorder($status);
+	if ($view == 0) {
+		$viewState = '(не просмотрено)';
+		$border = 'border-secondary';
+	} else {
+		$border = setTaskBorder($status);
+	}
 	$icon = setTaskIcon($status);
 	$color = setTaskIcon($status);
 
@@ -77,10 +79,6 @@ foreach ($task as $n) {
 function setTaskBorder($status)
 {
 	global $dayost;
-	global $view;
-	if ($view == 0) {
-		return 'border-secondary';
-	}
 	switch ($status) {
 		case 'new':
 		case 'done':
