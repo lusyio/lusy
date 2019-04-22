@@ -20,6 +20,10 @@ foreach ($task as $n) {
 	$workername = DBOnce('name', 'users', 'id=' . $worker);
 	$workersurname = DBOnce('surname', 'users', 'id=' . $worker);
 	$view = $n['view'];
+	$viewState = '';
+	if ($view == 0) {
+		$viewState = '(не просмотрено)';
+	}
 	$datecreate = date("d.m.Y", strtotime($n['datecreate']));
 	$datedone = date("d.m", strtotime($n['datedone']));
 	if ($n['datepostpone'] == '0000-00-00'|| $n['datepostpone'] == '') {
