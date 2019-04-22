@@ -100,9 +100,54 @@ body {
     border-color: #edc345;
 }
 
+.bg-warning{
+    background-color: #edc345 !important;
+}
+
+.border-warning{
+    border-color: #edc345 !important;
+}
+
+.btn.btn-warning:hover{
+    color: white;
+}
+
+.btn-primary{
+    background-color: #5a93df;
+    border-color: #5a93df;
+}
+
+.bg-primary{
+    background-color: #5a93df !important;
+}
+
+.border-primary{
+    border-color: #5a93df !important;
+}
+
+.bg-danger{
+    background-color: #d4515d !important;
+}
+
 .btn-outline-danger{
     border: none;
     color: #d4515d;
+}
+
+.btn-outline-danger:hover{
+    background-color: #d4515d;
+}
+
+.border-danger{
+    border-color: #d4515d !important;
+}
+
+.bg-success{
+    background-color: #93c259 !important;
+}
+
+.border-success{
+    border-color: #93c259 !important;
 }
 
 .btn-success{
@@ -113,14 +158,6 @@ body {
 .btn-success:hover{
     background-color: #83b258;
     border-color: #83b258;
-}
-
-.btn-outline-danger:hover{
-    background-color: #d4515d;
-}
-
-.btn.btn-warning:hover{
-    color: white;
 }
 
 .postpone-manager {
