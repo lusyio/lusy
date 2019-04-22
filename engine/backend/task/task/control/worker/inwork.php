@@ -14,6 +14,7 @@ if ($dayost < 0) {
 $note = '';
 $request = DBOnce('comment', 'comments', "idtask=" . $idtask . " and status = 'returned' order by `datetime` desc");
 if ($request != '') {
+	$request = nl2br($request);
 	$note = 'Причина возврата:';
 }
 ?>
