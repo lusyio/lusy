@@ -23,7 +23,7 @@
 <div id="status-block">
     <button id ="workdone" type="button" class="btn btn-success mt-3 mb-3 w-10"><?=$GLOBALS["_done"]?></button>
     <button type="button" id="changeDate" class="btn btn-warning mt-3 mb-3 w-10" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><?=$GLOBALS["_postponebutton"]?></button>
-    <button type="button" id="cancelTask" class="btn btn-outline-danger mt-3 mb-3 w-10" onclick="return confirm('Are you sure?')"><?=$GLOBALS["_cancel"]?></button>
+    <button id="cancelTask" type="button" class="btn btn-outline-danger mt-3 mb-3 w-10"><?=$GLOBALS["_cancel"]?> <i class="fas fa-times cancel" id="cancel-icon-button"></i></button>
 </div>
 
 

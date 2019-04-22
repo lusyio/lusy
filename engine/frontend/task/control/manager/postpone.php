@@ -15,7 +15,7 @@
         </div>
     </div>
     <button id="workdone" type="button" class="btn btn-success mt-3 mb-1"><?=$GLOBALS["_done"]?></button>
-    <button id="cancelTask" type="button" class="btn btn-outline-danger mt-3 mb-1"><?=$GLOBALS["_cancel"]?></button>
+    <button id="cancelTask" type="button" class="btn btn-outline-danger mt-3 mb-1"><?=$GLOBALS["_cancel"]?> <i class="fas fa-times cancel" id="cancel-icon-button"></i></button>
 </div>
 
 
