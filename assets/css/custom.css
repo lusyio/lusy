@@ -69,6 +69,14 @@ body {
     background-color: #6c757d;
 }
 
+.border-secondary{
+    border-color: #888e94 !important;
+}
+
+.bg-secondary {
+    background-color: #888e94 !important;
+}
+
 #backbutton:hover {
     background-color: #6c757d;
 }
@@ -108,6 +116,11 @@ body {
     border-color: #edc345 !important;
 }
 
+.badge-warning{
+    background-color: #edc345 !important;
+    color: white;
+}
+
 .btn.btn-warning:hover{
     color: white;
 }
@@ -118,6 +131,10 @@ body {
 }
 
 .bg-primary{
+    background-color: #5a93df !important;
+}
+
+.badge-primary{
     background-color: #5a93df !important;
 }
 
@@ -138,6 +155,10 @@ body {
     background-color: #d4515d;
 }
 
+.badge-danger{
+    background-color: #d4515d !important;
+}
+
 .border-danger{
     border-color: #d4515d !important;
 }
@@ -148,6 +169,10 @@ body {
 
 .border-success{
     border-color: #93c259 !important;
+}
+
+.badge-success{
+    background-color: #93c259 !important;
 }
 
 .btn-success{
