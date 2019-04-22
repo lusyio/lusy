@@ -36,7 +36,7 @@ echo '<div class="mb-3 comment" id="'.$c['id'].'"><div class="position-relative"
 		<a href="/profile/' . $c['iduser'] . '/" class="font-weight-bold">' . $nameuser . ' ' . $surnameuser . '</a>
 		' . $delete . '
 	</div>
-		<p class="mt-1 mb-4">' . $c['comment'] . '</p></div>';
+		<p class="mt-1 mb-4">' . nl2br($c['comment']) . '</p></div>';
 } 
 } else {
 	echo '<hr><p class="text-center text-ligther mt-5">'.$_nocomment.'</p>';

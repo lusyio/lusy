@@ -54,12 +54,12 @@ if($_POST['module'] == 'workdone') {
 // Кнопка вернуть для worker'a
 
 if($_POST['module'] == 'workreturn') {
-	$text = $_POST['text'];
-	$text .= "\nНовый срок: " . date("d.m", strtotime($datepostpone));
 	$idtask = $_POST['it'];
 	$datepostpone = $_POST['datepostpone'];
-	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "returned", `datepostpone` = '. $datepostpone .' WHERE id='.$idtask);
-	$sql->execute();
+	$text = $_POST['text'];
+	$text .= "\nНовый срок: " . date("d.m", strtotime($datepostpone));
+	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "returned", `view` = 0, `datepostpone` = :datepostpone WHERE id= :idtask');
+	$sql->execute(array('datepostpone' => $datepostpone, 'idtask' => $idtask));
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'returned', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
 }
