@@ -5,7 +5,7 @@ $countcomments = DBOnce('COUNT(*) as count','comments','idtask='.$idtask);
 if ($countcomments > 0) {
 echo '<hr><p class="font-weight-bold text-uppercase mt-4"><span class="text-ligther">'.$_comments.' ('.$countcomments.')</span></p>';
 					
-$comments = $pdo->prepare('SELECT id, iduser, comment, datetime FROM `comments` where idtask = "'.$idtask.'" ORDER BY datetime desc');
+$comments = $pdo->prepare('SELECT id, iduser, comment, status, datetime FROM `comments` where idtask = "'.$idtask.'" ORDER BY datetime desc');
 $comments->execute();
 $comments = $comments->fetchAll(PDO::FETCH_BOTH);
 
@@ -19,7 +19,7 @@ $nameuser = $result[0];
 $surnameuser = $result[1];
 $d = date("d"); // текущий день
 $dc = date("d", strtotime($c['datetime'])); // день из лога
-if ($d == $dc and $id == $c['iduser']) {
+if ($d == $dc and $id == $c['iduser'] and $c['status'] != 'system') {
 	$delete = '<button type="button" value="#'.$c['id'].'" class="btn btn-link text-danger delc"><i class="fas fa-times"></i></button>';
 } else {
 	$delete = '';
