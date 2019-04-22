@@ -15,9 +15,11 @@ $request = DBOnce('comment', 'comments', "idtask=" . $idtask . " and (status = '
 $messageStatus = DBOnce('status', 'comments', "idtask=" . $idtask . " and (status = 'returned' or status = 'postpone') order by `datetime` desc");
 $note = '';
 $displayNote = 'd-none';
-if ($request != false && $messageStatus == 'returned') {
+if ($request != false) {
 	$request = nl2br($request);
-	$note = 'Причина возврата:';
 	$displayNote = '';
+	if ($messageStatus == 'returned') {
+		$note = 'Причина возврата:';
+	}
 }
 ?>
