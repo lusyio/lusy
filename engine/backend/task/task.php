@@ -71,6 +71,10 @@ foreach ($task as $n) {
 		case 'done':
 			$bg3 = 'bg-success';
 			break;
+		case 'canceled':
+			$bg3 = 'bg-danger';
+			$ic3 = 'fas fa-times';
+			break;
 		case 'returned':
 		default:
 	}
