@@ -12,7 +12,7 @@ $task = DB('id, name, status, description, manager, worker, view, datecreate, da
 foreach ($task as $n) { 
 	$idtask = $n['id'];
 	$nametask = $n['name'];
-	$description = $n['description'];
+	$description = nl2br($n['description']);
 	$manager = $n['manager'];
 	$managername = DBOnce('name', 'users', 'id=' . $manager);
 	$managersurname = DBOnce('surname', 'users', 'id=' . $manager);
