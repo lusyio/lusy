@@ -87,10 +87,26 @@ body {
 
 .btn-warning {
     color: white;
+    background-color: #edc345;
 }
 
 .btn-outline-danger{
     border: none;
+    color: #d4515d;
+}
+
+.btn-success{
+    background-color: #93c259;
+    border-color: #93c259;
+}
+
+.btn-success:hover{
+    background-color: #83b258;
+    border-color: #83b258;
+}
+
+.btn-outline-danger:hover{
+    background-color: #d4515d;
 }
 
 .btn.btn-warning:hover{
@@ -108,13 +124,13 @@ body {
 }
 
 .fas.fa-check.custom-date.accept {
-    color: #2da64d;
+    color: #93c259 !important;
     margin-left: 5px;
     margin-top: 5px;
 }
 
 .fas.fa-times.custom-date.cancel {
-    color: #da3248;
+    color: #d64c5e !important;
     margin-left: 13px;
 }
 
