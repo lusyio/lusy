@@ -8,8 +8,9 @@ $id_task = $_GET['task'];
 $id = $GLOBALS["id"];
 global $pdo;
 global $datetime;
-$task = DB('id, name, status, description, manager, worker, view, datecreate, datedone, datepostpone','tasks','id = "'.$id_task.'" LIMIT 1');
-foreach ($task as $n) { 
+$task = DB('id, name, status, description, manager, worker, view, datecreate, datedone, datepostpone, report','tasks','id = "'.$id_task.'" LIMIT 1');
+foreach ($task as $n) {
+	$report = $n['report'];
 	$idtask = $n['id'];
 	$nametask = $n['name'];
 	$description = nl2br($n['description']);

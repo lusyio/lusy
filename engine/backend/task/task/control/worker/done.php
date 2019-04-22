@@ -1,2 +1,2 @@
 <?php
-$datedone = date("d.m.Y");
+$datedone = $report;

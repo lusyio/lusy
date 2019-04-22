@@ -42,8 +42,8 @@ if($_POST['module'] == 'sendpostpone') {
 if($_POST['module'] == 'workdone') {
 	// $report = $_POST['report'];
 	$idtask = $_POST['it'];
-	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "done" WHERE id='.$idtask);
-	$sql->execute();
+	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "done", `report` = :report WHERE id='.$idtask);
+	$sql->execute(array('report' => $now));
 	
 	// if ($sql) {
 	// 	echo '<p>Успешно</p>';
@@ -101,8 +101,8 @@ if($_POST['module'] == 'createTask') {
 
 if($_POST['module'] == 'cancelTask') {
 	$idtask = $_POST['it'];
-	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "canceled" WHERE id='.$idtask);
-	$sql->execute();
+	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "canceled", `report` = :report WHERE id='.$idtask);
+	$sql->execute(array('report' => $now));
 	echo 'success';
 }
 

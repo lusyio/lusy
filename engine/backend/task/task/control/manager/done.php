@@ -1,7 +1,5 @@
-<?php 
-
-$datedone=date("d.m.Y");
-
+<?php
+$datedone = $report;
 ?>
 
 
