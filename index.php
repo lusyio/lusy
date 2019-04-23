@@ -86,7 +86,7 @@ function isUploadsTableExists()
 }
 if (!isUploadsTableExists()) {
     global $pdo;
-    $query = 'create table uploads( file_id int auto_increment	primary key, file_name text not null, file_size int null, file_path text null, comment_id int null)';
+    $query = 'create table uploads( file_id int auto_increment primary key, file_name text not null, file_size int null, file_path text null, comment_id int null)';
     $sql = $pdo->prepare($query);
     $sql->execute();
 }

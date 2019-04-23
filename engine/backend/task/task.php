@@ -3,17 +3,21 @@ $id_task = $_GET['task'];
 $id = $GLOBALS["id"];
 global $pdo;
 global $datetime;
-$task = DB('id, name, status, description, manager, worker, view, datecreate, datedone, datepostpone, report', 'tasks', 'id = "' . $id_task . '" LIMIT 1')[0];
+$query = 'SELECT t.id, t.name, t.status, t.description, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.datepostpone, t.report, u1.name AS managerName, u1.surname AS managerSurname, u2.name AS workerName, u2.surname AS workerSurname FROM tasks t LEFT JOIN users u1 ON t.manager = u1.id LEFT JOIN users u2 ON t.worker = u2.id WHERE t.id = :taskId';
+$dbh = $pdo->prepare($query);
+$dbh->execute(array(':taskId' => $id_task));
+$task = $dbh->fetch(PDO::FETCH_ASSOC);
+//$task = DB('id, name, status, description, manager, worker, view, datecreate, datedone, datepostpone, report', 'tasks', 'id = "' . $id_task . '" LIMIT 1')[0];
 $report = $task['report'];
 $idtask = $task['id'];
 $nametask = $task['name'];
 $description = nl2br($task['description']);
 $manager = $task['manager'];
-$managername = DBOnce('name', 'users', 'id=' . $manager);
-$managersurname = DBOnce('surname', 'users', 'id=' . $manager);
+$managername = $task['managerName'];
+$managersurname = $task['managerSurname'];
 $worker = $task['worker'];
-$workername = DBOnce('name', 'users', 'id=' . $worker);
-$workersurname = DBOnce('surname', 'users', 'id=' . $worker);
+$workername = $task['workerName'];
+$workersurname = $task['workerSurname'];
 $view = $task['view'];
 $viewState = '';
 $datecreate = date("d.m.Y", strtotime($task['datecreate']));
@@ -47,21 +51,15 @@ if ($id == $worker and $status == 'new' || $status == 'returned') {
     $viewer->execute();
 }
 
-if ($id != $worker and $id != $manager) {
-    echo "<script>document.location.href = '/tasks/'</script>";
+if ($id == $manager) {
+    $role = 'manager';
+} elseif ($id == $worker) {
+    $role = 'worker';
 } else {
-    if ($id == $worker) {
-        $role = 'worker';
-    }
-    if ($id == $manager) {
-        $role = 'manager';
-    }
-    if ($id == $worker and $id == $manager) {
-        $role = 'manager';
-    }
-
-    if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
-        $status = 'inwork';
-    }
+    header('Location: /tasks/');
+    exit();
 }
-
+ob_end_flush();
+if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
+    $status = 'inwork';
+}
