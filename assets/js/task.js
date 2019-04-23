@@ -221,4 +221,15 @@ $( "#inwork" ).click(function() {
 	dateControl.value = dated;
 
 
+	$('#filters').delegate('input:checkbox', 'change', function()
+	{
+		var $lis = $('.comment').hide();
+		//For each one checked
+		$('input:checked').each(function()
+		{
+			$lis.filter('.' + $(this).attr('rel')).show();
+		});
+	}).find('input:checkbox').change();
+
+
 });
