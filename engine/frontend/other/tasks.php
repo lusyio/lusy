@@ -1,18 +1,18 @@
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<div class="card">
-<table class="table table-hover" id="tasks">
-  <thead>
-    <tr>
-      <th scope="col"><?=$GLOBALS["_taskname"]?></th>
-      <th scope="col"><?=$GLOBALS["_taskworker"]?></th>
-      <th scope="col"><?=$GLOBALS["_taskmanager"]?></th>
-      <th scope="col"><?=$GLOBALS["_deadline"]?></th>
-      <th scope="col"><?=$GLOBALS["_status"]?></th>
-    </tr>
-  </thead>
-  <tbody>
-<?php 
+<!--<div class="card">-->
+<!--<table class="table table-hover" id="tasks">-->
+<!--  <thead>-->
+<!--    <tr>-->
+<!--      <th scope="col">--><?//=$GLOBALS["_taskname"]?><!--</th>-->
+<!--      <th scope="col">--><?//=$GLOBALS["_taskworker"]?><!--</th>-->
+<!--      <th scope="col">--><?//=$GLOBALS["_taskmanager"]?><!--</th>-->
+<!--      <th scope="col">--><?//=$GLOBALS["_deadline"]?><!--</th>-->
+<!--      <th scope="col">--><?//=$GLOBALS["_status"]?><!--</th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<?php
 	$i = 0;
 	foreach ($tasks as $n) {
 	$idtask = $n["id"];
@@ -26,24 +26,38 @@
 	$surnamem = DBOnce('surname','users','id='.$idmanager);
 	$datedone = $n["datedone"];
 	$i++;
- ?>	
-	<tr id="z_<?=$i?>">
-		<td>
-			<a href="/task/<?=$idtask?>/"><span class="card-title mb-3 border-primary"><?=$name?></span></a>
-		</td>
-		<td>
-			<a href="/profile/<?=$idworker?>/"><?=$namew.' '.$surnamew?></a>
-		</td>
-		<td>
-			<a href="/profile/<?=$idmanager?>/"><?=$namem.' '.$surnamem?></a>
-		</td>
-		<td><?=$datedone?></td>
-		<td><?=$GLOBALS["_$status"]?></td>
-	</tr>
+ ?>
+    <div class="col-md-12 p-0">
+        <div class="card mb-2 tasks">
+            <div class="card-body tasks-list">
+                <a id="idtask" href="/task/<?=$idtask?>/"><h6 class="card-title mb-2 border-danger"><span><?=$name?></span></h6></a>
+                <a class="d-table" href="/profile/<?=$idworker?>/"><?=$namew.' '.$surnamew?></a>
+                <a class="d-table" href="/profile/<?=$idmanager?>/"><?=$namem.' '.$surnamem?></a>
+                <div class="position-absolute date-status">
+                    <?=$datedone?>
+                    <?=$GLOBALS["_$status"]?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--	<tr id="z_--><?//=$i?><!--">-->
+<!--		<td>-->
+<!--			<a href="/task/--><?//=$idtask?><!--/"><span class="card-title mb-3 border-primary">--><?//=$name?><!--</span></a>-->
+<!--		</td>-->
+<!--		<td>-->
+<!--			<a href="/profile/--><?//=$idworker?><!--/">--><?//=$namew.' '.$surnamew?><!--</a>-->
+<!--		</td>-->
+<!--		<td>-->
+<!--			<a href="/profile/--><?//=$idmanager?><!--/">--><?//=$namem.' '.$surnamem?><!--</a>-->
+<!--		</td>-->
+<!--		<td>--><?//=$datedone?><!--</td>-->
+<!--		<td>--><?//=$GLOBALS["_$status"]?><!--</td>-->
+<!--	</tr>-->
 <?php }?>
-  </tbody>
+<!--  </tbody>-->
 </table>
-</div>
+<!--</div>-->
 <script>
 $(document).ready(function() {
     $('#tasks').DataTable({

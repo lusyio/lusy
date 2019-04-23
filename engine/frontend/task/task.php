@@ -92,7 +92,7 @@ if ($id == $worker and $view == 0) {
                         <div class="card-body">
                             <h2 class="<?=$statusBar[$status]['border']?>"><?=$nametask?></h2>
                             <p class="text-ligther"><?=$viewState?></p>
-                            <h6 class="text-ligther"><i class="far fa-calendar-times custom"></i>  <?=$datedone?> <?=$datepostpone?> <?=$GLOBALS["_$status"]?> </h6>
+                            <h6 class="text-ligther"><i class="far fa-calendar-times custom"> </i> <?=$datedone?> <?=$datepostpone?> <?=$GLOBALS["_$status"]?> </h6>
                             <div class="mt-5 mb-5 text-justify"><?=$description?></div>
                             <div id="control">
                                 <?php

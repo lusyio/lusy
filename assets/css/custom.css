@@ -86,6 +86,11 @@ body {
 
 }
 
+#idtask:hover{
+    text-decoration: none;
+    color: #202429;
+}
+
 /*.noty2.custom2 {*/
 /*    display: flex;*/
 /*    background: #f7f7f7;*/
@@ -102,6 +107,25 @@ body {
     margin: 5px;
     padding: 5px;
     color: rgba(0, 0, 0, 1);
+}
+
+.tasks-list{
+    height: 100px;
+    padding: 0.8rem;
+}
+
+.tasks{
+    border-radius: 8px;
+}
+
+.tasks:hover{
+    background-color: #f7f7f7;
+}
+
+.date-status{
+    right: 0;
+    top: 0;
+    margin: 0.8rem;
 }
 
 .comment.system{
