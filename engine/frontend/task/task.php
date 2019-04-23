@@ -40,34 +40,28 @@
                         </div>
                     </div>
 
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Лента (1)</a>
-                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Файлы (0)</a>
-                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Информация</a>
+<!--                    <nav>-->
+<!--                        <div class="nav nav-tabs" id="nav-tab" role="tablist">-->
+<!--                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Лента (1)</a>-->
+<!--                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Файлы (0)</a>-->
+<!--                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Информация</a>-->
 <!--                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-log" role="tab" aria-controls="nav-log" aria-selected="false">Журнал</a>-->
-                        </div>
-                    </nav>
+<!--                        </div>-->
+<!--                    </nav>-->
 
-                    <div class="tab-content bg-white p-3" id="nav-tabContent">
-                        <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <div class="row">
-                                <div class="col-sm-12 comin">
-                                    <input class="form-control" id="comin" name="comment" type="text" autocomplete="off" placeholder="<?=$GLOBALS["_writecomment"]?>..." required>
-                                    <button type="submit" id="comment" class="btn btn-primary" title="<?=$GLOBALS['_send']?>"><i class="fas fa-paper-plane"></i></button>
-                                </div>
+                <div class="tab-content bg-white p-3" id="nav-tabContent">
+                    <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="row">
+                            <div class="col-sm-12 comin">
+                                <input class="form-control" id="comin" name="comment" type="text" autocomplete="off" placeholder="<?=$GLOBALS["_writecomment"]?>..." required>
+                                <button type="submit" id="comment" class="btn btn-primary" title="<?=$GLOBALS['_send']?>"><i class="fas fa-paper-plane"></i></button>
                             </div>
-                            <div id="comments"></div>
                         </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                          файлы
-                        </div>
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                          информация
-                        </div>
-                        <div class="tab-pane fade" id="nav-log" role="tabpanel" aria-labelledby="nav-log-tab">
-                          журнал
-                        </div>
+<!--                        <div class="center-checkbox">-->
+<!--                            <input type="checkbox">Лента-->
+<!--                        </div>-->
+                        <div class="btn btn-outline-secondary mt-2" id="addFiles">Файлы</div>
+                        <div id="comments"></div>
                     </div>
               </div>
 	    </div>
@@ -80,4 +74,3 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
 
 
 <script src="/assets/js/task.js"></script>
-<script src="/assets/js/datepicker.js"></script>
