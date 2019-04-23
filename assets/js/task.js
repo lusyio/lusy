@@ -63,9 +63,28 @@ $(document).ready(function(){
 	// на рассмотрение
 	$( "#sendonreview" ).click(function() {
 		var text = $("#reportarea").val();
+		var attachedFile = $('input[type=file]').prop('files')[0];
+		var fd = new FormData();
+		fd.append('module', 'sendonreview');
+		fd.append('file', attachedFile);
+		fd.append('ajax', 'task-control');
+		fd.append('text', text);
+		fd.append('usp', $usp);
+		fd.append('it', $it);
 		if (text) {
-			$.post("/ajax.php", {module: 'sendonreview', text: text, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			$.ajax({
+				url: '/ajax.php',
+				type: 'POST',
+				cache: false,
+				processData: false,
+				contentType: false,
+				data: fd,
+				success: function(data){
+					controlUpdate(data)
+				},
+			});
 			function controlUpdate(data) {
+				console.log(data);
 				location.reload();
 			}
 		} else {

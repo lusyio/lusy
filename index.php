@@ -75,5 +75,22 @@ if (!empty($folder)) {
 }
 }
 
-include 'engine/backend/other/footer.php'; 
+function isUploadsTableExists()
+{
+    global $pdo;
+    $query = "SHOW TABLES LIKE 'uploads'";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+}
+if (!isUploadsTableExists()) {
+    global $pdo;
+    $query = 'create table uploads( file_id int auto_increment	primary key, file_name text not null, file_size int null, file_path text null, comment_id int null)';
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+}
+//$sql = 'create table uploads( file_id int auto_increment	primary key, file_name text not null, file_size int null, file_path text null, comment_id int null)';
+
+include 'engine/backend/other/footer.php';
 include 'engine/frontend/other/footer.php';

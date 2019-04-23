@@ -12,6 +12,27 @@ if($_POST['module'] == 'sendonreview') {
 
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'report', `view`=0 ,`datetime` = :datetime");
 	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$commentId = $pdo->lastInsertId();
+
+	if (count($_FILES) > 0) {
+		$dirName = 'upload/files/' . $idtask;
+		if (!realpath($dirName)) {
+			mkdir($dirName, 0777, true);
+		}
+		$text .= "\nПрикрепленные файлы";
+
+		$sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id) VALUES (:fileName, :fileSize, :filePath, :commentId)');
+		foreach ($_FILES as $file) {
+			$fileName = basename($file['name']);
+			$filePath = $dirName . '/'. $fileName;
+			var_dump($filePath);
+			var_dump($fileName);
+			$sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $commentId));
+			move_uploaded_file($file['tmp_name'], $filePath);
+		}
+	}
+
+
 
 	if ($sql) {
 		echo '<p>Успешно</p>';
