@@ -51,21 +51,15 @@ if ($id == $worker and $status == 'new' || $status == 'returned') {
     $viewer->execute();
 }
 
-if ($id != $worker and $id != $manager) {
-    echo "<script>document.location.href = '/tasks/'</script>";
+if ($id == $manager) {
+    $role = 'manager';
+} elseif ($id == $worker) {
+    $role = 'worker';
 } else {
-    if ($id == $worker) {
-        $role = 'worker';
-    }
-    if ($id == $manager) {
-        $role = 'manager';
-    }
-    if ($id == $worker and $id == $manager) {
-        $role = 'manager';
-    }
-
-    if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
-        $status = 'inwork';
-    }
+    header('Location: /tasks/');
+    exit();
 }
-
+ob_end_flush();
+if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
+    $status = 'inwork';
+}

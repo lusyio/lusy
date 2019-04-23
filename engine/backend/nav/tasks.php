@@ -1,4 +1,5 @@
 <?php
+ob_start();
 	if(empty($id)) {
 		$id = $GLOBALS["id"];
 	}
