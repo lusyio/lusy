@@ -198,8 +198,12 @@ $( "#inwork" ).click(function() {
 		curr_date = '0' + curr_date
 	}
 	dated = curr_year + "-" + curr_month + "-" + curr_date;
-	dateControl.min = dated;
-	dateControl.value = dated;
+	var element = document.getElementById("example-date-input");
+	if (!element){
+	}else {
+		dateControl.value = dated;
+		dateControl.min = dated;
+	}
 
 
 	$('#filters').delegate('input:checkbox', 'change', function()
