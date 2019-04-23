@@ -4,9 +4,11 @@
 
 
 <div class="postpone-manager">
+    <p class="text-ligther">
     <?=$workername?> <?=$workersurname?> запрашивает перенос срока на дату <?=$postponedate?>
+    </p>
     <div>
-        Причина:
+        <h5>Причина:</h5>
         <?=$request?>
     </div>
 </div>
