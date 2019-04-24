@@ -30,13 +30,13 @@
     <div class="col-md-12 p-0">
         <div class="card mb-2 tasks">
             <div class="card-body tasks-list">
-                <a id="idtask" href="/task/<?=$idtask?>/"><h6 class="card-title mb-2 border-danger"><span><?=$name?></span></h6></a>
+                <a id="idtask" href="/task/<?=$idtask?>/"><h6 class="card-title mb-2 border-left border-danger"><span><?=$name?></span></h6></a>
                 <a class="d-table" href="/profile/<?=$idworker?>/"><?=$namew.' '.$surnamew?></a>
                 <a class="d-table" href="/profile/<?=$idmanager?>/"><?=$namem.' '.$surnamem?></a>
-                <div class="position-absolute date-status">
-                    <?=$datedone?>
-                    <?=$GLOBALS["_$status"]?>
-                </div>
+                <span class="position-absolute date-status">
+                    <span class="text-ligther"><i class="far fa-calendar-times custom"> </i> <?=$datedone?></span>
+<!--                    <span>--><?//=$GLOBALS["_$status"]?><!--</span>-->
+                </span>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
 <!--	</tr>-->
 <?php }?>
 <!--  </tbody>-->
-</table>
+<!--</table>-->
 <!--</div>-->
 <script>
 $(document).ready(function() {
