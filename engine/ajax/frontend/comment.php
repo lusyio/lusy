@@ -6,7 +6,7 @@ $commentClass = [
     'returned' => 'report',
 ]
 ?>
-<div class="mb-3 comment <?= $commentClass[$c['status']] ?>" id="<?= $c['id'] ?>">
+<div class="mb-3 comment <?= $commentClass[$commentStatus] ?>" id="<?= $c['id'] ?>">
     <div class="position-relative">
         <span class="date"><?= $dc ?></span>
         <img src="/upload/avatar/<?= $c['iduser'] ?>.jpg" class="avatar mr-3">
