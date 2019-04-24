@@ -19,8 +19,10 @@ if ($countcomments > 0) {
         $dc = date("d", strtotime($c['datetime'])); // день из лога
         if ($d == $dc) { // сравниваем их, если равны, то писать только время
             $dc = date("H:i", strtotime($c['datetime']));
+            $isDeletable = true;
         } else {
             $dc = date("d.m H:i", strtotime($c['datetime']));
+            $isDeletable = false;
         }
         $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id FROM uploads WHERE comment_id=:commentId');
         $filesQuery->execute(array(':commentId' => $c['id']));
