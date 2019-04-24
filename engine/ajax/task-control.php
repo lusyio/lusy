@@ -147,11 +147,16 @@ if ($_POST['module'] == 'sendDate') {
  */
 function uploadAttachedFiles($type, $id)
 {
-	global $idtask;
 	global $pdo;
 	$types = ['task', 'comment'];
 	if (!in_array($type, $types)) {
 		return;
+	}
+
+	if ($type == 'comment') {
+		global $idtask;
+	} else {
+		$idtask = $id;
 	}
 
 	$dirName = 'upload/files/' . $idtask;
