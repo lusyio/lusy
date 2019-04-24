@@ -24,8 +24,8 @@ if ($countcomments > 0) {
             $dc = date("d.m H:i", strtotime($c['datetime']));
             $isDeletable = false;
         }
-        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id FROM uploads WHERE comment_id=:commentId');
-        $filesQuery->execute(array(':commentId' => $c['id']));
+        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
+        $filesQuery->execute(array(':commentId' => $c['id'], ':commentType' => 'comment'));
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
         include 'engine/ajax/frontend/comment.php';
     }
