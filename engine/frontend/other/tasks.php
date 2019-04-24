@@ -31,11 +31,19 @@
         <div class="card mb-2 tasks">
 
             <div class="card-body tasks-list" onclick="window.location='/task/<?=$idtask?>/';">
-                <a><h6 class="card-title mb-2 border-left border-danger"><span><?=$name?></span></h6></a>
-                <a class="d-block name-manager-tasks" href="/profile/<?=$idworker?>/"><?=$namew.' '.$surnamew?></a>
-                <a class="d-inline-block" href="/profile/<?=$idmanager?>/"><?=$namem.' '.$surnamem?></a>
-                <span class="d-inline-block icons-tasks"><i class="fas fa-comments custom-date"></i> </span>
-                <span class="d-inline-block icons-tasks"><i class="fas fa-file-upload custom-date"></i> </span>
+                <div class="d-block mb-1 border-left-tasks border-danger">
+                    <a><h6 class="card-title mb-2"><span><?=$name?></span></h6></a>
+                    <img src="/upload/avatar/2.jpg" class="avatar mr-1">
+                    <a class="name-manager-tasks" href="/profile/<?=$idworker?>/"><?=$namew.' '.$surnamew?></a>
+                </div>
+                <div class="d-inline-block">
+                    <img src="/upload/avatar/1.jpg" class="avatar mr-1">
+                    <a href="/profile/<?=$idmanager?>/"><?=$namem.' '.$surnamem?></a>
+                </div>
+                <div class="d-inline-block">
+                    <span class="icons-tasks"><i class="fas fa-comments custom-date"></i> </span>
+                    <span class="icons-tasks"><i class="fas fa-file-upload custom-date"></i> </span>
+                </div>
                 <div class="position-absolute date-status">
                     <span class="text-ligther"><i class="far fa-calendar-times custom"> </i> <?=$datedone?></span>
                 </div>

@@ -107,8 +107,15 @@ body {
 
 }
 
+.border-left-tasks{
+    border-left: 5px solid !important;
+    padding-left: 8px;
+    margin-left: -13px;
+}
+
 .br-8{
     border-radius: 8px;
+    margin-left: 30px;
 }
 
 .name-manager-tasks{
@@ -132,8 +139,8 @@ body {
 }
 
 .tasks-list{
-    height: 100px;
     padding: 0.8rem;
+    cursor: pointer;
 }
 
 .tasks{
@@ -142,6 +149,7 @@ body {
 
 .tasks:hover{
     background-color: #f7f7f7;
+    box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
 }
 
 .date-status{

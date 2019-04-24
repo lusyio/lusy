@@ -11,10 +11,10 @@
 	</div>
     <div class="row justify-content-center">
         <div class="col-sm-10 mb-2">
-            <form class="card card-sm br-8">
+            <form class="col-md-10 card card-sm br-8">
                 <div class="card-body row no-gutters align-items-center">
                     <div class="col-auto">
-                        <i class="fas fa-search custom-date"></i>
+                        <i class="mr-1 fas fa-search custom-date"></i>
                     </div>
                     <!--end of col-->
                     <div class="col">
@@ -22,7 +22,7 @@
                     </div>
                     <!--end of col-->
                     <div class="ml-1 col-auto">
-                        <button class="btn btn-sm btn-success" type="submit">Поиск</button>
+                        <button class="btn btn-sm btn-primary" type="submit">Поиск</button>
                     </div>
                     <!--end of col-->
                 </div>
