@@ -1,5 +1,5 @@
 
-
+<script type="text/javascript" src="/assets/js/tasks.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <!--<div class="card">-->

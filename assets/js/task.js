@@ -227,11 +227,11 @@ $( "#inwork" ).click(function() {
 
 	$('#filters').delegate('input:checkbox', 'change', function()
 	{
-		var $lis = $('.comment').hide();
+		var $lis = $('.comment').fadeOut();
 		//For each one checked
 		$('input:checked').each(function()
 		{
-			$lis.filter('.' + $(this).attr('rel')).show();
+			$lis.filter('.' + $(this).attr('rel')).fadeIn();
 		});
 	}).find('input:checkbox').change();
 
@@ -242,6 +242,10 @@ $( "#inwork" ).click(function() {
 		console.log(value);
 
 		});
+	$("#butn").click(function () {
+		alert("asd");
+
+	})
 
 		// var value = $(this).val().toLowerCase();
 		// $("#tasks-id *").filter(function() {
