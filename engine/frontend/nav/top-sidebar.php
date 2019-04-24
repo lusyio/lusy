@@ -18,18 +18,18 @@
                     <div class="col-auto">
                         <i class="mr-1 fas fa-search custom-date"></i>
                     </div>
-                    <!--end of col-->
+
                     <div class="col">
                         <input id="searchInput" class="form-control form-control-sm form-control-borderless" type="search" placeholder="Search topics or keywords" onkeyup="mySearchFunction()">
                     </div>
-                    <!--end of col-->
+
                 </div>
 <!--                <div class="checkbox-searsh">-->
 <!--                    <input type="checkbox" name="fl-cont" value="inwork" id="inwork" />В работе-->
 <!--                </div>-->
             </form>
         </div>
-        <!--end of col-->
+
     </div>
 <!--    <div>-->
 <!--        <form class="form-inline col-sm-8 float-right search-top-sidebar">-->

@@ -1,9 +1,10 @@
 <?php
 $commentClass = [
-    'comment' => 'comments',
+    'comment' => 'report',
     'system' => 'col-sm-6 system',
     'report' => 'report',
     'returned' => 'report',
+    'postpone' => 'report',
 ]
 ?>
 <div class="mb-3 comment <?= $commentClass[$c['status']] ?>" id="<?= $c['id'] ?>">

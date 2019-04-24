@@ -13,7 +13,7 @@
 
             <div class="block-checkbox"  id="filters">
                 <div class="center-checkbox col-sm-3">
-                    <input rel="comments" type="checkbox" checked><p class="d-inline">Лента</p>
+                    <input rel="comment" type="checkbox" checked><p class="d-inline">Лента</p>
                 </div>
 
                 <div class="center-checkbox col-sm-3">
