@@ -1,6 +1,5 @@
 <?php
 
-
 // отправка на проеврку
 
 if($_POST['module'] == 'sendonreview') {
@@ -15,22 +14,7 @@ if($_POST['module'] == 'sendonreview') {
 	$commentId = $pdo->lastInsertId();
 
 	if (count($_FILES) > 0) {
-		$dirName = 'upload/files/' . $idtask;
-		if (!realpath($dirName)) {
-			mkdir($dirName, 0777, true);
-		}
-
-        $sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType)');
-        foreach ($_FILES as $file) {
-            $fileName = basename($file['name']);
-            $hashName = md5_file($file['tmp_name']);
-            while (file_exists($dirName . '/' . $hashName)) {
-                $hashName = md5($hashName);
-            }
-            $filePath = $dirName . '/' . $hashName;
-            $sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $commentId, ':commentType' => 'comment'));
-            move_uploaded_file($file['tmp_name'], $filePath);
-        }
+		uploadAttachedFiles('comment', $commentId);
     }
 }
 
@@ -153,6 +137,39 @@ if ($_POST['module'] == 'sendDate') {
 	$text = "Новый срок: " . date("d.m", strtotime($datepostpone));
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+}
+
+/**
+ * Загружает каждый файл из массива _FILES в upload/files/
+ * и добавляет информацию о нем в бд в таблицу uploads
+ * @param string $type Type to which the files is attached: 'task' or 'comment'
+ * @param int $id Id of specified type event
+ */
+function uploadAttachedFiles($type, $id)
+{
+	global $idtask;
+	global $pdo;
+	$types = ['task', 'comment'];
+	if (!in_array($type, $types)) {
+		return;
+	}
+
+	$dirName = 'upload/files/' . $idtask;
+	if (!realpath($dirName)) {
+		mkdir($dirName, 0777, true);
+	}
+
+	$sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType)');
+	foreach ($_FILES as $file) {
+		$fileName = basename($file['name']);
+		$hashName = md5_file($file['tmp_name']);
+		while (file_exists($dirName . '/' . $hashName)) {
+			$hashName = md5($hashName);
+		}
+		$filePath = $dirName . '/' . $hashName;
+		$sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $id, ':commentType' => $type));
+		move_uploaded_file($file['tmp_name'], $filePath);
+	}
 }
 ?>
 
