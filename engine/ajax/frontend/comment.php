@@ -1,4 +1,12 @@
-<div class="mb-3 comment" id="<?= $c['id'] ?>">
+<?php
+$commentClass = [
+    'comment' => '',
+    'system' => '',
+    'report' => '',
+    'returned' => '',
+]
+?>
+<div class="mb-3 comment <?= $commentClass[$c['status']] ?>" id="<?= $c['id'] ?>">
     <div class="position-relative">
         <span class="date"><?= $dc ?></span>
         <img src="/upload/avatar/<?= $c['iduser'] ?>.jpg" class="avatar mr-3">
