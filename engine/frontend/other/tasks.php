@@ -13,25 +13,36 @@
 <!--  </thead>-->
 <!--  <tbody>-->
 <?php
+
+$borderColor = [
+    'new' => 'border-success',
+    'inwork' => 'border-primary',
+    'overdue' => 'border-danger',
+    'postpone' => '',
+    'pending' => 'border-warning',
+    'returned' => 'border-primary',
+    'done' => 'border-success',
+    'canceled' => '',
+];
 	$i = 0;
-	foreach ($tasks as $n) {
-	$idtask = $n["id"];
-	$idworker = $n["worker"];
-	$idmanager = $n["manager"];
-	$status = $n["status"];
-	$name = $n["name"];
-	$namew = DBOnce('name','users','id='.$idworker);
-	$surnamew = DBOnce('surname','users','id='.$idworker);
-	$namem = DBOnce('name','users','id='.$idmanager);
-	$surnamem = DBOnce('surname','users','id='.$idmanager);
-	$datedone = $n["datedone"];
-	$i++;
- ?>
+	foreach ($tasks as $n):
+        $idtask = $n["id"];
+        $idworker = $n["worker"];
+        $idmanager = $n["manager"];
+        $status = $n["status"];
+        $name = $n["name"];
+        $namew = DBOnce('name', 'users', 'id=' . $idworker);
+        $surnamew = DBOnce('surname', 'users', 'id=' . $idworker);
+        $namem = DBOnce('name', 'users', 'id=' . $idmanager);
+        $surnamem = DBOnce('surname', 'users', 'id=' . $idmanager);
+        $datedone = $n["datedone"];
+        $i++;
+        ?>
     <div class="col-md-12 p-0">
         <div class="card mb-2 tasks">
 
             <div class="card-body tasks-list" onclick="window.location='/task/<?=$idtask?>/';">
-                <div class="d-block mb-1 border-left-tasks border-danger">
+                <div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>>">
                     <a><h6 class="card-title mb-2"><span><?=$name?></span></h6></a>
                     <img src="/upload/avatar/2.jpg" class="avatar mr-1">
                     <a class="name-manager-tasks" href="/profile/<?=$idworker?>/"><?=$namew.' '.$surnamew?></a>
@@ -65,7 +76,7 @@
 <!--		<td>--><?//=$datedone?><!--</td>-->
 <!--		<td>--><?//=$GLOBALS["_$status"]?><!--</td>-->
 <!--	</tr>-->
-<?php }?>
+    <?php endforeach; ?>
 <!--  </tbody>-->
 <!--</table>-->
 <!--</div>-->
