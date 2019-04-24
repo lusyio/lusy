@@ -1,0 +1,2 @@
+<?php
+$testStorage = 'empty storage';
