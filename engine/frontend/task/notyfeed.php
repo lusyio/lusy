@@ -12,15 +12,15 @@
             </div>
 
             <div class="block-checkbox"  id="filters">
-                <div class="center-checkbox col-3">
-                    <input rel="comment" type="checkbox" checked><p class="d-inline">Лента</p>
+                <div class="center-checkbox col-sm-3">
+                    <input rel="comments" type="checkbox" checked><p class="d-inline">Лента</p>
                 </div>
 
-                <div class="center-checkbox col-3">
-                    <input rel="files" type="checkbox"><p class="d-inline">Файлы</p>
+                <div class="center-checkbox col-sm-3">
+                    <input rel="report" type="checkbox"><p class="d-inline">Репорты</p>
                 </div>
 
-                <div class="center-checkbox col-3">
+                <div class="center-checkbox col-sm-3">
                     <input rel="system" type="checkbox"><p class="d-inline">Система</p>
                 </div>
             </div>

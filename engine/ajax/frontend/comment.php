@@ -1,9 +1,9 @@
 <?php
 $commentClass = [
-    'comment' => '',
-    'system' => '',
-    'report' => '',
-    'returned' => '',
+    'comment' => 'comments',
+    'system' => 'col-sm-6 system',
+    'report' => 'report',
+    'returned' => 'report',
 ]
 ?>
 <div class="mb-3 comment <?= $commentClass[$c['status']] ?>" id="<?= $c['id'] ?>">
@@ -17,7 +17,7 @@ $commentClass = [
             </button>
         <?php endif; ?>
     </div>
-    <p class="mt-1 mb-4"><?= nl2br($c['comment']) ?></p>
+    <p class="mt-1 mb-2"><?= nl2br($c['comment']) ?></p>
     <?php if (count($files) > 0): ?>
         <p class="">Прикрепленнные файлы:</p>
         <?php foreach ($files as $file): ?>

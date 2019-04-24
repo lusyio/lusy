@@ -103,6 +103,23 @@ body {
 /*    border-radius: 5px;*/
 /*}*/
 
+.search-top-sidebar{
+
+}
+
+.br-8{
+    border-radius: 8px;
+}
+
+.name-manager-tasks{
+    width: max-content;
+}
+
+.icons-tasks{
+    margin-left: 5rem;
+
+}
+
 .comment{
     margin: 5px;
     padding: 5px;
@@ -134,12 +151,12 @@ body {
 }
 
 .comment.system{
+    font-size: 0.75rem ;
     background-color: #f7f7f7 !important;
     margin: 5px;
     border-radius: 10px;
-    padding: 0;
+    padding: 2px;
     color: rgba(0, 0, 0, 1);
-    width: 50%;
     margin-left: 25%;
 }
 

@@ -29,15 +29,18 @@
  ?>
     <div class="col-md-12 p-0">
         <div class="card mb-2 tasks">
-            <div class="card-body tasks-list">
-                <a id="idtask" href="/task/<?=$idtask?>/"><h6 class="card-title mb-2 border-left border-danger"><span><?=$name?></span></h6></a>
-                <a class="d-table" href="/profile/<?=$idworker?>/"><?=$namew.' '.$surnamew?></a>
-                <a class="d-table" href="/profile/<?=$idmanager?>/"><?=$namem.' '.$surnamem?></a>
-                <span class="position-absolute date-status">
+
+            <div class="card-body tasks-list" onclick="window.location='/task/<?=$idtask?>/';">
+                <a><h6 class="card-title mb-2 border-left border-danger"><span><?=$name?></span></h6></a>
+                <a class="d-block name-manager-tasks" href="/profile/<?=$idworker?>/"><?=$namew.' '.$surnamew?></a>
+                <a class="d-inline-block" href="/profile/<?=$idmanager?>/"><?=$namem.' '.$surnamem?></a>
+                <span class="d-inline-block icons-tasks"><i class="fas fa-comments custom-date"></i> </span>
+                <span class="d-inline-block icons-tasks"><i class="fas fa-file-upload custom-date"></i> </span>
+                <div class="position-absolute date-status">
                     <span class="text-ligther"><i class="far fa-calendar-times custom"> </i> <?=$datedone?></span>
-<!--                    <span>--><?//=$GLOBALS["_$status"]?><!--</span>-->
-                </span>
+                </div>
             </div>
+
         </div>
     </div>
 
