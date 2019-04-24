@@ -1,0 +1,34 @@
+RewriteEngine on
+php_value date.timezone "Europe/Moscow"
+#Включаем отслеживание сим-ссылок
+Options +FollowSymLinks
+#Запускаем url_rewriting
+RewriteEngine On
+#Блокируем все ссылки, содержащие <script>
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+#Блокируем все скрипты, которые пытаются изменить переменные PHP Globals:
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+#Блокируем все скрипты, которые пытаются изменить переменную _REQUEST:
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+#Перенаправляем все подобные на страницу с ошибкой 403 - запрещено
+
+RewriteRule ^(.*)$ index.php [F,L]
+
+
+<FilesMatch "\.(htaccess|htpasswd|ini|phps|fla|psd|log|sh|sql|inc)$">
+ Order Allow,Deny
+ Deny from all
+</FilesMatch>
+#перенаправление на скачивание файла
+RewriteRule ^upload/files/([-a-z0-9/]+)$ /index.php?file=$1 [L]
+RewriteRule ^task/([-a-z0-9]+)/$ /index.php?task=$1 [L]
+RewriteRule ^tasks/([-a-z0-9]+)/$ /index.php?tasks=$1 [L]
+RewriteRule ^profile/([-a-z0-9]+)/$ /index.php?profile=$1 [L]
+RewriteRule ^storage/$ /index.php?storage= [L]
+RewriteRule ^([-a-z0-9]+)/$ /index.php?folder=$1 [L]
+RewriteRule ^([-a-z0-9]+)/$ /index.php?profile=$1 [L]
+ErrorDocument 404 /err404.html
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Сделайте пакет «ea-php72» языком программирования «PHP» по умолчанию.
+

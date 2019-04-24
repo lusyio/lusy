@@ -1,6 +1,5 @@
 <?php
 
-
 // отправка на проеврку
 
 if($_POST['module'] == 'sendonreview') {
@@ -15,22 +14,7 @@ if($_POST['module'] == 'sendonreview') {
 	$commentId = $pdo->lastInsertId();
 
 	if (count($_FILES) > 0) {
-		$dirName = 'upload/files/' . $idtask;
-		if (!realpath($dirName)) {
-			mkdir($dirName, 0777, true);
-		}
-
-        $sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType)');
-        foreach ($_FILES as $file) {
-            $fileName = basename($file['name']);
-            $hashName = md5_file($file['tmp_name']);
-            while (file_exists($dirName . '/' . $hashName)) {
-                $hashName = md5($hashName);
-            }
-            $filePath = $dirName . '/' . $hashName;
-            $sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $commentId, ':commentType' => 'comment'));
-            move_uploaded_file($file['tmp_name'], $filePath);
-        }
+		uploadAttachedFiles('comment', $commentId);
     }
 }
 
@@ -72,11 +56,19 @@ if($_POST['module'] == 'workreturn') {
 	$idtask = $_POST['it'];
 	$datepostpone = $_POST['datepostpone'];
 	$text = $_POST['text'];
+
 	$text .= "\nНовый срок: " . date("d.m", strtotime($datepostpone));
+
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "returned", `view` = 0, `datepostpone` = :datepostpone WHERE id= :idtask');
 	$sql->execute(array('datepostpone' => $datepostpone, 'idtask' => $idtask));
+
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'returned', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$commentId = $pdo->lastInsertId();
+
+	if (count($_FILES) > 0) {
+		uploadAttachedFiles('comment', $commentId);
+	}
 }
 
 // Кнопка В работу для worker'a
@@ -153,6 +145,44 @@ if ($_POST['module'] == 'sendDate') {
 	$text = "Новый срок: " . date("d.m", strtotime($datepostpone));
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+}
+
+/**
+ * Загружает каждый файл из массива _FILES в upload/files/
+ * и добавляет информацию о нем в бд в таблицу uploads
+ * @param string $type Type to which the files is attached: 'task' or 'comment'
+ * @param int $id Id of specified type event
+ */
+function uploadAttachedFiles($type, $id)
+{
+	global $pdo;
+	$types = ['task', 'comment'];
+	if (!in_array($type, $types)) {
+		return;
+	}
+
+	if ($type == 'comment') {
+		global $idtask;
+	} else {
+		$idtask = $id;
+	}
+
+	$dirName = 'upload/files/' . $idtask;
+	if (!realpath($dirName)) {
+		mkdir($dirName, 0777, true);
+	}
+
+	$sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType)');
+	foreach ($_FILES as $file) {
+		$fileName = basename($file['name']);
+		$hashName = md5_file($file['tmp_name']);
+		while (file_exists($dirName . '/' . $hashName)) {
+			$hashName = md5($hashName);
+		}
+		$filePath = $dirName . '/' . $hashName;
+		$sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $id, ':commentType' => $type));
+		move_uploaded_file($file['tmp_name'], $filePath);
+	}
 }
 ?>
 
