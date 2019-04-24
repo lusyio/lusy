@@ -1,3 +1,5 @@
+
+
 <div class="col-sm-12 mt-3">
 	<div class="col-sm-2 float-left">
 		<?php $namec = $GLOBALS["namec"]; ?>
@@ -18,14 +20,13 @@
                     </div>
                     <!--end of col-->
                     <div class="col">
-                        <input id="searchInput" class="form-control form-control-sm form-control-borderless" type="search" placeholder="Search topics or keywords" onkeyup="myFunction()">
-                    </div>
-                    <!--end of col-->
-                    <div class="ml-1 col-auto">
-                        <button class="btn btn-sm btn-primary" type="submit">Поиск</button>
+                        <input id="searchInput" class="form-control form-control-sm form-control-borderless" type="search" placeholder="Search topics or keywords" onkeyup="mySearchFunction()">
                     </div>
                     <!--end of col-->
                 </div>
+<!--                <div class="checkbox-searsh">-->
+<!--                    <input type="checkbox" name="fl-cont" value="inwork" id="inwork" />В работе-->
+<!--                </div>-->
             </form>
         </div>
         <!--end of col-->
