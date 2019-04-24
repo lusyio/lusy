@@ -90,7 +90,41 @@ if (!isUploadsTableExists()) {
     $sql = $pdo->prepare($query);
     $sql->execute();
 }
-//$sql = 'create table uploads( file_id int auto_increment	primary key, file_name text not null, file_size int null, file_path text null, comment_id int null)';
+
+function isColumnCommentTypeExist()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `uploads`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'comment_type') {
+            return true;
+        }
+    }
+    return false;
+}
+
+function addColumnCommentType()
+{
+    global $pdo;
+    $sql = 'alter table `uploads` add `comment_type` text not null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+function fillColumnCommentType()
+{
+    global $pdo;
+    $sql = 'update `uploads` set `comment_type` = "comment"';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
+if (!isColumnCommentTypeExist()) {
+    addColumnCommentType();
+    fillColumnCommentType();
+}
 
 include 'engine/backend/other/footer.php';
 include 'engine/frontend/other/footer.php';

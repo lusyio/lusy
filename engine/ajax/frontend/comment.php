@@ -1,9 +1,17 @@
-<div class="mb-3 comment" id="<?= $c['id'] ?>">
+<?php
+$commentClass = [
+    'comment' => '',
+    'system' => '',
+    'report' => '',
+    'returned' => '',
+]
+?>
+<div class="mb-3 comment <?= $commentClass[$c['status']] ?>" id="<?= $c['id'] ?>">
     <div class="position-relative">
         <span class="date"><?= $dc ?></span>
         <img src="/upload/avatar/<?= $c['iduser'] ?>.jpg" class="avatar mr-3">
         <a href="/profile/<?= $c['iduser'] ?>/" class="font-weight-bold"><?= $nameuser ?> <?= $surnameuser ?></a>
-        <?php if ($d == $dc and $id == $c['iduser'] and $c['status'] == 'comment'): ?>
+        <?php if ($isDeletable && $id == $c['iduser'] && $c['status'] == 'comment'): ?>
             <button type="button" value="#<?= $c['id'] ?>" class="btn btn-link text-danger delc">
                 <i class="fas fa-times"></i>
             </button>

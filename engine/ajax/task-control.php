@@ -21,13 +21,13 @@ if($_POST['module'] == 'sendonreview') {
 		}
 		$text .= "\nПрикрепленные файлы";
 
-		$sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id) VALUES (:fileName, :fileSize, :filePath, :commentId)');
+		$sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType)');
 		foreach ($_FILES as $file) {
 			$fileName = basename($file['name']);
 			$filePath = $dirName . '/'. $fileName;
 			var_dump($filePath);
 			var_dump($fileName);
-			$sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $commentId));
+			$sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $commentId, ':commentType' => 'comment'));
 			move_uploaded_file($file['tmp_name'], $filePath);
 		}
 	}
