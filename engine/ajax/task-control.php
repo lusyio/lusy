@@ -19,24 +19,19 @@ if($_POST['module'] == 'sendonreview') {
 		if (!realpath($dirName)) {
 			mkdir($dirName, 0777, true);
 		}
-		$text .= "\nПрикрепленные файлы";
 
-		$sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType)');
-		foreach ($_FILES as $file) {
-			$fileName = basename($file['name']);
-			$filePath = $dirName . '/'. $fileName;
-			var_dump($filePath);
-			var_dump($fileName);
-			$sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $commentId, ':commentType' => 'comment'));
-			move_uploaded_file($file['tmp_name'], $filePath);
-		}
-	}
-
-
-
-	if ($sql) {
-		echo '<p>Успешно</p>';
-	}
+        $sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType)');
+        foreach ($_FILES as $file) {
+            $fileName = basename($file['name']);
+            $hashName = md5_file($file['tmp_name']);
+            while (file_exists($dirName . '/' . $hashName)) {
+                $hashName = md5($hashName);
+            }
+            $filePath = $dirName . '/' . $hashName;
+            $sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $commentId, ':commentType' => 'comment'));
+            move_uploaded_file($file['tmp_name'], $filePath);
+        }
+    }
 }
 
 if($_POST['module'] == 'sendpostpone') {
@@ -57,7 +52,6 @@ if($_POST['module'] == 'sendpostpone') {
 }
 
 
-
 // Кнопка принять для worker'a
 
 if($_POST['module'] == 'workdone') {
@@ -65,7 +59,7 @@ if($_POST['module'] == 'workdone') {
 	$idtask = $_POST['it'];
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "done", `report` = :report WHERE id='.$idtask);
 	$sql->execute(array('report' => $now));
-	
+
 	// if ($sql) {
 	// 	echo '<p>Успешно</p>';
 	// }
@@ -92,7 +86,7 @@ if($_POST['module'] == 'inwork') {
 	$idtask = $_POST['it'];
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "new" WHERE id='.$idtask);
 	$sql->execute();
-	
+
 	// if ($sql) {
 	// 	echo '<p>Успешно</p>';
 	// }
@@ -109,7 +103,7 @@ if($_POST['module'] == 'createTask') {
 	$dbh = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status,  manager, worker, idcompany, report, view) VALUES (:name, :description,'".$now."', :datedone, NULL, 'new', '".$id."', :worker, '".$idc."', :description, '0') ";
 	$sql = $pdo->prepare($dbh);
 	$sql->execute(array('name' => $name, 'description' => $description, 'worker' => $worker, 'datedone' => $datedone));
-	
+
 	if ($sql) {
 		$idtask = $pdo->lastInsertId();
 		if (!empty($idtask)) {

@@ -147,4 +147,4 @@ fabric.properties
 # End of https://www.gitignore.io/api/phpstorm
 .idea/workspace.xml
 
-uploads/files/
+upload/files/
