@@ -56,11 +56,19 @@ if($_POST['module'] == 'workreturn') {
 	$idtask = $_POST['it'];
 	$datepostpone = $_POST['datepostpone'];
 	$text = $_POST['text'];
+
 	$text .= "\nНовый срок: " . date("d.m", strtotime($datepostpone));
+
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "returned", `view` = 0, `datepostpone` = :datepostpone WHERE id= :idtask');
 	$sql->execute(array('datepostpone' => $datepostpone, 'idtask' => $idtask));
+
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'returned', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$commentId = $pdo->lastInsertId();
+
+	if (count($_FILES) > 0) {
+		uploadAttachedFiles('comment', $commentId);
+	}
 }
 
 // Кнопка В работу для worker'a
