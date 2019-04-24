@@ -20,7 +20,7 @@ $borderColor = [
     'new' => 'border-success',
     'inwork' => 'border-primary',
     'overdue' => 'border-danger',
-    'postpone' => '',
+    'postpone' => 'border-warning',
     'pending' => 'border-warning',
     'returned' => 'border-primary',
     'done' => 'border-success',
@@ -40,9 +40,9 @@ $borderColor = [
         $datedone = $n["datedone"];
         $i++;
         ?>
-    <div class="col-md-12 p-0">
+    <div id="tasks-id" class="col-md-12 p-0">
         <div class="card mb-2 tasks">
-            <div id="tasks-id" class="card-body tasks-list" onclick="window.location='/task/<?=$idtask?>/';">
+            <div class="card-body tasks-list" onclick="window.location='/task/<?=$idtask?>/';">
                 <div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>">
                     <a><h6 class="card-title mb-2"><span><?=$name?></span></h6></a>
                     <img src="/upload/avatar/2.jpg" class="avatar mr-1">
@@ -54,7 +54,7 @@ $borderColor = [
                 </div>
                 <div class="d-inline-block">
                     <span class="icons-tasks"><i class="fas fa-comments custom-date"></i> </span>
-                    <span class="icons-tasks"><i class="fas fa-file-upload custom-date"></i> </span>
+                    <span class="icons-tasks"><i class="fas fa-file custom-date"></i> </span>
                 </div>
                 <div class="position-absolute date-status">
                     <span class="text-ligther"><i class="far fa-calendar-times custom"> </i> <?=$datedone?></span>

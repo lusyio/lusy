@@ -20,16 +20,14 @@
                     </div>
 
                     <div class="col">
-                        <input id="searchInput" class="form-control form-control-sm form-control-borderless" type="search" placeholder="Search topics or keywords" onkeyup="mySearchFunction()">
+                        <input id="searchInput" class="form-control form-control-sm form-control-borderless" type="text" placeholder="Search topics or keywords">
                     </div>
-
                 </div>
 <!--                <div class="checkbox-searsh">-->
 <!--                    <input type="checkbox" name="fl-cont" value="inwork" id="inwork" />В работе-->
 <!--                </div>-->
             </form>
         </div>
-
     </div>
 <!--    <div>-->
 <!--        <form class="form-inline col-sm-8 float-right search-top-sidebar">-->

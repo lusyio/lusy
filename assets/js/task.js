@@ -235,27 +235,18 @@ $( "#inwork" ).click(function() {
 		});
 	}).find('input:checkbox').change();
 
-	function mySearchFunction() {
-		// Declare variables
-		var input, filter, table, a, span, i, txtValue;
-		input = document.getElementById("searchInput");
-		filter = input.value.toUpperCase();
-		table = document.getElementById("tasks-id");
-		a = table.getElementsByTagName("a");
+	$("#searchInput").on("keyup", function() {
+		var value = $(this).val();
+		$(".text-justify").hide();
+		$(".text-justify:contains("+value+")").show();
+		console.log(value);
 
-		// Loop through all table rows, and hide those who don't match the search query
-		for (i = 0; i < tr.length; i++) {
-			span = tr[i].getElementsByTagName("span")[0];
-			if (span) {
-				txtValue = span.textContent || span.innerText;
-				if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					a[i].style.display = "";
-				} else {
-					a[i].style.display = "none";
-				}
-			}
-		}
-	}
+		});
+
+		// var value = $(this).val().toLowerCase();
+		// $("#tasks-id *").filter(function() {
+		// 	$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
 
 
 
