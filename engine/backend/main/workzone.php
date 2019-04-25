@@ -22,8 +22,14 @@ if (!empty($_GET['storage'])) {
     inc('other', 'storage');
 }
 
-if (!empty($url)) {
-    inc('other', $url);
+
+if (!empty($_GET['mail'])) {
+    inc('other', 'conversation');
+}
+
+if(!empty($url)) {
+	inc('other',$url);
+
 } else {
     inc('other', 'dashboard');
 }

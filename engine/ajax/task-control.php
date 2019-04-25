@@ -156,6 +156,7 @@ if ($_POST['module'] == 'sendDate') {
 function uploadAttachedFiles($type, $id)
 {
 	global $pdo;
+	global $idc;
 	$types = ['task', 'comment'];
 	if (!in_array($type, $types)) {
 		return;
@@ -172,7 +173,7 @@ function uploadAttachedFiles($type, $id)
 		mkdir($dirName, 0777, true);
 	}
 
-	$sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType)');
+	$sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type, company_id, is_deleted) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType, :companyId, :isDeleted)');
 	foreach ($_FILES as $file) {
 		$fileName = basename($file['name']);
 		$hashName = md5_file($file['tmp_name']);
@@ -180,7 +181,7 @@ function uploadAttachedFiles($type, $id)
 			$hashName = md5($hashName);
 		}
 		$filePath = $dirName . '/' . $hashName;
-		$sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $id, ':commentType' => $type));
+		$sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $id, ':commentType' => $type, ':companyId' => $idc, ':isDeleted' => 0));
 		move_uploaded_file($file['tmp_name'], $filePath);
 	}
 }

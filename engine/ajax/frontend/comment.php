@@ -22,7 +22,7 @@ $commentClass = [
     <?php if (count($files) > 0): ?>
         <p class="">Прикрепленнные файлы:</p>
         <?php foreach ($files as $file): ?>
-            <a class="" href="../../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a>
+            <p class="mt-1 mb-2"><a class="" href="../../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a></p>
         <?php endforeach; ?>
     <?php endif; ?>
 </div>

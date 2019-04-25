@@ -60,6 +60,7 @@ $RECYCLE.BIN/
 
 
 
+
 .idea/
 
 ### PhpStorm ###
@@ -148,3 +149,7 @@ fabric.properties
 .idea/workspace.xml
 
 upload/files/
+
+# PhpStorm directory
+.idea
+
