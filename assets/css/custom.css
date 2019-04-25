@@ -91,6 +91,7 @@ body {
     color: #202429;
 }
 
+
 /*.noty2.custom2 {*/
 /*    display: flex;*/
 /*    background: #f7f7f7;*/
@@ -115,7 +116,7 @@ body {
 
 .br-8{
     border-radius: 8px;
-    margin-left: 30px;
+    margin-left: 4%;
 }
 
 .name-manager-tasks{
@@ -154,7 +155,7 @@ body {
 
 .date-status{
     right: 0;
-    top: 0;
+    top: 18%;
     margin: 0.8rem;
 }
 
@@ -165,9 +166,28 @@ body {
     border-radius: 10px;
     padding: 2px;
     color: rgba(0, 0, 0, 1);
-    margin-left: 25%;
+    margin-left: auto;
+    margin-right: auto;
     color: #c6c9db;
     
+}
+
+
+
+
+.words-search{
+    background-color: #f7f7f7;
+    text-align: center;
+    color: #898989;
+    font-size: 13px;
+    padding: 2px !important;
+    width: max-content;
+}
+
+.words-search:hover{
+    background-color: #e4e4e4;
+    text-align: center;
+    color: #898989;
 }
 
 .block-checkbox{

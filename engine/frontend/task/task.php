@@ -64,7 +64,7 @@ $statusBar = [
         'ic3' => 'fas fa-check',
     ],
     'canceled' => [
-        'border' => '',
+        'border' => 'border-secondary',
         'bg1' => 'bg-custom-color',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-danger',

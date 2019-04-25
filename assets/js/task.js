@@ -225,8 +225,7 @@ $( "#inwork" ).click(function() {
 	}
 
 
-	$('#filters').delegate('input:checkbox', 'change', function()
-	{
+	$('#filters').delegate('input:checkbox', 'change', function() {
 		var $lis = $('.comment').fadeOut();
 		//For each one checked
 		$('input:checked').each(function()
@@ -234,22 +233,6 @@ $( "#inwork" ).click(function() {
 			$lis.filter('.' + $(this).attr('rel')).fadeIn();
 		});
 	}).find('input:checkbox').change();
-
-	$("#searchInput").on("keyup", function() {
-		var value = $(this).val();
-		$(".text-justify").hide();
-		$(".text-justify:contains("+value+")").show();
-		console.log(value);
-
-		});
-	$("#butn").click(function () {
-		alert("asd");
-
-	})
-
-		// var value = $(this).val().toLowerCase();
-		// $("#tasks-id *").filter(function() {
-		// 	$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 
 
 
