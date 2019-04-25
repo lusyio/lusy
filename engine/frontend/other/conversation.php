@@ -1,9 +1,12 @@
 <div class="card">
     <div class="card-header">
-        <h4 class="mb-0">Name</h4>
+        <h4 class="mb-0"><?= fiomess($recipientId) ?></h4>
     </div>
     <div class="card-body">
-        <p>There is no messages</p>
+        <?php foreach ($messages as $message): ?>
+            <p><?= $message['author'] ?> (<?= $message['datetime'] ?>):</p>
+            <p><?= $message['mes'] ?></p>
+        <?php endforeach; ?>
     </div>
 </div>
 
