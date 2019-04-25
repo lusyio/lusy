@@ -21,7 +21,7 @@ $messages = getMessages($id, $recipientId);
 function getMessages($userId, $interlocutorId)
 {
     global $pdo;
-    $query = "SELECT message_id, mes, sender, recipient, datetime FROM `mail` WHERE `sender` IN (:userId, :interlocutorId) OR `recipient` IN (:userId, :interlocutorId) ORDER BY `datetime`";
+    $query = "SELECT message_id, mes, sender, recipient, datetime FROM `mail` WHERE (`sender` = :userId AND `recipient` = :interlocutorId) OR (`sender` = :interlocutorId AND `recipient` = :userId) ORDER BY `datetime`";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':userId' => $userId, ':interlocutorId' => $interlocutorId));
     $result = $dbh->fetchAll(PDO::FETCH_ASSOC);

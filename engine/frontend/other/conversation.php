@@ -3,10 +3,14 @@
         <h4 class="mb-0"><?= fiomess($recipientId) ?></h4>
     </div>
     <div class="card-body">
-        <?php foreach ($messages as $message): ?>
-            <p><?= $message['author'] ?> (<?= $message['datetime'] ?>):</p>
-            <p><?= $message['mes'] ?></p>
-        <?php endforeach; ?>
+        <?php if (!isset($messages)): ?>
+            <?php foreach ($messages as $message): ?>
+                <p><?= $message['author'] ?> (<?= $message['datetime'] ?>):</p>
+                <p><?= $message['mes'] ?></p>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Нет сообщений</p>
+        <?php endif; ?>
     </div>
 </div>
 
