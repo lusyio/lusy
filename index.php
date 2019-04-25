@@ -105,7 +105,6 @@ function isColumnCommentTypeExist()
     }
     return false;
 }
-
 function addColumnCommentType()
 {
     global $pdo;
@@ -126,5 +125,77 @@ if (!isColumnCommentTypeExist()) {
     fillColumnCommentType();
 }
 
+function isColumnCompanyIdExist()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `uploads`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'company_id') {
+            return true;
+        }
+    }
+    return false;
+}
+
+function addColumnCompanyId()
+{
+    global $pdo;
+    $sql = 'alter table uploads add company_id int not null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+//заполняет все строки значением '2'
+function fillColumnCompanyId()
+{
+    global $pdo;
+    $sql = 'update `uploads` set `company_id` = 2';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
+if (!isColumnCompanyIdExist()) {
+    addColumnCompanyId();
+    fillColumnCompanyId();
+}
+
+function isColumnIsDeletedExist()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `uploads`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'is_deleted') {
+            return true;
+        }
+    }
+    return false;
+}
+
+function addColumnIsDeleted()
+{
+    global $pdo;
+    $sql = 'alter table uploads add is_deleted int not null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+//заполняет все строки значением '0'
+function fillColumnIsDeleted()
+{
+    global $pdo;
+    $sql = 'update `uploads` set `is_deleted` = 0';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
+if (!isColumnIsDeletedExist()) {
+    addColumnIsDeleted();
+    fillColumnIsDeleted();
+}
+//alter table uploads add is_deleted tinyint(1) default 0 not null;
 include 'engine/backend/other/footer.php';
 include 'engine/frontend/other/footer.php';
