@@ -3,7 +3,7 @@
         <h4 class="mb-0"><?= fiomess($recipientId) ?></h4>
     </div>
     <div class="card-body">
-        <?php if (!isset($messages)): ?>
+        <?php if ($messages): ?>
             <?php foreach ($messages as $message): ?>
                 <p><?= $message['author'] ?> (<?= $message['datetime'] ?>):</p>
                 <p><?= $message['mes'] ?></p>
