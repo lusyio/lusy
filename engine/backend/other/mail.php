@@ -4,22 +4,8 @@ global $datetime;
 global $id;
 global $idc;
 
-
-
-if (!empty($_POST['mes']) and !empty($_POST['recipient'])) {
-		$dbh = "INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:mes, :sender, :recipient, :datetime) ";
- 		$sql = $pdo->prepare($dbh);
- 		$sql->execute(array('mes' => $_POST['mes'], 'sender' => $id, 'recipient' => $_POST['recipient'], 'datetime' => $datetime));	
- 		
- 		if ($sql) {
-	 		echo 'Отправлено';
- 		}
-}
-
-
-
 $messages = DB('*','mail','sender = '.$id.' or recipient = '.$id. ' ORDER BY `datetime` DESC');
-
+$userList = DB('id, name, surname', 'users', 'idcompany = '. $idc . ' AND id !=' . $id);
 $dialog = [];
 
 foreach ($messages as $n) {

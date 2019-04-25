@@ -37,6 +37,18 @@
 	
 	<?php } ?>
 	</div>
+</div>
+<div class="card mt-3">
+    <div class="card-header">
+        <h4 class="mb-0">Позьзователи</h4>
+    </div>
+    <div class="list-group">
+        <?php foreach ($userList as $user): ?>
+            <a href="./<?= $user['id'] ?>/" class="list-group-item list-group-item-action border-0">
+                <p class="font-weight-bold"><?= $user['name'] . ' ' . $user['surname'] ?></p>
+            </a>
+        <?php endforeach; ?>
+    </div>
 	
 </div>
 
