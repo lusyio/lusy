@@ -18,7 +18,7 @@ if (!empty($_POST['mes']) and !empty($_POST['recipient'])) {
 
 
 
-$messages = DB('*','mail','sender = '.$id.' or recipient = '.$id);
+$messages = DB('*','mail','sender = '.$id.' or recipient = '.$id. ' ORDER BY `datetime` DESC');
 
 $dialog = [];
 
