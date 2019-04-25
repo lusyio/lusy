@@ -18,6 +18,10 @@ if (!empty($_GET['profile'])) {
 	inc('other','profile');
 }
 
+if (!empty($_GET['mail'])) {
+    inc('other', 'conversation');
+}
+
 if(!empty($url)) {
 	inc('other',$url);
 } else {

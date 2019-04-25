@@ -6,6 +6,16 @@
 			if (!empty($_GET['task']) or !empty($_GET['tasks'])) {
 				$title = 'Задача';
 			}
+			if (!empty($_GET['mail']))
+            {
+                $recipientIdc = DBOnce('idcompany', 'users', 'id=' . $_GET['mail']);
+                if ($idc == $recipientIdc || $id == $_GET['mail']) {
+                    $title = 'Сообщения';
+                } else {
+                    header('location: /mail/');
+                    die();
+                }
+            }
 			if (!empty($_GET['profile'])) {
 				$title = DBOnce('name','users','id='.$_GET["profile"]) . ' ' . DBOnce('surname','users','id='.$_GET["profile"]);
 			}
