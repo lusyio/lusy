@@ -16,7 +16,7 @@
     <div class="row justify-content-center">
         <div class="col-sm-10 mb-2">
             <div class="col-md-10 card card-sm br-8">
-                <form class="card-body row no-gutters align-items-center pb-1">
+                <div class="card-body row no-gutters align-items-center pb-1">
                     <div class="col-auto">
                         <i class="mr-1 fas fa-search custom-date"></i>
                     </div>
@@ -27,7 +27,7 @@
                         <span>Поиск</span>
                     </div>
 
-                </form>
+                </div>
 
                 <div class="d-inline-block mb-2 ml-5">
                     <div id="inworkSearch" rel="inwork" class="btn btn-secondary words-search">
@@ -42,7 +42,7 @@
                     <div id="managerSearch" rol="manager" class="btn btn-secondary words-search">
                         <span>Manager</span>
                     </div>
-                    <div id="workerSearch" role="worker" class="btn btn-secondary words-search">
+                    <div id="workerSearch" rol="worker" class="btn btn-secondary words-search">
                         <span>Worker</span>
                     </div>
                 </div>

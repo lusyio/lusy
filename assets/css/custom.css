@@ -172,8 +172,10 @@ body {
     
 }
 
-
-
+.words-search.active {
+    color: #f7f7f7 !important;
+    background-color: #898989 !important;
+}
 
 .words-search{
     background-color: #f7f7f7;
@@ -182,6 +184,12 @@ body {
     font-size: 13px;
     padding: 2px !important;
     width: max-content;
+}
+
+.words-search:active{
+    background-color: #e4e4e4;
+    text-align: center;
+    color: #898989;
 }
 
 .words-search:hover{
