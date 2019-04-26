@@ -12,17 +12,17 @@ $query = "SELECT t.id, t.name, t.datedone, t.datepostpone, t.manager, u1.surname
 
 if (sizeof($statusList) > 0 && validateStatuses($statusList)) {
     $filters = implode(', ', $statusList);
-    $queryBase .= " AND status IN (" . $filters . ")";
+    $query .= " AND status IN (" . $filters . ")";
 }
 
 if (sizeof($roleList) > 0 && validateRoles($roleList)) {
     foreach ($roleList as $role) {
         if ($role == 'worker') {
-            $queryBase .= " AND worker=:userId";
+            $query .= " AND worker=:userId";
             $dbhValues[':userId'] = $id;
         }
         if ($role == 'manager') {
-            $queryBase .= " AND manager=:userId";
+            $query .= " AND manager=:userId";
             $dbhValues[':userId'] = $id;
         }
     }
