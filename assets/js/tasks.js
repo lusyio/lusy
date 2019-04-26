@@ -109,29 +109,40 @@ $(document).ready(function(){
     var searchField;
     var statuses = [];
     var roles = [];
+    data.role = roles;
     // filters.status = val;
-    data.status = filters;
+    data.status = statuses;
 
 
     var wordsSearch =  $(".words-search").click(function () {
 
-        if($(this).hasClass('active')){
-            $(this).removeClass('active')
-        } else {
-            $(this).addClass('active')
-        }
-
         data.query = "";
         val = $(this).attr("rel");
         vol = $(this).attr("rol");
-        if (vol !== undefined){
-            roles.push(vol);
+
+        if($(this).hasClass('active')){
+            $(this).removeClass('active');
+            if (vol !== undefined){
+                roles.splice(vol);
+            }
+            if (val !== undefined){
+                statuses.splice(val);
+            }
+
+        } else {
+            $(this).addClass('active');
+            if (vol !== undefined){
+                roles.push(vol);
+            }
+            if (val !== undefined){
+                statuses.push(val);
+            }
         }
-        if (val !== undefined){
-            statuses.push(val);
-        }
-        data.status = statuses;
-        data.role = roles;
+
+
+
+        // data.status = statuses;
+        // data.role = roles;
         console.log(data);
 
 
@@ -140,8 +151,6 @@ $(document).ready(function(){
 
 
     $( "#searchButton" ).click(function() {
-
-        // var test = $("#searchInput").val();
 
         console.log(data);
 
