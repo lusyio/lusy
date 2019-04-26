@@ -3,6 +3,7 @@
 <script type="text/javascript" src="/assets/js/tasks.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<div id="taskBox">
 <?php
 
 $borderColor = [
@@ -29,7 +30,7 @@ $borderColor = [
         $datedone = $n["datedone"];
         $i++;
         ?>
-        <div id="taskBox">
+
             <div class="col-md-12 p-0" id="taskstop">
                 <div class="card mb-2 tasks <?= $status ?>">
                     <div class="card-body tasks-list" onclick="window.location='/task/<?= $idtask ?>/';">
@@ -54,11 +55,9 @@ $borderColor = [
                     </div>
                 </div>
             </div>
-        </div>
-
-
+    
     <?php endforeach; ?>
-
+</div>
 <script>
 $(document).ready(function() {
     $('#tasks').DataTable({
