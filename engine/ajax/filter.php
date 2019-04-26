@@ -4,7 +4,7 @@ global $datetime;
 global $id;
 global $idc;
 
-$queryFromFront = json_decode($_POST['query'], true);
+$queryFromFront = json_decode($_POST['data'], true);
 $text = $queryFromFront['query'];
 $statusList = $queryFromFront['status'];
 $roleList = $queryFromFront['role'];
