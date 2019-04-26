@@ -36,13 +36,13 @@
                     <div id="pendingSearch" rel="pending" class="btn btn-secondary words-search">
                         <span>Pending</span>
                     </div>
-                    <div id="postponeSearch" class="btn btn-secondary words-search">
+                    <div id="postponeSearch" rel="postpone" class="btn btn-secondary words-search">
                         <span>Postpone</span>
                     </div>
-                    <div id="managerSearch" class="btn btn-secondary words-search" onclick="window.location='/tasks/inbox/';">
+                    <div id="managerSearch" rol="manager" class="btn btn-secondary words-search">
                         <span>Manager</span>
                     </div>
-                    <div id="workerSearch" class="btn btn-secondary words-search" onclick="window.location='/tasks/outbox/';">
+                    <div id="workerSearch" role="worker" class="btn btn-secondary words-search">
                         <span>Worker</span>
                     </div>
                 </div>
