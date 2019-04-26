@@ -29,7 +29,7 @@ $borderColor = [
         $datedone = $n["datedone"];
         $i++;
         ?>
-    <div class="col-md-12 p-0">
+    <div class="col-md-12 p-0 taskstop">
         <div class="card mb-2 tasks <?=$status?>">
             <div class="card-body tasks-list" onclick="window.location='/task/<?=$idtask?>/';">
                 <div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>">

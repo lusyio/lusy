@@ -119,10 +119,12 @@ $(document).ready(function(){
     });
 
     function updateResults(data) {
-        $(".tasks").hide();
-        $(".tasks").append($('<div>', {
 
-        }));
+        $(".taskstop").hide();
+        console.log(data.length);
+        for (var i =0; i<3; ++i) {
+            $(".tasks").append('<div class="tasks"> asdsd </div>');
+        }
 
         console.log(data);
 
