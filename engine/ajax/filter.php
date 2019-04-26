@@ -15,6 +15,10 @@ if (sizeof($statusList) > 0 && validateStatuses($statusList)) {
     var_dump($filters);
     $query .= " AND t.status IN ('" . $filters . "')";
 }
+$dbhValues = [
+    ':companyId' => $idc,
+    ':text' => '%' . $text . '%',
+];
 
 if (sizeof($roleList) > 0 && validateRoles($roleList)) {
     foreach ($roleList as $role) {
@@ -28,11 +32,8 @@ if (sizeof($roleList) > 0 && validateRoles($roleList)) {
         }
     }
 }
+
 $dbh = $pdo->prepare($query);
-$dbhValues = [
-    ':companyId' => $idc,
-    ':text' => '%' . $text . '%',
-];
 $dbh->execute($dbhValues);
 $resultData = $dbh->fetchAll(PDO::FETCH_ASSOC);
 
