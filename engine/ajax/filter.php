@@ -11,23 +11,23 @@ $roleList = $queryFromFront['role'];
 $query = "SELECT t.id, t.name, t.datedone, t.datepostpone, t.manager, u1.surname AS surnamem, u1.name AS namem, u2.surname AS surnamew, u2.name AS namew, t.worker, t.status FROM tasks t LEFT JOIN users u1 ON t.manager=u1.id LEFT JOIN users u2 ON t.worker=u2.id WHERE t.idcompany=:companyId AND t.name LIKE :text";
 
 if (sizeof($statusList) > 0 && validateStatuses($statusList)) {
-    $filters = implode(', ', $statusList);
-    $query .= " AND status IN (" . $filters . ")";
+    $filters = implode("', '", $statusList);
+    var_dump($filters);
+    $query .= " AND t.status IN ('" . $filters . "')";
 }
 
 if (sizeof($roleList) > 0 && validateRoles($roleList)) {
     foreach ($roleList as $role) {
         if ($role == 'worker') {
-            $query .= " AND worker=:userId";
+            $query .= " AND t.worker=:userId";
             $dbhValues[':userId'] = $id;
         }
         if ($role == 'manager') {
-            $query .= " AND manager=:userId";
+            $query .= " AND t.manager=:userId";
             $dbhValues[':userId'] = $id;
         }
     }
 }
-
 $dbh = $pdo->prepare($query);
 $dbhValues = [
     ':companyId' => $idc,
