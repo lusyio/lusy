@@ -120,12 +120,30 @@ $(document).ready(function(){
 
     function updateResults(data) {
 
-        $(".taskstop").hide();
-        console.log(data.length);
-        for (var i =0; i<3; ++i) {
-            $(".tasks").append('<div class="tasks"> asdsd </div>');
-        }
-
+        $('div #taskBox').empty();
+        data.forEach(function (item) {
+            var $task = '<div class="col-md-12 p-0"  id="taskstop">' +
+                '<div class="card mb-2 tasks' + item.status + '">' +
+                '<div class="card-body tasks-list" onclick="window.location="' + item.idtask + '">' +
+                '<div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>">' +
+                '<a><h6 class="card-title mb-2"><span>' + item.name + '</span></h6></a>' +
+            '<img src="/upload/avatar/2.jpg" class="avatar mr-1">' +
+                '<a href="/profile/' + item.idmanager + '/"><?=' + item.namem + ' ' + item.surnamem + '</a>' +
+            '</div>' +
+            '<div class="d-inline-block">' +
+                '<img src="/upload/avatar/1.jpg" class="avatar mr-1">' +
+                '<a class="name-manager-tasks" href="/profile/' + item.idworker + '/">' + item.namew + ' ' + item.surnamew + '</a>' +
+            '</div>' +
+            '<div class="d-inline-block">' +
+                '<span class="icons-tasks"><i class="fas fa-comments custom-date"></i> </span>' +
+            '<span class="icons-tasks"><i class="fas fa-file custom-date"></i> </span>' +
+            '</div>' +
+            '<div class="position-absolute date-status">' +
+                '<span class="text-ligther"><i class="far fa-calendar-times custom"></i>' + item.datedone + '</span>' +
+                '</div></div></div></div>';
+           $('#taskBox').append($task);
+            console.log(item);
+        });
         console.log(data);
 
 
