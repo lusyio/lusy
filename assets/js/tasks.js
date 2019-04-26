@@ -50,58 +50,6 @@ $(document).ready(function(){
     // });
 
 
-
-    // $("#inworkSearch").on('click', function () {
-    //     var value = $(this).attr("rel");
-    //     console.log(value);
-    //     $("#searchInput").attr({value: value});
-    //     var arr = new Array(value);
-    //     console.log(arr);
-    //
-    //
-    // });
-
-
-
-
-    // $("#pendingSearch").on('click', function () {
-    //     var value = $(this).attr("rel");
-    //     var test = $("#searchInput").val();
-    //     console.log(test);
-    //
-    //     var arr = {
-    //         search: {
-    //             status: value, searchField: test,
-    //         },
-    //     };
-    //     console.log(arr);
-    //     // $("#searchInput").attr({value: value});
-    //
-    // });
-
-    // $("#postponeSearch").on('click', function () {
-        // var value = $(this).attr("rel");
-        // var test = $("#searchInput").val();
-        // var filters = {};
-        // var data  = {};
-        // data.query = test;
-        // data.status = filters;
-        // filters.status = value;
-        // console.log(data);
-
-        //     search: {
-        //         status: value, searchField: test,
-        //     },
-        // };
-        // $("#searchInput").attr({value: value});
-
-    // });
-
-
-
-
-    // $("#searchInput").on('keyup', function () {
-
     var filters = {};
     var data  = {};
     var val;
@@ -139,10 +87,6 @@ $(document).ready(function(){
             }
         }
 
-
-
-        // data.status = statuses;
-        // data.role = roles;
         console.log(data);
 
 
@@ -154,13 +98,16 @@ $(document).ready(function(){
 
         console.log(data);
 
-        var searchField = $("#searchInput").val();
+        searchField = $("#searchInput").val();
 
         data.query = searchField;
         // if (searchField) {
             $.post("/ajax.php", {data: JSON.stringify(data), usp: $usp, it: $it, ajax: 'filter' },controlUpdate);
             function controlUpdate(data) {
-                console.log(data);
+                updateResults(JSON.parse(data));
+
+
+
                 // location.reload();
             }
         // } else {
@@ -168,36 +115,21 @@ $(document).ready(function(){
         // }
 
 
+
     });
 
+    function updateResults(data) {
+        $(".tasks").hide();
+        $(".tasks").append($('<div>', {
+
+        }));
+
+        console.log(data);
 
 
-    // $( "#searchButton" ).click(function() {
-    //
-    //
-    //     var value = $(".words-search").val();
-    //     var test = $("#searchInput").val();
-    //     var filters = {};
-    //     var data  = {};
-    //     data.query = test;
-    //     data.status = filters;
-    //     filters.status = value;
-    //     console.log(data);
+    }
 
 
 
-
-    //     var searchField = $("#searchInput").val();
-    //
-    //
-    //     if (searchField) {
-    //         $.post("/ajax.php", {module: 'search', searchField: searchField, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
-    //         function controlUpdate(data) {
-    //             location.reload();
-    //         }
-    //     } else {
-    //         $("#searchInput").addClass('border-danger');
-    //     }
-    // });
 
 });
