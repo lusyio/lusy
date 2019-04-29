@@ -5,17 +5,7 @@ $(document).ready(function(){
 	
 	updateComments();
 	
-	// отправляем данные в функцию комментов
-	$("#comment").click(function(){
-		var $comment = $("#comin").val();
-		if ($comment != '') {
-			addComment($comment);
-		} else {
-			alert('Введите комментарий');
-		}
-		$('#comin').val('');
-		
-	});
+
 	
 	
 	// функция загрузки комментариев
@@ -25,7 +15,7 @@ $(document).ready(function(){
 			$('#comments').html(data).fadeIn();
 		}
 	}
-	
+
 	// функция добавления комментария
 	function addComment(text) {
 		$.post( "/ajax.php", { text: text, usp: $usp, it: $it, ajax: 'task-comments-new' })
@@ -35,17 +25,59 @@ $(document).ready(function(){
 			$('#comments').fadeOut();
 			setTimeout(function () {
 				updateComments();
-		    }, 200); 
+		    }, 200);
 		    setTimeout(function () {
 			    $('#comment').html('<i class="fas fa-paper-plane"></i>');
 			    $("#comin").attr("disabled", false);
 			}, 500);
 		});
-		
+
 	}
 
 	// управление задачами
-	
+
+	// отправляем данные в функцию комментов
+	$("#comment").click(function(){
+		var $comment = $("#comin").val();
+		if ($comment != '') {
+			addComment($comment);
+		} else {
+			alert('Введите комментарий');
+		}
+		$('#comin').val('');
+
+	});
+
+	// добавление файлов к комментам
+
+	$("#comment").click(function() {
+		var text = $("#comin").val();
+		var attachedFile = $('#sendFiless').prop('files')[0];
+		console.log(attachedFile);
+		var fd = new FormData();
+		fd.append('file', attachedFile);
+		fd.append('ajax', 'task-comments-new');
+		fd.append('text', text);
+		fd.append('usp', $usp);
+		fd.append('it', $it);
+		if (text) {
+			$.ajax({
+				url: '/ajax.php',
+				type: 'POST',
+				cache: false,
+				processData: false,
+				contentType: false,
+				data: fd,
+				success: function(data){
+					controlUpdate(data)
+				},
+			});
+			function controlUpdate(data) {
+				console.log(data);
+			}
+		}
+	});
+
 	// перенос срока задачи
 	$("#postpone").click(function() {
 		$('#status-block').addClass('d-none');

@@ -580,7 +580,7 @@ a {
     transition: 0.5s all;
 }
 .comin input {
-	width: calc(100% - 44px); 
+	width: calc(100% - 76px);
 	display: inline-block;
 }
 .comin button {
