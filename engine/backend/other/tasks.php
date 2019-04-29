@@ -24,6 +24,17 @@ if ($url == 'canceled') {
 }
 $tasks = DB('*','tasks',$otbor . ' order by datedone');
 $usedStatuses = DB('DISTINCT `status`', 'tasks', $otbor);
+$sortedUsedStatuses = getSortedStatuses($usedStatuses);
+
+function getSortedStatuses($usedStatuses) {
+	$result = [];
+	foreach ($usedStatuses as $status) {
+		$result[$status[0] . "filter"] = $GLOBALS["_{$status[0]}filter"];
+	}
+	asort($result);
+	return $result;
+}
+
 $isManager = DBOnce('id', 'tasks', 'manager='.$GLOBALS["id"]);
 $isWorker = DBOnce('id', 'tasks', 'worker='.$GLOBALS["id"]);
 
