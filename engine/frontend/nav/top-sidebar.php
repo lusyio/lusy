@@ -21,29 +21,28 @@
                         <i class="mr-1 fas fa-search custom-date"></i>
                     </div>
                     <div class="col">
-                        <input id="searchInput" class="form-control form-control-sm form-control-borderless" type="text" placeholder="Search topics or tap on keywords">
+                        <input id="searchInput" class="form-control form-control-sm form-control-borderless" type="text" placeholder="<?=$GLOBALS["_searchplaceholder"]?>">
                     </div>
                     <div id="searchButton" class="btn btn-sm btn-primary ml-1">
-                        <span>Поиск</span>
+                        <span><?=$GLOBALS["_search"]?></span>
                     </div>
-
                 </div>
 
                 <div class="d-inline-block mb-2 ml-5">
                     <div id="inworkSearch" rel="inwork" class="btn btn-secondary words-search">
-                         <span>Inwork</span>
+                         <span><?=$GLOBALS["_inworkfilter"]?></span>
                     </div>
                     <div id="pendingSearch" rel="pending" class="btn btn-secondary words-search">
-                        <span>Pending</span>
+                        <span><?=$GLOBALS["_pendingfilter"]?></span>
                     </div>
                     <div id="postponeSearch" rel="postpone" class="btn btn-secondary words-search">
-                        <span>Postpone</span>
+                        <span><?=$GLOBALS["_postponefilter"]?></span>
                     </div>
                     <div id="managerSearch" rol="manager" class="btn btn-secondary words-search">
-                        <span>Manager</span>
+                        <span><?=$GLOBALS["_managerfilter"]?></span>
                     </div>
                     <div id="workerSearch" rol="worker" class="btn btn-secondary words-search">
-                        <span>Worker</span>
+                        <span><?=$GLOBALS["_workerfilter"]?></span>
                     </div>
                 </div>
 
