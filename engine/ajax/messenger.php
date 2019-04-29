@@ -15,8 +15,8 @@ if ($_POST['module'] == 'sendMessage') {
         $sql = $pdo->prepare($dbh);
         $sql->execute(array('mes' => $mes, 'sender' => $id, 'recipient' => $recipientId, 'datetime' => $datetime));
         $messageId = $pdo->lastInsertId();
-
         if (count($_FILES) > 0) {
+            echo 'has file';
             uploadAttachedFiles('conversation', $messageId);
         }
 
@@ -47,7 +47,7 @@ function uploadAttachedFiles($type, $id)
 {
     global $pdo;
     global $idc;
-    $types = ['task', 'comment'];
+    $types = ['task', 'comment', 'conversation'];
     if (!in_array($type, $types)) {
         return;
     }
