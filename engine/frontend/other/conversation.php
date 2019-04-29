@@ -7,6 +7,12 @@
             <?php foreach ($messages as $message): ?>
                 <p><?= $message['author'] ?> (<?= $message['datetime'] ?>):</p>
                 <p><?= $message['mes'] ?></p>
+                <?php if (count($message['files']) > 0): ?>
+                    <?php foreach ($message['files'] as $file): ?>
+                        <p>Прикрепленные файлы</p>
+                        <p><a class="" href="../../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></p>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             <?php endforeach; ?>
         <?php else: ?>
             <p class="no-messages">Нет сообщений</p>
