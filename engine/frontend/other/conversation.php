@@ -43,9 +43,10 @@
 
         //binds to onchange event of your input field
         $('#sendFiles').bind('change', function() {
-
+            var filesize = 0;
             //this.files[0].size gets the size of your file.
-            alert(this.files[0].size);
+            fileSize = this.files[0].size  / 1048576; //size in mb
+            alert(fileSize);
 
         });
 
