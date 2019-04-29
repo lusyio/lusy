@@ -23,7 +23,7 @@
     <div class="card-header">
         <h4 class="mb-0">Новое сообщение</h4>
     </div>
-    <div class="card-body">
+    <div class="card-body newmess">
         <form>
             <div class="form-group">
                 <label for="mes">Сообщение</label>
@@ -51,9 +51,12 @@
         function sizeFile(){
             $("#sendFiles").bind('change', function () {
                 var size = this.files[0].size;
+                var names = this.files[0].name;
+                if (this.files[0]) {
+                    $(".newmess").append(names).append("<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3' id='cancelFile'></i>");
+                }
                 if (size > 2 * 1024 * 1024){
                     $(".btn-file").append("<span id='sizemore'>Размер больше 2 мб</span>");
-                    // alert("Размер больше 2 мб");
                     $("#sendBtn").prop('disabled', true);
                 }else {
                     $("#sizemore").empty();
