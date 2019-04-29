@@ -55,7 +55,7 @@ $borderColor = [
                     </div>
                 </div>
             </div>
-    
+
     <?php endforeach; ?>
 </div>
 <script>

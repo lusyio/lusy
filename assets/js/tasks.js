@@ -87,7 +87,6 @@ $(document).ready(function(){
             }
         }
 
-        console.log(data);
 
 
     });
@@ -96,7 +95,6 @@ $(document).ready(function(){
 
     $( "#searchButton" ).click(function() {
 
-        console.log(data);
 
         searchField = $("#searchInput").val();
 
@@ -142,10 +140,49 @@ $(document).ready(function(){
                 '<span class="text-ligther"><i class="far fa-calendar-times custom"></i>' + item.datedone + '</span>' +
                 '</div></div></div></div>';
            $('#taskBox').append($task);
-            console.log(item);
         });
-        console.log(data);
 
+
+    }
+
+    $('.words-search').on('click', function () {
+        filterTasks();
+    });
+    $('#searchInput').on('keyup' , function () {
+        filterTasks();
+    });
+
+    function filterTasks() {
+        var text = $('#searchInput').val();
+        var statuses = [];
+
+        $('.words-search').each(function () {
+            if($(this).hasClass('active')) {
+                statuses.push($(this).attr('rel'));
+            }
+        });
+        jQuery.expr[':'].icontains = function(a, i, m) {
+            return jQuery(a).text().toUpperCase()
+                .indexOf(m[3].toUpperCase()) >= 0;
+        };
+        $('.tasks:not(:icontains('+ text +'))').hide();
+        $('.tasks:icontains('+ text +')').show();
+        $('.tasks').each(function () {
+            var $el = $(this);
+            var $show = false;
+            statuses.forEach(function ($status) {
+                if ($el.hasClass($status)) {
+                    console.log($el);
+                    $show = true;
+                }
+            }); 
+            if ($show) {
+                $el.show()
+            } else {
+                $el.hide();
+            }
+
+        })
 
     }
 
