@@ -23,25 +23,22 @@
                     <div class="col">
                         <input id="searchInput" class="form-control form-control-sm form-control-borderless" type="text" placeholder="<?=$GLOBALS["_searchplaceholder"]?>">
                     </div>
-                    <div id="searchButton" class="btn btn-sm btn-primary ml-1">
-                        <span><?=$GLOBALS["_search"]?></span>
-                    </div>
                 </div>
 
                 <div class="d-inline-block mb-2 ml-5">
-                    <div id="inworkSearch" rel="inwork" class="btn btn-secondary words-search">
+                    <div id="inworkSearch" rel="inwork" class="btn btn-secondary words-search status-search">
                          <span><?=$GLOBALS["_inworkfilter"]?></span>
                     </div>
-                    <div id="pendingSearch" rel="pending" class="btn btn-secondary words-search">
+                    <div id="pendingSearch" rel="pending" class="btn btn-secondary words-search status-search">
                         <span><?=$GLOBALS["_pendingfilter"]?></span>
                     </div>
-                    <div id="postponeSearch" rel="postpone" class="btn btn-secondary words-search">
+                    <div id="postponeSearch" rel="postpone" class="btn btn-secondary words-search status-search">
                         <span><?=$GLOBALS["_postponefilter"]?></span>
                     </div>
-                    <div id="managerSearch" rol="manager" class="btn btn-secondary words-search">
+                    <div id="managerSearch" rol="manager" class="btn btn-secondary words-search role-search">
                         <span><?=$GLOBALS["_managerfilter"]?></span>
                     </div>
-                    <div id="workerSearch" rol="worker" class="btn btn-secondary words-search">
+                    <div id="workerSearch" rol="worker" class="btn btn-secondary words-search role-search">
                         <span><?=$GLOBALS["_workerfilter"]?></span>
                     </div>
                 </div>

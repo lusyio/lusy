@@ -93,28 +93,28 @@ $(document).ready(function(){
 
 
 
-    $( "#searchButton" ).click(function() {
-
-
-        searchField = $("#searchInput").val();
-
-        data.query = searchField;
-        // if (searchField) {
-            $.post("/ajax.php", {data: JSON.stringify(data), usp: $usp, it: $it, ajax: 'filter' },controlUpdate);
-            function controlUpdate(data) {
-                updateResults(JSON.parse(data));
-
-
-
-                // location.reload();
-            }
-        // } else {
-        //     $("#searchInput").addClass('border-danger');
-        // }
-
-
-
-    });
+    // $( "#searchButton" ).click(function() {
+    //
+    //
+    //     searchField = $("#searchInput").val();
+    //
+    //     data.query = searchField;
+    //     // if (searchField) {
+    //         $.post("/ajax.php", {data: JSON.stringify(data), usp: $usp, it: $it, ajax: 'filter' },controlUpdate);
+    //         function controlUpdate(data) {
+    //             updateResults(JSON.parse(data));
+    //
+    //
+    //
+    //             // location.reload();
+    //         // }
+    //     // } else {
+    //     //     $("#searchInput").addClass('border-danger');
+    //     // }
+    //
+    //
+    //
+    // });
 
     function updateResults(data) {
 
