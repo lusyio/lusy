@@ -1,5 +1,5 @@
 <p><?= $message['author'] ?> (<?= $message['datetime'] ?>):</p>
-<p><?= $message['mes'] ?></p>
+<p><?= nl2br($message['mes']) ?></p>
 <?php if (count($message['files']) > 0): ?>
     <?php foreach ($message['files'] as $file): ?>
         <p>Прикрепленные файлы</p>
