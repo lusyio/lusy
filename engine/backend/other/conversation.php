@@ -22,12 +22,14 @@ function getMessages($userId, $interlocutorId)
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':userId' => $userId, ':interlocutorId' => $interlocutorId));
     $result = $dbh->fetchAll(PDO::FETCH_ASSOC);
+
     prepareMessages($result, $userId, $interlocutorId);
     return $result;
 }
 
 function prepareMessages(&$messages, $userId, $interlocutorId)
 {
+    global $pdo;
     $interlocutorName = fiomess($interlocutorId);
     foreach ($messages as &$message) {
         if ($message['sender'] == $userId) {
@@ -35,6 +37,15 @@ function prepareMessages(&$messages, $userId, $interlocutorId)
         } else {
             $message['author'] = $interlocutorName;
         }
+        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id FROM uploads WHERE (comment_id = :commentId1 OR comment_id = :commentId2) AND comment_type = :commentType');
+        $filesQuery->execute(array(':commentId1' => $userId, ':commentId2' => $interlocutorId, ':commentType' => 'conversation'));
+        $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+        if (count($files) > 0) {
+            $message['files'] = $files;
+        } else {
+            $message['files'] = [];
+        }
+
     }
 }
 
