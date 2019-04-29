@@ -13,9 +13,9 @@
             </div>
 
             <div class="d-inline-block mb-2 ml-5">
-                <?php foreach ($usedStatuses as $status): ?>
-                <div id="<?= $status[0] ?>Search" rel="<?= $status[0] ?>" class="btn btn-secondary words-search status-search">
-                    <span><?=$GLOBALS["_{$status[0]}filter"]?></span>
+                <?php foreach ($sortedUsedStatuses as $status => $localStatus ): ?>
+                <div id="<?= $status ?>Search" rel="<?= $status ?>" class="btn btn-secondary words-search status-search">
+                    <span><?=$localStatus?></span>
                 </div>
                 <?php endforeach; ?>
                 <?php if($isManager): ?>
