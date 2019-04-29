@@ -47,28 +47,29 @@
             $('#chatBox').append(e.data);
         });
 
-        //binds to onchange event of your input field
-        $('#sendFiles').bind('change', function() {
-            var fileSize = 0;
-            //this.files[0].size gets the size of your file.
-            fileSize = this.files[0].size  / 1048576; //size in mb
-            if (fileSize > .01){
-                alert(fileSize + "Размер больше 2 мб");
-            }else{
-                alert(fileSize);
-            }
 
+        function sizeFile(){
+            $("#sendFiles").bind('change', function () {
+                var size = this.files[0].size;
+                if (size > 2 * 1024 * 1024){
+                    alert("Размер больше 2 мб");
+                    $("#sendBtn").prop('disabled', true);
+                }else {
+                    $("#sendBtn").prop('disabled', false);
+                }
+
+            });
+
+        }
+
+        $("#sendFiles").on('click', function () {
+            sizeFile();
 
         });
 
         $('#sendBtn').on('click', function () {
-            var fileSize = 0;
             var mes = $("#mes").val();
             var attachedFile = $('input[type=file]').prop('files')[0];
-            fileSize = $('#sendFiles').files[0].size  / 1048576;
-            if (fileSize > 1.0) {
-                alert("filezise");
-            } else {
             var fd = new FormData();
             fd.append('module', 'sendMessage');
             fd.append('file', attachedFile);
@@ -92,7 +93,7 @@
                         $("#mes").val('');
                     },
                 });
-            }
+
             }
         })
     })
