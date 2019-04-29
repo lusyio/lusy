@@ -62,8 +62,13 @@
         });
 
         $('#sendBtn').on('click', function () {
+            var fileSize = 0;
             var mes = $("#mes").val();
             var attachedFile = $('input[type=file]').prop('files')[0];
+            fileSize = $('#sendFiles').files[0].size  / 1048576;
+            if (fileSize > 1.0) {
+                alert("filezise");
+            } else {
             var fd = new FormData();
             fd.append('module', 'sendMessage');
             fd.append('file', attachedFile);
@@ -87,6 +92,7 @@
                         $("#mes").val('');
                     },
                 });
+            }
             }
         })
     })
