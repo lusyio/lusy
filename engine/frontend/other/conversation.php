@@ -5,14 +5,7 @@
     <div class="card-body" id="chatBox">
         <?php if ($messages): ?>
             <?php foreach ($messages as $message): ?>
-                <p><?= $message['author'] ?> (<?= $message['datetime'] ?>):</p>
-                <p><?= $message['mes'] ?></p>
-                <?php if (count($message['files']) > 0): ?>
-                    <?php foreach ($message['files'] as $file): ?>
-                        <p>Прикрепленные файлы</p>
-                        <p><a class="" href="../../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a></p>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                <?php include 'engine/frontend/other/message.php'; ?>
             <?php endforeach; ?>
         <?php else: ?>
             <p class="no-messages">Нет сообщений</p>
@@ -44,9 +37,29 @@
         cometApi.start({dev_id: 2553, user_id:<?=$id?>, user_key: '<?=$hash?>', node: "app.comet-server.ru"});
         cometApi.subscription("msg.new", function (e) {
             console.log(e);
-            $('#chatBox').append(e.data);
+            var fd = new FormData();
+            fd.append('messageId', e.data);
+            fd.append('module', 'updateMessages');
+            fd.append('ajax', 'messenger');
+            fd.append('mes', mes);
+            fd.append('usp', $usp);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (response) {
+                    console.log(response);
+                    if( $('#chatBox').find($('.no-messages')).length) {
+                        $('.no-messages').remove();
+                    }
+                    $("#mes").val('');
+                    $('#chatBox').append(response);
+                },
+            });
         });
-
 
         function sizeFile(){
             $("#sendFiles").bind('change', function () {
@@ -62,10 +75,8 @@
                         $("#sizemore").remove();
                         $("#sendBtn").prop('disabled', false);
                     }
-
                 }
             });
-
         }
 
         $("#sendFiles").on('click', function () {
@@ -99,7 +110,6 @@
                         $("#mes").val('');
                     },
                 });
-
             }
         })
     })
