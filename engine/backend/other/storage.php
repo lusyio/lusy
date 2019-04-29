@@ -44,14 +44,21 @@ $fileList = getFileList();
 prepareFileList($fileList);
 
 function prepareFileList(array &$fileList) {
+
     foreach ($fileList as &$file) {
         $file['comment_link'] = '';
         if ($file['comment_type'] == 'task') {
             $file['idtask'] = $file['comment_id'];
             $file['comment_id'] = '';
+            $file['attachedToLink'] = "/task/" . $file['idtask']. "/" . $file['comment_link'];
         }
         if ($file['comment_type'] == 'comment') {
+            $file['attachedToLink'] = "/task/" . $file['idtask']. "/" . '#' . $file['comment_id'];
+        }
+        if ($file['comment_type'] == 'conversation') {
             $file['comment_link'] = '#' . $file['comment_id'];
+            $fromTo = DB('sender, recipient', 'mail', 'message_id=' . $file['comment_id']);
+            $file['attachedToLink'] = '';
         }
     }
 }

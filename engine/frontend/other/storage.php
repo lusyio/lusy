@@ -13,7 +13,7 @@
             <td><?= $file['file_id'] ?></td>
             <td><a href="../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a></td>
             <td><?= $file['file_size'] ?></td>
-            <td><a href="/task/<?=$file['idtask']?>/<?=$file['comment_link']?>"><?= $file['comment_type'] ?></a></td>
+            <td><a href="<?=$file['attachedToLink']?>"><?= $file['comment_type'] ?></a></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
