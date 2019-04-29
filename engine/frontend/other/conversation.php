@@ -52,9 +52,11 @@
             $("#sendFiles").bind('change', function () {
                 var size = this.files[0].size;
                 if (size > 2 * 1024 * 1024){
-                    alert("Размер больше 2 мб");
+                    $(".btn-file").append("<span id='sizemore'>Размер больше 2 мб</span>");
+                    // alert("Размер больше 2 мб");
                     $("#sendBtn").prop('disabled', true);
                 }else {
+                    $("#sizemore").empty();
                     $("#sendBtn").prop('disabled', false);
                 }
 

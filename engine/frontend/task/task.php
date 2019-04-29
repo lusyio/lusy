@@ -84,7 +84,6 @@ if ($id == $worker and $view == 0) {
     $statusBar[$status]['border'] = 'border-primary';
 }
 ?>
-
 <div class="container-fluid" id="task">
 		<div class="row justify-content-center">
               <div class="col-12 col-lg-10">
