@@ -28,11 +28,18 @@ $borderColor = [
         $namem = DBOnce('name', 'users', 'id=' . $idmanager);
         $surnamem = DBOnce('surname', 'users', 'id=' . $idmanager);
         $datedone = $n["datedone"];
+        $role = '';
+        if ($id == $idworker) {
+            $role .= ' worker';
+        }
+        if ($id == $idmanager) {
+            $role .= ' manager';
+        }
         $i++;
         ?>
 
             <div class="col-md-12 p-0" id="taskstop">
-                <div class="card mb-2 tasks <?= $status ?>">
+                <div class="card mb-2 tasks <?= $status ?><?= $role ?>">
                     <div class="card-body tasks-list" onclick="window.location='/task/<?= $idtask ?>/';">
                         <div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>">
                             <a><h6 class="card-title mb-2"><span><?= $name ?></span></h6></a>
