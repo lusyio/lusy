@@ -25,5 +25,7 @@ $_postponefilter = 'Postpone';
 $_managerfilter = 'Manager';
 $_workerfilter = 'Worker';
 $_overduefilter = 'Overdue';
+$_canceledfilter = 'Canceled';
+$_newfilter = 'New';
 
 ?>

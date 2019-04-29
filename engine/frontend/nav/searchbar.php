@@ -13,21 +13,21 @@
             </div>
 
             <div class="d-inline-block mb-2 ml-5">
-                <div id="inworkSearch" rel="inwork" class="btn btn-secondary words-search status-search">
-                    <span><?=$GLOBALS["_inworkfilter"]?></span>
+                <?php foreach ($usedStatuses as $status): ?>
+                <div id="<?= $status[0] ?>Search" rel="<?= $status[0] ?>" class="btn btn-secondary words-search status-search">
+                    <span><?=$GLOBALS["_{$status[0]}filter"]?></span>
                 </div>
-                <div id="pendingSearch" rel="pending" class="btn btn-secondary words-search status-search">
-                    <span><?=$GLOBALS["_pendingfilter"]?></span>
-                </div>
-                <div id="postponeSearch" rel="postpone" class="btn btn-secondary words-search status-search">
-                    <span><?=$GLOBALS["_postponefilter"]?></span>
-                </div>
+                <?php endforeach; ?>
+                <?php if($isManager): ?>
                 <div id="managerSearch" rol="manager" class="btn btn-secondary words-search role-search">
                     <span><?=$GLOBALS["_managerfilter"]?></span>
                 </div>
+                <?php endif; ?>
+                <?php if($isWorker): ?>
                 <div id="workerSearch" rol="worker" class="btn btn-secondary words-search role-search">
                     <span><?=$GLOBALS["_workerfilter"]?></span>
                 </div>
+                <?php endif; ?>
             </div>
 
         </div>
