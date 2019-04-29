@@ -50,19 +50,20 @@
 
         function sizeFile(){
             $("#sendFiles").bind('change', function () {
-                var size = this.files[0].size;
-                var names = this.files[0].name;
-                if (this.files[0]) {
-                    $(".newmess").append(names).append("<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3' id='cancelFile'></i>");
-                }
-                if (size > 2 * 1024 * 1024){
-                    $(".btn-file").append("<span id='sizemore'>Размер больше 2 мб</span>");
-                    $("#sendBtn").prop('disabled', true);
-                }else {
-                    $("#sizemore").empty();
-                    $("#sendBtn").prop('disabled', false);
-                }
+                for (var i = 0; i<this.files.length; i++) {
+                    var size = this.files[i].size;
+                    var names = this.files[i].name;
 
+                    if (size > 2 * 1024 * 1024) {
+                        $(".btn-file").append("<span id='sizemore'>Размер файла превышен</span>");
+                        $("#sendBtn").prop('disabled', true);
+                    } else {
+                        $(".newmess").append(names).append("<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3' id='cancelFile'></i>");
+                        $("#sizemore").remove();
+                        $("#sendBtn").prop('disabled', false);
+                    }
+
+                }
             });
 
         }
