@@ -154,6 +154,10 @@ body {
     box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
 }
 
+.cancel-file{
+    font-size: 16px !important;
+}
+
 list-group:hover{
     background-color: #f7f7f7;
 }
