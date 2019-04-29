@@ -145,9 +145,10 @@ $(document).ready(function(){
 
     }
 
-    $('.words-search').on('click', function () {
+    $('.role-search, .status-search').on('click', function () {
         filterTasks();
     });
+
     $('#searchInput').on('keyup' , function () {
         filterTasks();
     });
@@ -156,15 +157,22 @@ $(document).ready(function(){
         var text = $('#searchInput').val();
         var textRegex = new RegExp(text, 'i');
         var statuses = [];
-        $('.words-search').each(function () {
+        var roles = []
+        $('.status-search').each(function () {
             if($(this).hasClass('active')) {
                 statuses.push($(this).attr('rel'));
+            }
+        });
+        $('.role-search').each(function () {
+            if($(this).hasClass('active')) {
+                roles.push($(this).attr('rol'));
             }
         });
         $('.tasks').each(function () {
             var $el = $(this);
             var $hasStatus = false;
             var $hasText = false;
+            var $hasRole = false;
             if ($el.find('span').text().search(textRegex) !== -1) {
                 $hasText = true;
             }
@@ -177,7 +185,16 @@ $(document).ready(function(){
                     }
                 })
             }
-            if ($hasStatus && $hasText) {
+            if (roles.length === 0) {
+                $hasRole = true
+            } else {
+                roles.forEach(function ($role) {
+                    if ($el.hasClass($role)) {
+                        $hasRole = true;
+                    }
+                })
+            }
+            if ($hasStatus && $hasText && $hasRole) {
                 $el.show()
             } else {
                 $el.hide();
