@@ -16,38 +16,6 @@ $(document).ready(function(){
 		}
 	}
 
-	// функция добавления комментария
-	function addComment(text) {
-		$.post( "/ajax.php", { text: text, usp: $usp, it: $it, ajax: 'task-comments-new' })
-		.done(function() {
-			$("#comin").attr("disabled", true);
-			$('#comment').html('<i class="fas fa-spinner fa-spin"></i>');
-			$('#comments').fadeOut();
-			setTimeout(function () {
-				updateComments();
-		    }, 200);
-		    setTimeout(function () {
-			    $('#comment').html('<i class="fas fa-paper-plane"></i>');
-			    $("#comin").attr("disabled", false);
-			}, 500);
-		});
-
-	}
-
-	// управление задачами
-
-	// отправляем данные в функцию комментов
-	$("#comment").click(function(){
-		var $comment = $("#comin").val();
-		if ($comment != '') {
-			addComment($comment);
-		} else {
-			alert('Введите комментарий');
-		}
-		$('#comin').val('');
-
-	});
-
 	// добавление файлов к комментам
 
 	$("#comment").click(function() {
@@ -61,6 +29,9 @@ $(document).ready(function(){
 		fd.append('usp', $usp);
 		fd.append('it', $it);
 		if (text) {
+			$("#comin").attr("disabled", true);
+			$('#comment').html('<i class="fas fa-spinner fa-spin"></i>');
+			$('#comments').fadeOut();
 			$.ajax({
 				url: '/ajax.php',
 				type: 'POST',
@@ -69,12 +40,17 @@ $(document).ready(function(){
 				contentType: false,
 				data: fd,
 				success: function(data){
-					controlUpdate(data)
+					setTimeout(function () {
+						updateComments();
+					}, 200);
+					setTimeout(function () {
+						$('#comment').html('<i class="fas fa-paper-plane"></i>');
+						$("#comin").attr("disabled", false);
+					}, 500);
+
 				},
 			});
-			function controlUpdate(data) {
-				console.log(data);
-			}
+
 		}
 	});
 
