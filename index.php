@@ -196,6 +196,23 @@ if (!isColumnIsDeletedExist()) {
     addColumnIsDeleted();
     fillColumnIsDeleted();
 }
-//alter table uploads add is_deleted tinyint(1) default 0 not null;
+
+function isMailTableExists()
+{
+    global $pdo;
+    $query = "SHOW TABLES LIKE 'mail'";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+}
+
+if (!isMailTableExists()) {
+    global $pdo;
+    $query = 'create table mail (message_id int auto_increment primary key, mes text null, sender int null, recipient int null, datetime datetime null)';
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+}
+
 include 'engine/backend/other/footer.php';
 include 'engine/frontend/other/footer.php';
