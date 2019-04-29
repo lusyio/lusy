@@ -27,5 +27,7 @@ $_workerfilter = 'Worker';
 $_overduefilter = 'Overdue';
 $_canceledfilter = 'Canceled';
 $_newfilter = 'New';
+$_returnedfilter = 'Returned';
+
 
 ?>

@@ -78,6 +78,7 @@ $_workerfilter = 'Выполняю';
 $_overduefilter = 'Просрочено';
 $_canceledfilter = 'Отменено';
 $_newfilter = 'Новые';
+$_returnedfilter = 'Возвращенные';
 
 
 

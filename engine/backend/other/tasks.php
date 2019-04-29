@@ -23,7 +23,7 @@ if ($url == 'canceled') {
 	$otbor = 'status="canceled" and (worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ')';
 }
 $tasks = DB('*','tasks',$otbor . ' order by datedone');
-$usedStatuses = DB('DISTINCT `status`', 'tasks', $otbor . ' order by datedone');
+$usedStatuses = DB('DISTINCT `status`', 'tasks', $otbor);
 $isManager = DBOnce('id', 'tasks', 'manager='.$GLOBALS["id"]);
 $isWorker = DBOnce('id', 'tasks', 'worker='.$GLOBALS["id"]);
 
