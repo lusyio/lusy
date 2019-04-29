@@ -16,4 +16,14 @@ $_return = 'Return';
 
 // новые кнопки - Окс
 
+// Поиск и фильтры
+$_search = 'Search';
+$_searchplaceholder = 'Search topics or tap on keywords';
+$_inworkfilter = 'In work';
+$_pendingfilter = 'Pending';
+$_postponefilter = 'Postpone';
+$_managerfilter = 'Manager';
+$_workerfilter = 'Worker';
+$_overduefilter = 'Overdue';
+
 ?>

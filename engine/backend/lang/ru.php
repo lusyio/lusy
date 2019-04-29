@@ -67,5 +67,17 @@ $_nocomment = 'Комментариев нет';
 $_send = 'Отправить';
 $_worker = 'Сотрудник';
 
+// Поиск и фильтры
+$_search = 'Поиск';
+$_searchplaceholder = 'Воспользуйтесь поиском или нажмите на ключевые слова';
+$_inworkfilter = 'В работе';
+$_pendingfilter = 'На рассмотрении';
+$_postponefilter = 'Перенос срока';
+$_managerfilter = 'Назначил';
+$_workerfilter = 'Выполняю';
+$_overduefilter = 'Просрочено';
+
+
+
 
 ?>

@@ -126,7 +126,7 @@ $(document).ready(function(){
                 '<div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>">' +
                 '<a><h6 class="card-title mb-2"><span>' + item.name + '</span></h6></a>' +
             '<img src="/upload/avatar/2.jpg" class="avatar mr-1">' +
-                '<a href="/profile/' + item.idmanager + '/"><?=' + item.namem + ' ' + item.surnamem + '</a>' +
+                '<a href="/profile/' + item.idmanager + '/">' + item.namem + ' ' + item.surnamem + '</a>' +
             '</div>' +
             '<div class="d-inline-block">' +
                 '<img src="/upload/avatar/1.jpg" class="avatar mr-1">' +
