@@ -21,6 +21,7 @@ RewriteRule ^(.*)$ index.php [F,L]
 </FilesMatch>
 #перенаправление на скачивание файла
 RewriteRule ^upload/files/([-a-z0-9/]+)$ /index.php?file=$1 [L]
+RewriteRule ^mail/([-a-z0-9]+)/$ /index.php?mail=$1 [L]
 RewriteRule ^task/([-a-z0-9]+)/$ /index.php?task=$1 [L]
 RewriteRule ^tasks/([-a-z0-9]+)/$ /index.php?tasks=$1 [L]
 RewriteRule ^profile/([-a-z0-9]+)/$ /index.php?profile=$1 [L]
