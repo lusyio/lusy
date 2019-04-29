@@ -154,39 +154,34 @@ $(document).ready(function(){
 
     function filterTasks() {
         var text = $('#searchInput').val();
+        var textRegex = new RegExp(text, 'i');
         var statuses = [];
-
         $('.words-search').each(function () {
             if($(this).hasClass('active')) {
                 statuses.push($(this).attr('rel'));
             }
         });
-        jQuery.expr[':'].icontains = function(a, i, m) {
-            return jQuery(a).text().toUpperCase()
-                .indexOf(m[3].toUpperCase()) >= 0;
-        };
-        $('.tasks:not(:icontains('+ text +'))').hide();
-        $('.tasks:icontains('+ text +')').show();
         $('.tasks').each(function () {
             var $el = $(this);
-            var $show = false;
-            statuses.forEach(function ($status) {
-                if ($el.hasClass($status)) {
-                    console.log($el);
-                    $show = true;
-                }
-            }); 
-            if ($show) {
+            var $hasStatus = false;
+            var $hasText = false;
+            if ($el.find('span').text().search(textRegex) !== -1) {
+                $hasText = true;
+            }
+            if (statuses.length === 0) {
+                $hasStatus = true
+            } else {
+                statuses.forEach(function ($status) {
+                    if ($el.hasClass($status)) {
+                        $hasStatus = true;
+                    }
+                })
+            }
+            if ($hasStatus && $hasText) {
                 $el.show()
             } else {
                 $el.hide();
             }
-
         })
-
     }
-
-
-
-
 });
