@@ -76,6 +76,8 @@ $_postponefilter = 'Перенос срока';
 $_managerfilter = 'Назначил';
 $_workerfilter = 'Выполняю';
 $_overduefilter = 'Просрочено';
+$_canceledfilter = 'Отменено';
+$_newfilter = 'Новые';
 
 
 
