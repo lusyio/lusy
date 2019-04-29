@@ -25,6 +25,9 @@
                           required></textarea>
             </div>
             <input type="button" class="btn btn-primary" id="sendBtn" value="Отправить">
+            <span class="btn btn-light btn-file">
+                <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file">
+            </span>
         </form>
     </div>
 </div>
@@ -37,10 +40,21 @@
             console.log(e);
             $('#chatBox').append(e.data);
         });
+
+        //binds to onchange event of your input field
+        $('#sendFiles').bind('change', function() {
+
+            //this.files[0].size gets the size of your file.
+            alert(this.files[0].size);
+
+        });
+
         $('#sendBtn').on('click', function () {
             var mes = $("#mes").val();
+            var attachedFile = $('input[type=file]').prop('files')[0];
             var fd = new FormData();
             fd.append('module', 'sendMessage');
+            fd.append('file', attachedFile);
             fd.append('ajax', 'messenger');
             fd.append('recipientId', '<?=$recipientId;?>');
             fd.append('mes', mes);

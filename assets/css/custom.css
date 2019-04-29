@@ -144,6 +144,20 @@ body {
     cursor: pointer;
 }
 
+.dialogs{
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.dialogs:hover{
+    background-color: #f7f7f7;
+    box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
+}
+
+list-group:hover{
+    background-color: #f7f7f7;
+}
+
 .tasks{
     border-radius: 8px;
 }

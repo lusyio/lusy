@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header">
+    <div class="card-header dialogs">
         <div class="row mb-3">
             <div class="col-10"><h4 class="mb-0">Диалоги</h4></div>
             <div class="col-2 text-right">
