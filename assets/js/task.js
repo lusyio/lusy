@@ -44,10 +44,7 @@ $(document).ready(function(){
 		var attachedFile = $('#sendFiless').prop('files')[0];
 		console.log(attachedFile);
 		var fd = new FormData();
-		if (marker) {
-			count();
 		fd.append('file', attachedFile);
-		}
 		fd.append('ajax', 'task-comments-new');
 		fd.append('text', text);
 		fd.append('usp', $usp);
