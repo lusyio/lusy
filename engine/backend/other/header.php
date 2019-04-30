@@ -48,9 +48,11 @@
 		} else {
 		if (in_array($url, $pages)) { 	
 			if ($url != 'login') {
-				echo "<script>document.location.href = '/login/'</script>";
+                header('location: /login/');
+                die();
 			}
 		} else {
-			echo "<script>document.location.href = '/login/'</script>";
+            header('location: /login/');
+            die();
 		}
 	}
