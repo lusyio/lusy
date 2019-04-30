@@ -25,7 +25,7 @@
             </div>
             <input type="button" class="btn btn-primary" id="sendBtn" value="Отправить">
             <span class="btn btn-light btn-file">
-                <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file">
+                <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
             </span>
         </form>
     </div>
@@ -65,22 +65,31 @@
             $("#sendFiles").bind('change', function () {
                 for (var i = 0; i<this.files.length; i++) {
                     var size = this.files[i].size;
-                    var names = this.files[i].name;
-
+                    var names = [];
+                    var name = this.files[i].name;
+                    names.push(name);
                     if (size > 2 * 1024 * 1024) {
                         $(".btn-file").append("<span id='sizemore'>Размер файла превышен</span>");
                         $("#sendBtn").prop('disabled', true);
                     } else {
-                        $(".newmess").append(names).append("<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3' id='cancelFile'></i>");
+                        console.log(names);
+                        $(".newmess").append(names).append("<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>");
                         $("#sizemore").remove();
                         $("#sendBtn").prop('disabled', false);
+
                     }
                 }
             });
         }
 
+        $(".cancelFile").on('click', function () {
+            console.log("asd");
+
+        });
+
         $("#sendFiles").on('click', function () {
             sizeFile();
+            $("#sendFiles").off('click');
 
         });
 
