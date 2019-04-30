@@ -18,7 +18,28 @@ $(document).ready(function(){
 
 	// добавление файлов к комментам
 
-	$("#comment").click(function() {
+	var marker = true;
+
+	function count() {
+		marker = false;
+	}
+
+	var attachedFile = [];
+
+	function removeFile() {
+		var file = $(this).data("file");
+		for (var i = 0; i < attachedFile.length; i++) {
+			if (attachedFile[i].name === file) {
+				attachedFile.splice(i, 1);
+				break;
+			}
+		}
+		$(this).parent().remove();
+		$("#sendFiless").val("");
+		console.log(attachedFile);
+	}
+
+	$("#comment").on('click', function() {
 		var text = $("#comin").val();
 		var attachedFile = $('#sendFiless').prop('files')[0];
 		console.log(attachedFile);
@@ -47,10 +68,10 @@ $(document).ready(function(){
 						$('#comment').html('<i class="fas fa-paper-plane"></i>');
 						$("#comin").attr("disabled", false);
 					}, 500);
-
 				},
 			});
-
+			$("#comin").val("");
+			removeFile();
 		}
 	});
 
