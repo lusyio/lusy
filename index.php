@@ -1,5 +1,6 @@
-<?php 
+<?php
 session_start();
+ob_start();
 include 'conf.php'; 
 include 'engine/backend/other/header.php'; 
 include 'engine/frontend/other/header.php';
@@ -210,6 +211,23 @@ function isMailTableExists()
 if (!isMailTableExists()) {
     global $pdo;
     $query = 'create table mail (message_id int auto_increment primary key, mes text null, sender int null, recipient int null, datetime datetime null)';
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+}
+
+function isuserSessionsTableExists()
+{
+    global $pdo;
+    $query = "SHOW TABLES LIKE 'user_sessions'";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+}
+
+if (!isuserSessionsTableExists()) {
+    global $pdo;
+    $query = 'create table user_sessions ( session_id int auto_increment, user_id int null, timestamp int(11) null, constraint user_sessions_pk primary key (session_id))';
     $sql = $pdo->prepare($query);
     $sql->execute();
 }
