@@ -65,17 +65,17 @@
         });
 
         var attachedFiles = [];
+        var attachedFile = [];
+
         function sizeFile(){
             $("#sendFiles").bind('change', function () {
                 for (var i = 0; i<this.files.length; i++) {
                     var size = this.files[i].size;
                     var names = this.files[i].name;
-                    console.log(attachedFiles);
                     if (size > 2 * 1024 * 1024) {
                         $(".btn-file").append("<span id='oversize'>Размер файла превышен</span>");
                         $("#sendBtn").prop('disabled', true);
                     } else {
-                        console.log(names);
                         $(".newmess").append("<div class='filenames'>"
                             +names+
                             "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
@@ -92,6 +92,8 @@
             });
         }
 
+
+
         $("#sendFiles").on('click', function () {
             sizeFile();
             $("#sendFiles").off('click');
@@ -104,7 +106,14 @@
             marker = false;
         }
 
-        var attachedFile = [];
+        function attachFile() {
+            attachedFile = $('input[type=file]')[0].files;
+            // attachedFile = $('input[type=file]').prop('files')[0];
+            attachedFiles.push(attachedFile);
+            console.log(attachedFiles);
+
+        }
+
 
         function removeFile(e) {
             var file = $(this).data("file");
@@ -122,13 +131,12 @@
 
         $('#sendBtn').on('click', function () {
             var mes = $("#mes").val();
-            attachedFile = $('input[type=file]').prop('files')[0];
+            attachFile();
             var fd = new FormData();
             fd.append('module', 'sendMessage');
-            // if (marker) {
-            //     count();
-                fd.append('file', attachedFile);
-            // }
+            fd.append('file', attachedFiles[0]);
+            fd.append('file1', attachedFiles[1]);
+            fd.append('file2', attachedFiles[2]);
             fd.append('ajax', 'messenger');
             fd.append('recipientId', '<?=$recipientId;?>');
             fd.append('mes', mes);
@@ -148,8 +156,12 @@
                         }
                         $("#mes").val('');
                         $(".filenames").html("");
+
                     },
                 });
+                $("#mes").removeClass('border-danger');
+            }else {
+                $("#mes").addClass('border-danger');
             }
 
         })
