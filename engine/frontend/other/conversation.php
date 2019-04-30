@@ -1,3 +1,5 @@
+
+
 <div class="card">
     <div class="card-header">
         <h4 class="mb-0"><?= fiomess($recipientId) ?></h4>
@@ -16,7 +18,7 @@
     <div class="card-header">
         <h4 class="mb-0">Новое сообщение</h4>
     </div>
-    <div class="card-body newmess">
+    <div class="card-body">
         <form>
             <div class="form-group">
                 <label for="mes">Сообщение</label>
@@ -28,6 +30,7 @@
                 <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
             </span>
         </form>
+        <div class="newmess"></div>
     </div>
 </div>
 <script src="/assets/js/CometServerApi.js"></script>
@@ -61,31 +64,33 @@
             });
         });
 
+        var attachedFiles = [];
         function sizeFile(){
             $("#sendFiles").bind('change', function () {
                 for (var i = 0; i<this.files.length; i++) {
                     var size = this.files[i].size;
-                    var names = [];
-                    var name = this.files[i].name;
-                    names.push(name);
+                    var names = this.files[i].name;
+                    console.log(attachedFiles);
                     if (size > 2 * 1024 * 1024) {
-                        $(".btn-file").append("<span id='sizemore'>Размер файла превышен</span>");
+                        $(".btn-file").append("<span id='oversize'>Размер файла превышен</span>");
                         $("#sendBtn").prop('disabled', true);
                     } else {
                         console.log(names);
-                        $(".newmess").append(names).append("<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>");
-                        $("#sizemore").remove();
+                        $(".newmess").append("<div class='filenames'>"
+                            +names+
+                            "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
+                            "</div>");
+                        $("#oversize").remove();
                         $("#sendBtn").prop('disabled', false);
 
                     }
+                    $(".cancelFile").on('click', function () {
+                        $(this).closest(".filenames").remove();
+                        removeFile();
+                    });
                 }
             });
         }
-
-        $(".cancelFile").on('click', function () {
-            console.log("asd");
-
-        });
 
         $("#sendFiles").on('click', function () {
             sizeFile();
@@ -93,12 +98,37 @@
 
         });
 
+        var marker = true;
+
+        function count() {
+            marker = false;
+        }
+
+        var attachedFile = [];
+
+        function removeFile(e) {
+            var file = $(this).data("file");
+            for (var i = 0; i < attachedFile.length; i++) {
+                if (attachedFile[i].name === file) {
+                    attachedFile.splice(i, 1);
+                    break;
+                }
+            }
+            $(this).parent().remove();
+            $("#sendFiles").val("");
+            console.log(attachedFile);
+        }
+
+
         $('#sendBtn').on('click', function () {
             var mes = $("#mes").val();
-            var attachedFile = $('input[type=file]').prop('files')[0];
+            attachedFile = $('input[type=file]').prop('files')[0];
             var fd = new FormData();
             fd.append('module', 'sendMessage');
-            fd.append('file', attachedFile);
+            if (marker) {
+                count();
+                fd.append('file', attachedFile);
+            }
             fd.append('ajax', 'messenger');
             fd.append('recipientId', '<?=$recipientId;?>');
             fd.append('mes', mes);
@@ -120,6 +150,7 @@
                     },
                 });
             }
+            $(".filenames").html("");
         })
     })
 </script>

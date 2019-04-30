@@ -24,6 +24,21 @@ $(document).ready(function(){
 		marker = false;
 	}
 
+	var attachedFile = [];
+
+	function removeFile() {
+		var file = $(this).data("file");
+		for (var i = 0; i < attachedFile.length; i++) {
+			if (attachedFile[i].name === file) {
+				attachedFile.splice(i, 1);
+				break;
+			}
+		}
+		$(this).parent().remove();
+		$("#sendFiless").val("");
+		console.log(attachedFile);
+	}
+
 	$("#comment").on('click', function() {
 		var text = $("#comin").val();
 		var attachedFile = $('#sendFiless').prop('files')[0];
@@ -31,7 +46,7 @@ $(document).ready(function(){
 		var fd = new FormData();
 		if (marker) {
 			count();
-			fd.append('file', attachedFile);
+		fd.append('file', attachedFile);
 		}
 		fd.append('ajax', 'task-comments-new');
 		fd.append('text', text);
@@ -58,7 +73,8 @@ $(document).ready(function(){
 					}, 500);
 				},
 			});
-
+			$("#comin").val("");
+			removeFile();
 		}
 	});
 
