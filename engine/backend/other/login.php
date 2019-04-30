@@ -19,7 +19,9 @@
 					$_SESSION['auth'] = true;
 					$_SESSION['id'] = $id;
 					$_SESSION['idcompany'] = $idc;
-					echo "<script>document.location.href = '/'</script>";
+                    header('location: /');
+                    ob_end_flush();
+                    die();
 				} else {
 					echo 'Неверные данные';
 				}
