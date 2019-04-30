@@ -15,7 +15,7 @@ if (!empty($_COOKIE['token'])) {
     $idc = DBOnce('idcompany', 'users', 'id="' . $id . '"');
     $timestamp = time();
     updateCookieTime($sessionCookie, $timestamp);
-    createCookieString($sessionCookie['sid'], $sessionCookie['uid'], $timestamp);
+    setcookie('token', createCookieString($sessionCookie['sid'], $sessionCookie['uid'], $timestamp), time() + 60 * 60 * 24 * 30, '/');
     header('location: /');
     ob_end_flush();
     die();

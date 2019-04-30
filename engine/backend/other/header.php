@@ -1,9 +1,24 @@
 <?php
+require_once 'engine/backend/functions/login-functions.php';
 	$url = $_SERVER['REQUEST_URI'];
 	$url = str_replace('/', '', $url);
-	if (!empty($_COOKIE['token'])) {
-
-}
+	if (empty($_SESSION['auth']) && !empty($_COOKIE['token'])) {
+        $sessionCookie = parseCookie($_COOKIE['token']);
+        if (!isCookieExistAndValidByTimestamp($sessionCookie)) {
+            removeSessions($sessionCookie['sid']);
+            setcookie('token', null, -1, '/');
+            header('location: /login/');
+            ob_end_flush();
+            die();
+        }
+        $_SESSION['auth'] = true;
+        $_SESSION['id'] = $sessionCookie['uid'];
+        $id = $sessionCookie['uid'];
+        $idc = DBOnce('idcompany', 'users', 'id="' . $id . '"');
+        $timestamp = time();
+        updateCookieTime($sessionCookie, $timestamp);
+        setcookie('token', createCookieString($sessionCookie['sid'], $sessionCookie['uid'], $timestamp), time() + 60 * 60 * 24 * 30, '/');
+    }
 	if (!empty($_SESSION['auth'])) {
 
         // скачивание прикрепленного файла
