@@ -125,10 +125,10 @@
             attachedFile = $('input[type=file]').prop('files')[0];
             var fd = new FormData();
             fd.append('module', 'sendMessage');
-            if (marker) {
-                count();
+            // if (marker) {
+            //     count();
                 fd.append('file', attachedFile);
-            }
+            // }
             fd.append('ajax', 'messenger');
             fd.append('recipientId', '<?=$recipientId;?>');
             fd.append('mes', mes);
@@ -147,10 +147,11 @@
                             $('.no-messages').remove();
                         }
                         $("#mes").val('');
+                        $(".filenames").html("");
                     },
                 });
             }
-            $(".filenames").html("");
+
         })
     })
 </script>
