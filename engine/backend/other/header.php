@@ -1,6 +1,9 @@
 <?php
 	$url = $_SERVER['REQUEST_URI'];
 	$url = str_replace('/', '', $url);
+	if (!empty($_COOKIE['token'])) {
+
+}
 	if (!empty($_SESSION['auth'])) {
 
         // скачивание прикрепленного файла
