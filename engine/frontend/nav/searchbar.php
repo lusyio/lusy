@@ -1,18 +1,10 @@
+<h3 class="pb-3"><?=$GLOBALS["_tasks"]?></h3>
+<input id="searchInput" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="<?=$GLOBALS["_searchplaceholder"]?>...">
 
-
-<div class="row justify-content-center">
+<div class="row">
     <div class="col-sm-12 mb-2">
-        <div class="col-md-12 card card-sm br-8">
-            <div class="card-body row no-gutters align-items-center pb-1">
-                <div class="col-auto">
-                    <i class="mr-1 fas fa-search custom-date"></i>
-                </div>
-                <div class="col">
-                    <input id="searchInput" class="form-control form-control-sm form-control-borderless" type="text" placeholder="<?=$GLOBALS["_searchplaceholder"]?>">
-                </div>
-            </div>
 
-            <div class="d-inline-block mb-2 ml-5">
+            <div class="d-inline-block mb-2">
                 <?php if($isManager): ?>
                 <div id="managerSearch" rol="manager" class="btn btn-secondary words-search role-search">
                     <span><?=$GLOBALS["_managerfilter"]?></span>
@@ -29,7 +21,5 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-
-        </div>
     </div>
 </div>

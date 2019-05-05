@@ -1,16 +1,16 @@
 <?php 
-	function main_nav() {
-	foreach ($GLOBALS["menu"] as $elem2) {
-					     foreach ($elem2 as $elem)
-						 	{ if (key($elem2) == 'tasks') {
-							 	
-							 	
-							 	include 'engine/backend/nav/tasks.php';
-					            						 	
-							 	
-							 	} else {
-							    echo '<li class="nav-item pb-2"><a class="nav-link" href="'.$elem[0].'"><i class="'.$elem[2].' mr-2"></i> '.$elem[1].'</a></li>';
-					            }
-			              }
-				     }
-	}
+
+// глобальные переменные
+
+global $id;
+global $_main;
+global $_tasks;
+global $_tasknew;
+global $_awards;
+global $_company;
+global $_storage;
+
+// количество задач
+
+$worker = DBOnce('COUNT(*)','tasks','worker='.$id);
+$manager = DBOnce('COUNT(*)','tasks','manager='.$id);

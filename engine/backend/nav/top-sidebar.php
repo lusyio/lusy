@@ -16,3 +16,4 @@ function fiotop(){
 	$surname = $GLOBALS["surnameu"];
 	echo $name . ' ' . $surname;
 }
+$namec = $GLOBALS["namec"];

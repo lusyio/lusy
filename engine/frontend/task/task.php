@@ -85,8 +85,6 @@ if ($id == $worker and $view == 0) {
 }
 ?>
 <div class="container-fluid" id="task">
-		<div class="row justify-content-center">
-              <div class="col-12 col-lg-10">
                     <div class="card mb-5">
                         <div class="card-body">
                             <h2 class="<?=$statusBar[$status]['border']?>"><?=$nametask?></h2>
@@ -125,8 +123,7 @@ if ($id == $worker and $view == 0) {
                         </div>
                     </div>
                   <?php include 'engine/frontend/task/notyfeed.php' ?>
-              </div>
-	    </div>
+              
 </div>
 
 

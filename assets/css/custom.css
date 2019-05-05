@@ -1,12 +1,16 @@
 body {
-	background: #fbfdff;
+	background: #F8F9FA;
 }
 .navbar-nav a {
-	color: #7a818a;
+	color: #5E5E5E;
 	transition: 0.2s all;
 }
 .bg-light {
     background-color: white !important;
+}
+.top-sidebar {
+    background-color: #5c92df;
+    color: white;
 }
 .navbar-nav a:hover {
 	color: #2c7be5;
@@ -85,7 +89,10 @@ body {
     font-size: 15px;
 
 }
-
+.informer {
+    background: #F1F2F4;
+    font-size: 12px;
+}
 #idtask:hover{
     text-decoration: none;
     color: #202429;
@@ -108,10 +115,10 @@ body {
 
 }
 
-.border-left-tasks{
-    border-left: 5px solid !important;
+.border-left-tasks {
+    border-left: 3px solid !important;
     padding-left: 8px;
-    margin-left: -13px;
+    margin-left: -12px;
 }
 
 .br-8{
@@ -139,9 +146,10 @@ body {
     padding-left: 5px;
 }
 
-.tasks-list{
+.tasks-list {
     padding: 0.8rem;
     cursor: pointer;
+    border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 .dialogs{
@@ -167,8 +175,7 @@ list-group:hover{
 }
 
 .tasks:hover{
-    background-color: #f7f7f7;
-    box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
+	
 }
 
 .date-status{
@@ -200,7 +207,6 @@ list-group:hover{
     text-align: center;
     color: #898989;
     font-size: 13px;
-    padding: 2px !important;
     width: max-content;
 }
 
@@ -519,6 +525,11 @@ a {
     z-index: 3;
     position: relative;
 }
+.user-img {
+    width: 45px;
+    border: 2px solid white;
+    box-shadow: 0 0.35rem 0.5rem rgba(18,38,63,.03);
+}
 .indy span {
     font-size: 12px;
 }
@@ -576,7 +587,6 @@ a {
 }
 .card {
     border: none !important;
-    box-shadow: 0 0.35rem 1.5rem rgba(18,38,63,.13);
     transition: 0.5s all;
 }
 .comin input {
@@ -714,15 +724,27 @@ span.date {
     margin-left: -11px;
     padding-left: 14px;
 }
-#task .tab-content {
-	box-shadow: 0 0.35rem 1.5rem rgba(18,38,63,.13);
-}
 #task .nav-tabs {
 	border-bottom: none;
 }
 #task .nav-tabs .nav-link {
 	border: none;
 }
+#search {
+    background-color: transparent !important;
+    border: none !important;
+    color: white;
+}
+#search::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 1; /* Firefox */
+}
+
+#search:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
 @keyframes show{
 	 0%{
 		 opacity:0;
@@ -789,6 +811,9 @@ span.date {
 	.navblock {
 		padding-right: 0 !important;
 	}
+	#navbarNav {
+		padding-top: 100px;
+	}
 	.navbar-vertical.navbar-expand-md>[class*=container] {
 	    flex-direction: column;
 	    min-height: 100%;
@@ -817,4 +842,9 @@ span.date {
 	#workzone {
 		padding: 0 20px;
 	}
+}
+@media (min-width: 992px) {
+.navbar-toggler {
+    display: none;
+}
 }

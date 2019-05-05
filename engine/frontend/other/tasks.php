@@ -1,5 +1,3 @@
-
-
 <script type="text/javascript" src="/assets/js/tasks.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
@@ -24,10 +22,7 @@ $borderColor = [
         $idmanager = $n["manager"];
         $status = $n["status"];
         $name = $n["name"];
-        $namew = DBOnce('name', 'users', 'id=' . $idworker);
-        $surnamew = DBOnce('surname', 'users', 'id=' . $idworker);
-        $namem = DBOnce('name', 'users', 'id=' . $idmanager);
-        $surnamem = DBOnce('surname', 'users', 'id=' . $idmanager);
+		$countcomments = DBOnce('COUNT(*) as count','comments','status="comment" and idtask='.$idtask);
         $datedone = $n["datedone"];
         $role = '';
         if ($id == $idworker) {
@@ -39,25 +34,25 @@ $borderColor = [
         $i++;
         ?>
 
-        <div class="col-md-12 p-0">
+        <div class="task-card">
             <div class="card mb-2 tasks <?= $status ?><?= $role ?>">
                 <div class="card-body tasks-list" onclick="window.location='/task/<?= $idtask ?>/';">
                     <div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>">
-                        <a><h6 class="card-title mb-2"><span><?= $name ?></span></h6></a>
-                        <img src="/upload/avatar/2.jpg" class="avatar mr-1">
-                        <a href="/profile/<?= $idmanager ?>/"><?= $namem . ' ' . $surnamem ?></a>
-                    </div>
-                    <div class="d-inline-block">
-                        <img src="/upload/avatar/1.jpg" class="avatar mr-1">
-                        <a class="name-manager-tasks"
-                           href="/profile/<?= $idworker ?>/"><?= $namew . ' ' . $surnamew ?></a>
-                    </div>
-                    <div class="d-inline-block">
-                        <span class="icons-tasks"><i class="fas fa-comments custom-date"></i> </span>
-                        <span class="icons-tasks"><i class="fas fa-file custom-date"></i> </span>
-                    </div>
-                    <div class="position-absolute date-status">
-                        <span class="text-ligther"><i class="far fa-calendar-times custom"> </i> <?= $datedone ?></span>
+                        <a><h5 class="card-title mb-2"><span><?= $name ?></span></h5></a>
+                        <p class="font-weight-light">Новая задача. Ознакомьтесь.</p>
+                        <div class="row">
+	                        <div class="col-sm-8">
+		                        <div class="informer d-inline p-2 rounded mr-1"><i class="far fa-calendar-times text-ligther"></i><span class="text-ligther ml-2">Дедлайн: </span><span><?= $datedone ?></span></div>
+		                        <div class="informer d-inline p-2 rounded mr-1"><i class="fas fa-comments"></i><span class="ml-2"><?=$countcomments?></span></div>
+		                        <div class="informer d-inline p-2 rounded"><i class="fas fa-file"></i><span class="ml-2">4</span></div>	                        
+	                        </div>
+	                        <div class="col-sm-4">
+		                        <div class="float-right">
+									<a class="name-manager-tasks" href="/profile/<?=$idmanager?>/"><img src="/upload/avatar/<?=$idmanager?>.jpg" class="avatar mr-1"></a>
+									<a class="name-manager-tasks" href="/profile/<?=$idworker?>/"><img src="/upload/avatar/<?=$idworker?>.jpg" class="avatar mr-1"></a>
+		                        </div>
+	                        </div>
+                        </div>
                     </div>
                 </div>
             </div>

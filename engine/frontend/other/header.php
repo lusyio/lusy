@@ -12,17 +12,16 @@
   	</head>
   	<body>
 	<?php if (!empty($_SESSION['auth'])) { ?>
-	<div class="container-fluid">
-		<div class="row" id="main">
-			<?php inc('nav','top-sidebar');?>
-			<div class="col-sm-2 navblock pt-3">
+	<?php inc('nav','top-sidebar');?>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3 navblock pt-3">
 				<?php
-					inc('other','user-pic');
 					inc('nav','main-nav');
 				?>
 			</div>
-			<div class="col-sm-10">
-				<div id="workzone" class="anim-show">
+			<div class="col-sm-9">
+				<div id="workzone" class="anim-show bg-white pt-5 pb-3">
 					<?php
 						inc('main','workzone');
 					?>
