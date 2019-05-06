@@ -46,14 +46,20 @@ $borderColor = [
         <div class="task-card">
             <div class="card mb-2 tasks <?= $status ?><?= $role ?>">
                 <div class="card-body tasks-list" onclick="window.location='/task/<?= $idtask ?>/';">
-                    <div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>">
+                    <div class="d-block border-left-tasks <?= $borderColor[$status] ?>">
                         <a><h5 class="card-title mb-2"><span><?= $name ?></span></h5></a>
                         <p class="font-weight-light">Новая задача. Ознакомьтесь.</p>
                         <div class="row">
-	                        <div class="col-sm-8">
-		                        <div class="informer d-inline p-2 rounded mr-1"><i class="far fa-calendar-times text-ligther"></i><span class="text-ligther ml-2">Дедлайн: </span><span><?= $deadLineDay ?> <?= $deadLineMonth ?></span></div>
-		                        <div class="informer d-inline p-2 rounded mr-1"><i class="fas fa-comments"></i><span class="ml-2"><?=$countcomments?></span></div>
-		                        <div class="informer d-inline p-2 rounded"><i class="fas fa-file"></i><span class="ml-2"><?=$countAttachedFiles?></span></div>
+
+	                        <div class="col-sm-8 d-inline-flex">
+                                <div class="progress position-relative w-custom h-100  mr-1">
+                                    <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <medium class="justify-content-center d-flex position-absolute w-100 h-100"><div class="p-custom"><i class="far fa-calendar-times text-ligther-custom"></i><span class="text-ligther-custom ml-2">Дедлайн: </span><span><?= $datedone ?></span></div></medium>
+                                </div>
+<!--		                        <div class="informer d-inline p-2 rounded mr-1"><i class="far fa-calendar-times text-ligther"></i><span class="text-ligther ml-2">Дедлайн: </span><span>--><?//= $datedone ?><!--</span></div>-->
+		                        <div class="informer p-2 rounded mr-1"><i class="fas fa-comments"></i><span class="ml-2"><?=$countcomments?></span></div>
+		                        <div class="informer p-2 rounded"><i class="fas fa-file"></i><span class="ml-2">4</span></div>
+
 	                        </div>
 	                        <div class="col-sm-4">
 		                        <div class="float-right">

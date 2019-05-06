@@ -157,7 +157,7 @@ $(document).ready(function(){
         var text = $('#searchInput').val();
         var textRegex = new RegExp(text, 'i');
         var statuses = [];
-        var roles = []
+        var roles = [];
         $('.status-search').each(function () {
             if($(this).hasClass('active')) {
                 statuses.push($(this).attr('rel'));
