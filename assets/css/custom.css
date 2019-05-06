@@ -239,6 +239,10 @@ list-group:hover{
     margin-bottom: 1%;
 }
 
+.cust:hover{
+    color: #000;
+}
+
 .words-search-reset{
     background-color: #f7f7f7;
     text-align: center;
@@ -248,26 +252,26 @@ list-group:hover{
     margin-bottom: 1%;
 }
 
-.zoom{
-    -webkit-transform: scale(1,1);
-    -webkit-transition-timing-function: ease-out;
-    -webkit-transition-duration: 550ms;
-    -moz-transform: scale(1,1);
-    -moz-transition-timing-function: ease-out;
-    -moz-transition-duration: 550ms;
-}
+/*.zoom{*/
+/*    -webkit-transform: scale(1,1);*/
+/*    -webkit-transition-timing-function: ease-out;*/
+/*    -webkit-transition-duration: 550ms;*/
+/*    -moz-transform: scale(1,1);*/
+/*    -moz-transition-timing-function: ease-out;*/
+/*    -moz-transition-duration: 550ms;*/
+/*}*/
 
-.zoom:hover{
-    -webkit-transform: scale(1.1,1.1);
-    -webkit-transition-timing-function: ease-out;
-    -webkit-transition-duration: 550ms;
-    -moz-transform: scale(1.1,1.1);
-    -moz-transition-timing-function: ease-out;
-    -moz-transition-duration: 550ms;
-    box-shadow: 0 15px 15px 0 rgba(50, 50, 50, 0.3);
-    position: relative;
-    z-index: 1;
-}
+/*.zoom:hover{*/
+/*    -webkit-transform: scale(1.1,1.1);*/
+/*    -webkit-transition-timing-function: ease-out;*/
+/*    -webkit-transition-duration: 550ms;*/
+/*    -moz-transform: scale(1.1,1.1);*/
+/*    -moz-transition-timing-function: ease-out;*/
+/*    -moz-transition-duration: 550ms;*/
+/*    box-shadow: 0 15px 15px 0 rgba(50, 50, 50, 0.3);*/
+/*    position: relative;*/
+/*    z-index: 1;*/
+/*}*/
 
 .words-search:active{
     background-color: #e3e5e9;
