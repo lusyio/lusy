@@ -154,6 +154,7 @@ $(document).ready(function(){
 
     $('#searchInput').on('keyup' , function () {
         filterTasks();
+        countRoles();
         countStatuses();
     });
 
@@ -239,5 +240,13 @@ $(document).ready(function(){
             $(this).find('.count').text(' (' + taskCount + ')');
         })
     }
+    function countRoles() {
+        $('.role-search').each(function () {
+            var $status = $(this).attr('rol');
+            var roleCount = $('.' + $status + ':visible').length;
+            $(this).find('.count').text(' (' + roleCount + ')');
+        })
+    }
+    countRoles();
     countStatuses();
 });

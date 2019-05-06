@@ -8,11 +8,13 @@
                 <?php if($isManager): ?>
                 <div id="managerSearch" rol="manager" class="btn btn-secondary words-search role-search">
                     <span><?=$GLOBALS["_managerfilter"]?></span>
+                    <span class="count"></span>
                 </div>
                 <?php endif; ?>
                 <?php if($isWorker): ?>
                 <div id="workerSearch" rol="worker" class="btn btn-secondary words-search role-search">
                     <span><?=$GLOBALS["_workerfilter"]?></span>
+                    <span class="count"></span>
                 </div>
                 <?php endif; ?>
                 <?php foreach ($usedStatuses as $status): ?>
