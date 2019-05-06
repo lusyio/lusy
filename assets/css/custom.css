@@ -656,7 +656,7 @@ a {
     top: -7px;
 }
 #log {
-    height: 300px;
+    height: 420px;
     overflow-y: scroll;
     padding: 0 20px 0 0;
     margin-left: -10px;
@@ -669,9 +669,9 @@ a {
     background: #d4d9df;
     display: inline-block;
     position: absolute;
-    left: 14px;
+    left: 19px;
     width: 2px;
-    height: 90%;
+    height: 77%;
     z-index: 300;
     bottom: 0;
 }
