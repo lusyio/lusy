@@ -207,6 +207,7 @@ $(document).ready(function(){
             var status = $(".words-search");
             if (status.hasClass('active')) {
                 $(".words-search").removeClass('active');
+                $("#searchInput").val('');
                 $(".tasks").show();
             }
         })
