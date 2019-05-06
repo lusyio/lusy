@@ -29,7 +29,7 @@ $borderColor = [
         $dbh->execute(array(':idtask' => $idtask));
         $countAttachedFiles = $dbh->fetchColumn(0);
         $datedone = $n["datedone"];
-        $deadLineDay = date('d', strtotime($n['datedone']));
+        $deadLineDay = date('j', strtotime($n['datedone']));
         $deadLineMonth = mb_substr($_months[date('n', strtotime($n['datedone']))], 0,3);
 
         $datedone = $n["datedone"];
