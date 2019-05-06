@@ -30,7 +30,7 @@ $borderColor = [
         $countAttachedFiles = $dbh->fetchColumn(0);
         $datedone = $n["datedone"];
         $deadLineDay = date('j', strtotime($n['datedone']));
-        $deadLineMonth = mb_substr($_months[date('n', strtotime($n['datedone']))], 0,3);
+        $deadLineMonth = $_months[date('n', strtotime($n['datedone']))];
 
         $datedone = $n["datedone"];
         $role = '';
