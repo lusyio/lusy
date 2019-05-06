@@ -248,11 +248,49 @@ list-group:hover{
     margin-bottom: 1%;
 }
 
+.zoom{
+    -webkit-transform: scale(1,1);
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transition-duration: 550ms;
+    -moz-transform: scale(1,1);
+    -moz-transition-timing-function: ease-out;
+    -moz-transition-duration: 550ms;
+}
+
+.zoom:hover{
+    -webkit-transform: scale(1.1,1.1);
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transition-duration: 550ms;
+    -moz-transform: scale(1.1,1.1);
+    -moz-transition-timing-function: ease-out;
+    -moz-transition-duration: 550ms;
+}
+
 .words-search:active{
     background-color: #e3e5e9;
     text-align: center;
     color: #898989 !important;
 
+}
+
+.active-manager:active{
+    background-color: #5f94db !important;
+    color: #ffffff !important;
+}
+
+.active-manager.active{
+    background-color: #5f94db !important;
+    color: #ffffff !important;
+}
+
+.active-worker:active{
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+}
+
+.active-worker.active{
+    background-color: #343a40 !important;
+    color: #ffffff !important;
 }
 
 .words-search:hover{

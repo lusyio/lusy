@@ -53,9 +53,9 @@ $borderColor = [
         $i++;
         ?>
 
-        <div class="task-card">
+        <div class="task-card zoom">
             <div class="card mb-2 tasks <?= $status ?><?= $role ?>">
-                <div class="card-body tasks-list" onclick="window.location='/task/<?= $idtask ?>/';">
+                <div class="card-body tasks-list" id="middleMouse" onclick="window.location='/task/<?= $idtask ?>/';">
                     <div class="d-block border-left-tasks <?= $borderColor[$status] ?>">
                         <a><h5 class="card-title mb-2"><span><?= $name ?></span></h5></a>
                         <p class="font-weight-light">Новая задача. Ознакомьтесь.</p>
