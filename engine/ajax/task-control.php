@@ -102,6 +102,10 @@ if($_POST['module'] == 'createTask') {
 			echo $idtask;
 		}
 	}
+
+    if (count($_FILES) > 0) {
+        uploadAttachedFiles('task', $idtask);
+    }
 }
 
 // отмена задачи
