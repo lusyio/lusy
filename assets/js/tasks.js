@@ -62,29 +62,36 @@ $(document).ready(function(){
     data.status = statuses;
 
 
+    $("#middleMouse").onmouseenter.window.open('/task/<?= $idtask ?>/');
+
+
+
     var wordsSearch =  $(".words-search").click(function () {
 
-        data.query = "";
+        // data.query = "";
         val = $(this).attr("rel");
         vol = $(this).attr("rol");
 
         if($(this).hasClass('active')){
             $(this).removeClass('active');
-            if (vol !== undefined){
-                roles.splice(vol);
+            if ($(this).hasClass('active-manager')){
+                $(this).removeClass('active-manager');
             }
-            if (val !== undefined){
-                statuses.splice(val);
+            if ($(this).hasClass('active-worker')){
+                $(this).removeClass('active-worker');
             }
+
+
 
         } else {
             $(this).addClass('active');
-            if (vol !== undefined){
-                roles.push(vol);
+            if (vol === 'manager'){
+                $(this).addClass('active-manager');
             }
-            if (val !== undefined){
-                statuses.push(val);
+            if (vol === 'worker'){
+                $(this).addClass('active-worker');
             }
+
         }
 
 
@@ -217,7 +224,6 @@ $(document).ready(function(){
     $(".progress-bar ").each(function () {
         var danger = $(this).attr('aria-valuenow');
         var danger1 = Number.parseInt(danger);
-        console.log(danger1);
         if (danger1 >= 95) {
             $(this).next("medium").addClass('progress-danger');
         }

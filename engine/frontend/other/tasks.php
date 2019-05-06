@@ -14,11 +14,10 @@ $borderColor = [
     'done' => 'border-success',
     'canceled' => 'border-secondary',
 ];
-	foreach ($tasks as $n):
-        ?>
-        <div class="task-card">
+	foreach ($tasks as $n): ?>
+        <div class="task-card zoom">
             <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['role'] ?>">
-                <div class="card-body tasks-list" onclick="window.location='/task/<?= $n['idtask'] ?>/';">
+                <div class="card-body tasks-list" id="middleMouse" onclick="window.location='/task/<?= $n['idtask'] ?>/';">
                     <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?>">
                         <a><h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5></a>
                         <p class="font-weight-light">Новая задача. Ознакомьтесь.</p>
