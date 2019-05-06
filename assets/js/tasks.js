@@ -154,6 +154,7 @@ $(document).ready(function(){
 
     $('#searchInput').on('keyup' , function () {
         filterTasks();
+        countStatuses();
     });
 
     function filterTasks() {
@@ -234,7 +235,7 @@ $(document).ready(function(){
     function countStatuses() {
         $('.status-search').each(function () {
             var $status = $(this).attr('rel');
-            var taskCount = $('.' + $status).length;
+            var taskCount = $('.' + $status + ':visible').length;
             $(this).find('.count').text(' (' + taskCount + ')');
         })
     }
