@@ -62,7 +62,22 @@ $(document).ready(function(){
     data.status = statuses;
 
 
-    $("#middleMouse").onmouseenter.window.open('/task/<?= $idtask ?>/');
+    // $("#middleMouse").onmousedown(function (e) {
+    //     if (e.which == 2) {
+    //         window.open('/task/<?= $idtask ?>/');
+    //     }
+    // });
+
+    document.getElementById('middleMouse').onmousedown = function(e) {
+
+
+        if (e.which == 2) {
+
+            window.open('/task/<?= $idtask ?>/');
+
+        }
+
+    };
 
 
 
