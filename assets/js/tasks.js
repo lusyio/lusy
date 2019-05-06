@@ -213,6 +213,18 @@ $(document).ready(function(){
         })
     }
 
+
+    $(".progress-bar ").each(function () {
+        var danger = $(this).attr('aria-valuenow');
+        var danger1 = Number.parseInt(danger);
+        console.log(danger1);
+        if (danger1 >= 95) {
+            $(this).next("medium").addClass('progress-danger');
+        }
+    });
+
+
+
     $("#resetSearch").on('click', function () {
         resetSearch();
     })

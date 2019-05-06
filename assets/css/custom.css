@@ -105,6 +105,10 @@ body {
     background-color: #f7f7f7;
 }
 
+.progress-danger{
+    color: #d4515d !important;
+}
+
 #backbutton:hover {
     background-color: #6c757d;
 }
