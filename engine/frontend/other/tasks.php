@@ -28,11 +28,21 @@ $borderColor = [
 		$countcomments = DBOnce('COUNT(*) as count','comments','status="comment" and idtask='.$idtask);
         $dbh->execute(array(':idtask' => $idtask));
         $countAttachedFiles = $dbh->fetchColumn(0);
+        $datecreate = $n['datecreate'];
         $datedone = $n["datedone"];
-        $deadLineDay = date('j', strtotime($n['datedone']));
-        $deadLineMonth = $_months[date('n', strtotime($n['datedone']))];
-
-        $datedone = $n["datedone"];
+        if (!is_null($n['datepostpone']) && $n['datepostpone'] != '0000-00-00') {
+            $datedone = $n["datepostpone"];
+        }
+        $dateCreateDateDoneDiff = strtotime($datedone) - strtotime($datecreate);
+        if (strtotime($datedone) > time() && $dateCreateDateDoneDiff != 0) {
+            $daysTotal = $dateCreateDateDoneDiff / (60 * 60 * 24) + 1;
+            $daysPassed = ceil((time() - strtotime($datecreate)) / (60 * 60 * 24));
+            $dateProgress = round(($daysPassed) * 100 / $daysTotal);
+        } else {
+            $dateProgress = 100;
+        }
+        $deadLineDay = date('j', strtotime($datedone));
+        $deadLineMonth = $_months[date('n', strtotime($datedone))];
         $role = '';
         if ($id == $idworker) {
             $role .= ' worker';
