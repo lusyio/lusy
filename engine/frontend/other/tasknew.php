@@ -40,6 +40,9 @@
                   Описание задачи
                 </label>
                 <textarea class="form-control" id="description" id="description" s="3" placeholder="Опишите суть задания"  required></textarea>
+                <span class="btn btn-light btn-file mt-3 mb-1">
+                    <i class="fas fa-file-upload custom-date"></i><input type="file">
+                </span>
               </div>
 
               <div class="row">

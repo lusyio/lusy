@@ -7,6 +7,9 @@ $query = 'SELECT t.id, t.name, t.status, t.description, t.manager, t.worker, t.v
 $dbh = $pdo->prepare($query);
 $dbh->execute(array(':taskId' => $id_task));
 $task = $dbh->fetch(PDO::FETCH_ASSOC);
+$filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
+$filesQuery->execute(array(':commentId' => $id_task, ':commentType' => 'task'));
+$files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
 //$task = DB('id, name, status, description, manager, worker, view, datecreate, datedone, datepostpone, report', 'tasks', 'id = "' . $id_task . '" LIMIT 1')[0];
 $report = $task['report'];
 $idtask = $task['id'];
