@@ -1,5 +1,6 @@
 <?php
 require_once 'engine/backend/functions/login-functions.php';
+require_once 'engine/backend/functions/common-functions.php';
 	$url = $_SERVER['REQUEST_URI'];
 	$url = str_replace('/', '', $url);
 	if (empty($_SESSION['auth']) && !empty($_COOKIE['token'])) {

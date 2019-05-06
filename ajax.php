@@ -3,8 +3,10 @@ if(isset($_POST['ajax']) && !empty($_POST['ajax'])) {
 	
 	// подключаем pdo
 	require_once(realpath('conf.php'));
-	
-	// вычисляем user id
+
+    require_once 'engine/backend/functions/common-functions.php';
+
+    // вычисляем user id
 	$id = $_POST['usp'] - 345;
 	
 	// вычисляем id компании пользователя
