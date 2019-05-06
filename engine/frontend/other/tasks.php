@@ -29,7 +29,8 @@ $borderColor = [
                                         <div class="progress position-relative h-100  mr-1">
                                             <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: <?= $n['dateProgress'] ?>%" aria-valuenow="<?= $n['dateProgress'] ?>%" aria-valuemin="0" aria-valuemax="100"></div>
                                             <medium class="justify-content-center d-flex position-absolute w-100 h-100">
-                                                <div class="p-custom"><i class="far fa-calendar-times text-ligther-custom"></i><span class="text-ligther-custom ml-2">Дедлайн: </span><span><?= $n['deadLineDay'] ?> <?= $n['deadLineMonth'] ?></span>
+                                                <div class="p-custom"><i class="far fa-calendar-times text-ligther-custom">
+                                                    </i><span class="text-ligther-custom ml-2">Дедлайн: </span><span><?= $n['deadLineDay'] ?> <?= $n['deadLineMonth'] ?></span>
                                                 </div>
                                             </medium>
                                         </div>
