@@ -20,6 +20,8 @@
                         <span><?=$GLOBALS["_{$status[0]}filter"]?></span>
                     </div>
                 <?php endforeach; ?>
+
+                <div id="resetSearch" class="btn btn-secondary words-search-reset">Сброс<i class="fas fa-times ml-1"></i></div>
             </div>
     </div>
 </div>
