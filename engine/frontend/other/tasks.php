@@ -63,7 +63,7 @@ $borderColor = [
 
 	                        <div class="col-sm-8 d-inline-flex">
                                 <div class="progress position-relative w-custom h-100  mr-1">
-                                    <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: <?= $dateProgress ?>%" aria-valuenow="<?= $dateProgress ?>%" aria-valuemin="0" aria-valuemax="100"></div>
                                     <medium class="justify-content-center d-flex position-absolute w-100 h-100"><div class="p-custom"><i class="far fa-calendar-times text-ligther-custom"></i><span class="text-ligther-custom ml-2">Дедлайн: </span><span><?= $deadLineDay ?> <?= $deadLineMonth ?></span></div></medium>
                                 </div>
 <!--		                        <div class="informer d-inline p-2 rounded mr-1"><i class="far fa-calendar-times text-ligther"></i><span class="text-ligther ml-2">Дедлайн: </span><span>--><?//= $datedone ?><!--</span></div>-->
