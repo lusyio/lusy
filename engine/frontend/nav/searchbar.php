@@ -18,6 +18,7 @@
                 <?php foreach ($usedStatuses as $status): ?>
                     <div id="<?= $status[0] ?>Search" rel="<?= $status[0] ?>" class="btn btn-secondary words-search status-search">
                         <span><?=$GLOBALS["_{$status[0]}filter"]?></span>
+                        <span class="count"></span>
                     </div>
                 <?php endforeach; ?>
 

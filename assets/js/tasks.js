@@ -249,4 +249,13 @@ $(document).ready(function(){
     $("#resetSearch").on('click', function () {
         resetSearch();
     })
+    
+    function countStatuses() {
+        $('.status-search').each(function () {
+            var $status = $(this).attr('rel');
+            var taskCount = $('.' + $status).length;
+            $(this).find('.count').text(' (' + taskCount + ')');
+        })
+    }
+    countStatuses();
 });
