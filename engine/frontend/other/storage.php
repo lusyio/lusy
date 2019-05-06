@@ -5,6 +5,7 @@
     <th>File ID</th>
     <th>Имя файла</th>
     <th>Размер</th>
+    <th>Автор</th>
     <th>К чему прикреплен</th>
     </thead>
     <tbody>
@@ -13,6 +14,7 @@
             <td><?= $file['file_id'] ?></td>
             <td><a href="../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a></td>
             <td><?= $file['file_size'] ?></td>
+            <td><a href="../profile/<?= $file['author'] ?>"><?= $file['name'] ?> <?= $file['surname'] ?></a></td>
             <td><a href="<?=$file['attachedToLink']?>"><?= $file['comment_type'] ?></a></td>
         </tr>
     <?php endforeach; ?>

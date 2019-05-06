@@ -42,7 +42,7 @@ $borderColor = [
             $dateProgress = 100;
         }
         $deadLineDay = date('j', strtotime($datedone));
-        $deadLineMonth = $_months[date('n', strtotime($datedone))];
+        $deadLineMonth = $_months[date('n', strtotime($datedone)) - 1];
         $role = '';
         if ($id == $idworker) {
             $role .= ' worker';
