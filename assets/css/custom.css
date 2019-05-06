@@ -86,7 +86,7 @@ body {
 }
 
 .progress{
-    background-color: #f1f2f4;
+    background-color: #f7f7f7;
 }
 
 .text-ligther-custom{
@@ -101,6 +101,10 @@ body {
     width: 40%;
 }
 
+.test{
+    background-color: #f7f7f7;
+}
+
 #backbutton:hover {
     background-color: #6c757d;
 }
@@ -110,7 +114,7 @@ body {
 
 }
 .informer {
-    background: #F1F2F4;
+    background: #f7f7f7;
     font-size: 12px;
 }
 #idtask:hover{
@@ -218,8 +222,8 @@ list-group:hover{
 }
 
 .words-search.active {
-    color: #f7f7f7 !important;
-    background-color: #898989 !important;
+    background-color: #e3e5e9 !important;
+    color: #898989 !important;
 }
 
 .words-search{
@@ -228,12 +232,23 @@ list-group:hover{
     color: #898989;
     font-size: 13px;
     width: max-content;
+    margin-bottom: 1%;
+}
+
+.words-search-reset{
+    background-color: #f7f7f7;
+    text-align: center;
+    color: #898989;
+    font-size: 13px;
+    width: max-content;
+    margin-bottom: 1%;
 }
 
 .words-search:active{
-    background-color: #e4e4e4;
+    background-color: #e3e5e9;
     text-align: center;
-    color: #898989;
+    color: #898989 !important;
+
 }
 
 .words-search:hover{

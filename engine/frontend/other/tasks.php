@@ -58,7 +58,7 @@ $borderColor = [
                                 </div>
 <!--		                        <div class="informer d-inline p-2 rounded mr-1"><i class="far fa-calendar-times text-ligther"></i><span class="text-ligther ml-2">Дедлайн: </span><span>--><?//= $datedone ?><!--</span></div>-->
 		                        <div class="informer p-2 rounded mr-1"><i class="fas fa-comments"></i><span class="ml-2"><?=$countcomments?></span></div>
-		                        <div class="informer p-2 rounded"><i class="fas fa-file"></i><span class="ml-2">4</span></div>
+		                        <div class="informer p-2 rounded"><i class="fas fa-file"></i><span class="ml-2"><?=$countAttachedFiles?></span></div>
 
 	                        </div>
 	                        <div class="col-sm-4">

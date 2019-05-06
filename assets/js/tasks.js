@@ -201,4 +201,18 @@ $(document).ready(function(){
             }
         })
     }
+
+    function resetSearch(){
+        $(".words-search").each(function () {
+            var status = $(".words-search");
+            if (status.hasClass('active')) {
+                $(".words-search").removeClass('active');
+                $(".tasks").show();
+            }
+        })
+    }
+
+    $("#resetSearch").on('click', function () {
+        resetSearch();
+    })
 });
