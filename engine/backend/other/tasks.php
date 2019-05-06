@@ -1,7 +1,6 @@
 <?php
 global $id;
 global $idc;
-global $pdo;
 $url = $_SERVER['REQUEST_URI'];
 $url = str_replace('/', '', $url);
 $url = str_replace('tasks', '', $url);
@@ -23,49 +22,9 @@ if($url == 'overdue' or $url == 'pending' or $url == 'done' or $url == 'postpone
 if ($url == 'canceled') {
 	$otbor = 'status="canceled" and (worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ')';
 }
-//$tasks = DB('*','tasks',$otbor . ' order by datedone');
-$tasksQuery = "SELECT t.id AS idtask, t.name, t.description, t.datecreate, t.datedone, t.datepostpone, t.status, t.manager AS idmanager, t.worker AS idworker, t.idcompany, t.report, t.view, IF(t.datepostpone IS NULL OR t.datepostpone='0000-00-00', t.datedone, t.datepostpone) AS sort_date, (SELECT COUNT(*) FROM comments c WHERE c.status='comment' AND c.idtask = t.id) AS countcomments, (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles FROM tasks t WHERE manager=:userId OR worker=:userId ORDER BY sort_date";
-$dbh = $pdo->prepare($tasksQuery);
-$dbh->execute(array(':userId' => $id));
-$tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
-prepareTasks($tasks);
+$tasks = DB('*','tasks',$otbor . ' order by datedone');
 $usedStatuses = DB('DISTINCT `status`', 'tasks', $otbor);
 $sortedUsedStatuses = getSortedStatuses($usedStatuses);
-
-function prepareTasks(&$tasks)
-{
-	global $id;
-	global $_months;
-	foreach ($tasks as &$task) {
-		if (!is_null($task['datepostpone']) && $task['datepostpone'] != '0000-00-00') {
-			$task['datedone'] = $task["datepostpone"];
-		}
-		$task['dateProgress'] = getDateProgress($task['datedone'], $task['datecreate']);
-		$task['deadLineDay'] = date('j', strtotime($task['datedone']));
-		$task['deadLineMonth'] = $_months[date('n', strtotime($task['datedone'])) - 1];
-		$task['role'] = '';
-		if ($task['idworker'] == $id) {
-			$task['role'] .= ' worker';
-		}
-		if ($task['idmanager'] == $id) {
-			$task['role'] .= ' manager';
-		}
-	}
-}
-$isManager = DBOnce('id', 'tasks', 'manager='.$GLOBALS["id"]);
-$isWorker = DBOnce('id', 'tasks', 'worker='.$GLOBALS["id"]);
-
-function getDateProgress($finishDate, $createDate)
-{
-	$dateCreateDateDoneDiff = strtotime($finishDate) - strtotime($createDate);
-	if (strtotime($finishDate) > time()) {
-		$daysTotal = $dateCreateDateDoneDiff / (60 * 60 * 24) + 1;
-		$daysPassed = ceil((time() - strtotime($createDate)) / (60 * 60 * 24));
-		return round(($daysPassed) * 100 / $daysTotal);
-	} else {
-		return 100;
-	}
-}
 
 function getSortedStatuses($usedStatuses) {
 	$result = [];
@@ -75,6 +34,70 @@ function getSortedStatuses($usedStatuses) {
 	asort($result);
 	return $result;
 }
+
+$isManager = DBOnce('id', 'tasks', 'manager='.$GLOBALS["id"]);
+$isWorker = DBOnce('id', 'tasks', 'worker='.$GLOBALS["id"]);
+
+// функция вывода карточки задачи
+function Task($id,$name,$status,$data,$view,$manager,$langc,$color) {
+	
+	// общее
+	
+	$border = 'border-'.$color;
+	$icon = '';
+	$date = '';
+	// высчитываем дату и название месяца
+	
+	if ($langc == 'ru') {
+		$arr = ['января',  'февраля',  'марта',  'апреля',  'мая',  'июня',  'июля',  'августа',  'сентября',  'октября',  'ноября',  'декабря'];
+		$_tasknew = 'Новая задача';
+	}
+	if ($langc == 'en') {
+		$arr = ['january',  'february',  'march',  'april',  'may',  'june',  'july',  'august',  'september',  'october',  'november',  'december'];
+		$_tasknew = 'New task';
+	}
+	
+	$day = date("j", strtotime($data));
+	$month = (date("n", strtotime($data)))-1;
+	
+	// условия и проверка
+	
+	if ($status == 'new') {}
+	if ($status == 'overdue') {$icon = '<i class="fab fa-gripfire text-'.$color.' float-right"></i>';}
+	if ($status == 'postpone') {$color = 'warning'; $icon = '<i class="fab fa-gripfire text-danger float-right"></i>';} 
+	if ($view == '0') {$badge = '<span class="badge badge-info">'.$_tasknew.' <i class="fas fa-plus"></i></span>';} else {$badge = '';}
+	
+	// определяем имя и фамилию постановщика
+	
+	$namem = DBOnce('name','users','id='.$manager);
+	$surnamem = DBOnce('surname','users','id='.$manager);
+	
+	// количество комментариев
+	$countcomments = DBOnce('COUNT(*) as count','comments','idtask='.$id);
+	if ($countcomments > 0) {
+		$comments = '<span class="badge badge-light"><i class="fas fa-comments"></i> '.$countcomments.'</span>';
+	} else {
+		$comments = '';
+	}
+	
+	echo '<a href="/task/'.$id.'/">
+		<div class="card-body position-relative border-bottom">
+			<h6 class="card-title mb-3 '.$border.'">'.$name.'</h6>
+			<span class="badge badge-light manager">'.$namem.' '.$surnamem.'</span>
+			'.$comments;
+			if ($status != 'pending') {
+				$date =	'<span class="badge badge-'.$color.'">'.$day.' '.$arr[$month].'</span>';
+			}
+			if ($status == 'postpone') {
+				$data_postp = DBOnce('datepostpone','tasks','id='.$id);
+				$day_postp = date("j", strtotime($data_postp));
+				$month_postp = (date("n", strtotime($data_postp)))-1;
+				$date =	'<span class="badge badge-danger">'.$day.' '.$arr[$month].' </span><i class="fas fa-angle-double-right ml-1 mr-1"></i><span class="badge badge-'.$color.'">'.$day_postp.' '.$arr[$month_postp].' </span>';
+			}
+		echo $date.$badge.$icon.'
+		</div>
+</a>';
+	}	
 ?>
 
 

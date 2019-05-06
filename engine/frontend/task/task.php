@@ -91,14 +91,6 @@ if ($id == $worker and $view == 0) {
                             <p class="text-ligther"><?=$viewState?></p>
                             <h6 class="text-ligther"><i class="far fa-calendar-times custom"> </i> <?=$datedone?> <?=$datepostpone?> <?=$GLOBALS["_$status"]?> </h6>
                             <div class="mt-5 mb-5 text-justify"><?=$description?></div>
-                            <div class="mt-5 mb-5 text-justify">
-                                <?php if (count($files) > 0): ?>
-                                    <p class="">Прикрепленнные файлы:</p>
-                                    <?php foreach ($files as $file): ?>
-                                        <p><a class="" href="../../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a></p>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </div>
                             <div id="control">
                                 <?php
                                     include 'engine/backend/task/task/control/'.$role.'/'.$status.'.php';
