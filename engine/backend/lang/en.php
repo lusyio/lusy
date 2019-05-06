@@ -28,6 +28,4 @@ $_overduefilter = 'Overdue';
 $_canceledfilter = 'Canceled';
 $_newfilter = 'New';
 $_returnedfilter = 'Returned';
-
-
-?>
+$_months = ['january',  'february',  'march',  'april',  'may',  'june',  'july',  'august',  'september',  'october',  'november',  'december'];

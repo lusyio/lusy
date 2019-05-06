@@ -232,6 +232,32 @@ if (!isuserSessionsTableExists()) {
     $sql->execute();
 }
 
+function isColumnAuthorExist()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `uploads`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'author') {
+            return true;
+        }
+    }
+    return false;
+}
+function addColumnAuthor()
+{
+    global $pdo;
+    $sql = 'alter table `uploads` add `author` text null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
+if (!isColumnAuthorExist()) {
+    addColumnAuthor();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';
