@@ -53,11 +53,13 @@ $borderColor = [
         $i++;
         ?>
 
+
         <div class="task-card zoom">
             <div class="card mb-2 tasks <?= $status ?><?= $role ?>">
-                <div class="card-body tasks-list" id="middleMouse" onclick="window.location='/task/<?= $idtask ?>/';">
+                <div class="card-body tasks-list">
                     <div class="d-block border-left-tasks <?= $borderColor[$status] ?>">
-                        <a><h5 class="card-title mb-2"><span><?= $name ?></span></h5></a>
+                        <a class="d-block position-absolute w-100 h-100" href="/task/<?= $idtask ?>/">
+                        <a class="h5 card-title mb-2"><span><?= $name ?></span></a>
                         <p class="font-weight-light">Новая задача. Ознакомьтесь.</p>
                         <div class="row">
 
@@ -78,10 +80,12 @@ $borderColor = [
 		                        </div>
 	                        </div>
                         </div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+
 
 
     <?php endforeach; ?>
