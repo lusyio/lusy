@@ -223,6 +223,14 @@ $(document).ready(function(){
         })
     }
 
+        $(".tasks").each(function () {
+            var status = $(this);
+            if (status.hasClass('manager')){
+                console.log('asd');
+            }
+        });
+
+
 
     $(".progress-bar ").each(function () {
         var danger = $(this).attr('aria-valuenow');
