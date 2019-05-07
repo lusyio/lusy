@@ -184,6 +184,12 @@ body {
     border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
+.file-list{
+    padding: 0.8rem;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
 .dialogs{
     border-radius: 8px;
     background-color: #fff;
@@ -452,6 +458,12 @@ input:checked[type="checkbox"]::before {
     color: #93c259 !important;
     margin-left: 5px;
     margin-top: 5px;
+}
+
+.custom-file{
+    font-size: 2rem;
+    color: #898989;
+
 }
 
 .fas.fa-times.custom-date.cancel {

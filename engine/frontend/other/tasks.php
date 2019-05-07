@@ -43,7 +43,7 @@ $taskStatusText = [
                 <div class="card-body tasks-list">
                     <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?>">
                         <h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5>
-                        <p class="font-weight-light"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
+                        <p class="font-weight-light text-ligther"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="d-inline-flex w-100">
@@ -52,7 +52,7 @@ $taskStatusText = [
                                             <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: <?= $n['dateProgress'] ?>%" aria-valuenow="<?= $n['dateProgress'] ?>%" aria-valuemin="0" aria-valuemax="100"></div>
                                             <medium class="justify-content-center d-flex position-absolute w-100 h-100">
                                                 <div class="p-custom"><i class="far fa-calendar-times text-ligther-custom">
-                                                    </i><span class="text-ligther-custom ml-2">Дедлайн: </span><span><?= $n['deadLineDay'] ?> <?= $n['deadLineMonth'] ?></span>
+                                                    </i><span class="text-ligther-custom ml-2"><?=$GLOBALS["_deadlinelist"]?> </span><span><?= $n['deadLineDay'] ?> <?= $n['deadLineMonth'] ?></span>
                                                 </div>
                                             </medium>
                                         </div>

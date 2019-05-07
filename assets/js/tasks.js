@@ -219,20 +219,6 @@ $(document).ready(function(){
         })
     }
 
-
-    // $(".progress-bar ").each(function () {
-    //     var danger = $(this).attr('aria-valuenow');
-    //     var danger1 = Number.parseInt(danger);
-    //     if (danger1 >= 95) {
-    //         $(this).next("medium").addClass('progress-danger');
-    //     }
-    //     if ($(this).parents("div").hasClass('done')){
-    //         $(this).next("medium").addClass('progress-done');
-    //     }
-    // });
-
-
-
     $("#resetSearch").on('click', function () {
         resetSearch();
     });
