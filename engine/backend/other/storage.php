@@ -5,7 +5,7 @@ function getFileList()
     global $idc;
     global $pdo;
 
-    $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, c.idtask, u.author, us.surname, us.name, t.name AS taskName
+    $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, c.idtask, c.datetime, t.datecreate, u.author, us.surname, us.name, t.name AS taskName
 FROM `uploads` u 
   LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' 
   LEFT JOIN users us ON u.author = us.id 
@@ -84,5 +84,11 @@ function prepareFileList(array &$fileList) {
         }
         $fileNameParts = explode('.', $file['file_name']);
         $file['extension'] = mb_strtolower(array_pop($fileNameParts));
+        if(is_null($file['datetime'])) {
+            $file['date'] = date('d.m.Y', strtotime($file['datecreate']));
+        } else {
+            $file['date'] = date('d.m.Y', strtotime($file['datetime']));
+
+        }
     }
 }
