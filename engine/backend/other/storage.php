@@ -82,5 +82,7 @@ function prepareFileList(array &$fileList) {
             $file['file_size'] = round($fileSize / 1024);
             $file['sizeSuffix'] = 'КБ';
         }
+        $fileNameParts = explode('.', $file['file_name']);
+        $file['extension'] = mb_strtolower(array_pop($fileNameParts));
     }
 }
