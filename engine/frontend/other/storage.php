@@ -8,18 +8,10 @@ if ($totalSize > 1024 * 1024) {
     $totalSuffix = 'КБ';
 }
 ?>
-<h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 мб</h3>
+<h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 МБ</h3>
 <input id="searchFile" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="Ведите название файла">
 <hr>
-<!--<table class="table table-hover">-->
-<!--    <thead>-->
-<!--    <th>File ID</th>-->
-<!--    <th>Имя файла</th>-->
-<!--    <th>Размер</th>-->
-<!--    <th>Автор</th>-->
-<!--    <th>К чему прикреплен</th>-->
-<!--    </thead>-->
-<!--    <tbody>-->
+
     <?php foreach ($fileList as $file):
     $fileSize = $file['file_size'];
     $sizeSuffix = 'Б';
@@ -47,16 +39,8 @@ if ($totalSize > 1024 * 1024) {
         </div>
     </div>
 
-<!--        <tr>-->
-<!--            <td>--><?//= $file['file_id'] ?><!--</td>-->
-<!--            <td><a href="../--><?//= $file['file_path'] ?><!--">--><?//= $file['file_name'] ?><!--</a></td>-->
-<!--            <td>--><?//= $file['file_size'] ?><!--</td>-->
-<!--            <td><a href="../profile/--><?//= $file['author'] ?><!--">--><?//= $file['name'] ?><!-- --><?//= $file['surname'] ?><!--</a></td>-->
-<!--            <td><a href="--><?//=$file['attachedToLink']?><!--">--><?//= $file['comment_type'] ?><!--</a></td>-->
-<!--        </tr>-->
     <?php endforeach; ?>
-<!--    </tbody>-->
-<!--</table>-->
+
 
 <script>
 $(document).ready(function() {
@@ -67,8 +51,14 @@ $(document).ready(function() {
     });
 
     $(".custom-file").each(function () {
+        var name = $(".file-name").text();
+        if (name:contains('.png')){
+            console.log(name);
+        }
 
 
     })
+
+
 } );
 </script>
