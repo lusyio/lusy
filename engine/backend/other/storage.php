@@ -5,7 +5,12 @@ function getFileList()
     global $idc;
     global $pdo;
 
-    $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, c.idtask, u.author, us.surname, us.name FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' LEFT JOIN users us ON u.author = us.id WHERE u.company_id = :companyId AND u.is_deleted = 0";
+    $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, c.idtask, u.author, us.surname, us.name, t.name AS taskName
+FROM `uploads` u 
+  LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' 
+  LEFT JOIN users us ON u.author = us.id 
+  LEFT JOIN tasks t ON t.id = IFNULL(c.idtask, u.comment_id)
+  WHERE u.company_id = :companyId AND u.is_deleted = 0";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':companyId' => $idc));
     return $dbh->fetchAll(PDO::FETCH_ASSOC);

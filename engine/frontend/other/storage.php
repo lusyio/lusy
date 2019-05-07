@@ -1,6 +1,16 @@
+<?php
 
+$totalSuffix = 'Б';
+if ($totalSize > 1024 * 1024) {
+    $totalSize = round($totalSize / (1024 * 1024));
+    $totalSuffix = 'МБ';
+} elseif ($totalSize > 1024) {
+    $totalSize = round($totalSize / 1024);
+    $totalSuffix = 'КБ';
+}
+?>
 
-<h3>Файлы  <?=$totalSize?> байт/100 мб</h3>
+<h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 мб</h3>
 <input id="searchInput" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="Ведите название файла">
 <hr>
 <!--<table class="table table-hover">-->
@@ -12,7 +22,17 @@
 <!--    <th>К чему прикреплен</th>-->
 <!--    </thead>-->
 <!--    <tbody>-->
-    <?php foreach ($fileList as $file): ?>
+    <?php foreach ($fileList as $file):
+    $fileSize = $file['file_size'];
+    $sizeSuffix = 'Б';
+    if ($fileSize > 1024 * 1024) {
+        $fileSize = round($fileSize / (1024 * 1024));
+        $sizeSuffix = 'МБ';
+    } elseif ($fileSize > 1024) {
+        $fileSize = round($fileSize / 1024);
+        $sizeSuffix = 'КБ';
+    }
+        ?>
 
     <div class="card col-md-12">
         <div class="card-body file-list">
@@ -20,7 +40,7 @@
             <div class="row mt-1">
                 <span class="d-inline"><i class="far fa-file-pdf custom-file"></i></span>
                 <div class="col-md-4">
-                    <span class="text-ligther">File size: <?= $file['file_size'] ?></span>
+                    <span class="text-ligther">File size: <?= $fileSize ?> <?= $sizeSuffix ?></span>
                 </div>
                 <div class="col-md-3">
                     <span class="text-ligther">21.11.2019</span>
