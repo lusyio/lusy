@@ -14,6 +14,28 @@ $borderColor = [
     'done' => 'border-success',
     'canceled' => 'border-secondary',
 ];
+$taskStatusText = [
+    'manager' => [
+        'new' => $_tasknewmanager,
+        'inwork' => $_inprogresslist,
+        'overdue' => $_overduelist,
+        'postpone' => $_postponelist,
+        'pending' => $_pendinglist,
+        'returned' => $_returnedlist,
+        'done' => '',
+        'canceled' => '',
+    ],
+    'worker' => [
+        'new' => $_tasknewworker,
+        'inwork' => $_inprogresslist,
+        'overdue' => $_overduelist,
+        'postpone' => $_postponelist,
+        'pending' => $_pendinglist,
+        'returned' => $_returnedlist,
+        'done' => '',
+        'canceled' => '',
+    ],
+]; //for example: $taskStatusText[$n['role']][$n['status']]
 	foreach ($tasks as $n): ?>
     <a href="/task/<?= $n['idtask'] ?>/" class="text-decoration-none cust">
         <div class="task-card">

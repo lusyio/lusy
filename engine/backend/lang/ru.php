@@ -27,7 +27,6 @@ $_pending = 'На рассмотрении';
 $_tasknewlist = 'Новая задача.';
 $_tasknewworker = 'Ознакомьтесь.';
 $_tasknewmanager = 'На ознакомлении.';
-$_tasknewmanagerchecked = 'Ознакомлен.';
 $_inprogresslist = 'В работе.';
 $_overduelist = 'Просрочено.';
 $_returnedlist = 'Возвращено.';
