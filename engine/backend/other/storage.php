@@ -45,6 +45,14 @@ function removeFile($fileId) {
 
 
 $totalSize = getTotalSize();
+$totalSuffix = 'Б';
+if ($totalSize > 1024 * 1024) {
+    $totalSize = round($totalSize / (1024 * 1024));
+    $totalSuffix = 'МБ';
+} elseif ($totalSize > 1024) {
+    $totalSize = round($totalSize / 1024);
+    $totalSuffix = 'КБ';
+}
 $fileList = getFileList();
 prepareFileList($fileList);
 
@@ -64,6 +72,15 @@ function prepareFileList(array &$fileList) {
             $file['comment_link'] = '#' . $file['comment_id'];
             $fromTo = DB('sender, recipient', 'mail', 'message_id=' . $file['comment_id']);
             $file['attachedToLink'] = '';
+        }
+        $fileSize = $file['file_size'];
+        $file['sizeSuffix'] = 'Б';
+        if ($file['file_size'] > 1024 * 1024) {
+            $file['file_size'] = round($fileSize / (1024 * 1024));
+            $file['sizeSuffix'] = 'МБ';
+        } elseif ($fileSize > 1024) {
+            $file['file_size'] = round($fileSize / 1024);
+            $file['sizeSuffix'] = 'КБ';
         }
     }
 }
