@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
-    // $("#searchInput").on("keyup", function() {
-    //     var value = $(this).val();
-    //     $(".tasks").hide();
-    //     $(".tasks:contains("+value+")").show();
-    // });
+    $("#searchFile").on("keyup", function() {
+        var value = $(this).val();
+        $(".files").hide();
+        $(".files:contains("+value+")").show();
+    });
 
     // $("#inworkSearch").click(function () {
     //     $(".tasks").fadeOut().filter(".inwork, .returned, .new, .overdue").fadeIn();
