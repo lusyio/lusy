@@ -109,6 +109,10 @@ body {
     color: #d4515d !important;
 }
 
+.progress-done{
+    color: #93c162 !important;
+}
+
 #backbutton:hover {
     background-color: #6c757d;
 }

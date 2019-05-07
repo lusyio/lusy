@@ -229,6 +229,9 @@ $(document).ready(function(){
         if (danger1 >= 95) {
             $(this).next("medium").addClass('progress-danger');
         }
+        if ($(this).parents("div").hasClass('done')){
+            $(this).next("medium").addClass('progress-done')
+        }
     });
 
 
@@ -237,7 +240,8 @@ $(document).ready(function(){
         resetSearch();
         createPagination();
         loadPages(1);
-    })
+    });
+
     
     function countStatuses() {
         $('.status-search').each(function () {
