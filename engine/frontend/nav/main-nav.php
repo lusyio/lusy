@@ -21,7 +21,7 @@
 					<i class="fas fa-hdd mr-2"></i>
 					<?=$_storage?>
 					<div class="progress mt-2" style="height: 3px;margin-left: 31px;">
-					  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+					  <div class="progress-bar" role="progressbar" style="width: <?=$pros?>%;" aria-valuenow="<?=$pros?>" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 				</a>
 			</li> 

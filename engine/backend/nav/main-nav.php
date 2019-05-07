@@ -9,8 +9,14 @@ global $_tasknew;
 global $_awards;
 global $_company;
 global $_storage;
+global $idc;
+global $pdo;
+
 
 // количество задач
 
 $worker = DBOnce('COUNT(*)','tasks','worker='.$id);
 $manager = DBOnce('COUNT(*)','tasks','manager='.$id);
+$uploadlimit = 100;
+$totalSize = number_format((DBOnce('SUM(file_size) AS totalSize','uploads','company_id='.$idc)) / (1024 * 1024),0,'',' '); 
+$pros = ($totalSize/$uploadlimit)*100;
