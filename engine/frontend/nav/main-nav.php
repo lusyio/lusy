@@ -16,12 +16,12 @@
 			<hr class="w-100">
 			<li class="nav-item pb-2"><a class="nav-link" href="/awards/"><i class="fas fa-trophy mr-2"></i> <?=$_awards?></a></li>
 			<li class="nav-item pb-2"><a class="nav-link" href="/company/"><i class="fas fa-users mr-2"></i> <?=$_company?><span class="badge badge-secondary float-right">#4</span></a></li>
-			<li class="nav-item pb-2">
+			<li class="nav-item pb-2 files-nav">
 				<a class="nav-link" href="/storage/">
 					<i class="fas fa-hdd mr-2"></i>
 					<?=$_storage?>
-					<div class="progress mt-2" style="height: 3px;margin-left: 31px;">
-					  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+					<div class="progress mt-2">
+					  <div class="progress-bar <?=$bgpross?>" role="progressbar" style="width: <?=$pros?>%;" aria-valuenow="<?=$pros?>" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 				</a>
 			</li> 
