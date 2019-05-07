@@ -40,9 +40,6 @@
                   Описание задачи
                 </label>
                 <textarea class="form-control" id="description" id="description" s="3" placeholder="Опишите суть задания"  required></textarea>
-                <span class="btn btn-light btn-file mt-3 mb-1">
-                    <i class="fas fa-file-upload custom-date"></i><input type="file">
-                </span>
               </div>
 
               <div class="row">
@@ -78,10 +75,28 @@
               
 <!-- не начислять баллы -->
               <!-- Buttons -->
-              <button id="createTask" class="btn btn-block btn-primary">Создать задачу</button>
-              <a href="/" class="btn btn-block btn-link text-muted">
-                Отменить создание задачи
-              </a>
+              <div class="row">
+                  <div class="col-sm-10 p-0">
+                      <button id="createTask" class="btn btn-block btn-primary">Создать задачу</button>
+                  </div>
+                  <div class="col-sm-2 p-0 text-center">
+                        <span class="btn btn-light btn-file">
+                            <i class="fas fa-file-upload custom-date"></i><input type="file">
+                        </span>
+                  </div>
+              </div>
+<!--              <button id="createTask" class="btn btn-block btn-primary w-85 d-inline">Создать задачу</button>-->
+<!--              <span class="btn btn-light btn-file">-->
+<!--                    <i class="fas fa-file-upload custom-date"></i><input type="file">-->
+<!--                </span>-->
+              <div class="row">
+                  <div class="col-sm-10 p-0">
+                      <a href="/" class="btn btn-block btn-link text-muted">
+                          Отменить создание задачи
+                      </a>
+                  </div>
+              </div>
+
 
 
           </div>
