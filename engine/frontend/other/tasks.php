@@ -55,17 +55,8 @@ $borderColor = [
             </div>
         </div>
     </a>
-
-
-
-
     <?php endforeach; ?>
 </div>
-<nav >
-    <ul class="pagination justify-content-center">
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-    </ul>
-</nav>
 <script>
 $(document).ready(function() {
     $('#tasks').DataTable({
