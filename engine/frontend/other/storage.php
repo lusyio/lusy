@@ -1,7 +1,13 @@
 <?php
 $fileIcon = [
         'png' => 'fa-file-image',
+        'jpeg' => 'fa-file-image',
+        'jpg' => 'fa-file-image',
+        'bmp' => 'fa-file-image',
         'pdf' => 'fa-file-pdf',
+        'txt' => 'fa-file-alt',
+        'doc' => 'far fa-file-word',
+        'docx' => 'far fa-file-word',
     ];
 ?>
 <h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 МБ</h3>
