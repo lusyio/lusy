@@ -150,12 +150,16 @@ $(document).ready(function(){
 
     $('.role-search, .status-search').on('click', function () {
         filterTasks();
+        createPagination();
+        loadPages(1);
     });
 
     $('#searchInput').on('keyup' , function () {
         filterTasks();
         countRoles();
         countStatuses();
+        createPagination();
+        loadPages(1);
     });
 
     function filterTasks() {
@@ -231,6 +235,8 @@ $(document).ready(function(){
 
     $("#resetSearch").on('click', function () {
         resetSearch();
+        createPagination();
+        loadPages(1);
     })
     
     function countStatuses() {
@@ -249,4 +255,45 @@ $(document).ready(function(){
     }
     countRoles();
     countStatuses();
+    createPagination();
+    loadPages(1);
+
+    function createPagination() {
+        var tasksPerPage = 25;
+        var totalTasks = $('.tasks:visible').length;
+        console.log(totalTasks);
+        var pages = Math.ceil(totalTasks/tasksPerPage);
+        console.log(pages);
+        $('.pagination').empty();
+        $('.pagination').append('<li class="page-item active"><a class="page-link" href="#" pn="1">1</a></li>')
+        for (i=2; i<= pages; i++) {
+            $('.pagination').append('<li class="page-item"><a class="page-link" href="#" pn="' + i + '">' + i + '</a></li>')
+        }
+    }
+
+    $('.page-link').on('click', function (e) {
+        e.preventDefault();
+        $('.page-item').removeClass('active');
+        $(this).parent('.page-item').addClass('active');
+        var pageNumber = $(this).attr('pn');
+        console.log(pageNumber);
+        loadPages(pageNumber);
+    });
+
+    function loadPages(pageNumber) {
+        $('.tasks').each(function () {
+            $(this).show()
+        });
+        filterTasks();
+        var tasksPerPage = 25;
+        var lastVisibleIndex = pageNumber * tasksPerPage - 1;
+        $('.tasks:visible').each(function (i) {
+            if (i > lastVisibleIndex - tasksPerPage && i < lastVisibleIndex) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        })
+    }
+
 });
