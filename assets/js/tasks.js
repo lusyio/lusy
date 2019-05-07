@@ -275,12 +275,11 @@ $(document).ready(function(){
         }
     }
 
-    $('.page-link').on('click', function (e) {
-        e.preventDefault();
+    $('.pagination').on('click', '.page-link', function () {
+        console.log('clicked');
         $('.page-item').removeClass('active');
         $(this).parent('.page-item').addClass('active');
         var pageNumber = $(this).attr('pn');
-        console.log(pageNumber);
         loadPages(pageNumber);
     });
 
