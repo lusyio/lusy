@@ -21,7 +21,7 @@ $borderColor = [
                 <div class="card-body tasks-list">
                     <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?>">
                         <h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5>
-                        <p class="font-weight-light">Новая задача. Ознакомьтесь.</p>
+                        <p class="font-weight-light">Новая задача.</p>
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="d-inline-flex w-100">
@@ -59,6 +59,21 @@ $borderColor = [
 </div>
 <script>
 $(document).ready(function() {
+
+    $(".tasks").each(function () {
+        var status = $(this);
+        if (status.hasClass('manager') && status.hasClass('new')){
+            $(this).find('p').append(' ' + '<?=$GLOBALS["_tasknewmanager"]?>');
+        }
+    });
+
+    $(".tasks").each(function () {
+        var status = $(this);
+        if (status.hasClass('worker') && status.hasClass('new')){
+            $(this).find('p').append(' ' + '<?=$GLOBALS["_tasknewworker"]?>');
+        }
+    });
+
     $('#tasks').DataTable({
 	    "paging":   false,
 	    "searching": false,
