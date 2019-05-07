@@ -77,7 +77,7 @@
               <!-- Buttons -->
               <div class="row">
                   <div class="col-sm-10 p-0">
-                      <button id="createTask" class="btn btn-block btn-primary">Создать задачу</button>
+                      <button id="createTask" class="btn btn-block btn-primary h-100">Создать задачу</button>
                   </div>
                   <div class="col-sm-2 p-0 text-center">
                         <span class="btn btn-light btn-file">

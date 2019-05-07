@@ -194,6 +194,17 @@ body {
     border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
+.deleteFile:hover{
+    border-radius: 100%;
+    color: #898989;
+}
+
+.deleteFile:active{
+    color: #898989;
+    border-radius: 100%;
+    box-shadow: 0 2px 5px rgba(0,0,0, .2);
+}
+
 .w-85{
     width: 85%;
 }
