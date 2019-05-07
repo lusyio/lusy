@@ -22,8 +22,8 @@ $taskStatusText = [
         'postpone' => $GLOBALS['_postponelist'],
         'pending' => $GLOBALS['_pendinglist'],
         'returned' => $GLOBALS['_returnedlist'],
-        'done' => '',
-        'canceled' => '',
+        'done' =>  $GLOBALS['_donelist'],
+        'canceled' => $GLOBALS['_canceledlist'],
     ],
     'worker' => [
         'new' => $GLOBALS['_tasknewworker'],
@@ -32,8 +32,8 @@ $taskStatusText = [
         'postpone' => $GLOBALS['_postponelist'],
         'pending' => $GLOBALS['_pendinglist'],
         'returned' => $GLOBALS['_returnedlist'],
-        'done' => '',
-        'canceled' => '',
+        'done' => $GLOBALS['_donelist'],
+        'canceled' => $GLOBALS['_canceledlist'],
     ],
 ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
 	foreach ($tasks as $n): ?>
@@ -43,7 +43,7 @@ $taskStatusText = [
                 <div class="card-body tasks-list">
                     <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?>">
                         <h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5>
-                        <p class="font-weight-light">Новая задача.</p>
+                        <p class="font-weight-light"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="d-inline-flex w-100">
@@ -82,17 +82,14 @@ $taskStatusText = [
 <script>
 $(document).ready(function() {
 
-    $(".tasks").each(function () {
-        var status = $(this);
-        if (status.hasClass('manager') && status.hasClass('new')){
-            $(this).find('p').append(' ' + '<?=$GLOBALS["_tasknewmanager"]?>');
+    $(".progress-bar ").each(function () {
+        var danger = $(this).attr('aria-valuenow');
+        var danger1 = Number.parseInt(danger);
+        if (danger1 >= 95) {
+            $(this).next("medium").addClass('progress-danger');
         }
-    });
-
-    $(".tasks").each(function () {
-        var status = $(this);
-        if (status.hasClass('worker') && status.hasClass('new')){
-            $(this).find('p').append(' ' + '<?=$GLOBALS["_tasknewworker"]?>');
+        if ($(this).parents("div").hasClass('done')){
+            $(this).next("medium").html('<i class="fas fa-check p-1"></i>' + '<?=$GLOBALS["_donelist"]?>').addClass('progress-done p-2');
         }
     });
 
