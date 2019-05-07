@@ -31,7 +31,7 @@ $fileIcon = [
                     <span class="d-inline"><i class="far <?= key_exists($file['extension'], $fileIcon)? $fileIcon[$file['extension']]: "fa-file" ?> custom-file"></i></span>
                 </div>
                 <div class="col-md-11 p-1">
-                    <a href="<?=$file['attachedToLink']?>" class="text-ligther"><?= $file['name'] ?> <?= $file['surname'] ?> прикрепил к <?= $file['comment_type'] ?> '<?= $file['taskName'] ?>' <?= $file['date'] ?></a>
+                    <a href="<?=$file['attachedToLink']?>" class="text-ligther"><?= $file['name'] ?> <?= $file['surname'] ?> <?=$GLOBALS["_attachto"]?> <?= $file['comment_type'] ?> '<?= $file['taskName'] ?>' <?= $file['date'] ?></a>
                 </div>
             </div>
         </div>
