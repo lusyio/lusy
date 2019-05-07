@@ -226,7 +226,7 @@ $(document).ready(function(){
             $(this).next("medium").addClass('progress-danger');
         }
         if ($(this).parents("div").hasClass('done')){
-            $(this).next("medium").addClass('progress-done')
+            $(this).next("medium").addClass('progress-done');
         }
     });
 
