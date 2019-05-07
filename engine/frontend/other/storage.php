@@ -1,7 +1,7 @@
 
 
 <h3>Файлы  <?=$totalSize?> байт/100 мб</h3>
-<input id="searchInput" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="Ведите название файла">
+<input id="searchFile" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="Ведите название файла">
 <hr>
 <!--<table class="table table-hover">-->
 <!--    <thead>-->
@@ -14,19 +14,16 @@
 <!--    <tbody>-->
     <?php foreach ($fileList as $file): ?>
 
-    <div class="card col-md-12">
+    <div class="card files col-md-12">
         <div class="card-body file-list">
-            <a href="../<?= $file['file_path'] ?>" class="h6 mb-3"><?= $file['file_name'] ?></a>
+            <a href="../<?= $file['file_path'] ?>" class="h6 mb-3 file-name"><?= $file['file_name'] ?></a>
+            <span class="text-ligther ml-1"> . <?= $file['file_size'] ?> байт </span>
             <div class="row mt-1">
-                <span class="d-inline"><i class="far fa-file-pdf custom-file"></i></span>
-                <div class="col-md-4">
-                    <span class="text-ligther">File size: <?= $file['file_size'] ?></span>
+                <div class="col-md-1">
+                    <span class="d-inline"><i class="far fa-file-pdf custom-file"></i></span>
                 </div>
-                <div class="col-md-3">
-                    <span class="text-ligther">21.11.2019</span>
-                </div>
-                <div class="col-md-4 text-center">
-                    <a href="<?=$file['attachedToLink']?>" class="text-ligther"><?= $file['comment_type'] ?></a>
+                <div class="col-md-10 p-1">
+                    <a href="<?=$file['attachedToLink']?>" class="text-ligther"><?= $file['name'] ?> <?= $file['surname'] ?> прикрепил к <?= $file['comment_type'] ?> 'тест' 21.11.2019</a>
                 </div>
             </div>
         </div>
@@ -42,3 +39,18 @@
     <?php endforeach; ?>
 <!--    </tbody>-->
 <!--</table>-->
+
+<script>
+$(document).ready(function() {
+    $("#searchFile").on("keyup", function () {
+        var value = $(this).val();
+        $(".files").hide();
+        $(".files:contains(" + value + ")").show();
+    });
+
+    $(".custom-file").each(function () {
+
+
+    })
+} );
+</script>
