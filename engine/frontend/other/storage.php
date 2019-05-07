@@ -52,11 +52,7 @@ $(document).ready(function() {
 
     $(".custom-file").each(function () {
         var name = $(".file-name").text();
-        if (name:contains('.png')){
-            console.log(name);
-        }
-
-
+        console.log(name);
     })
 
 
