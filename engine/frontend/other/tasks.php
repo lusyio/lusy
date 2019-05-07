@@ -14,10 +14,32 @@ $borderColor = [
     'done' => 'border-success',
     'canceled' => 'border-secondary',
 ];
+$taskStatusText = [
+    'manager' => [
+        'new' => $GLOBALS['_tasknewmanager'],
+        'inwork' => $GLOBALS['_inprogresslist'],
+        'overdue' => $GLOBALS['_overduelist'],
+        'postpone' => $GLOBALS['_postponelist'],
+        'pending' => $GLOBALS['_pendinglist'],
+        'returned' => $GLOBALS['_returnedlist'],
+        'done' => '',
+        'canceled' => '',
+    ],
+    'worker' => [
+        'new' => $GLOBALS['_tasknewworker'],
+        'inwork' => $GLOBALS['_inprogresslist'],
+        'overdue' => $GLOBALS['_overduelist'],
+        'postpone' => $GLOBALS['_postponelist'],
+        'pending' => $GLOBALS['_pendinglist'],
+        'returned' => $GLOBALS['_returnedlist'],
+        'done' => '',
+        'canceled' => '',
+    ],
+]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
 	foreach ($tasks as $n): ?>
     <a href="/task/<?= $n['idtask'] ?>/" class="text-decoration-none cust">
         <div class="task-card">
-            <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['role'] ?>">
+            <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['classRole'] ?>">
                 <div class="card-body tasks-list">
                     <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?>">
                         <h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5>
