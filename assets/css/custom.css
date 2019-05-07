@@ -19,6 +19,11 @@ body {
 .navbar-nav .badge {
 	margin-top: 3px;
 }
+.file-list .fa-circle {
+	font-size: 5px; 
+	vertical-align: middle; 
+	line-height: 2;
+}
 .badge {
 	font-weight: 600;
 }

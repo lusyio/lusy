@@ -1,11 +1,11 @@
-<h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 мб</h3>
+<h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 МБ</h3>
 <input id="searchFile" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="Ведите название файла">
 <hr>
     <?php foreach ($fileList as $file): ?>
     <div class="card files col-md-12">
         <div class="card-body file-list">
             <a href="../<?= $file['file_path'] ?>" class="h6 mb-3 file-name"><?= $file['file_name'] ?></a>
-            <span class="text-ligther ml-1"> . <?= $file['file_size'] ?> <?= $file['sizeSuffix'] ?></span>
+            <span class="text-ligther ml-1"> <i class="fas fa-circle mr-1 ml-1"></i> <?= $fileSize ?> <?= $sizeSuffix ?></span>
             <div class="row mt-1">
                 <div class="col-md-1">
                     <span class="d-inline"><i class="far fa-file-pdf custom-file"></i></span>
@@ -26,8 +26,10 @@ $(document).ready(function() {
     });
 
     $(".custom-file").each(function () {
-
-
+        var name = $(".file-name").text();
+        if (name:contains('.png')){
+            console.log(name);
+        }
     })
 } );
 </script>
