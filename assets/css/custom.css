@@ -27,6 +27,11 @@ body {
 .badge {
 	font-weight: 600;
 }
+.files-nav .progress {
+    background-color: #dfe0e1;
+    height: 3px;
+    margin-left: 31px;
+}
 #main {
 	max-width: 1400px;
 	margin: auto;
