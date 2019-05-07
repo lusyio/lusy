@@ -1,6 +1,6 @@
 <?php 
-$idtask = $_POST['it'];	
-$text = $_POST['text'];
+$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+$text = filter_var($_POST['text'], FILTER_SANITIZE_SPECIAL_CHARS);
 
 $datetime = date("Y-m-d H:i:s");
 // создаем комментаприй

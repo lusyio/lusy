@@ -7,8 +7,8 @@ global $id;
 global $idc;
 
 if ($_POST['module'] == 'sendMessage') {
-    $mes = $_POST['mes'];
-    $recipientId = $_POST['recipientId'];
+    $mes = filter_var($_POST['mes'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $recipientId = filter_var($_POST['recipientId'], FILTER_SANITIZE_NUMBER_INT);
 
     if (!empty($mes)) {
         $dbh = "INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:mes, :sender, :recipient, :datetime) ";
@@ -31,7 +31,7 @@ if ($_POST['module'] == 'sendMessage') {
 }
 
 if ($_POST['module'] == 'updateMessages') {
-    $messageId = $_POST['messageId'];
+    $messageId = filter_var($_POST['messageId'], FILTER_SANITIZE_NUMBER_INT);
     $messages = getMessageById($messageId);
     foreach ($messages as $message) {
         include 'engine/frontend/other/message.php';
