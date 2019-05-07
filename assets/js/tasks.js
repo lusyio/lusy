@@ -213,12 +213,13 @@ $(document).ready(function(){
 
     function resetSearch(){
         $(".words-search").each(function () {
-            var status = $(".words-search");
+            var status = $(this);
             if (status.hasClass('active')) {
                 $(".words-search").removeClass('active');
                 $("#searchInput").val('');
-                $(".tasks").show();
+                console.log($('.tasks:visible').length);
             }
+            $(".tasks").show();
         })
     }
 
@@ -291,7 +292,7 @@ $(document).ready(function(){
         var tasksPerPage = 25;
         var lastVisibleIndex = pageNumber * tasksPerPage - 1;
         $('.tasks:visible').each(function (i) {
-            if (i > lastVisibleIndex - tasksPerPage && i < lastVisibleIndex) {
+            if (i > lastVisibleIndex - tasksPerPage && i <= lastVisibleIndex) {
                 $(this).show();
             } else {
                 $(this).hide();
