@@ -16,30 +16,30 @@ $borderColor = [
 ];
 $taskStatusText = [
     'manager' => [
-        'new' => $_tasknewmanager,
-        'inwork' => $_inprogresslist,
-        'overdue' => $_overduelist,
-        'postpone' => $_postponelist,
-        'pending' => $_pendinglist,
-        'returned' => $_returnedlist,
+        'new' => $GLOBALS['_tasknewmanager'],
+        'inwork' => $GLOBALS['$_inprogresslist'],
+        'overdue' => $GLOBALS['$_overduelist'],
+        'postpone' => $GLOBALS['$_postponelist'],
+        'pending' => $GLOBALS['$_pendinglist'],
+        'returned' => $GLOBALS['$_returnedlist'],
         'done' => '',
         'canceled' => '',
     ],
     'worker' => [
-        'new' => $_tasknewworker,
-        'inwork' => $_inprogresslist,
-        'overdue' => $_overduelist,
-        'postpone' => $_postponelist,
-        'pending' => $_pendinglist,
-        'returned' => $_returnedlist,
+        'new' => $GLOBALS['$_tasknewworker'],
+        'inwork' => $GLOBALS['$_inprogresslist'],
+        'overdue' => $GLOBALS['$_overduelist'],
+        'postpone' => $GLOBALS['$_postponelist'],
+        'pending' => $GLOBALS['$_pendinglist'],
+        'returned' => $GLOBALS['$_returnedlist'],
         'done' => '',
         'canceled' => '',
     ],
-]; //for example: $taskStatusText[$n['role']][$n['status']]
+]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
 	foreach ($tasks as $n): ?>
     <a href="/task/<?= $n['idtask'] ?>/" class="text-decoration-none cust">
         <div class="task-card">
-            <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['role'] ?>">
+            <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['classRole'] ?>">
                 <div class="card-body tasks-list">
                     <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?>">
                         <h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5>

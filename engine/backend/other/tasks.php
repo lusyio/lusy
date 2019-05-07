@@ -43,12 +43,15 @@ function prepareTasks(&$tasks)
 		$task['dateProgress'] = getDateProgress($task['datedone'], $task['datecreate']);
 		$task['deadLineDay'] = date('j', strtotime($task['datedone']));
 		$task['deadLineMonth'] = $_months[date('n', strtotime($task['datedone'])) - 1];
-		$task['role'] = '';
+		$task['classRole'] = '';
 		if ($task['idworker'] == $id) {
-			$task['role'] .= ' worker';
+			$task['classRole'] .= ' worker';
+			$task['mainRole'] = 'worker';
 		}
 		if ($task['idmanager'] == $id) {
-			$task['role'] .= ' manager';
+			$task['classRole'] .= ' manager';
+			$task['mainRole'] = 'manager';
+
 		}
 	}
 }
