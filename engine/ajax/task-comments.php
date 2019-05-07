@@ -1,5 +1,5 @@
 <?php
-$idtask = $_POST['it'];
+$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
 $countcomments = DBOnce('COUNT(*) as count', 'comments', 'idtask=' . $idtask);
 
 if ($countcomments > 0) {

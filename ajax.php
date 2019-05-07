@@ -7,7 +7,7 @@ if(isset($_POST['ajax']) && !empty($_POST['ajax'])) {
     require_once 'engine/backend/functions/common-functions.php';
 
     // вычисляем user id
-	$id = $_POST['usp'] - 345;
+	$id = filter_var($_POST['usp'], FILTER_SANITIZE_NUMBER_INT) - 345;
 	
 	// вычисляем id компании пользователя
 	$idc = DBOnce('idcompany','users','id='.$id);
