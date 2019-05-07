@@ -35,7 +35,7 @@ if ($totalSize > 1024 * 1024) {
     <div class="card files col-md-12">
         <div class="card-body file-list">
             <a href="../<?= $file['file_path'] ?>" class="h6 mb-3 file-name"><?= $file['file_name'] ?></a>
-            <span class="text-ligther ml-1"> . <?= $fileSize ?> <?= $sizeSuffix ?></span>
+            <span class="text-ligther ml-1"> <i class="fas fa-circle mr-1 ml-1"></i> <?= $fileSize ?> <?= $sizeSuffix ?></span>
             <div class="row mt-1">
                 <div class="col-md-1">
                     <span class="d-inline"><i class="far fa-file-pdf custom-file"></i></span>
