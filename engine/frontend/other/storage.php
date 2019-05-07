@@ -1,7 +1,13 @@
 <?php
 $fileIcon = [
         'png' => 'fa-file-image',
+        'jpeg' => 'fa-file-image',
+        'jpg' => 'fa-file-image',
+        'bmp' => 'fa-file-image',
         'pdf' => 'fa-file-pdf',
+        'txt' => 'fa-file-alt',
+        'doc' => 'far fa-file-word',
+        'docx' => 'far fa-file-word',
     ];
 ?>
 <h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 МБ</h3>
@@ -16,7 +22,7 @@ $fileIcon = [
                 <div class="col-md-1">
                     <span class="d-inline"><i class="far <?= key_exists($file['extension'], $fileIcon)? $fileIcon[$file['extension']]: "fa-file" ?> custom-file"></i></span>
                 </div>
-                <div class="col-md-10 p-1">
+                <div class="col-md-11 p-1">
                     <a href="<?=$file['attachedToLink']?>" class="text-ligther"><?= $file['name'] ?> <?= $file['surname'] ?> прикрепил к <?= $file['comment_type'] ?> '<?= $file['taskName'] ?>' <?= $file['date'] ?></a>
                 </div>
             </div>
