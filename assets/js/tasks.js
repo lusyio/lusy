@@ -225,13 +225,16 @@ $(document).ready(function(){
         if (danger1 >= 95) {
             $(this).next("medium").addClass('progress-danger');
         }
+        if ($(this).parents("div").hasClass('done')){
+            $(this).next("medium").addClass('progress-done')
+        }
     });
 
 
 
     $("#resetSearch").on('click', function () {
         resetSearch();
-    })
+    });
     
     function countStatuses() {
         $('.status-search').each(function () {
