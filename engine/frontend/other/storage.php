@@ -50,11 +50,6 @@ $(document).ready(function() {
         $(".files:contains(" + value + ")").show();
     });
 
-    $(".custom-file").each(function () {
-        var name = $(".file-name").text();
-        console.log(name);
-    })
-
 
 } );
 </script>
