@@ -37,7 +37,7 @@ function prepareMessages(&$messages, $userId, $interlocutorId)
         } else {
             $message['author'] = $interlocutorName;
         }
-        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
+        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
         $filesQuery->execute(array(':messageId' => $message['message_id'], ':commentType' => 'conversation'));
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
         if (count($files) > 0) {

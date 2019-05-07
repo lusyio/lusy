@@ -95,7 +95,11 @@ if ($id == $worker and $view == 0) {
                                 <?php if (count($files) > 0): ?>
                                     <p class="">Прикрепленнные файлы:</p>
                                     <?php foreach ($files as $file): ?>
-                                        <p><a class="" href="../../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a></p>
+                                        <?php if ($file['is_deleted']): ?>
+                                            <p class=""><s><?= $file['file_name'] ?></s> (удален)</p>
+                                        <?php else: ?>
+                                            <p><a class="" href="../../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a></p>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
