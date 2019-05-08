@@ -10,17 +10,23 @@ $fileIcon = [
         'docx' => 'far fa-file-word',
     ];
 ?>
-<h3>Файлы <?=$normalizedCompanyFilesSize['size']?> <?=$normalizedCompanyFilesSize['suffix']?>/<?=$normalizedProvidedSpace['size']?> <?=$normalizedProvidedSpace['suffix']?></h3>
+<h3><?=$GLOBALS["_files"]?> <?=$normalizedCompanyFilesSize['size']?> <?=$normalizedCompanyFilesSize['suffix']?>/<?=$normalizedProvidedSpace['size']?> <?=$normalizedProvidedSpace['suffix']?></h3>
+<div class="progress col-4 mb-2 p-0">
+    <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $companyUsageSpacePercent ?>%" aria-valuenow="<?= $companyUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titlecompanyusage"]?>"></div>
+    <div class="progress-bar bg-dark" role="progressbar" style="width: <?= $userUsageSpacePercent ?>%" aria-valuenow="<?= $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titleuserusage"]?>"></div>
+</div>
 <?php
-include 'engine/frontend/nav/searchbarfile.php'
+if ($normalizedCompanyFilesSize['size'] > 0){
+include 'engine/frontend/other/searchbarfile.php';
+}
 ?>
 <hr>
     <?php foreach ($fileList as $file): ?>
-    <div class="card files col-12">
+    <div class="card files">
         <div class="card-body file-list">
             <div class="row">
-                <div class="col-1">
-                    <span class="d-inline"><i class="far <?= key_exists($file['extension'], $fileIcon)? $fileIcon[$file['extension']]: "fa-file" ?> custom-file"></i></span>
+                <div class="col-1 iconFiles">
+                    <i class="far <?= key_exists($file['extension'], $fileIcon)? $fileIcon[$file['extension']]: "fa-file" ?> custom-file"></i>
                 </div>
                 <div class="col-11 pl-0">
                     <div class="row">
@@ -35,7 +41,7 @@ include 'engine/frontend/nav/searchbarfile.php'
 
                     <div class="row mt-1">
                         <div class="col">
-                            <a href="<?=$file['attachedToLink']?>" class="text-ligther"><?= $file['name'] ?> <?= $file['surname'] ?> <?=$GLOBALS["_attachto"]?> <?= $file['comment_type'] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?> <?= $file['date'] ?></a>
+                            <a href="<?=$file['attachedToLink']?>" class="text-ligther"><?= $file['name'] ?> <?= $file['surname'] ?> <?=$GLOBALS["_attachto"]?> <?= $GLOBALS['_'.$file['comment_type']] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?> <?= $file['date'] ?></a>
                         </div>
                     </div>
                 </div>
