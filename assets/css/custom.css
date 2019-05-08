@@ -140,6 +140,10 @@ body {
     color: #202429;
 }
 
+#editFile{
+    height: 2rem;
+}
+
 
 /*.noty2.custom2 {*/
 /*    display: flex;*/
