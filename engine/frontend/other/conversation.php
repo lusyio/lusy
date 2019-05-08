@@ -107,8 +107,8 @@
         }
 
         function attachFile() {
-            attachedFile = $('input[type=file]')[0].files;
-            // attachedFile = $('input[type=file]').prop('files')[0];
+            // attachedFile = $('input[type=file]')[0].files;
+            attachedFile = $('input[type=file]').prop('files')[0];
             attachedFiles.push(attachedFile);
             console.log(attachedFiles);
 
