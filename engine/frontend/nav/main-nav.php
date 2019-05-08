@@ -1,3 +1,10 @@
+<?php
+if ($companyUsageSpacePercent > 90){
+    $bgpross = 'bg-danger';
+} else {
+    $bgpross = '';
+}
+?>
 <nav class="navbar-expand-lg flex-column" style="width: 85%">
 
   <div class="collapse navbar-collapse" id="navbarNav">
