@@ -39,8 +39,8 @@ $_deadlinelist = 'Дедлайн:';
 //Файлы
 $_attachto = 'прикрепил к';
 $_fileplaceholder = 'Ведите название файла';
-$_conversationfile = 'диалогу';
-$_commentsfile = 'комментарию';
+$_conversation = 'диалогу';
+$_comment= 'комментарию';
 $_files = 'Файлы';
 $_edit = 'Изменить';
 $_titlecompanyusage = 'Файлы компании';
