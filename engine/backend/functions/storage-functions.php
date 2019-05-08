@@ -25,7 +25,7 @@ function getTotalSize()
     global $idc;
     global $pdo;
 
-    $query = "SELECT SUM(file_size) AS 'totalSize' FROM `uploads` WHERE company_id = :companyId";
+    $query = "SELECT SUM(file_size) AS 'totalSize' FROM `uploads` WHERE company_id = :companyId AND is_deleted = 0";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':companyId' => $idc));
     return $dbh->fetchColumn();
