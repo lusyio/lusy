@@ -2,6 +2,7 @@
 
 function getFileList()
 {
+    global $id;
     global $idc;
     global $pdo;
 
@@ -14,13 +15,13 @@ FROM `uploads` u
        LEFT JOIN users us ON u.author = us.id
        LEFT JOIN tasks t ON (t.id = u.comment_id AND u.comment_type='task') OR (t.id = c.idtask AND u.comment_type='comment')
        LEFT JOIN mail m ON m.message_id = u.comment_id AND u.comment_type='conversation'
-WHERE u.company_id = :companyId AND u.is_deleted = 0";
+WHERE u.company_id = :companyId AND u.author = :userId AND u.is_deleted = 0";
     $dbh = $pdo->prepare($query);
-    $dbh->execute(array(':companyId' => $idc));
+    $dbh->execute(array('userId' => $id,':companyId' => $idc));
     return $dbh->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getTotalSize()
+function getCompanyFilesTotalSize()
 {
     global $idc;
     global $pdo;
@@ -28,6 +29,18 @@ function getTotalSize()
     $query = "SELECT SUM(file_size) AS 'totalSize' FROM `uploads` WHERE company_id = :companyId AND is_deleted = 0";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':companyId' => $idc));
+    return $dbh->fetchColumn();
+}
+
+function getUserFilesTotalSize()
+{
+    global $id;
+    global $idc;
+    global $pdo;
+
+    $query = "SELECT SUM(file_size) AS 'totalSize' FROM `uploads` WHERE company_id = :companyId AND author = :userId AND is_deleted = 0";
+    $dbh = $pdo->prepare($query);
+    $dbh->execute(array('userId' => $id, ':companyId' => $idc));
     return $dbh->fetchColumn();
 }
 
@@ -62,17 +75,29 @@ function prepareFileList(array &$fileList) {
             $fromTo = DB('sender, recipient', 'mail', 'message_id=' . $file['comment_id']);
             $file['attachedToLink'] = '';
         }
+        $normalizedFileSize = normalizeSize($file['file_size']);
         $fileSize = $file['file_size'];
-        $file['sizeSuffix'] = 'Б';
-        if ($file['file_size'] > 1024 * 1024) {
-            $file['file_size'] = round($fileSize / (1024 * 1024));
-            $file['sizeSuffix'] = 'МБ';
-        } elseif ($fileSize > 1024) {
-            $file['file_size'] = round($fileSize / 1024);
-            $file['sizeSuffix'] = 'КБ';
-        }
+        $file['file_size'] = $normalizedFileSize['size'];
+        $file['sizeSuffix'] = $normalizedFileSize['suffix'];
         $fileNameParts = explode('.', $file['file_name']);
         $file['extension'] = mb_strtolower(array_pop($fileNameParts));
         $file['date'] = date('d.m.Y', strtotime($file['uploadDate']));
     }
 }
+
+function normalizeSize($size)
+{
+    $result = [];
+    if ($size >= 1024 * 1024) {
+        $result['size'] = round($size / (1024 * 1024));
+        $result['suffix'] = 'МБ';
+    } elseif ($size >= 1024) {
+        $result['size'] = round($size / 1024);
+        $result['suffix'] = 'КБ';
+    } else {
+        $result['size'] = $size;
+        $result['suffix'] = 'Б';
+    }
+    return $result;
+}
+

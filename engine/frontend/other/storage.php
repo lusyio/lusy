@@ -10,7 +10,7 @@ $fileIcon = [
         'docx' => 'far fa-file-word',
     ];
 ?>
-<h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 МБ</h3>
+<h3>Файлы  <?=$normalizedCompanyFilesSize['size']?> <?=$normalizedCompanyFilesSize['suffix']?>/<?=$normalizedProvidedSpace['size']?> <?=$normalizedProvidedSpace['suffix']?></h3>
 <div class="row">
     <div class="col-md-11 pr-0">
         <input id="searchFile" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="<?=$GLOBALS["_fileplaceholder"]?>">

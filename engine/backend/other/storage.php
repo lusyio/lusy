@@ -4,14 +4,18 @@ global $id;
 
 require_once 'engine/backend/functions/storage-functions.php';
 
-$totalSize = getTotalSize();
-$totalSuffix = 'Б';
-if ($totalSize > 1024 * 1024) {
-    $totalSize = round($totalSize / (1024 * 1024));
-    $totalSuffix = 'МБ';
-} elseif ($totalSize > 1024) {
-    $totalSize = round($totalSize / 1024);
-    $totalSuffix = 'КБ';
-}
+$companyTotalFilesSize = getCompanyFilesTotalSize();
+$normalizedCompanyFilesSize = normalizeSize($companyTotalFilesSize);
+
+$userTotalFilesSize = getUserFilesTotalSize();
+$normalizedUserFilesSize = normalizeSize($userTotalFilesSize);
+
+$providedSpace = 100 * 1024 * 1024;
+$normalizedProvidedSpace = normalizeSize($providedSpace);
+
+$companyUsageSpacePercent = round($companyTotalFilesSize * 100 / $providedSpace);
+$userUsageSpacePercent = round($userTotalFilesSize * 100 / $providedSpace);
+
 $fileList = getFileList();
 prepareFileList($fileList);
+
