@@ -9,6 +9,12 @@ $fileIcon = [
         'doc' => 'far fa-file-word',
         'docx' => 'far fa-file-word',
     ];
+
+if ($companyUsageSpacePercent > 90){
+    $bgpross = 'bg-danger';
+} else {
+    $bgpross = '';
+}
 ?>
 <h3><?=$GLOBALS["_files"]?> <?=$normalizedCompanyFilesSize['size']?> <?=$normalizedCompanyFilesSize['suffix']?>/<?=$normalizedProvidedSpace['size']?> <?=$normalizedProvidedSpace['suffix']?></h3>
 <div class="progress col-4 mb-2 p-0">
