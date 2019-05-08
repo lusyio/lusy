@@ -1,5 +1,12 @@
 <?php
 
+/**Возвращает список всех файлов, загруженных пользователем
+ * @return array [[file_id] - id файла, [file_name] - имя файла, [file_size] - размер файла в байтах,
+ * [file_path] - путь к файлу на сервере,[comment_type] тип события, к которому прикреплен файл,
+ * [comment_id] - ID омментария,[idtask] - ID комментария или задачи,
+ * [author] [surname] [name] - ID, фамилия и имя пользователя, загрузившего файл, [taskName] - имя задачи,
+ * [uploadDate] - дата загрузки файла
+ */
 function getFileList()
 {
     global $id;
@@ -21,6 +28,10 @@ WHERE u.company_id = :companyId AND u.author = :userId AND u.is_deleted = 0";
     return $dbh->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Возвращает суммарный объем всех файлов, загруженных сотрудниками отдельной компании, в байтах
+ * @return mixed
+ */
 function getCompanyFilesTotalSize()
 {
     global $idc;
@@ -32,6 +43,10 @@ function getCompanyFilesTotalSize()
     return $dbh->fetchColumn();
 }
 
+/**
+ * Возвращает суммарный объем всех файлов, загруженных отдельным сотрудником компании, в байтах
+ * @return mixed
+ */
 function getUserFilesTotalSize()
 {
     global $id;
@@ -44,6 +59,10 @@ function getUserFilesTotalSize()
     return $dbh->fetchColumn();
 }
 
+/**
+ * Устанавливает в БД для файла статус is_deleted = 1 и удаляет файл с сервера
+ * @param $fileId
+ */
 function removeFile($fileId) {
     global $idc;
     global $pdo;
@@ -60,6 +79,18 @@ function removeFile($fileId) {
     unlink($filePath);
 }
 
+/**
+ * Добавляет к выходному массиву из getFileList() элементы:
+ * ['attachedToLink'] - если файл прикреплен к:
+ *      задаче - ссылка на задачу,
+ *      комментарию - ссылка на комментарий в задаче,
+ *      диалогу - пустая строка,
+ *['file_size'] - размер файла - мантисса
+ *['sizeSuffix'] - множитель размера
+ *['extension'] - расширение файла
+ * ['date'] - дата загрузки в формате ДД.ММ.ГГГГ
+ * @param array $fileList
+ */
 function prepareFileList(array &$fileList) {
     foreach ($fileList as &$file) {
         $file['comment_link'] = '';
@@ -85,6 +116,13 @@ function prepareFileList(array &$fileList) {
     }
 }
 
+/**
+ * При необходимости конвертирует размер переданный в байтах
+ * в нормальный вид (1-1023 Б, 1-1023 КБ или 1-... МБ)
+ * и возвращает массив из элементов ['size']['suffix']
+ * @param int $size размер в байтах
+ * @return array ['size'] - конвертированное значение ['suffix'] - суффикс/размерность
+ */
 function normalizeSize($size)
 {
     $result = [];
