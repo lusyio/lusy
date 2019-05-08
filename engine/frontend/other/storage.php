@@ -10,17 +10,17 @@ $fileIcon = [
         'docx' => 'far fa-file-word',
     ];
 ?>
-<h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 МБ</h3>
+<h3><?=$GLOBALS["_files"]?>  <?=$totalSize?> <?=$totalSuffix?>/100 МБ</h3>
 <?php
-include 'engine/frontend/nav/searchbarfile.php'
+include 'engine/frontend/other/searchbarfile.php'
 ?>
 <hr>
     <?php foreach ($fileList as $file): ?>
     <div class="card files col-12">
         <div class="card-body file-list">
             <div class="row">
-                <div class="col-1">
-                    <span class="d-inline"><i class="far <?= key_exists($file['extension'], $fileIcon)? $fileIcon[$file['extension']]: "fa-file" ?> custom-file"></i></span>
+                <div class="col-1 iconFiles">
+                    <i class="far <?= key_exists($file['extension'], $fileIcon)? $fileIcon[$file['extension']]: "fa-file" ?> custom-file"></i>
                 </div>
                 <div class="col-11 pl-0">
                     <div class="row">

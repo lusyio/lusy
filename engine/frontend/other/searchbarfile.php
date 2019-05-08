@@ -5,7 +5,7 @@
     </div>
     <div class="col-2">
         <div class="btn btn-light btn-sm" id="editFile">
-            <span>Edit</span>
+            <span><?=$GLOBALS["_edit"]?></span>
         </div>
     </div>
 </div>

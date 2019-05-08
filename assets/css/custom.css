@@ -521,6 +521,10 @@ input:checked[type="checkbox"]::before {
     padding: 0;
 }
 
+.iconFiles{
+    top: 0.3rem;
+}
+
 .far.fa-eye.custom {
     font-size: 25px;
     top: 5px;
