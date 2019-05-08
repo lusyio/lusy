@@ -11,15 +11,18 @@ $fileIcon = [
     ];
 
 if ($companyUsageSpacePercent > 90){
-    $bgpross = 'bg-danger';
+    $bguser = 'bg-danger';
+    $bgall = 'bg-danger';
+
 } else {
-    $bgpross = '';
+    $bguser = 'bg-dark';
+    $bgall = 'bg-primary';
 }
 ?>
 <h3><?=$GLOBALS["_files"]?> <?=$normalizedCompanyFilesSize['size']?> <?=$normalizedCompanyFilesSize['suffix']?>/<?=$normalizedProvidedSpace['size']?> <?=$normalizedProvidedSpace['suffix']?></h3>
 <div class="progress col-4 mb-2 p-0">
-    <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $companyUsageSpacePercent ?>%" aria-valuenow="<?= $companyUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titlecompanyusage"]?>"></div>
-    <div class="progress-bar bg-dark" role="progressbar" style="width: <?= $userUsageSpacePercent ?>%" aria-valuenow="<?= $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titleuserusage"]?>"></div>
+    <div class="progress-bar <?=$bgall?>" role="progressbar" style="width: <?= $companyUsageSpacePercent ?>%" aria-valuenow="<?= $companyUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titlecompanyusage"]?>"></div>
+    <div class="progress-bar <?=$bguser?>" role="progressbar" style="width: <?= $userUsageSpacePercent ?>%" aria-valuenow="<?= $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titleuserusage"]?>"></div>
 </div>
 <?php
 if ($normalizedCompanyFilesSize['size'] > 0){
