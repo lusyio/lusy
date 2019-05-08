@@ -10,7 +10,7 @@ $fileIcon = [
         'docx' => 'far fa-file-word',
     ];
 ?>
-<h3><?=$GLOBALS["_files"]?>  <?=$totalSize?> <?=$totalSuffix?>/100 МБ</h3>
+<h3><?=$GLOBALS["_files"]?> <?=$normalizedCompanyFilesSize['size']?> <?=$normalizedCompanyFilesSize['suffix']?>/<?=$normalizedProvidedSpace['size']?> <?=$normalizedProvidedSpace['suffix']?></h3>
 <?php
 include 'engine/frontend/other/searchbarfile.php'
 ?>
