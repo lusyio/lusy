@@ -11,7 +11,16 @@ $fileIcon = [
     ];
 ?>
 <h3>Файлы  <?=$totalSize?> <?=$totalSuffix?>/100 МБ</h3>
-<input id="searchFile" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="<?=$GLOBALS["_fileplaceholder"]?>">
+<div class="row">
+    <div class="col-md-11 pr-0">
+        <input id="searchFile" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="<?=$GLOBALS["_fileplaceholder"]?>">
+    </div>
+    <div class="col-md-1 pl-0">
+        <div class="btn btn-light" id="editFile">
+            <span>Edit</span>
+        </div>
+    </div>
+</div>
 <hr>
     <?php foreach ($fileList as $file): ?>
     <div class="card files col-sm-12">
@@ -22,7 +31,7 @@ $fileIcon = [
                     <span class="text-ligther ml-1"> <i class="fas fa-circle mr-1 ml-1"></i> <?= $file['file_size'] ?> <?= $file['sizeSuffix'] ?></span>
                 </div>
                 <div class="col-md-1">
-                    <span class="text-ligther"><i class="fas fa-times-circle deleteFile"></i></span>
+                    <span class="text-danger"><i val="<?= $file['file_id'] ?>" class="fas fa-times-circle deleteFile d-none"></i></span>
                 </div>
             </div>
 
@@ -45,8 +54,24 @@ $(document).ready(function() {
         $(".files:contains(" + value + ")").show();
     });
 
+    $("#editFile").on('click', function () {
+        if ($(".deleteFile").hasClass('d-none')){
+            $(".deleteFile").removeClass('d-none');
+        } else {
+            $(".deleteFile").addClass('d-none');
+        }
+
+    });
+
     $(".deleteFile").on('click', function () {
-        $(this).parents(".files").hide();
+        var fileId = $(this).attr('val');
+        var file = $(this).parents(".files");
+        $.post("/ajax.php", {module: 'deleteFile', fileId: fileId, ajax: 'storage' },controlUpdate);
+        function controlUpdate(data){
+            console.log(data);
+            file.hide();
+        }
+
     })
 
 } );
