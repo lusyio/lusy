@@ -6,6 +6,8 @@ global $datetime;
 global $id;
 global $idc;
 
+require_once 'engine/backend/functions/common-functions.php';
+
 if ($_POST['module'] == 'sendMessage') {
     $mes = filter_var($_POST['mes'], FILTER_SANITIZE_SPECIAL_CHARS);
     $recipientId = filter_var($_POST['recipientId'], FILTER_SANITIZE_NUMBER_INT);
