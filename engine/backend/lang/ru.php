@@ -41,6 +41,7 @@ $_attachto = 'прикрепил к';
 $_fileplaceholder = 'Ведите название файла';
 $_conversation = 'диалогу';
 $_comment= 'комментарию';
+$_task= 'задаче';
 $_files = 'Файлы';
 $_edit = 'Изменить';
 $_titlecompanyusage = 'Файлы компании';
