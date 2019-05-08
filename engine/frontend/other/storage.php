@@ -31,7 +31,7 @@ $fileIcon = [
                     <span class="text-ligther ml-1"> <i class="fas fa-circle mr-1 ml-1"></i> <?= $file['file_size'] ?> <?= $file['sizeSuffix'] ?></span>
                 </div>
                 <div class="col-md-1">
-                    <span class="text-danger"><i val="<?= $file['file_id'] ?>" class="fas fa-times-circle deleteFile d-none"></i></span>
+                    <span class="text-secondary"><i val="<?= $file['file_id'] ?>" class="fas fa-times-circle deleteFile d-none"></i></span>
                 </div>
             </div>
 
@@ -66,13 +66,17 @@ $(document).ready(function() {
     $(".deleteFile").on('click', function () {
         var fileId = $(this).attr('val');
         var file = $(this).parents(".files");
-        $.post("/ajax.php", {module: 'deleteFile', fileId: fileId, ajax: 'storage' },controlUpdate);
+        $.post("/ajax.php", {module: 'deleteFile', fileId: fileId, usp: $usp, ajax: 'storage' },controlUpdate);
         function controlUpdate(data){
-            console.log(data);
-            file.hide();
+            if(data) {
+                alert(data);
+            }else{
+                file.hide();
+            }
         }
 
     })
 
 } );
+var $usp = <?php echo $id + 345;  // айдишник юзера ?>;
 </script>

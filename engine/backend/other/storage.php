@@ -1,5 +1,7 @@
 <?php
 
+global $id;
+
 require_once 'engine/backend/functions/storage-functions.php';
 
 $totalSize = getTotalSize();
