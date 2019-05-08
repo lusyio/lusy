@@ -200,13 +200,15 @@ body {
 
 .deleteFile:hover{
     border-radius: 100%;
-    color: #898989;
+    color: #da3248;
+    cursor: pointer;
 }
 
 .deleteFile:active{
-    color: #898989;
+    color: #da3248;
     border-radius: 100%;
     box-shadow: 0 2px 5px rgba(0,0,0, .2);
+    cursor: pointer;
 }
 
 .w-85{
