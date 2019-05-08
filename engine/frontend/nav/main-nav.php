@@ -28,7 +28,9 @@ if ($companyUsageSpacePercent > 90){
 					<i class="fas fa-hdd mr-2"></i>
 					<?=$_storage?>
 					<div class="progress mt-2">
-					  <div class="progress-bar <?=$bgpross?>" role="progressbar" style="width: <?=$pros?>%;" aria-valuenow="<?=$pros?>" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $companyUsageSpacePercent ?>%" aria-valuenow="<?= $companyUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titlecompanyusage"]?>"></div>
+                        <div class="progress-bar bg-dark" role="progressbar" style="width: <?= $userUsageSpacePercent ?>%" aria-valuenow="<?= $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titleuserusage"]?>"></div>
+					    <div class="progress-bar <?=$bgpross?>" role="progressbar" style="width: <?=$pros?>%;" aria-valuenow="<?=$pros?>" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 				</a>
 			</li> 
