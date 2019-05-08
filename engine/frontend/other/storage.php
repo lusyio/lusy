@@ -16,7 +16,9 @@ $fileIcon = [
     <div class="progress-bar bg-info" role="progressbar" style="width: <?= $companyUsageSpacePercent ?>%" aria-valuenow="<?= $companyUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 <?php
-include 'engine/frontend/other/searchbarfile.php'
+if ($userUsageSpacePercent + $userUsageSpacePercent > 0){
+include 'engine/frontend/other/searchbarfile.php';
+}
 ?>
 <hr>
     <?php foreach ($fileList as $file): ?>
