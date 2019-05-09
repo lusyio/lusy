@@ -123,13 +123,20 @@ if ($id == $worker and $view == 0) {
 
                                 <div class="col- ml-3">
                                     <p class="font-weight-bold text-ligther text-uppercase">Постановщик</p>
-                                    <p class="mb-0"><img src="/upload/avatar/<?=$manager?>.jpg" alt="manager image" class="avatar mr-1"> <?=$managername?> <?=$managersurname?></p>
+                                    <p class="mb-0" title="<?= $viewStatusTitleManager ?>"><img src="/upload/avatar/<?=$manager?>.jpg" alt="manager image" class="avatar mr-1"> <?=$managername?> <?=$managersurname?></p>
                                 </div>
 
                                 <div class="col- ml-3 mr-3">
                                     <p class="font-weight-bold text-ligther text-uppercase">Исполнители</p>
-                                    <?php foreach ($coworkers as $coworker): ?>
-                                    <p class="mb-0"><img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" alt="worker image" class="avatar mr-1"> <?=$coworker['name']?> <?=$coworker['surname']?></p>
+                                    <?php
+                                    foreach ($coworkers as $coworker):
+                                        if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
+                                            $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
+                                        } else {
+                                            $viewStatusTitle = 'Не просмотрено';
+                                        }
+                                        ?>
+                                    <p class="mb-0" title="<?= $viewStatusTitle ?>"><img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" alt="worker image" class="avatar mr-1"> <?=$coworker['name']?> <?=$coworker['surname']?></p>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

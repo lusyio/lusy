@@ -3,7 +3,7 @@ $id_task = $_GET['task'];
 $id = $GLOBALS["id"];
 global $pdo;
 global $datetime;
-$query = 'SELECT t.id, t.name, t.status, t.description, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.datepostpone, t.report, u1.name AS managerName, u1.surname AS managerSurname, u2.name AS workerName, u2.surname AS workerSurname FROM tasks t LEFT JOIN users u1 ON t.manager = u1.id LEFT JOIN users u2 ON t.worker = u2.id WHERE t.id = :taskId';
+$query = 'SELECT t.id, t.name, t.status, t.description, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.datepostpone, t.report, t.view_status, u1.name AS managerName, u1.surname AS managerSurname, u2.name AS workerName, u2.surname AS workerSurname FROM tasks t LEFT JOIN users u1 ON t.manager = u1.id LEFT JOIN users u2 ON t.worker = u2.id WHERE t.id = :taskId';
 $dbh = $pdo->prepare($query);
 $dbh->execute(array(':taskId' => $id_task));
 $task = $dbh->fetch(PDO::FETCH_ASSOC);
@@ -26,6 +26,7 @@ $workername = $task['workerName'];
 $workersurname = $task['workerSurname'];
 $view = $task['view'];
 $viewState = '';
+$viewStatus = json_decode($task['view_status'], true);
 $datecreate = date("d.m.Y", strtotime($task['datecreate']));
 $datedone = date("d.m", strtotime($task['datedone']));
 if ($task['datepostpone'] == '0000-00-00' || $task['datepostpone'] == '') {
@@ -36,6 +37,21 @@ if ($task['datepostpone'] == '0000-00-00' || $task['datepostpone'] == '') {
 $nowdate = date("d.m.Y");
 $dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 $status = $task['status'];
+
+if(is_null($viewStatus) || !isset($viewStatus[$id]['datetime'])) {
+    $viewStatus[$id]['datetime'] = $datetime;
+    $viewStatusJson = json_encode($viewStatus);
+    $viewQuery = $pdo->prepare('UPDATE `tasks` SET view_status = :viewStatus where id=:taskId');
+    $viewQuery->execute(array(':viewStatus' => $viewStatusJson, ':taskId' => $id_task));
+}
+
+
+if (!is_null($viewStatus) && isset($viewStatus[$manager]['datetime'])) {
+    $viewStatusTitleManager = 'Просмотрено ' . $viewStatus[$manager]['datetime'];
+} else {
+    $viewStatusTitleManager = 'Не просмотрено';
+}
+
 
 if ($id == $worker and $view == 0) {
     $viewer = $pdo->prepare('UPDATE `tasks` SET view = "1" where id="' . $idtask . '"');

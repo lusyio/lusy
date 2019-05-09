@@ -286,6 +286,29 @@ if (!isTaskCoworkersTableExists()) {
     $sql->execute();
 }
 
+function isViewStatusColumnExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `tasks`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'view_status') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (!isViewStatusColumnExists())
+{
+    global $pdo;
+    $sql = 'alter table tasks add view_status text not null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';

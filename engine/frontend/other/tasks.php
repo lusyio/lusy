@@ -67,9 +67,23 @@ $taskStatusText = [
 	                        </div>
 	                        <div class="col-sm-4">
 		                        <div class="float-right">
-	                        		<img src="/upload/avatar/<?=$n['idmanager']?>.jpg" class="avatar mr-1"> |
-                                    <?php foreach ($n['coworkers'] as $coworker): ?>
-									<img src="/upload/avatar/<?=$coworker?>.jpg" class="avatar mr-1">
+                                    <?php
+                                    if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$n['idmanager']])) {
+                                        $viewStatusTitleManager = 'Просмотрено ' . $n['viewStatus'][$n['idmanager']]['datetime'];
+                                    } else {
+                                        $viewStatusTitleManager = 'Не просмотрено';
+                                    }
+                                    ?>
+	                        		<img src="/upload/avatar/<?=$n['idmanager']?>.jpg" title="<?= $viewStatusTitleManager ?>" class="avatar mr-1"> |
+                                    <?php
+                                    foreach ($n['coworkers'] as $coworker):
+                                        if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$coworker])) {
+                                            $viewStatusTitle = 'Просмотрено ' . $n['viewStatus'][$coworker]['datetime'];
+                                        } else {
+                                            $viewStatusTitle = 'Не просмотрено';
+                                        }
+                                        ?>
+									<img src="/upload/avatar/<?=$coworker?>.jpg" title="<?= $viewStatusTitle ?>" class="avatar mr-1">
                                     <?php endforeach; ?>
 		                        </div>
                             </div>

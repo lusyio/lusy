@@ -16,6 +16,8 @@ if($_POST['module'] == 'sendonreview') {
 	if (count($_FILES) > 0) {
 		uploadAttachedFiles('comment', $commentId);
     }
+
+    resetViewStatus($idtask);
 }
 
 if($_POST['module'] == 'sendpostpone') {
@@ -30,7 +32,9 @@ if($_POST['module'] == 'sendpostpone') {
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = :status, `view`=0, `datetime` = :datetime");
 	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'status' => $status, 'datetime' => $datetime));
 
-	if ($sql) {
+    resetViewStatus($idtask);
+
+    if ($sql) {
 		echo '<p>Успешно</p>';
 	}
 }
@@ -44,7 +48,9 @@ if($_POST['module'] == 'workdone') {
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "done", `report` = :report WHERE id='.$idtask);
 	$sql->execute(array('report' => $now));
 
-	// if ($sql) {
+    resetViewStatus($idtask);
+
+    // if ($sql) {
 	// 	echo '<p>Успешно</p>';
 	// }
 	// var_dump($sql);
@@ -69,6 +75,8 @@ if($_POST['module'] == 'workreturn') {
 	if (count($_FILES) > 0) {
 		uploadAttachedFiles('comment', $commentId);
 	}
+    resetViewStatus($idtask);
+
 }
 
 // Кнопка В работу для worker'a
@@ -101,7 +109,6 @@ if($_POST['module'] == 'createTask') {
 	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status,  manager, worker, idcompany, report, view) VALUES (:name, :description,'".$now."', :datedone, NULL, 'new', '".$id."', :worker, '".$idc."', :description, '0') ";
 	$sql = $pdo->prepare($query);
 	$sql->execute(array('name' => $name, 'description' => $description, 'worker' => $worker, 'datedone' => $datedone));
-
 	if ($sql) {
 		$idtask = $pdo->lastInsertId();
 		if (!empty($idtask)) {
@@ -113,14 +120,10 @@ if($_POST['module'] == 'createTask') {
             }
 		}
 	}
-
-
-
-
-
     if (count($_FILES) > 0) {
         uploadAttachedFiles('task', $idtask);
     }
+    resetViewStatus($idtask);
 }
 
 // отмена задачи
@@ -130,6 +133,7 @@ if($_POST['module'] == 'cancelTask') {
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "canceled", `report` = :report WHERE id='.$idtask);
 	$sql->execute(array('report' => $now));
 	echo 'success';
+    resetViewStatus($idtask);
 }
 
 //отклонение запроса на перенос срока
@@ -141,6 +145,7 @@ if ($_POST['module'] == 'cancelDate') {
 	$text = "Перенос отклонен";
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+    resetViewStatus($idtask);
 }
 
 //одобрение запроса на перенос срока
@@ -154,6 +159,7 @@ if ($_POST['module'] == 'confirmDate') {
 	$text = "Перенос одобрен. Новый срок: " . date("d.m", strtotime($datepostpone));
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+    resetViewStatus($idtask);
 }
 
 if ($_POST['module'] == 'sendDate') {
@@ -164,5 +170,17 @@ if ($_POST['module'] == 'sendDate') {
 	$text = "Новый срок: " . date("d.m", strtotime($datepostpone));
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+    resetViewStatus($idtask);
+}
+
+function resetViewStatus($taskId) {
+    global $id;
+    global $pdo;
+    global $datetime;
+    $viewStatus = [];
+    $viewStatus[$id]['datetime'] = $datetime;
+    $viewStatusJson = json_encode($viewStatus);
+    $viewQuery = $pdo->prepare('UPDATE `tasks` SET view_status = :viewStatus where id=:taskId');
+    $viewQuery->execute(array(':viewStatus' => $viewStatusJson, ':taskId' => $taskId));
 }
 
