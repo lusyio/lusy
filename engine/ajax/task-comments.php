@@ -4,8 +4,8 @@ $countcomments = DBOnce('COUNT(*) as count', 'comments', 'idtask=' . $idtask);
 
 if ($countcomments > 0) {
     include 'engine/ajax/frontend/comments-header.php';
-    $comments = $pdo->prepare('SELECT id, iduser, comment, status, datetime, view_status 
-FROM `comments` where idtask = :idtask ORDER BY datetime desc');
+    $comments = $pdo->prepare('SELECT c.id, c.iduser, c.comment, c.status, c.datetime, c.view_status, t.manager 
+FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask ORDER BY datetime DESC');
     $comments->execute(array(':idtask' => $idtask));
     $comments = $comments->fetchAll(PDO::FETCH_BOTH);
 
@@ -43,7 +43,7 @@ FROM `comments` where idtask = :idtask ORDER BY datetime desc');
             $commentViewStatus[$id]['datetime'] = $datetime;
             $commentViewStatusJson = json_encode($commentViewStatus);
             $viewQuery = $pdo->prepare('UPDATE `comments` SET view_status = :viewStatus where id=:commentId');
-            $viewQuery->execute(array(':viewStatus' => $commentViewStatusJson, ':commentId' => $c[$id]));
+            $viewQuery->execute(array(':viewStatus' => $commentViewStatusJson, ':commentId' => $c['id']));
         }
         include 'engine/ajax/frontend/comment.php';
     }

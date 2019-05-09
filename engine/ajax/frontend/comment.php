@@ -6,7 +6,12 @@ $commentClass = [
     'returned' => 'report',
     'postpone' => 'report',
     'request' => 'report',
-]
+];
+if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
+    $commentViewStatusTitleManager = 'Просмотрено ' . $commentViewStatus[$c['manager']]['datetime'];
+} else {
+    $commentViewStatusTitleManager = 'Не просмотрено';
+}
 ?>
 <div class="mb-3 comment <?= $commentClass[$commentStatus] ?>" id="<?= $c['id'] ?>">
     <div class="position-relative">
@@ -21,6 +26,7 @@ $commentClass = [
     </div>
     <p class="mt-1 mb-2"><?= nl2br($c['comment']) ?></p>
     <div class="text-right">
+        <img src="/upload/avatar/<?= $c['manager'] ?>.jpg"  class="avatar mr-3" title="<?= $commentViewStatusTitleManager ?>">
         <?php
         foreach ($coworkers as $coworker):
             if (!is_null($commentViewStatus) && isset($commentViewStatus[$coworker['worker_id']])) {
