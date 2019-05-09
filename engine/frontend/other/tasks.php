@@ -67,8 +67,10 @@ $taskStatusText = [
 	                        </div>
 	                        <div class="col-sm-4">
 		                        <div class="float-right">
-	                        		<img src="/upload/avatar/<?=$n['idmanager']?>.jpg" class="avatar mr-1">
-									<img src="/upload/avatar/<?=$n['idworker']?>.jpg" class="avatar mr-1">
+	                        		<img src="/upload/avatar/<?=$n['idmanager']?>.jpg" class="avatar mr-1"> |
+                                    <?php foreach ($n['coworkers'] as $coworker): ?>
+									<img src="/upload/avatar/<?=$coworker?>.jpg" class="avatar mr-1">
+                                    <?php endforeach; ?>
 		                        </div>
                             </div>
                         </div>

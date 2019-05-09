@@ -2,6 +2,12 @@ $(document).ready(function(){
 
 //создание новой задачи
 	$( "#createTask" ).click(function() {
+		var coworkers = [];
+		$('.coworker-select').each(function () {
+			coworkers.push($(this).val())
+		});
+		console.log(coworkers);
+
 		var name = $("#name").val();
 		var description = $("#description").val();
 		var datedone = $("#datedone").val();
@@ -14,6 +20,7 @@ $(document).ready(function(){
 		fd.append('description', description);
 		fd.append('datedone', datedone);
 		fd.append('worker', worker);
+		fd.append('coworkers', JSON.stringify(coworkers));
 		fd.append('usp', $usp);
 		fd.append('ajax', 'task-control');
 		if (name != null && description != null && datedone != null && worker != null) {
@@ -32,4 +39,16 @@ $(document).ready(function(){
 				$("#reportarea").addClass('border-danger');
 			}
 		});
+
+	$('.coworkers').on('click', '.coworker-button', function () {
+		if ($(this).attr('button-action') == 'add') {
+			$(this).parents('.coworker-item').clone().appendTo('.coworkers');
+			$(this).find('i').removeClass('fa-plus');
+			$(this).find('i').addClass('fa-minus');
+			$(this).attr('button-action', 'remove');
+			console.log($(this).attr('button-action'));
+		} else if ($(this).attr('button-action') == 'remove') {
+			$(this).parents('.coworker-item').remove();
+		}
+	})
 });

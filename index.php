@@ -258,6 +258,34 @@ if (!isColumnAuthorExist()) {
     addColumnAuthor();
 }
 
+function isTaskCoworkersTableExists()
+{
+    global $pdo;
+    $query = "SHOW TABLES LIKE 'task_coworkers'";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+}
+
+if (!isTaskCoworkersTableExists()) {
+    global $pdo;
+    $query = 'create table task_coworkers
+(
+    task_coworker_id int auto_increment,
+	task_id int null,
+	worker_id int null,
+	constraint task_coworkers_pk
+		primary key (task_coworker_id)
+)';
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+
+    $query = "INSERT INTO task_coworkers(task_id, worker_id) SELECT id, worker FROM tasks";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';

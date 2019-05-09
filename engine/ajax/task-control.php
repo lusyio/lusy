@@ -88,20 +88,35 @@ if($_POST['module'] == 'inwork') {
 // создание новой задачи
 
 if($_POST['module'] == 'createTask') {
+    $unsafeCoworkers = json_decode($_POST['coworkers']);
+    $coworkers = [];
+    foreach ($unsafeCoworkers as $c) {
+        $coworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
+    }
+    $coworkers = array_unique($coworkers, SORT_NUMERIC);
 	$name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$datedone = filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
-	$dbh = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status,  manager, worker, idcompany, report, view) VALUES (:name, :description,'".$now."', :datedone, NULL, 'new', '".$id."', :worker, '".$idc."', :description, '0') ";
-	$sql = $pdo->prepare($dbh);
+	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status,  manager, worker, idcompany, report, view) VALUES (:name, :description,'".$now."', :datedone, NULL, 'new', '".$id."', :worker, '".$idc."', :description, '0') ";
+	$sql = $pdo->prepare($query);
 	$sql->execute(array('name' => $name, 'description' => $description, 'worker' => $worker, 'datedone' => $datedone));
 
 	if ($sql) {
 		$idtask = $pdo->lastInsertId();
 		if (!empty($idtask)) {
 			echo $idtask;
+			$coworkersQuery = "INSERT INTO task_coworkers(task_id, worker_id) VALUES (:taskId, :workerId)";
+            $sql = $pdo->prepare($coworkersQuery);
+            foreach ($coworkers as $workerId) {
+                $sql->execute(array(':taskId' => $idtask, ':workerId' => $workerId));
+            }
 		}
 	}
+
+
+
+
 
     if (count($_FILES) > 0) {
         uploadAttachedFiles('task', $idtask);

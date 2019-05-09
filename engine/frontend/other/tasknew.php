@@ -52,21 +52,28 @@
 		                <input type="date" class="form-control" id="datedone" min="<?=$GLOBALS["now"]?>" value="<?=$GLOBALS["now"]?>" required>
 		              </div>
 	              </div>
-				  <div class="col-12 col-md-6">
-		              <!-- Project id -->
-		              <div class="form-group">
-		                <label>
-		                  Ответственный
-		                </label>
-		                <select class="form-control" id="worker" required>
-			                 <?php
-					$users = DB('*','users','idcompany='.$GLOBALS["idc"]);
-					foreach ($users as $n) { ?>
-					    <option value="<?php echo $n['id'] ?>"><?php echo $n['login'] ?></option>
-					<?php } ?>
-		                </select>
-		              </div>
-	              </div>
+                  <div class="col-12 col-md-6 coworkers">
+                      <div class="row">
+                          <label>Ответственные</label>
+                      </div>
+                      <div class="row coworker-item">
+                          <div class="form-group col-10 p-0">
+                              <select class="form-control coworker-select" id="worker" required>
+                                  <?php
+                                  $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
+                                  foreach ($users as $n) { ?>
+                                      <option value="<?php echo $n['id'] ?>"><?php echo $n['name'] . ' ' . $n['surname'] ?></option>
+                                  <?php } ?>
+                              </select>
+
+                          </div>
+                          <div class="form-group col-2 p-0">
+                          <button class="btn btn-primary h-100 coworker-button" button-action="add">
+                              <i class="fas fa-plus"></i>
+                          </button>
+                          </div>
+                      </div>
+                  </div>
               </div>
 
               <!-- Divider -->

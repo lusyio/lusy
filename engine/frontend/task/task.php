@@ -127,8 +127,10 @@ if ($id == $worker and $view == 0) {
                                 </div>
 
                                 <div class="col- ml-3 mr-3">
-                                    <p class="font-weight-bold text-ligther text-uppercase">Исполнитель</p>
-                                    <p class="mb-0"><img src="/upload/avatar/<?=$worker?>.jpg" alt="worker image" class="avatar mr-1"> <?=$workername?> <?=$workersurname?></p>
+                                    <p class="font-weight-bold text-ligther text-uppercase">Исполнители</p>
+                                    <?php foreach ($coworkers as $coworker): ?>
+                                    <p class="mb-0"><img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" alt="worker image" class="avatar mr-1"> <?=$coworker['name']?> <?=$coworker['surname']?></p>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
