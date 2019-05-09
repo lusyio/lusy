@@ -5,6 +5,7 @@ $commentClass = [
     'report' => 'report',
     'returned' => 'report',
     'postpone' => 'report',
+    'request' => 'report',
 ]
 ?>
 <div class="mb-3 comment <?= $commentClass[$commentStatus] ?>" id="<?= $c['id'] ?>">
