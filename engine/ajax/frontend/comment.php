@@ -20,6 +20,18 @@ $commentClass = [
         <?php endif; ?>
     </div>
     <p class="mt-1 mb-2"><?= nl2br($c['comment']) ?></p>
+    <div class="text-right">
+        <?php
+        foreach ($coworkers as $coworker):
+            if (!is_null($commentViewStatus) && isset($commentViewStatus[$coworker['worker_id']])) {
+                $commentViewStatusTitle = 'Просмотрено ' . $commentViewStatus[$coworker['worker_id']]['datetime'];
+            } else {
+                $commentViewStatusTitle = 'Не просмотрено';
+            }
+            ?>
+        <img src="/upload/avatar/<?= $coworker['worker_id'] ?>.jpg"  class="avatar mr-3" title="<?= $commentViewStatusTitle ?>">
+        <?php endforeach; ?>
+    </div>
     <?php if (count($files) > 0): ?>
         <p class="">Прикрепленнные файлы:</p>
         <?php foreach ($files as $file): ?>

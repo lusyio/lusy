@@ -304,7 +304,30 @@ function isViewStatusColumnExists()
 if (!isViewStatusColumnExists())
 {
     global $pdo;
-    $sql = 'alter table tasks add view_status text not null';
+    $sql = 'alter table tasks add view_status text null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
+function isViewStatusColumnInCommentsExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `comments`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'view_status') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (!isViewStatusColumnInCommentsExists())
+{
+    global $pdo;
+    $sql = 'alter table comments add view_status text null';
     $sql = $pdo->prepare($sql);
     $sql->execute();
 }
