@@ -36,12 +36,23 @@ $taskStatusText = [
         'canceled' => $GLOBALS['_canceledlist'],
     ],
 ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
-	foreach ($tasks as $n): ?>
+	foreach ($tasks as $n):
+        if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$n['idmanager']])) {
+            $viewStatusTitleManager = 'Просмотрено ' . $n['viewStatus'][$n['idmanager']]['datetime'];
+        } else {
+            $viewStatusTitleManager = 'Не просмотрено';
+        }
+        if (is_null($n['viewStatus']) || !isset($n['viewStatus'][$id])) {
+            $isTaskRead = false;
+        } else {
+            $isTaskRead = true;
+        }
+        ?>
     <a href="/task/<?= $n['idtask'] ?>/" class="text-decoration-none cust">
         <div class="task-card">
             <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['classRole'] ?>">
                 <div class="card-body tasks-list">
-                    <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?>">
+                    <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?> <?= ($isTaskRead)?'':'alert alert-primary'; ?>">
                         <h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5>
                         <p class="font-weight-light text-ligther"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
                         <div class="row">
@@ -67,13 +78,6 @@ $taskStatusText = [
 	                        </div>
 	                        <div class="col-sm-4">
 		                        <div class="float-right">
-                                    <?php
-                                    if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$n['idmanager']])) {
-                                        $viewStatusTitleManager = 'Просмотрено ' . $n['viewStatus'][$n['idmanager']]['datetime'];
-                                    } else {
-                                        $viewStatusTitleManager = 'Не просмотрено';
-                                    }
-                                    ?>
 	                        		<img src="/upload/avatar/<?=$n['idmanager']?>.jpg" title="<?= $viewStatusTitleManager ?>" class="avatar mr-1"> |
                                     <?php
                                     foreach ($n['coworkers'] as $coworker):
