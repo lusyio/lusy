@@ -1,5 +1,5 @@
 <?php
-$id_task = $_GET['task'];
+$id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 $id = $GLOBALS["id"];
 global $pdo;
 global $datetime;
@@ -80,6 +80,9 @@ if ($id == $manager) {
 } else {
     header('Location: /tasks/');
     exit();
+}
+if (isset($_COOKIE[$id_task])){
+    $lastTimeVisit = $_COOKIE[$id_task];
 }
 ob_end_flush();
 if ($status == 'overdue' || $status == 'new' || $status == 'returned') {

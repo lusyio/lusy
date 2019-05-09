@@ -37,6 +37,11 @@ $taskStatusText = [
     ],
 ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
 	foreach ($tasks as $n):
+        if (isset($_COOKIE[$n['idtask']]) && $_COOKIE[$n['idtask']] < strtotime($n['lastCommentTime'])) {
+            $hasNewComments = true;
+        } else {
+            $hasNewComments = false;
+        }
         if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$n['idmanager']])) {
             $viewStatusTitleManager = 'Просмотрено ' . $n['viewStatus'][$n['idmanager']]['datetime'];
         } else {
@@ -49,10 +54,10 @@ $taskStatusText = [
         }
         ?>
     <a href="/task/<?= $n['idtask'] ?>/" class="text-decoration-none cust">
-        <div class="task-card">
+        <div class="task-card"><?= $n['lastCommentTime'] ?>
             <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['classRole'] ?>">
                 <div class="card-body tasks-list">
-                    <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?> <?= ($isTaskRead)?'':'alert alert-primary'; ?>">
+                    <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?> <?= ($isTaskRead)?'':'alert-primary'; ?>">
                         <h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5>
                         <p class="font-weight-light text-ligther"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
                         <div class="row">
@@ -68,7 +73,7 @@ $taskStatusText = [
                                             </medium>
                                         </div>
                                     </div>
-			                        <div class="informer p-2 rounded mr-1"><i class="fas fa-comments">
+			                        <div class="informer p-2 rounded mr-1 <?= ($hasNewComments)?'bg-success':''; ?>"><i class="fas fa-comments">
                                         </i><span class="ml-2"><?=$n['countcomments']?></span>
                                     </div>
 			                        <div class="informer p-2 rounded">

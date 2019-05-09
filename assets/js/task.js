@@ -4,16 +4,68 @@ $(document).ready(function(){
 	// при загрузке обновляем комменты
 	
 	updateComments();
-	
 
-	
-	
+	$('#workzone').on('mouseover', '.comment', function () {
+		var el = $(this);
+		console.log('hover');
+		setTimeout(function () {
+			$(el).removeClass('bg-success')
+		}, 1000);
+	})
+
 	// функция загрузки комментариев
 	function updateComments() {
-		$.post("/ajax.php", {usp: $usp, it: $it,ajax: 'task-comments' },onCommentSuccess);
+		var lastVisit = getCookie($it);
+		$.post("/ajax.php", {usp: $usp, it: $it, lastVisit: lastVisit, ajax: 'task-comments' },onCommentSuccess);
+		var currentTime = parseInt(new Date().getTime()/1000);
+
+
+		setCookie($it, currentTime, {
+			expires: 60 * 60 * 24 * 30,
+			path: '/',
+		});
+
 		function onCommentSuccess(data) {
 			$('#comments').html(data).fadeIn();
 		}
+	}
+
+	// возвращает cookie с именем name, если есть, если нет, то undefined
+	function getCookie(name) {
+		var matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	}
+
+	//обновляет куки
+	function setCookie(name, value, options) {
+		options = options || {};
+
+		var expires = options.expires;
+
+		if (typeof expires == "number" && expires) {
+			var d = new Date();
+			d.setTime(d.getTime() + expires * 1000);
+			expires = options.expires = d;
+		}
+		if (expires && expires.toUTCString) {
+			options.expires = expires.toUTCString();
+		}
+
+		value = encodeURIComponent(value);
+
+		var updatedCookie = name + "=" + value;
+
+		for (var propName in options) {
+			updatedCookie += "; " + propName;
+			var propValue = options[propName];
+			if (propValue !== true) {
+				updatedCookie += "=" + propValue;
+			}
+		}
+
+		document.cookie = updatedCookie;
 	}
 
 	// добавление файлов к комментам
@@ -62,6 +114,10 @@ $(document).ready(function(){
 				data: fd,
 				success: function(data){
 					setTimeout(function () {
+						var currentTime = parseInt(new Date().getTime()/1000);
+						setCookie($it,currentTime, {
+							expires: 60 * 60 * 24 * 30,
+						});
 						updateComments();
 					}, 200);
 					setTimeout(function () {

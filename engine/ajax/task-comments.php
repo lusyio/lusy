@@ -1,6 +1,12 @@
 <?php
 $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+if(isset($_POST['lastVisit'])) {
+    $lastVisit = filter_var($_POST['lastVisit'], FILTER_SANITIZE_NUMBER_INT);
+} else {
+    $lastVisit = 0;
+}
 $countcomments = DBOnce('COUNT(*) as count', 'comments', 'idtask=' . $idtask);
+
 
 if ($countcomments > 0) {
     include 'engine/ajax/frontend/comments-header.php';
@@ -44,6 +50,11 @@ FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask OR
             $commentViewStatusJson = json_encode($commentViewStatus);
             $viewQuery = $pdo->prepare('UPDATE `comments` SET view_status = :viewStatus where id=:commentId');
             $viewQuery->execute(array(':viewStatus' => $commentViewStatusJson, ':commentId' => $c['id']));
+        }
+        if ($lastVisit != 0 && $lastVisit < strtotime($c['datetime'])) {
+            $isNew = true;
+        } else {
+            $isNew = false;
         }
         include 'engine/ajax/frontend/comment.php';
     }

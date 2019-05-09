@@ -12,8 +12,9 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
 } else {
     $commentViewStatusTitleManager = 'Не просмотрено';
 }
+
 ?>
-<div class="mb-3 comment <?= $commentClass[$commentStatus] ?>" id="<?= $c['id'] ?>">
+<div class="mb-3 comment <?= $commentClass[$commentStatus] ?> <?= ($isNew)? 'bg-success':'' ?>" id="<?= $c['id'] ?>">
     <div class="position-relative">
         <span class="date"><?= $dc ?></span>
         <img src="/upload/avatar/<?= $c['iduser'] ?>.jpg" class="avatar mr-3">
