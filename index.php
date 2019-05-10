@@ -332,6 +332,29 @@ if (!isViewStatusColumnInCommentsExists())
     $sql->execute();
 }
 
+function isViewStatusColumnInMailExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `mail`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'view_status') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (!isViewStatusColumnInMailExists())
+{
+    global $pdo;
+    $sql = 'alter table mail add view_status tinyint default 0 null;';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';
