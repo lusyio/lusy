@@ -10,7 +10,7 @@
 			</div>
 			<div class="col-sm-5">
 				<div class="float-right text-right">
-					<a href="/mail/" class="mr-3"><i class="fas fa-envelope text-white"></i></a>
+					<a href="/mail/" class="mr-3"><i class="fas fa-envelope <?= ($newMailCount) ? 'text-warning' : 'text-white' ?>"></i> <strong class="text-warning" id="messagesCount"><?= ($newMailCount) ? $newMailCount : '' ?></strong></a>
 					<a href="/log/" class="mr-3"><i class="fas fa-bell text-white"></i></a>
 					<a href="/logout/" class="mr-3"><i class="fas fa-sign-out-alt text-white"></i></a>	
 					<a href="/profile/<?=$id?>/"><img class="user-img rounded-circle" src="/upload/avatar/<?=$id?>.jpg"/></a>
