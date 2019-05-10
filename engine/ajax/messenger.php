@@ -51,7 +51,7 @@ function getMessageById($messageId)
 {
     global $pdo;
     global $id;
-    $query = "SELECT message_id, mes, sender, recipient, datetime FROM `mail` WHERE (`sender` = :userId OR `recipient` = :userId) AND message_id=:messageId ORDER BY `datetime`";
+    $query = "SELECT message_id, mes, sender, recipient, datetime, view_status FROM `mail` WHERE (`sender` = :userId OR `recipient` = :userId) AND message_id=:messageId ORDER BY `datetime`";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':userId' => $id,':messageId' => $messageId));
     $result = $dbh->fetchAll(PDO::FETCH_ASSOC);
@@ -64,8 +64,14 @@ function prepareMessages(&$messages, $userId)
 {
     global $pdo;
     foreach ($messages as &$message) {
+        $message['status'] = '';
         if ($message['sender'] == $userId) {
             $message['author'] = 'Вы';
+            if ($message['view_status']) {
+                $message['status'] = ' (прочитано)';
+            } else {
+                $message['status'] = ' (не прочитано)';
+            }
         } else {
             $message['author'] = fiomess($message['sender']);
         }

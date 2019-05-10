@@ -9,7 +9,9 @@
             </div>
         </div>
         <div class="collapse list-group" id="collapseUsers">
-            <?php foreach ($userList as $user): ?>
+            <?php
+            var_dump($messages);
+            foreach ($userList as $user): ?>
                 <a href="./<?= $user['id'] ?>/" class="list-group-item list-group-item-action border-0">
                     <p class="font-weight-bold"><?= $user['name'] . ' ' . $user['surname'] ?></p>
                 </a>
@@ -17,14 +19,28 @@
         </div>
     </div>
     <div class="list-group">
-        <?php foreach ($dialog as $n) { ?>
+        <?php foreach ($dialog as $n) {
+            $newMessages = numberOfNewMessages($n);?>
             <a href="./<?= $n ?>/" class="list-group-item list-group-item-action border-0">
-                <p class="font-weight-bold"><?= fiomess($n) ?></p>
+                <p class="font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= fiomess($n) ?><?= ($newMessages) ? ' +'.$newMessages : ''; ?></p>
                 <p><?= lastmess($n) ?></p>
             </a>
         <?php } ?>
     </div>
 </div>
+<script src="/assets/js/CometServerApi.js"></script>
+<script>
+    $(document).ready(function () {
+        cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
+        cometApi.subscription("msg.new", function (e) {
+            console.log(e);
+            var messagesCount = $('#messagesCount').text();
+            messagesCount++;
+            $('#messagesCount').text(messagesCount);
+            $('#messagesIcon').removeClass('text-white').addClass('text-warning');
+        });
+    });
+</script>
 
 
 

@@ -1,4 +1,5 @@
-<p><?= $message['author'] ?> (<?= $message['datetime'] ?>):</p>
+<div class="message <?= ($message['view_status'] || $message['sender'] == $id) ? '' : 'alert-primary' ?>">
+    <p><?= $message['author'] ?> (<?= $message['datetime'] ?>)<?=$message['status']?>:</p>
 <p><?= nl2br($message['mes']) ?></p>
 <?php if (count($message['files']) > 0): ?>
     <p>Прикрепленные файлы</p>
@@ -10,3 +11,4 @@
         <?php endif; ?>
     <?php endforeach; ?>
 <?php endif; ?>
+</div>

@@ -5,15 +5,15 @@ global $id;
 global $idc;
 global $cometHash;
 
-// обновление таблицы авторизации на комет-сервере
-$recipientId = $_GET['mail'];
+$recipientId = filter_var($_GET['mail'], FILTER_SANITIZE_NUMBER_INT);
 
 $messages = getMessages($id, $recipientId);
+setMessagesViewStatus($id, $recipientId);
 
 function getMessages($userId, $interlocutorId)
 {
     global $pdo;
-    $query = "SELECT message_id, mes, sender, recipient, datetime FROM `mail` WHERE (`sender` = :userId AND `recipient` = :interlocutorId) OR (`sender` = :interlocutorId AND `recipient` = :userId) ORDER BY `datetime`";
+    $query = "SELECT message_id, mes, sender, recipient, datetime, view_status FROM `mail` WHERE (`sender` = :userId AND `recipient` = :interlocutorId) OR (`sender` = :interlocutorId AND `recipient` = :userId) ORDER BY `datetime`";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':userId' => $userId, ':interlocutorId' => $interlocutorId));
     $result = $dbh->fetchAll(PDO::FETCH_ASSOC);
@@ -27,8 +27,14 @@ function prepareMessages(&$messages, $userId, $interlocutorId)
     global $pdo;
     $interlocutorName = fiomess($interlocutorId);
     foreach ($messages as &$message) {
+        $message['status'] = '';
         if ($message['sender'] == $userId) {
             $message['author'] = 'Вы';
+            if ($message['view_status']) {
+                $message['status'] = ' (прочитано)';
+            } else {
+                $message['status'] = ' (не прочитано)';
+            }
         } else {
             $message['author'] = $interlocutorName;
         }
@@ -42,6 +48,14 @@ function prepareMessages(&$messages, $userId, $interlocutorId)
         }
 
     }
+}
+
+function setMessagesViewStatus($userId, $interlocutorId)
+{
+    global $pdo;
+    $query = "UPDATE mail SET view_status = 1 WHERE `sender` = :interlocutorId AND `recipient` = :userId AND `view_status` = 0";
+    $dbh = $pdo->prepare($query);
+    $dbh->execute(array(':userId' => $userId, ':interlocutorId' => $interlocutorId));
 }
 
 function fiomess($iduser)
