@@ -1,6 +1,7 @@
 <?php
 
 global $id;
+global $cometHash;
 
 require_once 'engine/backend/functions/storage-functions.php';
 

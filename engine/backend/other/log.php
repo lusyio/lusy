@@ -1,5 +1,6 @@
 <?php
 global $id;
+global $cometHash;
 $newtask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "new" and worker='.$id);
 $overduetask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "overdue" and worker='.$id);
 $completetask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "done" and worker='.$id);

@@ -58,8 +58,18 @@ include 'engine/frontend/other/searchbarfile.php';
         </div>
     </div>
     <?php endforeach; ?>
+<script src="/assets/js/CometServerApi.js"></script>
 <script>
 $(document).ready(function() {
+    cometApi.start({dev_id: 2553, user_id:<?=$id?>, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
+    cometApi.subscription("msg.new", function (e) {
+        console.log(e);
+        var messagesCount = $('#messagesCount').text();
+        messagesCount++;
+        $('#messagesCount').text(messagesCount);
+        $('#messagesIcon').removeClass('text-white').addClass('text-warning');
+        });
+
     $("#searchFile").on("keyup", function () {
         var value = $(this).val();
         $(".files").hide();

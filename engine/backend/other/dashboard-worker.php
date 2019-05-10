@@ -3,6 +3,7 @@ global $id;
 global $_overdue;
 global $_pending;
 global $_inprogress;
+global $cometHash;
 
 $worker = DBOnce('COUNT(*)','tasks','worker='.$id);
 $manager = DBOnce('COUNT(*)','tasks','manager='.$id);

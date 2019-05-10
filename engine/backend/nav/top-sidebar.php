@@ -1,6 +1,9 @@
 <?php
+require_once 'engine/backend/functions/common-functions.php';
+
 $id = $GLOBALS["id"];
 $newMailCount = DBOnce('count(*)', 'mail', 'recipient='.$id.' AND view_status=0');
+$cometHash = authorizeComet($id);
 function avatartop(){
 	$id = $GLOBALS["id"];
 	$filename = 'upload/avatar/'.$id.'.jpg';

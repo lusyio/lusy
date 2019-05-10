@@ -54,7 +54,7 @@ $taskStatusText = [
         }
         ?>
     <a href="/task/<?= $n['idtask'] ?>/" class="text-decoration-none cust">
-        <div class="task-card"><?= $n['lastCommentTime'] ?>
+        <div class="task-card">
             <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['classRole'] ?>">
                 <div class="card-body tasks-list">
                     <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?> <?= ($isTaskRead)?'':'alert-primary'; ?>">
@@ -104,9 +104,17 @@ $taskStatusText = [
     </a>
     <?php endforeach; ?>
 </div>
+<script src="/assets/js/CometServerApi.js"></script>
 <script>
-$(document).ready(function() {
-
+    $(document).ready(function() {
+        cometApi.start({dev_id: 2553, user_id:<?=$id?>, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
+        cometApi.subscription("msg.new", function (e) {
+            console.log(e);
+            var messagesCount = $('#messagesCount').text();
+            messagesCount++;
+            $('#messagesCount').text(messagesCount);
+            $('#messagesIcon').removeClass('text-white').addClass('text-warning');
+        });
     $(".progress-bar ").each(function () {
         var danger = $(this).attr('aria-valuenow');
         var danger1 = Number.parseInt(danger);

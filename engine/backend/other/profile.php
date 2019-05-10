@@ -1,7 +1,7 @@
 <?php
 $id = $GLOBALS["id"];
 $idc = $GLOBALS["idc"];
-
+global $cometHash;
 if (empty($_GET['profile'])) {
 	echo "<script>document.location.href = '/profile/".$id."/'</script>";
 } else {

@@ -39,3 +39,13 @@ function uploadAttachedFiles($type, $eventId)
         move_uploaded_file($file['tmp_name'], $filePath);
     }
 }
+
+function authorizeComet($id)
+{
+    global $cometPdo;
+    $hash = md5($id . 'salt-pepper');
+    $cometQuery = "INSERT INTO users_auth (id, hash )VALUES (:id, :hash)";
+    $cometSql = $cometPdo->prepare($cometQuery);
+    $cometSql->execute(array(':id' => $id, ':hash' => $hash));
+    return $hash;
+}

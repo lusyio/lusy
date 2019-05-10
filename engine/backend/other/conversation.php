@@ -1,16 +1,11 @@
 <?php
 global $pdo;
-global $cometPdo;
 global $datetime;
 global $id;
 global $idc;
+global $cometHash;
 
 // обновление таблицы авторизации на комет-сервере
-$hash = md5($id . 'salt-pepper');
-$cometQuery = "INSERT INTO users_auth (id, hash )VALUES (:id, :hash)";
-$cometSql = $cometPdo->prepare($cometQuery);
-$cometSql->execute(array(':id' => $id, ':hash' => $hash));
-
 $recipientId = $_GET['mail'];
 
 $messages = getMessages($id, $recipientId);

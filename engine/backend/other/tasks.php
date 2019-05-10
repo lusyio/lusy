@@ -2,6 +2,7 @@
 global $id;
 global $idc;
 global $pdo;
+global $cometHash;
 
 $url = $_SERVER['REQUEST_URI'];
 $url = str_replace('/', '', $url);

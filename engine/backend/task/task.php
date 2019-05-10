@@ -3,6 +3,7 @@ $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 $id = $GLOBALS["id"];
 global $pdo;
 global $datetime;
+global $cometHash;
 $query = 'SELECT t.id, t.name, t.status, t.description, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.datepostpone, t.report, t.view_status, u1.name AS managerName, u1.surname AS managerSurname, u2.name AS workerName, u2.surname AS workerSurname FROM tasks t LEFT JOIN users u1 ON t.manager = u1.id LEFT JOIN users u2 ON t.worker = u2.id WHERE t.id = :taskId';
 $dbh = $pdo->prepare($query);
 $dbh->execute(array(':taskId' => $id_task));
