@@ -37,6 +37,16 @@
 <script>
     var $usp = <?php echo $id + 345;  // айдишник юзера ?>;
     $(document).ready(function () {
+        var numberToSubtract = $('#chatBox .alert-primary').length;
+        console.log(numberToSubtract);
+        var messagesCount = $('#messagesCount').text();
+        messagesCount = messagesCount - numberToSubtract;
+        if (messagesCount) {
+            $('#messagesCount').text(messagesCount);
+        } else {
+            $('#messagesIcon').removeClass('text-warning').addClass('text-white');
+            $('#messagesCount').text('');
+        }
         cometApi.start({dev_id: 2553, user_id:<?=$id?>, user_key: '<?=$GLOBALS['cometHash']?>', node: "app.comet-server.ru"});
         cometApi.subscription("msg.new", function (e) {
             console.log(e);
