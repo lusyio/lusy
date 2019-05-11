@@ -10,7 +10,6 @@
         </div>
         <div class="collapse list-group" id="collapseUsers">
             <?php
-            var_dump($messages);
             foreach ($userList as $user): ?>
                 <a href="./<?= $user['id'] ?>/" class="list-group-item list-group-item-action border-0">
                     <p class="font-weight-bold"><?= $user['name'] . ' ' . $user['surname'] ?></p>
