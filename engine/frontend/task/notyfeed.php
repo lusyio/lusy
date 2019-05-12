@@ -1,37 +1,22 @@
-
-
-<div class="notyfeed">
-    <div class="tab-content bg-white p-3" id="nav-tabContent">
-        <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
-            <div class="row">
-                <div class="col-sm-12 comin d">
-                    <input class="form-control" id="comin" name="comment" type="text" autocomplete="off" placeholder="<?=$GLOBALS["_writecomment"]?>..." required>
-                    <button type="submit" id="comment" class="btn btn-primary" title="<?=$GLOBALS['_send']?>">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                    <button type="submit" class="btn btn-light btn-file">
-                        <i class="fas fa-file-upload custom-date"></i><input id="sendFiless" type="file">
-                    </button>
-                </div>
-            </div>
-
-            <div class="block-checkbox"  id="filters">
-                <div class="center-checkbox col-sm-3">
-                    <input rel="comment" type="checkbox" checked><p class="d-inline">Лента</p>
-                </div>
-
-                <div class="center-checkbox col-sm-3">
-                    <input rel="report" type="checkbox"><p class="d-inline">Репорты</p>
-                </div>
-
-                <div class="center-checkbox col-sm-3">
-                    <input rel="system" type="checkbox"><p class="d-inline">Система</p>
-                </div>
-            </div>
-
-
-            <div id="comments"></div>
-        </div>
+<div class="d-inline-block">
+    <div id="managerSearch" rol="manager" class="btn btn-secondary words-search role-search">
+        <span><i class="fas fa-comments mr-2"></i> Комментарии</span>
+        <span class="count"> (3)</span>
+    </div>
+    <div id="workerSearch" rol="worker" class="btn btn-secondary words-search role-search">
+        <span><i class="far fa-file-archive mr-2"></i> Файлы</span>
+        <span class="count"> (2)</span>
+    </div>
+    <div id="canceledSearch" rel="canceled" class="btn btn-secondary words-search status-search">
+        <span><i class="fas fa-info mr-2"></i> Системные сообщения</span>
+        <span class="count"> (1)</span>
+    </div>
+    <div id="overdueSearch" rel="overdue" class="btn btn-secondary words-search status-search">
+        <span><i class="far fa-clipboard mr-2"></i> Отчеты</span>
+        <span class="count"> (5)</span>
     </div>
 </div>
+
+<hr>
+
+<div id="comments" class="mt-4"></div>

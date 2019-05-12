@@ -2,6 +2,7 @@
 $statusBar = [
     'new' => [
         'border' => 'border-success',
+        'bg' => 'badge-primary',
         'bg1' => 'bg-primary',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-custom-color',
@@ -11,6 +12,7 @@ $statusBar = [
     ],
     'inwork' => [
         'border' => 'border-primary',
+        'bg' => 'badge-primary',
         'bg1' => 'bg-primary',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-custom-color',
@@ -20,6 +22,7 @@ $statusBar = [
     ],
     'overdue' => [
         'border' => 'border-danger',
+        'bg' => 'badge-danger',
         'bg1' => 'bg-danger',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-custom-color',
@@ -29,6 +32,7 @@ $statusBar = [
     ],
     'postpone' => [
         'border' => '',
+        'bg' => 'badge-warning',
         'bg1' => 'bg-warning',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-custom-color',
@@ -38,6 +42,7 @@ $statusBar = [
     ],
     'pending' => [
         'border' => 'border-warning',
+        'bg' => 'badge-warning',
         'bg1' => 'bg-custom-color',
         'bg2' => 'bg-warning',
         'bg3' => 'bg-custom-color',
@@ -47,6 +52,7 @@ $statusBar = [
     ],
     'returned' => [
         'border' => 'border-primary',
+        'bg' => 'badge-primary',
         'bg1' => 'bg-custom-color',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-custom-color',
@@ -56,6 +62,7 @@ $statusBar = [
     ],
     'done' => [
         'border' => 'border-success',
+        'bg' => 'badge-success',
         'bg1' => 'bg-custom-color',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-success',
@@ -65,6 +72,7 @@ $statusBar = [
     ],
     'canceled' => [
         'border' => 'border-secondary',
+        'bg' => 'badge-danger',
         'bg1' => 'bg-custom-color',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-danger',
@@ -85,15 +93,54 @@ if ($id == $worker and $view == 0) {
 }
 ?>
 <div class="container-fluid" id="task">
-                    <div class="card mb-5">
+                    <div class="card">
                         <div class="card-body">
-                            <h2 class="<?=$statusBar[$status]['border']?>"><?=$nametask?></h2>
-                            <p class="text-ligther"><?=$viewState?></p>
-                            <h6 class="text-ligther"><i class="far fa-calendar-times custom"> </i> <?=$datedone?> <?=$datepostpone?> <?=$GLOBALS["_$status"]?> </h6>
+	                        <div class="row" style="margin-top: -21px;">
+		                        <div class="col-4">
+									<span class="badge <?=$statusBar[$status]['bg']?>"><?=$GLOBALS["_$status"]?></span>
+		                        </div>
+		                        <div class="col-8">
+			                        <div class="float-right" title="<?=$GLOBALS["_$status"]?>">
+
+                                    	<span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg1']?>"><i class="<?=$statusBar[$status]['ic1']?> custom"></i></span>
+										<span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg2']?>"><i class="<?=$statusBar[$status]['ic2']?> custom"></i></span>
+										<span class="status-icon-last rounded-circle noty-m <?=$statusBar[$status]['bg3']?>"><i class="<?=$statusBar[$status]['ic3']?> custom"></i></span>
+										</div>
+		                        </div>
+	                        </div>
+	                        
+	                        <h4 class="<?=$statusBar[$status]['border']?> font-weight-bold mb-3 mt-5"><?=$nametask?></h4>
+	                        <hr>
+	                        <div class="row">
+		                        <div class="col-5">
+								<div class="position-relative deadline-block">
+	                                <div class="progress position-relative mr-1" style="height: 30px; font-size: 14px; z-index: 1; ">
+	                                    <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: 5%" aria-valuenow="5%" aria-valuemin="0" aria-valuemax="100"></div>
+	                                    <medium class="justify-content-center d-flex position-absolute w-100 h-100">
+	                                    <div class="p-1 date-inside">
+		                                    <i class="far fa-calendar-times text-ligther-custom"></i><span class="text-ligther-custom ml-2">Дедлайн: </span><span>31 мая</span>
+	                                    </div>
+	                                    </medium>
+	                                </div>
+                                    <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
+								</div>
+                            
+		                        </div>
+		                        <div class="col-7">
+			                        <div class="float-right">
+										<img src="/upload/avatar/4.jpg" class="avatar mr-1">
+										<span class="mr-1 text-secondary">|</span>
+                                    	<img src="/upload/avatar/2.jpg" class="avatar mr-1">
+                                    	<img src="/upload/avatar/4.jpg" class="avatar mr-1">
+			                        </div>
+		                        </div>
+	                        </div>
+	                        
+                            
                             <div class="mt-5 mb-5 text-justify"><?=$description?></div>
                             <div class="mt-5 mb-5 text-justify">
                                 <?php if (count($files) > 0): ?>
-                                    <p class="">Прикрепленнные файлы:</p>
+                                    <p class="">Прикрепленные файлы:</p>
                                     <?php foreach ($files as $file): ?>
                                         <?php if ($file['is_deleted']): ?>
                                             <p class=""><s><?= $file['file_name'] ?></s> (удален)</p>
@@ -109,42 +156,37 @@ if ($id == $worker and $view == 0) {
                                     include 'engine/frontend/task/control/'.$role.'/'.$status.'.php';
                                 ?>
                             </div>
-                        </div>
-                        <div class="card-footer pb-3">
-                            <div class="col">
-                            <div class="row">
-                                <div class="col- ml-3" title="<?=$GLOBALS["_$status"]?>">
-                                    <p class="font-weight-bold text-ligther text-uppercase">Статус</p>
-
-                                    <span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg1']?>"><i class="<?=$statusBar[$status]['ic1']?> custom"></i></span>
-                                    <span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg2']?>"><i class="<?=$statusBar[$status]['ic2']?> custom"></i></span>
-                                    <span class="status-icon-last rounded-circle noty-m <?=$statusBar[$status]['bg3']?>"><i class="<?=$statusBar[$status]['ic3']?> custom"></i></span>
-                                </div>
-
-                                <div class="col- ml-3">
-                                    <p class="font-weight-bold text-ligther text-uppercase">Постановщик</p>
-                                    <p class="mb-0" title="<?= $viewStatusTitleManager ?>"><img src="/upload/avatar/<?=$manager?>.jpg" alt="manager image" class="avatar mr-1"> <?=$managername?> <?=$managersurname?></p>
-                                </div>
-
-                                <div class="col- ml-3 mr-3">
-                                    <p class="font-weight-bold text-ligther text-uppercase">Исполнители</p>
-                                    <?php
-                                    foreach ($coworkers as $coworker):
-                                        if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
-                                            $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
-                                        } else {
-                                            $viewStatusTitle = 'Не просмотрено';
-                                        }
-                                        ?>
-                                    <p class="mb-0" title="<?= $viewStatusTitle ?>"><img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" alt="worker image" class="avatar mr-1"> <?=$coworker['name']?> <?=$coworker['surname']?></p>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
+                        </div>  
                     </div>
-                  <?php include 'engine/frontend/task/notyfeed.php' ?>
 </div>
+</div>
+
+<div class="card mt-3">
+	<div class="container-fluid">
+		<div class="card-body">
+				<div class="col-12">
+					<div class="d-flex comin">
+						<input class="form-control mr-3" id="comin" name="comment" type="text" autocomplete="off" placeholder="<?=$GLOBALS["_writecomment"]?>..." required>
+		                    
+		                <button type="submit" class="btn btn-light btn-file mr-3"><i class="fas fa-file-upload custom-date"></i><input id="sendFiless" type="file"></button>
+		                
+		                <button type="submit" id="comment" class="btn btn-primary" title="<?=$GLOBALS['_send']?>"><i class="fas fa-paper-plane"></i></button>
+		            </div>
+				</div>
+			</div>
+	</div>
+</div>
+
+<div class="card mt-3">
+	<div class="container-fluid">
+		<div class="card-body">
+			<div class="col-12">
+			<?php include 'engine/frontend/task/notyfeed.php' ?>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script>
 var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '<?=$idtask?>';
 </script>

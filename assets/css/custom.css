@@ -181,12 +181,6 @@ body {
 
 }
 
-.comment{
-    margin: 5px;
-    padding: 5px;
-    color: rgba(0, 0, 0, 1);
-}
-
 .border-left{
     border-left: 5px solid !important;
     padding-left: 5px;
@@ -514,8 +508,8 @@ input:checked[type="checkbox"]::before {
 
 .status-icon.rounded-circle.noty-m {
     border-radius: 100px;
-    height: 30px;
-    width: 30px;
+    height: 18px;
+    width: 18px;
     position: relative;
     margin: 0;
     padding: 0;
@@ -536,9 +530,9 @@ input:checked[type="checkbox"]::before {
 }
 
 .custom {
-    font-size: 22px;
+    font-size: 12px;
     top: 5px;
-    line-height: 30px !important;
+    line-height: 20px !important;
 }
 
 .custom-date {
@@ -613,10 +607,33 @@ input:checked[type="checkbox"]::before {
     width: 9px;
     position: absolute;
     right: -9px;
-    top: 14px;
+    top: 9px;
     border-bottom: 2px solid #c7c1c1;
 }
-
+.deadline-block {
+	width: 80%;
+}
+.deadline-block:hover {
+	cursor: pointer;
+}
+.deadline-block:hover .date-inside span {
+	border-bottom: 1px dashed grey;
+}
+.deadline-block:hover .edit {
+	right: -23px;
+	transition: 0.3s;
+}
+.edit {
+	transition: 0.5s;
+    right: 6px;
+    top: 1px;
+    height: 28px;
+    color: white;
+    background: grey;
+    padding: 2px 5px 2px 15px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
 .noty-m {
     font-size: 9px !important;
     color: #f7f7f7;
@@ -632,8 +649,8 @@ input:checked[type="checkbox"]::before {
 
 .status-icon-last.rounded-circle.noty-m {
     border-radius: 100px;
-    height: 30px;
-    width: 30px;
+    height: 18px;
+    width: 18px;
     position: relative;
     margin: 0;
     padding: 0;

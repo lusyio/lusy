@@ -37,8 +37,8 @@
 
 
 <div id="status-block" class="status-block-inwork-worker">
-    <button type="button" id="done" class="btn btn-primary mt-3 mb-1" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><?=$GLOBALS["_completetask"]?></button>
-    <button type="button" id="changeDate" class="btn btn-warning mt-3 mb-1" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date">Перенести срок</button>
+    <button type="button" id="done" class="btn btn-outline-primary mt-3 mb-1" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><i class="fas fa-check mr-2"></i> <?=$GLOBALS["_completetask"]?></button>
+    <button type="button" id="changeDate" class="btn btn-warning mt-3 mb-1 d-none" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date">Перенести срок</button>
 </div>
 
 
