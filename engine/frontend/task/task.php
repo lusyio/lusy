@@ -93,71 +93,70 @@ if ($id == $worker and $view == 0) {
 }
 ?>
 <div class="container-fluid" id="task">
-                    <div class="card">
-                        <div class="card-body">
-	                        <div class="row" style="margin-top: -21px;">
-		                        <div class="col-4">
-									<span class="badge <?=$statusBar[$status]['bg']?>"><?=$GLOBALS["_$status"]?></span>
-		                        </div>
-		                        <div class="col-8">
-			                        <div class="float-right" title="<?=$GLOBALS["_$status"]?>">
+    <div class="card">
+        <div class="card-body">
+            <div class="row" style="margin-top: -21px;">
+                <div class="col-4">
+					<span class="badge <?=$statusBar[$status]['bg']?>"><?=$GLOBALS["_$status"]?></span>
+                </div>
+                <div class="col-8">
+                    <div class="float-right" title="<?=$GLOBALS["_$status"]?>">
 
-                                    	<span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg1']?>"><i class="<?=$statusBar[$status]['ic1']?> custom"></i></span>
-										<span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg2']?>"><i class="<?=$statusBar[$status]['ic2']?> custom"></i></span>
-										<span class="status-icon-last rounded-circle noty-m <?=$statusBar[$status]['bg3']?>"><i class="<?=$statusBar[$status]['ic3']?> custom"></i></span>
-										</div>
-		                        </div>
-	                        </div>
+                    	<span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg1']?>"><i class="<?=$statusBar[$status]['ic1']?> custom"></i></span>
+						<span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg2']?>"><i class="<?=$statusBar[$status]['ic2']?> custom"></i></span>
+						<span class="status-icon-last rounded-circle noty-m <?=$statusBar[$status]['bg3']?>"><i class="<?=$statusBar[$status]['ic3']?> custom"></i></span>
+						</div>
+                </div>
+            </div>
 	                        
-	                        <h4 class="<?=$statusBar[$status]['border']?> font-weight-bold mb-3 mt-5"><?=$nametask?></h4>
-	                        <hr>
-	                        <div class="row">
-		                        <div class="col-5">
-								<div class="position-relative deadline-block">
-	                                <div class="progress position-relative mr-1" style="height: 30px; font-size: 14px; z-index: 1; ">
-	                                    <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: 5%" aria-valuenow="5%" aria-valuemin="0" aria-valuemax="100"></div>
-	                                    <medium class="justify-content-center d-flex position-absolute w-100 h-100">
-	                                    <div class="p-1 date-inside">
-		                                    <i class="far fa-calendar-times text-ligther-custom"></i><span class="text-ligther-custom ml-2">Дедлайн: </span><span>31 мая</span>
-	                                    </div>
-	                                    </medium>
-	                                </div>
-                                    <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
-								</div>
-                            
-		                        </div>
-		                        <div class="col-7">
-			                        <div class="float-right">
-										<img src="/upload/avatar/4.jpg" class="avatar mr-1">
-										<span class="mr-1 text-secondary">|</span>
-                                    	<img src="/upload/avatar/2.jpg" class="avatar mr-1">
-                                    	<img src="/upload/avatar/4.jpg" class="avatar mr-1">
-			                        </div>
-		                        </div>
-	                        </div>
+    <h4 class="<?=$statusBar[$status]['border']?> font-weight-bold mb-3 mt-5"><?=$nametask?></h4>
+    <hr>
+    <div class="row">
+        <div class="col-5">
+		<div class="position-relative deadline-block">
+            <div class="progress position-relative mr-1" style="height: 30px; font-size: 14px; z-index: 1; ">
+                <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: 5%" aria-valuenow="5%" aria-valuemin="0" aria-valuemax="100"></div>
+                <medium class="justify-content-center d-flex position-absolute w-100 h-100">
+                <div class="p-1 date-inside">
+                    <i class="far fa-calendar-times text-ligther-custom"></i><span class="text-ligther-custom ml-2">Дедлайн: </span><span>31 мая</span>
+                </div>
+                </medium>
+            </div>
+            <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
+		</div>
+    
+        </div>
+        <div class="col-7">
+            <div class="float-right">
+				<img src="/upload/avatar/4.jpg" class="avatar mr-1">
+				<span class="mr-1 text-secondary">|</span>
+            	<img src="/upload/avatar/2.jpg" class="avatar mr-1">
+            	<img src="/upload/avatar/4.jpg" class="avatar mr-1">
+            </div>
+        </div>
+    </div>
 	                        
                             
-                            <div class="mt-5 mb-5 text-justify"><?=$description?></div>
-                            <div class="mt-5 mb-5 text-justify">
-                                <?php if (count($files) > 0): ?>
-                                    <p class="">Прикрепленные файлы:</p>
-                                    <?php foreach ($files as $file): ?>
-                                        <?php if ($file['is_deleted']): ?>
-                                            <p class=""><s><?= $file['file_name'] ?></s> (удален)</p>
-                                        <?php else: ?>
-                                            <p><a class="" href="../../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a></p>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </div>
-                            <div id="control">
-                                <?php
-                                    include 'engine/backend/task/task/control/'.$role.'/'.$status.'.php';
-                                    include 'engine/frontend/task/control/'.$role.'/'.$status.'.php';
-                                ?>
-                            </div>
-                        </div>  
-                    </div>
+        <div class="mt-5 mb-5 text-justify"><?=$description?></div>
+        
+        <?php if (count($files) > 0): ?>
+            <?php foreach ($files as $file): ?>
+                <?php if ($file['is_deleted']): ?>
+                    <p class="text-secondary"><s><i class="fas fa-paperclip"></i> <?= $file['file_name'] ?></s> (удален)</p>
+                <?php else: ?>
+                    <p class="text-secondary"><a class="text-secondary" href="../../<?= $file['file_path'] ?>"><i class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a></p>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+            
+        <div id="control">
+            <?php
+                include 'engine/backend/task/task/control/'.$role.'/'.$status.'.php';
+                include 'engine/frontend/task/control/'.$role.'/'.$status.'.php';
+            ?>
+        </div>
+    </div>  
+</div>
 </div>
 </div>
 
