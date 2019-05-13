@@ -1,13 +1,12 @@
 $(document).ready(function(){
-	
-	
+
+
 	// при загрузке обновляем комменты
-	
+
 	updateComments();
 
 	$('#workzone').on('mouseover', '.comment', function () {
 		var el = $(this);
-		console.log('hover');
 		setTimeout(function () {
 			$(el).removeClass('bg-success')
 		}, 1000);
@@ -136,16 +135,16 @@ $(document).ready(function(){
 	$("#postpone").click(function() {
 		$('#status-block').addClass('d-none');
 		$('#postpone-block').removeClass('d-none');
-		
+
 	});
-	
+
 	// // отчет о завершении
 	$( "#done" ).click(function() {
 		$('#status-block').addClass('d-none');
 	// 	$('#report-block').removeClass('d-none');
 	});
 
-	
+
 	// на рассмотрение
 	$( "#sendonreview" ).click(function() {
 		var text = $("#reportarea").val();
@@ -310,16 +309,6 @@ $( "#inwork" ).click(function() {
 		dateControl.min = dated;
 	}
 
-
-	$('#filters').delegate('input:checkbox', 'change', function() {
-		var $lis = $('.comment').fadeOut();
-		//For each one checked
-		$('input:checked').each(function()
-		{
-			$lis.filter('.' + $(this).attr('rel')).fadeIn();
-		});
-	}).find('input:checkbox').change();
-
 	$('.comment-filter').on('click', function () {
 		var filter = $(this).attr('data-filter-type');
 		$('#comments').children().hide();
@@ -371,8 +360,5 @@ $( "#inwork" ).click(function() {
 			}, 500);
 		});
 	}));
-
-
-
 
 });
