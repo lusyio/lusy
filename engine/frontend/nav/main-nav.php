@@ -30,11 +30,12 @@ if ($companyUsageSpacePercent > 90){
 					<i class="fas fa-hdd mr-2"></i>
 					<?=$_storage?>
 					<div class="progress mt-2">
-                        <div class="progress-bar <?=$bguser?> role="progressbar" style="width: <?= $userUsageSpacePercent ?>%" aria-valuenow="<?= $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titleuserusage"]?>"></div>
+                        <div class="progress-bar <?=$bguser?>" role="progressbar" style="width: <?= $userUsageSpacePercent ?>%" aria-valuenow="<?= $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titleuserusage"]?>"></div>
                         <div class="progress-bar <?=$bgall?>" role="progressbar" style="width: <?= $companyUsageSpacePercent - $userUsageSpacePercent ?>%" aria-valuenow="<?= $companyUsageSpacePercent - $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titlecompanyusage"]?>"></div>
 					</div>
 				</a>
 			</li>
+			<li class="nav-item pb-2"><a class="nav-link" href="/cron/demo.php"><i class="fas fa-plus mr-2"></i> Демо-задача</a></li>
 		</ul>
   </div>
 </nav>
