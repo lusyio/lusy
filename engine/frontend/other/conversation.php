@@ -46,7 +46,7 @@
         if (messagesCount) {
             $('#messagesCount').text(messagesCount);
         } else {
-            $('#messagesIcon').removeClass('text-warning').addClass('text-white');
+            $('#messagesIcon').removeClass('text-warning');
             $('#messagesCount').text('');
         }
         cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$GLOBALS['cometHash']?>', node: "app.comet-server.ru"});
@@ -88,7 +88,7 @@
                 for (var i = 0; i<this.files.length; i++) {
                     var size = this.files[i].size;
                     var names = this.files[i].name;
-                    if (size > 2 * 1024 * 1024) {
+                    if (size > 20 * 1024 * 1024) {
                         $(".btn-file").append("<span id='oversize'>Размер файла превышен</span>");
                         $("#sendBtn").prop('disabled', true);
                     } else {
@@ -172,6 +172,7 @@
                         }
                         $("#mes").val('');
                         $(".filenames").html("");
+                        attachedFiles = [];
 
                     },
                 });
