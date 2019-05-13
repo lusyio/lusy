@@ -8,5 +8,5 @@ function updateMesagesCounter() {
     var messagesCount = $('#messagesCount').text();
     messagesCount++;
     $('#messagesCount').text(messagesCount);
-    $('#messagesIcon').removeClass('text-white').addClass('text-warning');
+    $('#messagesIcon').addClass('text-warning');
 }

@@ -46,7 +46,7 @@
         if (messagesCount) {
             $('#messagesCount').text(messagesCount);
         } else {
-            $('#messagesIcon').removeClass('text-warning').addClass('text-white');
+            $('#messagesIcon').removeClass('text-warning');
             $('#messagesCount').text('');
         }
         cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$GLOBALS['cometHash']?>', node: "app.comet-server.ru"});
