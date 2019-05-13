@@ -92,10 +92,10 @@ if ($id == $worker and $view == 0) {
     $statusBar[$status]['border'] = 'border-primary';
 }
 ?>
-<div class="container-fluid" id="task">
-    <div class="card">
+<div id="task">
+    <div class="card"  style="margin-top: -21px;">
         <div class="card-body">
-            <div class="row" style="margin-top: -21px;">
+            <div class="row">
                 <div class="col-4">
 					<span class="badge <?=$statusBar[$status]['bg']?>"><?=$GLOBALS["_$status"]?></span>
                 </div>
@@ -173,30 +173,24 @@ if ($id == $worker and $view == 0) {
     </div>  
 </div>
 </div>
-</div>
+
+
 
 <div class="card mt-3">
-	<div class="container-fluid">
-		<div class="card-body">
-				<div class="col-12">
-					<div class="d-flex comin">
-						<input class="form-control mr-3" id="comin" name="comment" type="text" autocomplete="off" placeholder="<?=$GLOBALS["_writecomment"]?>..." required>
-		                    
-		                <button type="submit" class="btn btn-light btn-file mr-3"><i class="fas fa-file-upload custom-date"></i><input id="sendFiless" type="file"></button>
-		                
-		                <button type="submit" id="comment" class="btn btn-primary" title="<?=$GLOBALS['_send']?>"><i class="fas fa-paper-plane"></i></button>
-		            </div>
-				</div>
-			</div>
+	<div class="card-body">
+		<div class="d-flex comin">
+			<input class="form-control mr-3" id="comin" name="comment" type="text" autocomplete="off" placeholder="<?=$GLOBALS["_writecomment"]?>..." required>
+                
+            <button type="submit" class="btn btn-light btn-file mr-3"><i class="fas fa-file-upload custom-date"></i><input id="sendFiless" type="file"></button>
+            
+            <button type="submit" id="comment" class="btn btn-primary" title="<?=$GLOBALS['_send']?>"><i class="fas fa-paper-plane"></i></button>
+        </div>
 	</div>
 </div>
 
 <div class="card mt-3">
-	<div class="container-fluid">
-		<div class="card-body">
-			<div class="col-12">
-			<?php include 'engine/frontend/task/notyfeed.php' ?>
-			</div>
+	<div class="card-body">
+		<?php include 'engine/frontend/task/notyfeed.php' ?>
 		</div>
 	</div>
 </div>
@@ -210,12 +204,6 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
 <script>
     $(document).ready(function () {
         cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
-        cometApi.subscription("msg.new", function (e) {
-            console.log(e);
-            var messagesCount = $('#messagesCount').text();
-            messagesCount++;
-            $('#messagesCount').text(messagesCount);
-            $('#messagesIcon').removeClass('text-white').addClass('text-warning');
-        });
+        subscribeToMessagesNotification();
     });
 </script>
