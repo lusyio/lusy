@@ -31,7 +31,7 @@ if ($companyUsageSpacePercent > 90){
 					<?=$_storage?>
 					<div class="progress mt-2">
                         <div class="progress-bar <?=$bguser?> role="progressbar" style="width: <?= $userUsageSpacePercent ?>%" aria-valuenow="<?= $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titleuserusage"]?>"></div>
-                        <div class="progress-bar <?=$bgall?>" role="progressbar" style="width: <?= $companyUsageSpacePercent ?>%" aria-valuenow="<?= $companyUsageSpacePercent - $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titlecompanyusage"]?>"></div>
+                        <div class="progress-bar <?=$bgall?>" role="progressbar" style="width: <?= $companyUsageSpacePercent - $userUsageSpacePercent ?>%" aria-valuenow="<?= $companyUsageSpacePercent - $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100" title="<?=$GLOBALS["_titlecompanyusage"]?>"></div>
 					</div>
 				</a>
 			</li>
