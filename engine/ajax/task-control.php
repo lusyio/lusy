@@ -180,12 +180,12 @@ if ($_POST['module'] == 'addCoworker') {
     $coworkersQuery->execute(array(':taskId' => $idtask));
     $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_COLUMN, 0);
     var_dump($coworkers);
-//    if (!in_array($newCoworkerId, $coworkers)) {
-//        $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
-//        $addCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $newCoworkerId));
-//        resetViewStatus($idtask);
-//        echo 'added';
-//    }
+    if (!in_array($newCoworkerId, $coworkers)) {
+        $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
+        $addCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $newCoworkerId));
+        resetViewStatus($idtask);
+        echo 'added';
+    }
 }
 
 function resetViewStatus($taskId) {
