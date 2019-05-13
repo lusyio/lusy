@@ -23,12 +23,17 @@ if ($_POST['module'] == 'sendMessage') {
         }
 
 
-        $cometQuery = "INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :mesId)";
-        $cometSql = $cometPdo->prepare($cometQuery);
+        $cometSql = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
         $messageCometForSender = "<p>Вы (" . $datetime . "):</p><p>" . $mes . "</p>";
         $messageCometForRecipient = "<p>" . fiomess($id) . " (" . $datetime . "):</p><p>" . $mes . "</p>";
-        $cometSql->execute(array(':mesId' => $messageId, ':id' => $recipientId));
-        $cometSql->execute(array(':mesId' => $messageId, ':id' => $id));
+        $mesData = [
+            'senderId' => $id,
+            'recipientId' => $recipientId,
+            'messageId' => $messageId,
+        ];
+        $jsonMesData = json_encode($mesData);
+        $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
+        $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
     }
 }
 

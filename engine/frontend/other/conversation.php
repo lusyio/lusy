@@ -36,6 +36,8 @@
 <script src="/assets/js/CometServerApi.js"></script>
 <script>
     var $usp = <?php echo $id + 345;  // айдишник юзера ?>;
+    var $recipientId = <?= $recipientId ?>;
+    var $userId = <?=$id?>;
     $(document).ready(function () {
         var numberToSubtract = $('#chatBox .alert-primary').length;
         console.log(numberToSubtract);
@@ -47,31 +49,35 @@
             $('#messagesIcon').removeClass('text-warning').addClass('text-white');
             $('#messagesCount').text('');
         }
-        cometApi.start({dev_id: 2553, user_id:<?=$id?>, user_key: '<?=$GLOBALS['cometHash']?>', node: "app.comet-server.ru"});
+        cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$GLOBALS['cometHash']?>', node: "app.comet-server.ru"});
         cometApi.subscription("msg.new", function (e) {
             console.log(e);
-            var fd = new FormData();
-            fd.append('messageId', e.data);
-            fd.append('module', 'updateMessages');
-            fd.append('ajax', 'messenger');
-            fd.append('mes', mes);
-            fd.append('usp', $usp);
-            $.ajax({
-                url: '/ajax.php',
-                type: 'POST',
-                cache: false,
-                processData: false,
-                contentType: false,
-                data: fd,
-                success: function (response) {
-                    console.log(response);
-                    if( $('#chatBox').find($('.no-messages')).length) {
-                        $('.no-messages').remove();
-                    }
-                    $("#mes").val('');
-                    $('#chatBox').append(response);
-                },
-            });
+            if (e.data.senderId == $recipientId && e.data.recipientId == $userId || e.data.senderId == $userId && e.data.recipientId == $recipientId) {
+                var fd = new FormData();
+                fd.append('messageId', e.data.messageId);
+                fd.append('module', 'updateMessages');
+                fd.append('ajax', 'messenger');
+                fd.append('usp', $usp);
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function (response) {
+                        console.log(response);
+                        if ($('#chatBox').find($('.no-messages')).length) {
+                            $('.no-messages').remove();
+                        }
+                        $("#mes").val('');
+                        $('#chatBox').append(response);
+                    },
+                });
+            } else if (e.data.senderId != $userId) {
+                updateMesagesCounter();
+            }
+
         });
 
         var attachedFiles = [];

@@ -108,13 +108,7 @@ $taskStatusText = [
 <script>
     $(document).ready(function() {
         cometApi.start({dev_id: 2553, user_id:<?=$id?>, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
-        cometApi.subscription("msg.new", function (e) {
-            console.log(e);
-            var messagesCount = $('#messagesCount').text();
-            messagesCount++;
-            $('#messagesCount').text(messagesCount);
-            $('#messagesIcon').removeClass('text-white').addClass('text-warning');
-        });
+        subscribeToMessagesNotification();
     $(".progress-bar ").each(function () {
         var danger = $(this).attr('aria-valuenow');
         var danger1 = Number.parseInt(danger);
