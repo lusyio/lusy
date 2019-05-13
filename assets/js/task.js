@@ -27,6 +27,7 @@ $(document).ready(function(){
 
 		function onCommentSuccess(data) {
 			$('#comments').html(data).fadeIn();
+			countComments();
 		}
 	}
 
@@ -318,6 +319,58 @@ $( "#inwork" ).click(function() {
 			$lis.filter('.' + $(this).attr('rel')).fadeIn();
 		});
 	}).find('input:checkbox').change();
+
+	$('.comment-filter').on('click', function () {
+		var filter = $(this).attr('data-filter-type');
+		$('#comments').children().hide();
+		$('.comment-filter').removeClass('active');
+		switch (filter) {
+			case 'comments':
+				$(this).addClass('active');
+				$('#comments').children('.comment').show();
+				$('#comments').children('.comment').find('.comment-text').show();
+				break;
+			case 'files':
+				$(this).addClass('active');
+				$('#comments').children('').has('.attached-files').show();
+				$('#comments').children('').has('.attached-files').find('.comment-text').hide();
+				break;
+			case 'systems':
+				$(this).addClass('active');
+				$('#comments').children('.system').show();
+				break;
+			case 'reports':
+				$(this).addClass('active');
+				$('#comments').children('.report').show();
+				$('#comments').children('.report').find('.comment-text').show();
+				break;
+			default:
+				$('#comments').children().show();
+				$('#comments').children().find('.comment-text').show();
+				break;
+		}
+	});
+
+	function countComments() {
+		var commentsCount = $('#comments').children('.comment').length;
+		var filesCount = $('#comments').find('.file').length;
+		var systemsCount = $('#comments').children('.system').length;
+		var reportsCount = $('#comments').children('.report').length;
+		$('.comments-count').text(commentsCount);
+		$('.files-count').text(filesCount);
+		$('.systems-count').text(systemsCount);
+		$('.reports-count').text(reportsCount);
+	}
+
+	$("#comments").on('click', '.delc', (function () {
+		$idcom = $(this).val();
+		$.post("/ajax.php", {usp: $usp, ic: $idcom, ajax: 'task-comments-del'}).done(function () {
+			$($idcom).fadeOut();
+			setTimeout(function () {
+				$($idcom).remove();
+			}, 500);
+		});
+	}));
 
 
 
