@@ -644,9 +644,8 @@ input:checked[type="checkbox"]::before {
 }
 
 .tooltip .tooltiptext {
-    border
     visibility: hidden;
-    width: 150px;
+    width: 300px;
     background-color: #fff;
     color: black;
     text-align: center;
@@ -656,7 +655,7 @@ input:checked[type="checkbox"]::before {
     z-index: 1;
     bottom: 100%;
     left: 50%;
-    margin-left: -60px;
+    margin-left: -150px;
 
     /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
     opacity: 0;

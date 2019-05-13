@@ -131,7 +131,17 @@ if ($id == $worker and $view == 0) {
                 <div class="tooltip">
 				<img src="/upload/avatar/4.jpg" class="avatar mr-1">
                 <div class="tooltiptext">
-                    asdasd
+                    <div class="input-group">
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option selected>Choose</option>
+                            <option value="1">Дмитрий ричби</option>
+                            <option value="2">Иван Петрович</option>
+                            <option value="3">Иван Петрович</option>
+                        </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button">Принять</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 				<span class="mr-1 text-secondary">|</span>
@@ -143,7 +153,7 @@ if ($id == $worker and $view == 0) {
 
     <div id="change-date" class="collapse mt-1">
         <div class="form-group">
-            <div class="col-7">
+            <div class="col-6">
                 <textarea name="report" id="reportarea1" class="form-control" rows="4" placeholder="Причина" required></textarea>
                 <input class="form-control" value="" type="date" id="example-date-input" min="">
                 <button type="submit" id="sendpostpone" class="btn btn-success text-center mt-1 mb-1"><?=$GLOBALS["_change"]?></button>
