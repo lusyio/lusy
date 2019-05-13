@@ -122,16 +122,31 @@ if ($id == $worker and $view == 0) {
                 </div>
                 </medium>
             </div>
-            <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
+            <span class="position-absolute edit" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><i class="fas fa-pencil-alt"></i></span>
 		</div>
     
         </div>
         <div class="col-7">
             <div class="float-right">
+                <div class="tooltip">
 				<img src="/upload/avatar/4.jpg" class="avatar mr-1">
+                <div class="tooltiptext">
+                    asdasd
+                </div>
+            </div>
 				<span class="mr-1 text-secondary">|</span>
             	<img src="/upload/avatar/2.jpg" class="avatar mr-1">
             	<img src="/upload/avatar/4.jpg" class="avatar mr-1">
+            </div>
+        </div>
+    </div>
+
+    <div id="change-date" class="collapse mt-1">
+        <div class="form-group">
+            <div class="col-7">
+                <textarea name="report" id="reportarea1" class="form-control" rows="4" placeholder="Причина" required></textarea>
+                <input class="form-control" value="" type="date" id="example-date-input" min="">
+                <button type="submit" id="sendpostpone" class="btn btn-success text-center mt-1 mb-1"><?=$GLOBALS["_change"]?></button>
             </div>
         </div>
     </div>
