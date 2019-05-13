@@ -133,7 +133,7 @@ if ($id == $worker and $view == 0) {
                 <div class="tooltiptext">
                     <div class="input-group input-group-sm">
                         <select class="custom-select" id="inputGroupSelect01">
-                            <option selected>Choose</option>
+                            <option selected>Смена манагера</option>
                             <option value="1">Дмитрий ричби</option>
                             <option value="2">Иван Петрович</option>
                             <option value="3">Иван Петрович</option>
@@ -150,7 +150,40 @@ if ($id == $worker and $view == 0) {
                 <div class="tooltip-avatar">
                     <i class="far fa-plus-square avatar-new"></i>
                     <div class="tooltiptextnew">
-                        Добавить нового исполнителя
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title mb-2">Добавить соисполнителя</h6>
+                                <div class="row add-worker">
+                                    <div class="col-1">
+                                        <img src="/upload/avatar/2.jpg" class="avatar-added mr-1">
+                                    </div>
+                                    <div class="col">
+                                        <a href="#">Иван петрович</a>
+                                        <p>Удалить</p>
+                                    </div>
+                                </div>
+                                <div class="row add-worker">
+                                    <div class="col-1">
+                                        <img src="/upload/avatar/4.jpg" class="avatar-added mr-1">
+                                    </div>
+                                    <div class="col">
+                                        <a href="#">Дмитрий ричби</a>
+                                        <p>Удалить</p>
+                                    </div>
+                                </div>
+                                <div class="input-group input-group-sm">
+                                    <select class="custom-select" id="inputGroupSelect01">
+                                        <option selected>Choose</option>
+                                        <option value="1">Дмитрий ричби</option>
+                                        <option value="2">Иван Петрович</option>
+                                        <option value="3">Иван Петрович</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">Добавить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
