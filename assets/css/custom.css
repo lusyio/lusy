@@ -637,6 +637,50 @@ input:checked[type="checkbox"]::before {
 	transition: 0.3s;
 }
 
+.avatar-new {
+    vertical-align: middle;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 10%;
+    color: #b9b9b9;
+    font-size: 30px;
+}
+
+.avatar-new:hover {
+    color: #343a40;
+}
+
+.tooltip-avatar {
+    position: relative;
+    display: inline-block;
+    opacity: 1;
+}
+
+.tooltip-avatar .tooltiptextnew {
+    visibility: hidden;
+    width: 150px;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -75px;
+
+    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip-avatar:hover .tooltiptextnew {
+    visibility: visible;
+    opacity: 1;
+}
+
 .tooltip {
     position: relative;
     display: inline-block;

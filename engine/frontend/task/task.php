@@ -113,7 +113,7 @@ if ($id == $worker and $view == 0) {
     <hr>
     <div class="row">
         <div class="col-5">
-		<div class="position-relative deadline-block">
+		<div class="position-relative deadline-block "  data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date">
             <div class="progress position-relative mr-1" style="height: 30px; font-size: 14px; z-index: 1; ">
                 <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: 5%" aria-valuenow="5%" aria-valuemin="0" aria-valuemax="100"></div>
                 <medium class="justify-content-center d-flex position-absolute w-100 h-100">
@@ -122,7 +122,7 @@ if ($id == $worker and $view == 0) {
                 </div>
                 </medium>
             </div>
-            <span class="position-absolute edit" data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date"><i class="fas fa-pencil-alt"></i></span>
+            <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
 		</div>
     
         </div>
@@ -131,7 +131,7 @@ if ($id == $worker and $view == 0) {
                 <div class="tooltip">
 				<img src="/upload/avatar/4.jpg" class="avatar mr-1">
                 <div class="tooltiptext">
-                    <div class="input-group">
+                    <div class="input-group input-group-sm">
                         <select class="custom-select" id="inputGroupSelect01">
                             <option selected>Choose</option>
                             <option value="1">Дмитрий ричби</option>
@@ -147,6 +147,13 @@ if ($id == $worker and $view == 0) {
 				<span class="mr-1 text-secondary">|</span>
             	<img src="/upload/avatar/2.jpg" class="avatar mr-1">
             	<img src="/upload/avatar/4.jpg" class="avatar mr-1">
+                <div class="tooltip-avatar">
+                    <i class="far fa-plus-square avatar-new"></i>
+                    <div class="tooltiptextnew">
+                        Добавить нового исполнителя
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
