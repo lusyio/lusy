@@ -11,6 +11,7 @@ function uploadAttachedFiles($type, $eventId)
     global $pdo;
     global $idc;
     global $id;
+    $maxFileSize = 20 * 1024 * 1024;
     $types = ['task', 'comment', 'conversation'];
     if (!in_array($type, $types)) {
         return;
@@ -18,6 +19,8 @@ function uploadAttachedFiles($type, $eventId)
 
     if ($type == 'comment') {
         global $idtask;
+    } elseif ($type == 'conversation') {
+        $idtask = 'm' . floor($eventId / 100);
     } else {
         $idtask = $eventId;
     }
@@ -29,14 +32,16 @@ function uploadAttachedFiles($type, $eventId)
 
     $sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type, company_id, is_deleted, author) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType, :companyId, :isDeleted, :author)');
     foreach ($_FILES as $file) {
-        $fileName = basename($file['name']);
-        $hashName = md5_file($file['tmp_name']);
-        while (file_exists($dirName . '/' . $hashName)) {
-            $hashName = md5($hashName);
+        if ($file['size'] > $maxFileSize || $file['size'] == 0) {
+            $fileName = basename($file['name']);
+            $hashName = md5_file($file['tmp_name']);
+            while (file_exists($dirName . '/' . $hashName)) {
+                $hashName = md5($hashName);
+            }
+            $filePath = $dirName . '/' . $hashName;
+            $sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $eventId, ':commentType' => $type, ':companyId' => $idc, ':isDeleted' => 0, ':author' => $id));
+            move_uploaded_file($file['tmp_name'], $filePath);
         }
-        $filePath = $dirName . '/' . $hashName;
-        $sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $eventId, ':commentType' => $type, ':companyId' => $idc, ':isDeleted' => 0, ':author' => $id));
-        move_uploaded_file($file['tmp_name'], $filePath);
     }
 }
 

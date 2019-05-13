@@ -88,7 +88,7 @@
                 for (var i = 0; i<this.files.length; i++) {
                     var size = this.files[i].size;
                     var names = this.files[i].name;
-                    if (size > 2 * 1024 * 1024) {
+                    if (size > 20 * 1024 * 1024) {
                         $(".btn-file").append("<span id='oversize'>Размер файла превышен</span>");
                         $("#sendBtn").prop('disabled', true);
                     } else {
@@ -172,6 +172,7 @@
                         }
                         $("#mes").val('');
                         $(".filenames").html("");
+                        attachedFiles = [];
 
                     },
                 });
