@@ -146,7 +146,7 @@ if ($id == $worker and $view == 0) {
             <div class="col-7">
                 <textarea name="report" id="reportarea1" class="form-control" rows="4" placeholder="Причина" required></textarea>
                 <input class="form-control" value="" type="date" id="example-date-input" min="">
-                <button type="submit" id="sendpostpone" class="btn btn-success text-center mt-1 mb-1"><?=$GLOBALS["_change"]?></button>
+                <button type="submit" id="<?=($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>" class="btn btn-success text-center mt-1 mb-1"><?=$GLOBALS["_change"]?></button>
             </div>
         </div>
     </div>
