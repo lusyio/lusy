@@ -628,6 +628,11 @@ input:checked[type="checkbox"]::before {
     top: 9px;
     border-bottom: 2px solid #c7c1c1;
 }
+
+.alert-primary{
+    background-color: #f7f7f7;
+    border-radius: 10px;
+}
 .deadline-block {
 	width: 80%;
 }

@@ -12,3 +12,4 @@
     <?php endforeach; ?>
 <?php endif; ?>
 </div>
+<hr>
