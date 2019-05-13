@@ -161,7 +161,9 @@ if ($id == $worker and $view == 0) {
     <div id="change-date" class="collapse mt-1">
         <div class="form-group">
             <div class="col-6">
+                <?php if ($role != 'manager'): ?>
                 <textarea name="report" id="reportarea1" class="form-control" rows="4" placeholder="Причина" required></textarea>
+                <?php endif; ?>
                 <input class="form-control" value="" type="date" id="example-date-input" min="">
                 <button type="submit" id="<?=($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>" class="btn btn-success text-center mt-1 mb-1"><?=$GLOBALS["_change"]?></button>
             </div>
