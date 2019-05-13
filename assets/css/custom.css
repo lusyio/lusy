@@ -9,8 +9,11 @@ body {
     background-color: white !important;
 }
 .top-sidebar {
-    background-color: #5c92df;
-    color: white;
+	background-color: rgb(255, 255, 255);
+    box-shadow: rgba(13, 28, 60, 0.04) 0px 4px 44px 0px;
+}
+.alerts a {
+	color: rgb(94, 94, 94); 
 }
 .navbar-nav a:hover {
 	color: #2c7be5;
@@ -163,8 +166,8 @@ body {
 
 .border-left-tasks {
     border-left: 3px solid !important;
-    padding-left: 8px;
-    margin-left: -12px;
+    padding-left: 18px;
+    margin-left: -13px;
 }
 
 .br-8{
@@ -247,6 +250,14 @@ list-group:hover{
     top: 18%;
     margin: 0.8rem;
 }
+#searchInput {
+	line-height: 1.53;
+    letter-spacing: 0.1px;
+    height: 38px;
+    background-color: rgb(237, 239, 244);
+    box-shadow: unset;
+    padding: 12px 16px 12px 18px;
+}
 
 .comment.system{
     font-size: 0.75rem ;
@@ -266,13 +277,15 @@ list-group:hover{
     color: #898989 !important;
 }
 
-.words-search{
+.words-search {
     background-color: #f7f7f7;
     text-align: center;
+    box-shadow: rgba(13, 28, 60, 0.02) 0px 4px 44px 0px;
     color: #898989;
     font-size: 13px;
     width: max-content;
     margin-bottom: 1%;
+    margin-right: 5px;
 }
 
 .cust:hover{
@@ -739,6 +752,7 @@ a {
 	border-bottom: none !important;
 }
 .card {
+	box-shadow: rgba(13, 28, 60, 0.02) 0px 4px 44px 0px;
     border: none !important;
     transition: 0.5s all;
 }
