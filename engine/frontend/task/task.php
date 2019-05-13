@@ -129,57 +129,45 @@ if ($id == $worker and $view == 0) {
         <div class="col-7">
             <div class="float-right">
                 <div class="tooltip">
-				<img src="/upload/avatar/4.jpg" class="avatar mr-1">
-                <div class="tooltiptext">
-                    <div class="input-group input-group-sm">
-                        <select class="custom-select" id="inputGroupSelect01">
-                            <option selected>Смена манагера</option>
-                            <option value="1">Дмитрий ричби</option>
-                            <option value="2">Иван Петрович</option>
-                            <option value="3">Иван Петрович</option>
-                        </select>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button">Принять</button>
-                        </div>
-                    </div>
-                </div>
+				<img src="/upload/avatar/<?=$manager?>.jpg" class="avatar mr-1">
+                <span class="tooltiptext"><?=$managername?> <?=$managersurname?>
+                </span>
             </div>
-				<span class="mr-1 text-secondary">|</span>
-            	<img src="/upload/avatar/2.jpg" class="avatar mr-1">
-            	<img src="/upload/avatar/4.jpg" class="avatar mr-1">
+				<span class=" text-secondary slash">|</span>
+                <?php
+                foreach ($coworkers as $coworker):
+                    if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
+                        $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
+                    } else {
+                        $viewStatusTitle = 'Не просмотрено';
+                    }
+                    ?>
+                    <span class="mb-0" title="<?= $viewStatusTitle ?>"><img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" alt="worker image" class="avatar mr-1"></span>
+                <?php endforeach; ?>
                 <div class="tooltip-avatar">
                     <i class="far fa-plus-square avatar-new"></i>
                     <div class="tooltiptextnew">
                         <div class="card">
-                            <div class="card-body">
-                                <h6 class="card-title mb-2">Добавить соисполнителя</h6>
+                            <div class="card-body workers">
                                 <div class="row add-worker">
                                     <div class="col-1">
-                                        <img src="/upload/avatar/2.jpg" class="avatar-added mr-1">
+                                        <img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" class="avatar-added mr-1">
                                     </div>
                                     <div class="col">
-                                        <a href="#">Иван петрович</a>
-                                        <p>Удалить</p>
-                                    </div>
-                                </div>
-                                <div class="row add-worker">
-                                    <div class="col-1">
-                                        <img src="/upload/avatar/4.jpg" class="avatar-added mr-1">
-                                    </div>
-                                    <div class="col">
-                                        <a href="#">Дмитрий ричби</a>
-                                        <p>Удалить</p>
+                                        <a href="#"><?=$coworker['name']?> <?=$coworker['surname']?></a>
+                                        <a href="#" class="d-block deleteWorker"><?=$GLOBALS['_deleteworker']?></a>
                                     </div>
                                 </div>
                                 <div class="input-group input-group-sm">
-                                    <select class="custom-select" id="inputGroupSelect01">
-                                        <option selected>Choose</option>
-                                        <option value="1">Дмитрий ричби</option>
-                                        <option value="2">Иван Петрович</option>
-                                        <option value="3">Иван Петрович</option>
+                                    <select class="form-control coworker-select" id="worker" required>
+                                        <?php
+                                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
+                                        foreach ($users as $n) { ?>
+                                            <option value="<?php echo $n['id'] ?>"><?php echo $n['name'] . ' ' . $n['surname'] ?></option>
+                                        <?php } ?>
                                     </select>
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button">Добавить</button>
+                                        <button class="btn btn-outline-secondary" id="addNewWorker" type="button">Добавить</button>
                                     </div>
                                 </div>
                             </div>
@@ -193,12 +181,12 @@ if ($id == $worker and $view == 0) {
 
     <div id="change-date" class="collapse mt-1">
         <div class="form-group">
-            <div class="col-6">
+            <div class="col-5">
                 <?php if ($role != 'manager'): ?>
                 <textarea name="report" id="reportarea1" class="form-control" rows="4" placeholder="Причина" required></textarea>
                 <?php endif; ?>
                 <input class="form-control" value="" type="date" id="example-date-input" min="">
-                <button type="submit" id="<?=($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>" class="btn btn-success text-center mt-1 mb-1"><?=$GLOBALS["_change"]?></button>
+                <button type="submit" id="<?=($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>" class="btn btn-success btn-sm text-center mt-1 mb-1"><?=$GLOBALS["_change"]?></button>
             </div>
         </div>
     </div>
@@ -257,5 +245,28 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
     $(document).ready(function () {
         cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
         subscribeToMessagesNotification();
+
+        $(".deleteWorker").on('click', function () {
+            $(this).closest(".add-worker").remove();
+        });
+
+        $("#addNewWorker").on('click', function () {
+            var selectedId = $("#worker").val();
+            $.post("/ajax.php", {module: 'addCoworker', selectedId: selectedId, usp: $usp, it: $it, ajax: 'task-control' });
+            console.log(selectedId);
+
+            $(".slash").append("<img src=\"/upload/avatar/<?=$coworker['worker_id']?>.jpg\" alt=\"worker image\" class=\"avatar ml-1\">");
+
+            $(".workers").prepend("<div class=\"row add-worker\">\n" +
+                "                                    <div class=\"col-1\">\n" +
+                "                                        <img src=\"/upload/avatar/<?=$coworker['worker_id']?>.jpg\" class=\"avatar-added mr-1\">\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"col\">\n" +
+                "                                        <a href=\"#\"><?=$coworker['name']?> <?=$coworker['surname']?></a>\n" +
+                "                                        <a href=\"#\" class=\"d-block deleteWorker\"><?=$GLOBALS['_deleteworker']?></a>\n" +
+                "                                    </div>\n" +
+                "                                </div>");
+        });
+
     });
 </script>
