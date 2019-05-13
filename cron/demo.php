@@ -1,56 +1,38 @@
 <?php
-		  	ini_set('error_reporting', E_ALL);
-		  	ini_set('display_errors', 1);
-	  		ini_set('display_startup_errors', 1);
-			include '../engine/conf.php'; // подключаем базу данных
-			
-			$what = ['task','comment'];
-			$whattodo = $what[array_rand($what)];
-			
-			if ($whattodo == 'task') {
-			
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+include '../conf.php'; // подключаем базу данных
 
-			$names = ['Написать отчет','Создать лендинг','Добавить текст на сайт','Добавить новость про семинар на сайте','Написать программу вебинара','Отправить рассылку по вебинару','Собрать отзывы участников','Сделать анонс на сайте','Заказать банер на форуме','Настроить оборудование'];
-			$data = date("Y-m-d H:i:s");
-			$newdata = date('Y-m-d H:i:s', strtotime("+3 days"));
+$news = DB('id, manager, worker, idcompany','tasks','datedone < "'.$now.'" and status = "new"');
+foreach ($news as $n) { 
+$update = $pdo->prepare('UPDATE `tasks` SET status = "overdue" where id="'.$n['id'].'"');
+$update->execute();
+}
+
+$names = ['Установить винду','Провести лекцию по теме','Нарисовать эскиз UI','Сделать отправку сообщений','Отвезти документы в шкаф','Полить цветы и сделать сайт','Добавить новую функцию и за это покушать','Собрать лего по работе','Написать отчет','Создать лендинг','Добавить текст на сайт','Добавить новость про семинар на сайте','Написать программу вебинара','Отправить рассылку по вебинару','Собрать отзывы участников','Сделать анонс на сайте','Заказать банер на форуме','Настроить оборудование'];
+$dop = ['быстро','еще раз','завтра','качественно','не как в прошлый раз','сообща','как тогда',''];
+$data = date("Y-m-d H:i:s");
+$newdata = date('Y-m-d H:i:s', strtotime("+3 days"));
 			// создаем первую задачу - пригласить сотрудников
-			$sql = $pdo->prepare("INSERT INTO `tasks` SET `name` = :name, `description` = :description, `datecreate` = '".$data."', `datedone` = '".$newdata."', `status` = 'new', `manager` = '2', `worker` = '4', `idcompany` = '2'");
-			$name = $names[array_rand($names)];
-			$description = 'Здесь было НЛО и оставило описание';
-			$sql->execute(array('name' => $name, 'description' => $description));
-			$idtask = $pdo->lastInsertId();
-			
-			// создаем запись в log о создании задачи
-			$intolog = $pdo->prepare("INSERT INTO `log` SET `action` = :action, `task` = :idtask, `sender` = '2', `recipient` = '4', `idcompany` = '2', `datetime` = :datetime");
-			$action = 'createtask';
-			$intolog->execute(array('action' => $action, 'idtask' => $idtask, 'datetime' => $data));
-			
-			} else {
-				
-			$sql = 'SELECT id FROM `tasks` where worker = "4" and status = "new" ORDER BY RAND() LIMIT 1';
-			$row = $pdo->query($sql);
-			// Перебор и вывод результатов
-			$result = $row->fetch();
-			$idrandomtask = $result[0];
-			
-			$names = ['Напиши мне отчет по этой задаче','Создай лендинг','Добавь текст на сайт','Добавь новость про семинар на сайте','Напиши программу вебинара','Отправь рассылку по вебинару','Собери отзывы участников','Сделай анонс на сайте','Закажи банер на форуме','Настрой оборудование, чтобы все работало как надо в нужный момент'];
-			$data = date("Y-m-d H:i:s");
-			$newdata = date('Y-m-d H:i:s', strtotime("+3 days"));
-			// создаем первую задачу - пригласить сотрудников
-			$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :comment, `iduser` = '2', `idtask` = '".$idrandomtask."', `datetime` = '".$data."'");
-			$name = $names[array_rand($names)];
-			$sql->execute(array('comment' => $name));
-			$idtask = $pdo->lastInsertId();
-			
-			// создаем запись в log о создании коммента
-			$intolog = $pdo->prepare("INSERT INTO `log` SET `action` = :action, `task` = :idtask, `comment` = :comment, `sender` = '2', `recipient` = '4', `idcompany` = '2', `datetime` = :datetime");
-			$action = 'comment';
-			$intolog->execute(array('action' => $action, 'idtask' => $idrandomtask, 'comment' => $idtask, 'datetime' => $data));
-			
-			}
-			
-			// закрываем соединение с бд
-			$pdo = NULL;
-			echo $whattodo;
-?>
-<div style="width: 100%;"><center><a href="http://dev.richbee.ru/demo.php" style=" text-align: center; font-size: 12em;">Обновить</a></center></div>
+$sql = $pdo->prepare("INSERT INTO `tasks` SET `name` = :name, `description` = :description, `datecreate` = '".$data."', `datedone` = '".$newdata."', `status` = 'new', `manager` = '2', `worker` = '4', report = 0, view = 0, `idcompany` = '2'");
+$name = $names[array_rand($names)] . ' ' . $dop[array_rand($dop)];
+$description = '<p>Здесь было НЛО и оставило описание.</p><p>Каждым человеком движет уникальное сочетание нескольких мотивирующих сил. Кто-то вступает в игру потому, что хочет быть лидером. Кого-то мотивирует вызов, трудности и борьба с препятствиями. Кому-то, наоборот, нужно прежде всего ощущать себя в безопасности. Результаты тестирования одного человека или целой группы можно визуализировать в виде диаграммы-восьмигранника. Процесс анализа такой диаграммы и называется октализ.</p><p>Сейчас большинство систем «направлено на действие» то есть разработано таким образом, чтобы работа выполнялась как можно быстрее. Это похоже на фабрику, где люди работают, потому что должны. В то же время, «персонализированная» (то есть направленная на человека, а не на действие) структура помнит, что у людей, находящихся в системе, есть чувства, неуверенность в себе и причины, по которым они хотят или не хотят делать какие-то вещи. Поэтому такая структура обеспечивает оптимизацию их чувств, мотивации и вовлечённости.';
+$sql->execute(array('name' => $name, 'description' => $description));
+$idtask = $pdo->lastInsertId();
+
+
+$sql = $pdo->prepare("INSERT INTO `task_coworkers` SET `task_id` = $idtask, `worker_id` = 4");
+$sql->execute();
+
+$i = 0;
+$news = DB('id, manager, worker, idcompany','tasks','status = "overdue"');
+foreach ($news as $n) { 
+if ($i < 5) {
+$update = $pdo->prepare('UPDATE `tasks` SET status = "done" where id="'.$n['id'].'"');
+$update->execute();
+$i++;
+}
+}
+header('location: /tasks/');
+

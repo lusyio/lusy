@@ -56,9 +56,12 @@ FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask OR
         } else {
             $isNew = false;
         }
-        include 'engine/ajax/frontend/comment.php';
+        if ($c['status'] == 'system') {
+            include 'engine/ajax/frontend/comment-system.php';
+        } else {
+            include 'engine/ajax/frontend/comment.php';
+        }
     }
 } else {
     include 'engine/ajax/frontend/no-comments.php';
 }
-include 'engine/ajax/frontend/comments-script.php';

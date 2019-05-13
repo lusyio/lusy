@@ -1,13 +1,12 @@
 $(document).ready(function(){
-	
-	
+
+
 	// при загрузке обновляем комменты
-	
+
 	updateComments();
 
 	$('#workzone').on('mouseover', '.comment', function () {
 		var el = $(this);
-		console.log('hover');
 		setTimeout(function () {
 			$(el).removeClass('bg-success')
 		}, 1000);
@@ -27,6 +26,7 @@ $(document).ready(function(){
 
 		function onCommentSuccess(data) {
 			$('#comments').html(data).fadeIn();
+			countComments();
 		}
 	}
 
@@ -135,16 +135,16 @@ $(document).ready(function(){
 	$("#postpone").click(function() {
 		$('#status-block').addClass('d-none');
 		$('#postpone-block').removeClass('d-none');
-		
+
 	});
-	
+
 	// // отчет о завершении
 	$( "#done" ).click(function() {
 		$('#status-block').addClass('d-none');
 	// 	$('#report-block').removeClass('d-none');
 	});
 
-	
+
 	// на рассмотрение
 	$( "#sendonreview" ).click(function() {
 		var text = $("#reportarea").val();
@@ -309,46 +309,56 @@ $( "#inwork" ).click(function() {
 		dateControl.min = dated;
 	}
 
-	$(".words-search").on('click', function () {
-		if($(this).hasClass('active')){
-			$(this).removeClass('active');
-
-		} else {
-			$(this).addClass('active');
+	$('.comment-filter').on('click', function () {
+		var filter = $(this).attr('data-filter-type');
+		$('#comments').children().hide();
+		$('.comment-filter').removeClass('active');
+		switch (filter) {
+			case 'comments':
+				$(this).addClass('active');
+				$('#comments').children('.comment').show();
+				$('#comments').children('.comment').find('.comment-text').show();
+				break;
+			case 'files':
+				$(this).addClass('active');
+				$('#comments').children('').has('.attached-files').show();
+				$('#comments').children('').has('.attached-files').find('.comment-text').hide();
+				break;
+			case 'systems':
+				$(this).addClass('active');
+				$('#comments').children('.system').show();
+				break;
+			case 'reports':
+				$(this).addClass('active');
+				$('#comments').children('.report').show();
+				$('#comments').children('.report').find('.comment-text').show();
+				break;
+			default:
+				$('#comments').children().show();
+				$('#comments').children().find('.comment-text').show();
+				break;
 		}
-
 	});
 
-	function filterTasks() {
-		var statuses = [];
-		$('.words-search').each(function () {
-			if($(this).hasClass('active')) {
-				statuses.push($(this).attr('rel'));
-			}
-		});
-		$('.comment').each(function () {
-			var $el = $(this);
-			var $hasStatus = false;
-			if (statuses.length === 0) {
-				$hasStatus = true
-			} else {
-				statuses.forEach(function ($status) {
-					if ($el.hasClass($status)) {
-						$hasStatus = true;
-					}
-				})
-			}
-			if ($hasStatus) {
-				$el.show()
-			} else {
-				$el.hide();
-			}
-		});
-		console.log(statuses);
+	function countComments() {
+		var commentsCount = $('#comments').children('.comment').length;
+		var filesCount = $('#comments').find('.file').length;
+		var systemsCount = $('#comments').children('.system').length;
+		var reportsCount = $('#comments').children('.report').length;
+		$('.comments-count').text(commentsCount);
+		$('.files-count').text(filesCount);
+		$('.systems-count').text(systemsCount);
+		$('.reports-count').text(reportsCount);
 	}
 
-	$(".words-search").on('click', function () {
-		filterTasks();
-	});
+	$("#comments").on('click', '.delc', (function () {
+		$idcom = $(this).val();
+		$.post("/ajax.php", {usp: $usp, ic: $idcom, ajax: 'task-comments-del'}).done(function () {
+			$($idcom).fadeOut();
+			setTimeout(function () {
+				$($idcom).remove();
+			}, 500);
+		});
+	}));
 
 });
