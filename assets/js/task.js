@@ -309,17 +309,46 @@ $( "#inwork" ).click(function() {
 		dateControl.min = dated;
 	}
 
+	$(".words-search").on('click', function () {
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
 
-	$('#filters').delegate('input:checkbox', 'change', function() {
-		var $lis = $('.comment').fadeOut();
-		//For each one checked
-		$('input:checked').each(function()
-		{
-			$lis.filter('.' + $(this).attr('rel')).fadeIn();
+		} else {
+			$(this).addClass('active');
+		}
+
+	});
+
+	function filterTasks() {
+		var statuses = [];
+		$('.words-search').each(function () {
+			if($(this).hasClass('active')) {
+				statuses.push($(this).attr('rel'));
+			}
 		});
-	}).find('input:checkbox').change();
+		$('.comment').each(function () {
+			var $el = $(this);
+			var $hasStatus = false;
+			if (statuses.length === 0) {
+				$hasStatus = true
+			} else {
+				statuses.forEach(function ($status) {
+					if ($el.hasClass($status)) {
+						$hasStatus = true;
+					}
+				})
+			}
+			if ($hasStatus) {
+				$el.show()
+			} else {
+				$el.hide();
+			}
+		});
+		console.log(statuses);
+	}
 
-
-
+	$(".words-search").on('click', function () {
+		filterTasks();
+	});
 
 });
