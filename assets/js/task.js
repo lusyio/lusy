@@ -316,26 +316,26 @@ $( "#inwork" ).click(function() {
 		switch (filter) {
 			case 'comments':
 				$(this).addClass('active');
-				$('#comments').children('.comment').show();
-				$('#comments').children('.comment').find('.comment-text').show();
+				$('#comments').children('.comment').fadeIn();
+				$('#comments').children('.comment').find('.comment-text').fadeIn();
 				break;
 			case 'files':
 				$(this).addClass('active');
-				$('#comments').children('').has('.attached-files').show();
-				$('#comments').children('').has('.attached-files').find('.comment-text').hide();
+				$('#comments').children('').has('.attached-files').fadeIn();
+				$('#comments').children('').has('.attached-files').find('.comment-text').fadeIn();
 				break;
 			case 'systems':
 				$(this).addClass('active');
-				$('#comments').children('.system').show();
+				$('#comments').children('.system').fadeIn();
 				break;
 			case 'reports':
 				$(this).addClass('active');
-				$('#comments').children('.report').show();
-				$('#comments').children('.report').find('.comment-text').show();
+				$('#comments').children('.report').fadeIn();
+				$('#comments').children('.report').find('.comment-text').fadeIn();
 				break;
 			default:
-				$('#comments').children().show();
-				$('#comments').children().find('.comment-text').show();
+				$('#comments').children().fadeIn();
+				$('#comments').children().find('.comment-text').fadeIn();
 				break;
 		}
 	});
