@@ -246,6 +246,10 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
         cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
         subscribeToMessagesNotification();
 
+        $(".avatar-new").on('click', function () {
+           $(".tooltiptextnew").fadeToggle(300);
+        });
+
         $(".deleteWorker").on('click', function () {
             $(this).closest(".add-worker").remove();
         });
