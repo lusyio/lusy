@@ -173,6 +173,21 @@ if ($_POST['module'] == 'sendDate') {
     resetViewStatus($idtask);
 }
 
+if ($_POST['module'] == 'addCoworker') {
+    $newCoworkerId = filter_var($_POST['newCoworkerId'], FILTER_SANITIZE_NUMBER_INT);
+    $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+    $coworkersQuery = $pdo->prepare("SELECT worker_id FROM task_coworkers WHERE task_id = :taskId");
+    $coworkersQuery->execute(array(':taskId' => $idtask));
+    $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_COLUMN, 0);
+    var_dump($coworkers);
+//    if (!in_array($newCoworkerId, $coworkers)) {
+//        $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
+//        $addCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $newCoworkerId));
+//        resetViewStatus($idtask);
+//        echo 'added';
+//    }
+}
+
 function resetViewStatus($taskId) {
     global $id;
     global $pdo;

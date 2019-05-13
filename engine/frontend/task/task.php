@@ -252,7 +252,7 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
 
         $("#addNewWorker").on('click', function () {
             var selectedId = $("#worker").val();
-            $.post("/ajax.php", {module: 'addCoworker', selectedId: selectedId, usp: $usp, it: $it, ajax: 'task-control' });
+            $.post("/ajax.php", {module: 'addCoworker', newCoworkerId: selectedId, usp: $usp, it: $it, ajax: 'task-control' });
             console.log(selectedId);
 
             $(".slash").append("<img src=\"/upload/avatar/<?=$coworker['worker_id']?>.jpg\" alt=\"worker image\" class=\"avatar ml-1\">");
