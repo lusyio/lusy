@@ -26,7 +26,7 @@ $coworkersQuery = $pdo->prepare("SELECT tc.worker_id, u.surname, u.name
   LEFT JOIN users u ON tc.worker_id = u.id 
 WHERE tc.task_id = :taskId");
 $coworkersQuery->execute(array(':taskId' => $id_task));
-$coworkers = $coworkersQuery->fetchAll(PDO::FETCH_ASSOC);
+    $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_ASSOC);
 
 $report = $task['report'];
 $idtask = $task['id'];
@@ -66,9 +66,10 @@ if (!is_null($viewStatus) && isset($viewStatus[$manager]['datetime'])) {
     $viewStatusTitleManager = 'Не просмотрено';
 }
 
+$coworkersId = array_column($coworkers, 'worker_id');
 if ($id == $manager) {
     $role = 'manager';
-} elseif ($id == $worker) {
+} elseif (in_array($id,$coworkersId)) {
     $role = 'worker';
 } else {
     header('Location: /tasks/');
