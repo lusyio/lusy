@@ -212,7 +212,7 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>  
 </div>
-</div>
+
 
 
 
