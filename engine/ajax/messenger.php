@@ -70,7 +70,10 @@ function prepareMessages(&$messages, $userId)
     global $pdo;
     foreach ($messages as &$message) {
         $message['status'] = '';
+        $message['owner'] = false;
+
         if ($message['sender'] == $userId) {
+            $message['owner'] = true;
             $message['author'] = 'Вы';
             if ($message['view_status']) {
                 $message['status'] = ' (прочитано)';

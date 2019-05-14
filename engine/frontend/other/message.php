@@ -1,4 +1,4 @@
-<div class="message <?= ($message['view_status'] || $message['sender'] == $id) ? '' : 'alert-primary' ?>">
+<div class="message <?= ($message['owner']) ? 'my-message' : 'not-my-message'; ?> <?= ($message['view_status'] || $message['sender'] == $id) ? '' : 'alert-primary' ?>">
     <p><?= $message['author'] ?> (<?= $message['datetime'] ?>)<?=$message['status']?>:</p>
 <p><?= nl2br($message['mes']) ?></p>
 <?php if (count($message['files']) > 0): ?>
