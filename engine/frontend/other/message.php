@@ -1,10 +1,10 @@
-<div class="mb-3 message <?= ($message['owner']) ? 'my-message' : 'not-my-message'; ?> <?= ($message['view_status'] || $message['sender'] == $id) ? '' : 'alert-primary' ?>">
+<div class="message <?= ($message['owner']) ? 'my-message' : 'not-my-message'; ?> <?= ($message['view_status'] || $message['sender'] == $id) ? '' : 'alert-primary' ?>">
     <div class="row">
         <div class="col-1">
-            <img src="/./upload/avatar/<?=$message['sender']?>.jpg" class="avatar">
+            <img src="/./upload/avatar/<?=$message['sender']?>.jpg" class="avatar-conversation">
         </div>
         <div class="col">
-            <p class="m-0"><?= $message['author'] ?> <?= $message['datetime'] ?> <?=$message['status']?>:</p>
+            <p class="m-0"><?= $message['author'] ?> <span class="d-none"><?=$message['status']?></span> <span class="date"><?= $message['datetime'] ?></span></p>
             <p class="m-0"><?= nl2br($message['mes']) ?></p>
             <?php if (count($message['files']) > 0): ?>
                 <?php foreach ($message['files'] as $file): ?>

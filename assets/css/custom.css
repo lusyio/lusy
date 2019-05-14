@@ -661,11 +661,34 @@ input:checked[type="checkbox"]::before {
 
 .avatar-added{
     vertical-align: middle;
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     border-radius: 10%;
     margin-bottom: 1%;
+}
 
+.add-worker{
+    background-color: #f7f7f7;
+    border-radius: 5px;
+}
+
+.add-coworker{
+    font-size: 15px;
+    color: #e3e5e9;
+    margin-left: 1%;
+}
+
+.add-coworker:hover{
+    color: #5d95db;
+}
+
+.card-coworker{
+    font-size: 12px;
+}
+
+.card-coworker-delete{
+    font-size: 12px;
+    color: #d24f5e;
 }
 
 .avatar-new:hover {
@@ -678,9 +701,13 @@ input:checked[type="checkbox"]::before {
     opacity: 1;
 }
 
+.add-coworker-text{
+    font-size: 15px !important;
+}
+
 .tooltiptextnew{
     display: none;
-    width: 300px;
+    width: 350px;
     background-color: #fff;
     color: black;
     text-align: center;
@@ -1002,6 +1029,19 @@ span.date {
     height: 30px;
     border-radius: 10%;
 }
+
+.container-coworker{
+    border: solid 1px #e3e5e9;
+    border-radius: 8px;
+}
+
+.avatar-conversation{
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+}
+
 .anim-show {
 	opacity: 0;
 	transition: 1s;

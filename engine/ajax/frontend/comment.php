@@ -29,9 +29,9 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
 			            </button>
                     <?php endif; ?>
 				</span>
-                <p class="mb-1 comment-author"><a href="/profile/<?= $c['iduser'] ?>/"
+                <p class="p-0 mb-1 comment-author"><a href="/profile/<?= $c['iduser'] ?>/"
                                                   class="font-weight-bold"><?= $nameuser ?> <?= $surnameuser ?></a></p>
-                <p class="mb-2 comment-text"><?= nl2br($c['comment']) ?></p>
+                <p class="p-0 mb-2 comment-text"><?= nl2br($c['comment']) ?></p>
                 <div class="text-right comment-viewers d-none">
                     <img src="/upload/avatar/<?= $c['manager'] ?>.jpg" class="avatar mr-3"
                          title="<?= $commentViewStatusTitleManager ?>">

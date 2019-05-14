@@ -148,27 +148,46 @@ if ($id == $worker and $view == 0) {
                     <i class="far fa-plus-square avatar-new"></i>
                     <div class="tooltiptextnew">
                         <div class="card">
-                            <div class="card-body workers p-4">
-                                <div class="row add-worker">
-                                    <div class="col-1">
-                                        <img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" class="avatar-added mr-1">
+                            <div class="card-body workers p-3">
+                                <div class="container p-1 container-coworker d-flex flex-wrap">
+                                    <?php
+                                    foreach ($coworkers as $coworker):
+                                        if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
+                                            $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
+                                        } else {
+                                            $viewStatusTitle = 'Не просмотрено';
+                                        }
+                                        ?>
+                                    <div class="add-worker mr-1">
+                                        <img title="<?= $viewStatusTitle ?>" src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" class="avatar-added mr-1">
+                                        <a href="#" class="card-coworker"><?=$coworker['name']?> <?=$coworker['surname']?></a>
+                                        <span><i value="<?=$coworker['worker_id']?>" class="deleteWorker fas fa-times cancel card-coworker-delete"></i></span>
                                     </div>
-                                    <div class="col">
-                                        <a href="#"><?=$coworker['name']?> <?=$coworker['surname']?></a>
-                                        <a href="#" class="d-block deleteWorker"><?=$GLOBALS['_deleteworker']?></a>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
-                                <div class="input-group input-group-sm">
-                                    <select class="form-control coworker-select" id="worker" required>
+
+                                    <div class="p-1 text-justify" id="worker">
+
                                         <?php
                                         $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                                         foreach ($users as $n) { ?>
-                                            <option value="<?php echo $n['id'] ?>"><?php echo $n['name'] . ' ' . $n['surname'] ?></option>
+                                            <div class="row">
+                                                <div class="col-1">
+                                                    <img src="/upload/avatar/<?=$n['id']?>.jpg" class="avatar-added mr-1">
+                                                </div>
+                                                <div class="col">
+                                                    <p class="mb-1 add-coworker-text" ><?php echo $n['name'] . ' ' . $n['surname'] ?></p>
+                                                </div>
+                                                <div class="col-2">
+                                                    <i value="<?php echo $n['id'] ?>" class="fas fa-plus add-coworker addNewWorker"></i>
+                                                </div>
+                                            </div>
+                                            <hr class="m-0">
                                         <?php } ?>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" id="addNewWorker" type="button">Добавить</button>
-                                    </div>
+
+<!--                                    <div class="input-group-append">-->
+<!--                                        <button class="btn btn-outline-secondary btn-sm" id="addNewWorker" type="button">Добавить</button>-->
+<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -248,7 +267,7 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
         cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
         subscribeToMessagesNotification();
 
-        $(".avatar-new").on('click', function () {
+        $(".avatar-new").on('click', function (e) {
            $(".tooltiptextnew").fadeToggle(300);
         });
 
@@ -258,24 +277,17 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
 
         $(".deleteWorker").on('click', function () {
             $(this).closest(".add-worker").remove();
+
         });
 
-        $("#addNewWorker").on('click', function () {
-            var selectedId = $("#worker").val();
-            $.post("/ajax.php", {module: 'addCoworker', newCoworkerId: selectedId, usp: $usp, it: $it, ajax: 'task-control' });
-            console.log(selectedId);
+        $(".addNewWorker").on('click', function () {
+            var selectedId = $(this).attr('value');
+            $.post("/ajax.php", {module: 'addCoworker', newCoworkerId: selectedId, usp: $usp, it: $it, ajax: 'task-control' }, controlUpdate);
+            function controlUpdate(data) {
+                console.log(selectedId);
+                location.reload();
+            }
 
-            $(".slash").append("<img src=\"/upload/avatar/<?=$coworker['worker_id']?>.jpg\" alt=\"worker image\" class=\"avatar ml-1\">");
-
-            $(".workers").prepend("<div class=\"row add-worker\">\n" +
-                "                                    <div class=\"col-1\">\n" +
-                "                                        <img src=\"/upload/avatar/<?=$coworker['worker_id']?>.jpg\" class=\"avatar-added mr-1\">\n" +
-                "                                    </div>\n" +
-                "                                    <div class=\"col\">\n" +
-                "                                        <a href=\"#\"><?=$coworker['name']?> <?=$coworker['surname']?></a>\n" +
-                "                                        <a href=\"#\" class=\"d-block deleteWorker\"><?=$GLOBALS['_deleteworker']?></a>\n" +
-                "                                    </div>\n" +
-                "                                </div>");
         });
 
     });
