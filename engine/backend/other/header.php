@@ -62,6 +62,9 @@ require_once 'engine/backend/functions/common-functions.php';
 			if (!empty($_GET['profile'])) {
 				$title = DBOnce('name','users','id='.$_GET["profile"]) . ' ' . DBOnce('surname','users','id='.$_GET["profile"]);
 			}
+			if (!empty($_GET['restore']) && !empty($_GET['code'])) {
+			    $title = "Восстановление пароля"; //TODO Add locales
+            }
 			if(empty($title)) {
 				if(empty($url)) {
 				$title = $GLOBALS["_main"];
@@ -70,7 +73,10 @@ require_once 'engine/backend/functions/common-functions.php';
 				}
 			}
 		} else {
-		if (in_array($url, $pages)) { 	
+	    if (preg_match('~^restore~', $url))
+        {
+
+        } else if (in_array($url, $pages)) {
 			if ($url != 'login') {
                 header('location: /login/');
                 die();

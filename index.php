@@ -68,12 +68,17 @@ function fillColumnStatus()
 
 // проверка на страницы логина и подобные
 if (!empty($_GET['folder'])) {
-$folder = $_GET['folder'];
-if (!empty($folder)) {
-	if (in_array($folder, $pages)) {
-		inc('other',$folder);
-	}
+    $folder = $_GET['folder'];
+    if (!empty($folder)) {
+        if (in_array($folder, $pages)) {
+            inc('other', $folder);
+        }
+    }
 }
+// Проверка на страницу восстановления пароля
+if (isset($_GET['restore']) && isset($_GET['code']))
+{
+    inc('other', 'restore-password');
 }
 
 function isUploadsTableExists()
@@ -352,6 +357,30 @@ if (!isViewStatusColumnInMailExists())
     global $pdo;
     $sql = 'alter table mail add view_status tinyint default 0 null;';
     $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
+function iPasswordRestoreTableExists()
+{
+    global $pdo;
+    $query = "SHOW TABLES LIKE 'password_restore'";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+}
+
+if (!iPasswordRestoreTableExists()) {
+    global $pdo;
+    $query = 'create table password_restore
+(
+    pr_id int auto_increment,
+	user_id int not null,
+	code text not null,
+	constraint password_restore_pk
+		primary key (pr_id)
+)';
+    $sql = $pdo->prepare($query);
     $sql->execute();
 }
 
