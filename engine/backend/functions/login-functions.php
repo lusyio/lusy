@@ -28,13 +28,16 @@ function createSession($userId, $timestamp)
 function createCookieString($sessionId, $userId, $timestamp)
 {
     $initialString = $sessionId . '-' . $userId . '-' . $timestamp;
-    $cookieString = $initialString; //TODO add encrypt / добавить шифрование
+    $cookieString = encryptCookie($initialString);
     return $cookieString;
 }
 
 function parseCookie($cookieString)
 {
-    $decryptedCookie = $cookieString; //TODO add decrypt / добавить дешифрование
+    $decryptedCookie = decryptCookie($cookieString);
+    if (!$decryptedCookie) {
+        return false;
+    }
     $result = mb_split('-', $decryptedCookie);
     $resultArray = [
         'sid' => $result[0],
@@ -42,6 +45,31 @@ function parseCookie($cookieString)
         'timestamp' => $result[2],
     ];
     return $resultArray;
+}
+define('ENCRYPTION_KEY', '0DBC8F2F74F2F00E0D1B0C1D4552A4B4'); //TODO change encryption key
+
+function encryptCookie($cookie) {
+    $ivlen = openssl_cipher_iv_length($cipher="AES-128-CBC");
+    $iv = openssl_random_pseudo_bytes($ivlen);
+    $ciphertext_raw = openssl_encrypt($cookie, $cipher, ENCRYPTION_KEY, $options=OPENSSL_RAW_DATA, $iv);
+    $hmac = hash_hmac('sha256', $ciphertext_raw, ENCRYPTION_KEY, $as_binary=true);
+    $ciphertext = base64_encode( $iv.$hmac.$ciphertext_raw );
+    return $ciphertext;
+}
+
+function decryptCookie($cookie) {
+    $c = base64_decode($cookie);
+    $ivlen = openssl_cipher_iv_length($cipher="AES-128-CBC");
+    $iv = substr($c, 0, $ivlen);
+    $hmac = substr($c, $ivlen, $sha2len=32);
+    $ciphertext_raw = substr($c, $ivlen+$sha2len);
+    $plaintext = openssl_decrypt($ciphertext_raw, $cipher, ENCRYPTION_KEY, $options=OPENSSL_RAW_DATA, $iv);
+    $calcmac = hash_hmac('sha256', $ciphertext_raw, ENCRYPTION_KEY, $as_binary=true);
+    if (hash_equals($hmac, $calcmac))
+    {
+        return $plaintext;
+    }
+    return false;
 }
 
 function removeSessions($sessionIds) {

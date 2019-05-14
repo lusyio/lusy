@@ -5,7 +5,7 @@ require_once 'engine/backend/functions/common-functions.php';
 	$url = str_replace('/', '', $url);
 	if (empty($_SESSION['auth']) && !empty($_COOKIE['token'])) {
         $sessionCookie = parseCookie($_COOKIE['token']);
-        if (!isCookieExistAndValidByTimestamp($sessionCookie)) {
+        if ($sessionCookie || !isCookieExistAndValidByTimestamp($sessionCookie)) {
             removeSessions($sessionCookie['sid']);
             setcookie('token', null, -1, '/');
             header('location: /login/');
