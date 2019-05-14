@@ -310,7 +310,12 @@ $( "#inwork" ).click(function() {
 	}
 
 	$('.comment-filter').on('click', function () {
-		var filter = $(this).attr('data-filter-type');
+		var filter;
+		if($(this).hasClass('active')){
+			filter = 'all';
+		} else {
+			filter = $(this).attr('data-filter-type');
+		}
 		$('#comments').children().hide();
 		$('.comment-filter').removeClass('active');
 		switch (filter) {
@@ -333,6 +338,7 @@ $( "#inwork" ).click(function() {
 				$('#comments').children('.report').fadeIn();
 				$('#comments').children('.report').find('.comment-text').fadeIn();
 				break;
+			case 'all':
 			default:
 				$('#comments').children().fadeIn();
 				$('#comments').children().find('.comment-text').fadeIn();
