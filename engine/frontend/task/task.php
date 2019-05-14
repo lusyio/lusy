@@ -271,12 +271,27 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
            $(".tooltiptextnew").fadeToggle(300);
         });
 
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest(".deadline-block").length) {
+                $('#change-date').fadeOut(300);
+            }
+            if (!$(e.target).closest(".avatar-new").length) {
+                $('.tooltiptextnew').fadeOut(300);
+            }
+            e.stopPropagation();
+        });
+
         $(".deadline-block").on('click', function () {
            $("#change-date").fadeToggle(300)
         });
 
         $(".deleteWorker").on('click', function () {
-            $(this).closest(".add-worker").remove();
+            var removedId = $(this).attr('value');
+            $.post("/ajax.php", {module: 'removeCoworker', newCoworkerId: removedId, usp: $usp, it: $it, ajax: 'task-control' }, controlUpdate);
+            function controlUpdate(data) {
+                console.log(removedId);
+                location.reload();
+            }
 
         });
 
