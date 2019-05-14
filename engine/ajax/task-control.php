@@ -1,10 +1,23 @@
 <?php
 
-// отправка на проеврку
+$isManager = false;
+$isWorker = false;
+if (isset($_POST['it'])) {
+    $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+    $idTaskManager = DBOnce('manager', 'tasks', 'id='.$idtask);
+    if ($id == $idTaskManager) {
+        $isManager = true;
+    }
+    $coworkersQuery = $pdo->prepare("SELECT worker_id FROM task_coworkers WHERE task_id = :taskId");
+    $coworkersQuery->execute(array(':taskId' => $idtask));
+    $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_COLUMN, 0);
+    if(in_array($id, $coworkers)) {
+        $isWorker = true;
+    }
+}
 
-if($_POST['module'] == 'sendonreview') {
+if($_POST['module'] == 'sendonreview' && $isWorker) {
 	$text = filter_var($_POST['text'], FILTER_SANITIZE_SPECIAL_CHARS);
-	$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
 
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "pending" WHERE id='.$idtask);
 	$sql->execute();
@@ -20,10 +33,9 @@ if($_POST['module'] == 'sendonreview') {
     resetViewStatus($idtask);
 }
 
-if($_POST['module'] == 'sendpostpone') {
+if($_POST['module'] == 'sendpostpone' && $isWorker) {
 	$text = filter_var($_POST['text'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$datepostpone = filter_var($_POST['datepostpone'],FILTER_SANITIZE_SPECIAL_CHARS);
-	$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
 	$status = 'request:' . $datepostpone;
 
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "postpone" WHERE id='.$idtask);
@@ -33,33 +45,22 @@ if($_POST['module'] == 'sendpostpone') {
 	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'status' => $status, 'datetime' => $datetime));
 
     resetViewStatus($idtask);
-
-    if ($sql) {
-		echo '<p>Успешно</p>';
-	}
 }
 
 
 // Кнопка принять для worker'a
 
-if($_POST['module'] == 'workdone') {
+if($_POST['module'] == 'workdone' && $isManager) {
 	// $report = $_POST['report'];
-	$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "done", `report` = :report WHERE id='.$idtask);
 	$sql->execute(array('report' => $now));
 
     resetViewStatus($idtask);
-
-    // if ($sql) {
-	// 	echo '<p>Успешно</p>';
-	// }
-	// var_dump($sql);
 }
 
 // Кнопка вернуть для worker'a
 
-if($_POST['module'] == 'workreturn') {
-	$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+if($_POST['module'] == 'workreturn' && $isManager) {
 	$datepostpone = filter_var($_POST['datepostpone'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$text = filter_var($_POST['text'], FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -76,21 +77,13 @@ if($_POST['module'] == 'workreturn') {
 		uploadAttachedFiles('comment', $commentId);
 	}
     resetViewStatus($idtask);
-
 }
 
 // Кнопка В работу для worker'a
 
 if($_POST['module'] == 'inwork') {
-	// $report = $_POST['report'];
-	$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "new" WHERE id='.$idtask);
 	$sql->execute();
-
-	// if ($sql) {
-	// 	echo '<p>Успешно</p>';
-	// }
-	// var_dump($sql);
 }
 
 // создание новой задачи
@@ -128,8 +121,7 @@ if($_POST['module'] == 'createTask') {
 
 // отмена задачи
 
-if($_POST['module'] == 'cancelTask') {
-	$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+if($_POST['module'] == 'cancelTask' && $isManager) {
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "canceled", `report` = :report WHERE id='.$idtask);
 	$sql->execute(array('report' => $now));
 	echo 'success';
@@ -138,8 +130,7 @@ if($_POST['module'] == 'cancelTask') {
 
 //отклонение запроса на перенос срока
 
-if ($_POST['module'] == 'cancelDate') {
-	$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+if ($_POST['module'] == 'cancelDate' && $isManager) {
 	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = null WHERE id=" . $idtask); //TODO нужно разобраться со статусами
 	$sql->execute();
 	$text = "Перенос отклонен";
@@ -150,8 +141,7 @@ if ($_POST['module'] == 'cancelDate') {
 
 //одобрение запроса на перенос срока
 
-if ($_POST['module'] == 'confirmDate') {
-	$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+if ($_POST['module'] == 'confirmDate' && $isManager) {
 	$statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
 	$datepostpone = preg_split('~:~', $statusWithDate)[1];
 	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = :datepostpone WHERE id=" . $idtask);
@@ -162,9 +152,8 @@ if ($_POST['module'] == 'confirmDate') {
     resetViewStatus($idtask);
 }
 
-if ($_POST['module'] == 'sendDate') {
+if ($_POST['module'] == 'sendDate' && $isManager) {
 	$datepostpone = filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS);
-	$idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
 	$sql = $pdo->prepare('UPDATE `tasks` SET `datepostpone` = :datepostpone, `view` = 0 WHERE id='.$idtask);
 	$sql->execute(array('datepostpone' => $datepostpone));
 	$text = "Новый срок: " . date("d.m", strtotime($datepostpone));
@@ -173,18 +162,12 @@ if ($_POST['module'] == 'sendDate') {
     resetViewStatus($idtask);
 }
 
-if ($_POST['module'] == 'addCoworker') {
+if ($_POST['module'] == 'addCoworker' && $isManager) {
     $newCoworkerId = filter_var($_POST['newCoworkerId'], FILTER_SANITIZE_NUMBER_INT);
-    $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
-    $coworkersQuery = $pdo->prepare("SELECT worker_id FROM task_coworkers WHERE task_id = :taskId");
-    $coworkersQuery->execute(array(':taskId' => $idtask));
-    $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_COLUMN, 0);
-    var_dump($coworkers);
     if (!in_array($newCoworkerId, $coworkers)) {
         $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
         $addCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $newCoworkerId));
         resetViewStatus($idtask);
-        echo 'added';
     }
 }
 
