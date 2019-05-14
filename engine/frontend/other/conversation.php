@@ -1,8 +1,8 @@
 
 
 <div class="card">
-    <div class="card-header">
-        <h4 class="mb-0"><?= fiomess($recipientId) ?></h4>
+    <div class="card-header pt-0">
+        <h5 class="mb-0"><?= fiomess($recipientId) ?> <i class="fas fa-circle mr-1 ml-1 onlineIndicator"></i></h5>
     </div>
     <div class="card-body" id="chatBox">
         <?php if ($messages): ?>
@@ -15,20 +15,22 @@
     </div>
 </div>
 <div class="card mt-3">
-    <div class="card-header">
-        <h4 class="mb-0">Новое сообщение</h4>
-    </div>
-    <div class="card-body">
+    <div class="card-body pb-0">
         <form>
-            <div class="form-group">
-                <label for="mes">Сообщение</label>
-                <textarea class="form-control" id="mes" name="mes" rows="3" placeholder="Текст сообщения"
-                          required></textarea>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <textarea class="form-control" id="mes" name="mes" rows="1" placeholder="Введите сообщение . . ."
+                                  required></textarea>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <input type="button" class="btn btn-primary btn-sm" id="sendBtn" value="Отправить">
+                    <span class="btn btn-light btn-file btn-sm">
+                        <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
+                    </span>
+                </div>
             </div>
-            <input type="button" class="btn btn-primary" id="sendBtn" value="Отправить">
-            <span class="btn btn-light btn-file">
-                <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
-            </span>
         </form>
         <div class="newmess"></div>
     </div>
@@ -108,7 +110,7 @@
             });
         }
 
-
+        $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
 
         $("#sendFiles").on('click', function () {
             sizeFile();

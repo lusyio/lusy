@@ -113,7 +113,7 @@ if ($id == $worker and $view == 0) {
     <hr>
     <div class="row">
         <div class="col-5">
-		<div class="position-relative deadline-block "  data-toggle="collapse" data-target="#change-date" aria-expanded="true" aria-controls="change-date">
+		<div class="position-relative deadline-block">
             <div class="progress position-relative mr-1" style="height: 30px; font-size: 14px; z-index: 1; ">
                 <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: 5%" aria-valuenow="5%" aria-valuemin="0" aria-valuemax="100"></div>
                 <medium class="justify-content-center d-flex position-absolute w-100 h-100">
@@ -179,14 +179,16 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>
 
-    <div id="change-date" class="collapse mt-1">
-        <div class="form-group">
-            <div class="col-5">
-                <?php if ($role != 'manager'): ?>
-                <textarea name="report" id="reportarea1" class="form-control" rows="4" placeholder="Причина" required></textarea>
-                <?php endif; ?>
-                <input class="form-control" value="" type="date" id="example-date-input" min="">
-                <button type="submit" id="<?=($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>" class="btn btn-success btn-sm text-center mt-1 mb-1"><?=$GLOBALS["_change"]?></button>
+    <div id="change-date">
+        <div class="form-group mb-0 p-2">
+            <div class="row">
+                <div class="col">
+                    <?php if ($role != 'manager'): ?>
+                    <textarea name="report" id="reportarea1" class="form-control" rows="4" placeholder="Причина" required></textarea>
+                    <?php endif; ?>
+                    <input class="form-control form-control-sm" value="" type="date" id="example-date-input" min="">
+                    <button type="submit" id="<?=($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>" class="btn btn-success btn-sm text-center mt-1 mb-1"><?=$GLOBALS["_change"]?></button>
+                </div>
             </div>
         </div>
     </div>
@@ -248,6 +250,10 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
 
         $(".avatar-new").on('click', function () {
            $(".tooltiptextnew").fadeToggle(300);
+        });
+
+        $(".deadline-block").on('click', function () {
+           $("#change-date").fadeToggle(300)
         });
 
         $(".deleteWorker").on('click', function () {
