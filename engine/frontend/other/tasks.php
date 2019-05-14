@@ -56,8 +56,8 @@ $taskStatusText = [
     <a href="/task/<?= $n['idtask'] ?>/" class="text-decoration-none cust">
         <div class="task-card">
             <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['classRole'] ?>">
-                <div class="card-body tasks-list">
-                    <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?> <?= ($isTaskRead)?'':'alert-primary'; ?>">
+                <div class="card-body tasks-list  <?= ($isTaskRead)?'':'alert-primary'; ?>">
+                    <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?>">
                         <h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5>
                         <p class="font-weight-light text-ligther"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
                         <div class="row">

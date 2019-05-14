@@ -17,16 +17,16 @@
 <div class="card mt-3">
     <div class="card-body pb-0">
         <form>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <textarea class="form-control" id="mes" name="mes" rows="1" placeholder="Введите сообщение . . ."
-                                  required></textarea>
-                    </div>
+            <div class="d-flex">
+                <div class="form-group w-100 mr-2">
+                    <textarea class="form-control" id="mes" name="mes" rows="1" placeholder="Введите сообщение . . ."
+                              required></textarea>
                 </div>
-                <div class="col-3">
-                    <input type="button" class="btn btn-primary btn-sm" id="sendBtn" value="Отправить">
-                    <span class="btn btn-light btn-file btn-sm">
+                <div class="mr-2">
+                    <input type="button" class="btn btn-primary" id="sendBtn" value="Отправить">
+                </div>
+                <div>
+                    <span class="btn btn-light btn-file">
                         <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
                     </span>
                 </div>

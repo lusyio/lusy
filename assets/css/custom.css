@@ -632,7 +632,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .alert-primary{
-    background-color: #f7f7f7;
+    background-color: rgba(93, 149, 219, 0.11);
     border-radius: 10px;
 }
 .deadline-block {
@@ -668,7 +668,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .add-worker{
-    background-color: #f7f7f7;
+    background-color: #ffffff;
     border-radius: 5px;
 }
 
@@ -688,7 +688,11 @@ input:checked[type="checkbox"]::before {
 
 .card-coworker-delete{
     font-size: 12px;
-    color: #d24f5e;
+    color: #e3e5e9;
+}
+
+.card-coworker-delete:hover{
+    color: #d04d5f;
 }
 
 .avatar-new:hover {

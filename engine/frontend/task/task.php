@@ -101,14 +101,12 @@ if ($id == $worker and $view == 0) {
                 </div>
                 <div class="col-8">
                     <div class="float-right" title="<?=$GLOBALS["_$status"]?>">
-
                     	<span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg1']?>"><i class="<?=$statusBar[$status]['ic1']?> custom"></i></span>
 						<span class="status-icon rounded-circle noty-m <?=$statusBar[$status]['bg2']?>"><i class="<?=$statusBar[$status]['ic2']?> custom"></i></span>
 						<span class="status-icon-last rounded-circle noty-m <?=$statusBar[$status]['bg3']?>"><i class="<?=$statusBar[$status]['ic3']?> custom"></i></span>
-						</div>
+                    </div>
                 </div>
             </div>
-	                        
     <h4 class="<?=$statusBar[$status]['border']?> font-weight-bold mb-3 mt-5"><?=$nametask?></h4>
     <hr>
     <div class="row">
@@ -142,58 +140,14 @@ if ($id == $worker and $view == 0) {
                         $viewStatusTitle = 'Не просмотрено';
                     }
                     ?>
-                    <span class="mb-0" title="<?= $viewStatusTitle ?>"><img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" alt="worker image" class="avatar mr-1"></span>
+                    <span class="mb-0" title="<?= $viewStatusTitle ?>"><img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" alt="worker image" class="avatar ml-1"></span>
                 <?php endforeach; ?>
                 <div class="tooltip-avatar">
                     <i class="far fa-plus-square avatar-new"></i>
-                    <div class="tooltiptextnew">
-                        <div class="card">
-                            <div class="card-body workers p-3">
-                                <div class="container p-1 container-coworker d-flex flex-wrap">
-                                    <?php
-                                    foreach ($coworkers as $coworker):
-                                        if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
-                                            $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
-                                        } else {
-                                            $viewStatusTitle = 'Не просмотрено';
-                                        }
-                                        ?>
-                                    <div class="add-worker mr-1">
-                                        <img title="<?= $viewStatusTitle ?>" src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" class="avatar-added mr-1">
-                                        <a href="#" class="card-coworker"><?=$coworker['name']?> <?=$coworker['surname']?></a>
-                                        <span><i value="<?=$coworker['worker_id']?>" class="deleteWorker fas fa-times cancel card-coworker-delete"></i></span>
-                                    </div>
-                                    <?php endforeach; ?>
-                                </div>
-
-                                    <div class="p-1 text-justify" id="worker">
-
-                                        <?php
-                                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
-                                        foreach ($users as $n) { ?>
-                                            <div class="row">
-                                                <div class="col-1">
-                                                    <img src="/upload/avatar/<?=$n['id']?>.jpg" class="avatar-added mr-1">
-                                                </div>
-                                                <div class="col">
-                                                    <p class="mb-1 add-coworker-text" ><?php echo $n['name'] . ' ' . $n['surname'] ?></p>
-                                                </div>
-                                                <div class="col-2">
-                                                    <i value="<?php echo $n['id'] ?>" class="fas fa-plus add-coworker addNewWorker"></i>
-                                                </div>
-                                            </div>
-                                            <hr class="m-0">
-                                        <?php } ?>
-
-<!--                                    <div class="input-group-append">-->
-<!--                                        <button class="btn btn-outline-secondary btn-sm" id="addNewWorker" type="button">Добавить</button>-->
-<!--                                    </div>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    include 'engine/frontend/members/tooltip.php';
+                    ?>
                 </div>
-
             </div>
         </div>
     </div>
@@ -275,15 +229,21 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
             if (!$(e.target).closest(".deadline-block").length) {
                 $('#change-date').fadeOut(300);
             }
-            if (!$(e.target).closest(".avatar-new").length) {
-                $('.tooltiptextnew').fadeOut(300);
-            }
+            // if (!$(e.target).closest(".avatar-new").length) {
+            //     $('.tooltiptextnew').fadeOut(300);
+            // }
             e.stopPropagation();
         });
 
         $(".deadline-block").on('click', function () {
            $("#change-date").fadeToggle(300)
         });
+
+        $(".editCoworkers").on('click', function () {
+            console.log('asd');
+        });
+
+
 
         $(".deleteWorker").on('click', function () {
             var removedId = $(this).attr('value');
@@ -297,10 +257,18 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
 
         $(".addNewWorker").on('click', function () {
             var selectedId = $(this).attr('value');
-            $.post("/ajax.php", {module: 'addCoworker', newCoworkerId: selectedId, usp: $usp, it: $it, ajax: 'task-control' }, controlUpdate);
+            $(".container-coworker").append("<div class=\"add-worker mr-1 mb-1\">\n" +
+                "                        <img title=\"<?= $viewStatusTitle ?>\" src=\"/upload/avatar/<?=$coworker['worker_id']?>.jpg\" class=\"avatar-added mr-1\">\n" +
+                "                        <a href=\"#\" class=\"card-coworker\"><?=$coworker['name']?> <?=$coworker['surname']?></a>\n" +
+                "                        <span><i value=\"<?=$coworker['worker_id']?>\" class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
+                "                    </div>");
+
+            $(".tooltip-avatar").prepend("<span class=\"mb-0\" title=\"<?= $viewStatusTitle ?>\"><img src=\"/upload/avatar/" + selectedId + ".jpg\" alt=\"worker image\" class=\"avatar mr-1 ml-1\"></span>");
+            // $.post("/ajax.php", {module: 'addCoworker', newCoworkerId: selectedId, usp: $usp, it: $it, ajax: 'task-control' }, controlUpdate);
             function controlUpdate(data) {
                 console.log(selectedId);
-                location.reload();
+
+
             }
 
         });
