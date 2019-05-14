@@ -56,12 +56,14 @@ $taskStatusText = [
     <a href="/task/<?= $n['idtask'] ?>/" class="text-decoration-none cust">
         <div class="task-card">
             <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['classRole'] ?>">
-                <div class="card-body tasks-list  <?= ($isTaskRead)?'':'alert-primary'; ?>">
-                    <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?>">
-                        <h5 class="card-title mb-2"><span><?= $n['name'] ?></span></h5>
-                        <p class="font-weight-light text-ligther"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
+                <div class="card-body tasks-list">
+                    <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?> <?= ($isTaskRead)?'':'alert-primary'; ?>">
+                        
+                        <p class="font-weight-light text-ligther d-none"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
+
                         <div class="row">
-                            <div class="col-sm-8">
+                            <div class="col-sm-6">
+	                            <h5 class="card-title mb-3"><span><?= $n['name'] ?></span></h5>
                                 <div class="d-inline-flex w-100">
                                     <div class="w-custom">
                                         <div class="progress position-relative h-100  mr-1">
@@ -81,7 +83,10 @@ $taskStatusText = [
                                     </div>
 		                        </div>
 	                        </div>
-	                        <div class="col-sm-4">
+	                        <div class="col-sm-3 d-flex" style="align-items: center">
+		                        <div class="font-weight-light text-ligther"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></div>
+	                        </div>
+	                        <div class="col-sm-3 d-flex" style="align-items: center; justify-content: flex-end;">
 		                        <div class="float-right">
 	                        		<img src="/upload/avatar/<?=$n['idmanager']?>.jpg" title="<?= $viewStatusTitleManager ?>" class="avatar mr-1"> |
                                     <?php

@@ -24,40 +24,49 @@ if (!empty($_COOKIE['token'])) {
     header('location: /');
     ob_end_flush();
     die();
-} elseif (!empty($_POST['login']) and !empty($_POST['password']) and !empty($_POST['idcompany'])) {
+} else {
+    if (!empty($_POST['login']) and !empty($_POST['password']) and !empty($_POST['idcompany'])) {
 
-    $login = $_POST['login'];
-    $password = md5($_POST['password']);
-    $idcompany = $_POST['idcompany'];
+        $login = filter_var($_POST['login'], FILTER_SANITIZE_STRING);
+        $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+        $idcompany = filter_var($_POST['idcompany'], FILTER_SANITIZE_STRING);
 
-    $idc = DBOnce('id', 'company', 'idcompany="' . $idcompany . '"');
-    $timestamp = time();
-    if (!empty($idc)) {
-        $id = DBOnce('id', 'users', 'login="' . $login . '" and idcompany= "' . $idc . '"');
-        $hash = DBOnce('password', 'users', 'login="' . $login . '" and idcompany= "' . $idc . '"');
-        if (!empty($id)) {
-            // Проверяем соответствие хеша из базы введенному паролю
-            if (password_verify($_POST['password'], $hash)) {
-                $_SESSION['auth'] = true;
-                $_SESSION['id'] = $id;
-                $_SESSION['idcompany'] = $idc;
+    } elseif (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['idcompany'])) {
+        $login = $_SESSION['login'];
+        $password = $_SESSION['password'];
+        $idcompany = $_SESSION['idcompany'];
+        unset($_SESSION['login']);
+        unset($_SESSION['password']);
+        unset($_SESSION['idcompany']);
+    }
+    if (isset($login) && isset($password) && isset($idcompany)) {
+        $idc = DBOnce('id', 'company', 'idcompany="' . $idcompany . '"');
+        $timestamp = time();
+        if (!empty($idc)) {
+            $id = DBOnce('id', 'users', 'login="' . $login . '" and idcompany= "' . $idc . '"');
+            $hash = DBOnce('password', 'users', 'login="' . $login . '" and idcompany= "' . $idc . '"');
+            if (!empty($id)) {
+                // Проверяем соответствие хеша из базы введенному паролю
+                if (password_verify($password, $hash)) {
+                    $_SESSION['auth'] = true;
+                    $_SESSION['id'] = $id;
+                    $_SESSION['idcompany'] = $idc;
 
-                removeExcessiveSessionsIfExists($id);
-                $sessionId = createSession($id, $timestamp);
-                setcookie('token', createCookieString($sessionId, $id, $timestamp), time() + 60 * 60 * 24 * 30, '/');
-                header('location: /');
-                ob_end_flush();
-                die();
+                    removeExcessiveSessionsIfExists($id);
+                    $sessionId = createSession($id, $timestamp);
+                    setcookie('token', createCookieString($sessionId, $id, $timestamp), time() + 60 * 60 * 24 * 30, '/');
+                    header('location: /');
+                    ob_end_flush();
+                    die();
+                } else {
+                    echo 'Неверные данные';
+                }
             } else {
-                echo 'Неверные данные';
+                echo 'Такого логина в данной компании нет';
             }
         } else {
-            echo 'Такого логина в данной компании нет';
+            echo 'Неверно указаны данные';
         }
-
-
-    } else {
-        echo 'Неверно указаны данные';
     }
 }
 
