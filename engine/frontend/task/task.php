@@ -148,7 +148,7 @@ if ($id == $worker and $view == 0) {
                     <i class="far fa-plus-square avatar-new"></i>
                     <div class="tooltiptextnew">
                         <div class="card">
-                            <div class="card-body workers">
+                            <div class="card-body workers p-4">
                                 <div class="row add-worker">
                                     <div class="col-1">
                                         <img src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" class="avatar-added mr-1">

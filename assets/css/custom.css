@@ -720,6 +720,12 @@ input:checked[type="checkbox"]::before {
     color: #898989;
 }
 
+.system-text{
+    font-size: 15px;
+    background-color: #e3e5e9;
+    border-radius: 10px;
+}
+
 /*.tooltip-avatar .tooltiptextnew {*/
 /*    visibility: hidden;*/
 /*    width: 300px;*/
