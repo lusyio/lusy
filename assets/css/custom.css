@@ -694,6 +694,32 @@ input:checked[type="checkbox"]::before {
     padding: 0;
 }
 
+#change-date{
+    display: none;
+    width: 300px;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    left: 3%;
+    margin-left: -4px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,.3);
+    padding: 0;
+}
+
+#chatBox{
+    height: 610px;
+    overflow: auto;
+}
+
+.onlineIndicator{
+    font-size: 10px;
+    vertical-align: middle;
+    color: #898989;
+}
+
 /*.tooltip-avatar .tooltiptextnew {*/
 /*    visibility: hidden;*/
 /*    width: 300px;*/
