@@ -1,7 +1,7 @@
 <div class="mb-3 message <?= ($message['owner']) ? 'my-message' : 'not-my-message'; ?> <?= ($message['view_status'] || $message['sender'] == $id) ? '' : 'alert-primary' ?>">
     <div class="row">
         <div class="col-1">
-            <img src="" class="avatar">
+            <img src="/./upload/avatar/<?=$message['sender']?>.jpg" class="avatar">
         </div>
         <div class="col">
             <p class="m-0"><?= $message['author'] ?> <?= $message['datetime'] ?> <?=$message['status']?>:</p>
