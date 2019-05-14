@@ -727,18 +727,13 @@ input:checked[type="checkbox"]::before {
 }
 
 .my-message{
-    background-color: aliceblue;
     border-radius: 10px;
     padding: 1rem;
-    text-align: end;
-    margin-left: 40%;
 }
 
 .not-my-message{
-    background-color: gainsboro;
     border-radius: 10px;
     padding: 1rem;
-    width: 60%;
 }
 
 /*.tooltip-avatar .tooltiptextnew {*/
