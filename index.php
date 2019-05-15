@@ -469,11 +469,28 @@ function isCompanyTableInOldState()
     return false;
 }
 
+function isPhoneColumnNotNull()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'phone' && $column['Null'] == 'NO') {
+            return true;
+        }
+    }
+    return false;
+}
 
-
-
-
-
+if (isPhoneColumnNotNull())
+{
+    global $pdo;
+    $sql = 'alter table users modify phone text null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
 
 //connection to comet-server
 
