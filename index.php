@@ -384,6 +384,32 @@ if (!iPasswordRestoreTableExists()) {
     $sql->execute();
 }
 
+function isActivatedColumnInCompanyExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `company`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'activated') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (!isActivatedColumnInCompanyExists())
+{
+    global $pdo;
+    $sql = 'alter table company add activated int default 0 not null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $sql = 'update company set activated=1';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';
