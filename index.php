@@ -515,7 +515,31 @@ if (isNameColumnNotNull())
     $sql->execute();
 }
 
+function isSurnameColumnNotNull()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'surname' && $column['Null'] == 'NO') {
+            return true;
+        }
+    }
+    return false;
+}
 
+if (isSurnameColumnNotNull())
+{
+    global $pdo;
+    $sql = $pdo->prepare('alter table users modify surname text null');
+    $sql->execute();
+    $sql = $pdo->prepare('alter table users modify points text null');
+    $sql->execute();
+    $sql = $pdo->prepare('alter table users modify activity text null');
+    $sql->execute();
+}
 
 //connection to comet-server
 
