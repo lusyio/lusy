@@ -81,7 +81,7 @@
 
 
           </form>
-            <div class="text-center">
+            <div id="btn-show-restore" class="text-center">
                 <small class="text-muted text-center">
                     <a href="#" id="btn-show-restore-form">Забыли пароль?</a>
                 </small>
@@ -118,14 +118,17 @@
   <script>
       $(document).ready(function () {
           $('#btn-show-restore-form').on('click', function () {
+              $(this).closest('div').addClass('d-none');
               $('#restore-password').removeClass('d-none');
           });
+
           $('#restore-password').on('submit', function (e) {
               e.preventDefault();
               var email = $('#email-restore').val();
               if(email) {
                   $('#btn-restore').prop('disabled', true);
                   $('#spinner-restore').removeClass('d-none');
+                  
                   var fd = new FormData();
                   fd.append('email', email);
                   fd.append('ajax', 'restore-password');
@@ -138,24 +141,23 @@
                       data: fd,
                       success: function(data){
                           $('#spinner-restore').addClass('d-none');
+                          var resultArea = $('#restore-result');
                           if (data) {
                               if (data === 'empty') {
                                   $('#btn-restore').prop('disabled', false);
                                   console.log('отправлена пустая форма')
                               } else {
                                   $('#restore-password').addClass('d-none');
-                                  $('#restore-result').removeClass('d-none');
-                                  $('#restore-result').text('ссылка для сброса пароля отправлена на почту');
+                                  resultArea.removeClass('d-none');
+                                  resultArea.text('ссылка для сброса пароля отправлена на почту');
                                   console.log('ссылка для сброса пароля отправлена на почту');
                                   console.log(data);
-                                  //ссылка для сброса пароля отправлена на почту
                               }
                           } else {
                               $('#btn-restore').prop('disabled', false);
-                              $('#restore-result').removeClass('d-none');
-                              $('#restore-result').text('такого e-mail нет в базе');
+                              resultArea.removeClass('d-none');
+                              resultArea.text('такого e-mail нет в базе');
                               console.log('такого e-mail нет в базе');
-                              //такого e-mail нет в базе
                           }
                       },
                   });
