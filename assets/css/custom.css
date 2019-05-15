@@ -1203,6 +1203,10 @@ label.error{
     display: none !important;
 }
 
+.wizard > .steps .error a, .wizard > .steps .error a:hover, .wizard > .steps .error a:active{
+    background: #fbe3e4 !important;
+}
+
 
 
 /*
