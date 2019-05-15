@@ -492,6 +492,31 @@ if (isPhoneColumnNotNull())
     $sql->execute();
 }
 
+function isNameColumnNotNull()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'name' && $column['Null'] == 'NO') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (isNameColumnNotNull())
+{
+    global $pdo;
+    $sql = 'alter table users modify name text null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
+
+
 //connection to comet-server
 
 $cometUser = '2553';
