@@ -633,7 +633,7 @@ input:checked[type="checkbox"]::before {
 
 .alert-primary{
     background-color: rgba(93, 149, 219, 0.11);
-    border-radius: 10px;
+    border-radius: 8px;
 }
 .deadline-block {
 	width: 80%;
