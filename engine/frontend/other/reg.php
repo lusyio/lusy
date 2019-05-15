@@ -1,3 +1,4 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="/assets/js/jquery.steps.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
@@ -5,7 +6,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-5 col-xl-4 my-5">
-<!--            <form id="regForm" name="regForm" action="" method="POST">-->
                 <h1 class="display-4 text-center mb-3">
                     Регистрация
                 </h1>
@@ -14,10 +14,10 @@
                     <section>
                         <div class="form-group mt-3 mb-0">
                             <label>
-                                Название компании <i class="far fa-question-circle reg-icon"></i>
+                                 Название компании <i data-toggle="tooltip" title="Сокращенное до 5 символов" class="far fa-question-circle reg-icon"></i>
                             </label>
                             <input type="text" id="companyName" name="companyName" class="form-control required"
-                                   placeholder="Company name">
+                                   placeholder="Название компании">
                         </div>
                         <div class="text-center">
                             <small class="text-muted text-center">
@@ -34,7 +34,7 @@
                                     Полное название компании
                                 </label>
                                 <input id="fullnameCompany" type="text" name="fullnameCompany" class="form-control"
-                                       placeholder="Название компании">
+                                       placeholder="Полное название компании">
                             </div>
                             <div class="form-group">
                                 <label>
@@ -57,7 +57,7 @@
                     <section>
                         <div class="form-group mt-3">
                             <label>
-                                Логин администратора <i class="far fa-question-circle reg-icon"></i>
+                                Логин администратора <i data-toggle="tooltip" title="Yahoo!" class="far fa-question-circle reg-icon "></i>
                             </label>
                             <input id="loginAdmin" type="text" name="login" class="form-control required" placeholder="Login">
                         </div>
@@ -65,15 +65,15 @@
                             <label>
                                 E-mail администратора*
                             </label>
-                            <input id="emailAdmin" type="text" name="email" class="form-control required" placeholder="E-mail">
+                            <input id="emailAdmin" type="text" name="email" class="form-control required email" placeholder="E-mail">
                         </div>
                         <div class="form-group">
                             <label>
-                                Password*
+                                Пароль*
                             </label>
                             <div class="input-group input-group-merge">
                                 <input id="password" type="password" name="password"
-                                       class="form-control form-control-appended required" placeholder="Enter your password">
+                                       class="form-control form-control-appended required" placeholder="Введите пароль">
                                 <div class="input-group-append">
                                     <!--                  <span class="input-group-text">-->
                                     <!--                    <i class="fe fe-eye"></i>-->
@@ -83,19 +83,15 @@
                         </div>
                         <div class="form-group">
                             <label>
-                                Confirm password*
+                                Подтвердите пароль*
                             </label>
                             <div class="input-group input-group-merge">
                                 <input id="confirmPassword" name="confirm" type="password" class="form-control form-control-appended required"
-                                       placeholder="Enter your password">
+                                       placeholder="Подтвердите пароль">
                                 <div class="input-group-append">
                                 </div>
                             </div>
                         </div>
-                        <!--                        <hr>-->
-                        <!--                        <button class="btn btn-lg btn-block btn-primary mb-3">-->
-                        <!--                            Зарегистрироваться-->
-                        <!--                        </button>-->
                     </section>
                 </form>
         </div>
@@ -172,8 +168,11 @@
 
 
 <script>
-
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     var form = $("#regForm");
+
 
     form.steps({
         headerTag: "h5",
@@ -198,14 +197,6 @@
             return form.valid();
         },
 
-        onStepChanged: function (event, currentIndex, priorIndex)
-        {
-            // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
-            if (currentIndex === 2 && priorIndex === 3)
-            {
-                form.steps("previous");
-            }
-        },
         onFinishing: function (event, currentIndex)
         {
             form.validate().settings.ignore = ":disabled";
@@ -213,7 +204,6 @@
         },
         onFinished: function (event, currentIndex)
         {
-            alert("Submitted!");
             document.regForm.submit();
         }
     }).validate({
@@ -223,24 +213,6 @@
                 equalTo: "#password"
             }
         }
-
-
-        // onFinished: function (event, currentIndex) {
-        //     //step1
-        //     var companyName = $("#companyName").val();
-        //     var fullnameCompany = $("#fullnameCompany").val();
-        //     var siteCompany = $("#siteCompany").val();
-        //     var descriptionCompany = $("#descriptionCompany").val();
-        //
-        //     //step2
-        //     var loginAdmin = $("#loginAdmin").val();
-        //     var emailAdmin = $("#emailAdmin").val();
-        //     var password = $("#password").val();
-        //     var confirmPassword = $("#confirmPassword").val();
-        //     document.regForm.submit();
-        //     alert('reg');
-        // }
-
 
     });
 
