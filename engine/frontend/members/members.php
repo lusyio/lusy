@@ -14,17 +14,17 @@
             </div>
             <hr class="m-0">
         <?php endforeach; ?>
-        <div class="responsible">
+        <div class="members-responsible">
             <div class="row">
                 <div class="col-8 text-justify">
                     <span>Ответственный</span>
                 </div>
                 <div class="col text-right">
-                    <i class="fas fa-pencil-alt add-coworker"></i>
+                    <i class="fas fa-pencil-alt add-coworker editResponsible"></i>
                 </div>
             </div>
             <hr class="m-0">
-            <div class="p-1 text-justify" id="worker">
+            <div class="p-1 text-justify">
                 <?php
                 $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                 foreach ($users as $n) { ?>
@@ -40,7 +40,7 @@
             </div>
         </div>
         <hr class="m-0">
-        <div class="coworkers">
+        <div class="members-coworkers">
             <div class="row">
                 <div class="col-8 text-justify">
                     <span>Соисполнители</span>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <hr class="m-0">
-            <div class="p-1 text-justify" id="worker">
+            <div class="p-1 text-justify"">
                 <?php
                 foreach ($coworkers as $coworker):
                 if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
@@ -69,6 +69,11 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+        <hr class="m-0">
+        <div class="input-group-append mt-1">
+            <button class="btn btn-outline-secondary btn-sm" id="confirmMembers" type="button">Принять</button>
+            <button class="btn btn-outline-danger btn-sm" id="cancelMembers" type="button">Отмена</button>
+        </div>
         </div>
     </div>
 </div>

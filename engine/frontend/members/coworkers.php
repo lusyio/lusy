@@ -1,4 +1,4 @@
-<div class="tooltiptextnew">
+<div class="coworkers">
     <div class="card">
         <div class="card-body workers p-3">
             <div class="container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
@@ -35,9 +35,6 @@
                     </div>
                     <hr class="m-0">
                 <?php } ?>
-<!--                <div class="input-group-append">-->
-<!--                    <button class="btn btn-outline-secondary btn-sm" id="addNewWorker" type="button">Добавить</button>-->
-<!--                </div>-->
             </div>
         </div>
     </div>
