@@ -13,6 +13,7 @@ $_inreview = 'On review';
 $_done = 'Done'; // статус для перевода задачи из "на рассмотрении" в "Выполнено"
 $_returned = 'Returned';
 $_return = 'Return';
+$_invite = 'Invitations';
 
 // новые кнопки - Окс
 
