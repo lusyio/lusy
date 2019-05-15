@@ -65,6 +65,9 @@ require_once 'engine/backend/functions/common-functions.php';
 			if (!empty($_GET['restore']) && !empty($_GET['code'])) {
 			    $title = "Восстановление пароля"; //TODO Add locales
             }
+			if (!empty($_GET['activate']) && !empty($_GET['code'])) {
+			    $title = "Активация аккаунта"; //TODO Add locales
+            }
 			if(empty($title)) {
 				if(empty($url)) {
 				$title = $GLOBALS["_main"];
@@ -73,8 +76,9 @@ require_once 'engine/backend/functions/common-functions.php';
 				}
 			}
 		} else {
-	    if (preg_match('~^restore~', $url))
-        {
+	    if (preg_match('~^restore~', $url)) {
+
+        } else if (preg_match('~^activate~', $url)) {
 
         } else if (in_array($url, $pages)) {
 	        if ($url == 'reg') {

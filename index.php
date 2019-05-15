@@ -80,6 +80,11 @@ if (isset($_GET['restore']) && isset($_GET['code']))
 {
     inc('other', 'restore-password');
 }
+// Проверка на страницу активации аккаунта
+if (isset($_GET['activate']) && isset($_GET['code']))
+{
+    inc('other', 'activate');
+}
 
 function isUploadsTableExists()
 {
@@ -383,6 +388,92 @@ if (!iPasswordRestoreTableExists()) {
     $sql = $pdo->prepare($query);
     $sql->execute();
 }
+
+function isActivatedColumnInCompanyExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `company`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'activated') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (!isActivatedColumnInCompanyExists())
+{
+    global $pdo;
+    $sql = 'alter table company add activated int default 0 not null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $sql = 'update company set activated=1';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
+function isCompanyActivationTableExists()
+{
+    global $pdo;
+    $query = "SHOW TABLES LIKE 'company_activation'";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+}
+
+if (!isCompanyActivationTableExists()) {
+    global $pdo;
+    $query = 'create table company_activation
+(
+    ca_id int auto_increment,
+	company_id int not null,
+	code text not null,
+	constraint company_activation_pk
+		primary key (ca_id)
+)';
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+}
+
+$sql = 'update company set premium = 0 where premium <> :premium';
+$sql = $pdo->prepare($sql);
+$sql->execute(array(':premium' => 1));
+
+if (isCompanyTableInOldState())
+{
+    global $pdo;
+    $sql = $pdo->prepare('alter table company change currency full_company_name text null');
+    $sql->execute();
+    $sql = $pdo->prepare('alter table company modify site text null');
+    $sql->execute();
+    $sql = $pdo->prepare('alter table company change plugins description text null');
+    $sql->execute();
+}
+
+function isCompanyTableInOldState()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `company`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'currency') {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
+
 
 //connection to comet-server
 
