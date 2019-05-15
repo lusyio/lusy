@@ -24,7 +24,7 @@ if (isset($_POST['companyName']) &&isset($_POST['login']) &&isset($_POST['passwo
         $companyId = addCompany($companyName, $companyLanguage);
         if ($companyId) {
             $activationCode = createActivationCode($companyId);
-            addUser($login, $password, $email, $companyId);
+            addUser($login, $password, $email, $companyId, 'ceo');
             $_SESSION['login'] = $login;
             $_SESSION['password'] = $password;
             $_SESSION['idcompany'] = $companyName;

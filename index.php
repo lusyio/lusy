@@ -443,6 +443,38 @@ $sql = 'update company set premium = 0 where premium <> :premium';
 $sql = $pdo->prepare($sql);
 $sql->execute(array(':premium' => 1));
 
+if (isCompanyTableInOldState())
+{
+    global $pdo;
+    $sql = $pdo->prepare('alter table company change currency full_company_name text null');
+    $sql->execute();
+    $sql = $pdo->prepare('alter table company modify site text null');
+    $sql->execute();
+    $sql = $pdo->prepare('alter table company change plugins description text null');
+    $sql->execute();
+}
+
+function isCompanyTableInOldState()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `company`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'currency') {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
+
+
 //connection to comet-server
 
 $cometUser = '2553';

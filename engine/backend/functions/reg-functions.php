@@ -11,15 +11,21 @@ function getUserLanguage() {
     return $companyLanguage;
 }
 
-function addUser($login, $password, $email, $companyId)
+function addUser($login, $password, $email, $companyId, $position)
 {
     global $pdo;
-    $addUserQuery = $pdo->prepare('INSERT INTO users(login, email, password, idcompany) VALUES (:login, :email, :password, :companyId)');
+    $possiblePositions = ['ceo', 'admin', 'worker'];
+    if (!in_array($position, $possiblePositions))
+    {
+        $position = 'worker';
+    }
+    $addUserQuery = $pdo->prepare('INSERT INTO users(login, email, password, idcompany, role) VALUES (:login, :email, :password, :companyId, :role)');
     $queryData = [
         ':login' => mb_strtolower($login),
         ':email' => mb_strtolower($email),
         ':password' => password_hash($password, PASSWORD_DEFAULT),
         ':companyId' => $companyId,
+        ':role' => $position,
     ];
     $addUserQuery->execute($queryData);
 }
