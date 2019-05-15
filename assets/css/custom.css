@@ -709,7 +709,39 @@ input:checked[type="checkbox"]::before {
     font-size: 15px !important;
 }
 
-.tooltiptextnew{
+.coworkers{
+    display: none;
+    width: 350px;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 21rem;
+    right: 0;
+    margin-right: -21px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,.3);
+    padding: 0;
+}
+
+.responsible{
+    display: none;
+    width: 350px;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 21rem;
+    right: 0;
+    margin-right: -21px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,.3);
+    padding: 0;
+}
+
+.members{
     display: none;
     width: 350px;
     background-color: #fff;
@@ -765,61 +797,6 @@ input:checked[type="checkbox"]::before {
 .not-my-message{
     border-radius: 10px;
     padding: 1rem;
-}
-
-/*.tooltip-avatar .tooltiptextnew {*/
-/*    visibility: hidden;*/
-/*    width: 300px;*/
-/*    background-color: #fff;*/
-/*    color: black;*/
-/*    text-align: center;*/
-/*    border-radius: 6px;*/
-/*    position: absolute;*/
-/*    z-index: 1;*/
-/*    top: 100%;*/
-/*    right: 50%;*/
-/*    margin-right: -35px;*/
-/*    box-shadow: 2px 2px 15px rgba(0,0,0,.3);*/
-/*    padding: 0;*/
-
-/*    !* Fade in tooltip - takes 1 second to go from 0% to 100% opac: *!*/
-/*    opacity: 0;*/
-/*    transition: opacity 1s;*/
-/*}*/
-
-/*.tooltip-avatar:hover .tooltiptextnew {*/
-/*    visibility: visible;*/
-/*    opacity: 1;*/
-/*}*/
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-    opacity: 1;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 150px;
-    background-color: #fff;
-    color: black;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -75px;
-
-    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
 }
 
 .edit {

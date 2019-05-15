@@ -126,11 +126,7 @@ if ($id == $worker and $view == 0) {
         </div>
         <div class="col-7">
             <div class="float-right">
-                <div class="tooltip">
 				<img src="/upload/avatar/<?=$manager?>.jpg" class="avatar mr-1">
-                <span class="tooltiptext"><?=$managername?> <?=$managersurname?>
-                </span>
-            </div>
 				<span class=" text-secondary slash">|</span>
                 <?php
                 foreach ($coworkers as $coworker):
@@ -145,7 +141,9 @@ if ($id == $worker and $view == 0) {
                 <div class="tooltip-avatar">
                     <i class="far fa-plus-square avatar-new"></i>
                     <?php
-                    include 'engine/frontend/members/tooltip.php';
+                    include 'engine/frontend/members/members.php';
+                    include 'engine/frontend/members/coworkers.php';
+                    include 'engine/frontend/members/responsible.php';
                     ?>
                 </div>
             </div>
@@ -221,28 +219,35 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
         cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
         subscribeToMessagesNotification();
 
-        $(".avatar-new").on('click', function (e) {
-           $(".tooltiptextnew").fadeToggle(300);
-        });
-
         $(document).on('click', function(e) {
             if (!$(e.target).closest(".deadline-block").length) {
                 $('#change-date').fadeOut(300);
             }
             // if (!$(e.target).closest(".avatar-new").length) {
-            //     $('.tooltiptextnew').fadeOut(300);
+            //     $('.members').fadeOut(300);
+            //     $('.coworkers').fadeOut(300);
+            //     $('.responsible').fadeOut(300);
             // }
             e.stopPropagation();
         });
 
         $(".deadline-block").on('click', function () {
-           $("#change-date").fadeToggle(300)
+           $("#change-date").fadeToggle(300);
+        });
+
+        $(".avatar-new").on('click', function (e) {
+            $(".members").fadeToggle(300);
+            $(".coworkers").fadeOut(300);
+            $(".responsible").fadeOut(300);
         });
 
         $(".editCoworkers").on('click', function () {
-            console.log('asd');
+            $(".coworkers").fadeToggle(300);
         });
 
+        $(".editResponsible").on('click', function () {
+            $(".responsible").fadeToggle(300);
+        });
 
 
         $(".deleteWorker").on('click', function () {
