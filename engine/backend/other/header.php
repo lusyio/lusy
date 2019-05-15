@@ -77,7 +77,9 @@ require_once 'engine/backend/functions/common-functions.php';
         {
 
         } else if (in_array($url, $pages)) {
-			if ($url != 'login') {
+	        if ($url == 'reg') {
+
+            } else if ($url != 'login') {
                 header('location: /login/');
                 die();
 			}
