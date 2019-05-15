@@ -126,11 +126,7 @@ if ($id == $worker and $view == 0) {
         </div>
         <div class="col-7">
             <div class="float-right">
-                <div class="tooltip">
 				<img src="/upload/avatar/<?=$manager?>.jpg" class="avatar mr-1">
-                <span class="tooltiptext"><?=$managername?> <?=$managersurname?>
-                </span>
-            </div>
 				<span class=" text-secondary slash">|</span>
                 <?php
                 foreach ($coworkers as $coworker):
@@ -145,6 +141,7 @@ if ($id == $worker and $view == 0) {
                 <div class="tooltip-avatar">
                     <i class="far fa-plus-square avatar-new"></i>
                     <?php
+                    include 'engine/frontend/members/members.php';
                     include 'engine/frontend/members/tooltip.php';
                     ?>
                 </div>
@@ -222,7 +219,7 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
         subscribeToMessagesNotification();
 
         $(".avatar-new").on('click', function (e) {
-           $(".tooltiptextnew").fadeToggle(300);
+           $(".members").fadeToggle(300);
         });
 
         $(document).on('click', function(e) {
@@ -240,7 +237,7 @@ var $usp = <?php echo $id + 345;  // айдишник юзера ?>; var $it = '
         });
 
         $(".editCoworkers").on('click', function () {
-            console.log('asd');
+            $(".tooltiptextnew").fadeToggle(300)
         });
 
 
