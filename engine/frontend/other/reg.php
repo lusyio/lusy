@@ -215,6 +215,16 @@
         transitionEffect: "slideLeft",
         autoFocus: true,
 
+        var form = $("#example-form");
+        form.validate({
+        errorPlacement: function errorPlacement(error, element) { element.before(error); },
+        rules: {
+            confirm: {
+                equalTo: "#password"
+            }
+        }
+
+
 
         onFinished: function (event, currentIndex) {
             //step1
