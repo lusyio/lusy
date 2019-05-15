@@ -555,6 +555,8 @@ function isPointsColumnNotNull()
 if (isPointsColumnNotNull())
 {
     global $pdo;
+    $sql = $pdo->prepare('alter table users modify points text');
+    $sql->execute();
     $sql = $pdo->prepare('alter table users modify points text null');
     $sql->execute();
 }
@@ -577,9 +579,12 @@ function isActivityColumnNotNull()
 if (isActivityColumnNotNull())
 {
     global $pdo;
+    $sql = $pdo->prepare('alter table users modify activity text');
+    $sql->execute();
     $sql = $pdo->prepare('alter table users modify activity text null');
     $sql->execute();
 }
+
 
 //connection to comet-server
 
