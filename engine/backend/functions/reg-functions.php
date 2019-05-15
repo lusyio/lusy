@@ -27,10 +27,11 @@ function addUser($login, $password, $email, $companyId)
 function addCompany($companyName, $companyLanguage)
 {
     global $pdo;
-    $addCompanyQuery = $pdo->prepare('INSERT INTO company(idcompany, lang, datareg, activated) VALUES (:companyName, :language, :registerDate, :activated)');
+    $addCompanyQuery = $pdo->prepare('INSERT INTO company(idcompany, lang, premium, datareg, activated) VALUES (:companyName, :language, :premium, :registerDate, :activated)');
     $queryData = [
         ':companyName' => $companyName,
         ':language' => $companyLanguage,
+        ':premium' => 0,
         ':registerDate' => date("Y-m-d"),
         ':activated' => 0,
     ];
@@ -52,4 +53,13 @@ function isEmailExist($email)
     $emailQuery = $pdo->prepare('SELECT id FROM users WHERE email=:email');
     $emailQuery->execute(array(':email' => mb_strtolower($email)));
     return (boolean) $emailQuery->fetch(PDO::FETCH_ASSOC);
+}
+
+function createActivationCode($companyId)
+{
+    global $pdo;
+    $activationCode = str_shuffle(md5(time()));
+    $addCode = $pdo->prepare('INSERT INTO company_activation(company_id, code) VALUES (:companyId,:activationCode)');
+    $addCode->execute(array(':companyId' => $companyId, ':activationCode' => $activationCode));
+    return $activationCode;
 }

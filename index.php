@@ -80,6 +80,11 @@ if (isset($_GET['restore']) && isset($_GET['code']))
 {
     inc('other', 'restore-password');
 }
+// Проверка на страницу активации аккаунта
+if (isset($_GET['activate']) && isset($_GET['code']))
+{
+    inc('other', 'activate');
+}
 
 function isUploadsTableExists()
 {
@@ -409,6 +414,34 @@ if (!isActivatedColumnInCompanyExists())
     $sql = $pdo->prepare($sql);
     $sql->execute();
 }
+
+function isCompanyActivationTableExists()
+{
+    global $pdo;
+    $query = "SHOW TABLES LIKE 'company_activation'";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+}
+
+if (!isCompanyActivationTableExists()) {
+    global $pdo;
+    $query = 'create table company_activation
+(
+    ca_id int auto_increment,
+	company_id int not null,
+	code text not null,
+	constraint company_activation_pk
+		primary key (ca_id)
+)';
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+}
+
+$sql = 'update company set premium = 0 where premium <> :premium';
+$sql = $pdo->prepare($sql);
+$sql->execute(array(':premium' => 1));
 
 //connection to comet-server
 
