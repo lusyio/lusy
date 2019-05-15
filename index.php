@@ -585,6 +585,34 @@ if (isActivityColumnNotNull())
     $sql->execute();
 }
 
+function isInvitationsTableExists()
+{
+    global $pdo;
+    $query = "SHOW TABLES LIKE 'invitations'";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+}
+
+if (!isInvitationsTableExists()) {
+    global $pdo;
+    $query = 'create table invitations
+(
+    invite_id int auto_increment,
+    company_id int not null,
+    invitee_name int not null,
+	code text not null,
+	invite_date datetime not null,
+	status tinyint not null,
+	email text null,
+	invitee_position text null,
+	constraint invitations_pk
+		primary key (invite_id)
+)';
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+}
 
 //connection to comet-server
 
