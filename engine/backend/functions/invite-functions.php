@@ -24,7 +24,7 @@ function deleteInvite($inviteId)
 
 }
 
-function createInvite($inviteeName, $inviteeMail, $inviteePosition)
+function createInvite($inviteeMail, $inviteePosition)
 {
     global $id;
     global $pdo;
@@ -41,10 +41,9 @@ function createInvite($inviteeName, $inviteeMail, $inviteePosition)
     while (DBOnce('count(*)', 'invitations', 'code=\'' . $code . '\'')) {
         $code = str_shuffle(md5(time()));
     }
-    $inviteQuery = $pdo->prepare('INSERT INTO invitations(company_id, invitee_name, code, invite_date, status, email, invitee_position) VALUES (:companyId, :inviteeName, :code, :inviteDate, :inviteStatus, :email, :inviteePosition)');
+    $inviteQuery = $pdo->prepare('INSERT INTO invitations(company_id, code, invite_date, status, email, invitee_position) VALUES (:companyId, :code, :inviteDate, :inviteStatus, :email, :inviteePosition)');
     $queryData = [
         ':companyId' => $idc,
-        ':inviteeName' => $inviteeName,
         ':code' => $code,
         ':inviteDate' => date("Y-m-d H:i:s"),
         ':inviteStatus' => 0,
@@ -64,7 +63,7 @@ function readInvite($inviteId)
     if (!$authorized) {
         return false;
     }
-    $readInviteQuery = $pdo->prepare('SELECT invite_id, company_id, invitee_name, code, invite_date, status, email, invitee_position FROM invitations WHERE invite_id=:inviteId');
+    $readInviteQuery = $pdo->prepare('SELECT invite_id, company_id, code, invite_date, status, email, invitee_position FROM invitations WHERE invite_id=:inviteId');
     $readInviteQuery->execute(array(':inviteId' => $inviteId));
     $result = $readInviteQuery->fetch(PDO::FETCH_ASSOC);
     return $result;
@@ -72,7 +71,7 @@ function readInvite($inviteId)
 function readInviteByCode($code)
 {
     global $pdo;
-    $readInviteQuery = $pdo->prepare('SELECT i.invite_id, i.company_id, i.invitee_name, i.code, i.invite_date, i.status, i.email, i.invitee_position, c.idcompany AS company_name FROM invitations i LEFT JOIN company c ON i.company_id=c.id WHERE code=:code');
+    $readInviteQuery = $pdo->prepare('SELECT i.invite_id, i.company_id, i.code, i.invite_date, i.status, i.email, i.invitee_position, c.idcompany AS company_name FROM invitations i LEFT JOIN company c ON i.company_id=c.id WHERE code=:code');
     $readInviteQuery->execute(array(':code' => $code));
     $result = $readInviteQuery->fetch(PDO::FETCH_ASSOC);
     return $result;

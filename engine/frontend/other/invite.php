@@ -2,7 +2,6 @@
     <?php if (count($invites)): ?>
     <thead>
     <tr>
-        <th>Имя</th>
         <th>Ссылка</th>
         <th>Позиция</th>
         <th>Дата отправки</th>
@@ -14,11 +13,10 @@
     <tbody id="body-invites-table">
     <?php foreach ($invites as $invite): ?>
         <tr>
-            <td><?= $invite['invitee_name'] ?></td>
             <td><?= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?></td>
             <td><?= $invite['invitee_position'] ?></td>
             <td><?= $invite['invite_date'] ?></td>
-            <td><?= $invite['invitee_name'] ?></td>
+            <td><?= $invite['email'] ?></td>
             <td><?= $invite['status'] ?></td>
             <td><a href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>">Отменить</a></td>
         </tr>
@@ -133,15 +131,13 @@
                         if (data) {
                             var invite = JSON.parse(data);
                             var inviteRow = "<tr><td>";
-                            inviteRow += invite['invitee_name'];
-                            inviteRow += "</td><td>";
                             inviteRow += window.location.hostname.toString() + '/join/' + invite['code'] + '/';
                             inviteRow += "</td><td>";
                             inviteRow += invite['invitee_position'];
                             inviteRow += "</td><td>";
                             inviteRow += invite['invite_date'];
                             inviteRow += "</td><td>";
-                            inviteRow += invite['invitee_name'];
+                            inviteRow += invite['email'];
                             inviteRow += "</td><td>";
                             inviteRow += invite['status'];
                             inviteRow += "<td><a href=\"#\" class=\"invite-cancel\" data-invite-id=\"";
