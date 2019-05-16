@@ -85,6 +85,10 @@ if (isset($_GET['activate']) && isset($_GET['code']))
 {
     inc('other', 'activate');
 }
+if (isset($_GET['join']))
+{
+    inc('other', 'join');
+}
 
 function isUploadsTableExists()
 {

@@ -69,3 +69,18 @@ function readInvite($inviteId)
     $result = $readInviteQuery->fetch(PDO::FETCH_ASSOC);
     return $result;
 }
+function readInviteByCode($code)
+{
+    global $pdo;
+    $readInviteQuery = $pdo->prepare('SELECT i.invite_id, i.company_id, i.invitee_name, i.code, i.invite_date, i.status, i.email, i.invitee_position, c.idcompany AS company_name FROM invitations i LEFT JOIN company c ON i.company_id=c.id WHERE code=:code');
+    $readInviteQuery->execute(array(':code' => $code));
+    $result = $readInviteQuery->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function updateInvite($inviteId, $newUserId)
+{
+    global $pdo;
+    $updateInviteQuery = $pdo->prepare('UPDATE invitations SET status=:newUserId WHERE invite_id=:inviteId');
+    $updateInviteQuery->execute(array('newUserId' => $newUserId, 'inviteId' => $inviteId));
+}

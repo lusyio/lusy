@@ -6,17 +6,14 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
 
     require_once 'engine/backend/functions/common-functions.php';
 
-    if ($_POST['ajax'] == 'restore-password') {
-        if (isset($_POST['email'])) {
-            $userLanguage = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-            $russianSpeakerCodes = ['ru', 'be', 'uk'];
-            if (in_array($userLanguage, $russianSpeakerCodes)) {
-                $idc = 'ru';
-            } else {
-                $idc = 'en';
-            }
+    if ($_POST['ajax'] == 'restore-password' || $_POST['ajax'] == 'reg') {
+
+        $userLanguage = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        $russianSpeakerCodes = ['ru', 'be', 'uk'];
+        if (in_array($userLanguage, $russianSpeakerCodes)) {
+            $langc = 'ru';
         } else {
-            echo 'empty';
+            $langc = 'en';
         }
 
     } else {

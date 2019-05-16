@@ -15,7 +15,7 @@
     <?php foreach ($invites as $invite): ?>
         <tr>
             <td><?= $invite['invitee_name'] ?></td>
-            <td><?= $_SERVER['HTTP_HOST'] . '/i/' . $invite['code'] . '/'; ?></td>
+            <td><?= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?></td>
             <td><?= $invite['invitee_position'] ?></td>
             <td><?= $invite['invite_date'] ?></td>
             <td><?= $invite['invitee_name'] ?></td>
@@ -94,7 +94,7 @@
                             var inviteRow = "<tr><td>";
                             inviteRow += invite['invitee_name'];
                             inviteRow += "</td><td>";
-                            inviteRow += window.location.hostname.toString() + '/i/' + invite['code'] + '/';
+                            inviteRow += window.location.hostname.toString() + '/join/' + invite['code'] + '/';
                             inviteRow += "</td><td>";
                             inviteRow += invite['invitee_position'];
                             inviteRow += "</td><td>";

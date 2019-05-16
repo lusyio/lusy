@@ -80,6 +80,8 @@ require_once 'engine/backend/functions/common-functions.php';
 
         } else if (preg_match('~^activate~', $url)) {
 
+        } else if (preg_match('~^join~', $url)) {
+
         } else if (in_array($url, $pages)) {
 	        if ($url == 'reg') {
 

@@ -1,0 +1,14 @@
+<?php
+
+require_once 'engine/backend/functions/reg-functions.php';
+require_once 'engine/backend/functions/invite-functions.php';
+
+$code = filter_var($_GET['join'], FILTER_SANITIZE_STRING);
+
+$inviteData = readInviteByCode($code);
+if (!$inviteData || $inviteData['status']) {
+    die("Invite doesnt't exist or expired");
+}
+$email = $inviteData['email'];
+$companyName = $inviteData['company_name'];
+

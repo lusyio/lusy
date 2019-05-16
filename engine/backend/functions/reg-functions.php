@@ -28,6 +28,7 @@ function addUser($login, $password, $email, $companyId, $position)
         ':role' => $position,
     ];
     $addUserQuery->execute($queryData);
+    return $pdo->lastInsertId();
 }
 
 function addCompany($companyName, $companyLanguage)
