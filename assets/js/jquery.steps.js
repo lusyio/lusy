@@ -2006,7 +2006,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Finish"
          * @for defaults
          **/
-        finish: "Отправить",
+        finish: "Зарегистрироваться",
 
         /**
          * Label for the next button.

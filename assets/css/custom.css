@@ -680,6 +680,16 @@ input:checked[type="checkbox"]::before {
     border-radius: 5px;
 }
 
+.edit-profile{
+    font-size: 15px;
+    color: #e3e5e9;
+    margin-left: 1%;
+}
+
+.edit-profile:hover{
+    color: #5d95db;
+}
+
 .add-coworker{
     font-size: 15px;
     color: #e3e5e9;
@@ -1207,6 +1217,37 @@ label.error{
     background: #fbe3e4 !important;
 }
 
+.text-reg{
+    font-size: 22px;
+    line-height: 1.55;
+    font-weight: 200;
+    color: #000;
+}
+
+.text-muted-reg{
+    color: #6c757da6!important;
+}
+
+.icon-invite{
+    color: rgba(198, 199, 200, 0.69);
+}
+.icon-invite:hover{
+    color: #5d95db;
+}
+
+.icon-company{
+    vertical-align: -webkit-baseline-middle;
+    color: rgba(198, 199, 200, 0.69);
+}
+
+.icon-company:hover{
+    color: #5d95db;
+}
+
+.invite-send:hover{
+    background-color: #5d95db;
+}
+
 
 
 /*
@@ -1265,9 +1306,13 @@ label.error{
 
 .wizard > .steps
 {
-    position: relative;
+    position: absolute;
     display: block;
-    width: 100%;
+    width: 30%;
+    bottom: 0;
+    z-index: 2;
+    margin-left: 32%;
+
 }
 
 .wizard.vertical > .steps
@@ -1275,6 +1320,7 @@ label.error{
     display: inline;
     float: left;
     width: 30%;
+
 }
 
 .wizard > .steps .number
@@ -1323,6 +1369,14 @@ label.error{
     cursor: default;
 }
 
+#regForm-t-0{
+    height: 8px;
+}
+
+#regForm-t-1{
+    height: 8px;
+}
+
 .wizard > .steps .current a,
 .wizard > .steps .current a:hover,
 .wizard > .steps .current a:active
@@ -1350,10 +1404,10 @@ label.error{
 
 .wizard > .content
 {
-    background: #eee;
+    background: #f8f9fa;
     display: block;
     margin: 0.5em;
-    min-height: 30em;
+    min-height: 15em;
     overflow: hidden;
     position: relative;
     width: auto;
@@ -1410,7 +1464,7 @@ label.error{
 
 .wizard > .content > .body input.error
 {
-    background: rgb(251, 227, 228);
+    /*background: rgb(251, 227, 228);*/
     border: 1px solid #fbc2c4;
     color: #8a1f11;
 }
@@ -1430,9 +1484,10 @@ label.error{
 
 .wizard > .actions
 {
+    padding: 2.5%;
     position: relative;
     display: block;
-    text-align: right;
+    text-align: center;
     width: 100%;
 }
 
@@ -1479,6 +1534,7 @@ label.error{
 .wizard > .actions .disabled a:hover,
 .wizard > .actions .disabled a:active
 {
+    display: none;
     background: #eee;
     color: #aaa;
 }
