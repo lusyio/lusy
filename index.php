@@ -613,6 +613,28 @@ if (!isInvitationsTableExists()) {
     $sql = $pdo->prepare($query);
     $sql->execute();
 }
+allToNullAndTextInUsersTable();
+
+function allToNullAndTextInUsersTable()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] != 'id' && $column['Type'] != 'text') {
+            $changeToTextQuery = $pdo->prepare('alter table users modify ' . $column['Field'] . ' text');
+            $changeToTextQuery->execute();
+        }
+        if ($column['Field'] != 'id' && $column['Null'] == 'NO') {
+            $changeToNotNullQuery = $pdo->prepare('alter table users modify ' . $column['Field'] . ' text null');
+            $changeToNotNullQuery->execute();
+        }
+
+    }
+    return false;
+}
 
 //connection to comet-server
 

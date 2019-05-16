@@ -22,27 +22,7 @@ if (isset($_POST['invitee-name']) && $_POST['position']) {
     createInvite($inviteeName, $inviteeMail, $inviteePosition);
 }
 
-function createInvite($inviteeName, $inviteeMail, $inviteePosition)
-{
-    global $pdo;
-    global $idc;
-    $possiblePositions = ['admin', 'worker'];
-    if (!in_array($inviteePosition, $possiblePositions)) {
-        return;
-    }
-    $code = str_shuffle(md5(time()));
-    $inviteQuery = $pdo->prepare('INSERT INTO invitations(company_id, invitee_name, code, invite_date, status, email, invitee_position) VALUES (:companyId, :inviteeName, :code, :inviteDate, :inviteStatus, :email, :inviteePosition)');
-    $queryData = [
-        ':companyId' => $idc,
-        ':inviteeName' => $inviteeName,
-        ':code' => $code,
-        ':inviteDate' => date("Y-m-d H:i:s"),
-        ':inviteStatus' => 1,
-        ':email' => $inviteeMail,
-        ':inviteePosition' => $inviteePosition,
-    ];
-    $inviteQuery->execute($queryData);
-}
+
 
 $invitesQuery = $pdo->prepare('SELECT invite_id, invitee_name, code, invite_date, status, email, invitee_position FROM invitations WHERE company_id=:companyId');
 $invitesQuery->execute(array(':companyId' => $idc));
