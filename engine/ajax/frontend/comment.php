@@ -13,14 +13,14 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
     $commentViewStatusTitleManager = 'Не просмотрено';
 }
 ?>
-<div class="<?= $commentClass[$commentStatus] ?> <?= ($isNew) ? 'bg-success' : '' ?>" id="<?= $c['id'] ?>">
+<div class="<?= $commentClass[$commentStatus] ?> <?= ($isNew) ? 'bg-success' : '' ?> mb-3" id="<?= $c['id'] ?>">
     <div class="row">
         <div class="col-1">
             <img src="/upload/avatar/<?= $c['iduser'] ?>.jpg" class="avatar mt-1">
         </div>
         <div class="col-11">
             <div class="position-relative">
-				<span class="date">
+				<span class="date text-secondary">
 					<?= $dc ?>
                     <?php if ($isDeletable && $id == $c['iduser'] && $c['status'] == 'comment'): ?>
                         <button type="button" value="#<?= $c['id'] ?>"

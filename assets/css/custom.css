@@ -801,12 +801,30 @@ input:checked[type="checkbox"]::before {
     color: #898989;
 }
 
-.system-text{
-    font-size: 15px;
-    background-color: #e3e5e9;
-    border-radius: 10px;
+.system {
+    font-size: 14px;
+    z-index: 1;
 }
-
+.system:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    top: 50%;
+    width: 100%;
+    z-index: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+.system-text {
+	z-index: 2;
+	position: relative;
+}
+.system-text span {
+	background: white;
+	padding: 0% 5%;
+}
 .my-message{
     border-radius: 10px;
     padding: 1rem;
@@ -953,9 +971,6 @@ a {
     font-style: italic;
     font-weight: 100;
     font-size: 14px;
-}
-#task .comment p {
-	padding-left: 50px;
 }
 #task .comment button {
     position: absolute;

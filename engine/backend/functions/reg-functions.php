@@ -11,7 +11,16 @@ function getUserLanguage() {
     return $companyLanguage;
 }
 
-function addUser($login, $password, $email, $companyId, $position)
+/**
+ * @param $email e-mail as a login
+ * @param $password
+ * @param $companyId
+ * @param $position 'ceo', 'admin' or 'worker'
+ * @param string $name (optional)
+ * @param string $surname (optional)
+ * @return string ID of created user
+ */
+function addUser($email, $password, $companyId, $position, $name = '', $surname = '')
 {
     global $pdo;
     $possiblePositions = ['ceo', 'admin', 'worker'];
@@ -19,15 +28,17 @@ function addUser($login, $password, $email, $companyId, $position)
     {
         $position = 'worker';
     }
-    $addUserQuery = $pdo->prepare('INSERT INTO users(login, email, password, idcompany, role) VALUES (:login, :email, :password, :companyId, :role)');
+    $addUserQuery = $pdo->prepare('INSERT INTO users(email, password, idcompany, role, name, surname) VALUES (:email, :password, :companyId, :role, :name, :surname)');
     $queryData = [
-        ':login' => mb_strtolower($login),
         ':email' => mb_strtolower($email),
         ':password' => password_hash($password, PASSWORD_DEFAULT),
         ':companyId' => $companyId,
         ':role' => $position,
+        ':name' => $name,
+        ':surname' => $surname,
     ];
     $addUserQuery->execute($queryData);
+    return $pdo->lastInsertId();
 }
 
 function addCompany($companyName, $companyLanguage)

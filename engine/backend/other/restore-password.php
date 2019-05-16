@@ -11,7 +11,7 @@ if (isset($_GET['restore']) && isset($_GET['code']) && isset($_POST['password'])
         $removeRestoreCodeQuery = $pdo->prepare('DELETE FROM password_restore WHERE user_id=:userId AND code=:code');
         $removeRestoreCodeQuery->execute(array(':userId' => $restoredId, ':code' => $restoredCode));
         if ($result) {
-            $_SESSION['login'] = DBOnce('login', 'users', 'id=' . $restoredId);
+            $_SESSION['login'] = DBOnce('email', 'users', 'id=' . $restoredId);
             $_SESSION['password'] = $newPassword;
             $idc = DBOnce('idcompany', 'users', 'id=' . $restoredId);
             $_SESSION['idcompany'] = DBOnce('idcompany', 'company', 'id=' . $idc);

@@ -85,6 +85,10 @@ if (isset($_GET['activate']) && isset($_GET['code']))
 {
     inc('other', 'activate');
 }
+if (isset($_GET['join']))
+{
+    inc('other', 'join');
+}
 
 function isUploadsTableExists()
 {
@@ -632,6 +636,29 @@ function allToNullAndTextInUsersTable()
             $changeToNotNullQuery->execute();
         }
 
+    }
+    return false;
+}
+
+if (isInviteeNameColumnInInvitationsExists())
+{
+    global $pdo;
+    $sql = 'alter table invitations drop column invitee_name';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
+function isInviteeNameColumnInInvitationsExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `invitations`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'invitee_name') {
+            return true;
+        }
     }
     return false;
 }
