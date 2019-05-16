@@ -13,7 +13,7 @@
 						<p class="text-secondary"><i class="fas fa-envelope mr-3"></i> <?=$email?></p>
 					</div>
                     <div class="col-1">
-                        <i id="editProfile" class="fas fa-pencil-alt edit-profile"></i>
+                        <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
                     </div>
 				</div>
 			</div>

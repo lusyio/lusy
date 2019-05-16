@@ -1246,6 +1246,29 @@ label.error{
 
 .invite-send:hover{
     background-color: #5d95db;
+    border-color: #5d95db;
+}
+.invite-send{
+    border-color: #5d95db;
+}
+
+.edit-profileimage{
+    position: absolute;
+    background-color: #ffa87f;
+    border-radius: 100%;
+    padding: 6px;
+    color: white;
+    top: 70%;
+    right: 16%;
+}
+
+.edit-profileimage:hover{
+    background-color: #464646;
+}
+
+.image-profile{
+    width: 190px;
+    box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
 }
 
 
