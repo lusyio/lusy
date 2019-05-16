@@ -7,11 +7,14 @@
 					<div class="col-3">
 						<?=userpic($_GET["profile"])?>
 					</div>
-					<div class="col-9">
+					<div class="col-8">
 						<h3 class="mb-3"><?=$fio?></h3>
 						<p class="text-secondary"><i class="fas fa-phone mr-3"></i> <?=$phone?></p>
 						<p class="text-secondary"><i class="fas fa-envelope mr-3"></i> <?=$email?></p>
 					</div>
+                    <div class="col-1">
+                        <i id="editProfile" class="fas fa-pencil-alt edit-profile"></i>
+                    </div>
 				</div>
 			</div>
 		</div>

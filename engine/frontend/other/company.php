@@ -1,7 +1,15 @@
 <div class="card mb-3">
-	<div class="card-body text-center">
-		<h2 class="text-uppercase font-weight-bold"><?=$namecompany?></h2>
-	</div>
+    <div class="card-body text-center">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-uppercase font-weight-bold"><?=$namecompany?></h2>
+            </div>
+            <div class="col-1">
+                <a href="/invite/"><i class="fas fa-user-plus icon-company"></i></a>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div class="card">
 <?php $i=0; foreach ($sql as $n) { $i++;  ?>

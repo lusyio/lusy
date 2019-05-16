@@ -75,7 +75,7 @@
             <!-- Link -->
             <div class="text-center">
               <small class="text-muted text-center">
-                Еще не зарегистрированы? <a href="/reg.php">Регистрация</a>.
+                Еще не зарегистрированы? <a href="/reg/">Регистрация</a>.
               </small>
             </div>
 

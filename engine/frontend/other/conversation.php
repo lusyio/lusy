@@ -110,6 +110,21 @@
             });
         }
 
+        $(window).resize(function(){
+            var small_height = 250;
+            var medium_height = 350;
+            var big_height = 550;
+
+            if($(window).height() < 600 )
+            {
+                $('#chatBox').height(small_height);
+            }
+            else
+            {
+                $('#chatBox').height(medium_height);
+            }
+        });
+
         $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
 
         $("#sendFiles").on('click', function () {
