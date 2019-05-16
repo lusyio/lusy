@@ -16,21 +16,20 @@
             console.log('clicked');
             e.preventDefault();
             var inviteCode = $('#invite-code').val();
-            var inviteeLogin = $('#invitee-login').val();
+            var inviteeMail = $('#invitee-mail').val();
             var inviteeName = $('#invitee-name').val();
             var inviteeSurname = $('#invitee-surname').val();
             var inviteePassword = $('#invitee-password').val();
-            var inviteeMail = $('#invitee-mail').val();
-            if (inviteeLogin && inviteeName && inviteeSurname && inviteeMail && inviteePassword) {
+            if (inviteeMail && inviteeName && inviteeSurname && inviteePassword) {
                 var fd = new FormData();
                 fd.append('usp', '3456');
                 fd.append('ajax', 'reg');
                 fd.append('module', 'joinUser');
                 fd.append('inviteCode', inviteCode);
+                fd.append('inviteeMail', inviteeMail);
                 fd.append('inviteeName', inviteeName);
                 fd.append('inviteeSurname', inviteeSurname);
                 fd.append('inviteePassword', inviteePassword);
-                fd.append('inviteeMail', inviteeMail);
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -40,7 +39,7 @@
                     data: fd,
                     success: function (data) {
                         console.log(data);
-                        //location.href = '/';
+                        location.href = '/../login/';
                     }
                 })
             }

@@ -20,10 +20,9 @@
 // формируем массив $main, в котором содержится основная информация
 $id = $_SESSION['id'];
 // 1. Подключаемся в таблицу users
-$sql = DB('login, email, name, surname, idcompany, role','users','id='.$id);
+$sql = DB('email, name, surname, idcompany, role','users','id='.$id);
 
 foreach ($sql as $main) {
-	$loginu = $main['login']; // логин пользователя
 	$emailu = $main['email']; // email пользователя
 	$nameu = $main['name']; // имя пользователя
 	$surnameu = $main['surname']; // фамилия пользователя
@@ -38,7 +37,7 @@ foreach ($sql as $main) {
 	$langc = $main['lang']; // язык компании
 	$premium = $main['premium']; // оплачен ли премиум доступ
 }
-$proverka = ['login' => $loginu,'email'=>$emailu,'name'=>$nameu,'surname'=>$surnameu];
+$proverka = ['email'=>$emailu,'name'=>$nameu,'surname'=>$surnameu];
 
 
 // проверяем, заполнены ли все поля
