@@ -1,6 +1,6 @@
   <div class="container">
       <div class="row justify-content-center">
-        <div class="col-12 col-md-5 col-xl-4 my-5">
+        <div class="col-12 col-md-5 col-xl-4 my-5 text">
           
           <!-- Heading -->
           <h1 class="display-4 text-center mb-3">
@@ -24,7 +24,7 @@
               </label>
 
               <!-- Input -->
-              <input type="text" name="login" class="form-control" placeholder="login" value="richbee">
+              <input type="text" name="login" class="form-control" placeholder="e-mail" value="mr-kelevras@yandex.ru">
 
             </div>
 
@@ -53,19 +53,6 @@
             </div>
             
             <hr>
-            
-            <!-- Name System -->
-            <div class="form-group">
-
-              <!-- Label -->
-              <label>
-                Идентификатор компании
-              </label>
-
-              <!-- Input -->
-              <input type="text" name="idcompany" class="form-control" placeholder="login" value="demo">
-
-            </div>
 
             <!-- Submit -->
             <button class="btn btn-lg btn-block btn-primary mb-3">

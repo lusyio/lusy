@@ -25,32 +25,29 @@ if (!empty($_COOKIE['token'])) {
     ob_end_flush();
     die();
 } else {
-    if (!empty($_POST['login']) and !empty($_POST['password']) and !empty($_POST['idcompany'])) {
+    if (!empty($_POST['login']) and !empty($_POST['password'])) {
 
         $login = filter_var($_POST['login'], FILTER_SANITIZE_STRING);
         $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-        $idcompany = filter_var($_POST['idcompany'], FILTER_SANITIZE_STRING);
 
-    } elseif (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['idcompany'])) {
+    } elseif (isset($_SESSION['login']) && isset($_SESSION['password'])) {
         $login = $_SESSION['login'];
         $password = $_SESSION['password'];
-        $idcompany = $_SESSION['idcompany'];
         unset($_SESSION['login']);
         unset($_SESSION['password']);
-        unset($_SESSION['idcompany']);
     }
-    if (isset($login) && isset($password) && isset($idcompany)) {
-        $idc = DBOnce('id', 'company', 'idcompany="' . $idcompany . '"');
+    if (isset($login) && isset($password)) {
+        $idc = DBOnce('idcompany', 'users', 'email="' . mb_strtolower($login) . '"');
         $timestamp = time();
         if (!empty($idc)) {
-            $id = DBOnce('id', 'users', 'login="' . $login . '" and idcompany= "' . $idc . '"');
-            $hash = DBOnce('password', 'users', 'login="' . $login . '" and idcompany= "' . $idc . '"');
+            $id = DBOnce('id', 'users', 'email="' . mb_strtolower($login) . '"');
+            $hash = DBOnce('password', 'users', 'email="' . mb_strtolower($login) . '"');
             if (!empty($id)) {
                 // Проверяем соответствие хеша из базы введенному паролю
                 if (password_verify($password, $hash)) {
                     $_SESSION['auth'] = true;
                     $_SESSION['id'] = $id;
-                    $_SESSION['idcompany'] = $idc;
+                    $_SESSION['idcompany'] = DBOnce('idcompany', 'users', 'email="' . mb_strtolower($login) . '"');
 
                     removeExcessiveSessionsIfExists($id);
                     $sessionId = createSession($id, $timestamp);

@@ -2,11 +2,10 @@
     <h1>Приглашение в компанию <?= $companyName; ?></h1>
     <form id="join-form" method="post" action="">
         <input type="text" id="invite-code" hidden value="<?= $code; ?>">
-        <input type="text" id="invitee-login" class="form-control" placeholder="login">
+        <input type="text" id="invitee-mail" class="form-control" placeholder="email" value="<?= $email; ?>">
         <input type="text" id="invitee-name" class="form-control" placeholder="name">
         <input type="text" id="invitee-surname" class="form-control" placeholder="surname">
         <input type="text" id="invitee-password" class="form-control" placeholder="password">
-        <input type="text" id="invitee-mail" class="form-control" placeholder="email" value="<?= $email; ?>">
         <input type="submit" class="btn btn-primary" value="Зарегистрироваться">
     </form>
 </div>
@@ -28,7 +27,6 @@
                 fd.append('ajax', 'reg');
                 fd.append('module', 'joinUser');
                 fd.append('inviteCode', inviteCode);
-                fd.append('inviteeLogin', inviteeLogin);
                 fd.append('inviteeName', inviteeName);
                 fd.append('inviteeSurname', inviteeSurname);
                 fd.append('inviteePassword', inviteePassword);
