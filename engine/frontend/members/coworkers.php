@@ -11,9 +11,11 @@
                     }
                     ?>
                     <div class="add-worker mr-1 mb-1">
-                        <img title="<?= $viewStatusTitle ?>" src="/upload/avatar/<?=$coworker['worker_id']?>.jpg" class="avatar-added mr-1">
-                        <a href="#" class="card-coworker"><?=$coworker['name']?> <?=$coworker['surname']?></a>
-                        <span><i value="<?=$coworker['worker_id']?>" class="deleteWorker fas fa-times cancel card-coworker-delete"></i></span>
+                        <img title="<?= $viewStatusTitle ?>" src="/upload/avatar/<?= $coworker['worker_id'] ?>.jpg"
+                             class="avatar-added mr-1">
+                        <a href="#" class="card-coworker"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></a>
+                        <span><i value="<?= $coworker['worker_id'] ?>"
+                                 class="deleteWorker fas fa-times cancel card-coworker-delete"></i></span>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -24,10 +26,10 @@
                 foreach ($users as $n) { ?>
                     <div class="row">
                         <div class="col-1">
-                            <img src="/upload/avatar/<?=$n['id']?>.jpg" class="avatar-added mr-1">
+                            <img src="/upload/avatar/<?= $n['id'] ?>.jpg" class="avatar-added mr-1">
                         </div>
                         <div class="col">
-                            <p class="mb-1 add-coworker-text" ><?php echo $n['name'] . ' ' . $n['surname'] ?></p>
+                            <p class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></p>
                         </div>
                         <div class="col-2">
                             <i value="<?php echo $n['id'] ?>" class="fas fa-plus add-coworker addNewWorker"></i>
