@@ -2,6 +2,7 @@
 global $pdo;
 global $datetime;
 global $cometHash;
+global $cometTrackChannelName;
 
 $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 $id = $GLOBALS["id"];
