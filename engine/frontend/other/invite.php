@@ -17,8 +17,13 @@
             <td><?= $invite['invitee_position'] ?></td>
             <td><?= $invite['invite_date'] ?></td>
             <td><?= $invite['email'] ?></td>
-            <td><?= $invite['status'] ?></td>
-            <td><a href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>">Отменить</a></td>
+            <?php if ($invite['status']): ?>
+                <td><a href="/../profile/<?= $invite['status']; ?>">Зарегистрирован</a></td>
+                <td></td>
+            <?php else: ?>
+                <td>Отправлено</td>
+                <td><a href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>">Отменить</a></td>
+            <?php endif; ?>
         </tr>
     <?php
     endforeach;
@@ -68,7 +73,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <?= $invite['invitee_name'] ?>
+                        <?php /*echo $invite['invitee_name']*/ ?>
                     </div>
                     <div class="col-5">
                         <?= $invite['status'] ?>
@@ -110,10 +115,9 @@ endif;
 
         $('#create-invite').on('submit', function (e) {
             e.preventDefault();
-            var inviteeName = $('#invitee-name').val();
             var inviteeMail = $('#invitee-mail').val();
             var inviteePosition = $('#invitee-position').val();
-            if (inviteeName && inviteeMail && inviteePosition) {
+            if (inviteeMail && inviteePosition) {
                 $('#btn-restore').prop('disabled', true);
                 $('#spinner-restore').removeClass('d-none');
 
@@ -121,7 +125,6 @@ endif;
                 fd.append('usp', $usp);
                 fd.append('ajax', 'invite');
                 fd.append('module', 'createInvite');
-                fd.append('invitee-name', inviteeName);
                 fd.append('invitee-mail', inviteeMail);
                 fd.append('invitee-position', inviteePosition);
                 $.ajax({
@@ -144,7 +147,7 @@ endif;
                             inviteRow += "</td><td>";
                             inviteRow += invite['email'];
                             inviteRow += "</td><td>";
-                            inviteRow += invite['status'];
+                            inviteRow += "Отправлено";
                             inviteRow += "<td><a href=\"#\" class=\"invite-cancel\" data-invite-id=\"";
                             inviteRow += invite['invitee_id'];
                             inviteRow += "\">Отменить</a></td><tr>";
