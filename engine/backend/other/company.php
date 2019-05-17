@@ -2,6 +2,8 @@
 global $idc;
 global $id;
 global $cometHash;
+global $cometTrackChannelName;
+
 $namecompany = DBOnce('idcompany','company','id='.$idc);
 $sql = DB('*','users','idcompany='.$idc.' and role="worker" order by points desc');
 function userpic($id) {

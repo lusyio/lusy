@@ -56,3 +56,11 @@ function authorizeComet($id)
     $cometSql->execute(array(':id' => $id, ':hash' => $hash));
     return $hash;
 }
+
+function getCometTrackChannelName()
+{
+    global $idc;
+    $saltIdc = md5('someSalt' . $idc);
+    $channelName = 'track_online_' . $saltIdc;
+    return $channelName;
+}

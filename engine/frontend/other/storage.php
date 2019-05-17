@@ -63,6 +63,8 @@ include 'engine/frontend/other/searchbarfile.php';
 $(document).ready(function() {
     cometApi.start({dev_id: 2553, user_id:<?=$id?>, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
     subscribeToMessagesNotification();
+    subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
+
 
     $("#searchFile").on("keyup", function () {
         var value = $(this).val();

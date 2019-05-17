@@ -2,6 +2,8 @@
 
 global $id;
 global $cometHash;
+global $cometTrackChannelName;
+
 
 require_once 'engine/backend/functions/storage-functions.php';
 

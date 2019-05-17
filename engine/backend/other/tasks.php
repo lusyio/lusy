@@ -1,10 +1,13 @@
 <?php
+require_once 'engine/backend/functions/tasks-functions.php';
+
 global $id;
 global $idc;
 global $pdo;
 global $cometHash;
+global $cometTrackChannelName;
 
-require_once 'engine/backend/functions/tasks-functions.php';
+$cometTrackChannelName = getCometTrackChannelName();
 
 $otbor = '(worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ') and status!="done"';
 $usedStatuses = DB('DISTINCT `status`', 'tasks', $otbor);

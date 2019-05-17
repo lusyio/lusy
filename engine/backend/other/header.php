@@ -46,6 +46,7 @@ require_once 'engine/backend/functions/common-functions.php';
         }
 
         include 'engine/backend/main/main.php';
+        $cometTrackChannelName = getCometTrackChannelName();
 			if (!empty($_GET['task']) or !empty($_GET['tasks'])) {
 				$title = 'Задача';
 			}

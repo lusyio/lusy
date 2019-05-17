@@ -18,10 +18,12 @@
         </div>
     </div>
     <div class="list-group">
-        <?php foreach ($dialog as $n) {
-            $newMessages = numberOfNewMessages($n);?>
+        <?php
+        foreach ($dialog as $n) {
+            $newMessages = numberOfNewMessages($n);
+            $isOnline = in_array($n, $onlineUsersList)?>
             <a href="./<?= $n ?>/" class="list-group-item list-group-item-action border-0">
-                <p class="font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= fiomess($n) ?><?= ($newMessages) ? ' +'.$newMessages : ''; ?></p>
+                <p class="font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= fiomess($n) ?><?= ($newMessages) ? ' +'.$newMessages : ''; ?> <span id="dialog-<?= $n ?>" class="badge badge-success <?= ($isOnline)? '' : 'd-none' ?>">Online</span></p>
                 <p><?= lastmess($n) ?></p>
             </a>
         <?php } ?>
@@ -32,6 +34,7 @@
     $(document).ready(function () {
         cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
         subscribeToMessagesNotification();
+        subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
     });
 </script>
 

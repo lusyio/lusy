@@ -41,6 +41,7 @@
     var $recipientId = <?= $recipientId ?>;
     var $userId = <?=$id?>;
     $(document).ready(function () {
+        subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
         var numberToSubtract = $('#chatBox .alert-primary').length;
         console.log(numberToSubtract);
         var messagesCount = $('#messagesCount').text();

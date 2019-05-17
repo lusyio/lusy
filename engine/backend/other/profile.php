@@ -2,6 +2,8 @@
 $id = $GLOBALS["id"];
 $idc = $GLOBALS["idc"];
 global $cometHash;
+global $cometTrackChannelName;
+
 if (empty($_GET['profile'])) {
 	echo "<script>document.location.href = '/profile/".$id."/'</script>";
 } else {

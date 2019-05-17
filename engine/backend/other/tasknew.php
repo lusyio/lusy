@@ -3,6 +3,8 @@
 
 global $id;
 global $cometHash;
+global $cometTrackChannelName;
+
 // функция создания задач
 // try {
 // function createTask($name,$description,$worker,$datedone) {

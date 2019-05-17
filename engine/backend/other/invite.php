@@ -3,6 +3,8 @@
 global $id;
 global $idc;
 global $pdo;
+global $cometTrackChannelName;
+
 
 // закомментил для отладки
 //if (DBOnce('role', 'users', 'id='.$id) == 'worker') {

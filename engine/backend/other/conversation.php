@@ -4,6 +4,8 @@ global $datetime;
 global $id;
 global $idc;
 global $cometHash;
+global $cometTrackChannelName;
+
 
 $recipientId = filter_var($_GET['mail'], FILTER_SANITIZE_NUMBER_INT);
 
