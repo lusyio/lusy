@@ -29,5 +29,55 @@
 			</div>
 		</div>
 	</div>
+    <div class="push-messages-area"></div>
+    <style>
+        .push-message{
+            z-index: 410;
+            padding: 10px;
+            background-color: white;
+            width: inherit;
+            height: 150px;
+            border-style: solid;
+            border-width: 1px;
+            border-color: darkgrey;
+            border-radius: 10px;
+        }
+        .push-messages-area{
+            z-index: 405;
+            position: fixed;
+            right: 0px;
+            bottom: 0px;
+            width: 300px;
+            height: auto;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            var fd = new FormData();
+            fd.append('usp', '347');
+            fd.append('module', 'checkNew');
+            fd.append('ajax', 'notification-control');
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (data) {
+                    var messages = JSON.parse(data);
+                    if (data) {
+                        while (messages.length) {
+                            $('.push-messages-area').append(messages.shift());
+                        }
+                    }
+                },
+            });
+            $('.push-messages-area').on('click', '.close-push-message', function (e) {
+                e.preventDefault();
+                $(this).parent('.push-message').remove();
+            })
+        })
+    </script>
 	<?php }
 	
