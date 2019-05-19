@@ -99,9 +99,9 @@ if($_POST['module'] == 'createTask') {
 	$description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$datedone = filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
-	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status,  manager, worker, idcompany, report, view) VALUES (:name, :description,'".$now."', :datedone, NULL, 'new', '".$id."', :worker, '".$idc."', :description, '0') ";
+	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, 'new', :author, :manager, :worker, :companyId, :description, '0') ";
 	$sql = $pdo->prepare($query);
-	$sql->execute(array('name' => $name, 'description' => $description, 'worker' => $worker, 'datedone' => $datedone));
+	$sql->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => $now, ':author' => $id, ':manager' => $id, ':worker' => $worker, ':companyId' => $idc, ':datedone' => $datedone));
 	if ($sql) {
 		$idtask = $pdo->lastInsertId();
 		if (!empty($idtask)) {

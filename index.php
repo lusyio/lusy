@@ -663,6 +663,32 @@ function isInviteeNameColumnInInvitationsExists()
     return false;
 }
 
+function isAuthorColumnExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `tasks`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'author') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (!isAuthorColumnExists())
+{
+    global $pdo;
+    $sql = 'alter table tasks add author text null;';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $sql = 'UPDATE tasks SET author = manager;';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';

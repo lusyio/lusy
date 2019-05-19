@@ -7,11 +7,12 @@ global $cometTrackChannelName;
 $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 $id = $GLOBALS["id"];
 
-$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.manager, t.worker, t.view, t.datecreate, t.datedone, 
+$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, t.view, t.datecreate, t.datedone, 
        t.datepostpone, t.report, t.view_status, u1.name AS managerName, u1.surname AS managerSurname, 
-       u2.name AS workerName, u2.surname AS workerSurname FROM tasks t 
+       u2.name AS workerName, u2.surname AS workerSurname, u3.name AS authorName, u3.surname AS authorSurname FROM tasks t 
   LEFT JOIN users u1 ON t.manager = u1.id 
   LEFT JOIN users u2 ON t.worker = u2.id 
+  LEFT JOIN users u3 ON t.author = u2.id 
   WHERE t.id = :taskId');
 $taskQuery->execute(array(':taskId' => $id_task));
 $task = $taskQuery->fetch(PDO::FETCH_ASSOC);
@@ -35,6 +36,9 @@ $nametask = $task['name'];
 $status = $task['status'];
 $description = nl2br($task['description']);
 
+$author = $task['author'];
+$authorname = $task['authorName'];
+$authorsurname = $task['authorSurname'];
 $manager = $task['manager'];
 $managername = $task['managerName'];
 $managersurname = $task['managerSurname'];
