@@ -90,12 +90,10 @@ endif;
 ?>
 <script>
     $(document).ready(function () {
-        var $usp = <?php echo $id + 345;  // айдишник юзера ?>;
         $('#invites-table').on('click', '.invite-cancel', function () {
             var el = $(this);
             var inviteId = el.data('invite-id');
             var fd = new FormData();
-            fd.append('usp', $usp);
             fd.append('ajax', 'invite');
             fd.append('module', 'deleteInvite');
             fd.append('inviteId', inviteId);
@@ -122,7 +120,6 @@ endif;
                 $('#spinner-restore').removeClass('d-none');
 
                 var fd = new FormData();
-                fd.append('usp', $usp);
                 fd.append('ajax', 'invite');
                 fd.append('module', 'createInvite');
                 fd.append('invitee-mail', inviteeMail);

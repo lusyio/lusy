@@ -36,7 +36,6 @@
     </div>
 </div>
 <script>
-    var $usp = <?php echo $id + 345;  // айдишник юзера ?>;
     var $recipientId = <?= $recipientId ?>;
     var $userId = <?=$id?>;
     $(document).ready(function () {
@@ -58,7 +57,6 @@
                 fd.append('messageId', e.data.messageId);
                 fd.append('module', 'updateMessages');
                 fd.append('ajax', 'messenger');
-                fd.append('usp', $usp);
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -172,7 +170,6 @@
             fd.append('ajax', 'messenger');
             fd.append('recipientId', '<?=$recipientId;?>');
             fd.append('mes', mes);
-            fd.append('usp', $usp);
             if (mes) {
                 $.ajax({
                     url: '/ajax.php',

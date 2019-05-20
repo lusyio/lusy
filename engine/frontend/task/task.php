@@ -223,7 +223,6 @@ if ($id == $worker and $view == 0) {
 </div>
 
 <script>
-    var $usp = <?php echo $id + 345;  // айдишник юзера ?>;
     var $it = '<?=$idtask?>';
 </script>
 <script src="/assets/js/task.js"></script>
@@ -267,7 +266,6 @@ if ($id == $worker and $view == 0) {
             $.post("/ajax.php", {
                 module: 'removeCoworker',
                 newCoworkerId: removedId,
-                usp: $usp,
                 it: $it,
                 ajax: 'task-control'
             }, controlUpdate);
@@ -289,7 +287,7 @@ if ($id == $worker and $view == 0) {
 
             $(".tooltip-avatar").prepend("<span class=\"mb-0\" title=\"<?= $viewStatusTitle ?>\"><img src=\"/upload/avatar/" + selectedId + ".jpg\" alt=\"worker image\" class=\"avatar mr-1 ml-1\"></span>");
 
-            // $.post("/ajax.php", {module: 'addCoworker', newCoworkerId: selectedId, usp: $usp, it: $it, ajax: 'task-control' }, controlUpdate);
+            // $.post("/ajax.php", {module: 'addCoworker', newCoworkerId: selectedId, it: $it, ajax: 'task-control' }, controlUpdate);
             function controlUpdate(data) {
                 console.log(selectedId);
 

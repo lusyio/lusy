@@ -109,7 +109,4 @@
           </div>
         </div>
 		</div>
-    <script>
-    var $usp = <?php echo $id + 345;  // айдишник юзера ?>; 
-    </script>
     <script src="/assets/js/createtask.js"></script>

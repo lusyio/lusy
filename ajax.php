@@ -5,6 +5,8 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
     require_once(realpath('conf.php'));
 
     require_once 'engine/backend/functions/common-functions.php';
+    require_once 'engine/backend/functions/login-functions.php';
+
 
     if ($_POST['ajax'] == 'restore-password' || $_POST['ajax'] == 'reg') {
 
@@ -17,8 +19,9 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
         }
 
     } else {
-        // вычисляем user id
-        $id = filter_var($_POST['usp'], FILTER_SANITIZE_NUMBER_INT) - 345;
+        // Получаем userId из Cookies
+        $token = $_COOKIE['token'];
+        $id = parseCookie($token)['uid'];
 
         // вычисляем id компании пользователя
         $idc = DBOnce('idcompany', 'users', 'id=' . $id);

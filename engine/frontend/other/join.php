@@ -22,7 +22,6 @@
             var inviteePassword = $('#invitee-password').val();
             if (inviteeMail && inviteeName && inviteeSurname && inviteePassword) {
                 var fd = new FormData();
-                fd.append('usp', '3456');
                 fd.append('ajax', 'reg');
                 fd.append('module', 'joinUser');
                 fd.append('inviteCode', inviteCode);

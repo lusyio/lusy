@@ -129,5 +129,4 @@ $taskStatusText = [
 	    "order": [[ 3, "asc" ]]
     });
 } );
-var $usp = <?php echo $id + 345;  // айдишник юзера ?>;
 </script>

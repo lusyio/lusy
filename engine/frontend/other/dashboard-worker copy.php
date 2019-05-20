@@ -81,5 +81,5 @@
 		</div>
 	</div>
 </div>
-<script>var $a = <?php $id = $GLOBALS["id"]; echo DBOnce('id','log','recipient = "'.$id.'" order by datetime desc'); // какой последний id  в логе мы видим сейчас ?>; var $usp = <?php echo $id + 345;  // айдишник юзера ?>;</script>
+<script>var $a = <?php $id = $GLOBALS["id"]; echo DBOnce('id','log','recipient = "'.$id.'" order by datetime desc'); // какой последний id  в логе мы видим сейчас ?>;</script>
 <script src="/assets/js/dash-work.js"></script>

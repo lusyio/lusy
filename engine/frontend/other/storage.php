@@ -78,7 +78,7 @@ $(document).ready(function() {
     $(".deleteFile").on('click', function () {
         var fileId = $(this).attr('val');
         var file = $(this).parents(".files");
-        $.post("/ajax.php", {module: 'deleteFile', fileId: fileId, usp: $usp, ajax: 'storage' },controlUpdate);
+        $.post("/ajax.php", {module: 'deleteFile', fileId: fileId, ajax: 'storage' },controlUpdate);
         function controlUpdate(data){
             if(data) {
                 alert(data);
@@ -90,5 +90,4 @@ $(document).ready(function() {
     })
 
 } );
-var $usp = <?php echo $id + 345;  // айдишник юзера ?>;
 </script>

@@ -15,21 +15,21 @@ function LogUp() {
 
 
 function loadLog() {
-	$.post("/ajax.php", {usp: $usp, ajax: 'log' },loadLogSuccess);
+	$.post("/ajax.php", {ajax: 'log' },loadLogSuccess);
 	function loadLogSuccess(data) {
 		$('.timeline').html(data).fadeIn();
 	}
 }
 
 function loadTaskTotal() {
-	$.post("/ajax.php", {usp: $usp, ajax: 'task-total' },loadTaskTotal);
+	$.post("/ajax.php", {ajax: 'task-total' },loadTaskTotal);
 	function loadTaskTotal(data) {
 		$('#totaltasks').html(data).fadeIn();
 	}
 }
 
 function updateLog() {
-	$.post("/ajax.php", {usp: $usp, param1: $a, ajax: 'log-newelement' },loadElement);
+	$.post("/ajax.php", {param1: $a, ajax: 'log-newelement' },loadElement);
 	function loadElement(data) {
 		$new = data;
 		if ($a != $new) {
@@ -50,7 +50,7 @@ function updateLog() {
 }
 
 function updateNav() {
-	$.post("/ajax.php", {usp: $usp, ajax: 'nav-update' },loadTaskTotal);
+	$.post("/ajax.php", {ajax: 'nav-update' },loadTaskTotal);
 	function loadTaskTotal(data) {
 		$('#nav-tasks').html(data).fadeIn();
 	}	

@@ -15,7 +15,7 @@ $(document).ready(function(){
 	// функция загрузки комментариев
 	function updateComments() {
 		var lastVisit = getCookie($it);
-		$.post("/ajax.php", {usp: $usp, it: $it, lastVisit: lastVisit, ajax: 'task-comments' },onCommentSuccess);
+		$.post("/ajax.php", {it: $it, lastVisit: lastVisit, ajax: 'task-comments' },onCommentSuccess);
 		var currentTime = parseInt(new Date().getTime()/1000);
 
 
@@ -99,7 +99,6 @@ $(document).ready(function(){
 		fd.append('file', attachedFile);
 		fd.append('ajax', 'task-comments-new');
 		fd.append('text', text);
-		fd.append('usp', $usp);
 		fd.append('it', $it);
 		if (text) {
 			$("#comin").attr("disabled", true);
@@ -154,7 +153,6 @@ $(document).ready(function(){
 		fd.append('file', attachedFile);
 		fd.append('ajax', 'task-control');
 		fd.append('text', text);
-		fd.append('usp', $usp);
 		fd.append('it', $it);
 		if (text) {
 			$.ajax({
@@ -182,7 +180,7 @@ $(document).ready(function(){
 		var datepostpone = $("#example-date-input").val();
 		var text = $("#reportarea1").val();
 		if (text) {
-			$.post("/ajax.php", {module: 'sendpostpone', text: text, datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			$.post("/ajax.php", {module: 'sendpostpone', text: text, datepostpone: datepostpone, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 				location.reload();
@@ -196,7 +194,7 @@ $(document).ready(function(){
 	$( "#sendDate" ).click(function() {
 		var sendDate = $("#example-date-input").val();
 		if (sendDate) {
-			$.post("/ajax.php", {module: 'sendDate', sendDate: sendDate, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			$.post("/ajax.php", {module: 'sendDate', sendDate: sendDate, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
@@ -207,7 +205,7 @@ $(document).ready(function(){
 
 	// Манагер принимает дату
 	$("#confirmDate").click(function () {
-		$.post("/ajax.php", {module: 'confirmDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		$.post("/ajax.php", {module: 'confirmDate', it: $it, ajax: 'task-control' },controlUpdate);
 		function controlUpdate(data) {
 			location.reload();
 		}
@@ -215,7 +213,7 @@ $(document).ready(function(){
 
 	// Манагер отменят дату
 	$("#cancelDate").click(function () {
-		$.post("/ajax.php", {module: 'cancelDate', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		$.post("/ajax.php", {module: 'cancelDate', it: $it, ajax: 'task-control' },controlUpdate);
 		function controlUpdate(data) {
 			location.reload();
 		}
@@ -226,7 +224,7 @@ $(document).ready(function(){
 $( "#workdone" ).click(function() {
 		// var report = $("#reportarea").val();
 		// if (report) {
-			$.post("/ajax.php", {module: 'workdone', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			$.post("/ajax.php", {module: 'workdone', it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
@@ -241,7 +239,7 @@ $( "#workreturn" ).click(function() {
 		var datepostpone = $("#example-date-input").val();
 		var text = $("#reportarea").val();
 		if (text) {
-			$.post("/ajax.php", {module: 'workreturn', text: text, datepostpone: datepostpone, usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			$.post("/ajax.php", {module: 'workreturn', text: text, datepostpone: datepostpone, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
@@ -255,7 +253,7 @@ $( "#workreturn" ).click(function() {
 $( "#inwork" ).click(function() {
 		// var report = $("#reportarea").val();
 		// if (report) {
-			$.post("/ajax.php", {module: 'inwork', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+			$.post("/ajax.php", {module: 'inwork', it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
 			}
@@ -266,7 +264,7 @@ $( "#inwork" ).click(function() {
 
 	//Отмена таска
 	$( "#cancelTask" ).click(function() {
-		$.post("/ajax.php", {module: 'cancelTask', usp: $usp, it: $it, ajax: 'task-control' },controlUpdate);
+		$.post("/ajax.php", {module: 'cancelTask', it: $it, ajax: 'task-control' },controlUpdate);
 		function controlUpdate(data) {
 			location.reload();
 		}
@@ -359,7 +357,7 @@ $( "#inwork" ).click(function() {
 
 	$("#comments").on('click', '.delc', (function () {
 		$idcom = $(this).val();
-		$.post("/ajax.php", {usp: $usp, ic: $idcom, ajax: 'task-comments-del'}).done(function () {
+		$.post("/ajax.php", {ic: $idcom, ajax: 'task-comments-del'}).done(function () {
 			$($idcom).fadeOut();
 			setTimeout(function () {
 				$($idcom).remove();

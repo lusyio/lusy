@@ -59,7 +59,6 @@
             subscribeToMessagesNotification();
             subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
             var fd = new FormData();
-            fd.append('usp', '347');
             fd.append('module', 'checkNew');
             fd.append('ajax', 'notification-control');
             $.ajax({

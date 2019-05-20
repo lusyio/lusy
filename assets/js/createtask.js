@@ -21,7 +21,6 @@ $(document).ready(function(){
 		fd.append('datedone', datedone);
 		fd.append('worker', worker);
 		fd.append('coworkers', JSON.stringify(coworkers));
-		fd.append('usp', $usp);
 		fd.append('ajax', 'task-control');
 		if (name != null && description != null && datedone != null && worker != null) {
 			$.ajax({
