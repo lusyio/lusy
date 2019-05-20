@@ -28,7 +28,7 @@ function addUser($email, $password, $companyId, $position, $name = '', $surname 
     {
         $position = 'worker';
     }
-    $addUserQuery = $pdo->prepare('INSERT INTO users(email, password, idcompany, role, name, surname) VALUES (:email, :password, :companyId, :role, :name, :surname)');
+    $addUserQuery = $pdo->prepare('INSERT INTO users(email, password, idcompany, role, name, surname, register_date) VALUES (:email, :password, :companyId, :role, :name, :surname, :registerDate)');
     $queryData = [
         ':email' => mb_strtolower($email),
         ':password' => password_hash($password, PASSWORD_DEFAULT),
@@ -36,6 +36,7 @@ function addUser($email, $password, $companyId, $position, $name = '', $surname 
         ':role' => $position,
         ':name' => $name,
         ':surname' => $surname,
+        ':registerDate' => date("Y-m-d"),
     ];
     $addUserQuery->execute($queryData);
     return $pdo->lastInsertId();
