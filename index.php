@@ -719,6 +719,32 @@ if (!isEventsTableExists()) {
     $sql->execute();
 }
 
+function isRegisterDateColumnExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'register_date') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (!isRegisterDateColumnExists())
+{
+    global $pdo;
+    $sql = 'alter table users add register_date date null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $sql = 'UPDATE tasks SET author = manager;';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';
