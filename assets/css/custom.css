@@ -1245,12 +1245,24 @@ label.error{
 
 .icon-invite{
     color: rgba(198, 199, 200, 0.69);
+    transition: 200ms;
 }
+
 .icon-invite:hover{
     color: #5d95db;
 }
 
+.copy-link{
+    transition: 200ms;
+    font-size: 30px;
+    color: #6c757da6;
+}
+.copy-link:hover{
+    color: #5d95db;
+}
+
 .icon-company{
+    transition: 200ms;
     vertical-align: -webkit-baseline-middle;
     color: rgba(198, 199, 200, 0.69);
 }
@@ -1273,8 +1285,8 @@ label.error{
     border-radius: 100%;
     padding: 6px;
     color: white;
-    top: 70%;
-    right: 16%;
+    top: 74%;
+    right: 0;
 }
 
 .edit-profileimage:hover{
@@ -1286,6 +1298,36 @@ label.error{
     box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
 }
 
+.push-message{
+    border: none !important;
+    z-index: 410;
+    padding: 10px;
+    background-color: white;
+    width: inherit;
+    height: 90px;
+    border-radius: 10px;
+    margin-bottom: 3%;
+    margin-left: -3%;
+    box-shadow: 0 2px 12px -4px rgba(0,0,0,0.65);
+
+}
+.push-messages-area{
+    z-index: 405;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    height: auto;
+}
+
+.close-push{
+    color: #6c757da6;
+    transition: 200ms;
+}
+
+.close-push:hover{
+    color: #5d95db;
+}
 
 
 /*

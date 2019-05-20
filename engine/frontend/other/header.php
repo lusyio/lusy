@@ -31,27 +31,6 @@
 		</div>
 	</div>
     <div class="push-messages-area"></div>
-    <style>
-        .push-message{
-            z-index: 410;
-            padding: 10px;
-            background-color: white;
-            width: inherit;
-            height: 150px;
-            border-style: solid;
-            border-width: 1px;
-            border-color: darkgrey;
-            border-radius: 10px;
-        }
-        .push-messages-area{
-            z-index: 405;
-            position: fixed;
-            right: 0px;
-            bottom: 0px;
-            width: 300px;
-            height: auto;
-        }
-    </style>
     <script src="/assets/js/CometServerApi.js"></script>
     <script>
         $(document).ready(function () {
@@ -61,11 +40,11 @@
             checkNotifications('onLoad');
             $('.push-messages-area').on('click', '.close-push-message', function (e) {
                 e.preventDefault();
-                $(this).parent('.push-message').remove();
+                $(this).parents('.push-message').fadeOut(300);
             });
 
             $('#search').on('keyup', function () {
-                var request = $('#search').val()
+                var request = $('#search').val();
                 console.log(request);
                 if (request) {
                     var fd = new FormData();
