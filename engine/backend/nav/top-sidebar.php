@@ -3,6 +3,8 @@ require_once 'engine/backend/functions/common-functions.php';
 
 $id = $GLOBALS["id"];
 $newMailCount = DBOnce('count(*)', 'mail', 'recipient='.$id.' AND view_status=0');
+$newLogCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action NOT LIKE "comment"');
+$newCommentCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action LIKE "comment"');
 $GLOBALS['cometHash'] = authorizeComet($id);
 function avatartop(){
 	$id = $GLOBALS["id"];
