@@ -107,9 +107,11 @@ if($_POST['module'] == 'createTask') {
 		if (!empty($idtask)) {
 			echo $idtask;
 			$coworkersQuery = "INSERT INTO task_coworkers(task_id, worker_id) VALUES (:taskId, :workerId)";
+            $cometSql = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newTask', :taskId)");
             $sql = $pdo->prepare($coworkersQuery);
             foreach ($coworkers as $workerId) {
                 $sql->execute(array(':taskId' => $idtask, ':workerId' => $workerId));
+                $cometSql->execute(array(':taskId' => $idtask, ':id' => $workerId));
             }
 		}
 	}

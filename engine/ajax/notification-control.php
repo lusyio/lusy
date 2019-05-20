@@ -27,3 +27,11 @@ if($_POST['module'] == 'newMessage' && isset($_POST['messageId'])) {
     $response[] = include 'engine/frontend/other/push-message.php';
     echo json_encode($response);
 }
+if($_POST['module'] == 'newTask' && isset($_POST['taskId'])) {
+    $taskId = filter_var($_POST['taskId'], FILTER_SANITIZE_NUMBER_INT);
+    $title = 'Новая задача';
+    $messageText = '<a href="/../task/' . $taskId . '/">Перейти к задаче</a>';
+    $response = [];
+    $response[] = include 'engine/frontend/other/push-message.php';
+    echo json_encode($response);
+}

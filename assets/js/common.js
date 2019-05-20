@@ -4,6 +4,12 @@ function subscribeToMessagesNotification () {
         updateMesagesCounter();
         checkNotifications('newMessage', e.data.messageId)
     });
+
+    cometApi.subscription("msg.newTask", function (e) {
+        console.log(e);
+        updateNotificationsCounter();
+        checkNotifications('newTask', e.data)
+    });
 }
 function onlineStatusCheckIn(channelName) {
     cometApi.subscription(channelName, function(data){} )
@@ -41,6 +47,12 @@ function updateMesagesCounter() {
     $('#messagesCount').text(messagesCount);
     $('#messagesIcon').addClass('text-warning');
 }
+function updateNotificationsCounter() {
+    var notificationsCount = $('#notificationsCount').text();
+    notificationsCount++;
+    $('#notificationsCount').text(notificationsCount);
+    $('#notificationIcon').addClass('text-warning');
+}
 
 function checkNotifications(event, id) {
     var isFdFilled = false;
@@ -54,6 +66,12 @@ function checkNotifications(event, id) {
         fd.append('module', 'newMessage');
         fd.append('ajax', 'notification-control');
         fd.append('messageId', id);
+        isFdFilled = true;
+    }
+    if (event === 'newTask') {
+        fd.append('module', 'newTask');
+        fd.append('ajax', 'notification-control');
+        fd.append('taskId', id);
         isFdFilled = true;
     }
     if (isFdFilled) {
