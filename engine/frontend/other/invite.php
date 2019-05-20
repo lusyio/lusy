@@ -13,16 +13,16 @@
 <!--    <tbody id="body-invites-table">-->
 <!--    --><?php //foreach ($invites as $invite): ?>
 <!--        <tr>-->
-<!--            <td>--><?//= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?><!--</td>-->
-<!--            <td>--><?//= $invite['invitee_position'] ?><!--</td>-->
-<!--            <td>--><?//= $invite['invite_date'] ?><!--</td>-->
-<!--            <td>--><?//= $invite['email'] ?><!--</td>-->
+<!--            <td>--><? //= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?><!--</td>-->
+<!--            <td>--><? //= $invite['invitee_position'] ?><!--</td>-->
+<!--            <td>--><? //= $invite['invite_date'] ?><!--</td>-->
+<!--            <td>--><? //= $invite['email'] ?><!--</td>-->
 <!--            --><?php //if ($invite['status']): ?>
-<!--                <td><a href="/../profile/--><?//= $invite['status']; ?><!--">Зарегистрирован</a></td>-->
+<!--                <td><a href="/../profile/--><? //= $invite['status']; ?><!--">Зарегистрирован</a></td>-->
 <!--                <td></td>-->
 <!--            --><?php //else: ?>
 <!--                <td>Отправлено</td>-->
-<!--                <td><a href="#" class="invite-cancel" data-invite-id="--><?//= $invite['invite_id'] ?><!--">Отменить</a></td>-->
+<!--                <td><a href="#" class="invite-cancel" data-invite-id="--><? //= $invite['invite_id'] ?><!--">Отменить</a></td>-->
 <!--            --><?php //endif; ?>
 <!--        </tr>-->
 <!--    --><?php
@@ -33,11 +33,11 @@
 <!--</table>-->
 <h3 class="pb-3"><b>Отправить приглашение</b></h3>
 <form id="create-invite" method="post" action="">
-    <div class="card">
+    <div class="card mb-3">
         <div class="card-body">
             <div class="mb-3 text-center">
-                <a href="/company/"><i class="fas fa-arrow-left icon-invite"></i></a>
-                <div class="text-reg  d-inline ml-5">
+                <a class="d-inline float-left" href="/company/"><i class="fas fa-arrow-left icon-invite"></i></a>
+                <div class="text-reg ml-5">
                     Чтобы пригласить сотрудника, введите его почту и укажите роль
                 </div>
             </div>
@@ -67,41 +67,46 @@
         </div>
     </div>
 </form>
-<?php if (count($invites)): ?>
-    <?php foreach ($invites as $invite): ?>
-        <div class="card mt-3">
-            <div class="card-body p-2 text-center">
-                <div class="row">
-                    <div class="col-1">
-                        <span><i val="<?= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?>" class="far fa-copy copy-link"></i></span>
-                    </div>
-                    <div class="col-2">
-                        <?= $invite['invitee_position'] ?>
-                    </div>
-                    <div class="col-3">
-                        <?= $invite['invite_date'] ?>
-                    </div>
-                    <div class="col-3">
-                        <?= $invite['email'] ?>
-                    </div>
-                    <?php if ($invite['status']): ?>
-                        <div class="col">
-                            <a href="/../profile/<?= $invite['status']; ?>">Зарегистрирован</a>
+<div class="invite-container">
+    <?php if (count($invites)): ?>
+        <?php foreach ($invites as $invite): ?>
+            <div class="card mb-2 invite-card">
+                <div class="card-body p-2 text-center">
+                    <div class="row">
+                        <div class="col-1">
+                            <span><i val="<?= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?>"
+                                     class="far fa-copy copy-link"></i></span>
                         </div>
-                    <?php else: ?>
-                        <div class="col">
-                            <span>Отправлено</span>
-                            <a href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
-                                        class="fas fa-times"></i></a>
+                        <div class="col-2">
+                            <?= $invite['invitee_position'] ?>
                         </div>
-                    <?php endif; ?>
+                        <div class="col-4">
+                            <?= $invite['email'] ?>
+                        </div>
+                        <div class="col-2">
+                            <div class="invite-date">
+                                <?= $invite['invite_date'] ?>
+                            </div>
+                        </div>
+                        <?php if ($invite['status']): ?>
+                            <div class="col">
+                                <a href="/../profile/<?= $invite['status']; ?>">Зарегистрирован</a>
+                            </div>
+                        <?php else: ?>
+                            <div class="col">
+                                <span>Отправлено</span>
+                                <a class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
+                                            class="far fa-times-circle invite-delete"></i></a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
-        </div>
-    <?php
-    endforeach;
-endif;
-?>
+        <?php
+        endforeach;
+    endif;
+    ?>
+</div>
 <script>
     $(document).ready(function () {
 
@@ -115,7 +120,8 @@ endif;
             document.body.removeChild(textArea);
         });
 
-        $('#invites-table').on('click', '.invite-cancel', function () {
+
+        $('.invite-container').on('click', '.invite-cancel', function () {
             var el = $(this);
             var inviteId = el.data('invite-id');
             var fd = new FormData();
@@ -130,7 +136,7 @@ endif;
                 contentType: false,
                 data: fd,
                 success: function (data) {
-                    el.closest('tr').remove();
+                    el.parents('.invite-card').fadeOut(300);
                     console.log(data);
                 }
             });
@@ -160,21 +166,32 @@ endif;
                         console.log(data);
                         if (data) {
                             var invite = JSON.parse(data);
-                            var inviteRow = "<tr><td>";
+                            var inviteRow = "";
                             inviteRow += window.location.hostname.toString() + '/join/' + invite['code'] + '/';
-                            inviteRow += "</td><td>";
-                            inviteRow += invite['invitee_position'];
-                            inviteRow += "</td><td>";
-                            inviteRow += invite['invite_date'];
-                            inviteRow += "</td><td>";
-                            inviteRow += invite['email'];
-                            inviteRow += "</td><td>";
-                            inviteRow += "Отправлено";
-                            inviteRow += "<td><a href=\"#\" class=\"invite-cancel\" data-invite-id=\"";
-                            inviteRow += invite['invitee_id'];
-                            inviteRow += "\">Отменить</a></td><tr>";
-                            $('#body-invites-table').append(inviteRow);
-                            console.log(invite);
+                            $('.invite-container').append("<div class=\"card mb-2 invite-card\">\n" +
+                                "                <div class=\"card-body p-2 text-center\">\n" +
+                                "                    <div class=\"row\">\n" +
+                                "                        <div class=\"col-1\">\n" +
+                                "                            <span><i val=\' " + inviteRow + " \'\n" +
+                                "                                     class=\"far fa-copy copy-link\"></i></span>\n" +
+                                "                        </div>\n" +
+                                "                        <div class=\"col-2\">\n" + invite['invitee_position'] +
+                                "                        </div>\n" +
+                                "                        <div class=\"col-4\">\n" + invite['email'] +
+                                "                        </div>\n" +
+                                "                        <div class=\"col-2\">\n" +
+                                "                            <div class=\"invite-date\">\n" + invite['invite_date'] +
+                                "                            </div>\n" +
+                                "                        </div>\n" +
+                                "                            <div class=\"col\">\n" +
+                                "                                <span>Отправлено</span>\n" +
+                                "                                <a class=\"invite-cancel\" data-invite-id=\' " + invite.invite_id + " \'><i\n" +
+                                "                                            class=\"far fa-times-circle invite-delete\"></i></a>\n" +
+                                "                            </div>\n" +
+                                "                    </div>\n" +
+                                "                </div>\n" +
+                                "            </div>");
+                            console.log(inviteRow);
                         } else {
                             console.log('Произошла ошибка');
                         }

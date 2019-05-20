@@ -17,7 +17,7 @@
             <?php endforeach; ?>
         </div>
     </div>
-    <div class="list-group">
+    <div class="list-group dialog">
         <?php
         foreach ($dialog as $n) {
             $newMessages = numberOfNewMessages($n);

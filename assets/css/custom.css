@@ -203,13 +203,17 @@ body {
     cursor: pointer;
 }
 
-.deleteFile:hover{
+.deleteFile{
+    display: none;
+}
+
+.delete-file-icon:hover{
     border-radius: 100%;
     color: #898989;
     cursor: pointer;
 }
 
-.deleteFile:active{
+.delete-file-icon:active{
     color: #898989;
     border-radius: 100%;
     box-shadow: 0 2px 5px rgba(0,0,0, .2);
@@ -233,6 +237,15 @@ body {
 }
 
 .dialogs:hover{
+    background-color: #f7f7f7;
+    box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
+}
+
+.dialog{
+    border-radius: 8px;
+    background-color: #fff;
+}
+.dialog:hover{
     background-color: #f7f7f7;
     box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
 }
@@ -1259,6 +1272,7 @@ label.error{
 }
 .copy-link:hover{
     color: #5d95db;
+    cursor: pointer;
 }
 
 .icon-company{
@@ -1320,13 +1334,27 @@ label.error{
     height: auto;
 }
 
-.close-push{
+.invite-delete{
     color: #6c757da6;
     transition: 200ms;
 }
 
-.close-push:hover{
+.invite-delete:hover{
     color: #5d95db;
+}
+
+.close-push-message{
+    color: #6c757da6;
+    transition: 200ms;
+
+}
+
+.close-push-message:hover{
+    color: #5d95db;
+    cursor: pointer;
+}
+.invite-date{
+    font-size: 14px;
 }
 
 
@@ -1487,7 +1515,7 @@ label.error{
     background: #f8f9fa;
     display: block;
     margin: 0.5em;
-    min-height: 15em;
+    min-height: 16em;
     overflow: hidden;
     position: relative;
     width: auto;
