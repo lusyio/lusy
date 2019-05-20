@@ -1356,6 +1356,10 @@ label.error{
 .invite-date{
     font-size: 14px;
 }
+#editor{
+    background-color: white;
+    height: 25%;
+}
 
 
 /*

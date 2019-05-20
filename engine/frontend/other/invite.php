@@ -110,7 +110,7 @@
 <script>
     $(document).ready(function () {
 
-        $(".copy-link").on('click', function () {
+        $(".invite-container").on('click', '.copy-link', function () {
             var val = $(this).attr('val');
             var textArea = document.createElement("textarea");
             textArea.value = val;

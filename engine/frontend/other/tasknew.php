@@ -1,3 +1,6 @@
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
 <div class="container-fluid">
 		<div class="row justify-content-center">
           <div class="col-12 col-lg-10 col-xl-8">
@@ -39,7 +42,10 @@
                 <label>
                   Описание задачи
                 </label>
-                <textarea class="form-control" id="description" id="description" s="3" placeholder="Опишите суть задания"  required></textarea>
+                <textarea class="form-control" id="description" s="3" placeholder="Опишите суть задания"  required></textarea>
+              </div>
+              <div id="editor"class="mb-2">
+                  asdasd
               </div>
 
               <div class="row">
@@ -75,7 +81,6 @@
                       </div>
                   </div>
               </div>
-
               <!-- Divider -->
               <hr class="mt-4 mb-5">
 
@@ -110,3 +115,15 @@
         </div>
 		</div>
     <script src="/assets/js/createtask.js"></script>
+<script>
+    $(document).ready(function(){
+        var delta = quill.getText();
+            console.log(delta);
+
+    });
+    var quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Опишите суть задания',
+
+    });
+</script>
