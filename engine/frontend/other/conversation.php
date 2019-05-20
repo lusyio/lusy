@@ -35,13 +35,11 @@
         <div class="newmess"></div>
     </div>
 </div>
-<script src="/assets/js/CometServerApi.js"></script>
 <script>
     var $usp = <?php echo $id + 345;  // айдишник юзера ?>;
     var $recipientId = <?= $recipientId ?>;
     var $userId = <?=$id?>;
     $(document).ready(function () {
-        subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
         var numberToSubtract = $('#chatBox .alert-primary').length;
         console.log(numberToSubtract);
         var messagesCount = $('#messagesCount').text();

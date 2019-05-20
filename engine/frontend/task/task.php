@@ -228,12 +228,8 @@ if ($id == $worker and $view == 0) {
 </script>
 <script src="/assets/js/task.js"></script>
 <script src="/assets/js/datepicker.js"></script>
-<script src="/assets/js/CometServerApi.js"></script>
 <script>
     $(document).ready(function () {
-        cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
-        subscribeToMessagesNotification();
-        onlineStatusCheckIn('<?=$cometTrackChannelName?>');
 
         $(document).on('click', function (e) {
             if (!$(e.target).closest(".deadline-block").length) {

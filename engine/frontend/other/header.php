@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="/assets/css/custom.css?ver=5">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 	    <title><?=$title?></title>
   	</head>
   	<body>
@@ -51,8 +52,12 @@
             height: auto;
         }
     </style>
+    <script src="/assets/js/CometServerApi.js"></script>
     <script>
         $(document).ready(function () {
+            cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
+            subscribeToMessagesNotification();
+            subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
             var fd = new FormData();
             fd.append('usp', '347');
             fd.append('module', 'checkNew');
