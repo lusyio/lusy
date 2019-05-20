@@ -2,7 +2,9 @@ function subscribeToMessagesNotification () {
     cometApi.subscription("msg.new", function (e) {
         console.log(e);
         updateMesagesCounter();
-        checkNotifications('newMessage', e.data.messageId)
+        if (!window.pageName || pageName !== 'conversation') {
+            checkNotifications('newMessage', e.data.messageId);
+        }
     });
 
     cometApi.subscription("msg.newTask", function (e) {

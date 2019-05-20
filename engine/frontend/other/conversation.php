@@ -38,6 +38,7 @@
 <script>
     var $recipientId = <?= $recipientId ?>;
     var $userId = <?=$id?>;
+    var pageName = 'conversation';
     $(document).ready(function () {
         var numberToSubtract = $('#chatBox .alert-primary').length;
         console.log(numberToSubtract);
