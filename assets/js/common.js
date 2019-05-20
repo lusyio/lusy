@@ -2,6 +2,7 @@ function subscribeToMessagesNotification () {
     cometApi.subscription("msg.new", function (e) {
         console.log(e);
         updateMesagesCounter();
+        checkNotifications('newMessage', e.data.messageId)
     });
 }
 function onlineStatusCheckIn(channelName) {
@@ -39,4 +40,38 @@ function updateMesagesCounter() {
     messagesCount++;
     $('#messagesCount').text(messagesCount);
     $('#messagesIcon').addClass('text-warning');
+}
+
+function checkNotifications(event, id) {
+    var isFdFilled = false;
+    var fd = new FormData();
+    if (event === 'onLoad') {
+        fd.append('module', 'checkNew');
+        fd.append('ajax', 'notification-control');
+        isFdFilled = true;
+    }
+    if (event === 'newMessage') {
+        fd.append('module', 'newMessage');
+        fd.append('ajax', 'notification-control');
+        fd.append('messageId', id);
+        isFdFilled = true;
+    }
+    if (isFdFilled) {
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: fd,
+            success: function (data) {
+                var messages = JSON.parse(data);
+                if (data) {
+                    while (messages.length) {
+                        $('.push-messages-area').append(messages.shift());
+                    }
+                }
+            },
+        });
+    }
 }

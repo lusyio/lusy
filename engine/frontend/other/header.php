@@ -58,25 +58,7 @@
             cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
             subscribeToMessagesNotification();
             subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
-            var fd = new FormData();
-            fd.append('module', 'checkNew');
-            fd.append('ajax', 'notification-control');
-            $.ajax({
-                url: '/ajax.php',
-                type: 'POST',
-                cache: false,
-                processData: false,
-                contentType: false,
-                data: fd,
-                success: function (data) {
-                    var messages = JSON.parse(data);
-                    if (data) {
-                        while (messages.length) {
-                            $('.push-messages-area').append(messages.shift());
-                        }
-                    }
-                },
-            });
+            checkNotifications('onLoad');
             $('.push-messages-area').on('click', '.close-push-message', function (e) {
                 e.preventDefault();
                 $(this).parent('.push-message').remove();
