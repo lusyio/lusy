@@ -1121,7 +1121,7 @@ span.date {
 #search {
     background-color: transparent !important;
     border: none !important;
-    color: white;
+    color: #6c757d;
 }
 
 #search:-ms-input-placeholder { /* Internet Explorer 10-11 */
