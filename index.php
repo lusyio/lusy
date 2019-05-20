@@ -689,6 +689,36 @@ if (!isAuthorColumnExists())
     $sql->execute();
 }
 
+function isEventsTableExists()
+{
+    global $pdo;
+    $query = "SHOW TABLES LIKE 'events'";
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+}
+
+if (!isEventsTableExists()) {
+    global $pdo;
+    $query = 'create table events
+(
+    event_id int auto_increment,
+	action text null,
+	task_id int null,
+	author_id int null,
+	recipient_id int null,
+	company_id int null,
+	comment text null,
+	datetime datetime null,
+	view_status tinyint default 0 null,
+	constraint events_pk
+		primary key (event_id)
+)';
+    $sql = $pdo->prepare($query);
+    $sql->execute();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';

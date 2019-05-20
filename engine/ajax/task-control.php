@@ -4,6 +4,7 @@ $isManager = false;
 $isWorker = false;
 if (isset($_POST['it'])) {
     $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+    $taskAuthorId =  DBOnce('author', 'tasks', 'id='.$idtask);
     $idTaskManager = DBOnce('manager', 'tasks', 'id='.$idtask);
     if ($id == $idTaskManager) {
         $isManager = true;
@@ -31,6 +32,7 @@ if($_POST['module'] == 'sendonreview' && $isWorker) {
     }
 
     resetViewStatus($idtask);
+	addEvent('review', $idtask, $taskAuthorId);
 }
 
 if($_POST['module'] == 'sendpostpone' && $isWorker) {
@@ -45,6 +47,8 @@ if($_POST['module'] == 'sendpostpone' && $isWorker) {
 	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'status' => $status, 'datetime' => $datetime));
 
     resetViewStatus($idtask);
+    addEvent('postpone', $idtask, $taskAuthorId);
+
 }
 
 
@@ -56,6 +60,8 @@ if($_POST['module'] == 'workdone' && $isManager) {
 	$sql->execute(array('report' => $now));
 
     resetViewStatus($idtask);
+    addEvent('workdone', $idtask, $idTaskManager);
+
 }
 
 // Кнопка вернуть для worker'a
@@ -77,6 +83,8 @@ if($_POST['module'] == 'workreturn' && $isManager) {
 		uploadAttachedFiles('comment', $commentId);
 	}
     resetViewStatus($idtask);
+    addEvent('workreturn', $idtask, $idTaskManager);
+
 }
 
 // Кнопка В работу для worker'a
@@ -94,6 +102,11 @@ if($_POST['module'] == 'createTask') {
     foreach ($unsafeCoworkers as $c) {
         $coworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
     }
+    if (isset($_POST['manager'])) {
+        $managerId = filter_var($_POST['manager'], FILTER_SANITIZE_NUMBER_INT);
+    } else {
+        $managerId = $id;
+    }
     $coworkers = array_unique($coworkers, SORT_NUMERIC);
 	$name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -101,7 +114,7 @@ if($_POST['module'] == 'createTask') {
 	$worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
 	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, 'new', :author, :manager, :worker, :companyId, :description, '0') ";
 	$sql = $pdo->prepare($query);
-	$sql->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => $now, ':author' => $id, ':manager' => $id, ':worker' => $worker, ':companyId' => $idc, ':datedone' => $datedone));
+	$sql->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => $now, ':author' => $id, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $idc, ':datedone' => $datedone));
 	if ($sql) {
 		$idtask = $pdo->lastInsertId();
 		if (!empty($idtask)) {
@@ -119,6 +132,8 @@ if($_POST['module'] == 'createTask') {
         uploadAttachedFiles('task', $idtask);
     }
     resetViewStatus($idtask);
+    addEvent('createtask', $idtask, $managerId);
+
 }
 
 // отмена задачи
@@ -128,6 +143,8 @@ if($_POST['module'] == 'cancelTask' && $isManager) {
 	$sql->execute(array('report' => $now));
 	echo 'success';
     resetViewStatus($idtask);
+    addEvent('canceltask', $idtask, $idTaskManager);
+
 }
 
 //отклонение запроса на перенос срока
@@ -139,6 +156,8 @@ if ($_POST['module'] == 'cancelDate' && $isManager) {
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
     resetViewStatus($idtask);
+    addEvent('canceldate', $idtask, $idTaskManager);
+
 }
 
 //одобрение запроса на перенос срока
@@ -152,6 +171,8 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
     resetViewStatus($idtask);
+    addEvent('confirmdate', $idtask, $idTaskManager);
+
 }
 
 if ($_POST['module'] == 'sendDate' && $isManager) {
@@ -162,6 +183,8 @@ if ($_POST['module'] == 'sendDate' && $isManager) {
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
     resetViewStatus($idtask);
+    addEvent('senddate', $idtask, $idTaskManager);
+
 }
 
 if ($_POST['module'] == 'addCoworker' && $isManager) {

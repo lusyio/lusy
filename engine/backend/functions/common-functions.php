@@ -64,3 +64,75 @@ function getCometTrackChannelName()
     $channelName = 'track_online_' . $saltIdc;
     return $channelName;
 }
+
+function addEvent($action, $taskId, $recipientId)
+{
+    global $id;
+    global $idc;
+    global $pdo;
+
+    $possibleActions = ['createtask', 'comment', 'overdue', 'review', 'postpone', 'confirmdate', 'canceldate',
+        'senddate', 'workreturn', 'workdone', 'canceltask'];
+
+    if (!in_array($action, $possibleActions)) {
+        return false;
+    }
+
+    $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
+    $eventData = [
+        ':action' => $action,
+        ':taskId' => $taskId,
+        ':authorId' => $id,
+        ':recipientId' => $recipientId,
+        ':companyId' => $idc,
+        'datetime' => date("Y-m-d H:i:s"),
+    ];
+    $addEventQuery->execute($eventData);
+}
+
+function addMassEvent($action, $taskId, $comment)
+{
+    global $id;
+    global $idc;
+    global $pdo;
+
+    $possibleActions = ['comment'];
+
+    if (!in_array($action, $possibleActions)) {
+        return;
+    }
+    $coworkersQuery = $pdo->prepare('SELECT worker_id FROM task_coworkers WHERE task_id=:taskId');
+    $coworkersQuery->execute(array(':taskId' => $taskId));
+    $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_COLUMN, 0);
+    $managersQuery = $pdo->prepare('SELECT author, manager FROM tasks WHERE id=:taskId');
+    $managersQuery->execute(array(':taskId' => $taskId));
+    $managers = $managersQuery->fetch();
+    var_dump($coworkers);
+    var_dump($managers);
+    if (count($coworkers) > 0) {
+        $recipients = array_merge($coworkers, $managers);
+    } else {
+        $recipients = $managers;
+    }
+    $recipients = array_unique($recipients);
+    if (($key = array_search($id, $recipients)) !== false) {
+        unset($recipients[$key]);
+    }
+
+    $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
+    $datetime = date("Y-m-d H:i:s");
+    foreach ($recipients as $recipient) {
+        $eventData = [
+            ':action' => $action,
+            ':taskId' => $taskId,
+            ':recipientId' => $recipient,
+            ':authorId' => $id,
+            ':companyId' => $idc,
+            ':datetime' => $datetime,
+            ':comment' => $comment,
+        ];
+        $addEventQuery->execute($eventData);
+    }
+}
