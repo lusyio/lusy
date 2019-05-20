@@ -62,6 +62,28 @@
             $('.push-messages-area').on('click', '.close-push-message', function (e) {
                 e.preventDefault();
                 $(this).parent('.push-message').remove();
+            });
+
+            $('#search').on('keyup', function () {
+                var request = $('#search').val()
+                console.log(request);
+                if (request) {
+                    var fd = new FormData();
+                    fd.append('ajax', 'search');
+                    fd.append('request', request);
+                    $.ajax({
+                        url: '/ajax.php',
+                        type: 'POST',
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        data: fd,
+                        success: function (data) {
+                            console.log(JSON.parse(data));
+                        },
+                    });
+                }
+
             })
         })
     </script>
