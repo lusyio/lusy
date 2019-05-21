@@ -44,7 +44,8 @@
             <div class="row">
                 <div class="col-6">
                     <div class="input-group">
-                        <input id="invitee-mail" class="form-control" type="text" name="invitee-mail"
+                        <input id="invitee-mail" class="form-control" type="email" name="invitee-mail"
+                               aria-describedby="emailHelp"
                                placeholder="Почта получателя"
                                required>
                     </div>

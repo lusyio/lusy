@@ -9,6 +9,7 @@ $(document).ready(function(){
 		console.log(coworkers);
 
 		var name = $("#name").val();
+		var delta = quill.root.innerHTML;
 		var description = $("#description").val();
 		var datedone = $("#datedone").val();
 		var worker = $("#worker").val();
@@ -17,12 +18,12 @@ $(document).ready(function(){
 		fd.append('file', attachedFile);
 		fd.append('module', 'createTask');
 		fd.append('name', name);
-		fd.append('description', description);
+		fd.append('description', delta);
 		fd.append('datedone', datedone);
 		fd.append('worker', worker);
 		fd.append('coworkers', JSON.stringify(coworkers));
 		fd.append('ajax', 'task-control');
-		if (name != null && description != null && datedone != null && worker != null) {
+		if (name != null && delta != null && datedone != null && worker != null) {
 			$.ajax({
 				url: '/ajax.php',
 				type: 'POST',

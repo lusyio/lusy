@@ -12,14 +12,14 @@
                   <div class="col">
                     
                     <!-- Pretitle -->
-                    <h6 class="header-pretitle">
+                    <h2 class="header-pretitle">
                       Создайте новую задачу
-                    </h6>
+                    </h2>
 
                     <!-- Title -->
-                    <h1 class="header-title">
+                    <h4 class="header-title">
                       Новая задача
-                    </h1>
+                    </h3>
 
                   </div>
                 </div> <!-- / .row -->
@@ -38,14 +38,13 @@
               </div>
 
               <!-- Project id -->
-              <div class="form-group">
-                <label>
-                  Описание задачи
-                </label>
-                <textarea class="form-control" id="description" s="3" placeholder="Опишите суть задания"  required></textarea>
-              </div>
+<!--              <div class="form-group">-->
+<!--                <label>-->
+<!--                  Описание задачи-->
+<!--                </label>-->
+<!--                <textarea class="form-control" id="description" s="3" placeholder="Опишите суть задания"  required></textarea>-->
+<!--              </div>-->
               <div id="editor"class="mb-2">
-                  asdasd
               </div>
 
               <div class="row">
@@ -117,8 +116,11 @@
     <script src="/assets/js/createtask.js"></script>
 <script>
     $(document).ready(function(){
-        var delta = quill.getText();
-            console.log(delta);
+        $("#name").on('change', function () {
+            var nameText = $('#name').val();
+            console.log(nameText);
+        })
+
 
     });
     var quill = new Quill('#editor', {
