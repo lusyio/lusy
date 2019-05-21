@@ -6,7 +6,9 @@
 		        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
 			</div>
 			<div class="col-sm-4">
-				<input class="form-control mr-sm-2" id="search" type="text" autocomplete="off" placeholder="Search..." style=" margin-left: 8px; ">
+                <form method="post" action="/../search/">
+				<input class="form-control mr-sm-2" id="search" type="text" name="request" autocomplete="off" placeholder="Search..." style=" margin-left: 8px; ">
+                </form>
 			</div>
 			<div class="col-sm-5">
 				<div class="float-right text-right alerts">
