@@ -53,7 +53,7 @@ function searchInComments($request)
     global $id;
     global $pdo;
 
-    $commentSearchQuery = $pdo->prepare("SELECT c.idtask, c.comment FROM comments c 
+    $commentSearchQuery = $pdo->prepare("SELECT c.id, c.idtask, c.comment FROM comments c 
   LEFT JOIN tasks t ON c.idtask = t.id 
   LEFT JOIN task_coworkers tc on t.id=tc.task_id WHERE tc.worker_id = :userId AND c.comment LIKE :request");
     $commentSearchQuery->execute(array(':userId' => $id, ':request' => '%' . $request . '%'));
