@@ -31,8 +31,8 @@
                     <!--					<a href="/profile/-->
                     <? //=$id?><!--/"><img class="user-img rounded-circle" src="/upload/avatar/-->
                     <? //=$id?><!--.jpg"/></a>-->
-                    <span data-trigger="dropdown"><img
-                                class="user-img rounded-circle profile-menu-trigger"
+                    <span class="profile-menu-trigger" data-trigger="dropdown"><img
+                                class="user-img rounded-circle "
                                 src="/upload/avatar/<?= $id ?>.jpg"/></span>
                     <div class="profile-submenu submenu">
                         <a href="/profile/<?= $id ?>/">Профиль<i class="ml-2 fas fa-user-alt"></i></a>

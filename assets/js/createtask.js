@@ -1,5 +1,47 @@
 $(document).ready(function () {
 
+    var fileList = [];
+
+    function displayFile(){
+        $("#sendFiles").bind('change', function () {
+            var attachedFile = $('input[type=file]').prop('files')[0];
+            console.log(attachedFile);
+            for (var i = 0; i<this.files.length; i++) {
+                fileList.push(this.files[i]);
+                var names = this.files[i].name;
+                $(".file-name").addClass('d-flex').append("<div class='filenames'>"
+                    +names+
+                    "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
+                    "</div>");
+
+                $(".cancelFile").on('click', function () {
+                    $(this).closest(".filenames").remove();
+                    removeFile();
+                });
+            }
+        });
+    }
+
+    function removeFile(e) {
+        var file = $(this).data("file");
+        var attachedFile = $('input[type=file]').prop('files')[0];
+        for (var i = 0; i < attachedFile.length; i++) {
+            if (attachedFile[i].name === file) {
+                attachedFile.splice(i, 1);
+                break;
+            }
+        }
+        $(this).parent().remove();
+        // $("#sendFiles").val("");
+        console.log(fileList);
+    }
+
+    $("#sendFiles").on('click', function () {
+        displayFile();
+        $("#sendFiles").off('click');
+
+    });
+
 //создание новой задачи
     $("#createTask").click(function () {
         var coworkers = [];
@@ -10,12 +52,15 @@ $(document).ready(function () {
 
         var name = $("#name").val();
         var delta = quill.root.innerHTML;
-        var description = $("#description").val();
+        // var description = $("#description").val();
         var datedone = $("#datedone").val();
         var worker = $("#worker").val();
-        var attachedFile = $('input[type=file]').prop('files')[0];
+        // var attachedFile = $('input[type=file]').prop('files')[0];
+        // alert(attachedFile);
         var fd = new FormData();
-        fd.append('file', attachedFile);
+        fileList.forEach(function (file) {
+            fd.append('file', file);
+        });
         fd.append('module', 'createTask');
         fd.append('name', name);
         fd.append('description', delta);

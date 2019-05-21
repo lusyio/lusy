@@ -150,8 +150,6 @@ if ($id == $worker and $view == 0) {
                             <i class="far fa-plus-square avatar-new"></i>
                             <?php
                             include 'engine/frontend/members/members.php';
-                            include 'engine/frontend/members/coworkers.php';
-                            include 'engine/frontend/members/responsible.php';
                             ?>
                         </div>
                     </div>
@@ -234,7 +232,7 @@ if ($id == $worker and $view == 0) {
             if (!$(e.target).closest(".deadline-block").length) {
                 $('#change-date').fadeOut(300);
             }
-            // if (!$(e.target).closest(".avatar-new").length) {
+            // if (!$(e.target).closest(".tooltip-avatar").length) {
             //     $('.members').fadeOut(300);
             //     $('.coworkers').fadeOut(300);
             //     $('.responsible').fadeOut(300);
@@ -252,16 +250,8 @@ if ($id == $worker and $view == 0) {
             $(".responsible").fadeOut(300);
         });
 
-        // $(".editCoworkers").on('click', function () {
-        //     $(".coworkers").fadeToggle(300);
-        // });
-
-        // $(".editResponsible").on('click', function () {
-        //     $(".responsible").fadeToggle(300);
-        // });
-
-
-        $(".deleteWorker").on('click', function () {
+        $(".tooltip-avatar").on('click', '.deleteWorker', function () {
+            $(this).closest('.add-worker').remove();
             var removedId = $(this).attr('value');
             $.post("/ajax.php", {
                 module: 'removeCoworker',
@@ -272,7 +262,6 @@ if ($id == $worker and $view == 0) {
 
             function controlUpdate(data) {
                 console.log(removedId);
-                location.reload();
             }
 
         });
@@ -280,9 +269,11 @@ if ($id == $worker and $view == 0) {
         $(".addNewWorker").on('click', function () {
             var selectedId = $(this).attr('value');
             $(".container-coworker").append("<div class=\"add-worker mr-1 mb-1\">\n" +
-                "                        <img title=\"<?= $viewStatusTitle ?>\" src=\"/upload/avatar/<?=$coworker['worker_id']?>.jpg\" class=\"avatar-added mr-1\">\n" +
-                "                        <a href=\"#\" class=\"card-coworker\"><?=$coworker['name']?> <?=$coworker['surname']?></a>\n" +
-                "                        <span><i value=\"<?=$coworker['worker_id']?>\" class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
+                "                        <img title=\"<?= $viewStatusTitle ?>\" src=\"/upload/avatar/<?= $coworker['worker_id'] ?>.jpg\"\n" +
+                "                             class=\"avatar-added mr-1\">\n" +
+                "                        <a href=\"#\" class=\"card-coworker\"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></a>\n" +
+                "                        <span><i value=\"<?= $coworker['worker_id'] ?>\"\n" +
+                "                                 class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
                 "                    </div>");
 
             $(".tooltip-avatar").prepend("<span class=\"mb-0\" title=\"<?= $viewStatusTitle ?>\"><img src=\"/upload/avatar/" + selectedId + ".jpg\" alt=\"worker image\" class=\"avatar mr-1 ml-1\"></span>");

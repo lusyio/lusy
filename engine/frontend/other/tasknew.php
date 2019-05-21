@@ -47,11 +47,16 @@
             <div id="editor" class="mb-2">
             </div>
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <span class="btn btn-light btn-file border">
                         <i class="fas fa-file-upload custom-date mr-2"></i><span class="attach-file text-muted">Выберите файл</span><input
-                                type="file">
+                                id="sendFiles" type="file" multiple>
                     </span>
+                </div>
+                <div class="col-sm">
+                    <div class="bg-white file-name container p-1 container-coworker d-none flex-wrap align-content-sm-stretch">
+
+                    </div>
                 </div>
             </div>
 
@@ -89,6 +94,42 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn btn-light" data-toggle="collapse"
+                            data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList">Добавить
+                        соисполнителя
+                    </button>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="container bg-white p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
+                        <div class="add-worker mr-1 mb-1">
+                            <img src="/upload/avatar/1.jpg"
+                                 class="avatar-added mr-1">
+                            <a href="#" class="card-coworker">Иван Петрович</a>
+                            <span><i value="1"
+                                     class="deleteWorker fas fa-times cancel card-coworker-delete"></i></span>
+                        </div>
+                        <div class="p-1 text-justify collapse" id="coworkersList">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img src="/upload/avatar/2.jpg" class="avatar-added mr-1">
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1 add-coworker-text">Иван петрович</p>
+                                </div>
+                                <div class="col-2">
+                                    <i class="fas fa-plus add-coworker addNewWorker"></i>
+                                </div>
+                            </div>
+                            <hr class="m-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Divider -->
             <hr class="mt-4 mb-5">
 
@@ -119,6 +160,7 @@
 <script src="/assets/js/createtask.js"></script>
 <script>
     $(document).ready(function () {
+
         $("#name").on('input', function () {
             var nameText = $('#name').val();
             var header = $("#headerName");
@@ -128,10 +170,7 @@
                 nameText = 'Введите название задачи';
                 header.html(nameText);
             }
-
         })
-
-
     });
     var quill = new Quill('#editor', {
         theme: 'snow',
