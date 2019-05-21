@@ -184,6 +184,11 @@ body {
     /*margin-left: 4%;*/
 }
 
+#name{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 .name-manager-tasks{
     width: max-content;
 }
@@ -740,6 +745,50 @@ input:checked[type="checkbox"]::before {
     font-size: 15px !important;
 }
 
+
+[data-trigger="dropdown"] {
+    padding-bottom: 35px;
+}
+
+.submenu {
+    padding: 0;
+    background: #fff;
+    margin-top: 9px;
+    box-shadow: 0 2px 12px -4px rgba(0,0,0,0.65);
+    width: 150px;
+    position: absolute;
+    right: 10px;
+    display: none;
+    z-index: 2;
+    border-radius: 8px;
+}
+
+.submenu.active {
+    display: block;
+}
+
+.submenu a {
+    text-decoration: none;
+    padding: 10px 10px;
+    display: block;
+    color: #333;
+    text-shadow: none;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+.submenu a:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.submenu a:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.submenu a:hover {
+    background: #eee;
+}
+
 .coworkers{
     display: none;
     width: 350px;
@@ -1291,6 +1340,10 @@ label.error{
 }
 .invite-send{
     border-color: #5d95db;
+}
+
+.attach-file{
+
 }
 
 .edit-profileimage{
