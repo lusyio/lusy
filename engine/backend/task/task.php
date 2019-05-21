@@ -35,7 +35,7 @@ $idtask = $task['id'];
 $nametask = $task['name'];
 $status = $task['status'];
 $description = nl2br($task['description']);
-
+$description = htmlspecialchars_decode($description);
 $author = $task['author'];
 $authorname = $task['authorName'];
 $authorsurname = $task['authorSurname'];
