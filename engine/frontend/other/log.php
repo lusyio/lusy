@@ -1,4 +1,38 @@
 <div class="container-fluid">
+    <div class="card mb-3">
+        <div class="card-body pb-2">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="d-inline-block">
+                        <div id="taskSearch" data-type="task" class="btn btn-secondary type-search words-search">
+                            <span>Задачи</span>
+                            <span class="count"></span>
+                        </div>
+                        <div id="commentSearch" data-type="comment" class="btn btn-secondary type-search words-search">
+                            <span>Комментарии</span>
+                            <span class="count"></span>
+                        </div>
+                        <div id="newSearch" class="btn btn-secondary view-status-search words-search">
+                            <span>Показать новые</span>
+                            <span class="count"></span>
+                        </div>
+                        <div id="allSearch" class="btn btn-secondary view-status-search words-search active">
+                            <span>Показать все</span>
+                            <span class="count"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="eventBox">
+        <?php foreach ($events as $event): ?>
+        <div data-view-status="" class="event <?= ($event['view_status'])? '' : 'new-event' ?> <?= ($event['action'] == 'comment')? 'comment' : 'task'; ?>">
+            <?=$event['action']?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+
 	<div class="row justify-content-center">
         <div class="col-12 col-lg-10">
 	      	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -49,3 +83,51 @@
           </div>
 		</div>
 </div>
+<script>
+    $(document).ready(function() {
+        var action = window.location.hash.substr(1);
+
+        $('.type-search').on('click', function () {
+            var el = $(this);
+            if (el.hasClass('active')) {
+                el.removeClass('active');
+            } else {
+                $('.type-search').removeClass('active');
+                el.addClass('active');
+            }
+            filterEvents();
+        });
+        $('.view-status-search').on('click', function () {
+            var el = $(this);
+                $('.view-status-search').removeClass('active');
+                el.addClass('active');
+            filterEvents();
+        })
+        if (action === 'new-comments') {
+            console.log('ck');
+            $('#commentSearch').trigger('click');
+            $('#newSearch').trigger('click');
+        }
+        if (action === 'new-tasks') {
+            console.log('ck');
+            $('#taskSearch').trigger('click');
+            $('#newSearch').trigger('click');
+        }
+    });
+
+    function filterEvents() {
+        var filter = $('.type-search.active').data('type') || 'event';
+        var newFilter = $('#newSearch').hasClass('active');
+
+        $('.event').each(function () {
+                var el = $(this);
+                el.show();
+                if (newFilter && !el.hasClass('new-event')) {
+                    el.hide();
+                }
+                if (!el.hasClass(filter)) {
+                    el.hide();
+                }
+            })
+    }
+</script>
