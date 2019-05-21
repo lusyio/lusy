@@ -29,6 +29,7 @@
         <?php foreach ($events as $event): ?>
         <div data-view-status="" class="event <?= ($event['view_status'])? '' : 'new-event' ?> <?= ($event['action'] == 'comment')? 'comment' : 'task'; ?>">
             <?=$event['action']?>
+            <a href="/../<?= $event['link'] ?>">Перейти</a>
         </div>
         <?php endforeach; ?>
     </div>
