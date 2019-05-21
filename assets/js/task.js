@@ -27,6 +27,18 @@ $(document).ready(function(){
 		function onCommentSuccess(data) {
 			$('#comments').html(data).fadeIn();
 			countComments();
+			var commentIdToScroll = window.location.hash.substr(1);
+			console.log(commentIdToScroll);
+			if (commentIdToScroll > 0) {
+				$('#'+commentIdToScroll).addClass('bg-primary');
+				console.log(true);
+				$('html, body').animate({
+					scrollTop: $('#'+commentIdToScroll).offset().top - 20
+				}, 1500);
+				setTimeout(function () {
+					$('#'+commentIdToScroll).removeClass('bg-primary');
+				}, 5000)
+			}
 		}
 	}
 
