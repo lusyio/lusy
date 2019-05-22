@@ -10,19 +10,14 @@ $(document).ready(function () {
             console.log(attachedFile);
             for (var i = 0; i < this.files.length; i++) {
                 names = this.files[i].name;
-                // fileList.push(this.files[i]);
                 fileList.set(names, this.files[i]);
                 $(".file-name").show().addClass('d-flex').append("<div class='filenames'>"
                     + names +
                     "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
                     "</div>");
-                // $('.cancelFile').fadeIn(300);
                 $(".cancelFile").off('click');
                 $(".cancelFile").on('click', function () {
                     $(this).closest(".filenames").remove();
-                    // $(".filenames").remove();
-                    // $(".file-name").fadeOut(300).removeClass('d-flex');
-                    // $(".cancelFile").fadeOut(300);
                     for (var i = 0; i < fileList.size; i++) {
                         fileList.delete($(this).closest(".filenames").text());
                         console.log(fileList);
