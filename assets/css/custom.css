@@ -1,4 +1,4 @@
-body {
+#searchbody {
 	background: #F8F9FA;
 }
 #task .card-body {
@@ -776,10 +776,6 @@ input:checked[type="checkbox"]::before {
     text-decoration: none;
     padding: 10px 10px;
     display: block;
-    color: #333;
-    text-shadow: none;
-    font-weight: 600;
-    letter-spacing: 0;
 }
 .submenu a:first-child {
     border-top-left-radius: 8px;
@@ -959,8 +955,6 @@ a {
 }
 .user-img {
     width: 45px;
-    border: 2px solid white;
-    box-shadow: 0 0.35rem 0.5rem rgba(18,38,63,.03);
 }
 .indy span {
     font-size: 12px;
@@ -1173,16 +1167,26 @@ span.date {
 	border: none;
 }
 #search {
-    background-color: transparent !important;
+    background-color: #f6f6f6;
     border: none !important;
     color: #6c757d;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    font-size: 12px;
+    padding-left: 30px;
 }
 
 #search:-ms-input-placeholder { /* Internet Explorer 10-11 */
   color: rgba(255, 255, 255, 0.5);
 }
-
-
+#searchButton {
+    background: #e4e4e4;
+    color: #808080;
+    border: none;
+}
+.navbar-brand {
+    letter-spacing: 2px;
+}
 @keyframes show{
 	 0%{
 		 opacity:0;
@@ -1246,6 +1250,10 @@ span.date {
 		padding-left:1.5rem;
 		padding-top: 3rem;
 	}
+
+    #searchForm .form-group {
+        padding-left: 10px;
+    }
 	.navblock {
 		padding-right: 0 !important;
 	}
