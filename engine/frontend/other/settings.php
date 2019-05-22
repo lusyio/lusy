@@ -41,7 +41,7 @@
                                         <div class="modal-body">
                                             <div class="img-container">
                                                 <img id="image"
-                                                     src="blob:https://fengyuanchen.github.io/d1ca0d59-3977-4862-bd77-ef8e0e67ccb7"
+                                                     src=""
                                                      class="">
                                             </div>
                                         </div>
