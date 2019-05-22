@@ -1,27 +1,25 @@
 $(document).ready(function () {
 
-    // var fileList = [];
     var fileList = new Map();
     var names;
-
+    var sizes;
     function displayFile() {
         $("#sendFiles").bind('change', function () {
-            var attachedFile = $('input[type=file]').prop('files')[0];
-            console.log(attachedFile);
             for (var i = 0; i < this.files.length; i++) {
+                console.log(i);
                 names = this.files[i].name;
-                fileList.set(names, this.files[i]);
-                $(".file-name").show().addClass('d-flex').append("<div class='filenames'>"
+                fileList.set(i, this.files[i]);
+                $(".file-name").show().addClass('d-flex').append("<div val='" + i + "' class='filenames'>"
                     + names +
                     "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
                     "</div>");
                 $(".cancelFile").off('click');
                 $(".cancelFile").on('click', function () {
                     $(this).closest(".filenames").remove();
-                    for (var i = 0; i < fileList.size; i++) {
-                        fileList.delete($(this).closest(".filenames").text());
+                    var num = $(this).closest(".filenames").attr('val');
+                        fileList.delete(num);
                         console.log(fileList);
-                    }
+                        console.log(num);
                 });
             }
         });

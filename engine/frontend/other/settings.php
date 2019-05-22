@@ -8,6 +8,8 @@
 
 <!--<img src="/upload/avatar-1.jpg" class="rounded-circle image-profile"><i id="editProfileImage"-->
 <!--                                                                        class="fas fa-pencil-alt edit-profileimage"></i>-->
+
+
 <div class="row justify-content-center">
     <div class="col-10">
         <form id="save-profile">
@@ -16,12 +18,13 @@
                     <div class="row">
                         <div class="col-5">
                             <label class="label" data-toggle="tooltip" title=""
-                                   data-original-title="Change your avatar">
+                                   data-original-title="Смена изображения">
                                 <img class="rounded-circle" id="avatar" src="/upload/avatar-1.jpg" alt="avatar">
                                 <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                             </label>
                             <div class="progress" style="display: none;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                <div class="progress-bar-settings progress-bar-striped progress-bar-animated"
+                                     role="progressbar"
                                      aria-valuenow="100"
                                      aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%
                                 </div>
@@ -33,7 +36,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="modalLabel">Crop the image</h5>
+                                            <h5 class="modal-title" id="modalLabel">Обрезать изображение</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
@@ -47,9 +50,9 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                Cancel
+                                                Назад
                                             </button>
-                                            <button type="button" class="btn btn-primary" id="crop">Crop</button>
+                                            <button type="button" class="btn btn-primary" id="crop">Обрезать</button>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +115,7 @@
         var image = document.getElementById('image');
         var input = document.getElementById('input');
         var $progress = $('.progress');
-        var $progressBar = $('.progress-bar');
+        var $progressBar = $('.progress-bar-settings');
         var $alert = $('.alert');
         var $modal = $('#modal');
         var cropper;
