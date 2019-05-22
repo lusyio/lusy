@@ -1,15 +1,16 @@
 <?php
-$log = DB('*','log','recipient = "'.$id.'" order by datetime desc limit 30');
-foreach ($log as $l) {
-include('logfunction.php');?>
-<li>
-	<span class="before <?=$iconcolor?>"><i class="<?=$icon?>"></i></span>
-	<div class="position-relative">
-		<span class="date"><?=$datetime?></span>
-		<img src="/upload/avatar/<?=$idsender?>.jpg" class="avatar mr-1"/>
-		<a href="/profile/<?=$idsender?>/" class="font-weight-bold"><?=$nameuser . ' ' . $surnameuser ?></a>
-	</div>
-	<p class="mt-2"><?=${'l_'.$l['action']}?><?=$taskpart?></p>
-	<?=$comment?>
-</li>    
-<?php } ?>
+global $pdo;
+global $id;
+
+if ($_POST['module'] == 'markAsRead') {
+    $eventId = filter_var($_POST['eventId'], FILTER_SANITIZE_NUMBER_INT);
+    markAsRead($eventId);
+}
+
+function markAsRead($eventId)
+{
+    global $id;
+    global $pdo;
+    $markQuery = $pdo->prepare('UPDATE events SET view_status = 1 WHERE event_id = :eventId AND recipient_id = :userId');
+    $markQuery->execute(array(':eventId' => $eventId, ':userId' => $id));
+}

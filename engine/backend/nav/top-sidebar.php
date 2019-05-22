@@ -1,25 +1,16 @@
 <?php
 require_once 'engine/backend/functions/common-functions.php';
 
-$id = $GLOBALS["id"];
+global $_searchtext;
+global $_logout;
+global $_profile;
+global $_history;
+global $_settings;
+global $id;
+global $namec;
+
+$newOverdueCount = DBOnce('count(*)','tasks','worker='.$id.' or manager='.$id);
 $newMailCount = DBOnce('count(*)', 'mail', 'recipient='.$id.' AND view_status=0');
 $newLogCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action NOT LIKE "comment"');
 $newCommentCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action LIKE "comment"');
 $GLOBALS['cometHash'] = authorizeComet($id);
-function avatartop(){
-	$id = $GLOBALS["id"];
-	$filename = 'upload/avatar/'.$id.'.jpg';
-	if (file_exists($filename)) {
-		$avatar = '<img src="/'.$filename.'" class="avatar mr-1"/>';
-		echo $avatar;
-	} else {
-		$avatar = '<img src="/upload/avatar/0.jpg" class="avatar mr-1"/>';
-		echo $avatar;
-	}
-}
-function fiotop(){
-	$name = $GLOBALS["nameu"];
-	$surname = $GLOBALS["surnameu"];
-	echo $name . ' ' . $surname;
-}
-$namec = $GLOBALS["namec"];
