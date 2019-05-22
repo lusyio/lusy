@@ -1012,7 +1012,7 @@ a {
 	border-bottom: none !important;
 }
 .card {
-	box-shadow: rgba(13, 28, 60, 0.02) 0px 4px 44px 0px;
+	box-shadow: rgba(13, 28, 60, 0.06) 0px 4px 44px 0px;
     border: none !important;
 }
 .comin input {
@@ -1173,7 +1173,7 @@ span.date {
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
     font-size: 12px;
-    padding-left: 30px;
+    padding-left: 20px;
 }
 
 #search:-ms-input-placeholder { /* Internet Explorer 10-11 */
@@ -1252,7 +1252,7 @@ span.date {
 	}
 
     #searchForm .form-group {
-        padding-left: 10px;
+        padding-left: 20px;
     }
 	.navblock {
 		padding-right: 0 !important;
