@@ -89,7 +89,10 @@
         background-color: #f3f7ff;
     }
     .event{
-        transition: background-color 0.5s ease-in-out;
+        -webkit-transition: all 1s ease-out; /** Chrome & Safari **/
+        -moz-transition: all 1s ease-out; /** Firefox **/
+        -o-transition: all 1s ease-out; /** Opera **/
+        transition: all 1s ease-out;
     }
 </style>
 <script>
@@ -139,9 +142,16 @@
         }
 
         $('#eventBox').on('mouseover', '.new-event', function () {
-            $(this).removeClass('new-event');
+            $(this).removeClass('new-event').fadeOut(1000);
             var eventId = $(this).data('event-id');
+            if ($(this).hasClass('comment')) {
+                decreaseCommentCounter();
+            }
+            if ($(this).hasClass('task')) {
+                decreaseTaskCounter();
+            }
             console.log(eventId);
+
             markAsRead(eventId);
         })
     });

@@ -133,6 +133,7 @@ if($_POST['module'] == 'createTask') {
     }
     resetViewStatus($idtask);
     addEvent('createtask', $idtask, $managerId);
+    addEvent('createtask', $idtask, $worker);
 
 }
 
