@@ -1250,6 +1250,10 @@ span.date {
 		padding-left:1.5rem;
 		padding-top: 3rem;
 	}
+
+    #searchForm .form-group {
+        padding-left: 10px;
+    }
 	.navblock {
 		padding-right: 0 !important;
 	}

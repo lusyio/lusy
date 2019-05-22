@@ -8,7 +8,7 @@
                             class="fas fa-bars"></i></button>
             </div>
             <div class="col-sm-5">
-                <form method="post" action="/../search/">
+                <form method="post" id="searchForm" action="/../search/">
                     <div class="form-group mb-0 mt-1">
                         <div class="input-group">
                             <div class="custom-file">
