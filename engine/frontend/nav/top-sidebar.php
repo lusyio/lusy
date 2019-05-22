@@ -19,11 +19,11 @@
                                 class="fas fa-envelope <?= ($newMailCount) ? 'text-warning' : '' ?>"
                                 id="messagesIcon"></i> <strong class="text-warning"
                                                                id="messagesCount"><?= ($newMailCount) ? $newMailCount : '' ?></strong></a>
-                    <a href="/log/" class="mr-3 text-decoration-none"><i
+                    <a href="/log/<?= ($newLogCount) ? '#new-tasks' : '#tasks' ?>" class="mr-3 text-decoration-none"><i
                                 class="fas fa-bell <?= ($newLogCount) ? 'text-warning' : '' ?>"
                                 id="notificationIcon"></i><strong class="text-warning"
                                                                   id="notificationCount"><?= ($newLogCount) ? $newLogCount : '' ?></strong></a>
-                    <a href="/log/" class="mr-3 text-decoration-none"><i
+                    <a href="/log/<?= ($newCommentCount) ? '#new-comments' : '#comments' ?>" class="mr-3 text-decoration-none"><i
                                 class="fas fa-comment  <?= ($newCommentCount) ? 'text-warning' : '' ?>"
                                 id="commentIcon"></i><strong class="text-warning"
                                                              id="notificationCount"><?= ($newCommentCount) ? $newCommentCount : '' ?></strong></a>

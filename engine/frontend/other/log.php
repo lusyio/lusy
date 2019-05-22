@@ -27,8 +27,8 @@
     </div>
     <div id="eventBox">
         <?php foreach ($events as $event): ?>
-        <div data-view-status="" class="event <?= ($event['view_status'])? '' : 'new-event' ?> <?= ($event['action'] == 'comment')? 'comment' : 'task'; ?>">
-            <?=$event['action']?>
+        <div data-event-id="<?=$event['event_id']?>" class="card card-body m-1 event <?= ($event['view_status'])? '' : 'new-event' ?> <?= ($event['action'] == 'comment')? 'comment' : 'task'; ?>">
+            <?=$event['action']?> <?=$event['commentText']?> <?=($event['commentText'])? '"'.$event['commentText'].'" ' : ' ' ?><?=$event['name']?> <?=$event['surname']?> <?=$event['datetime']?>
             <a href="/../<?= $event['link'] ?>">Перейти</a>
         </div>
         <?php endforeach; ?>
@@ -84,9 +84,28 @@
           </div>
 		</div>
 </div>
+<style>
+    .new-event {
+        background-color: #f3f7ff;
+    }
+    .event{
+        transition: background-color 0.5s ease-in-out;
+    }
+</style>
 <script>
     $(document).ready(function() {
         var action = window.location.hash.substr(1);
+
+        $('#commentIcon').closest('a').on('click', function () {
+            if (!$('#commentSearch').hasClass('active')) {
+                $('#commentSearch').trigger('click');
+            }
+        });
+        $('#notificationIcon').closest('a').on('click', function () {
+            if (!$('#taskSearch').hasClass('active')) {
+                $('#taskSearch').trigger('click');
+            }
+        });
 
         $('.type-search').on('click', function () {
             var el = $(this);
@@ -105,15 +124,26 @@
             filterEvents();
         })
         if (action === 'new-comments') {
-            console.log('ck');
             $('#commentSearch').trigger('click');
             $('#newSearch').trigger('click');
         }
         if (action === 'new-tasks') {
-            console.log('ck');
             $('#taskSearch').trigger('click');
             $('#newSearch').trigger('click');
         }
+        if (action === 'comments') {
+            $('#commentSearch').trigger('click');
+        }
+        if (action === 'tasks') {
+            $('#taskSearch').trigger('click');
+        }
+
+        $('#eventBox').on('mouseover', '.new-event', function () {
+            $(this).removeClass('new-event');
+            var eventId = $(this).data('event-id');
+            console.log(eventId);
+            markAsRead(eventId);
+        })
     });
 
     function filterEvents() {
@@ -131,4 +161,9 @@
                 }
             })
     }
+
+    function markAsRead(eventId) {
+        $.post("/ajax.php", {module: 'markAsRead', eventId: eventId, ajax: 'log'});
+    }
+
 </script>
