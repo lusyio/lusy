@@ -33,15 +33,16 @@ function uploadAttachedFiles($type, $eventId)
     $sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type, company_id, is_deleted, author) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType, :companyId, :isDeleted, :author)');
     foreach ($_FILES as $file) {
         if ($file['size'] > $maxFileSize || $file['size'] == 0) {
-            $fileName = basename($file['name']);
-            $hashName = md5_file($file['tmp_name']);
-            while (file_exists($dirName . '/' . $hashName)) {
-                $hashName = md5($hashName);
-            }
-            $filePath = $dirName . '/' . $hashName;
-            $sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $eventId, ':commentType' => $type, ':companyId' => $idc, ':isDeleted' => 0, ':author' => $id));
-            move_uploaded_file($file['tmp_name'], $filePath);
+            continue;
         }
+        $fileName = basename($file['name']);
+        $hashName = md5_file($file['tmp_name']);
+        while (file_exists($dirName . '/' . $hashName)) {
+            $hashName = md5($hashName);
+        }
+        $filePath = $dirName . '/' . $hashName;
+        $sql->execute(array(':fileName' => $fileName, ':fileSize' => $file['size'], ':filePath' => $filePath, ':commentId' => $eventId, ':commentType' => $type, ':companyId' => $idc, ':isDeleted' => 0, ':author' => $id));
+        move_uploaded_file($file['tmp_name'], $filePath);
     }
 }
 
