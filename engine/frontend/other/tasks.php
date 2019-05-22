@@ -111,6 +111,10 @@ $taskStatusText = [
 </div>
 <script>
     $(document).ready(function() {
+        var action = window.location.hash.substr(1);
+        if (action === 'overdue') {
+            $('#overdueSearch').trigger('click');
+        }
     $(".progress-bar ").each(function () {
         var danger = $(this).attr('aria-valuenow');
         var danger1 = Number.parseInt(danger);

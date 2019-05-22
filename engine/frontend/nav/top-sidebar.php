@@ -29,7 +29,7 @@
                         <i class="far fa-clipboard <?= ($newLogCount) ? 'text-primary' : '' ?>" id="notificationIcon"></i>
                         <strong class="text-primary" id="notificationCount"><?= ($newLogCount) ? $newLogCount : '' ?></strong>
                     </a>
-                    <a href="/log/" class="mr-3 text-decoration-none">
+                    <a href="/tasks/#overdue" class="mr-3 text-decoration-none">
                         <i class="fas fa-fire-alt <?= ($newOverdueCount) ? 'text-danger' : '' ?>" id="overdueIcon"></i>
                         <strong class="text-danger" id="overdueCount"><?= ($newOverdueCount) ? $newOverdueCount : '' ?></strong>
                     </a>
