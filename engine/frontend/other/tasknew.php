@@ -54,10 +54,14 @@
                     </span>
                 </div>
                 <div class="col-sm">
-                    <div class="bg-white file-name container p-1 container-coworker d-none flex-wrap align-content-sm-stretch">
+                    <div style="display: none"
+                         class="bg-white file-name container p-1 container-coworker flex-wrap align-content-sm-stretch">
 
                     </div>
                 </div>
+                <!--                <div class="col-sm-1">-->
+                <!--                    <i style="display: none" class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>-->
+                <!--                </div>-->
             </div>
 
             <div class="row mt-2">
