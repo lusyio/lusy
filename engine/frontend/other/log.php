@@ -27,10 +27,15 @@
     </div>
     <div id="eventBox">
         <?php foreach ($events as $event): ?>
-        <div data-event-id="<?=$event['event_id']?>" class="card card-body m-1 event <?= ($event['view_status'])? '' : 'new-event' ?> <?= ($event['action'] == 'comment')? 'comment' : 'task'; ?>">
-            <?=$event['action']?> <?=$event['commentText']?> <?=($event['commentText'])? '"'.$event['commentText'].'" ' : ' ' ?><?=$event['name']?> <?=$event['surname']?> <?=$event['datetime']?>
-            <a href="/../<?= $event['link'] ?>">Перейти</a>
-        </div>
+        <?php
+//            if ($event['action'] = 'comment') {
+                include 'engine/frontend/event-messages/comment.php';
+//            } else if (in_array($event['action'], $systemEvents)) {
+//                include 'engine/frontend/event-messages/system.php';
+//            } else {
+//                include 'engine/frontend/event-messages/new-task.php';
+//            }
+            ?>
         <?php endforeach; ?>
     </div>
 
@@ -89,7 +94,10 @@
         background-color: #f3f7ff;
     }
     .event{
-        transition: background-color 0.5s ease-in-out;
+        -webkit-transition: all 1s ease-out; /** Chrome & Safari **/
+        -moz-transition: all 1s ease-out; /** Firefox **/
+        -o-transition: all 1s ease-out; /** Opera **/
+        transition: all 1s ease-out;
     }
 </style>
 <script>
@@ -139,9 +147,16 @@
         }
 
         $('#eventBox').on('mouseover', '.new-event', function () {
-            $(this).removeClass('new-event');
+            $(this).removeClass('new-event').fadeOut(1000);
             var eventId = $(this).data('event-id');
+            if ($(this).hasClass('comment')) {
+                decreaseCommentCounter();
+            }
+            if ($(this).hasClass('task')) {
+                decreaseTaskCounter();
+            }
             console.log(eventId);
+
             markAsRead(eventId);
         })
     });

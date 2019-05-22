@@ -71,6 +71,7 @@ function addEvent($action, $taskId, $recipientId)
     global $id;
     global $idc;
     global $pdo;
+    global $cometPdo;
 
     $possibleActions = ['createtask', 'comment', 'overdue', 'review', 'postpone', 'confirmdate', 'canceldate',
         'senddate', 'workreturn', 'workdone', 'canceltask'];
@@ -90,6 +91,16 @@ function addEvent($action, $taskId, $recipientId)
         'datetime' => date("Y-m-d H:i:s"),
     ];
     $addEventQuery->execute($eventData);
+
+    if ($action == 'comment') {
+        $type = 'comment';
+    } else {
+        $type = 'task';
+
+    }
+
+    $sendToCometQuery  = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
+    $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => $type));
 }
 
 function addMassEvent($action, $taskId, $comment)
@@ -97,6 +108,7 @@ function addMassEvent($action, $taskId, $comment)
     global $id;
     global $idc;
     global $pdo;
+    global $cometPdo;
 
     $possibleActions = ['comment'];
 
@@ -124,6 +136,9 @@ function addMassEvent($action, $taskId, $comment)
     $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
     $datetime = date("Y-m-d H:i:s");
+
+    $sendToCometQuery  = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
+    $type = 'comment';
     foreach ($recipients as $recipient) {
         $eventData = [
             ':action' => $action,
@@ -135,5 +150,6 @@ function addMassEvent($action, $taskId, $comment)
             ':comment' => $comment,
         ];
         $addEventQuery->execute($eventData);
+        $sendToCometQuery->execute(array(':id' => $recipient, ':type' => $type));
     }
 }

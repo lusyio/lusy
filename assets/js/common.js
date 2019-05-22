@@ -12,7 +12,52 @@ function subscribeToMessagesNotification () {
         updateNotificationsCounter();
         checkNotifications('newTask', e.data)
     });
+
+    cometApi.subscription("msg.newLog", function (e) {
+        console.log(e);
+        if (e.data === 'comment') {
+            increaseCommentCounter()
+        }
+        if (e.data === 'task') {
+            console.log(e);
+            updateNotificationsCounter();
+        }
+    });
+    console.log('subscribe passed');
+
 }
+
+function increaseCommentCounter() {
+    var commentCount = $('#commentCount').text();
+    commentCount++;
+    $('#commentCount').text(commentCount);
+    $('#commentIcon').addClass('text-warning');
+}
+
+function decreaseCommentCounter() {
+    var commentCount = $('#commentCount').text();
+    commentCount--;
+    if (commentCount < 1) {
+        $('#commentCount').text('');
+        $('#commentIcon').removeClass('text-warning');
+    } else {
+        $('#commentCount').text(commentCount);
+        $('#commentIcon').addClass('text-warning');
+    }
+}
+
+function decreaseTaskCounter() {
+    var taskCount = $('#notificationsCount').text();
+    taskCount--;
+    if (taskCount < 1) {
+        $('#notificationCount').text('');
+        $('#notificationIcon').removeClass('text-primary');
+    } else {
+        $('#notificationCount').text(commentCount);
+        $('#notificationIcon').addClass('text-primary');
+    }
+}
+
 function onlineStatusCheckIn(channelName) {
     cometApi.subscription(channelName, function(data){} )
 }
@@ -47,12 +92,12 @@ function updateMesagesCounter() {
     var messagesCount = $('#messagesCount').text();
     messagesCount++;
     $('#messagesCount').text(messagesCount);
-    $('#messagesIcon').addClass('text-warning');
+    $('#messagesIcon').addClass('text-successful');
 }
 function updateNotificationsCounter() {
     var notificationsCount = $('#notificationsCount').text();
     notificationsCount++;
-    $('#notificationsCount').text(notificationsCount);
+    $('#notificationCount').text(notificationsCount);
     $('#notificationIcon').addClass('text-warning');
 }
 
