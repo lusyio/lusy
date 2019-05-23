@@ -75,7 +75,7 @@
                     },
                 });
             } else if (e.data.senderId != $userId) {
-                updateMesagesCounter();
+                updateMessagesCounter();
             }
 
         });

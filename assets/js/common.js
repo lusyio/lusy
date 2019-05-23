@@ -1,17 +1,22 @@
 function subscribeToMessagesNotification () {
+    console.log('подписыаемся на новые сообщения');
     cometApi.subscription("msg.new", function (e) {
+        console.log('получено сообщение');
         console.log(e);
-        updateMesagesCounter();
+        console.log('запускаем обновление счетчика');
+        updateMessagesCounter();
         if (!window.pageName || pageName !== 'conversation') {
             checkNotifications('newMessage', e.data.messageId);
         }
     });
+    console.log('подписыаемся на новые задачи');
 
     cometApi.subscription("msg.newTask", function (e) {
         console.log(e);
         updateNotificationsCounter();
         checkNotifications('newTask', e.data)
     });
+    console.log('подписыаемся на новые события в логе');
 
     cometApi.subscription("msg.newLog", function (e) {
         console.log('newlogmessage');
@@ -34,19 +39,19 @@ function subscribeToMessagesNotification () {
             });
         }
     });
-    console.log('subscribe passed');
+    console.log('подписки пройдены');
 
 }
 
 function increaseCommentCounter() {
-    var commentCount = $('#commentCount').text();
+    var commentCount = parseInt($('#commentCount').text());
     commentCount++;
     $('#commentCount').text(commentCount);
     $('#commentIcon').addClass('text-warning');
 }
 
 function decreaseCommentCounter() {
-    var commentCount = $('#commentCount').text();
+    var commentCount = parseInt($('#commentCount').text());
     commentCount--;
     if (commentCount < 1) {
         $('#commentCount').text('');
@@ -58,13 +63,14 @@ function decreaseCommentCounter() {
 }
 
 function decreaseTaskCounter() {
-    var taskCount = $('#notificationsCount').text();
+    var taskCount = parseInt($('#notificationCount').text());
+    console.log(taskCount);
     taskCount--;
     if (taskCount < 1) {
         $('#notificationCount').text('');
         $('#notificationIcon').removeClass('text-primary');
     } else {
-        $('#notificationCount').text(commentCount);
+        $('#notificationCount').text(taskCount);
         $('#notificationIcon').addClass('text-primary');
     }
 }
@@ -99,14 +105,19 @@ function subscribeToOnlineStatusNotification (channelName) {
         // Обработка события что кто то покинул сайт и/или отписался от канала track_online
     });
 }
-function updateMesagesCounter() {
-    var messagesCount = $('#messagesCount').text();
+function updateMessagesCounter() {
+    console.log('парсим текущее число непрочитанных');
+    var messagesCount = parseInt($('#messagesCount').text());
+    console.log(messagesCount);
+    console.log('инкремент');
     messagesCount++;
+    console.log(messagesCount);
+
     $('#messagesCount').text(messagesCount);
     $('#messagesIcon').addClass('text-successful');
 }
 function updateNotificationsCounter() {
-    var notificationsCount = $('#notificationsCount').text();
+    var notificationsCount = parseInt($('#notificationsCount').text());
     notificationsCount++;
     $('#notificationCount').text(notificationsCount);
     $('#notificationIcon').addClass('text-primary');
