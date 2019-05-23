@@ -20,12 +20,13 @@ if (isset($_POST['companyName']) && isset($_POST['email'])&& isset($_POST['passw
             addUser($login, $password, $companyId, 'ceo');
             $_SESSION['login'] = $login;
             $_SESSION['password'] = $password;
+            addMassSystemEvent('newCompanyRegistered', '' , $companyId);
             header('location: /login/');
             ob_flush();
             die;
         }
     } else {
-        $regErrors[] = 'User with this e-mail has already exists';
+        $regErrors[] = 'User with this e-mail already exists';
 
     }
 }

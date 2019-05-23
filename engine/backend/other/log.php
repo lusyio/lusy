@@ -7,7 +7,7 @@ global $cometTrackChannelName;
 require_once 'engine/backend/functions/log-functions.php';
 
 $systemEvents = [
-    'sendInvite', 'newUserRegistered',
+    'sendInvite', 'newUserRegistered', 'newCompanyRegistered',
 ];
 
 $events = getEventsForUser();

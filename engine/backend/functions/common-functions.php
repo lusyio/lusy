@@ -165,7 +165,7 @@ function addMassSystemEvent($action, $comment = '', $companyId = '')
         $idc = $companyId;
     }
 
-    $possibleActions = ['newUserRegistered'];
+    $possibleActions = ['newUserRegistered', 'newCompanyRegistered'];
 
     if (!in_array($action, $possibleActions)) {
         return;
@@ -187,13 +187,5 @@ function addMassSystemEvent($action, $comment = '', $companyId = '')
 
     $companyUsersQuery = $pdo->prepare('SELECT id FROM users WHERE idcompany = :companyId');
     $companyUsersQuery->execute(array(':idcompany' => $idc));
-    $companyUsers = $companyUsersQuery->fetchAll(PDO::FETCH_COLUMN);
 
-    $sendToCometQuery  = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-    foreach ($companyUsers as $companyUserId) {
-        if ($companyUserId == $id) {
-            continue;
-        }
-        $sendToCometQuery->execute(array(':id' => $companyUserId, ':type' => 'newUser'));
-    }
 }
