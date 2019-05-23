@@ -4,7 +4,9 @@ function subscribeToMessagesNotification () {
         console.log('получено сообщение');
         console.log(e);
         console.log('запускаем обновление счетчика');
-        updateMessagesCounter();
+        if (e.data.senderId != userId) {
+            updateMessagesCounter();
+        }
         if (!window.pageName || pageName !== 'conversation') {
             checkNotifications('newMessage', e.data.messageId);
         }
