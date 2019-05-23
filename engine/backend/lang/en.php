@@ -30,3 +30,17 @@ $_canceledfilter = 'Canceled';
 $_newfilter = 'New';
 $_returnedfilter = 'Returned';
 $_months = ['january',  'february',  'march',  'april',  'may',  'june',  'july',  'august',  'september',  'october',  'november',  'december'];
+
+// Сообщения в логе
+$_logNewTask = 'entrusted You the task';
+$_logNewDate = 'postponed the deadline of the task';
+$_logNewComment = 'posted the comment to the task';
+$_logWorkDone = 'Task is done';
+$_logCancelDate = 'rejected postpone the deadline of the task';
+$_logConfirmDate = 'approved postpone the deadline of the task';
+$_logSendOnReview = 'sent to You task completion report';
+$_logWorkReturn = 'returned the task to You for completion';
+
+
+
+
