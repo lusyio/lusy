@@ -6,25 +6,8 @@ global $cometTrackChannelName;
 
 require_once 'engine/backend/functions/log-functions.php';
 
-$systemEvents = [
-    'sendInvite', 'newUserRegistered',
-];
-
 $events = getEventsForUser();
-
-foreach ($events as &$event) {
-    $event['link'] = '';
-    if ($event['action'] == 'comment') {
-        $event['link'] = 'task/' . $event['task_id'] . '/#' . $event['commentId'];
-    } else if ($event['action'] == 'newUserRegistered') {
-        $event['link'] = 'profile/' . $event['commentId'] . '/';
-        $event['name'] = DBOnce('name', 'users', 'id = ' . $event['commentId']);
-        $event['surname'] = DBOnce('surname', 'users', 'id = ' . $event['commentId']);
-    } else {
-        $event['link'] = 'task/' . $event['task_id'] . '/';
-    }
-}
-unset($event);
+prepareEvents($events);
 
 $newtask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "new" and worker='.$id);
 $overduetask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "overdue" and worker='.$id);

@@ -27,15 +27,7 @@
     </div>
     <div id="eventBox">
         <?php foreach ($events as $event): ?>
-        <?php
-            if ($event['action'] == 'comment') {
-                include 'engine/frontend/event-messages/comment.php';
-            } else if (in_array($event['action'], $systemEvents)) {
-                include 'engine/frontend/event-messages/system.php';
-            } else {
-                include 'engine/frontend/event-messages/task.php';
-            }
-            ?>
+            <?php renderEvent($event); ?>
         <?php endforeach; ?>
     </div>
 
@@ -101,6 +93,7 @@
     }
 </style>
 <script>
+    var pageName = 'log';
     $(document).ready(function() {
         var action = window.location.hash.substr(1);
 

@@ -43,6 +43,7 @@ $_logSendOnReview = 'sent to You task completion report';
 $_logWorkReturn = 'returned the task to You for completion';
     // Приглашения
 $_newUserRegistered = 'New user registered';
+$_newCompanyRegistered = 'Welcome to Lusy.io! Your Company is registered.';
 
 
 

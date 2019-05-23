@@ -2,8 +2,13 @@
 
     <?php if ($event['action'] == 'newUserRegistered'): // создание, назначение задачи ?>
         <?= $GLOBALS['_newUserRegistered'] ?> <?= $event['name'] ?> <?= $event['surname'] ?> <?= $event['datetime'] ?>
+        <a href="/../<?= $event['link'] ?>">Перейти</a>
     <?php endif; ?>
 
-    <a href="/../<?= $event['link'] ?>">Перейти</a>
+    <?php if ($event['action'] == 'newCompanyRegistered'): // регистрация компании ?>
+        <?= $GLOBALS['_newCompanyRegistered'] ?> <?= $event['datetime'] ?>
+    <?php endif; ?>
+
+
 </div>
 

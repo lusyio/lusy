@@ -16,7 +16,7 @@ if ($_POST['module'] == 'joinUser') {
         die("Invite doesnt't exist or expired");
     }
     if (isEmailExist($inviteeMail)) {
-        die('E-mail is already in use');
+        die('User with this e-mail already exists');
     }
     $newUserId = addUser($inviteeMail, $inviteePassword, $inviteData['company_id'], $inviteData['invitee_position'], $inviteeName, $inviteeSurname);
     updateInvite($inviteData['invite_id'], $newUserId);
