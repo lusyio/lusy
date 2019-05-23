@@ -39,6 +39,14 @@
 <script>
     $(document).ready(function () {
         cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
+        cometApi.onAuthSuccess(function(){
+            console.log("Подключились и авторизовались успешно")
+        });
+
+// Добавление callBack функции на уведомление об не успешной авторизации
+        cometApi.onAuthFalill(function(){
+            console.log("Подключились успешно но не авторизовались")
+        });
         subscribeToMessagesNotification();
         subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
         checkNotifications('onLoad');
