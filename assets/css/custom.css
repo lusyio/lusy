@@ -1359,6 +1359,54 @@ label.error{
 
 }
 
+.search-container{
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+    margin-top: 20px;
+    color: #000;
+}
+
+.search-result{
+    line-height: 160%;
+}
+
+.search-row{
+    color: #000;
+    display: block;
+    padding: 10px;
+    margin: 0 -10px;
+}
+.search-row:hover{
+    background: #f7f7f7;
+    text-decoration: none;
+}
+
+.search-header:hover{
+    text-decoration: underline;
+}
+.search-header{
+    color: #4a7099;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+}
+
+.search-content{
+    color: #000;
+}
+
+.search-empty{
+    font-size: 20px;
+    text-align: center;
+    color: #65686c;
+    padding: 72px 10px;
+    font-weight: 200;
+}
+
+.resultSet .text-reg{
+    font-size: 20px;
+}
+
 .edit-profileimage{
     position: absolute;
     background-color: #ffa87f;
