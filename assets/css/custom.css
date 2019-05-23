@@ -278,7 +278,7 @@ list-group:hover{
 }
 
 .filter-bar{
-    display: none;
+    /*display: none;*/
 }
 
 #searchInput {
