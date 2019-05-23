@@ -1,10 +1,10 @@
 <h3 class="pb-3"><?=$GLOBALS["_tasks"]?></h3>
 
-<div class="card mb-3">
+<div class="card mb-3 tasks-search-bar">
 	<div class="card-body pb-2">
 		<input id="searchInput" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2" type="text" placeholder="<?=$GLOBALS["_searchplaceholder"]?>...">
 		<div class="row">
-		    <div class="col-sm-12">
+		    <div class="col-sm-12 filter-bar">
 		
 		            <div class="d-inline-block">
 		                <?php if($isManager): ?>
@@ -32,3 +32,12 @@
 		</div>
 	</div>
 </div>
+
+<script>
+    // $(document).ready(function(){
+    //     $(".tasks-search-bar").on('mouseenter', function () {
+    //         var searchBar = $(this).find('.filter-bar');
+    //         searchBar.fadeIn(500);
+    //     });
+    // });
+</script>
