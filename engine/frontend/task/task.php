@@ -250,23 +250,6 @@ if ($id == $worker and $view == 0) {
             $(".responsible").fadeOut(300);
         });
 
-        $(".tooltip-avatar").on('click', '.deleteWorker', function () {
-            $(this).closest('.add-worker').remove();
-            var removedId = $(this).attr('value');
-            var numb = $('.addNewWorker[value = ' + removedId + ']');
-            numb.parents('.coworkersList-coworker').removeClass('bg-secondary');
-            $.post("/ajax.php", {
-                module: 'removeCoworker',
-                newCoworkerId: removedId,
-                it: $it,
-                ajax: 'task-control'
-            }, controlUpdate);
-
-            function controlUpdate(data) {
-                console.log(removedId);
-            }
-
-        });
 
         $(".changeResponsible").on('click', function () {
             var selectedId = $(this).attr('value');
@@ -275,10 +258,10 @@ if ($id == $worker and $view == 0) {
             $(".members-responsible-one").html("<div class=\"responsible-one text-justify\">\n" +
                 "                        <div class=\"row\">\n" +
                 "                            <div class=\"col-1\">\n" +
-                "                                <img src=\"/upload/avatar/" + selectedId + ".jpg\" class=\"avatar-added mr-1\">\n" +
+                "                                <img attr=" + selectedId + " src=\"/upload/avatar/" + selectedId + ".jpg\" class=\"avatar-added mr-1\">\n" +
                 "                            </div>\n" +
                 "                            <div class=\"col\">\n" +
-                "                                <p class=\"mb-1 add-coworker-text\"><?php echo $n['name'] . ' ' . $n['surname'] ?></p>\n" +
+                "                                <a href=\"#\" class=\"mb-1 add-coworker-text\"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>\n" +
                 "                            </div>\n" +
                 "                            <div class=\"col-2\">\n" +
                 "                            </div>\n" +
@@ -289,24 +272,64 @@ if ($id == $worker and $view == 0) {
             console.log(responsible);
         });
 
+        var coworkersId = new Map();
+
         $(".addNewWorker").on('click', function () {
             var selectedId = $(this).attr('value');
-            $(this).closest('.coworkersList-coworker').addClass('bg-secondary');
+            coworkersId.set(selectedId, selectedId);
+            console.log(coworkersId);
+            $(this).closest('.coworkersList-coworker').addClass('bg-coworker');
             $(".container-coworker").append("<div class=\"add-worker mr-1 mb-1\">\n" +
                 "                        <img title=\"<?= $viewStatusTitle ?>\" src=\"/upload/avatar/" + selectedId + ".jpg\"\n" +
                 "                             class=\"avatar-added mr-1\">\n" +
                 "                        <a href=\"#\" class=\"card-coworker\"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></a>\n" +
-                "                        <span><i value=\' " + selectedId + " \'\n" +
+                "                        <span><i value=\'" + selectedId + "\'\n" +
                 "                                 class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
                 "                    </div>");
 
             //$(".tooltip-avatar").prepend("<span class=\"mb-0\" title=\"<?//= $viewStatusTitle ?>//\"><img src=\"/upload/avatar/" + selectedId + ".jpg\" alt=\"worker image\" class=\"avatar mr-1 ml-1\"></span>");
 
             // $.post("/ajax.php", {module: 'addCoworker', newCoworkerId: selectedId, it: $it, ajax: 'task-control' }, controlUpdate);
-            function controlUpdate(data) {
-                console.log(selectedId);
-            }
+            // function controlUpdate(data) {
+            //     console.log(selectedId);
+            // }
 
+        });
+
+        $(".tooltip-avatar").on('click', '.deleteWorker', function () {
+            $(this).closest('.add-worker').remove();
+            var removedId = $(this).attr('value');
+            coworkersId.delete(removedId);
+            console.log(coworkersId);
+            var numb = $('.addNewWorker[value = ' + removedId + ']');
+            numb.parents('.coworkersList-coworker').removeClass('bg-coworker');
+            // $.post("/ajax.php", {
+            //     module: 'removeCoworker',
+            //     newCoworkerId: removedId,
+            //     it: $it,
+            //     ajax: 'task-control'
+            // }, controlUpdate);
+
+            // function controlUpdate(data) {
+            //     console.log(removedId);
+            // }
+
+        });
+
+        $("#confirmMembers").on('click', function () {
+            var responsibleId = $(".members-responsible-one ").find('img').attr('attr');
+            console.log(responsibleId);
+            console.log(coworkersId);
+            // var fd = new FormData();
+            // coworkersId.forEach(function (value, i) {
+            //     fd.append('coworkerId' + i, value);
+            // });
+            // fd.append('responsibleId', responsibleId);
+            // $.post("/ajax.php", {module: 'addCoworker', newCoworkerId: selectedId, it: $it, ajax: 'task-control' }, controlUpdate);
+            // function controlUpdate(data) {
+            //     console.log(selectedId);
+            // }
+            $(".members").fadeOut(300);
         });
 
     });

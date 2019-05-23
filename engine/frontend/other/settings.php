@@ -9,7 +9,6 @@
 <!--<img src="/upload/avatar-1.jpg" class="rounded-circle image-profile"><i id="editProfileImage"-->
 <!--                                                                        class="fas fa-pencil-alt edit-profileimage"></i>-->
 
-
 <div class="row justify-content-center">
     <div class="col-10">
         <form id="save-profile">
@@ -22,11 +21,11 @@
                                 <img class="rounded-circle" id="avatar" src="/upload/avatar-1.jpg" alt="avatar">
                                 <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                             </label>
-                            <div class="progress" style="display: none;">
+                            <div id="progress-settings" class="progress" style="display: none;">
                                 <div class="progress-bar-settings progress-bar-striped progress-bar-animated"
                                      role="progressbar"
-                                     aria-valuenow="100"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%
+                                     aria-valuenow="0"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 100%;">0%
                                 </div>
                             </div>
                             <div class="alert alert-success" role="alert" style="display: none;"></div>
@@ -62,47 +61,56 @@
                             <h4>Иван Петрович</h4>
                         </div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control name" placeholder="Иван">
+                    <form>
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <input id="settingsName" name="settingsName" type="text" class="form-control name"
+                                           value="Иван">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <input id="settingsSurname" name="settingsSurname" type="text"
+                                           class="form-control surname" value="Петрович">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control surname" placeholder="Петрович">
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <input id="settingsEmail" name="settingsEmail" type="email"
+                                           class="form-control email" value="demo@demo.ru">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
+                                           class="form-control phone-number" value="+7-(555)-555-5555">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control email" placeholder="email">
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <input id="settingsNewPassword" name="settingsNewPassword" type="password"
+                                           class="form-control new-password" placeholder="новый пароль">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <input id="password" name="password" type="password" class="form-control password"
+                                           placeholder="старый пароль"
+                                           required>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control phone-number" placeholder="phonenumber">
+                        <div class="row mt-5">
+                            <div class="col text-center">
+                                <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control new-password" placeholder="новый пароль">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control password" placeholder="старый пароль" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col text-center">
-                            <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </form>
@@ -114,7 +122,7 @@
         var avatar = document.getElementById('avatar');
         var image = document.getElementById('image');
         var input = document.getElementById('input');
-        var $progress = $('.progress');
+        var $progress = $('#progress-settings');
         var $progressBar = $('.progress-bar-settings');
         var $alert = $('.alert');
         var $modal = $('#modal');
@@ -178,7 +186,7 @@
                     var formData = new FormData();
 
                     formData.append('avatar', blob, 'avatar.jpg');
-                    $.ajax('https://jsonplaceholder.typicode.com/posts', {
+                    $.ajax('', {
                         method: 'POST',
                         data: formData,
                         processData: false,

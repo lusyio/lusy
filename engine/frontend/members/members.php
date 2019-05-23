@@ -1,6 +1,6 @@
 <div class="members">
     <div class="card p-2 position-relative">
-        <div class="add-worker text-justify mr-1 mb-1">
+        <div class="add-worker text-justify mr-1 mb-1 owner">
             <img title="<?= $viewStatusTitle ?>" src="/upload/avatar/<?= $coworker['worker_id'] ?>.jpg"
                  class="avatar-added mr-1">
             <a href="#"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></a>
@@ -39,7 +39,7 @@
                                 <img src="/upload/avatar/<?= $n['id'] ?>.jpg" class="avatar-added mr-1">
                             </div>
                             <div class="col">
-                                <p class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></p>
+                                <a href="#" class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>
                             </div>
                             <div class="col-2">
                                 <i value="<?php echo $n['id'] ?>"
@@ -90,7 +90,7 @@
                                 <img src="/upload/avatar/<?= $n['id'] ?>.jpg" class="avatar-added mr-1">
                             </div>
                             <div class="col">
-                                <p class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></p>
+                                <a href="#" class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>
                             </div>
                             <div class="col-2">
                                 <i value="<?php echo $n['id'] ?>" class="fas fa-plus add-coworker addNewWorker"></i>

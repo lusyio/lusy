@@ -43,7 +43,7 @@ $_deadlinelist = 'Дедлайн:';
 
 //Файлы
 $_attachto = 'прикрепил к';
-$_fileplaceholder = 'Ведите название файла';
+$_fileplaceholder = 'Введите название файла';
 $_conversation = 'диалогу';
 $_comment= 'комментарию';
 $_task= 'задаче';
