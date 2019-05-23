@@ -147,7 +147,7 @@
         }
 
         $('#eventBox').on('mouseover', '.new-event', function () {
-            $(this).removeClass('new-event').fadeOut(1000);
+            $(this).removeClass('new-event');
             var eventId = $(this).data('event-id');
             if ($(this).hasClass('comment')) {
                 decreaseCommentCounter();

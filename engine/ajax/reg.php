@@ -1,5 +1,6 @@
 <?php
 
+require_once 'engine/backend/functions/common-functions.php';
 require_once 'engine/backend/functions/reg-functions.php';
 require_once 'engine/backend/functions/invite-functions.php';
 
@@ -17,6 +18,8 @@ if ($_POST['module'] == 'joinUser') {
     }
     $newUserId = addUser($inviteeMail, $inviteePassword, $inviteData['company_id'], $inviteData['invitee_position'], $inviteeName, $inviteeSurname);
     updateInvite($inviteData['invite_id'], $newUserId);
+    $idc = $inviteData['company_id'];
+    addMassSystemEvent('newUserRegistered', $newUserId);
     session_start();
     $_SESSION['login'] = $inviteeMail;
     $_SESSION['password'] = $inviteePassword;

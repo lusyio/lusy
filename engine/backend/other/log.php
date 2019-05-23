@@ -7,7 +7,7 @@ global $cometTrackChannelName;
 require_once 'engine/backend/functions/log-functions.php';
 
 $systemEvents = [
-    'sendInvite', 'newUser',
+    'sendInvite', 'newUserRegistered',
 ];
 
 $events = getEventsForUser();
@@ -16,6 +16,10 @@ foreach ($events as &$event) {
     $event['link'] = '';
     if ($event['action'] == 'comment') {
         $event['link'] = 'task/' . $event['task_id'] . '/#' . $event['commentId'];
+    } else if ($event['action'] == 'newUserRegistered') {
+        $event['link'] = 'profile/' . $event['commentId'] . '/';
+        $event['name'] = DBOnce('name', 'users', 'id = ' . $event['commentId']);
+        $event['surname'] = DBOnce('surname', 'users', 'id = ' . $event['commentId']);
     } else {
         $event['link'] = 'task/' . $event['task_id'] . '/';
     }

@@ -153,3 +153,43 @@ function addMassEvent($action, $taskId, $comment)
         $sendToCometQuery->execute(array(':id' => $recipient, ':type' => $type));
     }
 }
+
+function addMassSystemEvent($action, $comment = '')
+{
+    global $id;
+    global $idc;
+    global $pdo;
+    global $cometPdo;
+
+    $possibleActions = ['newUserRegistered'];
+
+    if (!in_array($action, $possibleActions)) {
+        return;
+    }
+
+    $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
+    $datetime = date("Y-m-d H:i:s");
+    $eventData = [
+        ':action' => $action,
+        ':taskId' => '',
+        ':recipientId' => '',
+        ':authorId' => '',
+        ':companyId' => $idc,
+        ':datetime' => $datetime,
+        ':comment' => $comment,
+    ];
+    $addEventQuery->execute($eventData);
+
+    $companyUsersQuery = $pdo->prepare('SELECT id FROM users WHERE idcompany = :companyId');
+    $companyUsersQuery->execute(array(':idcompany' => $idc));
+    $companyUsers = $companyUsersQuery->fetchAll(PDO::FETCH_COLUMN);
+
+    $sendToCometQuery  = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
+    foreach ($companyUsers as $companyUserId) {
+        if ($companyUserId == $id) {
+            continue;
+        }
+        $sendToCometQuery->execute(array(':id' => $companyUserId, ':type' => 'newUser'));
+    }
+}
