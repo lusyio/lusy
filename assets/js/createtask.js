@@ -1,34 +1,28 @@
 $(document).ready(function () {
 
+    $(".file-name").on('click', '.cancelFile', function () {
+        $(this).closest(".filenames").remove();
+        var num = parseInt($(this).closest(".filenames").attr('val'));
+        fileList.delete(num);
+    });
+
     var fileList = new Map();
     var names;
     var sizes;
-    function displayFile() {
-        $("#sendFiles").bind('change', function () {
-            for (var i = 0; i < this.files.length; i++) {
-                console.log(i);
-                names = this.files[i].name;
-                fileList.set(i, this.files[i]);
-                $(".file-name").show().addClass('d-flex').append("<div val='" + i + "' class='filenames'>"
-                    + names +
-                    "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
-                    "</div>");
-                $(".cancelFile").off('click');
-                $(".cancelFile").on('click', function () {
-                    $(this).closest(".filenames").remove();
-                    var num = $(this).closest(".filenames").attr('val');
-                        fileList.delete(num);
-                        console.log(fileList);
-                        console.log(num);
-                });
-            }
-        });
-    }
+    var n = 0;
 
-    $("#sendFiles").on('click', function () {
-        displayFile();
-        $("#sendFiles").off('click');
+    $("#sendFiles").bind('change', function () {
+        $(this.files).each(function () {
+            names = this.name;
+            fileList.set(n, $(this)[0]);
+            $(".file-name").show().addClass('d-flex').append("<div val='" + n + "' class='filenames'>"
+                + names +
+                "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
+                "</div>");
+            n++;
+        });
     });
+
 
 //создание новой задачи
     $("#createTask").click(function () {
