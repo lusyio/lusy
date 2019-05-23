@@ -34,7 +34,7 @@
                         <strong class="text-danger" id="overdueCount"><?= ($newOverdueCount) ? $newOverdueCount : '' ?></strong>
                     </a>
                     <a href="/log/<?= ($newCommentCount) ? '#new-comments' : '#comments' ?>" class="mr-3 text-decoration-none">
-                        <i class="fas fa-comment  <?= ($newCommentCount) ? 'text-warning' : '' ?>" id="commentIcon"></i>
+                        <i class="far fa-comment  <?= ($newCommentCount) ? 'text-warning' : '' ?>" id="commentIcon"></i>
                         <strong class="text-warning" id="commentCount"><?= ($newCommentCount) ? $newCommentCount : '' ?></strong>
                     </a>
                     <a href="/mail/" class="mr-3 text-decoration-none">

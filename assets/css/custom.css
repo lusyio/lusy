@@ -549,11 +549,11 @@ input:checked[type="checkbox"]::before {
 }
 
 .fas.fa-check.custom-date.accept:hover {
-    text-shadow: 1px 1px 2px black, 0 0 1em #2da64d;
+    text-shadow: 1px 1px 2px black, 0 0 1em #93c162;
 }
 
 .fas.fa-times.custom-date.cancel:hover {
-    text-shadow: 1px 1px 2px black, 0 0 1em #da3248;
+    text-shadow: 1px 1px 2px black, 0 0 1em #d24f5e;
 }
 
 
@@ -975,6 +975,7 @@ a {
 }
 .user-img {
     width: 45px;
+    box-shadow: 2px 1px 10px rgba(0,0,0,.3)
 }
 .indy span {
     font-size: 12px;
@@ -1441,6 +1442,14 @@ label.error{
     background-color: #464646;
 }
 
+#createTask{
+    width: 80%;
+}
+
+.create-task{
+    text-align: -webkit-center;
+}
+
 .image-profile{
     width: 190px;
     box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
@@ -1492,7 +1501,7 @@ label.error{
 }
 #editor{
     background-color: white;
-    height: 30%;
+    height: 160px;
 }
 
 
