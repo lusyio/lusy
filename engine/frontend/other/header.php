@@ -38,7 +38,8 @@
 <script src="/assets/js/CometServerApi.js"></script>
 <script>
     $(document).ready(function () {
-        cometApi.start({dev_id: 2553, user_id:<?= $id ?>, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
+        var userId = <?= $id ?>;
+        cometApi.start({dev_id: 2553, user_id: userId, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
         cometApi.onAuthSuccess(function(){
             console.log("Подключились и авторизовались успешно")
         });
@@ -47,7 +48,7 @@
         cometApi.onAuthFalill(function(){
             console.log("Подключились успешно но не авторизовались")
         });
-        subscribeToMessagesNotification();
+        subscribeToMessagesNotification(userId);
         subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
         checkNotifications('onLoad');
         $('.push-messages-area').on('click', '.close-push-message', function (e) {
