@@ -56,6 +56,51 @@
         });
         subscribeToMessagesNotification(userId);
         subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
+        console.log('подписыаемся на новые сообщения');
+
+        cometApi.subscription("msg.new", function (e) {
+            console.log('получено сообщение');
+            console.log(e);
+            console.log('запускаем обновление счетчика');
+            if (e.data.senderId != userId) {
+                updateMessagesCounter();
+            }
+            // if (!window.pageName || pageName !== 'conversation') {
+            //     checkNotifications('newMessage', e.data.messageId);
+            // }
+        });
+        console.log('подписыаемся на новые задачи');
+
+        cometApi.subscription("msg.newTask", function (e) {
+            console.log(e);
+            updateNotificationsCounter();
+            //checkNotifications('newTask', e.data)
+        });
+        console.log('подписыаемся на новые события в логе');
+
+        cometApi.subscription("msg.newLog", function (e) {
+            console.log('newlogmessage');
+            console.log(e);
+            console.log(window.pageName);
+            var eventId = e.data.eventId;
+            if (e.data.type === 'comment') {
+                increaseCommentCounter()
+            }
+            if (e.data.type === 'task') {
+                console.log(e);
+                updateNotificationsCounter();
+            }
+            if (window.pageName && pageName === 'log') {
+                console.log('start event request');
+                $.post("/ajax.php", {module: 'getEvent', eventId: eventId, ajax: 'log'}, function (event) {
+                    if (event) {
+                        $('#eventBox').prepend(event);
+                    }
+                });
+            }
+        });
+        console.log('подписки пройдены');
+
         checkNotifications('onLoad');
         $('.push-messages-area').on('click', '.close-push-message', function (e) {
             e.preventDefault();
