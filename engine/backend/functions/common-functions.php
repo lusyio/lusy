@@ -154,12 +154,16 @@ function addMassEvent($action, $taskId, $comment)
     }
 }
 
-function addMassSystemEvent($action, $comment = '')
+function addMassSystemEvent($action, $comment = '', $companyId = '')
 {
     global $id;
-    global $idc;
     global $pdo;
     global $cometPdo;
+    if ($companyId == '') {
+        global $idc;
+    } else {
+        $idc = $companyId;
+    }
 
     $possibleActions = ['newUserRegistered'];
 

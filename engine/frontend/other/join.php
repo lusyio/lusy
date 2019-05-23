@@ -38,7 +38,9 @@
                     data: fd,
                     success: function (data) {
                         console.log(data);
-                        location.href = '/../login/';
+                        if(!data) {
+                            location.href = '/../login/';
+                        }
                     }
                 })
             }
