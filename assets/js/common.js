@@ -7,16 +7,16 @@ function subscribeToMessagesNotification (userId) {
         if (e.data.senderId != userId) {
             updateMessagesCounter();
         }
-        if (!window.pageName || pageName !== 'conversation') {
-            checkNotifications('newMessage', e.data.messageId);
-        }
+        // if (!window.pageName || pageName !== 'conversation') {
+        //     checkNotifications('newMessage', e.data.messageId);
+        // }
     });
     console.log('подписыаемся на новые задачи');
 
     cometApi.subscription("msg.newTask", function (e) {
         console.log(e);
         updateNotificationsCounter();
-        checkNotifications('newTask', e.data)
+        //checkNotifications('newTask', e.data)
     });
     console.log('подписыаемся на новые события в логе');
 
