@@ -47,14 +47,14 @@ function subscribeToMessagesNotification (userId) {
 }
 
 function increaseCommentCounter() {
-    var commentCount = parseInt($('#commentCount').text());
+    var commentCount = +$('#commentCount').text();
     commentCount++;
     $('#commentCount').text(commentCount);
     $('#commentIcon').addClass('text-warning');
 }
 
 function decreaseCommentCounter() {
-    var commentCount = parseInt($('#commentCount').text());
+    var commentCount = +$('#commentCount').text();
     commentCount--;
     if (commentCount < 1) {
         $('#commentCount').text('');
@@ -66,7 +66,7 @@ function decreaseCommentCounter() {
 }
 
 function decreaseTaskCounter() {
-    var taskCount = parseInt($('#notificationCount').text());
+    var taskCount = +$('#notificationCount').text();
     console.log(taskCount);
     taskCount--;
     if (taskCount < 1) {
@@ -110,7 +110,7 @@ function subscribeToOnlineStatusNotification (channelName) {
 }
 function updateMessagesCounter() {
     console.log('парсим текущее число непрочитанных');
-    var messagesCount = parseInt($('#messagesCount').text());
+    var messagesCount = +$('#messagesCount').text();
     console.log(messagesCount);
     console.log('инкремент');
     messagesCount++;
@@ -120,7 +120,7 @@ function updateMessagesCounter() {
     $('#messagesIcon').addClass('text-successful');
 }
 function updateNotificationsCounter() {
-    var notificationsCount = parseInt($('#notificationsCount').text());
+    var notificationsCount = +$('#notificationsCount').text();
     notificationsCount++;
     $('#notificationCount').text(notificationsCount);
     $('#notificationIcon').addClass('text-primary');
