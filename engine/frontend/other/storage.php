@@ -81,8 +81,9 @@ if ($normalizedCompanyFilesSize['size'] > 0) {
         });
 
         $(".deleteFile").on('click', function () {
-            var fileId = $(this).attr('val');
+            var fileId = $(this).find('.delete-file-icon').attr('val');
             var file = $(this).parents(".files");
+            console.log(fileId);
             $.post("/ajax.php", {module: 'deleteFile', fileId: fileId, ajax: 'storage'}, controlUpdate);
 
             function controlUpdate(data) {
