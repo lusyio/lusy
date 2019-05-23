@@ -14,13 +14,24 @@ function subscribeToMessagesNotification () {
     });
 
     cometApi.subscription("msg.newLog", function (e) {
+        console.log('newlogmessage');
         console.log(e);
-        if (e.data === 'comment') {
+        console.log(window.pageName);
+        var eventId = e.data.eventId;
+        if (e.data.type === 'comment') {
             increaseCommentCounter()
         }
-        if (e.data === 'task') {
+        if (e.data.type === 'task') {
             console.log(e);
             updateNotificationsCounter();
+        }
+        if (window.pageName && pageName === 'log') {
+            console.log('start event request');
+            $.post("/ajax.php", {module: 'getEvent', eventId: eventId, ajax: 'log'}, function (event) {
+                if (event) {
+                    $('#eventBox').prepend(event);
+                }
+            });
         }
     });
     console.log('subscribe passed');
@@ -98,7 +109,7 @@ function updateNotificationsCounter() {
     var notificationsCount = $('#notificationsCount').text();
     notificationsCount++;
     $('#notificationCount').text(notificationsCount);
-    $('#notificationIcon').addClass('text-warning');
+    $('#notificationIcon').addClass('text-primary');
 }
 
 function checkNotifications(event, id) {

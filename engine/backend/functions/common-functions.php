@@ -91,16 +91,18 @@ function addEvent($action, $taskId, $recipientId)
         'datetime' => date("Y-m-d H:i:s"),
     ];
     $addEventQuery->execute($eventData);
-
+    $eventId = $pdo->lastInsertId();
     if ($action == 'comment') {
         $type = 'comment';
     } else {
         $type = 'task';
-
     }
-
+    $pushData = [
+        'type' => $type,
+        'eventId' => $eventId,
+    ];
     $sendToCometQuery  = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-    $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => $type));
+    $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
 }
 
 function addMassEvent($action, $taskId, $comment)
@@ -139,6 +141,7 @@ function addMassEvent($action, $taskId, $comment)
 
     $sendToCometQuery  = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
     $type = 'comment';
+
     foreach ($recipients as $recipient) {
         $eventData = [
             ':action' => $action,
@@ -149,8 +152,14 @@ function addMassEvent($action, $taskId, $comment)
             ':datetime' => $datetime,
             ':comment' => $comment,
         ];
+
         $addEventQuery->execute($eventData);
-        $sendToCometQuery->execute(array(':id' => $recipient, ':type' => $type));
+        $eventId = $pdo->lastInsertId();
+        $pushData = [
+            'type' => $type,
+            'eventId' => $eventId,
+        ];
+        $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
     }
 }
 

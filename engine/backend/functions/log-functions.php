@@ -99,6 +99,24 @@ function getEventsForUser()
     return $events;
 }
 
+function getEventByIdForUser($eventId)
+{
+    global $id;
+    global $idc;
+    global $pdo;
+
+    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS commentId, c.comment AS commentText, e.datetime, e.view_status, t.name AS taskName FROM events e
+  LEFT JOIN tasks t ON t.id = e.task_id
+  LEFT JOIN users u on u.id = e.author_id
+  LEFT JOIN comments c on c.id = e.comment                                                                              
+  WHERE (e.recipient_id = :userId OR (e.recipient_id = 0 AND e.company_id = :companyId)) AND e.event_id = :eventId
+  ORDER BY e.datetime DESC');
+
+    $eventsQuery->execute(array(':userId' =>$id, ':companyId' =>$idc, ':eventId' => $eventId));
+    $events = $eventsQuery->fetchAll(PDO::FETCH_ASSOC);
+    return $events;
+}
+
 function getAllEvents()
 {
     global $idc;
@@ -114,5 +132,37 @@ function getAllEvents()
     $eventsQuery->execute(array(':companyId' =>$idc));
     $events = $eventsQuery->fetchAll(PDO::FETCH_ASSOC);
     return $events;
+}
+
+function prepareEvents(&$events)
+{
+    foreach ($events as &$event) {
+        $event['link'] = '';
+        if ($event['action'] == 'comment') {
+            $event['link'] = 'task/' . $event['task_id'] . '/#' . $event['commentId'];
+        } else if ($event['action'] == 'newUserRegistered') {
+            $event['link'] = 'profile/' . $event['commentId'] . '/';
+            $event['name'] = DBOnce('name', 'users', 'id = ' . $event['commentId']);
+            $event['surname'] = DBOnce('surname', 'users', 'id = ' . $event['commentId']);
+        } else {
+            $event['link'] = 'task/' . $event['task_id'] . '/';
+        }
+    }
+    unset($event);
+}
+
+function renderEvent($event)
+{
+    $systemEvents = [
+        'sendInvite', 'newUserRegistered', 'newCompanyRegistered',
+    ];
+
+    if ($event['action'] == 'comment') {
+        include 'engine/frontend/event-messages/comment.php';
+    } else if (in_array($event['action'], $systemEvents)) {
+        include 'engine/frontend/event-messages/system.php';
+    } else {
+        include 'engine/frontend/event-messages/task.php';
+    }
 }
 
