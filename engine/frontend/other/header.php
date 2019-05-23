@@ -41,7 +41,13 @@
         var userId = <?= $id ?>;
         cometApi.start({dev_id: 2553, user_id: userId, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
         cometApi.onAuthSuccess(function(){
-            console.log("Подключились и авторизовались успешно")
+            console.log("Подключились и авторизовались успешно");
+            console.log(cometApi.isMaster());
+            if (cometApi.isMaster()) {
+                console.log('master')
+            } else {
+                console.log('slave')
+            }
         });
 
 // Добавление callBack функции на уведомление об не успешной авторизации

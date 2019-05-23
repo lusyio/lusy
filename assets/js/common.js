@@ -1,5 +1,6 @@
 function subscribeToMessagesNotification (userId) {
     console.log('подписыаемся на новые сообщения');
+
     cometApi.subscription("msg.new", function (e) {
         console.log('получено сообщение');
         console.log(e);
