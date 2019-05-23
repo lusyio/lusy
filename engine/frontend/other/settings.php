@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-body p-5">
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-6 text-center">
                             <label class="label" data-toggle="tooltip" title=""
                                    data-original-title="Смена изображения">
                                 <img class="rounded-circle" id="avatar" src="/upload/avatar-1.jpg" alt="avatar">
@@ -65,36 +65,36 @@
                     <div class="row mt-5">
                         <div class="col-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Иван">
+                                <input type="text" class="form-control name" placeholder="Иван">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Петрович">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="email">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="phonenumber">
+                                <input type="text" class="form-control surname" placeholder="Петрович">
                             </div>
                         </div>
                     </div>
                     <div class="row mt-5">
                         <div class="col-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="новый пароль">
+                                <input type="text" class="form-control email" placeholder="email">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="старый пароль" required>
+                                <input type="text" class="form-control phone-number" placeholder="phonenumber">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control new-password" placeholder="новый пароль">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control password" placeholder="старый пароль" required>
                             </div>
                         </div>
                     </div>
