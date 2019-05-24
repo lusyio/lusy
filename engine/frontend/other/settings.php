@@ -18,7 +18,7 @@
                         <div class="col-6 text-center">
                             <label class="label" data-toggle="tooltip" title=""
                                    data-original-title="Смена изображения">
-                                <img class="rounded-circle" id="avatar" src="/upload/avatar-1.jpg" alt="avatar">
+                                <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
                                 <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                             </label>
                             <div id="progress-settings" class="progress" style="display: none;">
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="col text-center align-center">
-                            <h4>Иван Петрович</h4>
+                            <h4><?= $userData['name']; ?> <?= $userData['surname']; ?></h4>
                         </div>
                     </div>
                     <form>
@@ -66,13 +66,13 @@
                             <div class="col-6">
                                 <div class="input-group">
                                     <input id="settingsName" name="settingsName" type="text" class="form-control name"
-                                           value="Иван">
+                                           value="<?= $userData['name']; ?>">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="input-group">
                                     <input id="settingsSurname" name="settingsSurname" type="text"
-                                           class="form-control surname" value="Петрович">
+                                           class="form-control surname" value="<?= $userData['surname']; ?>">
                                 </div>
                             </div>
                         </div>
@@ -80,13 +80,13 @@
                             <div class="col-6">
                                 <div class="input-group">
                                     <input id="settingsEmail" name="settingsEmail" type="email"
-                                           class="form-control email" value="demo@demo.ru">
+                                           class="form-control email" value="<?= $userData['email']; ?>">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="input-group">
                                     <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
-                                           class="form-control phone-number" value="+7-(555)-555-5555">
+                                           class="form-control phone-number" value="<?= $userData['phone']; ?>">
                                 </div>
                             </div>
                         </div>

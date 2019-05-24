@@ -209,3 +209,14 @@ function getAvatarLink($userId)
         return 'upload/avatar/0.jpg';
     }
 }
+
+function getUserData($userId)
+{
+    global $idc;
+    global $pdo;
+
+    $userQuery = $pdo->prepare('SELECT id, login, email, phone, name, surname, idcompany, role, points, activity, register_date FROM users WHERE id = :userId AND idcompany = :companyId');
+    $userQuery->execute(array(':userId' => $userId, ':companyId' => $idc));
+    $userData = $userQuery->fetch(PDO::FETCH_ASSOC);
+    return $userData;
+}
