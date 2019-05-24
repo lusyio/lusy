@@ -8,7 +8,7 @@
                     </div>
                     <div class="col text-center align-center">
                         <h4 class="mb-3"><?= $fio ?></h4>
-                        <p>Замечательный человек</p>
+                        <p><?= $about ?></p>
                     </div>
                     <div class="float-right">
                         <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="socials text-reg">
-                            <span><i class="fab fa-vk icon-social mr-3"></i> <i class="fab fa-facebook-f icon-social"></i> </span>
+                            <span><i href="" class="fab fa-vk icon-social mr-3 vk"></i> <i href="" class="fab fa-facebook-f icon-social facebook"></i> </span>
                         </div>
                     </div>
                 </div>
@@ -85,3 +85,8 @@
 
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+    });
+</script>

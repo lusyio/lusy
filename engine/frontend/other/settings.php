@@ -82,7 +82,7 @@
                         <div class="input-group">
                             <textarea rows="3" id="settingsDescription" name="settingsDescription" type="text"
                                       class="form-control name"
-                                      placeholder="Немного о себе"></textarea>
+                                      placeholder="Немного о себе"><?= $userData['about']; ?></textarea>
                         </div>
                     </div>
                     <div class="col pl-0">
@@ -91,7 +91,7 @@
                                 <span class="input-group-text" id="basic-addon1"><i class="fab fa-vk"></i></span>
                             </div>
                             <input id="settingsVk" name="settingsVk" type="text"
-                                   class="form-control email" value="vkontakte">
+                                   class="form-control email" value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : 'vk.com'; ?>">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -99,7 +99,7 @@
                                             class="fab fa-facebook-f"></i></span>
                             </div>
                             <input id="settingsFacebook" name="settingsFacebook" type="text"
-                                   class="form-control email" value="facebook">
+                                   class="form-control email" value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : 'facebook' ; ?>">
                         </div>
                     </div>
                 </div>

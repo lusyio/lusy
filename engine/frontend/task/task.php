@@ -122,7 +122,7 @@ if ($id == $worker and $view == 0) {
                             <medium class="justify-content-center d-flex position-absolute w-100 h-100">
                                 <div class="p-1 date-inside">
                                     <i class="far fa-calendar-times text-ligther-custom"></i><span
-                                            class="text-ligther-custom ml-2">Дедлайн: </span><span>31 мая</span>
+                                            class="text-ligther-custom ml-2"><?= $GLOBALS['_deadlinelist'] ?></span> <?= $dayDone?> <?= $monthDone?><span></span>
                                 </div>
                             </medium>
                         </div>
