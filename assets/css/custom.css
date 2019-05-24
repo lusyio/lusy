@@ -1438,13 +1438,26 @@ label.error{
     right: 0;
 }
 
+.select-country{
+    color: black;
+}
+
 .flags{
     min-width: 4rem !important;
     padding: 0;
 }
 
+#avatar{
+    width: 190px;
+    box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
+}
+
 .flag{
     padding: 5px;
+}
+
+.flag:hover{
+    cursor: pointer;
 }
 
 .edit-profileimage:hover{

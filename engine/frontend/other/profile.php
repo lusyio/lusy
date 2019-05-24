@@ -2,17 +2,19 @@
     <div class="col-12 col-lg-10 col-xl-8">
 	    
 		<div class="card">
-			<div class="card-body">
+			<div class="card-body p-5">
 				<div class="row">
-					<div class="col-3">
-						<?=userpic($_GET["profile"])?>
+
+					<div class="col-6">
+                        <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
+<!--						--><?//=userpic($_GET["profile"])?>
 					</div>
-					<div class="col-8">
-						<h3 class="mb-3"><?=$fio?></h3>
-						<p class="text-secondary"><i class="fas fa-phone mr-3"></i> <?=$phone?></p>
-						<p class="text-secondary"><i class="fas fa-envelope mr-3"></i> <?=$email?></p>
+					<div class="col align-center">
+						<h4 class="mb-3"><?=$fio?></h4>
+                        <p class="text-secondary"><i class="fas fa-phone mr-3"></i> <?=$phone?></p>
+                        <p class="text-secondary"><i class="fas fa-envelope mr-3"></i> <?=$email?></p>
 					</div>
-                    <div class="col-1">
+                    <div class="float-right">
                         <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
                     </div>
 				</div>

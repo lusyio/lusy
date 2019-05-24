@@ -10,7 +10,7 @@
 <!--                                                                        class="fas fa-pencil-alt edit-profileimage"></i>-->
 
 <div class="row justify-content-center">
-    <div class="col-10">
+    <div class="col-12 col-lg-10 col-xl-8">
         <form id="save-profile">
             <div class="card">
                 <div class="card-body p-5">
@@ -85,7 +85,9 @@
                             </div>
                             <div class="col-6">
                                 <div class="input-group">
-                                    <button class="rounded-left class=btn border-secondary btn-outline-light dropdown-toggle select-country" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button class="rounded-left class=btn border-secondary btn-outline-light dropdown-toggle select-country"
+                                            type="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
                                         <div class="flag d-inline">🇷🇺</div>
                                     </button>
                                     <div class="dropdown-menu flags">
@@ -93,6 +95,7 @@
                                         <a class="dropdown-item text-muted flag">🇺🇸 +1</a>
                                     </div>
                                     <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
+                                           pattern="[(]{1}-[0-9]{3}[)]{1}-[0-9]{3}-[0-9]{4}"
                                            class="form-control phone-number" value="<?= $userData['phone']; ?>">
                                 </div>
                             </div>
@@ -184,6 +187,7 @@
                 canvas = cropper.getCroppedCanvas({
                     width: 190,
                     height: 190,
+                    imageSmoothingQuality: 'high',
                 });
                 initialAvatarURL = avatar.src;
                 avatar.src = canvas.toDataURL();
