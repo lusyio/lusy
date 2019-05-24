@@ -1438,11 +1438,22 @@ label.error{
     right: 0;
 }
 
-.select-country{
-    color: black;
+.join{
+    background-color: #f8f9fa;
+    padding: 2.5%;
 }
 
-.flags{
+.btn-join{
+    text-align: center;
+    margin-bottom: 3%;
+    width: 20rem;
+    background: #5d94da;
+    color: #fff;
+    padding: 0.5em 1em;
+}
+
+.select-country{
+    color: black;
     padding: 5px;
 }
 

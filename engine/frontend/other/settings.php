@@ -91,12 +91,12 @@
                             <!--                                            aria-expanded="false">-->
                             <!--                                        <div class="flag d-inline">🇷🇺</div>-->
                             <!--                                    </button>-->
-                            <select class="custom-select flags rounded-left">
-                                <option value="7" class="flag">🇷🇺 +7</option>
+<!--                            <select id="countryNumber" class="custom-select select-country rounded-left">-->
+<!--                                <option value="7" class="flag">🇷🇺 +7</option>-->
 <!--                                <option value="1" class="flag">🇺🇸 +1</option>-->
-                            </select>
+<!--                            </select>-->
                             <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
-                                   pattern="[0-9]{3}-[0-9]{7}"
+                                   placeholder="Номер телефона"
                                    class="form-control phone-number" value="<?= $userData['phone']; ?>">
                         </div>
                     </div>
@@ -139,6 +139,8 @@
             var newPassword = $("#settingsNewPassword").val();
             var password = $("#password").val();
             var fd = new FormData();
+            // var countryNumber = $("#countryNumber").val();
+            // console.log(countryNumber);
             fd.append('ajax', 'settings');
             fd.append('module', 'changeData');
             fd.append('name', name);
