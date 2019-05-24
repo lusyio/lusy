@@ -51,7 +51,7 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                 Назад
                                             </button>
-                                            <button type="button" class="btn btn-primary" id="crop">Обрезать</button>
+                                            <button type="button" class="btn btn-primary" id="crop">Загрузить</button>
                                         </div>
                                     </div>
                                 </div>
@@ -85,6 +85,13 @@
                             </div>
                             <div class="col-6">
                                 <div class="input-group">
+                                    <button class="rounded-left class=btn border-secondary btn-outline-light dropdown-toggle select-country" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="flag d-inline">🇷🇺</div>
+                                    </button>
+                                    <div class="dropdown-menu flags">
+                                        <a class="dropdown-item text-muted flag">🇷🇺 +7</a>
+                                        <a class="dropdown-item text-muted flag">🇺🇸 +1</a>
+                                    </div>
                                     <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
                                            class="form-control phone-number" value="<?= $userData['phone']; ?>">
                                 </div>
