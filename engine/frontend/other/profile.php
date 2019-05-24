@@ -1,21 +1,34 @@
 <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-8">
-
         <div class="card">
             <div class="card-body p-5">
-                <div class="row">
-
+                <div class="row mb-5">
                     <div class="col-6">
                         <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
-                        <!--						--><? //=userpic($_GET["profile"])?>
                     </div>
-                    <div class="col align-center">
+                    <div class="col text-center align-center">
                         <h4 class="mb-3"><?= $fio ?></h4>
-                        <p class="text-secondary"><i class="fas fa-phone mr-3"></i> <?= $phone ?></p>
-                        <p class="text-secondary"><i class="fas fa-envelope mr-3"></i> <?= $email ?></p>
+                        <p>Замечательный человек</p>
                     </div>
                     <div class="float-right">
                         <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="text-secondary"><i class="fas fa-phone mr-3"></i> <?= $phone ?></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="text-secondary"><i class="fas fa-envelope mr-3"></i> <?= $email ?></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="socials text-reg">
+                            <span><i class="fab fa-vk icon-social mr-3"></i> <i class="fab fa-facebook-f icon-social"></i> </span>
+                        </div>
                     </div>
                 </div>
             </div>
