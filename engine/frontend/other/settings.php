@@ -91,15 +91,15 @@
                                 <span class="input-group-text" id="basic-addon1"><i class="fab fa-vk"></i></span>
                             </div>
                             <input id="settingsVk" name="settingsVk" type="text"
-                                   class="form-control email" value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : 'vk.com'; ?>">
+                                   class="form-control email" placeholder="vk.com" value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : ''; ?>">
                         </div>
-                        <div class="input-group mb-3">
+                        <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i
                                             class="fab fa-facebook-f"></i></span>
                             </div>
-                            <input id="settingsFacebook" name="settingsFacebook" type="text"
-                                   class="form-control email" value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : 'facebook' ; ?>">
+                            <input id="settingsFacebook" name="settingsFacebook" type="text" placeholder="facebook"
+                                   class="form-control email" value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : '' ; ?>">
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,9 @@
 <script>
     $(document).ready(function () {
         $("#sendChanges").on('click', function () {
-            var social = new Map();
+            var social = {};
+            var socialVk = "vk";
+            var socialFacebook = "facebook";
             var description = $("#settingsDescription").val();
             var vk = $("#settingsVk").val();
             var facebook = $("#settingsFacebook").val();
@@ -170,9 +172,10 @@
             var password = $("#password").val();
             // var countryNumber = $("#countryNumber").val();
             // console.log(countryNumber);
-            social.set('vk', vk);
-            social.set('facebook', facebook);
+            social[socialVk] = vk;
+            social[socialFacebook] = facebook;
             var fd = new FormData();
+            console.log(JSON.stringify(social));
 
             fd.append('ajax', 'settings');
             fd.append('module', 'changeData');
