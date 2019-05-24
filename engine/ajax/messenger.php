@@ -24,16 +24,19 @@ if ($_POST['module'] == 'sendMessage') {
 
 
         $cometSql = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
-        $messageCometForSender = "<p>Вы (" . $datetime . "):</p><p>" . $mes . "</p>";
-        $messageCometForRecipient = "<p>" . fiomess($id) . " (" . $datetime . "):</p><p>" . $mes . "</p>";
-        $mesData = [
-            'senderId' => $id,
-            'recipientId' => $recipientId,
-            'messageId' => $messageId,
-        ];
-        $jsonMesData = json_encode($mesData);
-        $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
-        $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
+//        $messageCometForSender = "<p>Вы (" . $datetime . "):</p><p>" . $mes . "</p>"; // закомментировано для отладки ->
+//        $messageCometForRecipient = "<p>" . fiomess($id) . " (" . $datetime . "):</p><p>" . $mes . "</p>";
+//        $mesData = [
+//            'senderId' => $id,
+//            'recipientId' => $recipientId,
+//            'messageId' => $messageId,
+//        ];
+//        $jsonMesData = json_encode($mesData); // <-закомментировано для отладки
+        $jsonMesData = 'test message'; // переменная для отладки
+        echo 'получатель' . $recipientId;
+        echo 'отправитель' . $id;
+        echo 'направлено получателю' . $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
+        echo 'направлено отправителю' . $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
     }
 }
 
