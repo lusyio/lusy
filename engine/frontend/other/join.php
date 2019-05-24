@@ -1,13 +1,43 @@
 <div class="container">
-    <h1>Приглашение в компанию <?= $companyName; ?></h1>
-    <form id="join-form" method="post" action="">
-        <input type="text" id="invite-code" hidden value="<?= $code; ?>">
-        <input type="text" id="invitee-mail" class="form-control" placeholder="email" value="<?= $email; ?>">
-        <input type="text" id="invitee-name" class="form-control" placeholder="name">
-        <input type="text" id="invitee-surname" class="form-control" placeholder="surname">
-        <input type="text" id="invitee-password" class="form-control" placeholder="password">
-        <input type="submit" class="btn btn-primary" value="Зарегистрироваться">
-    </form>
+    <div class="row justify-content-center">
+        <div class="col-7 my-5">
+            <h1 class="display-4 text-center mb-3">
+                Регистрация
+            </h1>
+            <form id="join-form" method="post" action="">
+                <div class="join mb-3">
+                    <div class="text-reg text-center mb-3">Приглашение в компанию <?= $companyName; ?></div>
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <input type="text" id="invitee-name" class="form-control" placeholder="Введите имя"
+                                   required>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <input type="text" id="invitee-surname" class="form-control" placeholder="Введите фамилию"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="text" id="invitee-mail" class="form-control" placeholder="E-mail"
+                                   value="<?= $email; ?>"
+                                   required>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="invitee-password" class="form-control" placeholder="Введите пароль"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <input type="text" id="invite-code" hidden value="<?= $code; ?>">
+                        <input type="submit" class="btn btn-primary btn-join" value="Зарегистрироваться">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -38,7 +68,7 @@
                     data: fd,
                     success: function (data) {
                         console.log(data);
-                        if(!data) {
+                        if (!data) {
                             location.href = '/../login/';
                         }
                     }
