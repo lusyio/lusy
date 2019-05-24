@@ -22,7 +22,7 @@ if ($_POST['module'] == 'changeData') {
             $phone = preg_replace("~[^0-9]~", '', $_POST['phone']);
             setNewUserData($name, $surname, $email, $phone);
 
-            if (isset($_POST['newPassword'])) {
+            if (isset($_POST['newPassword']) && trim($_POST['newPassword']) != '') {
                 $newPassword = filter_var(trim($_POST['newPassword']), FILTER_SANITIZE_STRING);
                 setNewPassword($newPassword);
             }
