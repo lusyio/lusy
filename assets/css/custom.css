@@ -1438,6 +1438,15 @@ label.error{
     right: 0;
 }
 
+.flags{
+    min-width: 4rem !important;
+    padding: 0;
+}
+
+.flag{
+    padding: 5px;
+}
+
 .edit-profileimage:hover{
     background-color: #464646;
 }
