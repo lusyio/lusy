@@ -20,7 +20,10 @@ if ($_POST['module'] == 'changeData') {
             $surname = filter_var(trim($_POST['surname']), FILTER_SANITIZE_STRING);
             $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
             $phone = preg_replace("~[^0-9]~", '', $_POST['phone']);
-            setNewUserData($name, $surname, $email, $phone);
+            $socialNetworks = filter_var($_POST['social'], FILTER_SANITIZE_STRING);
+            $about = filter_var($_POST['about'], FILTER_SANITIZE_STRING);
+
+            setNewUserData($name, $surname, $email, $phone, $socialNetworks, $about);
 
             if (isset($_POST['newPassword']) && trim($_POST['newPassword']) != '') {
                 $newPassword = filter_var(trim($_POST['newPassword']), FILTER_SANITIZE_STRING);
