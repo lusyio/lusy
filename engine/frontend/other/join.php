@@ -8,24 +8,35 @@
                 <div class="join mb-3">
                     <div class="text-reg text-center mb-3">Приглашение в компанию <?= $companyName; ?></div>
                     <div class="row">
-                        <div class="col-6 mb-2">
+                        <div class="col-6 mb-4">
                             <input type="text" id="invitee-name" class="form-control" placeholder="Введите имя"
                                    required>
                         </div>
-                        <div class="col-6 mb-2">
+                        <div class="col-6 mb-4">
                             <input type="text" id="invitee-surname" class="form-control" placeholder="Введите фамилию"
                                    required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <input type="text" id="invitee-mail" class="form-control" placeholder="E-mail"
+                            <input type="email" id="invitee-mail" class="form-control" placeholder="E-mail"
                                    value="<?= $email; ?>"
                                    required>
                         </div>
                         <div class="col-6">
-                            <input type="text" id="invitee-password" class="form-control" placeholder="Введите пароль"
+                            <input type="password" id="invitee-password" class="form-control"
+                                   placeholder="Введите пароль"
                                    required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted text-muted-reg">
+                                Не менее 8 символов
+                            </small>
                         </div>
                     </div>
                 </div>
