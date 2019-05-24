@@ -744,6 +744,29 @@ if (!isRegisterDateColumnExists())
     $sql->execute();
 }
 
+function isSocialNetworksColumnExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'social_networks') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (!isSocialNetworksColumnExists())
+{
+    global $pdo;
+    $sql = 'alter table users add social_networks text null;';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';
