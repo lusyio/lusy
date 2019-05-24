@@ -8,7 +8,7 @@
                     </div>
                     <div class="col text-center align-center">
                         <h4 class="mb-3"><?= $fio ?></h4>
-                        <p><?= $about ?></p>
+                        <p>About</p>
                     </div>
                     <div class="float-right">
                         <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
