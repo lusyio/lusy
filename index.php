@@ -4,7 +4,7 @@ ob_start();
 include 'conf.php'; 
 include 'engine/backend/other/header.php'; 
 include 'engine/frontend/other/header.php';
-
+var_dump($_GET);
 function isPostponedateColumnNotNull()
 {
     global $pdo;

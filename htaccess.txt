@@ -29,6 +29,9 @@ RewriteRule ^task/([-a-z0-9]+)/$ /index.php?task=$1 [L]
 RewriteRule ^tasks/([-a-z0-9]+)/$ /index.php?tasks=$1 [L]
 RewriteRule ^profile/([-a-z0-9]+)/$ /index.php?profile=$1 [L]
 RewriteRule ^storage/$ /index.php?storage= [L]
+#GET-параметр для поиска
+RewriteCond %{QUERY_STRING} ^request=(.*)$
+RewriteRule ^^([-a-z0-9]+)/(\?.*)?$ /index.php?folder=$&request=$1 [L,QSA]
 RewriteRule ^([-a-z0-9]+)/$ /index.php?folder=$1 [L]
 RewriteRule ^([-a-z0-9]+)/$ /index.php?profile=$1 [L]
 ErrorDocument 404 /err404.html

@@ -73,6 +73,7 @@ require_once 'engine/backend/functions/common-functions.php';
 				if(empty($url)) {
 				$title = $GLOBALS["_main"];
 				} else {
+				    $url = strtok($url, '?');
 				$title = $GLOBALS["_$url"];
 				}
 			}
