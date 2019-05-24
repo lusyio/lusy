@@ -183,12 +183,16 @@
                 $progress.show();
                 $alert.removeClass('alert-success alert-warning');
                 canvas.toBlob(function (blob) {
-                    var formData = new FormData();
-
-                    formData.append('avatar', blob, 'avatar.jpg');
-                    $.ajax('', {
-                        method: 'POST',
-                        data: formData,
+                    console.log(blob);
+                    var fd = new FormData();
+                    fd.append('module', 'changeAvatar');
+                    fd.append('ajax', 'settings');
+                    fd.append('avatar', blob);
+                    $.ajax({
+                        url: '/ajax.php',
+                        type: 'POST',
+                        cache: 'false',
+                        data: fd,
                         processData: false,
                         contentType: false,
 
