@@ -767,6 +767,29 @@ if (!isSocialNetworksColumnExists())
     $sql->execute();
 }
 
+function isAboutColumnExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'about') {
+            return true;
+        }
+    }
+    return false;
+}
+
+if (!isAboutColumnExists())
+{
+    global $pdo;
+    $sql = 'alter table users add about int null';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+}
+
 //connection to comet-server
 
 $cometUser = '2553';

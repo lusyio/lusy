@@ -218,7 +218,7 @@ function getUserData($userId)
     global $idc;
     global $pdo;
 
-    $userQuery = $pdo->prepare('SELECT id, login, email, phone, name, surname, idcompany, role, points, activity, register_date, social_networks FROM users WHERE id = :userId AND idcompany = :companyId');
+    $userQuery = $pdo->prepare('SELECT id, login, email, phone, name, surname, idcompany, role, points, activity, register_date, social_networks, about FROM users WHERE id = :userId AND idcompany = :companyId');
     $userQuery->execute(array(':userId' => $userId, ':companyId' => $idc));
     $userData = $userQuery->fetch(PDO::FETCH_ASSOC);
     $socialNetworks = json_decode($userData['social_networks'], true);
