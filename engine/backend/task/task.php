@@ -3,7 +3,7 @@ global $pdo;
 global $datetime;
 global $cometHash;
 global $cometTrackChannelName;
-
+global $_months;
 $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 $id = $GLOBALS["id"];
 
@@ -50,9 +50,16 @@ $datecreate = date("d.m.Y", strtotime($task['datecreate']));
 $datedone = date("d.m", strtotime($task['datedone']));
 if ($task['datepostpone'] == '0000-00-00' || $task['datepostpone'] == '') {
     $datepostpone = '';
+    $dayPostpone = '';
+    $monthPostpone = '';
 } else {
     $datepostpone = " >> " . date("d.m", strtotime($task['datepostpone']));
+    $dayPostpone = date('j', strtotime($task['datepostpone']));
+    $monthPostpone = $_months[date('n', strtotime($task['datepostpone'])) - 1];
 }
+$dayDone = date('j', strtotime($task['datedone']));
+$monthDone = $_months[date('n', strtotime($task['datedone'])) - 1];
+
 $nowdate = date("d.m.Y");
 $dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 
