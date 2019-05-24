@@ -198,3 +198,14 @@ function addMassSystemEvent($action, $comment = '', $companyId = '')
     $companyUsersQuery->execute(array(':idcompany' => $idc));
 
 }
+
+function getAvatarLink($userId)
+{
+    global $idc;
+    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.png';
+    if (file_exists($avatarPath)) {
+        return $avatarPath;
+    } else {
+        return 'upload/avatar/0.jpg';
+    }
+}

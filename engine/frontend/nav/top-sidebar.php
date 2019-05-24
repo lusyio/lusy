@@ -44,7 +44,7 @@
                     <? //=$id?><!--/"><img class="user-img rounded-circle" src="/upload/avatar/-->
                     <? //=$id?><!--.jpg"/></a>-->
                     <span class="profile-menu-trigger" data-trigger="dropdown">
-                        <img class="user-img rounded-circle " src="/upload/avatar/<?= $id ?>.jpg"/>
+                        <img class="user-img rounded-circle " src="/<?= getAvatarLink($id) ?>"/>
                     </span>
                     <div class="profile-submenu submenu">
                         <a href="/profile/<?= $id ?>/"><i class="mr-2 fas fa-user-alt"></i><?=$_profile?></a>
