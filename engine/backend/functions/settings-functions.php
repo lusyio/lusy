@@ -19,7 +19,7 @@ function uploadAvatar()
         mkdir($dirName, 0777, true);
     }
 
-    $fileName = $id;
+    $fileName = $id . '.png';
     $filePath = $dirName . '/' . $fileName;
     move_uploaded_file($avatar['tmp_name'], $filePath);
 }
