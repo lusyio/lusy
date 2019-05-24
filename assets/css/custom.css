@@ -1428,6 +1428,15 @@ label.error{
     font-size: 20px;
 }
 
+.icon-social{
+    color: #6c757d;
+    transition: 200ms;
+}
+
+.icon-social:hover{
+    color: #5d95db;
+}
+
 .edit-profileimage{
     position: absolute;
     background-color: #ffa87f;

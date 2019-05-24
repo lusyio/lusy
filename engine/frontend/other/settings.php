@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-5">
+                <div class="row mt-4">
                     <div class="col-6">
                         <div class="input-group">
                             <input id="settingsName" name="settingsName" type="text" class="form-control name"
@@ -77,7 +77,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-5">
+                <div class="row mt-4">
+                    <div class="col-7">
+                        <div class="input-group">
+                            <textarea rows="3" id="settingsDescription" name="settingsDescription" type="text"
+                                      class="form-control name"
+                                      placeholder="Немного о себе"></textarea>
+                        </div>
+                    </div>
+                    <div class="col pl-0">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fab fa-vk"></i></span>
+                            </div>
+                            <input id="settingsVk" name="settingsVk" type="text"
+                                   class="form-control email" value="vkontakte">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i
+                                            class="fab fa-facebook-f"></i></span>
+                            </div>
+                            <input id="settingsFacebook" name="settingsFacebook" type="text"
+                                   class="form-control email" value="facebook">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
                     <div class="col-6">
                         <div class="input-group">
                             <input id="settingsEmail" name="settingsEmail" type="email"
@@ -91,17 +117,17 @@
                             <!--                                            aria-expanded="false">-->
                             <!--                                        <div class="flag d-inline">🇷🇺</div>-->
                             <!--                                    </button>-->
-<!--                            <select id="countryNumber" class="custom-select select-country rounded-left">-->
-<!--                                <option value="7" class="flag">🇷🇺 +7</option>-->
-<!--                                <option value="1" class="flag">🇺🇸 +1</option>-->
-<!--                            </select>-->
+                            <!--                            <select id="countryNumber" class="custom-select select-country rounded-left">-->
+                            <!--                                <option value="7" class="flag">🇷🇺 +7</option>-->
+                            <!--                                <option value="1" class="flag">🇺🇸 +1</option>-->
+                            <!--                            </select>-->
                             <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
                                    placeholder="Номер телефона"
                                    class="form-control phone-number" value="<?= $userData['phone']; ?>">
                         </div>
                     </div>
                 </div>
-                <div class="row mt-5">
+                <div class="row mt-4">
                     <div class="col-6">
                         <div class="input-group">
                             <input id="settingsNewPassword" name="settingsNewPassword" type="password"
@@ -132,15 +158,22 @@
 <script>
     $(document).ready(function () {
         $("#sendChanges").on('click', function () {
+            var social = new Map();
+            var description = $("#settingsDescription").val();
+            var vk = $("#settingsVk").val();
+            var facebook = $("#settingsFacebook").val();
             var name = $("#settingsName").val();
             var surname = $("#settingsSurname").val();
             var email = $("#settingsEmail").val();
             var phoneNumber = $("#settingsPhoneNumber").val();
             var newPassword = $("#settingsNewPassword").val();
             var password = $("#password").val();
-            var fd = new FormData();
             // var countryNumber = $("#countryNumber").val();
             // console.log(countryNumber);
+            social.set('vk', vk);
+            social.set('facebook', facebook);
+            var fd = new FormData();
+
             fd.append('ajax', 'settings');
             fd.append('module', 'changeData');
             fd.append('name', name);
@@ -149,6 +182,8 @@
             fd.append('phone', phoneNumber);
             fd.append('newPassword', newPassword);
             fd.append('password', password);
+            fd.append('about', description);
+            fd.append('social', JSON.stringify(social));
             console.log(password);
             if (password) {
                 $.ajax({
