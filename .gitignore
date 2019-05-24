@@ -149,6 +149,7 @@ fabric.properties
 .idea/workspace.xml
 
 upload/files/
+upload/avatar/
 
 # PhpStorm directory
 .idea
