@@ -23,7 +23,7 @@ if ($_POST['module'] == 'changeData') {
             $socialNetworks = filter_var($_POST['social'], FILTER_SANITIZE_STRING);
             $about = filter_var($_POST['about'], FILTER_SANITIZE_STRING);
 
-            setNewUserData($name, $surname, $email, $phone, $socialNetworks, $about);
+            setNewUserData($name, $surname, $email, $phone, $_POST['social'], $about);
 
             if (isset($_POST['newPassword']) && trim($_POST['newPassword']) != '') {
                 $newPassword = filter_var(trim($_POST['newPassword']), FILTER_SANITIZE_STRING);
