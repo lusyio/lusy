@@ -24,3 +24,20 @@ function uploadAvatar()
     move_uploaded_file($avatar['tmp_name'], $filePath);
 }
 
+function setNewUserData($name, $surname, $email, $phone)
+{
+    global $id;
+    global $pdo;
+    $setNewDataQuery = $pdo->prepare('UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone WHERE id = :userId');
+    $setNewDataQuery->execute(array(':name' => $name, ':surname' => $surname, ':email' => $email, ':phone' => $phone, ':userId' => $id));
+}
+
+function setNewPassword($newPassword)
+{
+    global $id;
+    global $pdo;
+    $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+    $setNewPasswordQuery = $pdo->prepare('UPDATE users SET password = :newPassword WHERE id = :userId');
+    $setNewPasswordQuery->execute(array(':newPassword' => $hash,  ':userId' => $id));
+}
+
