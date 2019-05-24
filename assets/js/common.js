@@ -117,12 +117,14 @@ function updateMessagesCounter() {
     console.log(messagesCount);
 
     $('#messagesCount').text(messagesCount);
-    $('#messagesIcon').addClass('text-successful');
+    $('#messagesIcon').addClass('text-success');
 }
 function updateNotificationsCounter() {
-    var notificationsCount = +$('#notificationsCount').text();
-    notificationsCount++;
-    $('#notificationCount').text(notificationsCount);
+    var notificationCount = +$('#notificationCount').text();
+    console.log(notificationCount);
+    notificationCount++;
+    console.log(notificationCount);
+    $('#notificationCount').text(notificationCount);
     $('#notificationIcon').addClass('text-primary');
 }
 
