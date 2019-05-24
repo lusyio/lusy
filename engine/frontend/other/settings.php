@@ -11,123 +11,161 @@
 
 <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-8">
-        <form id="save-profile">
-            <div class="card">
-                <div class="card-body p-5">
-                    <div class="row">
-                        <div class="col-6 text-center">
-                            <label class="label" data-toggle="tooltip" title=""
-                                   data-original-title="Смена изображения">
-                                <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
-                                <input type="file" class="sr-only" id="input" name="image" accept="image/*">
-                            </label>
-                            <div id="progress-settings" class="progress" style="display: none;">
-                                <div class="progress-bar-settings progress-bar-striped progress-bar-animated"
-                                     role="progressbar"
-                                     aria-valuenow="0"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 100%;">0%
-                                </div>
+
+        <div class="card">
+            <div class="card-body p-5">
+                <div class="row">
+                    <a class="float-left" href="/profile/"><i class="fas fa-arrow-left icon-invite"></i></a>
+                    <div class="col-6 text-center">
+                        <label class="label" data-toggle="tooltip" title=""
+                               data-original-title="Смена изображения">
+                            <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
+                            <input type="file" class="sr-only" id="input" name="image" accept="image/*">
+                        </label>
+                        <div id="progress-settings" class="progress" style="display: none;">
+                            <div class="progress-bar-settings progress-bar-striped progress-bar-animated"
+                                 role="progressbar"
+                                 aria-valuenow="0"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 100%;">0%
                             </div>
-                            <div class="alert alert-success" role="alert" style="display: none;"></div>
-                            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                                 style="display: none;"
-                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalLabel">Обрезать изображение</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                        </div>
+                        <div class="alert alert-success" role="alert" style="display: none;"></div>
+                        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                             style="display: none;"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel">Обрезать изображение</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="img-container">
+                                            <img id="image"
+                                                 src=""
+                                                 class="">
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="img-container">
-                                                <img id="image"
-                                                     src=""
-                                                     class="">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                Назад
-                                            </button>
-                                            <button type="button" class="btn btn-primary" id="crop">Загрузить</button>
-                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Назад
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="crop">Загрузить</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col text-center align-center">
-                            <h4><?= $userData['name']; ?> <?= $userData['surname']; ?></h4>
                         </div>
                     </div>
-                    <form>
-                        <div class="row mt-5">
-                            <div class="col-6">
-                                <div class="input-group">
-                                    <input id="settingsName" name="settingsName" type="text" class="form-control name"
-                                           value="<?= $userData['name']; ?>">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group">
-                                    <input id="settingsSurname" name="settingsSurname" type="text"
-                                           class="form-control surname" value="<?= $userData['surname']; ?>">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col-6">
-                                <div class="input-group">
-                                    <input id="settingsEmail" name="settingsEmail" type="email"
-                                           class="form-control email" value="<?= $userData['email']; ?>">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group">
-                                    <button class="rounded-left class=btn border-secondary btn-outline-light dropdown-toggle select-country"
-                                            type="button" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                        <div class="flag d-inline">🇷🇺</div>
-                                    </button>
-                                    <div class="dropdown-menu flags">
-                                        <a class="dropdown-item text-muted flag">🇷🇺 +7</a>
-                                        <a class="dropdown-item text-muted flag">🇺🇸 +1</a>
-                                    </div>
-                                    <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
-                                           pattern="[(]{1}-[0-9]{3}[)]{1}-[0-9]{3}-[0-9]{4}"
-                                           class="form-control phone-number" value="<?= $userData['phone']; ?>">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col-6">
-                                <div class="input-group">
-                                    <input id="settingsNewPassword" name="settingsNewPassword" type="password"
-                                           class="form-control new-password" placeholder="новый пароль">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group">
-                                    <input id="password" name="password" type="password" class="form-control password"
-                                           placeholder="старый пароль"
-                                           required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col text-center">
-                                <button class="btn btn-outline-primary" type="submit">Сохранить изменения</button>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="col text-center align-center">
+                        <h4><?= $userData['name']; ?> <?= $userData['surname']; ?></h4>
+                    </div>
                 </div>
+
+                <div class="row mt-5">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <input id="settingsName" name="settingsName" type="text" class="form-control name"
+                                   value="<?= $userData['name']; ?>">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <input id="settingsSurname" name="settingsSurname" type="text"
+                                   class="form-control surname" value="<?= $userData['surname']; ?>">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <input id="settingsEmail" name="settingsEmail" type="email"
+                                   class="form-control email" value="<?= $userData['email']; ?>">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <!--                                    <button class="rounded-left class=btn border-secondary btn-outline-light dropdown-toggle select-country"-->
+                            <!--                                            type="button" data-toggle="dropdown" aria-haspopup="true"-->
+                            <!--                                            aria-expanded="false">-->
+                            <!--                                        <div class="flag d-inline">🇷🇺</div>-->
+                            <!--                                    </button>-->
+                            <select class="custom-select flags rounded-left">
+                                <option value="7" class="flag">🇷🇺 +7</option>
+<!--                                <option value="1" class="flag">🇺🇸 +1</option>-->
+                            </select>
+                            <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
+                                   pattern="[0-9]{3}-[0-9]{7}"
+                                   class="form-control phone-number" value="<?= $userData['phone']; ?>">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <input id="settingsNewPassword" name="settingsNewPassword" type="password"
+                                   class="form-control new-password" placeholder="новый пароль">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <input id="password" name="password" type="password" class="form-control password"
+                                   placeholder="старый пароль"
+                                   required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <button class="btn btn-outline-primary" id="sendChanges" type="submit">Сохранить изменения
+                        </button>
+                    </div>
+                </div>
+
             </div>
-        </form>
+        </div>
+
     </div>
 </div>
 
 <script>
+    $(document).ready(function () {
+        $("#sendChanges").on('click', function () {
+            var name = $("#settingsName").val();
+            var surname = $("#settingsSurname").val();
+            var email = $("#settingsEmail").val();
+            var phoneNumber = $("#settingsPhoneNumber").val();
+            var newPassword = $("#settingsNewPassword").val();
+            var password = $("#password").val();
+            var fd = new FormData();
+            fd.append('ajax', 'settings');
+            fd.append('module', 'changeData');
+            fd.append('name', name);
+            fd.append('surname', surname);
+            fd.append('email', email);
+            fd.append('phone', phoneNumber);
+            fd.append('newPassword', newPassword);
+            fd.append('password', password);
+            console.log(password);
+            if (password) {
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function (data) {
+                        console.log('success')
+                    },
+                });
+            } else {
+                $("#password").addClass('border-danger');
+            }
+        });
+    });
+
     window.addEventListener('DOMContentLoaded', function () {
         var avatar = document.getElementById('avatar');
         var image = document.getElementById('image');

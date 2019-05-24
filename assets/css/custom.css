@@ -1443,8 +1443,7 @@ label.error{
 }
 
 .flags{
-    min-width: 4rem !important;
-    padding: 0;
+    padding: 5px;
 }
 
 #avatar{
@@ -1462,6 +1461,12 @@ label.error{
 
 .edit-profileimage:hover{
     background-color: #464646;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #5a93df;
+    border-color: #5a93df;
 }
 
 #createTask{
