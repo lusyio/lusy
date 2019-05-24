@@ -91,7 +91,8 @@
                                 <span class="input-group-text" id="basic-addon1"><i class="fab fa-vk"></i></span>
                             </div>
                             <input id="settingsVk" name="settingsVk" type="text"
-                                   class="form-control email" placeholder="vk.com" value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : ''; ?>">
+                                   class="form-control email" placeholder="vk.com"
+                                   value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : ''; ?>">
                         </div>
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -99,7 +100,8 @@
                                             class="fab fa-facebook-f"></i></span>
                             </div>
                             <input id="settingsFacebook" name="settingsFacebook" type="text" placeholder="facebook"
-                                   class="form-control email" value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : '' ; ?>">
+                                   class="form-control email"
+                                   value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : ''; ?>">
                         </div>
                     </div>
                 </div>
@@ -175,7 +177,6 @@
             social[socialVk] = vk;
             social[socialFacebook] = facebook;
             var fd = new FormData();
-            console.log(JSON.stringify(social));
 
             fd.append('ajax', 'settings');
             fd.append('module', 'changeData');

@@ -27,7 +27,8 @@
                 <div class="row">
                     <div class="col">
                         <div class="socials text-reg">
-                            <span><i href="" class="fab fa-vk icon-social mr-3 vk"></i> <i href="" class="fab fa-facebook-f icon-social facebook"></i> </span>
+                            <span><a href="#"><i class="fab fa-vk icon-social mr-3 vk"></i></a> <a href="#"><i
+                                            class="fab fa-facebook-f icon-social facebook"></i></a> </span>
                         </div>
                     </div>
                 </div>
