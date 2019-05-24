@@ -9,7 +9,7 @@ global $_settings;
 global $id;
 global $namec;
 
-$newOverdueCount = DBOnce('count(*)','tasks','worker='.$id.' or manager='.$id);
+$newOverdueCount = DBOnce('count(*)','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
 $newMailCount = DBOnce('count(*)', 'mail', 'recipient='.$id.' AND view_status=0');
 $newLogCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action NOT LIKE "comment"');
 $newCommentCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action LIKE "comment"');
