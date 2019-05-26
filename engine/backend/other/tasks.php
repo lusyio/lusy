@@ -9,6 +9,7 @@ global $cometTrackChannelName;
 
 $cometTrackChannelName = getCometTrackChannelName();
 
+$countAllTasks = DBOnce('count(*)','tasks','(worker='.$id.' or manager='.$id.') and (status!="done" or status!="canceled")');
 $otbor = '(worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ') and status!="done"';
 $usedStatuses = DB('DISTINCT `status`', 'tasks', $otbor);
 $sortedUsedStatuses = getSortedStatuses($usedStatuses);
