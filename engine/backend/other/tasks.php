@@ -28,5 +28,6 @@ $dbh = $pdo->prepare($tasksQuery);
 $dbh->execute(array(':userId' => $id));
 $tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
 $countAllTasks = count($tasks);
+$countArchiveTasks = DBOnce('COUNT(*)', 'tasks', "(worker='". $id ."' OR manager = '". $id ."') AND status IN ('done', 'canceled')");
 prepareTasks($tasks);
 
