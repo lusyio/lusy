@@ -15,7 +15,6 @@ $(document).ready(function () {
                 $(this).removeClass('active-worker');
             }
 
-
         } else {
             // if ($(".words-search").hasClass('active-manager') || $(".words-search").hasClass('active-worker')){
             //     if ($(".active-other").hasClass('active')){
@@ -32,10 +31,7 @@ $(document).ready(function () {
             if (vol === 'worker') {
                 $(this).addClass('active-worker');
             }
-
         }
-
-
     });
 
 
@@ -70,6 +66,7 @@ $(document).ready(function () {
 
     $('.role-search, .status-search').on('click', function () {
         filterTasks();
+        countAll();
         // if ($(this).hasClass('active') && $(this).hasClass("status-search")){
         //     $(".selected-status").html( " " + $(this).children("span").text());
         //     $("#resetSearch").show();
@@ -98,26 +95,36 @@ $(document).ready(function () {
         $('.status-search').each(function () {
             if ($(this).hasClass('active')) {
                 statuses.push($(this).attr('rel'));
-                statusesNames.push($(this).text());
+                statusesNames.push($(this).find('.status-name').text());
             }
         });
 
-        $(statusesNames).each(function () {
-            $(".selected-status").html(statusesNames);
-        });
 
-        console.log(statusesNames);
+        if (statusesNames.length > 0) {
+            $(statusesNames).each(function () {
+                $(".selected-status").html(statusesNames + " ");
+                $("#resetSearch").show();
+            });
+        } else {
+            $(".selected-status").html("");
+            $("#resetSearch").hide();
+        }
         $('.role-search').each(function () {
             if ($(this).hasClass('active')) {
                 roles.push($(this).attr('rol'));
-                rolesNames.push($(this).text());
+                rolesNames.push($(this).find('.role-name').text());
             }
         });
 
-        $(rolesNames).each(function () {
-            $(".selected-role").html(rolesNames);
-        });
-
+        if (rolesNames.length > 0) {
+            $(rolesNames).each(function () {
+                $(".selected-role").html(rolesNames + " ");
+                $("#resetSearch").show();
+            });
+        } else {
+            $(".selected-role").html("Актуальные");
+            $("#resetSearch").show();
+        }
         console.log(rolesNames);
         $('.tasks').each(function () {
             var $el = $(this);
@@ -160,7 +167,7 @@ $(document).ready(function () {
                 $(".words-search").removeClass('active');
                 $("#searchInput").val('');
                 console.log($('.tasks:visible').length);
-                $(".selected-role").html("Актуальные" + " " + "(" + $(".selected-role").attr('cnt') + ")");
+                $(".selected-role").html("Актуальные");
                 $(".selected-status").html('');
                 $("#resetSearch").hide();
             }
@@ -170,6 +177,7 @@ $(document).ready(function () {
 
     $("#resetSearch").on('click', function () {
         resetSearch();
+        countAll();
     });
 
     function countStatuses() {
@@ -188,6 +196,14 @@ $(document).ready(function () {
         })
     }
 
+    function countAll() {
+        var count = $('.tasks' + ':visible').length;
+        console.log(count);
+        $('.count-all').html(' (' + count + ')');
+
+    }
+
+    countAll();
     countRoles();
     countStatuses();
 });
