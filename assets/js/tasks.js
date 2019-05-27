@@ -78,6 +78,72 @@ $(document).ready(function () {
         // }
     });
 
+    var doneTasksOffset = 0;
+
+    function loadDoneTasks() {
+        var fd = new FormData();
+        fd.append('ajax', 'tasks');
+        fd.append('module', 'loadDoneTasks');
+        fd.append('offset', doneTasksOffset.toString());
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: fd,
+            success: function (data) {
+                if (data) {
+                    $('#taskBox').append(data);
+                } else {
+                    $('.tasks-search-container').show();
+                }
+            },
+        });
+    }
+
+    var canceledTasksOffset = 0;
+
+    function loadCanceledTasks() {
+        var fd = new FormData();
+        fd.append('ajax', 'tasks');
+        fd.append('module', 'loadCanceledTasks');
+        fd.append('offset', canceledTasksOffset.toString());
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: fd,
+            success: function (data) {
+                if (data) {
+                    $('#taskBox').append(data);
+                } else {
+                    $('.tasks-search-container').show();
+                }
+            },
+        });
+    }
+
+    $(".search-done").on('click', function () {
+        if ($(this).hasClass('active')) {
+            $(".tasks").hide();
+            loadDoneTasks();
+        } else {
+            $('div.done').remove();
+        }
+    });
+
+    $(".search-cancel").on('click', function () {
+        if ($(this).hasClass('active')) {
+            $(".tasks").hide();
+            loadCanceledTasks();
+            // countAll();
+        }
+
+    });
+
     $('#searchInput').on('keyup', function () {
         filterTasks();
         countRoles();
@@ -200,7 +266,7 @@ $(document).ready(function () {
     function countAll() {
         var count = $('.tasks' + ':visible').length;
         console.log(count);
-        if (count === 0 ){
+        if (count === 0) {
             $('.tasks-search-container').show();
         } else {
             $('.tasks-search-container').hide();

@@ -12,7 +12,6 @@
             <span cnt="<?= $countAllTasks ?>"
                   class="selected-role text-primary">Актуальные</span>
             <span class="selected-status text-secondary"></span>
-            <span class="count-all"></span>
             <div class="popUpDiv">
                 <?php if ($isWorker): ?>
                     <div id="workerSearch" rol="worker" class="btn btn-secondary words-search role-search w-100">
@@ -33,12 +32,18 @@
                         <span class="count"></span>
                     </div>
                 <?php endforeach; ?>
-                <!--                <hr class="m-0">-->
-                <!--                <div class="archive-search">-->
-                <!--                    <span class="archive-name">Archive</span>-->
-                <!--                </div>-->
+                <hr class="m-0">
+                <div class="archive-search search-done words-search">
+                    <span class="archive-name">Завершенные</span>
+                    <span class="done-count">(<?= $countArchiveDoneTasks ?>)</span>
+                </div>
+                <div class="archive-search search-cancel words-search">
+                    <span class="archive-name">Отмененные</span>
+                    <span class="done-count">(<?= $countArchiveCanceledTasks ?>)</span>
+                </div>
             </div>
         </div>
+        <span class="count-all"></span>
         <span class="filterPlace text-ligther pl-0"><span id="resetSearch" class="text-danger"><i
                         class="icon-filter fas fa-times"></i></span></span>
         <!--        <span class="float-right"><i class="fas fa-archive"></i></span>-->

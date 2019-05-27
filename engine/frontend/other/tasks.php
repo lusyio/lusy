@@ -60,6 +60,7 @@ $taskStatusText = [
         var action = window.location.hash.substr(1);
         if (action === 'overdue') {
             $('#overdueSearch').trigger('click');
+            $(".popUpDiv").hide();
         }
     $(".progress-bar ").each(function () {
         var danger = $(this).attr('aria-valuenow');
