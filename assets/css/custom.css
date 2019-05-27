@@ -339,6 +339,22 @@ list-group:hover{
     
 }
 
+.archive-search{
+    padding: .375rem .75rem;
+    background-color: #ffffff;
+    text-align: left;
+    color: #898989;
+    font-size: 14px;
+    /* width: max-content; */
+    border-radius: 0;
+    width: 100%;
+}
+
+.archive-search:hover{
+    background-color: #e4e4e4;
+    color: #898989;
+}
+
 .words-search.active {
     background-color: #e3e5e9 !important;
     color: #898989 !important;
@@ -885,7 +901,20 @@ input:checked[type="checkbox"]::before {
 #resetSearch {
     font-size: 12px;
     cursor: pointer;
+    transition: 500ms ease;
+    margin-left: 5px;
 }
+
+#resetSearch:hover{
+    padding: 0.325rem;
+    background-color: #e4e4e4;
+    border-radius: 100%;
+}
+
+#resetSearch:active{
+    background-color: rgba(150, 150, 150, 0.75);
+}
+
 .popUpDiv {
     display: none;
     width: 180px;
