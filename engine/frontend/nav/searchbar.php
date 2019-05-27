@@ -45,6 +45,14 @@
     </div>
 </div>
 <hr>
+
+<div class="search-container tasks-search-container">
+    <div id="searchResult">
+        <div class="search-empty">
+            <p>По запросу ничего не найдено.</p>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $("#filterSelect").on('click', function () {

@@ -200,16 +200,11 @@ $(document).ready(function () {
         var count = $('.tasks' + ':visible').length;
         console.log(count);
         if (count === 0 ){
-            $("#workzone").append("<div class=\"search-container\">\n" +
-                "    <div id=\"searchResult\">\n" +
-                "                            <div class=\"search-empty\">\n" +
-                "                        <p>По запросу ничего не найдено.</p>\n" +
-                "                    </div>\n" +
-                "                            </div>\n" +
-                "        </div>")
+            $('.tasks-search-container').show();
         } else {
-            $('.count-all').html(' (' + count + ')');
+            $('.tasks-search-container').hide();
         }
+        $('.count-all').html(' (' + count + ')');
     }
 
     countAll();

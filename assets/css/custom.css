@@ -905,6 +905,10 @@ input:checked[type="checkbox"]::before {
     margin-left: 5px;
 }
 
+.tasks-search-container{
+    display: none;
+}
+
 #resetSearch:hover{
     padding: 0.325rem;
     background-color: #e4e4e4;

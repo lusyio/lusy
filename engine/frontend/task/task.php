@@ -220,7 +220,6 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>
 </div>
-
 <script>
     var $it = '<?=$idtask?>';
 </script>
