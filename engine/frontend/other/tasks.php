@@ -78,17 +78,36 @@ $taskStatusText = [
 	    "info": false,
 	    "order": [[ 3, "asc" ]]
     });
-        var isArchiveTasksLoaded = false;
-        $('#loadArchiveTasks').on('click', function () {
-            if (!isArchiveTasksLoaded) {
-                loadArchiveTasks();
-            }
-        });
 
-        function loadArchiveTasks() {
+        var doneTasksOffset = 0;
+        function loadDoneTasks() {
             var fd = new FormData();
             fd.append('ajax', 'tasks');
-            fd.append('module', 'loadArchiveTasks');
+            fd.append('module', 'loadDoneTasks');
+            fd.append('offset', doneTasksOffset.toString());
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (data) {
+                    if (data) {
+                        doneTasksOffset++;
+                        $('#taskBox').append(data);
+                    } else {
+                        // что-то сделать, если нет задач в архиве
+                    }
+                },
+            });
+        }
+        var canceledTasksOffset = 0;
+        function loadCanceledTasks() {
+            var fd = new FormData();
+            fd.append('ajax', 'tasks');
+            fd.append('module', 'loadCanceledTasks');
+            fd.append('offset', canceledTasksOffset.toString());
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
