@@ -9,7 +9,7 @@ function fiomess($iduser) {
 function lastmess($iduser) {
     global $pdo;
     global $id;
-    $sql = DB('*','mail','sender = '.$iduser.' or recipient = '.$iduser.' and sender = '.$id.' or recipient = '.$id.' order by datetime DESC limit 1');
+    $sql = DB('*','mail','(sender = '.$iduser.' or recipient = '.$iduser.') and (sender = '.$id.' or recipient = '.$id.') order by datetime DESC limit 1');
     foreach ($sql as $n) {
         if ($id == $n['sender']) {
             $author = 'Вы: ';
