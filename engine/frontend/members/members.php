@@ -1,7 +1,7 @@
 <div class="members">
     <div class="card p-2 position-relative">
         <div class="add-worker text-justify mr-1 mb-1 owner">
-            <img title="<?= $viewStatusTitle ?>" src="/upload/avatar/<?= $coworker['worker_id'] ?>.jpg"
+            <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($coworker['worker_id']) ?>"
                  class="avatar-added mr-1">
             <a href="#"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></a>
         </div>
@@ -20,7 +20,7 @@
             <div class="members-responsible-one mb-1">
                 <div class="row">
                     <div class="col-1">
-                        <img title="<?= $viewStatusTitle ?>" src="/upload/avatar/<?= $coworker['worker_id'] ?>.jpg"
+                        <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($coworker['worker_id']) ?>"
                              class="avatar-added mr-1">
                     </div>
                     <div class="col text-justify">
@@ -36,7 +36,7 @@
                     <div class="responsible-one">
                         <div class="row">
                             <div class="col-1">
-                                <img src="/upload/avatar/<?= $n['id'] ?>.jpg" class="avatar-added mr-1">
+                                <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added mr-1">
                             </div>
                             <div class="col">
                                 <a href="#" class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>
@@ -72,7 +72,7 @@
                     }
                     ?>
                     <div class="add-worker mr-1 mb-1">
-                        <img title="<?= $viewStatusTitle ?>" src="/upload/avatar/<?= $coworker['worker_id'] ?>.jpg"
+                        <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($coworker['worker_id']) ?>"
                              class="avatar-added mr-1">
                         <a href="#" class="card-coworker"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></a>
                         <span><i value="<?= $coworker['worker_id'] ?>"
@@ -87,7 +87,7 @@
                     <div class="coworkersList-coworker">
                         <div class="row">
                             <div class="col-1">
-                                <img src="/upload/avatar/<?= $n['id'] ?>.jpg" class="avatar-added mr-1">
+                                <img src="/<?= getAvatarLink($coworker['worker_id']) ?>" class="avatar-added mr-1">
                             </div>
                             <div class="col">
                                 <a href="#" class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>

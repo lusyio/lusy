@@ -16,7 +16,7 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
 <div class="<?= $commentClass[$commentStatus] ?> <?= ($isNew) ? 'bg-success' : '' ?> mb-3" id="<?= $c['id'] ?>">
     <div class="row">
         <div class="col-1">
-            <img src="/upload/avatar/<?= $c['iduser'] ?>.jpg" class="avatar mt-1">
+            <img src="/<?= getAvatarLink($c['iduser']) ?>" class="avatar mt-1">
         </div>
         <div class="col-11">
             <div class="position-relative">
@@ -33,7 +33,7 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                                                   class="font-weight-bold"><?= $nameuser ?> <?= $surnameuser ?></a></p>
                 <p class="p-0 mb-2 comment-text"><?= nl2br($c['comment']) ?></p>
                 <div class="text-right comment-viewers d-none">
-                    <img src="/upload/avatar/<?= $c['manager'] ?>.jpg" class="avatar mr-3"
+                    <img src="/<?= getAvatarLink($c['manager']) ?>" class="avatar mr-3"
                          title="<?= $commentViewStatusTitleManager ?>">
                     <?php
                     foreach ($coworkers as $coworker):
@@ -43,7 +43,7 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                             $commentViewStatusTitle = 'Не просмотрено';
                         }
                         ?>
-                        <img src="/upload/avatar/<?= $coworker['worker_id'] ?>.jpg" class="avatar mr-3"
+                        <img src="/<?= getAvatarLink($coworker['worker_id']) ?>" class="avatar mr-3"
                              title="<?= $commentViewStatusTitle ?>">
                     <?php endforeach; ?>
                 </div>

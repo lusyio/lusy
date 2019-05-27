@@ -132,7 +132,7 @@ if ($id == $worker and $view == 0) {
                 </div>
                 <div class="col-7">
                     <div class="float-right">
-                        <img src="/upload/avatar/<?= $manager ?>.jpg" class="avatar mr-1">
+                        <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
                         <span class=" text-secondary slash">|</span>
                         <?php
                         foreach ($coworkers as $coworker):
@@ -143,7 +143,7 @@ if ($id == $worker and $view == 0) {
                             }
                             ?>
                             <span class="mb-0" title="<?= $viewStatusTitle ?>"><img
-                                        src="/upload/avatar/<?= $coworker['worker_id'] ?>.jpg" alt="worker image"
+                                        src="/<?= getAvatarLink($coworker['worker_id']) ?>" alt="worker image"
                                         class="avatar ml-1"></span>
                         <?php endforeach; ?>
                         <div class="tooltip-avatar">
