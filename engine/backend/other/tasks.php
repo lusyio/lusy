@@ -9,7 +9,6 @@ global $cometTrackChannelName;
 
 $cometTrackChannelName = getCometTrackChannelName();
 
-$countAllTasks = DBOnce('count(*)','tasks','(worker='.$id.' or manager='.$id.') and (status!="done" or status!="canceled")');
 $otbor = '(worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ') and status!="done"';
 $usedStatuses = DB('DISTINCT `status`', 'tasks', $otbor);
 $sortedUsedStatuses = getSortedStatuses($usedStatuses);
@@ -24,9 +23,10 @@ $tasksQuery = "SELECT t.id AS idtask, (SELECT GROUP_CONCAT(tc.worker_id) FROM ta
        (SELECT c.datetime FROM comments c WHERE c.status='comment' AND c.idtask = t.id ORDER BY c.datetime DESC LIMIT 1) AS lastCommentTime,
        (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
 FROM tasks t
-WHERE manager=:userId OR worker=:userId ORDER BY sort_date";
+WHERE (manager=:userId OR worker=:userId) AND t.status NOT IN ('done', 'canceled') ORDER BY sort_date";
 $dbh = $pdo->prepare($tasksQuery);
 $dbh->execute(array(':userId' => $id));
 $tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
+$countAllTasks = count($tasks);
 prepareTasks($tasks);
 
