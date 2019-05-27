@@ -298,9 +298,24 @@ list-group:hover{
     background-color: #f6f6f6;
     border: none !important;
     color: #6c757d;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
+    border-radius: 10px;
     padding: 12px 16px 12px 18px;
+}
+
+#searchInput:focus{
+    box-shadow: none;
+}
+
+#resetSearch{
+    display: none;
+}
+
+.icon-searchbar{
+    padding: 6px;
+    position: absolute;
+    color: #5a93df;
+    right: 5px;
+    top: 1px;
 }
 
 .report{
