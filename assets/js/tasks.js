@@ -82,6 +82,7 @@ $(document).ready(function () {
         filterTasks();
         countRoles();
         countStatuses();
+        countAll();
     });
 
     function filterTasks() {
