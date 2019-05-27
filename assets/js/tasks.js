@@ -199,8 +199,17 @@ $(document).ready(function () {
     function countAll() {
         var count = $('.tasks' + ':visible').length;
         console.log(count);
-        $('.count-all').html(' (' + count + ')');
-
+        if (count === 0 ){
+            $("#workzone").append("<div class=\"search-container\">\n" +
+                "    <div id=\"searchResult\">\n" +
+                "                            <div class=\"search-empty\">\n" +
+                "                        <p>По запросу ничего не найдено.</p>\n" +
+                "                    </div>\n" +
+                "                            </div>\n" +
+                "        </div>")
+        } else {
+            $('.count-all').html(' (' + count + ')');
+        }
     }
 
     countAll();
