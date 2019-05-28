@@ -42,11 +42,20 @@ function getDateProgress($finishDate, $createDate)
 
 function getSortedStatuses($usedStatuses)
 {
-    $result = [];
-    foreach ($usedStatuses as $status) {
-        $result[$status[0] . "filter"] = $GLOBALS["_{$status[0]}filter"];
+    $statuses = array_column($usedStatuses, 'status');
+    $sortedStatuses = [
+        'new' => $GLOBALS["_newfilter"],
+        'inwork' => $GLOBALS["_inworkfilter"],
+        'overdue' => $GLOBALS["_overduefilter"],
+        'postpone' => $GLOBALS["_postponefilter"],
+        'pending' => $GLOBALS["_pendingfilter"],
+    ];
+
+    foreach ($sortedStatuses as $k => $v) {
+        if (!in_array($k, $statuses)) {
+            unset($sortedStatuses[$k]);
+        }
     }
-    asort($result);
-    return $result;
+    return $sortedStatuses;
 }
 
