@@ -798,6 +798,24 @@ $cometDsn = 'mysql:host=app.comet-server.ru;dbname=CometQL_v1';
 $cometPdo = new PDO($cometDsn, $cometUser, $cometPass);
 $cometPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+//debug send e-mail
+//require_once 'engine/phpmailer/LusyMailer.php';
+//
+//$mail = new \PHPMailer\PHPMailer\LusyMailer();
+//
+//$mail->addAddress('garifianov@gmail.com'); // Еще один email, если нужно.
+//
+//// Письмо
+//$mail->isHTML(true);
+//$mail->Subject = "Заголовок test"; // Заголовок письма
+//$bodyArgs = [
+//    'head1' => 'Заголовок 1',
+//    'head2' => 'Заголовок 2, после 1',
+//    'd' => 'DOLOR',
+//];
+//$mail->setMessageContent('testing', $bodyArgs); // Текст письма
+//// Результат
+//$mail->send();
 
 include 'engine/backend/other/footer.php';
 include 'engine/frontend/other/footer.php';

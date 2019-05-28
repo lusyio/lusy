@@ -7,17 +7,33 @@ require_once 'engine/phpmailer/SMTP.php';
 
 class LusyMailer extends PHPMailer
 {
+    public $messageContent;
     public function __construct($exceptions = null)
     {
         parent::__construct($exceptions);
         $this->isSMTP();
-        $this->Host = 'smtp.yandex.ru';
+        $this->Host = 'lusy.io';
         $this->SMTPAuth = true;
-        $this->Username = 'lustest02';
-        $this->Password = 'mLus280519';
+        $this->Username = 'testmail@lusy.io';
+        $this->Password = 'r=HK&hb,&bKr';
         $this->SMTPSecure = 'ssl';
         $this->Port = 465;
         $this->CharSet = 'UTF-8';
-        $this->setFrom('lustest02@yandex.ru'); // Ваш Email
+        $this->setFrom('testmail@lusy.io', 'Lusy.io');
+    }
+
+    public function setMessageContent($template, $args)
+    {
+        ob_start();
+        include 'engine/phpmailer/templates/' . $template . '.php';
+        $content = ob_get_clean();
+
+        foreach ($args as $key => $value) {
+            if (!is_array($value) && !is_object($value)) {
+                $search = '{$' . $key . '}';
+                $content = str_replace($search, $value, $content);
+            }
+        }
+        $this->Body = $content;
     }
 }
