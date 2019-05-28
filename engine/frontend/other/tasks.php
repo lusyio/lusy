@@ -88,7 +88,7 @@ $taskStatusText = [
 	                        </div>
 	                        <div class="col-sm-3 d-flex" style="align-items: center; justify-content: flex-end;">
 		                        <div class="float-right">
-	                        		<img src="/upload/avatar/<?=$n['idmanager']?>.jpg" title="<?= $viewStatusTitleManager ?>" class="avatar mr-1"> |
+	                        		<img src="/<?=getAvatarLink($n['idmanager']) ?>" title="<?= $viewStatusTitleManager ?>" class="avatar mr-1"> |
                                     <?php
                                     foreach ($n['coworkers'] as $coworker):
                                         if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$coworker])) {
@@ -97,7 +97,7 @@ $taskStatusText = [
                                             $viewStatusTitle = 'Не просмотрено';
                                         }
                                         ?>
-									<img src="/upload/avatar/<?=$coworker?>.jpg" title="<?= $viewStatusTitle ?>" class="avatar mr-1">
+									<img src="/<?=getAvatarLink($coworker)?>" title="<?= $viewStatusTitle ?>" class="avatar mr-1">
                                     <?php endforeach; ?>
 		                        </div>
                             </div>
