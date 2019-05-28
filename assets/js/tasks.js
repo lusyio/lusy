@@ -15,14 +15,6 @@ $(document).ready(function () {
             }
 
         } else {
-            // if ($(".words-search").hasClass('active-manager') || $(".words-search").hasClass('active-worker')){
-            //     if ($(".active-other").hasClass('active')){
-            //         $(".active-other").removeClass('active');
-            //         $(this).addClass('active');
-            //     }
-            // } else{
-            //     $('.words-search').removeClass('active');
-            // }
             $(this).addClass('active');
             if (vol === 'manager') {
                 $(this).addClass('active-manager');
@@ -71,15 +63,6 @@ $(document).ready(function () {
         $('div.canceled').remove();
         $(".archive-search").removeClass('active');
         countAll();
-        // if ($(this).hasClass('active') && $(this).hasClass("status-search")){
-        //     $(".selected-status").html( " " + $(this).children("span").text());
-        //     $("#resetSearch").show();
-        // } else {
-        //     $(".selected-status").html("");
-        // }
-        // if ($(this).hasClass('active') && $(this).hasClass("role-search")){
-        //     $(".selected-role").html($(this).children("span").text());
-        // }
     });
     nameStatus();
 
@@ -233,19 +216,9 @@ $(document).ready(function () {
         $('.status-search').each(function () {
             if ($(this).hasClass('active')) {
                 statuses.push($(this).attr('rel'));
-                // statusesNames.push($(this).find('.status-name').text());
             }
         });
 
-        // if (statusesNames.length > 0) {
-        //     $(statusesNames).each(function () {
-        //         $(".selected-status").html(statusesNames + " ");
-        //         $("#resetSearch").show();
-        //     });
-        // } else {
-        //     $(".selected-status").html("");
-        //     $("#resetSearch").hide();
-        // }
         $('.role-search').each(function () {
             if ($(this).hasClass('active')) {
                 roles.push($(this).attr('rol'));
