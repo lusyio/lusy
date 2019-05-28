@@ -75,31 +75,55 @@ $(document).ready(function () {
         //     $(".selected-role").html($(this).children("span").text());
         // }
     });
-    // nameStatus();
-    //
-    // function nameStatus() {
-    //     $('.status-search').on('click', function () {
-    //         $("#resetSearch").show();
-    //         if ($(this).hasClass('active')) {
-    //             var statusName = $(this).find('.status-name').text();
-    //             console.log(statusName);
-    //             if (statusName === 'В работе') {
-    //                 $(".inwork-status").html(statusName);
-    //             }
-    //             if (statusName === 'Просрочено') {
-    //                 $(".overdue-status").html(statusName);
-    //             }
-    //             if (statusName === 'Перенос срока') {
-    //                 $(".postpone-status").html(statusName);
-    //             }
-    //             if (statusName === 'На рассмотрении') {
-    //                 $(".pending-status").html(statusName);
-    //             }
-    //             }else{
-    //             console.log('ddddd');
-    //         }
-    //     })
-    // }
+    nameStatus();
+
+    function nameRole() {
+        $(".role-search").on('click', function () {
+            $("#resetSearch").show();
+
+        })
+    }
+
+    function nameStatus() {
+        $('.status-search').on('click', function () {
+            $("#resetSearch").show();
+            var statusName = $(this).find('.status-name').text();
+            if ($(this).hasClass('active')) {
+                console.log(statusName);
+                if (statusName === 'Новые') {
+                    $(".new-status").html(statusName);
+                }
+                if (statusName === 'В работе') {
+                    $(".inwork-status").html(statusName);
+                }
+                if (statusName === 'Просрочено') {
+                    $(".overdue-status").html(statusName);
+                }
+                if (statusName === 'Перенос срока') {
+                    $(".postpone-status").html(statusName);
+                }
+                if (statusName === 'На рассмотрении') {
+                    $(".pending-status").html(statusName);
+                }
+            } else {
+                if (statusName === 'Новые') {
+                    $(".inwork-status").html('');
+                }
+                if (statusName === 'На рассмотрении') {
+                    $(".pending-status").html('');
+                }
+                if (statusName === 'Перенос срока') {
+                    $(".postpone-status").html('');
+                }
+                if (statusName === 'Просрочено') {
+                    $(".overdue-status").html('');
+                }
+                if (statusName === 'В работе') {
+                    $(".inwork-status").html('');
+                }
+            }
+        })
+    }
 
     var doneTasksOffset = 0;
 
@@ -118,7 +142,8 @@ $(document).ready(function () {
             success: function (data) {
                 if (data) {
                     $('#taskBox').append(data);
-                    $(".load-done").show()
+                    countAll();
+                    $(".load-done").show();
                 } else {
                     $(".load-archive-page").hide()
                 }
@@ -148,6 +173,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data) {
                     $('#taskBox').append(data);
+                    countAll();
                     $(".load-canceled").show()
                 } else {
                     $(".load-archive-page").hide()
@@ -196,7 +222,6 @@ $(document).ready(function () {
         countAll();
     });
 
-
     function filterTasks() {
         $(".load-archive-page").hide();
         var text = $('#searchInput').val();
@@ -209,19 +234,19 @@ $(document).ready(function () {
         $('.status-search').each(function () {
             if ($(this).hasClass('active')) {
                 statuses.push($(this).attr('rel'));
-                statusesNames.push($(this).find('.status-name').text());
+                // statusesNames.push($(this).find('.status-name').text());
             }
         });
 
-        if (statusesNames.length > 0) {
-            $(statusesNames).each(function () {
-                $(".selected-status").html(statusesNames + " ");
-                $("#resetSearch").show();
-            });
-        } else {
-            $(".selected-status").html("");
-            $("#resetSearch").hide();
-        }
+        // if (statusesNames.length > 0) {
+        //     $(statusesNames).each(function () {
+        //         $(".selected-status").html(statusesNames + " ");
+        //         $("#resetSearch").show();
+        //     });
+        // } else {
+        //     $(".selected-status").html("");
+        //     $("#resetSearch").hide();
+        // }
         $('.role-search').each(function () {
             if ($(this).hasClass('active')) {
                 roles.push($(this).attr('rol'));
@@ -274,6 +299,8 @@ $(document).ready(function () {
     }
 
     function resetSearch() {
+        doneTasksOffset = 0;
+        canceledTasksOffset = 0;
         $(".status-block").each(function () {
             $('.status').html('');
         });

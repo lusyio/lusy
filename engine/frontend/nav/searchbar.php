@@ -8,9 +8,9 @@
     </div>
     <div class="d-flex">
         <span class="text-ligther mb-2 filterPlace mr-1">Показывать </span>
-        <div class="filterSelect position-relative mr-1" id="filterSelect">
+        <div class="filterSelect position-relative mr-1">
             <span cnt="<?= $countAllTasks ?>"
-                  class="selected-role text-primary">Актуальные</span>
+                  class="selected-role">Актуальные</span>
             <span class="selected-status text-secondary"></span>
             <div class="popUpDiv">
                 <?php if ($isWorker): ?>
@@ -34,28 +34,33 @@
                 <?php endforeach; ?>
                 <hr class="m-0">
                 <?php if ($countArchiveDoneTasks > 0): ?>
-                <div class="archive-search search-done words-search">
-                    <span class="archive-name">Завершенные</span>
-                    <span class="done-count">(<?= $countArchiveDoneTasks ?>)</span>
-                </div>
+                    <div class="archive-search search-done words-search">
+                        <span class="archive-name">Завершенные</span>
+                        <span class="done-count">(<?= $countArchiveDoneTasks ?>)</span>
+                    </div>
                 <?php endif; ?>
                 <?php if ($countArchiveCanceledTasks > 0): ?>
-                <div class="archive-search search-cancel words-search">
-                    <span class="archive-name">Отмененные</span>
-                    <span class="done-count">(<?= $countArchiveCanceledTasks ?>)</span>
-                </div>
+                    <div class="archive-search search-cancel words-search">
+                        <span class="archive-name">Отмененные</span>
+                        <span class="done-count">(<?= $countArchiveCanceledTasks ?>)</span>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
         <div class="status-block">
-        <span class="status filterSelect inwork-status text-primary"></span>
-        <span class="status filterSelect overdue-status text-danger"></span>
-        <span class="status filterSelect postpone-status text-warning"></span>
-        <span class="status filterSelect pending-status text-warning"></span>
+            <span class="status filterSelect new-status text-success"></span>
+            <span class="status filterSelect inwork-status text-primary"></span>
+            <span class="status filterSelect overdue-status text-danger"></span>
+            <span class="status filterSelect postpone-status text-warning"></span>
+            <span class="status filterSelect pending-status text-secondary"></span>
+            <span class="count-all"></span>
         </div>
-        <span class="count-all"></span>
-        <span class="filterPlace text-ligther pl-0"><div id="resetSearch"><i
-                        class="icon-filter fas fa-times"></i></div></span>
+        <div id="resetSearch">
+            <span class="filterPlace text-ligther pl-0">
+                <i class="icon-filter fas fa-times"></i>
+            </span>
+        </div>
+
         <!--        <span class="float-right"><i class="fas fa-archive"></i></span>-->
     </div>
 </div>
@@ -79,7 +84,7 @@
 
 <script>
     $(document).ready(function () {
-        $("#filterSelect").on('click', function () {
+        $(".filterSelect").on('click', function () {
             $(".popUpDiv").fadeIn(300);
         });
 
