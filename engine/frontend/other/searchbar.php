@@ -85,9 +85,10 @@
 
 <script>
     $(document).ready(function () {
-        $("#filterSelect").on('click', function () {
-            $(".popUpDiv").fadeIn(300);
+        $(".filter-select").on('click', function () {
+            $(".popUpDiv").fadeToggle(300);
         });
+
 
         $(document).on('click', function (e) {
             if (!$(e.target).closest("#filterSelect").length) {
