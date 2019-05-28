@@ -1,7 +1,17 @@
 <?php
 session_start();
 ob_start();
-include 'conf.php'; 
+include 'conf.php';
+if (!isIsFiredColumnExists())
+{
+    global $pdo;
+    $sql = $pdo->prepare('alter table `users` add `is_fired` int default 0 null');
+    $sql->execute();
+
+//    $sql = $pdo->prepare('UPDATE users SET is_fired = 0');
+//    $sql->execute();
+
+}
 include 'engine/backend/other/header.php'; 
 include 'engine/frontend/other/header.php';
 function isPostponedateColumnNotNull()
@@ -789,6 +799,23 @@ if (!isAboutColumnExists())
     $sql = $pdo->prepare($sql);
     $sql->execute();
 }
+
+function isIsFiredColumnExists()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'is_fired') {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
 //connection to comet-server
 

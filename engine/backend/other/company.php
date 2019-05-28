@@ -5,7 +5,8 @@ global $cometHash;
 global $cometTrackChannelName;
 
 $namecompany = DBOnce('idcompany','company','id='.$idc);
-$sql = DB('*','users','idcompany='.$idc.' and role="worker" order by points desc');
+$sql = DB('*','users','idcompany='.$idc . ' ORDER BY is_fired');
+$isFiredShown = false;
 function userpic($id) {
 		$level = floor(DBOnce('points','users','id='.$id)/1000);
 		echo '<div class="user-pic position-relative" style="width:85px"><span class="rounded-circle bg-primary level">'.$level.'</span>

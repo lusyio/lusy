@@ -42,9 +42,10 @@ if (!empty($_COOKIE['token'])) {
         if (!empty($idc)) {
             $id = DBOnce('id', 'users', 'email="' . mb_strtolower($login) . '"');
             $hash = DBOnce('password', 'users', 'email="' . mb_strtolower($login) . '"');
+            $isFired = DBOnce('is_fired', 'users', 'email="' . mb_strtolower($login) . '"');
             if (!empty($id)) {
                 // Проверяем соответствие хеша из базы введенному паролю
-                if (password_verify($password, $hash)) {
+                if (password_verify($password, $hash) && !$isFired) {
                     $_SESSION['auth'] = true;
                     $_SESSION['id'] = $id;
                     $_SESSION['idcompany'] = DBOnce('idcompany', 'users', 'email="' . mb_strtolower($login) . '"');
