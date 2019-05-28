@@ -43,9 +43,15 @@
                 </div>
             </div>
         </div>
+        <div class="status-block">
+        <span class="status filterSelect inwork-status text-primary"></span>
+        <span class="status filterSelect overdue-status text-danger"></span>
+        <span class="status filterSelect postpone-status text-warning"></span>
+        <span class="status filterSelect pending-status text-warning"></span>
+        </div>
         <span class="count-all"></span>
-        <span class="filterPlace text-ligther pl-0"><span id="resetSearch" class="text-danger"><i
-                        class="icon-filter fas fa-times"></i></span></span>
+        <span class="filterPlace text-ligther pl-0"><div id="resetSearch"><i
+                        class="icon-filter fas fa-times"></i></div></span>
         <!--        <span class="float-right"><i class="fas fa-archive"></i></span>-->
     </div>
 </div>
@@ -58,6 +64,15 @@
         </div>
     </div>
 </div>
+
+<div class="load-archive-page load-done position-absolute">
+    <div id="loadArchiveDone" class="rounded-circle btn btn-light"><i class="fas fa-chevron-down"></i></div>
+</div>
+
+<div class="load-archive-page load-canceled position-absolute">
+    <div id="loadArchiveCanceled" class="rounded-circle btn btn-light"><i class="fas fa-chevron-down"></i></div>
+</div>
+
 <script>
     $(document).ready(function () {
         $("#filterSelect").on('click', function () {

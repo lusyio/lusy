@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
-    var wordsSearch = $(".words-search").click(function () {
-
+    $(".words-search").click(function () {
         // data.query = "";
         var val = $(this).attr("rel");
         var vol = $(this).attr("rol");
@@ -34,7 +33,6 @@ $(document).ready(function () {
         }
     });
 
-
     function updateResults(data) {
 
         $('div #taskBox').empty();
@@ -60,13 +58,13 @@ $(document).ready(function () {
                 '</div></div></div></div>';
             $('#taskBox').append($task);
         });
-
-
     }
 
     $('.role-search, .status-search').on('click', function () {
+
         filterTasks();
         countAll();
+        $(".archive-search").removeClass('active');
         // if ($(this).hasClass('active') && $(this).hasClass("status-search")){
         //     $(".selected-status").html( " " + $(this).children("span").text());
         //     $("#resetSearch").show();
@@ -77,6 +75,31 @@ $(document).ready(function () {
         //     $(".selected-role").html($(this).children("span").text());
         // }
     });
+    // nameStatus();
+    //
+    // function nameStatus() {
+    //     $('.status-search').on('click', function () {
+    //         $("#resetSearch").show();
+    //         if ($(this).hasClass('active')) {
+    //             var statusName = $(this).find('.status-name').text();
+    //             console.log(statusName);
+    //             if (statusName === 'В работе') {
+    //                 $(".inwork-status").html(statusName);
+    //             }
+    //             if (statusName === 'Просрочено') {
+    //                 $(".overdue-status").html(statusName);
+    //             }
+    //             if (statusName === 'Перенос срока') {
+    //                 $(".postpone-status").html(statusName);
+    //             }
+    //             if (statusName === 'На рассмотрении') {
+    //                 $(".pending-status").html(statusName);
+    //             }
+    //             }else{
+    //             console.log('ddddd');
+    //         }
+    //     })
+    // }
 
     var doneTasksOffset = 0;
 
@@ -95,12 +118,18 @@ $(document).ready(function () {
             success: function (data) {
                 if (data) {
                     $('#taskBox').append(data);
+                    $(".load-done").show()
                 } else {
-                    $('.tasks-search-container').show();
+                    $(".load-archive-page").hide()
                 }
             },
         });
     }
+
+    $("#workzone").on('click', '#loadArchiveDone', function () {
+        doneTasksOffset++;
+        loadDoneTasks();
+    });
 
     var canceledTasksOffset = 0;
 
@@ -119,29 +148,45 @@ $(document).ready(function () {
             success: function (data) {
                 if (data) {
                     $('#taskBox').append(data);
+                    $(".load-canceled").show()
                 } else {
-                    $('.tasks-search-container').show();
+                    $(".load-archive-page").hide()
                 }
             },
         });
     }
 
+    $("#workzone").on('click', '#loadArchiveCanceled', function () {
+        canceledTasksOffset++;
+        loadCanceledTasks();
+    });
+
     $(".search-done").on('click', function () {
         if ($(this).hasClass('active')) {
+            resetSearch();
+            $(".selected-role").html($(this).find('.archive-name').text());
             $(".tasks").hide();
             loadDoneTasks();
+            $("#resetSearch").show();
+            $('.search-done').addClass('active');
         } else {
             $('div.done').remove();
+            $(".load-archive-page").hide()
         }
     });
 
     $(".search-cancel").on('click', function () {
         if ($(this).hasClass('active')) {
+            resetSearch();
+            $(".selected-role").html($(this).find('.archive-name').text());
             $(".tasks").hide();
             loadCanceledTasks();
-            // countAll();
+            $("#resetSearch").show();
+            $('.search-cancel').addClass('active');
+        } else {
+            $('div.canceled').remove();
+            $(".load-archive-page").hide()
         }
-
     });
 
     $('#searchInput').on('keyup', function () {
@@ -151,7 +196,9 @@ $(document).ready(function () {
         countAll();
     });
 
+
     function filterTasks() {
+        $(".load-archive-page").hide();
         var text = $('#searchInput').val();
         var textRegex = new RegExp(text, 'i');
         var statuses = [];
@@ -165,7 +212,6 @@ $(document).ready(function () {
                 statusesNames.push($(this).find('.status-name').text());
             }
         });
-
 
         if (statusesNames.length > 0) {
             $(statusesNames).each(function () {
@@ -192,7 +238,7 @@ $(document).ready(function () {
             $(".selected-role").html("Актуальные");
             $("#resetSearch").show();
         }
-        console.log(rolesNames);
+
         $('.tasks').each(function () {
             var $el = $(this);
             var $hasStatus = false;
@@ -228,15 +274,24 @@ $(document).ready(function () {
     }
 
     function resetSearch() {
+        $(".status-block").each(function () {
+            $('.status').html('');
+        });
         $(".words-search").each(function () {
             var status = $(this);
+            $(".load-archive-page").hide();
+            $("#searchInput").val('');
+            $("#resetSearch").hide();
+            countRoles();
+            countStatuses();
             if (status.hasClass('active')) {
                 $(".words-search").removeClass('active');
-                $("#searchInput").val('');
+                $('.archive-search').removeClass('active');
                 console.log($('.tasks:visible').length);
                 $(".selected-role").html("Актуальные");
                 $(".selected-status").html('');
-                $("#resetSearch").hide();
+                $('div.canceled').remove();
+                $('div.done').remove();
             }
             $(".tasks").show();
         })
@@ -264,8 +319,8 @@ $(document).ready(function () {
     }
 
     function countAll() {
+        $(".load-archive-page").hide();
         var count = $('.tasks' + ':visible').length;
-        console.log(count);
         if (count === 0) {
             $('.tasks-search-container').show();
         } else {

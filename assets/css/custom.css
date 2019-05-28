@@ -306,16 +306,21 @@ list-group:hover{
     box-shadow: none;
 }
 
-#resetSearch{
-    display: none;
-}
-
 .icon-searchbar{
     padding: 6px;
     position: absolute;
     color: #5a93df;
     right: 5px;
     top: 1px;
+    z-index: 3;
+}
+
+.load-archive-page{
+    display: none;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    z-index: 3;
 }
 
 .report{
@@ -902,10 +907,17 @@ input:checked[type="checkbox"]::before {
     padding: 0;
 }
 #resetSearch {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding-top: 5px;
     font-size: 12px;
     cursor: pointer;
     transition: 500ms ease;
     margin-left: 5px;
+    color: #757575;
+    display: none;
+    border-radius: 100%;
 }
 
 .tasks-search-container{
@@ -913,13 +925,17 @@ input:checked[type="checkbox"]::before {
 }
 
 #resetSearch:hover{
+    color: #333;
     padding: 0.325rem;
     background-color: #e4e4e4;
     border-radius: 100%;
 }
 
 #resetSearch:active{
+    color: #333;
     background-color: rgba(150, 150, 150, 0.75);
+    border-radius: 100%;
+    border: 1px solid rgba(150, 150, 150, 0.75);
 }
 
 .popUpDiv {
