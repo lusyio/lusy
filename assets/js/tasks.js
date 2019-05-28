@@ -90,19 +90,19 @@ $(document).ready(function () {
             if ($(this).hasClass('active')) {
                 console.log(statusName);
                 if (statusName === 'Новые') {
-                    $(".new-status").html(statusName + ",");
+                    $(".new-status").html(", " + " " + statusName);
                 }
                 if (statusName === 'В работе') {
-                    $(".inwork-status").html(statusName + ",");
+                    $(".inwork-status").html(", " + " " + statusName);
                 }
                 if (statusName === 'Просрочено') {
-                    $(".overdue-status").html(statusName + ",");
+                    $(".overdue-status").html(", " + " " + statusName);
                 }
                 if (statusName === 'Перенос срока') {
-                    $(".postpone-status").html(statusName + ",");
+                    $(".postpone-status").html(", " + " " + statusName);
                 }
                 if (statusName === 'На рассмотрении') {
-                    $(".pending-status").html(statusName + ".");
+                    $(".pending-status").html(", " + " " + statusName);
                 }
             } else {
                 if (statusName === 'Новые') {
@@ -318,7 +318,8 @@ $(document).ready(function () {
                 $('div.done').remove();
             }
             $(".tasks").show();
-        })
+        });
+        $('#actualSearch').addClass('active');
     }
 
     $("#resetSearch").on('click', function () {

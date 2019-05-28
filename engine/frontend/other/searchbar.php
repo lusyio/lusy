@@ -12,25 +12,25 @@
             <span class="filter-select selected-role">Актуальные</span>
             <span class="selected-status text-secondary"></span>
             <div class="popUpDiv">
-                <div id="actualSearch" class="btn btn-secondary words-search w-100">
+                <div id="actualSearch" class="words-search w-100 active">
                     <span class="role-name">Актуальные</span>
                     <span class="count"> (<?= $countAllTasks ?>)</span>
                 </div>
                 <?php if ($isWorker): ?>
-                    <div id="workerSearch" rol="worker" class="btn btn-secondary words-search role-search w-100">
+                    <div id="workerSearch" rol="worker" class="words-search role-search w-100">
                         <span class="role-name"><?= $GLOBALS["_workerfilter"] ?></span>
                         <span class="count"></span>
                     </div>
                 <?php endif; ?>
                 <?php if ($isManager): ?>
-                    <div id="managerSearch" rol="manager" class="btn btn-secondary words-search role-search w-100">
+                    <div id="managerSearch" rol="manager" class="words-search role-search w-100">
                         <span class="role-name"><?= $GLOBALS["_managerfilter"] ?></span>
                         <span class="count"></span>
                     </div>
                 <?php endif; ?>
                 <?php foreach ($sortedUsedStatuses as $status => $statusName): ?>
                     <div id="<?= $status ?>Search" rel="<?= $status ?>"
-                         class="btn btn-secondary words-search active-other status-search w-100">
+                         class="words-search active-other status-search w-100">
                         <span class="status-name"><?= $statusName ?></span>
                         <span class="count"></span>
                     </div>

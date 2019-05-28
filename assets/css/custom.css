@@ -367,18 +367,35 @@ list-group:hover{
     color: #898989;
 }
 
-.words-search.active {
-    background-color: #e3e5e9 !important;
-    color: #898989 !important;
+.words-search:hover{
+    background-color: #f1f3f4 !important;
+    color: #898989;
 }
 
-.words-search {
+.words-search:not(:disabled):not(.disabled).active, .words-search:not(:disabled):not(.disabled):active, .show>.words-search.dropdown-toggle {
+    background-color: #e8eaed;
+    color: #898989;
+    box-shadow: 0 2px 5px rgba(0,0,0, .2);
+}
+
+.popUpDiv > .words-search {
     background-color: #ffffff;
     text-align: left;
     color: #898989;
     font-size: 14px;
     width: 100%;
-    border-radius: 0px;
+    border-radius: 0;
+     padding: .375rem .75rem;
+    cursor: pointer;
+}
+
+.words-search.comment-filter {
+    background-color: #ffffff;
+    text-align: left;
+    color: #898989;
+    font-size: 14px;
+    border-radius: 0;
+    margin-bottom: 4px;
 }
 
 .cust:hover{
@@ -415,12 +432,6 @@ list-group:hover{
 /*    z-index: 1;*/
 /*}*/
 
-.words-search:active{
-    background-color: #e3e5e9;
-    text-align: center;
-    color: #898989 !important;
-
-}
 
 .active-manager:active{
     background-color: #5f94db !important;
@@ -442,10 +453,7 @@ list-group:hover{
     color: #ffffff !important;
 }
 
-.words-search:hover{
-    background-color: #e4e4e4;
-    color: #898989;
-}
+
 
 .block-checkbox{
     display: inline-flex;
