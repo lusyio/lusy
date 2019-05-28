@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="d-inline-flex">
-        <div id="filterSelect" class="position-relative mr-1 mb-2 pl-3">
+        <div id="filterSelect" class="position-relative mr-1 mb-2">
             <span class="text-ligther">Показывать </span>
             <span class="filter-select selected-role">Актуальные</span>
             <span class="selected-status text-secondary"></span>
@@ -56,7 +56,7 @@
             <span class="status filter-select pending-status text-secondary"></span>
             <span class="count-all"></span>
         </div>
-        <div class="pr-3">
+        <div class="icon-reset-searchbar">
             <div id="resetSearch">
             <span class="filterPlace text-ligther pl-0">
                 <i class="icon-filter fas fa-times"></i>

@@ -29,6 +29,10 @@
     font-size: 14px;
     padding-left: 19px;
 }
+#filterSelect{
+    padding-left: 1.25rem;
+}
+
 .filter-select {
     border-bottom: 1px dashed;
     cursor: pointer;
@@ -304,6 +308,10 @@ list-group:hover{
 
 #searchInput:focus{
     box-shadow: none;
+}
+
+.icon-reset-searchbar{
+    padding-right: 1.25rem;
 }
 
 .icon-searchbar{
