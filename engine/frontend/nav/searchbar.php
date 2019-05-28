@@ -25,22 +25,26 @@
                         <span class="count"></span>
                     </div>
                 <?php endif; ?>
-                <?php foreach ($usedStatuses as $status): ?>
-                    <div id="<?= $status[0] ?>Search" rel="<?= $status[0] ?>"
+                <?php foreach ($sortedUsedStatuses as $status => $statusName): ?>
+                    <div id="<?= $status ?>Search" rel="<?= $status ?>"
                          class="btn btn-secondary words-search active-other status-search w-100">
-                        <span class="status-name"><?= $GLOBALS["_{$status[0]}filter"] ?></span>
+                        <span class="status-name"><?= $statusName ?></span>
                         <span class="count"></span>
                     </div>
                 <?php endforeach; ?>
                 <hr class="m-0">
+                <?php if ($countArchiveDoneTasks > 0): ?>
                 <div class="archive-search search-done words-search">
                     <span class="archive-name">Завершенные</span>
                     <span class="done-count">(<?= $countArchiveDoneTasks ?>)</span>
                 </div>
+                <?php endif; ?>
+                <?php if ($countArchiveCanceledTasks > 0): ?>
                 <div class="archive-search search-cancel words-search">
                     <span class="archive-name">Отмененные</span>
                     <span class="done-count">(<?= $countArchiveCanceledTasks ?>)</span>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
         <span class="count-all"></span>
