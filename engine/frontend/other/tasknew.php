@@ -43,9 +43,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 coworkers-newtask">
-                <div class="row">
-                    <label>Ответственные</label>
-                </div>
+                <label>Ответственный/соисполнитель</label>
                 <div class="row coworker-item">
                     <div class="form-group col-10 p-0">
                         <select class="form-control coworker-select" id="worker" required>
@@ -61,38 +59,14 @@
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <button class="btn btn-light" data-toggle="collapse"
-                        data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList">Добавить
-                    соисполнителя
-                </button>
-            </div>
-            <div class="col-sm-6">
-                <div class="bg-white p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
-                    <div class="add-worker mr-1 mb-1">
-                        <img src="/upload/avatar/1.jpg"
-                             class="avatar-added mr-1">
-                        <a href="#" class="card-coworker">Иван Петрович</a>
-                        <span><i value="1"
-                                 class="deleteWorker fas fa-times cancel card-coworker-delete"></i></span>
-                    </div>
-                    <div class="p-1 text-justify collapse" id="coworkersList">
-                        <div class="row">
-                            <div class="col-1">
-                                <img src="/upload/avatar/2.jpg" class="avatar-added mr-1">
-                            </div>
-                            <div class="col">
-                                <p class="mb-1 add-coworker-text">Иван петрович</p>
-                            </div>
-                            <div class="col-2">
-                                <i class="fas fa-plus add-coworker addNewWorker"></i>
-                            </div>
-                        </div>
-                        <hr class="m-0">
+                    <div class="col-sm">
+                        <button class="btn btn-light newtask-change-coworkers" data-toggle="collapse"
+                                data-target="#c workersList" aria-expanded="false" aria-controls="coworkersList">
+                            Изменить
+                        </button>
+                        <?php
+                        include 'engine/frontend/members/members.php';
+                        ?>
                     </div>
                 </div>
             </div>
@@ -117,25 +91,28 @@
             </div>
         </div>
     </div>
-</div>
-<script src="/assets/js/createtask.js"></script>
-<script>
-    $(document).ready(function () {
+    <script src="/assets/js/createtask.js"></script>
+    <script>
+        $(document).ready(function () {
 
-        $("#name").on('input', function () {
-            var nameText = $('#name').val();
-            var header = $("#headerName");
-            if (nameText) {
-                header.html(nameText);
-            } else {
-                nameText = 'Введите название задачи';
-                header.html(nameText);
-            }
-        })
-    });
-    var quill = new Quill('#editor', {
-        theme: 'snow',
-        placeholder: 'Опишите суть задания',
+            $(".newtask-change-coworkers").on('click', function (e) {
+                $(".members").fadeToggle(300);
+            });
 
-    });
-</script>
+            $("#name").on('input', function () {
+                var nameText = $('#name').val();
+                var header = $("#headerName");
+                if (nameText) {
+                    header.html(nameText);
+                } else {
+                    nameText = 'Введите название задачи';
+                    header.html(nameText);
+                }
+            })
+        });
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Опишите суть задания',
+
+        });
+    </script>

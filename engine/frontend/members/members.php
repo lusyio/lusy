@@ -39,7 +39,8 @@
                                 <img src="/upload/avatar/<?= $n['id'] ?>.jpg" class="avatar-added mr-1">
                             </div>
                             <div class="col">
-                                <a href="#" class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>
+                                <a href="#"
+                                   class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>
                             </div>
                             <div class="col-2">
                                 <i value="<?php echo $n['id'] ?>"
@@ -90,7 +91,8 @@
                                 <img src="/upload/avatar/<?= $n['id'] ?>.jpg" class="avatar-added mr-1">
                             </div>
                             <div class="col">
-                                <a href="#" class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>
+                                <a href="#"
+                                   class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>
                             </div>
                             <div class="col-2">
                                 <i value="<?php echo $n['id'] ?>" class="fas fa-plus add-coworker addNewWorker"></i>

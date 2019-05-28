@@ -58,11 +58,17 @@ $(document).ready(function () {
     });
 
     $('.role-search, .status-search').on('click', function () {
+        console.log(selectName);
         filterTasks();
         $('div.done').remove();
         $('div.canceled').remove();
         $(".archive-search").removeClass('active');
         countAll();
+        var selectName = $('.selected-role').text();
+        if (selectName === 'Актуальные') {
+            $('.selected-role').html('');
+            $('#actualSearch').removeClass('active');
+        }
     });
     nameStatus();
 
@@ -73,19 +79,19 @@ $(document).ready(function () {
             if ($(this).hasClass('active')) {
                 console.log(statusName);
                 if (statusName === 'Новые') {
-                    $(".new-status").html(", " + " " + statusName);
+                    $(".new-status").html(statusName);
                 }
                 if (statusName === 'В работе') {
-                    $(".inwork-status").html(", " + " " + statusName);
+                    $(".inwork-status").html(statusName);
                 }
                 if (statusName === 'Просрочено') {
-                    $(".overdue-status").html(", " + " " + statusName);
+                    $(".overdue-status").html(statusName);
                 }
                 if (statusName === 'Перенос срока') {
-                    $(".postpone-status").html(", " + " " + statusName);
+                    $(".postpone-status").html(statusName);
                 }
                 if (statusName === 'На рассмотрении') {
-                    $(".pending-status").html(", " + " " + statusName);
+                    $(".pending-status").html(statusName);
                 }
             } else {
                 if (statusName === 'Новые') {
