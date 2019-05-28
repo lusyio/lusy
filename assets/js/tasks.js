@@ -60,11 +60,17 @@ $(document).ready(function () {
         });
     }
 
-    $('.role-search, .status-search').on('click', function () {
-
-        filterTasks();
+    $("#actualSearch").on('click', function () {
+        resetSearch();
         countAll();
+    });
+
+    $('.role-search, .status-search').on('click', function () {
+        filterTasks();
+        $('div.done').remove();
+        $('div.canceled').remove();
         $(".archive-search").removeClass('active');
+        countAll();
         // if ($(this).hasClass('active') && $(this).hasClass("status-search")){
         //     $(".selected-status").html( " " + $(this).children("span").text());
         //     $("#resetSearch").show();
@@ -77,13 +83,6 @@ $(document).ready(function () {
     });
     nameStatus();
 
-    function nameRole() {
-        $(".role-search").on('click', function () {
-            $("#resetSearch").show();
-
-        })
-    }
-
     function nameStatus() {
         $('.status-search').on('click', function () {
             $("#resetSearch").show();
@@ -91,19 +90,19 @@ $(document).ready(function () {
             if ($(this).hasClass('active')) {
                 console.log(statusName);
                 if (statusName === 'Новые') {
-                    $(".new-status").html(statusName);
+                    $(".new-status").html(statusName + ",");
                 }
                 if (statusName === 'В работе') {
-                    $(".inwork-status").html(statusName);
+                    $(".inwork-status").html(statusName + ",");
                 }
                 if (statusName === 'Просрочено') {
-                    $(".overdue-status").html(statusName);
+                    $(".overdue-status").html(statusName + ",");
                 }
                 if (statusName === 'Перенос срока') {
-                    $(".postpone-status").html(statusName);
+                    $(".postpone-status").html(statusName + ",");
                 }
                 if (statusName === 'На рассмотрении') {
-                    $(".pending-status").html(statusName);
+                    $(".pending-status").html(statusName + ".");
                 }
             } else {
                 if (statusName === 'Новые') {
@@ -301,9 +300,7 @@ $(document).ready(function () {
     function resetSearch() {
         doneTasksOffset = 0;
         canceledTasksOffset = 0;
-        $(".status-block").each(function () {
-            $('.status').html('');
-        });
+        $('.status').html('');
         $(".words-search").each(function () {
             var status = $(this);
             $(".load-archive-page").hide();

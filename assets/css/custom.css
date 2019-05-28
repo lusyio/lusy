@@ -29,7 +29,7 @@
     font-size: 14px;
     padding-left: 19px;
 }
-.filterSelect {
+.filter-select {
     border-bottom: 1px dashed;
     cursor: pointer;
     font-size: 14px;
@@ -947,8 +947,8 @@ input:checked[type="checkbox"]::before {
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-    top: 29px;
-    margin-left: -13px;
+    top: 30px;
+    margin-left: -1px;
     box-shadow: 2px 2px 15px rgba(0,0,0,.06);
     padding: 0;
 }

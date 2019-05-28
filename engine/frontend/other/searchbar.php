@@ -6,13 +6,16 @@
             <span class="icon-searchbar"><i class="fas fa-search"></i></span>
         </div>
     </div>
-    <div class="d-flex">
-        <span class="text-ligther mb-2 filterPlace mr-1">Показывать </span>
-        <div class="filterSelect position-relative mr-1">
-            <span cnt="<?= $countAllTasks ?>"
-                  class="selected-role">Актуальные</span>
+    <div class="d-inline-flex">
+        <div id="filterSelect" class="position-relative mr-1 mb-2 pl-3">
+            <span class="text-ligther">Показывать </span>
+            <span class="filter-select selected-role">Актуальные</span>
             <span class="selected-status text-secondary"></span>
             <div class="popUpDiv">
+                <div id="actualSearch" class="btn btn-secondary words-search w-100">
+                    <span class="role-name">Актуальные</span>
+                    <span class="count"> (<?= $countAllTasks ?>)</span>
+                </div>
                 <?php if ($isWorker): ?>
                     <div id="workerSearch" rol="worker" class="btn btn-secondary words-search role-search w-100">
                         <span class="role-name"><?= $GLOBALS["_workerfilter"] ?></span>
@@ -46,22 +49,20 @@
                     </div>
                 <?php endif; ?>
             </div>
-        </div>
-        <div class="status-block">
-            <span class="status filterSelect new-status text-success"></span>
-            <span class="status filterSelect inwork-status text-primary"></span>
-            <span class="status filterSelect overdue-status text-danger"></span>
-            <span class="status filterSelect postpone-status text-warning"></span>
-            <span class="status filterSelect pending-status text-secondary"></span>
+            <span class="status filter-select new-status text-success"></span>
+            <span class="status filter-select inwork-status text-primary"></span>
+            <span class="status filter-select overdue-status text-danger"></span>
+            <span class="status filter-select postpone-status text-warning"></span>
+            <span class="status filter-select pending-status text-secondary"></span>
             <span class="count-all"></span>
         </div>
-        <div id="resetSearch">
+        <div class="pr-3">
+            <div id="resetSearch">
             <span class="filterPlace text-ligther pl-0">
                 <i class="icon-filter fas fa-times"></i>
             </span>
+            </div>
         </div>
-
-        <!--        <span class="float-right"><i class="fas fa-archive"></i></span>-->
     </div>
 </div>
 <hr>
@@ -84,12 +85,12 @@
 
 <script>
     $(document).ready(function () {
-        $(".filterSelect").on('click', function () {
+        $("#filterSelect").on('click', function () {
             $(".popUpDiv").fadeIn(300);
         });
 
         $(document).on('click', function (e) {
-            if (!$(e.target).closest(".filterSelect").length) {
+            if (!$(e.target).closest("#filterSelect").length) {
                 $('.popUpDiv').fadeOut(300);
             }
         });
