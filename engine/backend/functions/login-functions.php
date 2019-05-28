@@ -84,6 +84,15 @@ function removeSessions($sessionIds) {
     $dbh->execute();
 }
 
+function removeAllSessionsForUser($userId)
+{
+    global $pdo;
+
+    $query = 'DELETE FROM user_sessions WHERE user_id = :userId';
+    $dbh = $pdo->prepare($query);
+    $dbh->execute(array(':userId' => $userId));
+}
+
 function isCookieExistAndValidByTimestamp($sessionCookie) {
     $timestampInDb = DBOnce('timestamp', 'user_sessions', 'session_id='.$sessionCookie['sid']);
     return $timestampInDb == $sessionCookie['timestamp'];
