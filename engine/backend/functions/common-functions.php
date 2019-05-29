@@ -209,8 +209,57 @@ function getAvatarLink($userId)
     if (file_exists($avatarPath)) {
         return $avatarPath;
     } else {
-        return 'upload/avatar/0.jpg';
+        createAvatarFromName($userId);
+        return $avatarPath;
     }
+}
+
+function createAvatarFromName($userId)
+{
+    global $idc;
+
+    $userName = DBOnce('name', 'users', 'id='.$userId);
+    $userSurname = DBOnce('surname', 'users', 'id='.$userId);
+    $letters = mb_strtoupper(' '. mb_substr($userName, 0, 1) . mb_substr($userSurname, 0, 1) . ' ');
+    $imageHeight = 190;
+    $imageWidth = 190;
+    $textSize = 64;
+    $avatarDir = 'upload/avatar/' . $idc . '/';
+    if (!realpath($avatarDir)) {
+        mkdir($avatarDir, 0777, true);
+    }
+    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.png';
+    $fontFile = realpath('engine/backend/fonts/Roboto-Regular.ttf');
+
+    $textCartesians = imagettfbbox($textSize, 0, $fontFile, $letters);
+    $maxX = max(array($textCartesians[0],$textCartesians[2],$textCartesians[4],$textCartesians[6]));
+    $minX = min(array($textCartesians[0],$textCartesians[2],$textCartesians[4],$textCartesians[6]));
+    $lettersWidth = abs($maxX - $minX);
+    $startX = ($imageHeight - $lettersWidth)  / 2;
+    $startY = 126;
+
+    $im = @imagecreatetruecolor($imageWidth, $imageHeight);
+    imageantialias($im, true);
+
+    $colors = [
+        [[143,4,168],[220,249,0]],
+        [[201,0,122],[165,239,0]],
+        [[12,90,166],[255,151,0]],
+        [[0,168,118],[255,89,0]],
+        [[139,234,0],[214,0,98]],
+        [[255,236,0],[88,14,173]],
+        [[255,236,0],[88,14,173]],
+        [[255,180,0],[21,49,174]],
+        [[255,131,0],[6,121,59]],
+    ];
+    $colorSet = array_rand($colors);
+    $backgroundColor = imagecolorallocate($im, $colors[$colorSet][0][0], $colors[$colorSet][0][1], $colors[$colorSet][0][2]);
+    $text_color = imagecolorallocate($im, $colors[$colorSet][1][0], $colors[$colorSet][1][1], $colors[$colorSet][1][2]);
+
+    imagefill($im, 0, 0, $backgroundColor);
+    imageTtfText($im, $textSize, 0, $startX, $startY, $text_color, $fontFile, $letters);
+    imagepng($im, $avatarPath);
+    imagedestroy($im);
 }
 
 function getUserData($userId)
