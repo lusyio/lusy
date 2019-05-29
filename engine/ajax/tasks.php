@@ -5,8 +5,18 @@ require_once 'engine/backend/functions/tasks-functions.php';
 global $id;
 global $idc;
 global $pdo;
+global $roleu;
 
 if ($_POST['module'] == 'loadArchiveTasks') {
+    $ceoTasksQuery = "SELECT t.id AS idtask, (SELECT GROUP_CONCAT(tc.worker_id) FROM task_coworkers tc where tc.task_id = t.id) AS taskCoworkers,
+       t.view_status, t.name, t.description, t.datecreate, t.datedone, t.datepostpone, t.status, t.manager AS idmanager, t.worker AS idworker, t.idcompany, t.report, t.view,
+       IF(t.datepostpone IS NULL OR t.datepostpone='0000-00-00', t.datedone, t.datepostpone) AS sort_date,
+       (SELECT COUNT(*) FROM comments c WHERE c.status='comment' AND c.idtask = t.id) AS countcomments,
+       (SELECT c.datetime FROM comments c WHERE c.status='comment' AND c.idtask = t.id ORDER BY c.datetime DESC LIMIT 1) AS lastCommentTime,
+       (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
+FROM tasks t
+WHERE t.idcompany = :companyId AND t.status IN ('done', 'canceled') ORDER BY sort_date";
+
     $tasksQuery = "SELECT t.id AS idtask, (SELECT GROUP_CONCAT(tc.worker_id) FROM task_coworkers tc where tc.task_id = t.id) AS taskCoworkers,
        t.view_status, t.name, t.description, t.datecreate, t.datedone, t.datepostpone, t.status, t.manager AS idmanager, t.worker AS idworker, t.idcompany, t.report, t.view,
        IF(t.datepostpone IS NULL OR t.datepostpone='0000-00-00', t.datedone, t.datepostpone) AS sort_date,
@@ -15,8 +25,15 @@ if ($_POST['module'] == 'loadArchiveTasks') {
        (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
 FROM tasks t
 WHERE (manager=:userId OR worker=:userId) AND t.status IN ('done', 'canceled') ORDER BY sort_date";
-    $dbh = $pdo->prepare($tasksQuery);
-    $dbh->execute(array(':userId' => $id));
+
+    if ($roleu == 'ceo') {
+        $dbh = $pdo->prepare($ceoTasksQuery);
+        $dbh->execute(array(':companyId' => $idc));
+    } else {
+        $dbh = $pdo->prepare($tasksQuery);
+        $dbh->execute(array(':userId' => $id));
+    }
+
     $tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
     $countArchiveTasks = count($tasks);
     prepareTasks($tasks);
@@ -81,6 +98,15 @@ if ($_POST['module'] == 'loadDoneTasks') {
         $offset = 0;
     }
 
+    $ceoTasksQuery = "SELECT t.id AS idtask, (SELECT GROUP_CONCAT(tc.worker_id) FROM task_coworkers tc where tc.task_id = t.id) AS taskCoworkers,
+       t.view_status, t.name, t.description, t.datecreate, t.datedone, t.datepostpone, t.status, t.manager AS idmanager, t.worker AS idworker, t.idcompany, t.report, t.view,
+       IF(t.datepostpone IS NULL OR t.datepostpone='0000-00-00', t.datedone, t.datepostpone) AS sort_date,
+       (SELECT COUNT(*) FROM comments c WHERE c.status='comment' AND c.idtask = t.id) AS countcomments,
+       (SELECT c.datetime FROM comments c WHERE c.status='comment' AND c.idtask = t.id ORDER BY c.datetime DESC LIMIT 1) AS lastCommentTime,
+       (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
+FROM tasks t
+WHERE t.idcompany = :companyId AND t.status = 'done' ORDER BY sort_date LIMIT :limit OFFSET :offset";
+
     $tasksQuery = "SELECT t.id AS idtask, (SELECT GROUP_CONCAT(tc.worker_id) FROM task_coworkers tc where tc.task_id = t.id) AS taskCoworkers,
        t.view_status, t.name, t.description, t.datecreate, t.datedone, t.datepostpone, t.status, t.manager AS idmanager, t.worker AS idworker, t.idcompany, t.report, t.view,
        IF(t.datepostpone IS NULL OR t.datepostpone='0000-00-00', t.datedone, t.datepostpone) AS sort_date,
@@ -89,7 +115,12 @@ if ($_POST['module'] == 'loadDoneTasks') {
        (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
 FROM tasks t
 WHERE (manager=:userId OR worker=:userId) AND t.status = 'done' ORDER BY sort_date LIMIT :limit OFFSET :offset";
-    $dbh = $pdo->prepare($tasksQuery);
+
+    if ($roleu == 'ceo') {
+        $dbh = $pdo->prepare($ceoTasksQuery);
+    } else {
+        $dbh = $pdo->prepare($tasksQuery);
+    }
     $dbh->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
     $dbh->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
     $dbh->bindValue(':userId', (int) $id, PDO::PARAM_INT);
@@ -158,6 +189,15 @@ if ($_POST['module'] == 'loadCanceledTasks') {
         $offset = 0;
     }
 
+    $ceoTasksQuery = "SELECT t.id AS idtask, (SELECT GROUP_CONCAT(tc.worker_id) FROM task_coworkers tc where tc.task_id = t.id) AS taskCoworkers,
+       t.view_status, t.name, t.description, t.datecreate, t.datedone, t.datepostpone, t.status, t.manager AS idmanager, t.worker AS idworker, t.idcompany, t.report, t.view,
+       IF(t.datepostpone IS NULL OR t.datepostpone='0000-00-00', t.datedone, t.datepostpone) AS sort_date,
+       (SELECT COUNT(*) FROM comments c WHERE c.status='comment' AND c.idtask = t.id) AS countcomments,
+       (SELECT c.datetime FROM comments c WHERE c.status='comment' AND c.idtask = t.id ORDER BY c.datetime DESC LIMIT 1) AS lastCommentTime,
+       (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
+FROM tasks t
+WHERE t.idcompany = :companyId AND t.status = 'canceled' ORDER BY sort_date LIMIT :limit OFFSET :offset";
+
     $tasksQuery = "SELECT t.id AS idtask, (SELECT GROUP_CONCAT(tc.worker_id) FROM task_coworkers tc where tc.task_id = t.id) AS taskCoworkers,
        t.view_status, t.name, t.description, t.datecreate, t.datedone, t.datepostpone, t.status, t.manager AS idmanager, t.worker AS idworker, t.idcompany, t.report, t.view,
        IF(t.datepostpone IS NULL OR t.datepostpone='0000-00-00', t.datedone, t.datepostpone) AS sort_date,
@@ -166,7 +206,12 @@ if ($_POST['module'] == 'loadCanceledTasks') {
        (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
 FROM tasks t
 WHERE (manager=:userId OR worker=:userId) AND t.status = 'canceled' ORDER BY sort_date LIMIT :limit OFFSET :offset";
-    $dbh = $pdo->prepare($tasksQuery);
+
+    if ($roleu == 'ceo') {
+        $dbh = $pdo->prepare($ceoTasksQuery);
+    } else {
+        $dbh = $pdo->prepare($tasksQuery);
+    }
     $dbh->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
     $dbh->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
     $dbh->bindValue(':userId', (int) $id, PDO::PARAM_INT);
