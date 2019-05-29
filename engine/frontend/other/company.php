@@ -30,7 +30,7 @@
                 <div class="col-sm-5">
                     <div class="d-flex">
                         <div class="user-pic position-relative" style="width:85px">
-                            <a href="/profile/'.$id.'/"><img src="/<?=getAvatarLink($n["id"]) ?>" class="avatar-img rounded-circle w-100 mb-4"/></a></div>
+                            <a href="/profile/<?= $n[$id] ?>/"><img src="/<?=getAvatarLink($n["id"]) ?>" class="avatar-img rounded-circle w-100 mb-4"/></a></div>
                         <p class="ml-3 mt-4"><a
                                     href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a></p>
                     </div>
