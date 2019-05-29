@@ -10,6 +10,16 @@ if (isset($_GET['activate']) && isset($_GET['code'])) {
         $removeActivationCodeQuery = $pdo->prepare('DELETE FROM company_activation WHERE company_id=:companyId AND code=:code');
         $removeActivationCodeQuery->execute(array(':companyId' => $companyId, ':code' => $activateCode));
         if ($result) {
+            $companyMail = DBOnce('email', 'users', 'idcompany=' . $companyId . ' AND role=\'ceo\'');
+            require_once 'engine/phpmailer/LusyMailer.php';
+            $mail = new \PHPMailer\PHPMailer\LusyMailer();
+            $mail->addAddress($companyMail);
+            $mail->isHTML();
+            $mail->Subject = "Добро пожаловать в Lusy.io";
+            $args = [];
+            $mail->setMessageContent('company-welcome', $args);
+            $mail->send();
+
             header('location: /login/');
         }
     }

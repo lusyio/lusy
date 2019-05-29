@@ -14,6 +14,16 @@ if ($userId) {
     }
     $addCode = $pdo->prepare('INSERT INTO password_restore(user_id, code) VALUES (:userId,:restoreCode)');
     $addCode->execute(array(':userId' => $userId, ':restoreCode' => $restoreCode));
+    require_once 'engine/phpmailer/LusyMailer.php';
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+    $mail->addAddress($requestEmail);
+    $mail->isHTML();
+    $mail->Subject = "Восстановление пароля в Lusy.io";
+    $args = [
+        'restoreLink' => $_SERVER['HTTP_HOST'] . '/restore/' . $userId . '/' . $restoreCode . '/',
+    ];
+    $mail->setMessageContent('password-restore', $args);
+    $mail->send();
     echo $restoreCode;
 } else {
     echo '';
