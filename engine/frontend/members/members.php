@@ -87,7 +87,7 @@
                     <div class="coworkersList-coworker">
                         <div class="row">
                             <div class="col-1">
-                                <img src="/<?= getAvatarLink($coworker['worker_id']) ?>" class="avatar-added mr-1">
+                                <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added mr-1">
                             </div>
                             <div class="col">
                                 <a href="#"
