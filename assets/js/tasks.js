@@ -1,38 +1,29 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-
-    var wordsSearch =  $(".words-search").click(function () {
-
+    $(".words-search").click(function () {
         // data.query = "";
         var val = $(this).attr("rel");
         var vol = $(this).attr("rol");
 
-        if($(this).hasClass('active')){
+        if ($(this).hasClass('active')) {
             $(this).removeClass('active');
-            if ($(this).hasClass('active-manager')){
+            if ($(this).hasClass('active-manager')) {
                 $(this).removeClass('active-manager');
             }
-            if ($(this).hasClass('active-worker')){
+            if ($(this).hasClass('active-worker')) {
                 $(this).removeClass('active-worker');
             }
 
-
-
         } else {
             $(this).addClass('active');
-            if (vol === 'manager'){
+            if (vol === 'manager') {
                 $(this).addClass('active-manager');
             }
-            if (vol === 'worker'){
+            if (vol === 'worker') {
                 $(this).addClass('active-worker');
             }
-
         }
-
-
-
     });
-
 
     function updateResults(data) {
 
@@ -43,51 +34,212 @@ $(document).ready(function(){
                 '<div class="card-body tasks-list" onclick="window.location="' + item.idtask + '">' +
                 '<div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>">' +
                 '<a><h6 class="card-title mb-2"><span>' + item.name + '</span></h6></a>' +
-            '<img src="/upload/avatar/2.jpg" class="avatar mr-1">' +
+                '<img src="/upload/avatar/2.jpg" class="avatar mr-1">' +
                 '<a href="/profile/' + item.idmanager + '/">' + item.namem + ' ' + item.surnamem + '</a>' +
-            '</div>' +
-            '<div class="d-inline-block">' +
+                '</div>' +
+                '<div class="d-inline-block">' +
                 '<img src="/upload/avatar/1.jpg" class="avatar mr-1">' +
                 '<a class="name-manager-tasks" href="/profile/' + item.idworker + '/">' + item.namew + ' ' + item.surnamew + '</a>' +
-            '</div>' +
-            '<div class="d-inline-block">' +
+                '</div>' +
+                '<div class="d-inline-block">' +
                 '<span class="icons-tasks"><i class="fas fa-comments custom-date"></i> </span>' +
-            '<span class="icons-tasks"><i class="fas fa-file custom-date"></i> </span>' +
-            '</div>' +
-            '<div class="position-absolute date-status">' +
+                '<span class="icons-tasks"><i class="fas fa-file custom-date"></i> </span>' +
+                '</div>' +
+                '<div class="position-absolute date-status">' +
                 '<span class="text-ligther"><i class="far fa-calendar-times custom"></i>' + item.datedone + '</span>' +
                 '</div></div></div></div>';
-           $('#taskBox').append($task);
+            $('#taskBox').append($task);
         });
-
-
     }
+
+    $("#actualSearch").on('click', function () {
+        resetSearch();
+        countAll();
+    });
 
     $('.role-search, .status-search').on('click', function () {
         filterTasks();
+        $('div.done').remove();
+        $('div.canceled').remove();
+        $(".archive-search").removeClass('active');
+        countAll();
+        var selectName = $('.selected-role').text();
+        if (selectName === 'Актуальные') {
+            $('.selected-role').html('');
+            $('#actualSearch').removeClass('active');
+        }
+    });
+    nameStatus();
+
+    function nameStatus() {
+        $('.status-search').on('click', function () {
+            $("#resetSearch").show();
+            var statusName = $(this).find('.status-name').text();
+            if ($(this).hasClass('active')) {
+                if (statusName === 'Новые') {
+                    $(".new-status").html("<span class=\"filter-select text-success\">"+ statusName +"</span>" + ", ");
+                }
+                if (statusName === 'В работе') {
+                    $(".inwork-status").html("<span class=\"filter-select text-primary\">"+ statusName +"</span>" + ", ");
+                }
+                if (statusName === 'Просрочено') {
+                    $(".overdue-status").html("<span class=\"filter-select  text-danger\">"+ statusName +"</span>" + ", ");
+                }
+                if (statusName === 'Перенос срока') {
+                    $(".postpone-status").html("<span class=\"filter-select  text-warning\">"+ statusName +"</span>" + ", ");
+                }
+                if (statusName === 'На рассмотрении') {
+                    $(".pending-status").html("<span class=\"filter-select  text-secondary\">"+ statusName +"</span>");
+                }
+            } else {
+                if (statusName === 'Новые') {
+                    $(".new-status").html('');
+                }
+                if (statusName === 'На рассмотрении') {
+                    $(".pending-status").html('');
+                }
+                if (statusName === 'Перенос срока') {
+                    $(".postpone-status").html('');
+                }
+                if (statusName === 'Просрочено') {
+                    $(".overdue-status").html('');
+                }
+                if (statusName === 'В работе') {
+                    $(".inwork-status").html('');
+                }
+            }
+        })
+    }
+
+    var doneTasksOffset = 0;
+
+    function loadDoneTasks() {
+        var fd = new FormData();
+        fd.append('ajax', 'tasks');
+        fd.append('module', 'loadDoneTasks');
+        fd.append('offset', doneTasksOffset.toString());
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: fd,
+            success: function (data) {
+                if (data) {
+                    $('#taskBox').append(data);
+                    countAll();
+                    $(".load-done").show();
+                } else {
+                    $(".load-archive-page").hide()
+                }
+            },
+        });
+    }
+
+    $("#workzone").on('click', '#loadArchiveDone', function () {
+        doneTasksOffset++;
+        loadDoneTasks();
     });
 
-    $('#searchInput').on('keyup' , function () {
+    var canceledTasksOffset = 0;
+
+    function loadCanceledTasks() {
+        var fd = new FormData();
+        fd.append('ajax', 'tasks');
+        fd.append('module', 'loadCanceledTasks');
+        fd.append('offset', canceledTasksOffset.toString());
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: fd,
+            success: function (data) {
+                if (data) {
+                    $('#taskBox').append(data);
+                    countAll();
+                    $(".load-canceled").show()
+                } else {
+                    $(".load-archive-page").hide()
+                }
+            },
+        });
+    }
+
+    $("#workzone").on('click', '#loadArchiveCanceled', function () {
+        canceledTasksOffset++;
+        loadCanceledTasks();
+    });
+
+    $(".search-done").on('click', function () {
+        if ($(this).hasClass('active')) {
+            resetSearch();
+            $(".selected-role").html($(this).find('.archive-name').text());
+            $(".tasks").hide();
+            loadDoneTasks();
+            $("#resetSearch").show();
+            $('.search-done').addClass('active');
+        } else {
+            $('div.done').remove();
+            $(".load-archive-page").hide()
+        }
+    });
+
+    $(".search-cancel").on('click', function () {
+        if ($(this).hasClass('active')) {
+            resetSearch();
+            $(".selected-role").html($(this).find('.archive-name').text());
+            $(".tasks").hide();
+            loadCanceledTasks();
+            $("#resetSearch").show();
+            $('.search-cancel').addClass('active');
+        } else {
+            $('div.canceled').remove();
+            $(".load-archive-page").hide()
+        }
+    });
+
+    $('#searchInput').on('keyup', function () {
         filterTasks();
         countRoles();
         countStatuses();
+        countAll();
     });
 
     function filterTasks() {
+        $(".load-archive-page").hide();
         var text = $('#searchInput').val();
         var textRegex = new RegExp(text, 'i');
         var statuses = [];
+        var statusesNames = [];
+        var rolesNames = [];
         var roles = [];
+
         $('.status-search').each(function () {
-            if($(this).hasClass('active')) {
+            if ($(this).hasClass('active')) {
                 statuses.push($(this).attr('rel'));
             }
         });
+
         $('.role-search').each(function () {
-            if($(this).hasClass('active')) {
+            if ($(this).hasClass('active')) {
                 roles.push($(this).attr('rol'));
+                rolesNames.push($(this).find('.role-name').text());
             }
         });
+
+        if (rolesNames.length > 0) {
+            $(rolesNames).each(function () {
+                $(".selected-role").html(rolesNames + ",");
+                $("#resetSearch").show();
+            });
+        } else {
+            $(".selected-role").html("Актуальные");
+            $("#resetSearch").show();
+        }
+
         $('.tasks').each(function () {
             var $el = $(this);
             var $hasStatus = false;
@@ -122,23 +274,35 @@ $(document).ready(function(){
         })
     }
 
-    function resetSearch(){
+    function resetSearch() {
+        doneTasksOffset = 0;
+        canceledTasksOffset = 0;
+        $('.status').html('');
         $(".words-search").each(function () {
             var status = $(this);
+            $(".load-archive-page").hide();
+            $("#searchInput").val('');
+            $("#resetSearch").hide();
+            countRoles();
+            countStatuses();
             if (status.hasClass('active')) {
                 $(".words-search").removeClass('active');
-                $("#searchInput").val('');
-                console.log($('.tasks:visible').length);
+                $('.archive-search').removeClass('active');
+                $(".selected-status").html('');
+                $('div.canceled').remove();
+                $('div.done').remove();
             }
             $(".tasks").show();
-        })
+        });
+        $(".selected-role").html("Актуальные");
+        $('#actualSearch').addClass('active');
     }
 
     $("#resetSearch").on('click', function () {
         resetSearch();
+        countAll();
     });
 
-    
     function countStatuses() {
         $('.status-search').each(function () {
             var $status = $(this).attr('rel');
@@ -146,6 +310,7 @@ $(document).ready(function(){
             $(this).find('.count').text(' (' + taskCount + ')');
         })
     }
+
     function countRoles() {
         $('.role-search').each(function () {
             var $status = $(this).attr('rol');
@@ -153,6 +318,19 @@ $(document).ready(function(){
             $(this).find('.count').text(' (' + roleCount + ')');
         })
     }
+
+    function countAll() {
+        $(".load-archive-page").hide();
+        var count = $('.tasks' + ':visible').length;
+        if (count === 0) {
+            $('.tasks-search-container').show();
+        } else {
+            $('.tasks-search-container').hide();
+        }
+        $('.count-all').html(' (' + count + ')');
+    }
+
+    countAll();
     countRoles();
     countStatuses();
 });

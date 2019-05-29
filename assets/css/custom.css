@@ -25,6 +25,20 @@
 .navbar-nav .badge {
 	margin-top: 3px;
 }
+.filterPlace {
+    font-size: 14px;
+    padding-left: 19px;
+}
+#filterSelect{
+    padding-left: 1.25rem;
+}
+
+.filter-select {
+    border-bottom: 1px dashed;
+    cursor: pointer;
+    font-size: 14px;
+    height: 24px;
+}
 .file-list .fa-circle {
 	font-size: 5px; 
 	vertical-align: middle; 
@@ -285,9 +299,36 @@ list-group:hover{
 	line-height: 1.53;
     letter-spacing: 0.1px;
     height: 38px;
-    background-color: rgb(237, 239, 244);
-    box-shadow: unset;
+    background-color: #f6f6f6;
+    border: none !important;
+    color: #6c757d;
+    border-radius: 10px;
     padding: 12px 16px 12px 18px;
+}
+
+#searchInput:focus{
+    box-shadow: none;
+}
+
+.icon-reset-searchbar{
+    padding-right: 1.25rem;
+}
+
+.icon-searchbar{
+    padding: 6px;
+    position: absolute;
+    color: #5a93df;
+    right: 5px;
+    top: 1px;
+    z-index: 3;
+}
+
+.load-archive-page{
+    display: none;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    z-index: 3;
 }
 
 .report{
@@ -311,20 +352,50 @@ list-group:hover{
     
 }
 
-.words-search.active {
-    background-color: #e3e5e9 !important;
-    color: #898989 !important;
+.archive-search{
+    padding: .375rem .75rem;
+    background-color: #ffffff;
+    text-align: left;
+    color: #898989;
+    font-size: 14px;
+    border-radius: 0;
+    width: 100%;
 }
 
-.words-search {
-    background-color: #f7f7f7;
-    text-align: center;
-    box-shadow: rgba(13, 28, 60, 0.02) 0px 4px 44px 0px;
+.archive-search:hover{
+    background-color: #e4e4e4;
     color: #898989;
-    font-size: 13px;
-    width: max-content;
-    margin-bottom: 1%;
-    margin-right: 5px;
+}
+
+.words-search:hover{
+    background-color: #f1f3f4 !important;
+    color: #898989;
+}
+
+.words-search:not(:disabled):not(.disabled).active, .words-search:not(:disabled):not(.disabled):active, .show>.words-search.dropdown-toggle {
+    background-color: #e8eaed;
+    color: #898989;
+    box-shadow: 0 2px 5px rgba(0,0,0, .2);
+}
+
+.popUpDiv > .words-search {
+    background-color: #ffffff;
+    text-align: left;
+    color: #898989;
+    font-size: 14px;
+    width: 100%;
+    border-radius: 0;
+     padding: .375rem .75rem;
+    cursor: pointer;
+}
+
+.words-search.comment-filter {
+    background-color: #ffffff;
+    text-align: left;
+    color: #898989;
+    font-size: 14px;
+    border-radius: 0;
+    margin-bottom: 4px;
 }
 
 .cust:hover{
@@ -361,12 +432,6 @@ list-group:hover{
 /*    z-index: 1;*/
 /*}*/
 
-.words-search:active{
-    background-color: #e3e5e9;
-    text-align: center;
-    color: #898989 !important;
-
-}
 
 .active-manager:active{
     background-color: #5f94db !important;
@@ -388,11 +453,7 @@ list-group:hover{
     color: #ffffff !important;
 }
 
-.words-search:hover{
-    background-color: #e4e4e4;
-    text-align: center;
-    color: #898989;
-}
+
 
 .block-checkbox{
     display: inline-flex;
@@ -601,6 +662,10 @@ input:checked[type="checkbox"]::before {
     top: 0;
 }
 
+.count-all{
+    font-size: 14px;
+}
+
 .reg-icon{
     color: #d4d4d4;
 }
@@ -696,6 +761,7 @@ input:checked[type="checkbox"]::before {
     border-radius: 10%;
     color: #b9b9b9;
     font-size: 30px;
+    cursor: pointer;
 }
 
 .avatar-added{
@@ -811,7 +877,6 @@ input:checked[type="checkbox"]::before {
 }
 
 .coworkers{
-    display: none;
     width: 350px;
     background-color: #fff;
     color: black;
@@ -819,7 +884,6 @@ input:checked[type="checkbox"]::before {
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-    top: 21rem;
     right: 0;
     margin-right: -21px;
     box-shadow: 2px 2px 15px rgba(0,0,0,.3);
@@ -857,7 +921,52 @@ input:checked[type="checkbox"]::before {
     box-shadow: 2px 2px 15px rgba(0,0,0,.3);
     padding: 0;
 }
+#resetSearch {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 500ms ease;
+    margin-left: 5px;
+    color: #757575;
+    display: none;
+    border-radius: 100%;
+}
 
+.tasks-search-container{
+    display: none;
+}
+
+#resetSearch:hover{
+    color: #333;
+    padding: 0.325rem;
+    background-color: #e4e4e4;
+    border-radius: 100%;
+}
+
+#resetSearch:active{
+    color: #333;
+    background-color: rgba(150, 150, 150, 0.75);
+    border-radius: 100%;
+    border: 1px solid rgba(150, 150, 150, 0.75);
+}
+
+.popUpDiv {
+    display: none;
+    width: 180px;
+    text-align: left;
+    background-color: #fff;
+    color: black;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 30px;
+    margin-left: -1px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,.06);
+    padding: 0;
+}
 #change-date{
     display: none;
     width: 300px;
