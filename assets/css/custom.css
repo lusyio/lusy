@@ -270,7 +270,11 @@
 }
 
 .cancel-file{
-    font-size: 16px !important;
+    font-size: 12px !important;
+}
+
+.cancel-file:hover{
+    color: rgba(188, 0, 0, 0.51);
 }
 
 list-group:hover{
@@ -657,6 +661,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .btn-file {
+    background-color: white;
     position: relative;
     overflow: hidden;
     top: 0;
@@ -690,6 +695,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .icon-newtask{
+    transition: 200ms;
     right: 30px;
     top: 40px;
     padding-left: 10px;
@@ -698,6 +704,7 @@ input:checked[type="checkbox"]::before {
 
 .icon-newtask:hover{
     background-color: #f8f9fa;
+    cursor: pointer;
 }
 
 .statustitle {
@@ -783,6 +790,11 @@ input:checked[type="checkbox"]::before {
     margin-bottom: 1%;
 }
 
+.add-responsible{
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
 .add-worker{
     background-color: #ffffff;
     border-radius: 5px;
@@ -808,8 +820,18 @@ input:checked[type="checkbox"]::before {
     color: #5d95db;
 }
 
-.card-coworker{
-    font-size: 12px;
+.change-responsible{
+    font-size: 15px;
+    color: #e3e5e9;
+    margin-left: 1%;
+}
+
+.change-responsible:hover{
+    color: #5d95db;
+}
+
+.coworker-fio{
+    font-size: 13px;
 }
 
 .card-coworker-delete{
@@ -889,28 +911,28 @@ input:checked[type="checkbox"]::before {
 
 .coworkers{
     display: none;
-    width: 350px;
+    width: 609px;
     background-color: #fff;
     color: black;
     text-align: center;
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-    right: 0;
+    right: 16px;
     box-shadow: 2px 2px 15px rgba(0,0,0,.3);
     padding: 0;
 }
 
 .responsible{
     display: none;
-    width: 350px;
+    width: 290px;
     background-color: #fff;
     color: black;
     text-align: center;
     border-radius: 6px;
     position: absolute;
-    z-index: 1;
-    right: 0;
+    z-index: 2;
+    right: 15px;
     box-shadow: 2px 2px 15px rgba(0,0,0,.3);
     padding: 0;
 }
@@ -950,8 +972,8 @@ input:checked[type="checkbox"]::before {
 
 #resetSearch:hover{
     color: #333;
-    padding: 0.325rem;
     background-color: #e4e4e4;
+    padding: 0.325rem;
     border-radius: 100%;
 }
 
@@ -1245,22 +1267,69 @@ span.date {
 }
 
 .container-coworker{
-    border: solid 1px #e3e5e9;
-    border-radius: 8px;
+    min-height: 38px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
     padding: .375rem .75rem;
 }
 
 .container-files{
-    border: solid 1px #e3e5e9;
-    border-radius: 8px;
     min-height: 38px;
     padding: .375rem .75rem;
 }
 
 .container-responsible{
-    border: solid 1px #e3e5e9;
-    border-radius: 8px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
     padding: .375rem .75rem;
+}
+
+.select-coworker{
+    padding: 7px;
+}
+
+.select-coworker:hover{
+    color: #333;
+    background-color: #e4e4e4;
+    cursor: pointer;
+}
+
+.select-coworker:active{
+    color: #333;
+    background-color: rgba(150, 150, 150, 0.75);
+}
+
+.coworker-card div:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.coworker-card div:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.select-responsible{
+    padding: 7px;
+}
+
+.select-responsible:hover{
+    color: #333;
+    background-color: #e4e4e4;
+    cursor: pointer;
+}
+
+.select-responsible:active{
+    color: #333;
+    background-color: rgba(150, 150, 150, 0.75);
+}
+
+.responsible-card div:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.responsible-card div:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 .avatar-conversation{
@@ -1510,6 +1579,10 @@ label.error{
 
 .attach-file{
 
+}
+
+.filenames{
+    color: #898989;
 }
 
 .search-container{

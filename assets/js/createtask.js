@@ -15,30 +15,66 @@ $(document).ready(function () {
         $(this.files).each(function () {
             names = this.name;
             fileList.set(n, $(this)[0]);
-            $(".file-name").show().addClass('d-flex').append("<div val='" + n + "' class='filenames'>"
-                + names +
-                "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
+            $(".file-name").show().addClass('d-flex').append("<div val='" + n + "' class='filenames'>" +
+                "<i class='fas fa-paperclip mr-1'></i>" + names +
+                "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
                 "</div>");
             n++;
         });
     });
 
+//работа с ответственными
+    $(".container-responsible").on('click', function () {
+        $(".responsible").fadeToggle(200);
+    });
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest(".container-responsible").length) {
+            $('.responsible').fadeOut(300);
+        }
+    });
+
+    $(".select-responsible").on('click', function () {
+        var id = $(this).attr('val');
+        console.log(id);
+        $('.select-responsible').removeClass('d-none');
+        $(this).addClass('d-none');
+        $('.add-responsible').addClass('d-none');
+        $('.coworker-card').find("[val = " + id + "]").addClass('d-none');
+        $('.container-responsible').find("[val = " + id + "]").removeClass('d-none');
+    });
+
+//работа с соисполнителями
+    $(".container-coworker").on('click', function () {
+        $(".coworkers").fadeToggle(200);
+    });
+
+    $('.add-worker').on('click', function () {
+        var id = $(this).attr('val');
+        console.log(id);
+        $(this).addClass('d-none');
+        $('.coworker-card').find("[val = " + id + "]").removeClass('d-none');
+
+    });
+
+    $(".select-coworker").on('click', function () {
+        var id = $(this).attr('val');
+        console.log(id);
+        $(this).addClass('d-none');
+        $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
+    });
 
 //создание новой задачи
     $("#createTask").click(function () {
+        var responsible = $('.add-responsible:visible').attr('val');
         var coworkers = [];
-        $('.coworker-select').each(function () {
-            coworkers.push($(this).val())
+        $('.add-worker:visible').each(function () {
+            coworkers.push($(this).attr('val'));
         });
-        console.log(coworkers);
-
         var name = $("#name").val();
         var delta = quill.root.innerHTML;
-        // var description = $("#description").val();
         var datedone = $("#datedone").val();
         var worker = $("#worker").val();
-        // var attachedFile = $('input[type=file]').prop('files')[0];
-        // alert(attachedFile);
         var fd = new FormData();
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
@@ -47,7 +83,7 @@ $(document).ready(function () {
         fd.append('name', name);
         fd.append('description', delta);
         fd.append('datedone', datedone);
-        fd.append('worker', worker);
+        fd.append('worker', responsible);
         fd.append('coworkers', JSON.stringify(coworkers));
         fd.append('ajax', 'task-control');
         if (name != null && delta != null && datedone != null && worker != null) {
