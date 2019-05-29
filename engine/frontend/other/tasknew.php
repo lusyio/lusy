@@ -28,7 +28,7 @@
             </div>
             <div class="col-sm">
                 <div style="display: none"
-                     class="bg-white file-name container p-1 container-coworker flex-wrap align-content-sm-stretch">
+                     class="bg-white file-name container container-files flex-wrap align-content-sm-stretch">
                 </div>
             </div>
         </div>
@@ -43,45 +43,71 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 coworkers-newtask">
-                <label>Ответственный/соисполнитель</label>
-                <div class="row coworker-item">
-                    <div class="form-group col-10 p-0">
-                        <select class="form-control coworker-select" id="worker" required>
-                            <?php
-                            $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
-                            foreach ($users as $n) { ?>
-                                <option value="<?php echo $n['id'] ?>"><?php echo $n['name'] . ' ' . $n['surname'] ?></option>
-                            <?php } ?>
-                        </select>
+                <label>Ответственный</label>
+                <div class="container container-responsible d-flex flex-wrap align-content-sm-stretch"
+                     style="min-height: 38px">
+                    <div class="add-worker mr-1 mb-1">
+                        <img src="" class="avatar-added mr-1">
+                        <span class="card-coworker">Иван Петрович</span>
                     </div>
-                    <div class="form-group col-2 p-0">
-                        <button class="btn btn-primary h-100 coworker-button" button-action="add">
-                            <i class="fas fa-plus"></i>
-                        </button>
+                    <div class="position-absolute icon-newtask">
+                        <i class="fas fa-caret-down"></i>
                     </div>
-
                 </div>
+                <?php
+                include 'engine/frontend/members/responsible.php';
+                ?>
+                <!--                <label>Ответственный/соисполнитель</label>-->
+                <!--                <div class="row coworker-item">-->
+                <!--                    <div class="form-group col-10 p-0">-->
+                <!--                        <select class="form-control coworker-select" id="worker" required>-->
+                <!--                            --><?php
+                //                            $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
+                //                            foreach ($users as $n) { ?>
+                <!--                                <option value="--><?php //echo $n['id'] ?><!--">-->
+                <?php //echo $n['name'] . ' ' . $n['surname'] ?><!--</option>-->
+                <!--                            --><?php //} ?>
+                <!--                        </select>-->
+                <!--                    </div>-->
+                <!--                    <div class="form-group col-2 p-0">-->
+                <!--                        <button class="btn btn-primary h-100 coworker-button" button-action="add">-->
+                <!--                            <i class="fas fa-plus"></i>-->
+                <!--                        </button>-->
+                <!--                    </div>-->
+                <!---->
+                <!--                </div>-->
             </div>
 
         </div>
         <div class="row">
-            <div class="col-6">
-                <div class="container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
+            <div class="col">
+                <label>Соисполнители</label>
+                <div class="container container-coworker d-flex flex-wrap align-content-sm-stretch"
+                     style="min-height: 40px">
+                    <div class="add-worker mr-1 mb-1">
+                        <img src="" class="avatar-added mr-1">
+                        <span class="card-coworker">Иван Петрович</span>
+                        <span><i class="fas fa-times"></i></span>
+                    </div>
+                    <div class="position-absolute icon-newtask">
+                        <i class="fas fa-caret-down"></i>
+                    </div>
                 </div>
+                <?php
+                include 'engine/frontend/members/coworkers.php';
+                ?>
             </div>
         </div>
-<!--        <div class="col-6">-->
-<!--            <button class="btn btn-light newtask-change-coworkers" data-toggle="collapse"-->
-<!--                    data-target="#c workersList" aria-expanded="false" aria-controls="coworkersList">-->
-<!--                Изменить-->
-<!--            </button>-->
-<!--            --><?php
-//            include 'engine/frontend/members/coworkers.php';
-//            ?>
-<!--        </div>-->
+        <!--        <div class="col-6">-->
+        <!--            <button class="btn btn-light newtask-change-coworkers" data-toggle="collapse"-->
+        <!--                    data-target="#c workersList" aria-expanded="false" aria-controls="coworkersList">-->
+        <!--                Изменить-->
+        <!--            </button>-->
+
+        <!--        </div>-->
 
         <!-- Divider -->
-        <hr class="mt-4 mb-5">
+        <hr class="mt-4 mb-4">
 
 
         <!-- не начислять баллы -->
@@ -103,8 +129,12 @@
     <script>
         $(document).ready(function () {
 
-            $(".newtask-change-coworkers").on('click', function (e) {
-                $(".coworkers").fadeToggle(300);
+            $(".container-coworker").on('click', function () {
+                $(".coworkers").fadeToggle(200);
+            });
+
+            $(".container-responsible").on('click', function () {
+                $(".responsible").fadeToggle(200);
             });
 
             $("#name").on('input', function () {

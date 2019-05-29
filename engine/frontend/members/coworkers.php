@@ -10,9 +10,9 @@
                             <img src="/upload/avatar/<?= $n['id'] ?>.jpg" class="avatar-added mr-1">
                         </div>
                         <div class="col">
-                            <p class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></p>
+                            <span class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
                         </div>
-                        <div class="col-2">
+                        <div class="col-2 text-center">
                             <i value="<?php echo $n['id'] ?>" class="fas fa-plus add-coworker addNewWorker"></i>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                 $(".container-coworker").append("<div class=\"add-worker mr-1 mb-1\">\n" +
                     "                        <img val=\"" + selectedId + "\" src=\"/upload/avatar/" + selectedId + ".jpg\"\n" +
                     "                             class=\"avatar-added mr-1\">\n" +
-                    "                        <a href=\"#\" class=\"card-coworker\">" + selectedName + "</a>\n" +
+                    "                        <span class=\"card-coworker\">" + selectedName + "</span>\n" +
                     "                        <span><i value=\'" + selectedId + "\'\n" +
                     "                                 class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
                     "                    </div>");
