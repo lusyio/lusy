@@ -4,14 +4,13 @@ global $id;
 global $idc;
 global $pdo;
 global $cometTrackChannelName;
+global $roleu;
 
-
-// закомментил для отладки
-//if (DBOnce('role', 'users', 'id='.$id) == 'worker') {
-//    header('location:/');
-//    ob_flush();
-//    die;
-//}
+if ($roleu != 'ceo') {
+    header('location:/company/');
+    ob_flush();
+    die;
+}
 
 if (isset($_POST['position'])) {
     $inviteePosition = filter_var($_POST['position'], FILTER_SANITIZE_STRING);

@@ -1,9 +1,15 @@
 <?php
+global $roleu;
 global $pdo;
 global $datetime;
 global $cometHash;
 global $cometTrackChannelName;
 global $_months;
+if ($roleu == 'ceo') {
+    $isCeo = true;
+} else {
+    $isCeo = false;
+}
 $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 $id = $GLOBALS["id"];
 
@@ -79,7 +85,7 @@ if (!is_null($viewStatus) && isset($viewStatus[$manager]['datetime'])) {
 }
 
 $coworkersId = array_column($coworkers, 'worker_id');
-if ($id == $manager) {
+if ($id == $manager || $isCeo) {
     $role = 'manager';
 } elseif (in_array($id,$coworkersId)) {
     $role = 'worker';

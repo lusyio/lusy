@@ -2,7 +2,9 @@
     <div class="card-body text-center">
         <div>
             <h2 class="d-inline text-uppercase font-weight-bold"><?= $namecompany ?></h2>
+            <?php if ($isCeo): ?>
             <a class="d-inline float-right" href="/invite/"><i class="fas fa-user-plus icon-company"></i></a>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -46,19 +48,21 @@
                     </div>
                 </div>
                 <div class="col-sm-1">
-                    <div class="float-right">
-                        <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
-                    </div>
-                    <?php if ($isFired && $n['id'] != $id): ?>
+                    <?php if ($isCeo): ?>
+                        <div class="float-right">
+                            <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
+                        </div>
+                        <?php if ($isFired && $n['id'] != $id): ?>
                         <div class="float-right mt-3">
                             <a href="#" title="" data-user-id="<?= $n['id'] ?>"
                                class="restore-user"><i class="fas fa-user-check edit-profile"></i></a>
                         </div>
-                    <?php elseif ($n['id'] != $id): ?>
+                        <?php elseif ($n['id'] != $id): ?>
                         <div class="float-right mt-3">
                             <a href="#" title="" data-user-id="<?= $n['id'] ?>" class="fire-user"><i
                                         class="fas fa-user-slash edit-profile"></i></a>
                         </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>

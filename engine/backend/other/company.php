@@ -1,8 +1,15 @@
 <?php
 global $idc;
 global $id;
+global $roleu;
 global $cometHash;
 global $cometTrackChannelName;
+
+if ($roleu == 'ceo') {
+    $isCeo = true;
+} else {
+    $isCeo = false;
+}
 
 $namecompany = DBOnce('idcompany','company','id='.$idc);
 $sql = DB('*','users','idcompany='.$idc . ' ORDER BY is_fired');

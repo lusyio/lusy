@@ -1,4 +1,5 @@
 <?php
+global $roleu;
 
 $isManager = false;
 $isWorker = false;
@@ -15,6 +16,10 @@ if (isset($_POST['it'])) {
     if(in_array($id, $coworkers)) {
         $isWorker = true;
     }
+}
+
+if ($roleu == 'ceo') {
+    $isManager = true;
 }
 
 if($_POST['module'] == 'sendonreview' && $isWorker) {
