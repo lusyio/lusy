@@ -51,7 +51,7 @@
                         <?php else: ?>
                             <div class="col-3">
                                 <span>Отправлено</span>
-                                <a class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
+                                <a href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
                                             class="far fa-times-circle invite-delete"></i></a>
                             </div>
                         <?php endif; ?>
@@ -76,7 +76,8 @@
             document.body.removeChild(textArea);
         });
 
-        $('.invite-container').on('click', '.invite-cancel', function () {
+        $('.invite-container').on('click', '.invite-cancel', function (e) {
+            e.preventDefault();
             var el = $(this);
             var inviteId = el.data('invite-id');
             var fd = new FormData();
@@ -101,9 +102,7 @@
             e.preventDefault();
             var inviteeMail = $('#invitee-mail').val();
             if (inviteeMail) {
-                $('#btn-restore').prop('disabled', true);
-                $('#spinner-restore').removeClass('d-none');
-
+                $('.invite-send').prop('disabled', true);
                 var fd = new FormData();
                 fd.append('ajax', 'invite');
                 fd.append('module', 'createInvite');
@@ -118,6 +117,8 @@
                     success: function (data) {
                         console.log(data);
                         if (data) {
+                            $('#invitee-mail').val('');
+                            $('.invite-send').prop('disabled', false);
                             var invite = JSON.parse(data);
                             var inviteRow = "";
                             inviteRow += window.location.hostname.toString() + '/join/' + invite['code'] + '/';
@@ -143,6 +144,14 @@
                                 "                </div>\n" +
                                 "            </div>");
                             console.log(inviteRow);
+                            var $newInvite = $('.invite-card').last();
+                            $newInvite.css({'background-color': '#dbe7f6'});
+                            $('html, body').animate({
+                                scrollTop: $newInvite.offset().top - 100
+                            }, 1000);
+                            setTimeout(function () {
+                                $newInvite.attr('style', '');
+                            }, 3000);
                         } else {
                             console.log('Произошла ошибка');
                         }
