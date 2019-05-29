@@ -15,5 +15,19 @@ if ($_POST['module'] == 'createInvite' && isset($_POST['invitee-mail']) && isset
     $inviteePosition = filter_var($_POST['invitee-position'], FILTER_SANITIZE_STRING);
     $inviteId = createInvite($inviteeMail, $inviteePosition);
     $invite = readInvite($inviteId);
+
+    require_once 'engine/phpmailer/LusyMailer.php';
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+    $mail->addAddress($inviteeMail);
+    $mail->isHTML();
+    $companyName = DBOnce('idcompany', 'company', 'id='.$idc);
+    $mail->Subject = "Приглашение в Lusy.io от " . $companyName;
+    $args = [
+        'companyName' => $companyName,
+        'inviteLink' => $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/',
+    ];
+    $mail->setMessageContent('user-invite', $args);
+    $mail->send();
+
     echo json_encode($invite);
 }

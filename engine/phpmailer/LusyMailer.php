@@ -24,8 +24,9 @@ class LusyMailer extends PHPMailer
 
     public function setMessageContent($template, $args)
     {
+        $language = 'ru';
         ob_start();
-        include 'engine/phpmailer/templates/' . $template . '.php';
+        include 'engine/phpmailer/templates/' . $language . '/' . $template . '.php';
         $content = ob_get_clean();
 
         foreach ($args as $key => $value) {
