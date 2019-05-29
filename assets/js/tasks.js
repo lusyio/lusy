@@ -4,24 +4,10 @@ $(document).ready(function () {
         // data.query = "";
         var val = $(this).attr("rel");
         var vol = $(this).attr("rol");
-
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
-            if ($(this).hasClass('active-manager')) {
-                $(this).removeClass('active-manager');
-            }
-            if ($(this).hasClass('active-worker')) {
-                $(this).removeClass('active-worker');
-            }
-
         } else {
             $(this).addClass('active');
-            if (vol === 'manager') {
-                $(this).addClass('active-manager');
-            }
-            if (vol === 'worker') {
-                $(this).addClass('active-worker');
-            }
         }
     });
 
