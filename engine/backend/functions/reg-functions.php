@@ -45,7 +45,7 @@ function addUser($email, $password, $companyId, $position, $name = '', $surname 
 function addCompany($companyName, $companyLanguage)
 {
     global $pdo;
-    $addCompanyQuery = $pdo->prepare('INSERT INTO company(idcompany, lang, premium, datareg, activated) VALUES (:companyName, :language, :premium, :registerDate, :activated)');
+    $addCompanyQuery = $pdo->prepare('INSERT INTO company(idcompany, lang, tariff, datareg, activated) VALUES (:companyName, :language, :premium, :registerDate, :activated)');
     $queryData = [
         ':companyName' => $companyName,
         ':language' => $companyLanguage,

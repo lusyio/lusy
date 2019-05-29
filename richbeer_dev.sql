@@ -557,7 +557,7 @@ CREATE TABLE `company` (
 -- Дамп данных таблицы `company`
 --
 
-INSERT INTO `company` (`id`, `idcompany`, `premium`, `lang`, `currency`, `site`, `plugins`, `datareg`) VALUES
+INSERT INTO `company` (`id`, `idcompany`, tariff, `lang`, `currency`, `site`, `plugins`, `datareg`) VALUES
 (1, 'richbee', 1, 'en', '', '', '', '2019-01-02 21:59:28'),
 (2, 'demo', 0, 'ru', '', '', '', '2019-01-02 21:59:37');
 
