@@ -49,11 +49,11 @@
                     </div>
                 <?php endif; ?>
             </div>
-            <span class="status filter-select new-status text-success"></span>
-            <span class="status filter-select inwork-status text-primary"></span>
-            <span class="status filter-select overdue-status text-danger"></span>
-            <span class="status filter-select postpone-status text-warning"></span>
-            <span class="status filter-select pending-status text-secondary"></span>
+            <span class="status new-status"></span>
+            <span class="status inwork-status"></span>
+            <span class="status overdue-status"></span>
+            <span class="status postpone-status"></span>
+            <span class="status pending-status"></span>
             <span class="count-all"></span>
         </div>
         <div class="icon-reset-searchbar">
@@ -85,14 +85,13 @@
 
 <script>
     $(document).ready(function () {
-        $(".filter-select").on('click', function () {
-            $(".popUpDiv").fadeToggle(300);
+        $("#filterSelect").on('click', '.filter-select', function () {
+            $(".popUpDiv").fadeToggle(200);
         });
-
 
         $(document).on('click', function (e) {
             if (!$(e.target).closest("#filterSelect").length) {
-                $('.popUpDiv').fadeOut(300);
+                $('.popUpDiv').fadeOut(200);
             }
         });
     });

@@ -58,7 +58,6 @@ $(document).ready(function () {
     });
 
     $('.role-search, .status-search').on('click', function () {
-        console.log(selectName);
         filterTasks();
         $('div.done').remove();
         $('div.canceled').remove();
@@ -77,25 +76,24 @@ $(document).ready(function () {
             $("#resetSearch").show();
             var statusName = $(this).find('.status-name').text();
             if ($(this).hasClass('active')) {
-                console.log(statusName);
                 if (statusName === 'Новые') {
-                    $(".new-status").html(statusName);
+                    $(".new-status").html("<span class=\"filter-select text-success\">"+ statusName +"</span>" + ", ");
                 }
                 if (statusName === 'В работе') {
-                    $(".inwork-status").html(statusName);
+                    $(".inwork-status").html("<span class=\"filter-select text-primary\">"+ statusName +"</span>" + ", ");
                 }
                 if (statusName === 'Просрочено') {
-                    $(".overdue-status").html(statusName);
+                    $(".overdue-status").html("<span class=\"filter-select  text-danger\">"+ statusName +"</span>" + ", ");
                 }
                 if (statusName === 'Перенос срока') {
-                    $(".postpone-status").html(statusName);
+                    $(".postpone-status").html("<span class=\"filter-select  text-warning\">"+ statusName +"</span>" + ", ");
                 }
                 if (statusName === 'На рассмотрении') {
-                    $(".pending-status").html(statusName);
+                    $(".pending-status").html("<span class=\"filter-select  text-secondary\">"+ statusName +"</span>");
                 }
             } else {
                 if (statusName === 'Новые') {
-                    $(".inwork-status").html('');
+                    $(".new-status").html('');
                 }
                 if (statusName === 'На рассмотрении') {
                     $(".pending-status").html('');
@@ -234,7 +232,7 @@ $(document).ready(function () {
 
         if (rolesNames.length > 0) {
             $(rolesNames).each(function () {
-                $(".selected-role").html(rolesNames + " ");
+                $(".selected-role").html(rolesNames + ",");
                 $("#resetSearch").show();
             });
         } else {
@@ -290,14 +288,13 @@ $(document).ready(function () {
             if (status.hasClass('active')) {
                 $(".words-search").removeClass('active');
                 $('.archive-search').removeClass('active');
-                console.log($('.tasks:visible').length);
-                $(".selected-role").html("Актуальные");
                 $(".selected-status").html('');
                 $('div.canceled').remove();
                 $('div.done').remove();
             }
             $(".tasks").show();
         });
+        $(".selected-role").html("Актуальные");
         $('#actualSearch').addClass('active');
     }
 

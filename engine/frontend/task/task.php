@@ -248,30 +248,6 @@ if ($id == $worker and $view == 0) {
             $(".members").fadeToggle(300);
         });
 
-
-        $(".changeResponsible").on('click', function () {
-            var selectedName = $(this).parent().siblings('.col').text();
-            console.log(selectedName);
-            var selectedId = $(this).attr('value');
-            // var responsible = $('.responsible-one[value = ' + selectedId + ']');
-
-            $(".members-responsible-one").html("<div class=\"responsible-one text-justify\">\n" +
-                "                        <div class=\"row\">\n" +
-                "                            <div class=\"col-1\">\n" +
-                "                                <img attr=" + selectedId + " src=\"/upload/avatar/" + selectedId + ".jpg\" class=\"avatar-added mr-1\">\n" +
-                "                            </div>\n" +
-                "                            <div class=\"col\">\n" +
-                "                                <a href=\"#\" class=\"mb-1 add-coworker-text\">" + selectedName + "</a>\n" +
-                "                            </div>\n" +
-                "                            <div class=\"col-2\">\n" +
-                "                            </div>\n" +
-                "                        </div>\n" +
-                "                    </div>");
-
-            // console.log(selectedId);
-            // console.log(responsible);
-        });
-
         var coworkersId = new Map();
         var selectedId;
         $(".addNewWorker").on('click', function () {
@@ -279,16 +255,20 @@ if ($id == $worker and $view == 0) {
             selectedId = $(this).attr('value');
             coworkersId.set(selectedId, selectedId);
             console.log(coworkersId);
+            if ($(this).closest('.coworkersList-coworker').hasClass('bg-coworker')){
+            } else {
+                $(".container-coworker").append("<div class=\"add-worker mr-1 mb-1\">\n" +
+                    "                        <img val=\"" + selectedId + "\" src=\"/upload/avatar/" + selectedId + ".jpg\"\n" +
+                    "                             class=\"avatar-added mr-1\">\n" +
+                    "                        <a href=\"#\" class=\"card-coworker\">" + selectedName + "</a>\n" +
+                    "                        <span><i value=\'" + selectedId + "\'\n" +
+                    "                                 class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
+                    "                    </div>");
+            }
             $(this).closest('.coworkersList-coworker').addClass('bg-coworker');
-            $(".container-coworker").append("<div class=\"add-worker mr-1 mb-1\">\n" +
-                "                        <img src=\"/upload/avatar/" + selectedId + ".jpg\"\n" +
-                "                             class=\"avatar-added mr-1\">\n" +
-                "                        <a href=\"#\" class=\"card-coworker\">" + selectedName + "</a>\n" +
-                "                        <span><i value=\'" + selectedId + "\'\n" +
-                "                                 class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
-                "                    </div>");
 
-            $(".tooltip-avatar").prepend("<span class=\"mb-0\"><img src=\"/upload/avatar/" + selectedId + ".jpg\" alt=\"worker image\" class=\"avatar mr-1 ml-1\"></span>");
+
+            // $(".tooltip-avatar").prepend("<span class=\"mb-0\"><img src=\"/upload/avatar/" + selectedId + ".jpg\" alt=\"worker image\" class=\"avatar mr-1 ml-1\"></span>");
         });
 
         $(".tooltip-avatar").on('click', '.deleteWorker', function () {
@@ -301,12 +281,15 @@ if ($id == $worker and $view == 0) {
         });
 
         $("#confirmMembers").on('click', function () {
-            var responsibleId = $(".members-responsible-one ").find('img').attr('attr');
+            // var totalId = [];
+            // $('.container-coworker').each(function () {
+            //     totalId.push($(this).children().find('img').attr('val'))
+            // });
+            // console.log(totalId);
             var fd = new FormData();
             coworkersId.forEach(function (value, i) {
                 fd.append('coworkerId' + i, value);
             });
-            fd.append('responsibleId', responsibleId);
             $.post("/ajax.php", {
                 module: 'addCoworker',
                 it: $it,
@@ -315,7 +298,6 @@ if ($id == $worker and $view == 0) {
 
             function controlUpdate(data) {
                 console.log(coworkersId);
-                console.log(responsibleId);
             }
             $(".members").fadeOut(300);
         });

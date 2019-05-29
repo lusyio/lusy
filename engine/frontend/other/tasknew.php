@@ -65,7 +65,7 @@
                             Изменить
                         </button>
                         <?php
-                        include 'engine/frontend/members/members.php';
+                        include 'engine/frontend/members/coworkers.php';
                         ?>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
         $(document).ready(function () {
 
             $(".newtask-change-coworkers").on('click', function (e) {
-                $(".members").fadeToggle(300);
+                $(".coworkers").fadeToggle(300);
             });
 
             $("#name").on('input', function () {

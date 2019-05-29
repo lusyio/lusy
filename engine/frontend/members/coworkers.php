@@ -2,22 +2,6 @@
     <div class="card">
         <div class="card-body workers p-3">
             <div class="container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
-                <?php
-                foreach ($coworkers as $coworker):
-                    if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
-                        $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
-                    } else {
-                        $viewStatusTitle = 'Не просмотрено';
-                    }
-                    ?>
-                    <div class="add-worker mr-1 mb-1">
-                        <img title="<?= $viewStatusTitle ?>" src="/upload/avatar/<?= $coworker['worker_id'] ?>.jpg"
-                             class="avatar-added mr-1">
-                        <a href="#" class="card-coworker"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></a>
-                        <span><i value="<?= $coworker['worker_id'] ?>"
-                                 class="deleteWorker fas fa-times cancel card-coworker-delete"></i></span>
-                    </div>
-                <?php endforeach; ?>
             </div>
 
             <div class="p-1 text-justify" id="worker">
@@ -41,3 +25,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        var coworkersId = new Map();
+        var selectedId;
+        $(".addNewWorker").on('click', function () {
+            var selectedName = $(this).parent().siblings('.col').text();
+            selectedId = $(this).attr('value');
+            coworkersId.set(selectedId, selectedId);
+            console.log(coworkersId);
+            if ($(this).closest('.coworkersList-coworker').hasClass('bg-coworker')) {
+            } else {
+                $(".container-coworker").append("<div class=\"add-worker mr-1 mb-1\">\n" +
+                    "                        <img val=\"" + selectedId + "\" src=\"/upload/avatar/" + selectedId + ".jpg\"\n" +
+                    "                             class=\"avatar-added mr-1\">\n" +
+                    "                        <a href=\"#\" class=\"card-coworker\">" + selectedName + "</a>\n" +
+                    "                        <span><i value=\'" + selectedId + "\'\n" +
+                    "                                 class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
+                    "                    </div>");
+            }
+            $(this).closest('.coworkersList-coworker').addClass('bg-coworker');
+
+
+            // $(".tooltip-avatar").prepend("<span class=\"mb-0\"><img src=\"/upload/avatar/" + selectedId + ".jpg\" alt=\"worker image\" class=\"avatar mr-1 ml-1\"></span>");
+        });
+    });
+
+</script>
