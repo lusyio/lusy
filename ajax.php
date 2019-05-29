@@ -29,6 +29,9 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
         // определяем язык компании
         $langc = DBOnce('lang', 'company', 'id=' . $idc);
 
+        // определяем роль пользователя
+        $roleu = DBOnce('role', 'users', 'id=' . $id);
+
         // подключаем языковой файл
         require_once(realpath('engine/backend/lang/' . $langc . '.php'));
     }
