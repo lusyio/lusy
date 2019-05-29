@@ -198,7 +198,7 @@ function addMassSystemEvent($action, $comment = '', $companyId = '')
     $addEventQuery->execute($eventData);
 
     $companyUsersQuery = $pdo->prepare('SELECT id FROM users WHERE idcompany = :companyId');
-    $companyUsersQuery->execute(array(':idcompany' => $idc));
+    $companyUsersQuery->execute(array(':companyId' => $idc));
 
 }
 

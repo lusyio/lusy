@@ -17,6 +17,17 @@ if (isset($_POST['companyName']) && isset($_POST['email'])&& isset($_POST['passw
         $companyId = addCompany($companyName, $companyLanguage);
         if ($companyId) {
             $activationCode = createActivationCode($companyId);
+            require_once 'engine/phpmailer/LusyMailer.php';
+            $mail = new \PHPMailer\PHPMailer\LusyMailer();
+            $mail->addAddress($login);
+            $mail->isHTML();
+            $mail->Subject = "Подтверждение e-mail";
+            $args = [
+                'activationLink' => $_SERVER['HTTP_HOST'] . '/activate/' . $companyId . '/' . $activationCode . '/',
+            ];
+            $mail->setMessageContent('company-activation', $args);
+            $mail->send();
+
             addUser($login, $password, $companyId, 'ceo');
             $_SESSION['login'] = $login;
             $_SESSION['password'] = $password;
