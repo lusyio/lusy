@@ -1,9 +1,6 @@
 <div class="coworkers">
     <div class="card">
         <div class="card-body workers p-3">
-            <div class="container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
-            </div>
-
             <div class="p-1 text-justify" id="worker">
                 <?php
                 $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);

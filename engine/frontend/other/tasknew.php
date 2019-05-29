@@ -59,18 +59,26 @@
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    <div class="col-sm">
-                        <button class="btn btn-light newtask-change-coworkers" data-toggle="collapse"
-                                data-target="#c workersList" aria-expanded="false" aria-controls="coworkersList">
-                            Изменить
-                        </button>
-                        <?php
-                        include 'engine/frontend/members/coworkers.php';
-                        ?>
-                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
                 </div>
             </div>
         </div>
+<!--        <div class="col-6">-->
+<!--            <button class="btn btn-light newtask-change-coworkers" data-toggle="collapse"-->
+<!--                    data-target="#c workersList" aria-expanded="false" aria-controls="coworkersList">-->
+<!--                Изменить-->
+<!--            </button>-->
+<!--            --><?php
+//            include 'engine/frontend/members/coworkers.php';
+//            ?>
+<!--        </div>-->
 
         <!-- Divider -->
         <hr class="mt-4 mb-5">
