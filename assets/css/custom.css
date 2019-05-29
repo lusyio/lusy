@@ -877,6 +877,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .coworkers{
+    display: none;
     width: 350px;
     background-color: #fff;
     color: black;
