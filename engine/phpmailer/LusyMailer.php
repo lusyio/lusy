@@ -25,6 +25,11 @@ class LusyMailer extends PHPMailer
     public function setMessageContent($template, $args)
     {
         $language = 'ru';
+
+        ob_start();
+        include 'engine/phpmailer/templates/' . $language . '/content-header.php';
+        $contentHeader = ob_get_clean();
+
         ob_start();
         include 'engine/phpmailer/templates/' . $language . '/' . $template . '.php';
         $content = ob_get_clean();
@@ -35,6 +40,11 @@ class LusyMailer extends PHPMailer
                 $content = str_replace($search, $value, $content);
             }
         }
-        $this->Body = $content;
+
+        ob_start();
+        include 'engine/phpmailer/templates/' . $language . '/content-footer.php';
+        $contentFooter = ob_get_clean();
+
+        $this->Body = $contentHeader . $content . $contentFooter;
     }
 }
