@@ -30,7 +30,7 @@ foreach ($sql as $main) {
 	$roleu = $main['role']; // роль пользователя
 }
 // 2. Подключаемся в таблицу company
-$sql = DB('idcompany, premium, lang','company','id='.$idc);
+$sql = DB('idcompany, tariff, lang','company','id='.$idc);
 
 foreach ($sql as $main) {
 	$namec = $main['idcompany']; // название компании
