@@ -28,6 +28,34 @@ WHERE u.company_id = :companyId AND u.author = :userId AND u.is_deleted = 0";
     return $dbh->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**Возвращает список всех файлов, загруженных пользователем
+ * @return array [[file_id] - id файла, [file_name] - имя файла, [file_size] - размер файла в байтах,
+ * [file_path] - путь к файлу на сервере,[comment_type] тип события, к которому прикреплен файл,
+ * [comment_id] - ID омментария,[idtask] - ID комментария или задачи,
+ * [author] [surname] [name] - ID, фамилия и имя пользователя, загрузившего файл, [taskName] - имя задачи,
+ * [uploadDate] - дата загрузки файла
+ */
+function getCompanyFileList()
+{
+    global $id;
+    global $idc;
+    global $pdo;
+
+    $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, 
+       IF(c.idtask IS NULL AND u.comment_type='task', u.comment_id, c.idtask) AS idtask, 
+       u.author, us.surname, us.name, t.name AS taskName, 
+       IF(c.datetime IS NULL, IF(t.datecreate IS NULL, m.datetime, t.datecreate), c.datetime) AS uploadDate
+FROM `uploads` u
+       LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment'
+       LEFT JOIN users us ON u.author = us.id
+       LEFT JOIN tasks t ON (t.id = u.comment_id AND u.comment_type='task') OR (t.id = c.idtask AND u.comment_type='comment')
+       LEFT JOIN mail m ON m.message_id = u.comment_id AND u.comment_type='conversation'
+WHERE u.company_id = :companyId AND u.is_deleted = 0";
+    $dbh = $pdo->prepare($query);
+    $dbh->execute(array(':companyId' => $idc));
+    return $dbh->fetchAll(PDO::FETCH_ASSOC);
+}
+
 /**
  * Возвращает суммарный объем всех файлов, загруженных сотрудниками отдельной компании, в байтах
  * @return mixed

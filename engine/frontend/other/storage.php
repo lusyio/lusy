@@ -50,17 +50,28 @@ if ($normalizedCompanyFilesSize['size'] > 0) {
                                class="h6 mb-3 file-name"><?= $file['file_name'] ?></a>
                             <span class="text-ligther ml-1"> <i
                                         class="fas fa-circle mr-1 ml-1"></i> <?= $file['file_size'] ?> <?= $file['sizeSuffix'] ?></span>
+                            <span class="text-ligther ml-1"> <i
+                                        class="fas fa-circle mr-1 ml-1"></i> <?= $file['date'] ?></span>
                         </div>
                         <div class="col-md-1">
-                            <span class="text-danger deleteFile"><i val="<?= $file['file_id'] ?>"
+                            <span class="text-ligther deleteFile"><i val="<?= $file['file_id'] ?>"
                                                                     class="fas fa-times-circle delete-file-icon"></i></span>
                         </div>
                     </div>
 
                     <div class="row mt-1">
                         <div class="col">
+                            <?php if ($file['comment_type'] != 'conversation'): ?>
                             <a href="<?= $file['attachedToLink'] ?>"
-                               class="text-ligther"><?= $file['name'] ?> <?= $file['surname'] ?> <?= $GLOBALS["_attachto"] ?> <?= $GLOBALS['_' . $file['comment_type']] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?> <?= $file['date'] ?></a>
+                               class="text-ligther">
+                                <?= $file['name'] ?> <?= $file['surname'] ?> <?= $GLOBALS["_attachto"] ?> <?= $GLOBALS['_' . $file['comment_type']] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?>
+                            </a>
+                            <?php else: ?>
+                            <span
+                               class="text-ligther">
+                                <?= $file['name'] ?> <?= $file['surname'] ?> <?= $GLOBALS["_attachto"] ?> <?= $GLOBALS['_' . $file['comment_type']] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?>
+                            </span>
+                        <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -71,30 +82,45 @@ if ($normalizedCompanyFilesSize['size'] > 0) {
 <script>
     $(document).ready(function () {
         $("#searchFile").on("keyup", function () {
+
+            // переопределяем метод contains для регистроНЕзависимого поиска
+            $.expr[":"].contains = $.expr.createPseudo(function(arg) {
+                return function( elem ) {
+                    return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+                };
+            });
+
             var value = $(this).val();
             $(".files").hide();
-            $(".files:contains(" + value + ")").show();
+            $(".file-name:contains(" + value + ")").closest('.files').show();
         });
 
-        $("#editFile").on('click', function () {
-            $(".deleteFile").fadeToggle();
+        $('.files').on('click', function () {
+            $(this).find('.deleteFile').fadeIn();
+        });
+        $('.files').hover(
+            function () {
+            $(this).find('.deleteFile').fadeIn();
+        }, function () {
+            $(this).find('.deleteFile').fadeOut();
+
         });
 
         $(".deleteFile").on('click', function () {
             var fileId = $(this).find('.delete-file-icon').attr('val');
             var file = $(this).parents(".files");
             console.log(fileId);
-            $.post("/ajax.php", {module: 'deleteFile', fileId: fileId, ajax: 'storage'}, controlUpdate);
-
-            function controlUpdate(data) {
+            $.post("/ajax.php", {
+                module: 'deleteFile',
+                fileId: fileId,
+                ajax: 'storage'
+            }, function (data) {
                 if (data) {
-                    alert(data);
+                    console.log(data);
                 } else {
-                    file.hide();
+                    file.fadeOut(750);
                 }
-            }
-
+            });
         })
-
     });
 </script>

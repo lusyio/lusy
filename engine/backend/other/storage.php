@@ -3,6 +3,7 @@
 global $id;
 global $cometHash;
 global $cometTrackChannelName;
+global $roleu;
 
 
 require_once 'engine/backend/functions/storage-functions.php';
@@ -24,7 +25,10 @@ $userUsageSpacePercent = round($userTotalFilesSize * 100 / $providedSpace);
 if ($userUsageSpacePercent == 0 && $userTotalFilesSize > 0) {
     $userUsageSpacePercent = 1;
 }
-
-$fileList = getFileList();
+if ($roleu == 'ceo') {
+    $fileList = getCompanyFileList();
+} else {
+    $fileList = getFileList();
+}
 prepareFileList($fileList);
 
