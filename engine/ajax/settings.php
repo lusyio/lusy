@@ -23,6 +23,12 @@ if ($_POST['module'] == 'changeData') {
             $socialNetworks = filter_var($_POST['social'], FILTER_SANITIZE_STRING);
             $about = filter_var($_POST['about'], FILTER_SANITIZE_STRING);
 
+            $userName = trim(DBOnce('name', 'users', 'id='.$userId));
+            $userSurname = trim(DBOnce('surname', 'users', 'id='.$userId));
+            if ($userName != $name || $userSurname != $surname) {
+                createAlterAvatar($id);
+            }
+
             setNewUserData($name, $surname, $email, $phone, $_POST['social'], $about);
 
             if (isset($_POST['newPassword']) && trim($_POST['newPassword']) != '') {
