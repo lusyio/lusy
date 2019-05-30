@@ -135,6 +135,7 @@ if ($id == $worker and $view == 0) {
                     <div class="float-right">
                         <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
                         <span class=" text-secondary slash">|</span>
+                        <img src="/<?= getAvatarLink($worker) ?>" class="avatar ml-1">
                         <?php
                         foreach ($coworkers as $coworker):
                             if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
@@ -243,64 +244,5 @@ if ($id == $worker and $view == 0) {
         $(".deadline-block").on('click', function () {
             $("#change-date").fadeToggle(300);
         });
-
-        $(".avatar-new").on('click', function (e) {
-            $(".members").fadeToggle(300);
-        });
-
-        var coworkersId = new Map();
-        var selectedId;
-        $(".addNewWorker").on('click', function () {
-            var selectedName = $(this).parent().siblings('.col').text();
-            selectedId = $(this).attr('value');
-            coworkersId.set(selectedId, selectedId);
-            console.log(coworkersId);
-            if ($(this).closest('.coworkersList-coworker').hasClass('bg-coworker')){
-            } else {
-                $(".container-coworker").append("<div class=\"add-worker mr-1 mb-1\">\n" +
-                    "                        <img val=\"" + selectedId + "\" src=\"/upload/avatar/" + selectedId + ".jpg\"\n" +
-                    "                             class=\"avatar-added mr-1\">\n" +
-                    "                        <a href=\"#\" class=\"card-coworker\">" + selectedName + "</a>\n" +
-                    "                        <span><i value=\'" + selectedId + "\'\n" +
-                    "                                 class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
-                    "                    </div>");
-            }
-            $(this).closest('.coworkersList-coworker').addClass('bg-coworker');
-
-
-            // $(".tooltip-avatar").prepend("<span class=\"mb-0\"><img src=\"/upload/avatar/" + selectedId + ".jpg\" alt=\"worker image\" class=\"avatar mr-1 ml-1\"></span>");
-        });
-
-        $(".tooltip-avatar").on('click', '.deleteWorker', function () {
-            $(this).closest('.add-worker').remove();
-            var removedId = $(this).attr('value');
-            coworkersId.delete(removedId);
-            console.log(coworkersId);
-            var numb = $('.addNewWorker[value = ' + removedId + ']');
-            numb.parents('.coworkersList-coworker').removeClass('bg-coworker');
-        });
-
-        $("#confirmMembers").on('click', function () {
-            // var totalId = [];
-            // $('.container-coworker').each(function () {
-            //     totalId.push($(this).children().find('img').attr('val'))
-            // });
-            // console.log(totalId);
-            var fd = new FormData();
-            coworkersId.forEach(function (value, i) {
-                fd.append('coworkerId' + i, value);
-            });
-            $.post("/ajax.php", {
-                module: 'addCoworker',
-                it: $it,
-                ajax: 'task-control'
-            }, controlUpdate);
-
-            function controlUpdate(data) {
-                console.log(coworkersId);
-            }
-            $(".members").fadeOut(300);
-        });
-
     });
 </script>

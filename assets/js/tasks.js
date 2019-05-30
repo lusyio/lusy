@@ -108,6 +108,7 @@ $(document).ready(function () {
                     $(".inwork-status").html('');
                 }
             }
+            actualOn();
         })
     }
 
@@ -172,6 +173,19 @@ $(document).ready(function () {
         canceledTasksOffset++;
         loadCanceledTasks();
     });
+    var arr = [];
+    function actualOn(){
+        $('.status-search').each(function () {
+            var b = 0;
+            if ($(this).hasClass('active') === false){
+                arr.push(Math.random());
+            }
+            if (arr.length === 5){
+                resetSearch();
+            }
+        });
+        arr = [];
+    }
 
     $(".search-done").on('click', function () {
         if ($(this).hasClass('active')) {
@@ -182,8 +196,8 @@ $(document).ready(function () {
             $("#resetSearch").show();
             $('.search-done').addClass('active');
         } else {
-            $('div.done').remove();
-            $(".load-archive-page").hide()
+            resetSearch();
+            countAll();
         }
     });
 
@@ -196,8 +210,8 @@ $(document).ready(function () {
             $("#resetSearch").show();
             $('.search-cancel').addClass('active');
         } else {
-            $('div.canceled').remove();
-            $(".load-archive-page").hide()
+            resetSearch();
+            countAll();
         }
     });
 

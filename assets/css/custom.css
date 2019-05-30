@@ -781,6 +781,7 @@ input:checked[type="checkbox"]::before {
     color: #b9b9b9;
     font-size: 30px;
     cursor: pointer;
+    transition: 200ms;
 }
 
 .avatar-added{
@@ -862,7 +863,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .avatar-new:hover {
-    color: #343a40;
+    color: #5d95db;
 }
 
 .tooltip-avatar {
@@ -877,6 +878,9 @@ input:checked[type="checkbox"]::before {
 
 .owner{
     background: #5a93df3d;
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 .bg-coworker{
@@ -957,7 +961,7 @@ input:checked[type="checkbox"]::before {
 
 .members{
     display: none;
-    width: 350px;
+    width: 500px;
     background-color: #fff;
     color: black;
     text-align: center;
@@ -966,10 +970,92 @@ input:checked[type="checkbox"]::before {
     z-index: 1;
     top: 100%;
     right: 50%;
-    margin-right: -35px;
     box-shadow: 2px 2px 15px rgba(0,0,0,.3);
     padding: 0;
 }
+
+.members-card{
+    padding: 15px;
+}
+
+.members-responsible-selected{
+    padding: 5px;
+}
+
+.members-coworker-select{
+    padding: 5px;
+    transition: 200ms;
+}
+
+.members-coworker-select:hover{
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.members-coworker-select:hover > .col-2 > .add-coworker{
+    color: #5d95db;
+}
+
+.members-coworker-select:active{
+    background-color: #e4e4e4;
+}
+
+.members-select-responsible{
+    padding: 5px;
+    transition: 200ms;
+}
+
+.members-select-responsible:hover{
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.members-select-responsible:hover > .col-2 > .change-responsible{
+    color: #5d95db;
+}
+
+.members-select-responsible:active{
+    background-color: #e4e4e4;
+}
+
+.icon-newtask-delete-coworker{
+    color: white;
+}
+
+.add-worker:hover > .icon-newtask-delete-coworker{
+    color: rgba(188, 0, 0, 0.51);
+}
+
+.icon-members-change-responsible{
+    font-size: 15px;
+    color: #e3e5e9;
+    margin-left: 1%;
+    transition: 200ms;
+}
+
+.icon-members-change-responsible:hover{
+    color: #5d95db;
+}
+
+.icon-members-change-coworker{
+    font-size: 15px;
+    color: #e3e5e9;
+    margin-left: 1%;
+    transition: 200ms;
+}
+
+.icon-members-change-coworker:hover{
+    color: #5d95db;
+}
+
+#responsibleList{
+    cursor: pointer;
+}
+
+#coworkersList{
+    cursor: pointer;
+}
+
 #resetSearch {
     width: 30px;
     height: 30px;

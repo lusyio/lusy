@@ -1,68 +1,62 @@
 <div class="members">
-    <div class="card p-2 position-relative">
-        <div class="add-worker text-justify mr-1 mb-1 owner">
+    <div class="members-card position-relative">
+        <div class="text-justify owner">
             <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($manager) ?>"
                  class="avatar-added mr-1">
             <a href="#"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
         </div>
         <hr class="m-0">
         <div class="members-responsible">
-            <div class="row">
-                <div class="col-8 text-justify">
+            <div class="row" style="padding: 5px;">
+                <div class="col text-left">
                     <span>Ответственный</span>
                 </div>
-                <div class="col text-right">
-                    <i class="fas fa-pencil-alt add-coworker editResponsible" data-toggle="collapse"
+                <div class="col-2 text-right">
+                    <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
                        data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
                 </div>
             </div>
             <hr class="mt-0 mb-1">
-            <div class="members-responsible-one mb-1">
-                <div class="row">
-                    <div class="col-1">
-                        <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($coworker['worker_id']) ?>"
-                             class="avatar-added mr-1">
-                    </div>
-                    <div class="col text-justify">
-                        <a href="#"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></a>
-                    </div>
+            <div val="" class="row members-responsible-selected">
+                <div class="col-1">
+                    <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($worker) ?>"
+                         class="avatar-added mr-1">
+                </div>
+                <div class="col text-left">
+                    <span><?= $task['workerName'] ?> <?= $task['workerSurname'] ?></span>
                 </div>
             </div>
-            <hr class="m-0">
-            <div class="p-1 text-justify collapse" id="responsibleList">
+            <hr class="mt-1 mb-1">
+            <div class="text-left collapse" id="responsibleList">
                 <?php
                 $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                 foreach ($users as $n) { ?>
-                    <div class="responsible-one">
-                        <div class="row">
-                            <div class="col-1">
-                                <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added mr-1">
-                            </div>
-                            <div class="col">
-                                <a href="#" class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>
-                            </div>
-                            <div class="col-2">
-                                <i value="<?php echo $n['id'] ?>"
-                                   class="fas fa-exchange-alt add-coworker changeResponsible"></i>
-                            </div>
+                    <div val="<?php echo $n['id'] ?>" class="row members-select-responsible">
+                        <div class="col-1">
+                            <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
+                        </div>
+                        <div class="col">
+                            <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                        </div>
+                        <div class="col-2 text-right">
+                            <i class="fas fa-exchange-alt change-responsible"></i>
                         </div>
                     </div>
-                    <hr class="m-0">
                 <?php } ?>
+                <hr class="mt-1 mb-0">
             </div>
         </div>
         <div class="members-coworkers">
-            <div class="row">
-                <div class="col-8 text-justify">
+            <div class="row" style="padding: 5px;">
+                <div class="col text-justify">
                     <span>Соисполнители</span>
                 </div>
-                <div class="col text-right">
-                    <i class="fas fa-pencil-alt add-coworker editCoworkers" data-toggle="collapse"
+                <div class="col-2 text-right">
+                    <i class="fas fa-pencil-alt icon-members-change-coworker" data-toggle="collapse"
                        data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList"></i>
                 </div>
             </div>
-            <hr class="mt-0 mb-1">
-            <div class="container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
+            <div class="mb-1 container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
                 <?php
                 foreach ($coworkers as $coworker):
                     if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
@@ -71,35 +65,31 @@
                         $viewStatusTitle = 'Не просмотрено';
                     }
                     ?>
-                    <div class="add-worker mr-1 mb-1">
+                    <div val="<?= $coworker['worker_id'] ?>" class="add-worker">
                         <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($coworker['worker_id']) ?>"
                              class="avatar-added mr-1">
-                        <a href="#" class="card-coworker"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></a>
-                        <span><i value="<?= $coworker['worker_id'] ?>"
-                                 class="deleteWorker fas fa-times cancel card-coworker-delete"></i></span>
+                        <span class="coworker-fio"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></span>
+                        <i class="fas fa-times icon-newtask-delete-coworker"></i>
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="p-1 text-justify collapse" id="coworkersList">
+            <div class="text-left collapse" id="coworkersList">
                 <?php
                 $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                 foreach ($users as $n) { ?>
-                    <div class="coworkersList-coworker">
-                        <div class="row">
-                            <div class="col-1">
-                                <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added mr-1">
-                            </div>
-                            <div class="col">
-                                <a href="#"
-                                   class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></a>
-                            </div>
-                            <div class="col-2">
-                                <i value="<?php echo $n['id'] ?>" class="fas fa-plus add-coworker addNewWorker"></i>
-                            </div>
+                    <div val="<?php echo $n['id'] ?>" class="row members-coworker-select">
+                        <div class="col-1">
+                            <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
+                        </div>
+                        <div class="col">
+                            <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                        </div>
+                        <div class="col-2 text-right">
+                            <i class="fas fa-plus add-coworker"></i>
                         </div>
                     </div>
-                    <hr class="m-0">
                 <?php } ?>
+                <hr class="mt-1 mb-1">
             </div>
             <div class="mt-3 text-center">
                 <button class="btn btn-success btn-sm" id="confirmMembers" type="button">Принять</button>
@@ -107,3 +97,71 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        $(".avatar-new").on('click', function (e) {
+            $(".members").fadeToggle(300);
+        });
+
+        //работа с ответственными
+        $(".select-responsible").on('click', function () {
+            var id = $(this).attr('val');
+            var selected = $('.add-responsible:visible').attr('val');
+            $('.responsible-card').find("[val = " + selected + "]").removeClass('d-none');
+            console.log(selected);
+            $(this).addClass('d-none');
+            $('.add-responsible').addClass('d-none');
+            $('.coworker-card').find("[val = " + id + "]").addClass('d-none');
+            $('.container-coworker').find("[val = " + id + "]").addClass('d-none');
+            $('.container-responsible').find("[val = " + id + "]").removeClass('d-none');
+            updateCoworkers();
+        });
+
+        //работа с соисполнителями
+        $('.add-worker').on('click', function () {
+            var id = $(this).attr('val');
+            console.log(id);
+            $(this).addClass('d-none');
+            $('.coworker-card').find("[val = " + id + "]").removeClass('d-none');
+            updateResponsible()
+        });
+
+        $(".select-coworker").on('click', function () {
+            var id = $(this).attr('val');
+            console.log(id);
+            $(this).addClass('d-none');
+            $('.responsible-card').find("[val = " + id + "]").addClass('d-none');
+            $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
+            updateResponsible()
+        });
+
+        $(".tooltip-avatar").on('click', '.deleteWorker', function () {
+            $(this).closest('.add-worker').remove();
+            var removedId = $(this).attr('value');
+            coworkersId.delete(removedId);
+            console.log(coworkersId);
+            var numb = $('.addNewWorker[value = ' + removedId + ']');
+            numb.parents('.coworkersList-coworker').removeClass('bg-coworker');
+        });
+
+        // $("#confirmMembers").on('click', function () {
+        //     var fd = new FormData();
+        //     coworkersId.forEach(function (value, i) {
+        //         fd.append('coworkerId' + i, value);
+        //     });
+        //     $.post("/ajax.php", {
+        //         module: 'addCoworker',
+        //         it: $it,
+        //         ajax: 'task-control'
+        //     }, controlUpdate);
+        //
+        //     function controlUpdate(data) {
+        //         console.log(coworkersId);
+        //     }
+        //     $(".members").fadeOut(300);
+        // });
+
+    });
+</script>

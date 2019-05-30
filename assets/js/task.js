@@ -10,7 +10,7 @@ $(document).ready(function(){
 		setTimeout(function () {
 			$(el).removeClass('bg-success')
 		}, 1000);
-	})
+	});
 
 	// функция загрузки комментариев
 	function updateComments() {
