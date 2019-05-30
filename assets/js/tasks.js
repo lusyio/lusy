@@ -182,6 +182,7 @@ $(document).ready(function () {
             }
             if (arr.length === 5){
                 resetSearch();
+                countAll();
             }
         });
         arr = [];
