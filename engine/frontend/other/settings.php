@@ -273,6 +273,7 @@
                 avatar.src = canvas.toDataURL();
                 $progress.show();
                 $alert.removeClass('alert-success alert-warning');
+                $alert.css({'position': 'absolute', 'z-index': '1'})
                 canvas.toBlob(function (blob) {
                     console.log(blob);
                     var fd = new FormData();
@@ -306,11 +307,19 @@
 
                         success: function () {
                             $alert.show().fadeIn().addClass('alert-success').text('Загрузка успешна');
+                            setTimeout(function () {
+                                $alert.fadeOut()
+                            },2000);
+                            var newLink = $('.user-img').attr('src').replace('-alter', '').replace('png', 'png?'+ new Date().getTime());
+                            $('.user-img').attr('src', newLink);
                         },
 
                         error: function () {
                             avatar.src = initialAvatarURL;
                             $alert.show().fadeIn().addClass('alert-warning').text('Ошибка при загрузке');
+                            setTimeout(function () {
+                                $alert.fadeOut()
+                            },3000)
                         },
 
                         complete: function () {
