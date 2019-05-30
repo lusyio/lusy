@@ -1,5 +1,7 @@
 <?php
+$lang = 'ru';
 require_once 'engine/backend/functions/login-functions.php';
+require_once 'engine/backend/lang/'.$lang.'.php';
 if (!empty($_COOKIE['token'])) {
     $sessionCookie = parseCookie($_COOKIE['token']);
     if (!$sessionCookie) {

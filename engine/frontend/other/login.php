@@ -4,12 +4,12 @@
           
           <!-- Heading -->
           <h1 class="display-4 text-center mb-3">
-            Авторизация
+            <?=$_authorization?>
           </h1>
           
           <!-- Subheading -->
           <p class="text-muted text-center mb-5">
-            Free access to our dashboard.
+            <?=$_entertext?>
           </p>
 
           <!-- Form -->
@@ -20,11 +20,11 @@
 
               <!-- Label -->
               <label>
-                Логин
+                <?=$_email?>
               </label>
 
               <!-- Input -->
-              <input type="text" name="login" class="form-control" placeholder="e-mail" value="mr-kelevras@yandex.ru">
+              <input type="text" name="login" class="form-control" placeholder="<?=$_enteremail?>" value="">
 
             </div>
 
@@ -33,14 +33,14 @@
 
               <!-- Label -->
               <label>
-                Password
+                <?=$_password?>
               </label>
 
               <!-- Input group -->
               <div class="input-group input-group-merge">
 
                 <!-- Input -->
-                <input type="password" name="password" class="form-control form-control-appended" placeholder="Enter your password" value="Metro2033228">
+                <input type="password" name="password" class="form-control form-control-appended" placeholder="<?=$_enterpassword?>" value="">
 
                 <!-- Icon -->
                 <div class="input-group-append">
@@ -62,7 +62,7 @@
             <!-- Link -->
             <div class="text-center">
               <small class="text-muted text-center">
-                Еще не зарегистрированы? <a href="/reg/">Регистрация</a>.
+                <?=$_notregistrated?>? <a href="/reg/"><?=$_registration?></a>.
               </small>
             </div>
 
@@ -70,7 +70,7 @@
           </form>
             <div id="btn-show-restore" class="text-center">
                 <small class="text-muted text-center">
-                    <a href="#" id="btn-show-restore-form">Забыли пароль?</a>
+                    <a href="#" id="btn-show-restore-form"><?=$_forgotpassword?>?</a>
                 </small>
             </div>
 
@@ -83,7 +83,7 @@
 
                     <!-- Label -->
                     <label>
-                        Введите свой e-mail
+                        <?=$_enteremail?>
                     </label>
 
                     <!-- Input -->
@@ -93,7 +93,7 @@
 
                 <!-- Submit -->
                 <button id="btn-restore" class="btn btn-lg btn-block btn-primary mb-3">
-                    <span id="spinner-restore" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> Восстановить пароль
+                    <span id="spinner-restore" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> <?=$_restorepassword?>
                 </button>
 
 
