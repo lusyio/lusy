@@ -290,8 +290,10 @@ function getUserData($userId)
     $userData = $userQuery->fetch(PDO::FETCH_ASSOC);
     $socialNetworks = json_decode($userData['social_networks'], true);
     $userData['social'] = [];
-    foreach ($socialNetworks as $network => $link) {
-        $userData['social'][$network] = $link;
+    if (!is_null($socialNetworks)) {
+        foreach ($socialNetworks as $network => $link) {
+            $userData['social'][$network] = $link;
+        }
     }
     return $userData;
 }
