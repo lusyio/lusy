@@ -7,8 +7,13 @@
                         <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
                     </div>
                     <div class="col text-center align-center">
-                        <h4 class="mb-3"><?= $fio ?></h4>
-                        <p>About</p>
+                        <h4 class="mb-3"><?= $userData['name'] ?> <?= $userData['surname'] ?></h4>
+                        <h5>About</h5>
+                        <?php if (!is_null($userData['about']) && $userData['about'] != ''): ?>
+                            <p class="text-justify"><?= nl2br($userData['about']) ?></p>
+                        <?php else: ?>
+                            <p class="text-justify">Nothing yet</p>
+                        <?php endif; ?>
                     </div>
                     <div class="float-right">
                         <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
@@ -16,78 +21,35 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p class="text-secondary"><i class="fas fa-phone mr-3"></i> <?= $phone ?></p>
+                        <p class="text-secondary"><i class="fas fa-phone mr-3"></i> <?= $userData['phone'] ?></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p class="text-secondary"><i class="fas fa-envelope mr-3"></i> <?= $email ?></p>
+                        <p class="text-secondary"><i class="fas fa-envelope mr-3"></i> <?= $userData['email'] ?></p>
                     </div>
                 </div>
+                <?php if (!is_null($socialNetworks) && count($socialNetworks)): ?>
                 <div class="row">
                     <div class="col">
                         <div class="socials text-reg">
-                            <span><a href="#"><i class="fab fa-vk icon-social mr-3 vk"></i></a> <a href="#"><i
-                                            class="fab fa-facebook-f icon-social facebook"></i></a> </span>
+                            <span>
+                                <?php if (key_exists('vk', $socialNetworks)): ?>
+                                <a href="https://vk.com/<?= $socialNetworks['vk'] ?>" target="_blank"><i class="fab fa-vk icon-social mr-3"></i></a>
+                                <?php endif; ?>
+                                <?php if (key_exists('facebook', $socialNetworks)): ?>
+                                <a href="https://facebook.com/<?= $socialNetworks['facebook'] ?>" target="_blank"><i class="fab fa-facebook-f icon-social mr-3"></i></a>
+                                <?php endif; ?>
+                                <?php if (key_exists('instagram', $socialNetworks)): ?>
+                                <a href="https://instagram.com/<?= $socialNetworks['instagram'] ?>" target="_blank"><i class="fab fa-instagram icon-social mr-3"></i></a>
+                                <?php endif; ?>
+                            </span>
                         </div>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
-
-        <!--        <div class="card mt-3 bg-dark text-white">-->
-        <!--            <div class="card-body position-relative">-->
-        <!--                <div class="position-absolute" style=" right: 10px; font-size: 12px; top: 8px; color: #9e9e9e; ">В этом-->
-        <!--                    месяце <i class="fas fa-sort-down"></i></div>-->
-        <!--                <div class="row">-->
-        <!--                    <div class="col-sm-3">-->
-        <!--                        <div class="p-3 rounded" style="background: #2d3035;">-->
-        <!--                            <h3 class="font-weight-bold text-warning">782</h3>-->
-        <!--                            <small>Баллов заработано</small>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                    <div class="col-sm-9">-->
-        <!--                        <div class="row">-->
-        <!--                            <div class="col-sm-4">-->
-        <!--                                <h3 class="mt-3" style=" margin-left: 10px; ">23</h3>-->
-        <!--                                <div class="d-flex">-->
-        <!--                                    <small style=" margin-left: -10px; width: 20px;"><i-->
-        <!--                                                class="fas fa-check text-success mr-2"></i></small>-->
-        <!--                                    <small>Выполнено<br>задач</small>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                            <div class="col-sm-4">-->
-        <!--                                <h3 class="mt-3" style=" margin-left: 10px; ">3</h3>-->
-        <!--                                <div class="d-flex">-->
-        <!--                                    <small style=" margin-left: -10px; width: 20px;"><i-->
-        <!--                                                class="fas fa-exclamation text-danger mr-2"></i></small>-->
-        <!--                                    <small>Получено просрочек</small>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                            <div class="col-sm-4">-->
-        <!--                                <h3 class="mt-3" style=" margin-left: 10px; ">32</h3>-->
-        <!--                                <div class="d-flex">-->
-        <!--                                    <small style=" margin-left: -10px; width: 20px;"><i-->
-        <!--                                                class="fas fa-comment text-secondary mr-2"></i></small>-->
-        <!--                                    <small>Оставлено комментариев</small>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!---->
-        <!--        <div class="card mt-3">-->
-        <!--            <div class="card-bodyl">-->
-        <!--                awards-->
-        <!--            </div>-->
-        <!--        </div>-->
-
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-    });
-</script>
