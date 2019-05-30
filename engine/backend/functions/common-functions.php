@@ -242,19 +242,11 @@ function createAvatarFromName($userId)
     imageantialias($im, true);
 
     $colors = [
-        [[143,4,168],[220,249,0]],
-        [[201,0,122],[165,239,0]],
-        [[12,90,166],[255,151,0]],
-        [[0,168,118],[255,89,0]],
-        [[139,234,0],[214,0,98]],
-        [[255,236,0],[88,14,173]],
-        [[255,236,0],[88,14,173]],
-        [[255,180,0],[21,49,174]],
-        [[255,131,0],[6,121,59]],
+        [56,192,208],[0,48,128],[69,176,230],[61,136,242],[230,69,69],[243,151,24],[71,204,193],[24,184,152],[0,83,156],[232,24,32],[184,193,217],[24,184,152],[168,200,232],[86,191,104],[143,152,79],[145,97,243],
     ];
     $colorSet = array_rand($colors);
-    $backgroundColor = imagecolorallocate($im, $colors[$colorSet][0][0], $colors[$colorSet][0][1], $colors[$colorSet][0][2]);
-    $text_color = imagecolorallocate($im, $colors[$colorSet][1][0], $colors[$colorSet][1][1], $colors[$colorSet][1][2]);
+    $backgroundColor = imagecolorallocate($im, $colors[$colorSet][0], $colors[$colorSet][1], $colors[$colorSet][2]);
+    $text_color = imagecolorallocate($im, 255, 255, 255);
 
     imagefill($im, 0, 0, $backgroundColor);
     imageTtfText($im, $textSize, 0, $startX, $startY, $text_color, $fontFile, $letters);
