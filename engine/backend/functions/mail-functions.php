@@ -16,7 +16,7 @@ function lastmess($iduser) {
         } else {
             $author = '';
         }
-        echo '<p>' . $author . $n['mes'] . '</p><small>' . $n['datetime'] . '</small>';
+        echo '<p>' . $author . $n['mes'] . '</p><small>' . date('d.m H:s', strtotime($n['datetime'])) . '</small>';
     }
 }
 
