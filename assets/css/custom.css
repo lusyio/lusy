@@ -798,6 +798,29 @@ input:checked[type="checkbox"]::before {
 .add-worker{
     background-color: #ffffff;
     border-radius: 5px;
+    transition: 200ms;
+}
+
+.add-worker:hover{
+    cursor: pointer;
+    background-color: #e4e4e4;
+}
+
+.add-worker:active{
+    color: #333;
+    background-color: rgba(150, 150, 150, 0.75)
+}
+
+.icon-newtask-delete-coworker{
+    color: white;
+    margin-right: 3px;
+    font-size: 12px;
+    transition: 200ms;
+}
+
+.add-worker:hover > .icon-newtask-delete-coworker{
+    color: rgba(188, 0, 0, 0.51);
+    display: inline;
 }
 
 .edit-profile{
@@ -814,20 +837,14 @@ input:checked[type="checkbox"]::before {
     font-size: 15px;
     color: #e3e5e9;
     margin-left: 1%;
-}
-
-.add-coworker:hover{
-    color: #5d95db;
+    transition: 200ms;
 }
 
 .change-responsible{
     font-size: 15px;
     color: #e3e5e9;
     margin-left: 1%;
-}
-
-.change-responsible:hover{
-    color: #5d95db;
+    transition: 200ms;
 }
 
 .coworker-fio{
@@ -1284,8 +1301,13 @@ span.date {
     padding: .375rem .75rem;
 }
 
+.container-responsible:hover{
+    cursor: pointer;
+}
+
 .select-coworker{
     padding: 7px;
+    transition: 200ms;
 }
 
 .select-coworker:hover{
@@ -1294,9 +1316,17 @@ span.date {
     cursor: pointer;
 }
 
+.select-coworker:hover > .row > .col-2 > .add-coworker{
+    color: #5d95db;
+}
+
 .select-coworker:active{
     color: #333;
     background-color: rgba(150, 150, 150, 0.75);
+}
+
+.coworker-card{
+    cursor: pointer;
 }
 
 .coworker-card div:first-child {
@@ -1310,6 +1340,7 @@ span.date {
 
 .select-responsible{
     padding: 7px;
+    transition: 200ms;
 }
 
 .select-responsible:hover{
@@ -1318,9 +1349,17 @@ span.date {
     cursor: pointer;
 }
 
+.select-responsible:hover > .row > .col-2 > .change-responsible{
+    color: #5d95db;
+}
+
 .select-responsible:active{
     color: #333;
     background-color: rgba(150, 150, 150, 0.75);
+}
+
+.responsible-card{
+    cursor: pointer;
 }
 
 .responsible-card div:first-child {

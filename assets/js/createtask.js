@@ -23,6 +23,20 @@ $(document).ready(function () {
         });
     });
 
+    function updateCoworkers() {
+        $(".select-responsible:visible").each(function () {
+            var list = $(this).attr('val');
+            $('.coworker-card').find("[val = " + list + "]").removeClass('d-none');
+        })
+    }
+
+    function updateResponsible() {
+        $(".select-coworker:visible").each(function () {
+            var list = $(this).attr('val');
+            $('.responsible-card').find("[val = " + list + "]").removeClass('d-none');
+        })
+    }
+
 //работа с ответственными
     $(".container-responsible").on('click', function () {
         $(".responsible").fadeToggle(200);
@@ -36,16 +50,19 @@ $(document).ready(function () {
 
     $(".select-responsible").on('click', function () {
         var id = $(this).attr('val');
-        console.log(id);
-        $('.select-responsible').removeClass('d-none');
+        var selected = $('.add-responsible:visible').attr('val');
+        $('.responsible-card').find("[val = " + selected + "]").removeClass('d-none');
+        console.log(selected);
         $(this).addClass('d-none');
         $('.add-responsible').addClass('d-none');
         $('.coworker-card').find("[val = " + id + "]").addClass('d-none');
+        $('.container-coworker').find("[val = " + id + "]").addClass('d-none');
         $('.container-responsible').find("[val = " + id + "]").removeClass('d-none');
+        updateCoworkers();
     });
 
 //работа с соисполнителями
-    $(".container-coworker").on('click', function () {
+    $(".icon-newtask-add-coworker").on('click', function () {
         $(".coworkers").fadeToggle(200);
     });
 
@@ -54,14 +71,16 @@ $(document).ready(function () {
         console.log(id);
         $(this).addClass('d-none');
         $('.coworker-card').find("[val = " + id + "]").removeClass('d-none');
-
+        updateResponsible()
     });
 
     $(".select-coworker").on('click', function () {
         var id = $(this).attr('val');
         console.log(id);
         $(this).addClass('d-none');
+        $('.responsible-card').find("[val = " + id + "]").addClass('d-none');
         $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
+        updateResponsible()
     });
 
 //создание новой задачи
@@ -74,7 +93,6 @@ $(document).ready(function () {
         var name = $("#name").val();
         var delta = quill.root.innerHTML;
         var datedone = $("#datedone").val();
-        var worker = $("#worker").val();
         var fd = new FormData();
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
@@ -86,7 +104,7 @@ $(document).ready(function () {
         fd.append('worker', responsible);
         fd.append('coworkers', JSON.stringify(coworkers));
         fd.append('ajax', 'task-control');
-        if (name != null && delta != null && datedone != null && worker != null) {
+        if (name != null && delta != null && datedone != null && responsible != null) {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -95,11 +113,11 @@ $(document).ready(function () {
                 contentType: false,
                 data: fd,
                 success: function (data) {
-                    location.href = '/task/' + data + '/'
+                    location.href = '/task/' + data + '/';
                 },
             });
         } else {
-            $("#reportarea").addClass('border-danger');
+            console.log('asdasd');
         }
     });
 
