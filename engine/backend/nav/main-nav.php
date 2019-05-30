@@ -12,7 +12,27 @@ global $_company;
 global $_storage;
 global $idc;
 global $pdo;
+global $roleu;
 
+
+// пункты меню для ролей
+$menu = [
+    'worker' => [
+        'main',
+        'tasks',
+        'newTask',
+        'company',
+        'storage',
+    ],
+    'ceo' => [
+        'main',
+        'tasks',
+        'newTask',
+        'company',
+        'storage',
+        'reports'
+    ],
+];
 
 // количество задач
 $worker = DBOnce('COUNT(*)', 'tasks', 'worker=' . $id . ' AND status NOT IN (\'canceled\', \'done\')');

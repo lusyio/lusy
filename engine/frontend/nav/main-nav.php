@@ -12,8 +12,11 @@ if ($companyUsageSpacePercent > 90){
 
   <div class="collapse navbar-collapse" id="navbarNav">
   		<ul class="navbar-nav w-100">
+            <?php if (in_array('main', $menu[$roleu])): ?>
 			<li class="nav-item pb-2"><a class="nav-link" href="/"><i class="fas fa-home mr-2"></i> <?=$_main?></a></li>
-			<li class="nav-item pb-2">
+            <?php endif; ?>
+            <?php if (in_array('tasks', $menu[$roleu])): ?>
+            <li class="nav-item pb-2">
 				<a class="nav-link" href="/tasks/">
 					<i class="fas fa-tasks mr-2"></i> <?=$_tasks?>
 					<div class="float-right">
@@ -22,9 +25,15 @@ if ($companyUsageSpacePercent > 90){
 					</div>
 				</a>
 			</li>
+            <?php endif; ?>
+            <?php if (in_array('newTask', $menu[$roleu])): ?>
 			<li class="nav-item"><a class="nav-link" href="/task/new/"><i class="fas fa-plus mr-2"></i> <?=$_tasknew?></a></li>
 			<hr class="w-100">
+            <?php endif; ?>
+            <?php if (in_array('company', $menu[$roleu])): ?>
 			<li class="nav-item pb-2"><a class="nav-link" href="/company/"><i class="fas fa-users mr-2"></i> <?=$_company?></a></li>
+            <?php endif; ?>
+            <?php if (in_array('storage', $menu[$roleu])): ?>
 			<li class="nav-item pb-2 files-nav">
 				<a class="nav-link" href="/storage/">
 					<i class="fas fa-hdd mr-2"></i>
@@ -35,6 +44,10 @@ if ($companyUsageSpacePercent > 90){
 					</div>
 				</a>
 			</li>
-		</ul>
+            <?php endif; ?>
+            <?php if (in_array('reports', $menu[$roleu])): ?>
+            <li class="nav-item pb-2"><a class="nav-link" href="/reports/"><i class="fas fa-chart-pie mr-2"></i> <?=$GLOBALS['_reports']?></a></li>
+            <?php endif; ?>
+        </ul>
   </div>
 </nav>

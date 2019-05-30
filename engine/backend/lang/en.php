@@ -3,6 +3,7 @@
 $_main = 'Dashboard';
 $_log = 'Log';
 $_report = 'Report';
+$_reports = 'Reports';
 
 // задачи
 $_tasks = 'Tasks';
