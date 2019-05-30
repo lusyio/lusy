@@ -35,7 +35,6 @@ if ($companyUsageSpacePercent > 90){
 					</div>
 				</a>
 			</li>
-			<li class="nav-item pb-2"><a class="nav-link" href="/cron/demo.php"><i class="fas fa-plus mr-2"></i> Демо-задача</a></li>
 		</ul>
   </div>
 </nav>
