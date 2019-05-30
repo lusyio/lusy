@@ -206,50 +206,67 @@ function getAvatarLink($userId)
 {
     global $idc;
     $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.png';
+    $alterAvatarPath = 'upload/avatar/' . $idc . '/' . $userId . '-alter.png';
     if (file_exists($avatarPath)) {
         return $avatarPath;
+    } elseif (file_exists($alterAvatarPath)) {
+        return $alterAvatarPath;
     } else {
-        createAvatarFromName($userId);
-        return $avatarPath;
+        createAlterAvatar($userId);
+        return $alterAvatarPath;
     }
 }
 
-function createAvatarFromName($userId)
+/**Генерирует аватарку пользователя из первых букв имени и фамилии в формате .png
+ * и сохраняет в директории upload/avatar с именем $userId-alter.png
+ * @param $userId int ID пользователя
+ */
+function createAlterAvatar($userId)
 {
     global $idc;
 
-    $userName = DBOnce('name', 'users', 'id='.$userId);
-    $userSurname = DBOnce('surname', 'users', 'id='.$userId);
+    // Получаем из БД имя и фамилию пользователя, обрезаем до одной  буквы если пустые - заменяем точками
+    $userName = trim(DBOnce('name', 'users', 'id='.$userId));
+    $userSurname = trim(DBOnce('surname', 'users', 'id='.$userId));
+    if ($userName == '') {
+        $userName = '.';
+    }
+    if ($userSurname == '') {
+        $userSurname = '.';
+    }
     $letters = mb_strtoupper(' '. mb_substr($userName, 0, 1) . mb_substr($userSurname, 0, 1) . ' ');
+
+    // Размеры аватарки, шрифта и файл шрифта
     $imageHeight = 190;
     $imageWidth = 190;
     $textSize = 64;
-    $avatarDir = 'upload/avatar/' . $idc . '/';
-    if (!realpath($avatarDir)) {
-        mkdir($avatarDir, 0777, true);
-    }
-    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.png';
     $fontFile = realpath('engine/backend/fonts/Roboto-Regular.ttf');
 
-    $textCartesians = imagettfbbox($textSize, 0, $fontFile, $letters);
-    $maxX = max(array($textCartesians[0],$textCartesians[2],$textCartesians[4],$textCartesians[6]));
-    $minX = min(array($textCartesians[0],$textCartesians[2],$textCartesians[4],$textCartesians[6]));
-    $lettersWidth = abs($maxX - $minX);
-    $startX = ($imageHeight - $lettersWidth)  / 2;
-    $startY = 126;
-
+    // Создаем изображение со сглаживанием
     $im = @imagecreatetruecolor($imageWidth, $imageHeight);
     imageantialias($im, true);
 
+    // Набор фоновых цветов для случайного выбора
     $colors = [
         [56,192,208],[0,48,128],[69,176,230],[61,136,242],[230,69,69],[243,151,24],[71,204,193],[24,184,152],[0,83,156],[232,24,32],[184,193,217],[24,184,152],[168,200,232],[86,191,104],[143,152,79],[145,97,243],
     ];
     $colorSet = array_rand($colors);
     $backgroundColor = imagecolorallocate($im, $colors[$colorSet][0], $colors[$colorSet][1], $colors[$colorSet][2]);
-    $text_color = imagecolorallocate($im, 255, 255, 255);
-
     imagefill($im, 0, 0, $backgroundColor);
+
+    //Измеряем ширину букв для центровки и наносим текст в полученные координаты
+    $textCartesians = imagettfbbox($textSize, 0, $fontFile, $letters);
+    $lettersWidth = abs($textCartesians[0] - $textCartesians[2]);
+    $startX = ($imageHeight - $lettersWidth)  / 2;
+    $startY = 126; // подбирается вручную, в зависимости от размера шрифта
+    $text_color = imagecolorallocate($im, 255, 255, 255);
     imageTtfText($im, $textSize, 0, $startX, $startY, $text_color, $fontFile, $letters);
+
+    $avatarDir = 'upload/avatar/' . $idc . '/';
+    if (!realpath($avatarDir)) {
+        mkdir($avatarDir, 0777, true);
+    }
+    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '-alter.png';
     imagepng($im, $avatarPath);
     imagedestroy($im);
 }
