@@ -9,14 +9,13 @@
     </div>
 </div>
 <div class="card">
-    <?php $i = 0;
+    <?php
     foreach ($sql as $n):
         if ($n['is_fired'] != 0) {
             $isFired = true;
         } else {
             $isFired = false;
         }
-        $i++;
         if ($isFired && !$isFiredShown):
             $isFiredShown = true; ?>
             <a href="#" id="showFired" class="text-decoration-none text-center">
