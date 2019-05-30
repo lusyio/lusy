@@ -271,6 +271,15 @@ function createAlterAvatar($userId)
     imagedestroy($im);
 }
 
+function deleteAvatar($userId)
+{
+    global $idc;
+    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.png';
+    if (file_exists($avatarPath)) {
+        unlink($avatarPath);
+    }
+}
+
 function getUserData($userId)
 {
     global $idc;

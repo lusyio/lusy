@@ -6,12 +6,8 @@
 <script src="/assets/js/cropper.js"></script>
 <link href="/assets/css/cropper.css" rel="stylesheet">
 
-<!--<img src="/upload/avatar-1.jpg" class="rounded-circle image-profile"><i id="editProfileImage"-->
-<!--                                                                        class="fas fa-pencil-alt edit-profileimage"></i>-->
-
 <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-8">
-
         <div class="card">
             <div class="card-body p-5">
                 <div class="row">
@@ -19,6 +15,12 @@
                     <div class="col-6 text-center">
                         <label class="label" data-toggle="tooltip" title=""
                                data-original-title="Смена изображения">
+                            <a class="float-right <?= (strpos(getAvatarLink($id), 'alter'))? 'd-none' : ''; ?>" href="#" id="deleteAvatar" title="Удалить аватар" style="
+                                position: fixed;
+                                padding-left: 178px;
+                            ">
+                                <i class="fas fa-times icon-invite"></i>
+                            </a>
                             <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
                             <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                         </label>
@@ -88,20 +90,29 @@
                     <div class="col pl-0">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fab fa-vk"></i></span>
+                                <span class="input-group-text"><i class="fab fa-vk"></i></span>
                             </div>
                             <input id="settingsVk" name="settingsVk" type="text"
                                    class="form-control email" placeholder="vk.com"
                                    value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : ''; ?>">
                         </div>
-                        <div class="input-group">
+                        <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i
+                                <span class="input-group-text"><i
                                             class="fab fa-facebook-f"></i></span>
                             </div>
                             <input id="settingsFacebook" name="settingsFacebook" type="text" placeholder="facebook"
                                    class="form-control email"
                                    value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : ''; ?>">
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i
+                                            class="fab fa-instagram"></i></span>
+                            </div>
+                            <input id="settingsInstagram" name="settingsInstagram" type="text" placeholder="instagram"
+                                   class="form-control email"
+                                   value="<?= (isset($userData['social']['instagram'])) ? $userData['social']['instagram'] : ''; ?>">
                         </div>
                     </div>
                 </div>
@@ -159,6 +170,28 @@
 
 <script>
     $(document).ready(function () {
+        $("#deleteAvatar").on('click', function (e) {
+            e.preventDefault();
+            var fd = new FormData();
+            fd.append('ajax', 'settings');
+            fd.append('module', 'deleteAvatar');
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function () {
+                    $("#deleteAvatar").addClass('d-none');
+                    var newLink = $('.user-img').attr('src').replace('.png', '-alter.png?'+ new Date().getTime());
+                    $('#avatar').attr('src', newLink);
+                    $('.user-img').attr('src', newLink);
+
+                },
+            });
+
+        });
         $("#sendChanges").on('click', function () {
             var social = {};
             var socialVk = "vk";
@@ -166,6 +199,7 @@
             var description = $("#settingsDescription").val();
             var vk = $("#settingsVk").val();
             var facebook = $("#settingsFacebook").val();
+            var instagram = $("#settingsInstagram").val();
             var name = $("#settingsName").val();
             var surname = $("#settingsSurname").val();
             var email = $("#settingsEmail").val();
@@ -187,7 +221,9 @@
             fd.append('newPassword', newPassword);
             fd.append('password', password);
             fd.append('about', description);
-            fd.append('social', JSON.stringify(social));
+            fd.append('vk', vk);
+            fd.append('facebook', facebook);
+            fd.append('instagram', instagram);
             console.log(password);
             if (password) {
                 $.ajax({
@@ -307,6 +343,7 @@
 
                         success: function () {
                             $alert.show().fadeIn().addClass('alert-success').text('Загрузка успешна');
+                            $("#deleteAvatar").removeClass('d-none');
                             setTimeout(function () {
                                 $alert.fadeOut()
                             },2000);
