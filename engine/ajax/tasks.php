@@ -93,7 +93,7 @@ WHERE (manager=:userId OR worker=:userId) AND t.status IN ('done', 'canceled') O
 if ($_POST['module'] == 'loadDoneTasks') {
     $limit = 20;
     if (isset($_POST['offset'])) {
-        $offset = filter_var($_POST['offset'], FILTER_SANITIZE_NUMBER_INT);
+        $offset = filter_var($_POST['offset'], FILTER_SANITIZE_NUMBER_INT) * $limit;
     } else {
         $offset = 0;
     }
@@ -118,12 +118,13 @@ WHERE (manager=:userId OR worker=:userId) AND t.status = 'done' ORDER BY sort_da
 
     if ($roleu == 'ceo') {
         $dbh = $pdo->prepare($ceoTasksQuery);
+        $dbh->bindValue(':companyId', (int) $idc, PDO::PARAM_INT);
     } else {
         $dbh = $pdo->prepare($tasksQuery);
+        $dbh->bindValue(':userId', (int) $id, PDO::PARAM_INT);
     }
     $dbh->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
     $dbh->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
-    $dbh->bindValue(':userId', (int) $id, PDO::PARAM_INT);
     $dbh->execute();
     $tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
     $countArchiveTasks = count($tasks);
@@ -209,12 +210,13 @@ WHERE (manager=:userId OR worker=:userId) AND t.status = 'canceled' ORDER BY sor
 
     if ($roleu == 'ceo') {
         $dbh = $pdo->prepare($ceoTasksQuery);
+        $dbh->bindValue(':companyId', (int) $idc, PDO::PARAM_INT);
     } else {
         $dbh = $pdo->prepare($tasksQuery);
+        $dbh->bindValue(':userId', (int) $id, PDO::PARAM_INT);
     }
     $dbh->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
     $dbh->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
-    $dbh->bindValue(':userId', (int) $id, PDO::PARAM_INT);
     $dbh->execute();
     $tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
     $countArchiveTasks = count($tasks);
