@@ -12,7 +12,7 @@ if ($_POST['module'] == 'joinUser') {
     $inviteePassword = filter_var(trim($_POST['inviteePassword'], FILTER_SANITIZE_STRING));
 
     $inviteData = readInviteByCode($inviteCode);
-    if (!$inviteData || $inviteData['status']) {
+    if (!$inviteData || !$inviteData['status']) {
         die("Invite doesnt't exist or expired");
     }
     if (isEmailExist($inviteeMail)) {
