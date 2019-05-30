@@ -28,6 +28,7 @@
 .filterPlace {
     font-size: 14px;
     padding-left: 19px;
+    color: #444;
 }
 #filterSelect{
     padding-left: 1.25rem;
@@ -803,12 +804,12 @@ input:checked[type="checkbox"]::before {
 
 .add-worker:hover{
     cursor: pointer;
-    background-color: #e4e4e4;
+    background-color: #f2f2f2;
 }
 
 .add-worker:active{
     color: #333;
-    background-color: rgba(150, 150, 150, 0.75)
+    background-color: #e4e4e4
 }
 
 .icon-newtask-delete-coworker{
@@ -988,17 +989,22 @@ input:checked[type="checkbox"]::before {
 }
 
 #resetSearch:hover{
-    color: #333;
-    background-color: #e4e4e4;
+    background-color: #f2f2f2;
     padding: 0.325rem;
     border-radius: 100%;
 }
 
+#resetSearch:hover > .filterPlace{
+    color: #444;
+}
+
 #resetSearch:active{
-    color: #333;
-    background-color: rgba(150, 150, 150, 0.75);
+    background-color: #E4E4E4;
     border-radius: 100%;
-    border: 1px solid rgba(150, 150, 150, 0.75);
+}
+
+#resetSearch:active > .filterPlace{
+    color: #333;
 }
 
 .popUpDiv {
@@ -1312,7 +1318,7 @@ span.date {
 
 .select-coworker:hover{
     color: #333;
-    background-color: #e4e4e4;
+    background-color: #f2f2f2;
     cursor: pointer;
 }
 
@@ -1321,8 +1327,8 @@ span.date {
 }
 
 .select-coworker:active{
-    color: #333;
-    background-color: rgba(150, 150, 150, 0.75);
+    color: #444;
+    background-color: #e4e4e4;
 }
 
 .coworker-card{
@@ -1344,8 +1350,8 @@ span.date {
 }
 
 .select-responsible:hover{
-    color: #333;
-    background-color: #e4e4e4;
+    color: #444;
+    background-color: #f2f2f2;
     cursor: pointer;
 }
 
@@ -1355,7 +1361,7 @@ span.date {
 
 .select-responsible:active{
     color: #333;
-    background-color: rgba(150, 150, 150, 0.75);
+    background-color: #e4e4e4;
 }
 
 .responsible-card{
