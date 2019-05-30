@@ -50,7 +50,7 @@
             $('#messagesIcon').removeClass('text-warning');
             $('#messagesCount').text('');
         }
-        cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$GLOBALS['cometHash']?>', node: "app.comet-server.ru"});
+        cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
         cometApi.subscription("msg.new", function (e) {
             console.log(e);
             if (e.data.senderId == $recipientId && e.data.recipientId == $userId || e.data.senderId == $userId && e.data.recipientId == $recipientId) {
