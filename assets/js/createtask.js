@@ -52,7 +52,6 @@ $(document).ready(function () {
         var id = $(this).attr('val');
         var selected = $('.add-responsible:visible').attr('val');
         $('.responsible-card').find("[val = " + selected + "]").removeClass('d-none');
-        console.log(selected);
         $(this).addClass('d-none');
         $('.add-responsible').addClass('d-none');
         $('.coworker-card').find("[val = " + id + "]").addClass('d-none');
@@ -68,7 +67,7 @@ $(document).ready(function () {
 
     $('.add-worker').on('click', function () {
         var id = $(this).attr('val');
-        console.log(id);
+        $(".coworkers").fadeIn(200);
         $(this).addClass('d-none');
         $('.coworker-card').find("[val = " + id + "]").removeClass('d-none');
         updateResponsible()
@@ -76,7 +75,6 @@ $(document).ready(function () {
 
     $(".select-coworker").on('click', function () {
         var id = $(this).attr('val');
-        console.log(id);
         $(this).addClass('d-none');
         $('.responsible-card').find("[val = " + id + "]").addClass('d-none');
         $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
