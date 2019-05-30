@@ -39,7 +39,7 @@
                             <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
                         </div>
                         <div class="col-2 text-right">
-                            <i class="fas fa-exchange-alt change-responsible"></i>
+                            <i class="fas fa-exchange-alt icon-change-responsible"></i>
                         </div>
                     </div>
                 <?php } ?>
@@ -85,7 +85,7 @@
                             <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
                         </div>
                         <div class="col-2 text-right">
-                            <i class="fas fa-plus add-coworker"></i>
+                            <i class="fas fa-plus icon-add-coworker"></i>
                         </div>
                     </div>
                 <?php } ?>
@@ -106,14 +106,14 @@
         });
 
         //работа с ответственными
-        $(".select-responsible").on('click', function () {
+        $(".members-select-responsible").on('click', function () {
             var id = $(this).attr('val');
-            var selected = $('.add-responsible:visible').attr('val');
-            $('.responsible-card').find("[val = " + selected + "]").removeClass('d-none');
+            var selected = $('.members-responsible-selected:visible').attr('val');
+            $('#responsibleList').find("[val = " + selected + "]").removeClass('d-none');
             console.log(selected);
             $(this).addClass('d-none');
             $('.add-responsible').addClass('d-none');
-            $('.coworker-card').find("[val = " + id + "]").addClass('d-none');
+            $('#coworkersList').find("[val = " + id + "]").addClass('d-none');
             $('.container-coworker').find("[val = " + id + "]").addClass('d-none');
             $('.container-responsible').find("[val = " + id + "]").removeClass('d-none');
             updateCoworkers();

@@ -12,7 +12,7 @@
                         <span class="mb-1 add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
                     </div>
                     <div class="col-2">
-                        <i class="fas fa-exchange-alt change-responsible"></i>
+                        <i class="fas fa-exchange-alt icon-change-responsible"></i>
                     </div>
                 </div>
             </div>

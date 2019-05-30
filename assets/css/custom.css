@@ -835,14 +835,14 @@ input:checked[type="checkbox"]::before {
     color: #5d95db;
 }
 
-.add-coworker{
+.icon-add-coworker{
     font-size: 15px;
     color: #e3e5e9;
     margin-left: 1%;
     transition: 200ms;
 }
 
-.change-responsible{
+.icon-change-responsible{
     font-size: 15px;
     color: #e3e5e9;
     margin-left: 1%;
@@ -992,7 +992,7 @@ input:checked[type="checkbox"]::before {
     cursor: pointer;
 }
 
-.members-coworker-select:hover > .col-2 > .add-coworker{
+.members-coworker-select:hover > .col-2 > .icon-add-coworker{
     color: #5d95db;
 }
 
@@ -1010,7 +1010,7 @@ input:checked[type="checkbox"]::before {
     cursor: pointer;
 }
 
-.members-select-responsible:hover > .col-2 > .change-responsible{
+.members-select-responsible:hover > .col-2 > .icon-change-responsible{
     color: #5d95db;
 }
 
@@ -1408,7 +1408,7 @@ span.date {
     cursor: pointer;
 }
 
-.select-coworker:hover > .row > .col-2 > .add-coworker{
+.select-coworker:hover > .row > .col-2 > .icon-add-coworker{
     color: #5d95db;
 }
 
@@ -1441,7 +1441,7 @@ span.date {
     cursor: pointer;
 }
 
-.select-responsible:hover > .row > .col-2 > .change-responsible{
+.select-responsible:hover > .row > .col-2 > .icon-change-responsible{
     color: #5d95db;
 }
 
