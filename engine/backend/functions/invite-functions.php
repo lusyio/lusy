@@ -71,7 +71,7 @@ function readInvite($inviteId)
 function readInviteByCode($code)
 {
     global $pdo;
-    $readInviteQuery = $pdo->prepare('SELECT i.invite_id, i.company_id, i.code, i.invite_date, i.status, i.email, i.invitee_position, c.idcompany AS company_name FROM invitations i LEFT JOIN company c ON i.company_id=c.id WHERE code=:code');
+    $readInviteQuery = $pdo->prepare('SELECT i.invite_id, i.company_id, i.code, i.invite_date, i.status, i.email, i.invitee_position, c.idcompany AS company_name FROM invitations i LEFT JOIN company c ON i.company_id=c.id WHERE i.code=:code');
     $readInviteQuery->execute(array(':code' => $code));
     $result = $readInviteQuery->fetch(PDO::FETCH_ASSOC);
     return $result;
