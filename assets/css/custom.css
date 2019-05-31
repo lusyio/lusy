@@ -1380,6 +1380,7 @@ span.date {
     border: 1px solid #ced4da;
     border-radius: .25rem;
     padding: .375rem .75rem;
+    cursor: pointer;
 }
 
 .container-files{

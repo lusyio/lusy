@@ -1,100 +1,102 @@
-<div class="members">
-    <div class="members-card position-relative">
-        <div class="text-justify owner">
-            <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($manager) ?>"
-                 class="avatar-added mr-1">
-            <a href="#"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
-        </div>
-        <hr class="m-0">
-        <div class="members-responsible">
-            <div class="row" style="padding: 5px;">
-                <div class="col text-left">
-                    <span>Ответственный</span>
+<div id="avatarNew"><i class="far fa-plus-square avatar-new"></i>
+    <div class="members">
+        <div class="members-card position-relative">
+            <div class="text-justify owner">
+                <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($manager) ?>"
+                     class="avatar-added mr-1">
+                <a href="#"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
+            </div>
+            <hr class="m-0">
+            <div class="members-responsible">
+                <div class="row" style="padding: 5px;">
+                    <div class="col text-left">
+                        <span>Ответственный</span>
+                    </div>
+                    <div class="col-2 text-right">
+                        <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
+                           data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
+                    </div>
                 </div>
-                <div class="col-2 text-right">
-                    <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
-                       data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
+                <hr class="mt-0 mb-1">
+                <div class="container-members-responsible-selected">
+                    <?php
+                    $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
+                    foreach ($users as $n) { ?>
+                        <div val="<?php echo $n['id'] ?>"
+                             class="row members-responsible-selected <?= ($n['id'] == $worker) ? '' : 'd-none' ?>">
+                            <div class="col-1">
+                                <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($n['id']) ?>"
+                                     class="avatar-added mr-1">
+                            </div>
+                            <div class="col text-left">
+                                <span><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <hr class="mt-1 mb-1">
+                </div>
+                <div class="text-left collapse" id="responsibleList">
+                    <?php
+                    foreach ($users as $n) { ?>
+                        <div val="<?php echo $n['id'] ?>"
+                             class="row members-select-responsible <?= ($n['id'] == $worker) ? 'd-none' : '' ?>">
+                            <div class="col-1">
+                                <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
+                            </div>
+                            <div class="col">
+                                <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                            </div>
+                            <div class="col-2 text-right">
+                                <i class="fas fa-exchange-alt icon-change-responsible"></i>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <hr class="mt-1 mb-0">
                 </div>
             </div>
-            <hr class="mt-0 mb-1">
-            <div class="container-members-responsible-selected">
-                <?php
-                $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
-                foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>"
-                         class="row members-responsible-selected <?= ($n['id'] == $worker) ? '' : 'd-none' ?>">
-                        <div class="col-1">
-                            <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($n['id']) ?>"
+            <div class="members-coworkers">
+                <div class="row" style="padding: 5px;">
+                    <div class="col text-justify">
+                        <span>Соисполнители</span>
+                    </div>
+                    <div class="col-2 text-right">
+                        <i class="fas fa-pencil-alt icon-members-change-coworker" data-toggle="collapse"
+                           data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList"></i>
+                    </div>
+                </div>
+                <div class="mb-1 container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
+                    <?php
+                    foreach ($users as $n) { ?>
+                        <div val="<?php echo $n['id'] ?>"
+                             class="add-worker <?= (in_array($n['id'], $coworkersId)) ? '' : 'd-none' ?>">
+                            <img src="/<?= getAvatarLink($n['id']) ?>"
                                  class="avatar-added mr-1">
+                            <span class="coworker-fio"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                            <i class="fas fa-times icon-newtask-delete-coworker"></i>
                         </div>
-                        <div class="col text-left">
-                            <span><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
-                        </div>
-                    </div>
-                <?php } ?>
-                <hr class="mt-1 mb-1">
-            </div>
-            <div class="text-left collapse" id="responsibleList">
-                <?php
-                foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>"
-                         class="row members-select-responsible <?= ($n['id'] == $worker) ? 'd-none' : '' ?>">
-                        <div class="col-1">
-                            <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
-                        </div>
-                        <div class="col">
-                            <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
-                        </div>
-                        <div class="col-2 text-right">
-                            <i class="fas fa-exchange-alt icon-change-responsible"></i>
-                        </div>
-                    </div>
-                <?php } ?>
-                <hr class="mt-1 mb-0">
-            </div>
-        </div>
-        <div class="members-coworkers">
-            <div class="row" style="padding: 5px;">
-                <div class="col text-justify">
-                    <span>Соисполнители</span>
+                    <?php } ?>
                 </div>
-                <div class="col-2 text-right">
-                    <i class="fas fa-pencil-alt icon-members-change-coworker" data-toggle="collapse"
-                       data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList"></i>
+                <div class="text-left collapse" id="coworkersList">
+                    <?php
+                    foreach ($users as $n) { ?>
+                        <div val="<?php echo $n['id'] ?>"
+                             class="row members-coworker-select <?= (in_array($n['id'], $coworkersId)) ? 'd-none' : '' ?>">
+                            <div class="col-1">
+                                <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
+                            </div>
+                            <div class="col">
+                                <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                            </div>
+                            <div class="col-2 text-right">
+                                <i class="fas fa-plus icon-add-coworker"></i>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <hr class="mt-1 mb-1">
                 </div>
-            </div>
-            <div class="mb-1 container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
-                <?php
-                foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>"
-                         class="add-worker <?= (in_array($n['id'], $coworkersId)) ? '' : 'd-none' ?>">
-                        <img src="/<?= getAvatarLink($n['id']) ?>"
-                             class="avatar-added mr-1">
-                        <span class="coworker-fio"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
-                        <i class="fas fa-times icon-newtask-delete-coworker"></i>
-                    </div>
-                <?php } ?>
-            </div>
-            <div class="text-left collapse" id="coworkersList">
-                <?php
-                foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>"
-                         class="row members-coworker-select <?= (in_array($n['id'], $coworkersId)) ? 'd-none' : '' ?>">
-                        <div class="col-1">
-                            <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
-                        </div>
-                        <div class="col">
-                            <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
-                        </div>
-                        <div class="col-2 text-right">
-                            <i class="fas fa-plus icon-add-coworker"></i>
-                        </div>
-                    </div>
-                <?php } ?>
-                <hr class="mt-1 mb-1">
-            </div>
-            <div class="mt-3 text-center">
-                <button class="btn btn-success btn-sm" id="confirmMembers" type="button">Сохранить</button>
+                <div class="mt-3 text-center">
+                    <button class="btn btn-success btn-sm" id="confirmMembers" type="button">Сохранить</button>
+                </div>
             </div>
         </div>
     </div>
@@ -104,7 +106,16 @@
     $(document).ready(function () {
 
         $(".avatar-new").on('click', function (e) {
-            $(".members").fadeToggle(300);
+            $(".members").fadeToggle(200);
+        });
+
+        $(document).on('click', function (e) { // событие клика по веб-документу
+            var div = $("#avatarNew"); // тут указываем ID элемента
+            var dov = $('.members');
+            if (!div.is(e.target) && !dov.is(e.target) // если клик был не по нашему блоку
+                && div.has(e.target).length === 0) { // и не по его дочерним элементам
+                dov.fadeOut(200); // скрываем его
+            }
         });
 
         function updateCoworkers() {

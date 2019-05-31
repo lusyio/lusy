@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col coworkers-toggle">
                 <label>Соисполнители</label>
                 <div class="container container-coworker d-flex flex-wrap align-content-sm-stretch">
                     <div class="text-muted placeholder-coworkers">Выберите соисполнителя</div>

@@ -79,8 +79,17 @@ $(document).ready(function () {
     });
 
 //работа с соисполнителями
-    $(".icon-newtask-add-coworker").on('click', function () {
+    $(".container-coworker ").on('click', function () {
         $(".coworkers").fadeToggle(200);
+    });
+
+    $(document).on('click', function (e){ // событие клика по веб-документу
+        var div = $(".coworkers-toggle"); // тут указываем ID элемента
+        var dov = $('.coworkers');
+        if (!div.is(e.target) // если клик был не по нашему блоку
+            && div.has(e.target).length === 0) { // и не по его дочерним элементам
+            dov.fadeOut(200); // скрываем его
+        }
     });
 
     $('.add-worker').on('click', function () {

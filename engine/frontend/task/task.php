@@ -128,8 +128,23 @@ if ($id == $worker and $view == 0) {
                             </medium>
                         </div>
                         <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
+                        <div id="change-date">
+                            <div class="form-group mb-0 p-2">
+                                <div class="row">
+                                    <div class="col">
+                                        <?php if ($role != 'manager'): ?>
+                                            <textarea name="report" id="reportarea1" class="form-control" rows="4"
+                                                      placeholder="Причина" required></textarea>
+                                        <?php endif; ?>
+                                        <input class="form-control form-control-sm" value="" type="date" id="example-date-input"
+                                               min="">
+                                        <button type="submit" id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
+                                                class="btn btn-success btn-sm text-center mt-1 mb-1"><?= $GLOBALS["_change"] ?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
                 <div class="col-7">
                     <div class="float-right">
@@ -149,7 +164,7 @@ if ($id == $worker and $view == 0) {
                                         class="avatar ml-1"></span>
                         <?php endforeach; ?>
                         <div class="tooltip-avatar">
-                            <i class="far fa-plus-square avatar-new"></i>
+
                             <?php
                             include 'engine/frontend/members/members.php';
                             ?>
@@ -158,22 +173,7 @@ if ($id == $worker and $view == 0) {
                 </div>
             </div>
 
-            <div id="change-date">
-                <div class="form-group mb-0 p-2">
-                    <div class="row">
-                        <div class="col">
-                            <?php if ($role != 'manager'): ?>
-                                <textarea name="report" id="reportarea1" class="form-control" rows="4"
-                                          placeholder="Причина" required></textarea>
-                            <?php endif; ?>
-                            <input class="form-control form-control-sm" value="" type="date" id="example-date-input"
-                                   min="">
-                            <button type="submit" id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
-                                    class="btn btn-success btn-sm text-center mt-1 mb-1"><?= $GLOBALS["_change"] ?></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
 
             <div class="mt-5 mb-5 text-justify"><?= $description ?></div>
@@ -229,10 +229,14 @@ if ($id == $worker and $view == 0) {
 <script>
     $(document).ready(function () {
 
-        // $(document).on('click', function (e) {
-        //     if (!$(e.target).closest(".deadline-block").length) {
-        //         $('#change-date').fadeOut(300);
-        //     }
+        $(document).on('click', function (e){ // событие клика по веб-документу
+            var div = $(".deadline-block"); // тут указываем ID элемента
+            var dov = $('#change-date');
+            if (!div.is(e.target)  // если клик был не по нашему блоку
+                && div.has(e.target).length === 0) { // и не по его дочерним элементам
+                dov.fadeOut(200); // скрываем его
+            }
+        });
         // if (!$(e.target).closest(".tooltip-avatar").length) {
         //     $('.members').fadeOut(300);
         //     $('.coworkers').fadeOut(300);
@@ -242,7 +246,7 @@ if ($id == $worker and $view == 0) {
         // });
 
         $(".deadline-block").on('click', function () {
-            $("#change-date").fadeToggle(300);
+            $("#change-date").fadeIn(200);
         });
     });
 </script>
