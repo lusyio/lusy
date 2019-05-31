@@ -67,7 +67,7 @@
                 <?php
                 foreach ($users as $n) { ?>
                     <div val="<?php echo $n['id'] ?>"
-                         class="add-worker <?= ($n['id'] == $coworker['worker_id']) ? '' : 'd-none' ?>">
+                         class="add-worker <?= (in_array($n['id'], $coworkersId)) ? '' : 'd-none' ?>">
                         <img src="/<?= getAvatarLink($n['id']) ?>"
                              class="avatar-added mr-1">
                         <span class="coworker-fio"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
@@ -79,7 +79,7 @@
                 <?php
                 foreach ($users as $n) { ?>
                     <div val="<?php echo $n['id'] ?>"
-                         class="row members-coworker-select <?= ($n['id'] == $coworker['worker_id']) ? 'd-none' : '' ?>">
+                         class="row members-coworker-select <?= (in_array($n['id'], $coworkersId)) ? 'd-none' : '' ?>">
                         <div class="col-1">
                             <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
                         </div>
@@ -94,7 +94,7 @@
                 <hr class="mt-1 mb-1">
             </div>
             <div class="mt-3 text-center">
-                <button class="btn btn-success btn-sm" id="confirmMembers" type="button">Принять</button>
+                <button class="btn btn-success btn-sm" id="confirmMembers" type="button">Сохранить</button>
             </div>
         </div>
     </div>
@@ -108,6 +108,8 @@
         });
 
         function updateCoworkers() {
+            var id = $('.members-responsible-selected:visible').attr('val');
+            $('#coworkersList').find("[val = " + id + "]").addClass('d-none');
             $(".members-select-responsible:visible").each(function () {
                 var list = $(this).attr('val');
                 $('#coworkersList').find("[val = " + list + "]").removeClass('d-none');
@@ -124,6 +126,10 @@
                 $('#responsibleList').find("[val = " + list + "]").removeClass('d-none');
             });
         }
+
+        $('.icon-members-change-coworker').on('click', function () {
+            updateCoworkers();
+        });
 
         //работа с ответственными
         $(".members-select-responsible").on('click', function () {
@@ -142,7 +148,7 @@
         $(".members-coworker-select").on('click', function () {
             var id = $(this).attr('val');
             $(this).addClass('d-none');
-            $('#responsibleList').find("[val = " + id + "]").addClass('d-none');
+            // $('#responsibleList').find("[val = " + id + "]").addClass('d-none');
             $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
             updateResponsible();
         });
@@ -175,10 +181,9 @@
                 contentType: false,
                 data: fd,
                 success: function (data) {
-                    console.log('asd');
+                    location.reload();
                 },
             });
-            $('.members').fadeOut(200);
         });
     });
 </script>
