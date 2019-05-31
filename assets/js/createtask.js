@@ -15,13 +15,25 @@ $(document).ready(function () {
         $(this.files).each(function () {
             names = this.name;
             fileList.set(n, $(this)[0]);
-            $(".file-name").show().addClass('d-flex').append("<div val='" + n + "' class='filenames'>" +
+            $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
                 "<i class='fas fa-paperclip mr-1'></i>" + names +
                 "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
                 "</div>");
             n++;
         });
     });
+
+    function checkPlaceholderCoworkers() {
+        var listArr = [];
+        $(".add-worker:visible").each(function () {
+            var list = $(this).attr('val');
+            listArr.push(list);
+        });
+        console.log(listArr);
+        if (listArr.length === 0){
+            $('.placeholder-coworkers').show();
+        }
+    }
 
     function updateCoworkers() {
         $(".select-responsible:visible").each(function () {
@@ -31,7 +43,8 @@ $(document).ready(function () {
         $(".add-worker:visible").each(function () {
             var list = $(this).attr('val');
             $('.coworker-card').find("[val = " + list + "]").addClass('d-none');
-        })
+        });
+        checkPlaceholderCoworkers();
     }
 
     function updateResponsible() {
@@ -53,6 +66,7 @@ $(document).ready(function () {
     });
 
     $(".select-responsible").on('click', function () {
+        $('.placeholder-responsible').hide();
         var id = $(this).attr('val');
         var selected = $('.add-responsible:visible').attr('val');
         $('.responsible-card').find("[val = " + selected + "]").removeClass('d-none');
@@ -74,15 +88,17 @@ $(document).ready(function () {
         $(".coworkers").fadeIn(200);
         $(this).addClass('d-none');
         $('.coworker-card').find("[val = " + id + "]").removeClass('d-none');
-        updateResponsible()
+        updateResponsible();
+        checkPlaceholderCoworkers();
     });
 
     $(".select-coworker").on('click', function () {
+        $('.placeholder-coworkers').hide();
         var id = $(this).attr('val');
         $(this).addClass('d-none');
         // $('.responsible-card').find("[val = " + id + "]").addClass('d-none');
         $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
-        updateResponsible()
+        updateResponsible();
     });
 
 //создание новой задачи

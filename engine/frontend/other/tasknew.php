@@ -16,19 +16,14 @@
         </div>
         <div id="editor" class="mb-2">
         </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <span class="btn btn-light btn-file border">
-                    <i class="fas fa-file-upload custom-date mr-2"></i><span class="attach-file text-muted">Выберите файл</span><input
-                            id="sendFiles" type="file" multiple>
-                </span>
-            </div>
-            <div class="col-sm">
-                <div style="display: none"
-                     class="bg-white file-name container container-files flex-wrap align-content-sm-stretch">
-                </div>
-            </div>
+        <div style="display: none"
+             class="bg-white file-name container-files">
         </div>
+        <span class="btn btn-light btn-file border">
+            <i class="fas fa-file-upload custom-date mr-2"></i>
+            <span class="attach-file text-muted">Выберите файл</span>
+            <input id="sendFiles" type="file" multiple>
+        </span>
         <div class="row mt-2">
             <div class="col-12 col-md-6">
                 <div class="form-group">
@@ -43,6 +38,7 @@
                 <label>Ответственный</label>
                 <div class="container container-responsible d-flex flex-wrap align-content-sm-stretch"
                      style="min-height: 38px">
+                    <div class="text-muted placeholder-responsible">Выберите ответственного</div>
                     <?php
                     $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                     foreach ($users as $n) { ?>
@@ -65,6 +61,7 @@
             <div class="col">
                 <label>Соисполнители</label>
                 <div class="container container-coworker d-flex flex-wrap align-content-sm-stretch">
+                    <div class="text-muted placeholder-coworkers">Выберите соисполнителя</div>
                     <?php
                     $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                     foreach ($users as $n) { ?>
