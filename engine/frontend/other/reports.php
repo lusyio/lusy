@@ -1,8 +1,11 @@
+<form method="post">
+    <button type="submit" class="btn btn-link mb-3 pl-0" name="send">Отправить на почту</button>
+</form>
 <div class="card">
 <?php
 global $idc;
 $inviteeMail = 'mr-kelevras@yandex.ru';
-$template = 'user-welcome';
+$template = 'user-invite';
 
 require_once 'engine/phpmailer/LusyMailer.php';
 $mail = new \PHPMailer\PHPMailer\LusyMailer();
@@ -14,10 +17,18 @@ $args = [
     'companyName' => $companyName,
 ];
 $mail->setMessageContent($template, $args);
-$mail->send();
+
+
+
+if (isset($_POST["send"])) {
+    $mail->send();
+    echo 'отправлено';
+}
 
 include 'engine/phpmailer/templates/ru/content-header.php';
 include 'engine/phpmailer/templates/ru/'.$template.'.php';
 include 'engine/phpmailer/templates/ru/content-footer.php';
 ?>
+
+
 </div>
