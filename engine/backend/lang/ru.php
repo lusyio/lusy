@@ -18,6 +18,19 @@ $_logout = 'Выйти';
 $_invite = 'Приглашения';
 $_reports = 'Отчеты';
 
+//новая задача
+$_newtask = 'Новая задача';
+$_namenewtask = 'Наименование задачи';
+$_placeholdernewtask = 'Опишите суть задачи';
+$_choosefilenewtask = 'Выберите файл';
+$_deadlinenewtask = 'Выберите файл';
+$_responsiblenewtask = 'Ответственный';
+$_placeholderresponsiblenewtask = 'Выберите ответственного';
+$_coworkersnewtask = 'Соисполнители';
+$_placeholdercoworkersnewtask = 'Выберите соисполнителя';
+$_createnewtask = 'Создать задачу';
+$_cancelnewtask = 'Отменить создание задачи';
+
 // задачи
 $_tasks = 'Задачи';
 $_taskname = 'Имя задачи';

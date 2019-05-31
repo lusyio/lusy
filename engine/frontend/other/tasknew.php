@@ -6,13 +6,13 @@
             <div class="col">
                 <div class="header">
                     <h4 class="header-title" id="headerName">
-                        Новая задача
+                        <?= $GLOBALS['_newtask'] ?>
                     </h4>
                 </div>
             </div>
         </div>
         <div class="mb-2">
-            <input type="text" id="name" class="form-control" placeholder="Наименование задачи" required>
+            <input type="text" id="name" class="form-control" placeholder="<?= $GLOBALS['_namenewtask'] ?>" required>
         </div>
         <div id="editor" class="mb-2">
         </div>
@@ -21,24 +21,24 @@
         </div>
         <span class="btn btn-light btn-file border">
             <i class="fas fa-file-upload custom-date mr-2"></i>
-            <span class="attach-file text-muted">Выберите файл</span>
+            <span class="attach-file text-muted"><?= $GLOBALS['_choosefilenewtask'] ?></span>
             <input id="sendFiles" type="file" multiple>
         </span>
         <div class="row mt-2">
             <div class="col-12 col-md-6">
                 <div class="form-group">
                     <label>
-                        Дата окончания
+                        <?= $GLOBALS['_deadlinenewtask'] ?>
                     </label>
                     <input type="date" class="form-control" id="datedone" min="<?= $GLOBALS["now"] ?>"
                            value="<?= $GLOBALS["now"] ?>" required>
                 </div>
             </div>
             <div class="col-12 col-md-6 coworkers-newtask">
-                <label>Ответственный</label>
+                <label><?= $GLOBALS['_responsiblenewtask'] ?></label>
                 <div class="container container-responsible d-flex flex-wrap align-content-sm-stretch"
                      style="min-height: 38px">
-                    <div class="text-muted placeholder-responsible">Выберите ответственного</div>
+                    <div class="text-muted placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                     <?php
                     $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                     foreach ($users as $n) { ?>
@@ -59,9 +59,9 @@
         </div>
         <div class="row">
             <div class="col coworkers-toggle">
-                <label>Соисполнители</label>
+                <label><?= $GLOBALS['_coworkersnewtask'] ?></label>
                 <div class="container container-coworker d-flex flex-wrap align-content-sm-stretch">
-                    <div class="text-muted placeholder-coworkers">Выберите соисполнителя</div>
+                    <div class="text-muted placeholder-coworkers"><?= $GLOBALS['_placeholdercoworkersnewtask'] ?></div>
                     <?php
                     $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                     foreach ($users as $n) { ?>
@@ -89,13 +89,13 @@
         <!-- Buttons -->
         <div class="row">
             <div class="col-sm p-0 create-task">
-                <button id="createTask" class="btn btn-block btn-primary h-100">Создать задачу</button>
+                <button id="createTask" class="btn btn-block btn-primary h-100"><?= $GLOBALS['_createnewtask'] ?></button>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12 p-0">
                 <a href="/" class="btn btn-block btn-link text-muted">
-                    Отменить создание задачи
+                    <?= $GLOBALS['_cancelnewtask'] ?>
                 </a>
             </div>
         </div>
