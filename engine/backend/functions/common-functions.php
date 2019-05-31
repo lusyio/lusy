@@ -341,9 +341,10 @@ function serverDateTime($localTimestamp)
     $serverTimeOffsetFromGmt = timezone_offset_get($ServerTimeZone, $givenDateTime);
     $offset = new DateInterval('PT' . abs($serverTimeOffsetFromGmt) . 'S');
     if ($serverTimeOffsetFromGmt > 0) {
-        $givenDateTime->add($offset);
-    } else {
         $givenDateTime->sub($offset);
+    } else {
+        $givenDateTime->add($offset);
     }
+    var_dump($givenDateTime);
     return $givenDateTime->getTimestamp();
 }
