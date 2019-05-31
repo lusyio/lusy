@@ -20,8 +20,8 @@ if ($companyUsageSpacePercent > 90){
 				<a class="nav-link" href="/tasks/">
 					<i class="fas fa-tasks mr-2"></i> <?=$_tasks?>
 					<div class="float-right">
-						<span class="badge badge-primary float-left" style=" border-top-right-radius: 0px; border-bottom-right-radius: 0px; "><?=$manager?></span>
-						<span class="badge badge-dark float-right" style=" border-top-left-radius: 0px; border-bottom-left-radius: 0px; "><?=$worker?></span>
+						<span class="badge badge-primary float-left" style=" border-top-right-radius: 0px; border-bottom-right-radius: 0px; " title="<?=$GLOBALS['_outbox']?>"><?=$manager?></span>
+						<span class="badge badge-dark float-right" style=" border-top-left-radius: 0px; border-bottom-left-radius: 0px; " title="<?=$GLOBALS['_inbox']?>"><?=$worker?></span>
 					</div>
 				</a>
 			</li>
