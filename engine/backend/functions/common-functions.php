@@ -297,3 +297,53 @@ function getUserData($userId)
     }
     return $userData;
 }
+
+/**Преобразует UTC-время в локальное время пользователя (временная зона запрашивается из БД)
+ * @param $utcTimestamp int Временная метка в формате unix-времени
+ * @return int Временная метка в формате unix-времени
+ * @throws Exception
+ */
+function localDateTime($utcTimestamp)
+{
+    global $idc;
+    $givenDateTime = new DateTime();
+    $givenDateTime->setTimestamp($utcTimestamp);
+
+    // определяем тайм-зону компании
+    $companyTimeZoneName = DBOnce('timezone', 'company', 'id=' . $idc);
+    $companyTimeZone = new DateTimeZone($companyTimeZoneName);
+
+    $userTimeOffsetFromGmt = timezone_offset_get($companyTimeZone, $givenDateTime);
+    $offset = new DateInterval('PT' . abs($userTimeOffsetFromGmt) . 'S');
+    if ($userTimeOffsetFromGmt > 0) {
+        $givenDateTime->add($offset);
+    } else {
+        $givenDateTime->sub($offset);
+    }
+
+    return $givenDateTime->getTimestamp();
+}
+
+/**Преобразует время сервера в UTC-время
+ * @param $localTimestamp int временная метка в формате unix-времени
+ * @return int временная метка в формате unix-времени
+ * @throws Exception
+ */
+function serverDateTime($localTimestamp)
+{
+    $givenDateTime = new DateTime();
+    $givenDateTime->setTimestamp($localTimestamp);
+
+    // определяем тайм-зону сервера
+    $date = new DateTime();
+    $ServerTimeZone = $date->getTimezone();
+
+    $serverTimeOffsetFromGmt = timezone_offset_get($ServerTimeZone, $givenDateTime);
+    $offset = new DateInterval('PT' . abs($serverTimeOffsetFromGmt) . 'S');
+    if ($serverTimeOffsetFromGmt > 0) {
+        $givenDateTime->add($offset);
+    } else {
+        $givenDateTime->sub($offset);
+    }
+    return $givenDateTime->getTimestamp();
+}
