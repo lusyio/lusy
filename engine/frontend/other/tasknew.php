@@ -83,13 +83,6 @@
                 ?>
             </div>
         </div>
-        <!--        <div class="col-6">-->
-        <!--            <button class="btn btn-light newtask-change-coworkers" data-toggle="collapse"-->
-        <!--                    data-target="#c workersList" aria-expanded="false" aria-controls="coworkersList">-->
-        <!--                Изменить-->
-        <!--            </button>-->
-
-        <!--        </div>-->
 
         <!-- Divider -->
         <hr class="mt-4 mb-4">

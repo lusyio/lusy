@@ -17,21 +17,28 @@
                 </div>
             </div>
             <hr class="mt-0 mb-1">
-            <div val="" class="row members-responsible-selected">
-                <div class="col-1">
-                    <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($worker) ?>"
-                         class="avatar-added mr-1">
-                </div>
-                <div class="col text-left">
-                    <span><?= $task['workerName'] ?> <?= $task['workerSurname'] ?></span>
-                </div>
-            </div>
-            <hr class="mt-1 mb-1">
-            <div class="text-left collapse" id="responsibleList">
+            <div class="container-members-responsible-selected">
                 <?php
                 $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                 foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>" class="row members-select-responsible">
+                    <div val="<?php echo $n['id'] ?>"
+                         class="row members-responsible-selected <?= ($n['id'] == $worker) ? '' : 'd-none' ?>">
+                        <div class="col-1">
+                            <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($n['id']) ?>"
+                                 class="avatar-added mr-1">
+                        </div>
+                        <div class="col text-left">
+                            <span><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                        </div>
+                    </div>
+                <?php } ?>
+                <hr class="mt-1 mb-1">
+            </div>
+            <div class="text-left collapse" id="responsibleList">
+                <?php
+                foreach ($users as $n) { ?>
+                    <div val="<?php echo $n['id'] ?>"
+                         class="row members-select-responsible <?= ($n['id'] == $worker) ? 'd-none' : '' ?>">
                         <div class="col-1">
                             <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
                         </div>
@@ -58,26 +65,21 @@
             </div>
             <div class="mb-1 container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
                 <?php
-                foreach ($coworkers as $coworker):
-                    if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
-                        $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
-                    } else {
-                        $viewStatusTitle = 'Не просмотрено';
-                    }
-                    ?>
-                    <div val="<?= $coworker['worker_id'] ?>" class="add-worker">
-                        <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($coworker['worker_id']) ?>"
+                foreach ($users as $n) { ?>
+                    <div val="<?php echo $n['id'] ?>"
+                         class="add-worker <?= ($n['id'] == $coworker['worker_id']) ? '' : 'd-none' ?>">
+                        <img src="/<?= getAvatarLink($n['id']) ?>"
                              class="avatar-added mr-1">
-                        <span class="coworker-fio"><?= $coworker['name'] ?> <?= $coworker['surname'] ?></span>
+                        <span class="coworker-fio"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
                         <i class="fas fa-times icon-newtask-delete-coworker"></i>
                     </div>
-                <?php endforeach; ?>
+                <?php } ?>
             </div>
             <div class="text-left collapse" id="coworkersList">
                 <?php
-                $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
                 foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>" class="row members-coworker-select">
+                    <div val="<?php echo $n['id'] ?>"
+                         class="row members-coworker-select <?= ($n['id'] == $coworker['worker_id']) ? 'd-none' : '' ?>">
                         <div class="col-1">
                             <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
                         </div>
@@ -105,63 +107,78 @@
             $(".members").fadeToggle(300);
         });
 
+        function updateCoworkers() {
+            $(".members-select-responsible:visible").each(function () {
+                var list = $(this).attr('val');
+                $('#coworkersList').find("[val = " + list + "]").removeClass('d-none');
+            });
+            $(".add-worker:visible").each(function () {
+                var list = $(this).attr('val');
+                $('#coworkersList').find("[val = " + list + "]").addClass('d-none');
+            })
+        }
+
+        function updateResponsible() {
+            $(".members-coworker-select:visible").each(function () {
+                var list = $(this).attr('val');
+                $('#responsibleList').find("[val = " + list + "]").removeClass('d-none');
+            });
+        }
+
         //работа с ответственными
         $(".members-select-responsible").on('click', function () {
             var id = $(this).attr('val');
             var selected = $('.members-responsible-selected:visible').attr('val');
-            $('#responsibleList').find("[val = " + selected + "]").removeClass('d-none');
-            console.log(selected);
+            $("#responsibleList").find("[val = " + selected + "]").removeClass('d-none');
             $(this).addClass('d-none');
-            $('.add-responsible').addClass('d-none');
+            $(".members-responsible-selected").addClass('d-none');
             $('#coworkersList').find("[val = " + id + "]").addClass('d-none');
             $('.container-coworker').find("[val = " + id + "]").addClass('d-none');
-            $('.container-responsible').find("[val = " + id + "]").removeClass('d-none');
+            $(".container-members-responsible-selected").find("[val = " + id + "]").removeClass('d-none');
             updateCoworkers();
         });
 
         //работа с соисполнителями
+        $(".members-coworker-select").on('click', function () {
+            var id = $(this).attr('val');
+            $(this).addClass('d-none');
+            $('#responsibleList').find("[val = " + id + "]").addClass('d-none');
+            $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
+            updateResponsible();
+        });
+
         $('.add-worker').on('click', function () {
             var id = $(this).attr('val');
-            console.log(id);
             $(this).addClass('d-none');
-            $('.coworker-card').find("[val = " + id + "]").removeClass('d-none');
-            updateResponsible()
+            $('#coworkersList').find("[val = " + id + "]").removeClass('d-none');
+            updateResponsible();
         });
 
-        $(".select-coworker").on('click', function () {
-            var id = $(this).attr('val');
-            console.log(id);
-            $(this).addClass('d-none');
-            $('.responsible-card').find("[val = " + id + "]").addClass('d-none');
-            $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
-            updateResponsible()
+        $("#confirmMembers").on('click', function () {
+            var responsible = $('.members-responsible-selected:visible').attr('val');
+            var coworkers = [];
+            $('.add-worker:visible').each(function () {
+                coworkers.push($(this).attr('val'));
+            });
+            console.log(responsible);
+            console.log(coworkers);
+            var fd = new FormData();
+            fd.append('module', 'addCoworker');
+            fd.append('worker', responsible);
+            fd.append('coworkers', JSON.stringify(coworkers));
+            fd.append('ajax', 'task-control');
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (data) {
+                    console.log('asd');
+                },
+            });
+            $('.members').fadeOut(200);
         });
-
-        $(".tooltip-avatar").on('click', '.deleteWorker', function () {
-            $(this).closest('.add-worker').remove();
-            var removedId = $(this).attr('value');
-            coworkersId.delete(removedId);
-            console.log(coworkersId);
-            var numb = $('.addNewWorker[value = ' + removedId + ']');
-            numb.parents('.coworkersList-coworker').removeClass('bg-coworker');
-        });
-
-        // $("#confirmMembers").on('click', function () {
-        //     var fd = new FormData();
-        //     coworkersId.forEach(function (value, i) {
-        //         fd.append('coworkerId' + i, value);
-        //     });
-        //     $.post("/ajax.php", {
-        //         module: 'addCoworker',
-        //         it: $it,
-        //         ajax: 'task-control'
-        //     }, controlUpdate);
-        //
-        //     function controlUpdate(data) {
-        //         console.log(coworkersId);
-        //     }
-        //     $(".members").fadeOut(300);
-        // });
-
     });
 </script>
