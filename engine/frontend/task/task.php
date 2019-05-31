@@ -97,16 +97,16 @@ if ($id == $worker and $view == 0) {
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <span class="badge <?= $statusBar[$status]['bg'] ?>"><?= $GLOBALS["_$status"] ?></span>
+                    <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_$status"] ?></span>
                 </div>
                 <div class="col-8">
                     <div class="float-right" title="<?= $GLOBALS["_$status"] ?>">
-                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$status]['bg1'] ?>"><i
-                                    class="<?= $statusBar[$status]['ic1'] ?> custom"></i></span>
-                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$status]['bg2'] ?>"><i
-                                    class="<?= $statusBar[$status]['ic2'] ?> custom"></i></span>
-                        <span class="status-icon-last rounded-circle noty-m <?= $statusBar[$status]['bg3'] ?>"><i
-                                    class="<?= $statusBar[$status]['ic3'] ?> custom"></i></span>
+                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$task['status']]['bg1'] ?>"><i
+                                    class="<?= $statusBar[$task['status']]['ic1'] ?> custom"></i></span>
+                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$task['status']]['bg2'] ?>"><i
+                                    class="<?= $statusBar[$task['status']]['ic2'] ?> custom"></i></span>
+                        <span class="status-icon-last rounded-circle noty-m <?= $statusBar[$task['status']]['bg3'] ?>"><i
+                                    class="<?= $statusBar[$task['status']]['ic3'] ?> custom"></i></span>
                     </div>
                 </div>
             </div>
@@ -128,13 +128,29 @@ if ($id == $worker and $view == 0) {
                             </medium>
                         </div>
                         <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
+                        <div id="change-date">
+                            <div class="form-group mb-0 p-2">
+                                <div class="row">
+                                    <div class="col">
+                                        <?php if ($role != 'manager'): ?>
+                                            <textarea name="report" id="reportarea1" class="form-control" rows="4"
+                                                      placeholder="Причина" required></textarea>
+                                        <?php endif; ?>
+                                        <input class="form-control form-control-sm" value="" type="date" id="example-date-input"
+                                               min="">
+                                        <button type="submit" id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
+                                                class="btn btn-success btn-sm text-center mt-1 mb-1"><?= $GLOBALS["_change"] ?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
                 <div class="col-7">
                     <div class="float-right">
                         <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
                         <span class=" text-secondary slash">|</span>
+                        <img src="/<?= getAvatarLink($worker) ?>" class="avatar ml-1">
                         <?php
                         foreach ($coworkers as $coworker):
                             if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
@@ -148,7 +164,7 @@ if ($id == $worker and $view == 0) {
                                         class="avatar ml-1"></span>
                         <?php endforeach; ?>
                         <div class="tooltip-avatar">
-                            <i class="far fa-plus-square avatar-new"></i>
+
                             <?php
                             include 'engine/frontend/members/members.php';
                             ?>
@@ -157,22 +173,7 @@ if ($id == $worker and $view == 0) {
                 </div>
             </div>
 
-            <div id="change-date">
-                <div class="form-group mb-0 p-2">
-                    <div class="row">
-                        <div class="col">
-                            <?php if ($role != 'manager'): ?>
-                                <textarea name="report" id="reportarea1" class="form-control" rows="4"
-                                          placeholder="Причина" required></textarea>
-                            <?php endif; ?>
-                            <input class="form-control form-control-sm" value="" type="date" id="example-date-input"
-                                   min="">
-                            <button type="submit" id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
-                                    class="btn btn-success btn-sm text-center mt-1 mb-1"><?= $GLOBALS["_change"] ?></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
 
             <div class="mt-5 mb-5 text-justify"><?= $description ?></div>
@@ -228,10 +229,14 @@ if ($id == $worker and $view == 0) {
 <script>
     $(document).ready(function () {
 
-        // $(document).on('click', function (e) {
-        //     if (!$(e.target).closest(".deadline-block").length) {
-        //         $('#change-date').fadeOut(300);
-        //     }
+        $(document).on('click', function (e){ // событие клика по веб-документу
+            var div = $(".deadline-block"); // тут указываем ID элемента
+            var dov = $('#change-date');
+            if (!div.is(e.target)  // если клик был не по нашему блоку
+                && div.has(e.target).length === 0) { // и не по его дочерним элементам
+                dov.fadeOut(200); // скрываем его
+            }
+        });
         // if (!$(e.target).closest(".tooltip-avatar").length) {
         //     $('.members').fadeOut(300);
         //     $('.coworkers').fadeOut(300);
@@ -241,66 +246,7 @@ if ($id == $worker and $view == 0) {
         // });
 
         $(".deadline-block").on('click', function () {
-            $("#change-date").fadeToggle(300);
+            $("#change-date").fadeIn(200);
         });
-
-        $(".avatar-new").on('click', function (e) {
-            $(".members").fadeToggle(300);
-        });
-
-        var coworkersId = new Map();
-        var selectedId;
-        $(".addNewWorker").on('click', function () {
-            var selectedName = $(this).parent().siblings('.col').text();
-            selectedId = $(this).attr('value');
-            coworkersId.set(selectedId, selectedId);
-            console.log(coworkersId);
-            if ($(this).closest('.coworkersList-coworker').hasClass('bg-coworker')){
-            } else {
-                $(".container-coworker").append("<div class=\"add-worker mr-1 mb-1\">\n" +
-                    "                        <img val=\"" + selectedId + "\" src=\"/upload/avatar/" + selectedId + ".jpg\"\n" +
-                    "                             class=\"avatar-added mr-1\">\n" +
-                    "                        <a href=\"#\" class=\"card-coworker\">" + selectedName + "</a>\n" +
-                    "                        <span><i value=\'" + selectedId + "\'\n" +
-                    "                                 class=\"deleteWorker fas fa-times cancel card-coworker-delete\"></i></span>\n" +
-                    "                    </div>");
-            }
-            $(this).closest('.coworkersList-coworker').addClass('bg-coworker');
-
-
-            // $(".tooltip-avatar").prepend("<span class=\"mb-0\"><img src=\"/upload/avatar/" + selectedId + ".jpg\" alt=\"worker image\" class=\"avatar mr-1 ml-1\"></span>");
-        });
-
-        $(".tooltip-avatar").on('click', '.deleteWorker', function () {
-            $(this).closest('.add-worker').remove();
-            var removedId = $(this).attr('value');
-            coworkersId.delete(removedId);
-            console.log(coworkersId);
-            var numb = $('.addNewWorker[value = ' + removedId + ']');
-            numb.parents('.coworkersList-coworker').removeClass('bg-coworker');
-        });
-
-        $("#confirmMembers").on('click', function () {
-            // var totalId = [];
-            // $('.container-coworker').each(function () {
-            //     totalId.push($(this).children().find('img').attr('val'))
-            // });
-            // console.log(totalId);
-            var fd = new FormData();
-            coworkersId.forEach(function (value, i) {
-                fd.append('coworkerId' + i, value);
-            });
-            $.post("/ajax.php", {
-                module: 'addCoworker',
-                it: $it,
-                ajax: 'task-control'
-            }, controlUpdate);
-
-            function controlUpdate(data) {
-                console.log(coworkersId);
-            }
-            $(".members").fadeOut(300);
-        });
-
     });
 </script>

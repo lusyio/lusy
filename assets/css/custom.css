@@ -28,6 +28,7 @@
 .filterPlace {
     font-size: 14px;
     padding-left: 19px;
+    color: #444;
 }
 #filterSelect{
     padding-left: 1.25rem;
@@ -270,7 +271,11 @@
 }
 
 .cancel-file{
-    font-size: 16px !important;
+    font-size: 12px !important;
+}
+
+.cancel-file:hover{
+    color: rgba(188, 0, 0, 0.51);
 }
 
 list-group:hover{
@@ -657,6 +662,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .btn-file {
+    background-color: white;
     position: relative;
     overflow: hidden;
     top: 0;
@@ -687,6 +693,19 @@ input:checked[type="checkbox"]::before {
     outline: none;
     cursor: inherit;
     display: block;
+}
+
+.icon-newtask{
+    transition: 200ms;
+    right: 30px;
+    top: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.icon-newtask:hover{
+    background-color: #f8f9fa;
+    cursor: pointer;
 }
 
 .statustitle {
@@ -762,6 +781,7 @@ input:checked[type="checkbox"]::before {
     color: #b9b9b9;
     font-size: 30px;
     cursor: pointer;
+    transition: 200ms;
 }
 
 .avatar-added{
@@ -772,9 +792,37 @@ input:checked[type="checkbox"]::before {
     margin-bottom: 1%;
 }
 
+.add-responsible{
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
 .add-worker{
     background-color: #ffffff;
     border-radius: 5px;
+    transition: 200ms;
+}
+
+.add-worker:hover{
+    cursor: pointer;
+    background-color: #f2f2f2;
+}
+
+.add-worker:active{
+    color: #333;
+    background-color: #e4e4e4
+}
+
+.icon-newtask-delete-coworker{
+    color: white;
+    margin-right: 3px;
+    font-size: 12px;
+    transition: 200ms;
+}
+
+.add-worker:hover > .icon-newtask-delete-coworker{
+    color: rgba(188, 0, 0, 0.51);
+    display: inline;
 }
 
 .edit-profile{
@@ -787,18 +835,22 @@ input:checked[type="checkbox"]::before {
     color: #5d95db;
 }
 
-.add-coworker{
+.icon-add-coworker{
     font-size: 15px;
     color: #e3e5e9;
     margin-left: 1%;
+    transition: 200ms;
 }
 
-.add-coworker:hover{
-    color: #5d95db;
+.icon-change-responsible{
+    font-size: 15px;
+    color: #e3e5e9;
+    margin-left: 1%;
+    transition: 200ms;
 }
 
-.card-coworker{
-    font-size: 12px;
+.coworker-fio{
+    font-size: 13px;
 }
 
 .card-coworker-delete{
@@ -811,7 +863,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .avatar-new:hover {
-    color: #343a40;
+    color: #5d95db;
 }
 
 .tooltip-avatar {
@@ -826,6 +878,9 @@ input:checked[type="checkbox"]::before {
 
 .owner{
     background: #5a93df3d;
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 .bg-coworker{
@@ -878,38 +933,35 @@ input:checked[type="checkbox"]::before {
 
 .coworkers{
     display: none;
-    width: 350px;
+    width: 609px;
     background-color: #fff;
     color: black;
     text-align: center;
     border-radius: 6px;
     position: absolute;
     z-index: 1;
-    right: 0;
-    margin-right: -21px;
+    right: 16px;
     box-shadow: 2px 2px 15px rgba(0,0,0,.3);
     padding: 0;
 }
 
 .responsible{
     display: none;
-    width: 350px;
+    width: 290px;
     background-color: #fff;
     color: black;
     text-align: center;
     border-radius: 6px;
     position: absolute;
-    z-index: 1;
-    top: 21rem;
-    right: 0;
-    margin-right: -21px;
+    z-index: 2;
+    right: 15px;
     box-shadow: 2px 2px 15px rgba(0,0,0,.3);
     padding: 0;
 }
 
 .members{
     display: none;
-    width: 350px;
+    width: 500px;
     background-color: #fff;
     color: black;
     text-align: center;
@@ -918,10 +970,92 @@ input:checked[type="checkbox"]::before {
     z-index: 1;
     top: 100%;
     right: 50%;
-    margin-right: -35px;
     box-shadow: 2px 2px 15px rgba(0,0,0,.3);
     padding: 0;
 }
+
+.members-card{
+    padding: 15px;
+}
+
+.members-responsible-selected{
+    padding: 5px;
+}
+
+.members-coworker-select{
+    padding: 5px;
+    transition: 200ms;
+}
+
+.members-coworker-select:hover{
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.members-coworker-select:hover > .col-2 > .icon-add-coworker{
+    color: #5d95db;
+}
+
+.members-coworker-select:active{
+    background-color: #e4e4e4;
+}
+
+.members-select-responsible{
+    padding: 5px;
+    transition: 200ms;
+}
+
+.members-select-responsible:hover{
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.members-select-responsible:hover > .col-2 > .icon-change-responsible{
+    color: #5d95db;
+}
+
+.members-select-responsible:active{
+    background-color: #e4e4e4;
+}
+
+.icon-newtask-delete-coworker{
+    color: white;
+}
+
+.add-worker:hover > .icon-newtask-delete-coworker{
+    color: rgba(188, 0, 0, 0.51);
+}
+
+.icon-members-change-responsible{
+    font-size: 15px;
+    color: #e3e5e9;
+    margin-left: 1%;
+    transition: 200ms;
+}
+
+.icon-members-change-responsible:hover{
+    color: #5d95db;
+}
+
+.icon-members-change-coworker{
+    font-size: 15px;
+    color: #e3e5e9;
+    margin-left: 1%;
+    transition: 200ms;
+}
+
+.icon-members-change-coworker:hover{
+    color: #5d95db;
+}
+
+#responsibleList{
+    cursor: pointer;
+}
+
+#coworkersList{
+    cursor: pointer;
+}
+
 #resetSearch {
     width: 30px;
     height: 30px;
@@ -941,17 +1075,22 @@ input:checked[type="checkbox"]::before {
 }
 
 #resetSearch:hover{
-    color: #333;
+    background-color: #f2f2f2;
     padding: 0.325rem;
-    background-color: #e4e4e4;
     border-radius: 100%;
 }
 
+#resetSearch:hover > .filterPlace{
+    color: #444;
+}
+
 #resetSearch:active{
-    color: #333;
-    background-color: rgba(150, 150, 150, 0.75);
+    background-color: #E4E4E4;
     border-radius: 100%;
-    border: 1px solid rgba(150, 150, 150, 0.75);
+}
+
+#resetSearch:active > .filterPlace{
+    color: #333;
 }
 
 .popUpDiv {
@@ -1237,8 +1376,92 @@ span.date {
 }
 
 .container-coworker{
-    border: solid 1px #e3e5e9;
-    border-radius: 8px;
+    min-height: 38px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    cursor: pointer;
+}
+
+.container-files{
+    min-height: 38px;
+    padding: .375rem .75rem;
+}
+
+.container-responsible{
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+}
+
+.container-responsible:hover{
+    cursor: pointer;
+}
+
+.select-coworker{
+    padding: 7px;
+    transition: 200ms;
+}
+
+.select-coworker:hover{
+    color: #333;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.select-coworker:hover > .row > .col-2 > .icon-add-coworker{
+    color: #5d95db;
+}
+
+.select-coworker:active{
+    color: #444;
+    background-color: #e4e4e4;
+}
+
+.coworker-card{
+    cursor: pointer;
+}
+
+.coworker-card div:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.coworker-card div:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.select-responsible{
+    padding: 7px;
+    transition: 200ms;
+}
+
+.select-responsible:hover{
+    color: #444;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.select-responsible:hover > .row > .col-2 > .icon-change-responsible{
+    color: #5d95db;
+}
+
+.select-responsible:active{
+    color: #333;
+    background-color: #e4e4e4;
+}
+
+.responsible-card{
+    cursor: pointer;
+}
+
+.responsible-card div:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+.responsible-card div:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 .avatar-conversation{
@@ -1488,6 +1711,10 @@ label.error{
 
 .attach-file{
 
+}
+
+.filenames{
+    color: #898989;
 }
 
 .search-container{

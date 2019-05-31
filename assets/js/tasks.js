@@ -1,11 +1,15 @@
 $(document).ready(function () {
 
     $(".words-search").click(function () {
-        // data.query = "";
-        var val = $(this).attr("rel");
         var vol = $(this).attr("rol");
         if ($(this).hasClass('active')) {
             $(this).removeClass('active');
+            if ($(this).hasClass('active-manager')) {
+                $(this).removeClass('active-manager');
+            }
+            if ($(this).hasClass('active-worker')) {
+                $(this).removeClass('active-worker');
+            }
         } else {
             $(this).addClass('active');
         }
@@ -55,32 +59,49 @@ $(document).ready(function () {
             $('#actualSearch').removeClass('active');
         }
     });
+
     nameStatus();
+
+
+    // function statuses() {
+    //     var statusNames = [];
+    //     $('.status-search').each(function () {
+    //         if ($(this).hasClass('active')) {
+    //             statusNames.push($(this).find('.status-name').text());
+    //         }
+    //         if (statusNames.length > 0) {
+    //             $(statusNames).each(function () {
+    //                 $(".selected-status").html("<span class=\"filter-select text-primary\">" + statusNames + "</span>" + ", ");
+    //                 $("#resetSearch").show();
+    //
+    //             });
+    //         } else {
+    //             $(".selected-status").html("Актуальные");
+    //             $("#resetSearch").show();
+    //         }
+    //     });
+    //     console.log(statusNames);
+    // }
+
 
     function nameStatus() {
         $('.status-search').on('click', function () {
             $("#resetSearch").show();
             var statusName = $(this).find('.status-name').text();
             if ($(this).hasClass('active')) {
-                if (statusName === 'Новые') {
-                    $(".new-status").html("<span class=\"filter-select text-success\">"+ statusName +"</span>" + ", ");
-                }
                 if (statusName === 'В работе') {
-                    $(".inwork-status").html("<span class=\"filter-select text-primary\">"+ statusName +"</span>" + ", ");
+                    $(".inwork-status").html("<span class=\"filter-select text-primary\">" + statusName + "</span>" + ", ");
                 }
                 if (statusName === 'Просрочено') {
-                    $(".overdue-status").html("<span class=\"filter-select  text-danger\">"+ statusName +"</span>" + ", ");
+                    $(".overdue-status").html("<span class=\"filter-select  text-danger\">" + statusName + "</span>" + ", ");
                 }
                 if (statusName === 'Перенос срока') {
-                    $(".postpone-status").html("<span class=\"filter-select  text-warning\">"+ statusName +"</span>" + ", ");
+                    $(".postpone-status").html("<span class=\"filter-select  text-warning\">" + statusName + "</span>" + ", ");
                 }
                 if (statusName === 'На рассмотрении') {
-                    $(".pending-status").html("<span class=\"filter-select  text-secondary\">"+ statusName +"</span>");
+                    $(".pending-status").html("<span class=\"filter-select  text-secondary\">" + statusName + "</span>");
                 }
             } else {
-                if (statusName === 'Новые') {
-                    $(".new-status").html('');
-                }
                 if (statusName === 'На рассмотрении') {
                     $(".pending-status").html('');
                 }
@@ -94,6 +115,7 @@ $(document).ready(function () {
                     $(".inwork-status").html('');
                 }
             }
+            actualOn();
         })
     }
 
@@ -158,6 +180,21 @@ $(document).ready(function () {
         canceledTasksOffset++;
         loadCanceledTasks();
     });
+    var arr = [];
+
+    function actualOn() {
+        $('.status-search').each(function () {
+            var b = 0;
+            if ($(this).hasClass('active') === false) {
+                arr.push(Math.random());
+            }
+            if (arr.length === 5) {
+                resetSearch();
+                countAll();
+            }
+        });
+        arr = [];
+    }
 
     $(".search-done").on('click', function () {
         if ($(this).hasClass('active')) {
@@ -168,8 +205,8 @@ $(document).ready(function () {
             $("#resetSearch").show();
             $('.search-done').addClass('active');
         } else {
-            $('div.done').remove();
-            $(".load-archive-page").hide()
+            resetSearch();
+            countAll();
         }
     });
 
@@ -182,8 +219,8 @@ $(document).ready(function () {
             $("#resetSearch").show();
             $('.search-cancel').addClass('active');
         } else {
-            $('div.canceled').remove();
-            $(".load-archive-page").hide()
+            resetSearch();
+            countAll();
         }
     });
 
