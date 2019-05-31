@@ -97,7 +97,7 @@ if ($id == $worker and $view == 0) {
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_$status"] ?></span>
+                    <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_{$task['status']}"] ?></span>
                 </div>
                 <div class="col-8">
                     <div class="float-right" title="<?= $GLOBALS["_$status"] ?>">
