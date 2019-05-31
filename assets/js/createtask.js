@@ -27,6 +27,10 @@ $(document).ready(function () {
         $(".select-responsible:visible").each(function () {
             var list = $(this).attr('val');
             $('.coworker-card').find("[val = " + list + "]").removeClass('d-none');
+        });
+        $(".add-worker:visible").each(function () {
+            var list = $(this).attr('val');
+            $('.coworker-card').find("[val = " + list + "]").addClass('d-none');
         })
     }
 
@@ -76,7 +80,7 @@ $(document).ready(function () {
     $(".select-coworker").on('click', function () {
         var id = $(this).attr('val');
         $(this).addClass('d-none');
-        $('.responsible-card').find("[val = " + id + "]").addClass('d-none');
+        // $('.responsible-card').find("[val = " + id + "]").addClass('d-none');
         $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
         updateResponsible()
     });
