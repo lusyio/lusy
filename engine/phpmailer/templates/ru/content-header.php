@@ -5,11 +5,18 @@
     td {
         padding: 0px;
     }
+    hr {
+        border-top: 1px solid #e4e4e4;
+        border-bottom: none;
+    }
     img {
         width: 100%;
         max-width: 100%;
     }
-    h3 {
+    p {
+        line-height: 2;
+    }
+    h3.logo {
         color: #202429;
         font-size: 1.25rem;
         font-weight: 700;
@@ -64,7 +71,7 @@
 <table>
     <tbody>
         <tr>
-            <td><h3>LUSY</h3></td>
+            <td><h3 class="logo">LUSY</h3></td>
         </tr>
         <tr>
             <td>

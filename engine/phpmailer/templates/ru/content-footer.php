@@ -3,8 +3,10 @@
 <tr>
     <td>
         <div class="center margin30t">
-
-            lusy.io
+            <div class="main">
+                <hr>
+                <a href="https://lusy.io/">lusy.io</a>
+            </div>
 
         </div>
     </td>

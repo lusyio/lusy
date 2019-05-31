@@ -10,9 +10,9 @@
             <tr>
                 <td width="40%"><img src="https://s.lusy.io/upload/email/ru/user-welcome-noty.jpg"></td>
                 <td width="60%" valign="top">
-                    <div class="padding20">
-                        <h4>Будь в курсе событий!</h4>
-                        <p class="margin20t">В верхнем меню есть блок уведомлений, который подскажет, есть ли у вас изменения в задачх, добавлены ли в них новые комментарии и т.д.</p>
+                    <div class="padding20" style="padding-top: 0px">
+                        <h2 style="margin-top: 0px">Будь в курсе событий!</h2>
+                        <p class="margin20t">В верхнем меню есть блок уведомлений, который подскажет, есть ли у вас изменения в задачах, добавлены ли в них новые комментарии и т.д.</p>
                     </div>
                 </td>
             </tr>
@@ -24,8 +24,8 @@
             <tr>
                 <td width="40%"><img src="https://s.lusy.io/upload/email/ru/user-welcome-email.jpg"></td>
                 <td width="60%" valign="top">
-                    <div class="padding20">
-                        <h4>Общайтесь с коллегами!</h4>
+                    <div class="padding20" style="padding-top: 0px">
+                        <h2 style="margin-top: 0px">Общайтесь с коллегами!</h2>
                         <p class="margin20t">Перейдите в <a href="https://s.lusy.io/mail/">сообщения</a>, чтобы начать диалог или
                             загляните в общий чат - там всегда интересно!</p>
                     </div>

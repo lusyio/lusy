@@ -14,7 +14,7 @@ $args = [
     'companyName' => $companyName,
 ];
 $mail->setMessageContent($template, $args);
-//$mail->send();
+$mail->send();
 
 include 'engine/phpmailer/templates/ru/content-header.php';
 include 'engine/phpmailer/templates/ru/'.$template.'.php';
