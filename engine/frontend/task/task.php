@@ -97,16 +97,16 @@ if ($id == $worker and $view == 0) {
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <span class="badge <?= $statusBar[$status]['bg'] ?>"><?= $GLOBALS["_$status"] ?></span>
+                    <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_$status"] ?></span>
                 </div>
                 <div class="col-8">
                     <div class="float-right" title="<?= $GLOBALS["_$status"] ?>">
-                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$status]['bg1'] ?>"><i
-                                    class="<?= $statusBar[$status]['ic1'] ?> custom"></i></span>
-                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$status]['bg2'] ?>"><i
-                                    class="<?= $statusBar[$status]['ic2'] ?> custom"></i></span>
-                        <span class="status-icon-last rounded-circle noty-m <?= $statusBar[$status]['bg3'] ?>"><i
-                                    class="<?= $statusBar[$status]['ic3'] ?> custom"></i></span>
+                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$task['status']]['bg1'] ?>"><i
+                                    class="<?= $statusBar[$task['status']]['ic1'] ?> custom"></i></span>
+                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$task['status']]['bg2'] ?>"><i
+                                    class="<?= $statusBar[$task['status']]['ic2'] ?> custom"></i></span>
+                        <span class="status-icon-last rounded-circle noty-m <?= $statusBar[$task['status']]['bg3'] ?>"><i
+                                    class="<?= $statusBar[$task['status']]['ic3'] ?> custom"></i></span>
                     </div>
                 </div>
             </div>
