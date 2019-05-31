@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-sm-3">
                 <a class="navbar-brand text-uppercase font-weight-bold visible-lg mt-1" href="/"><?= $namec ?></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target=".navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><i
                             class="fas fa-bars"></i></button>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-5 d-none d-md-block">
                 <form method="get" id="searchForm" action="/../search/">
                     <div class="form-group mb-0 mt-1">
                         <div class="input-group">
@@ -23,8 +23,8 @@
                     </div>
                 </form>
             </div>
-            <div class="col-sm-4">
-                <div class="float-right text-right alerts">
+            <div class="col-sm-4 navbarNav collapse navbar-collapse">
+                <div class="float-right text-right alerts position-relative">
                     <a href="/log/<?= ($newLogCount) ? '#new-tasks' : '#tasks' ?>" class="mr-3 text-decoration-none">
                         <i class="far fa-clipboard <?= ($newLogCount) ? 'text-primary' : '' ?>" id="notificationIcon"></i>
                         <strong class="text-primary" id="notificationCount"><?= ($newLogCount) ? $newLogCount : '' ?></strong>
