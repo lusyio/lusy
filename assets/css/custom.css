@@ -647,8 +647,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .custom {
-    margin-left: 1px;
-    font-size: 13px;
+    font-size: 12px;
     top: 5px;
     line-height: 20px !important;
 }
