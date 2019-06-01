@@ -43,16 +43,16 @@ $_pending = 'На рассмотрении';
 $_deleteworker = 'Удалить';
 
 // задачи лист
-$_tasknewlist = 'Новая задача.';
-$_tasknewworker = 'Ознакомьтесь.';
-$_tasknewmanager = 'На ознакомлении.';
-$_inprogresslist = 'В работе.';
-$_overduelist = 'Просрочено.';
-$_returnedlist = 'Возвращено.';
-$_postponelist = 'Перенос срока. Ожидает подтверждения.';
-$_pendinglist = 'На рассмотрении. Ожидает проверки.';
-$_canceledlist = 'Отменена.';
-$_donelist = 'Завершена.';
+$_tasknewlist = 'Новая задача';
+$_tasknewworker = 'Ознакомьтесь';
+$_tasknewmanager = 'На ознакомлении';
+$_inprogresslist = 'В работе';
+$_overduelist = 'Просрочено';
+$_returnedlist = 'Возвращено';
+$_postponelist = 'Перенос';
+$_pendinglist = 'Выполнено';
+$_canceledlist = 'Отменена';
+$_donelist = 'Завершена';
 $_deadlinelist = 'Дедлайн:';
 
 //Файлы
@@ -137,7 +137,7 @@ $_worker = 'Сотрудник';
 // Поиск и фильтры
 $_search = 'Поиск';
 $_searchtext = 'Поиск по задачам, комментариям и файлам';
-$_searchplaceholder = 'Выберите статус или введите название задачи';
+$_searchplaceholder = 'Поиск по задачам';
 $_inworkfilter = 'В работе';
 $_pendingfilter = 'На рассмотрении';
 $_postponefilter = 'Перенос срока';

@@ -3,6 +3,25 @@
 <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <?php include 'engine/frontend/other/searchbar.php' ?>
 <div id="taskBox">
+    <div style="padding: 0.8rem;" class="d-none d-sm-block">
+        <div style="padding-left: 7px;">
+            <div class="row sort">
+                <div class="col-sm-6">
+                    <span>Имя задачи</span>
+                </div>
+                <div class="col-sm-2">
+                    <span>Статус</span>
+                </div>
+                <div class="col-sm-2">
+                    <span>Дедлайн</span>
+                </div>
+                <div class="col-sm-2">
+                    <span>Участники</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <?php
     $borderColor = [
         'new' => 'border-primary',

@@ -7,7 +7,7 @@ global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
 global $roleu;
-
+global $now;
 $cometTrackChannelName = getCometTrackChannelName();
 
 $otbor = '(worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ') and status!="done"';
