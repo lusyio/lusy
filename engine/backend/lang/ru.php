@@ -45,7 +45,7 @@ $_deleteworker = 'Удалить';
 // задачи лист
 $_tasknewlist = 'Новая задача';
 $_tasknewworker = 'Ознакомьтесь';
-$_tasknewmanager = 'На ознакомлении';
+$_tasknewmanager = 'Назначена';
 $_inprogresslist = 'В работе';
 $_overduelist = 'Просрочено';
 $_returnedlist = 'Возвращено';

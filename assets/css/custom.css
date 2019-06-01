@@ -171,7 +171,7 @@
 .informer {
     color: #c6c9dc;
     font-size: 10px;
-    padding-top: 6px;
+    padding-top: 7px;
 }
 
 #idtask:hover {
@@ -199,7 +199,9 @@
 .task-card .col-5, .task-card .col-3 {
     color: #5E5E5E;
 }
-
+.task-card .col-5 {
+    padding-right: 0px;
+}
 /*.noty2.custom2 {*/
 /*    display: flex;*/
 /*    background: #f7f7f7;*/
@@ -322,6 +324,7 @@ list-group:hover {
 .tasks:hover {
 
 }
+
 
 .date-status {
     right: 0;
@@ -795,7 +798,6 @@ input:checked[type="checkbox"]::before {
 
 .alert-primary {
     background-color: rgba(93, 149, 219, 0.11);
-    border-radius: 8px;
 }
 
 .deadline-block {
@@ -1805,6 +1807,9 @@ span.date {
     .avatars div {
         float: right;
     }
+    .fc {
+        display: none !important;
+    }
 }
 @media (max-width: 400px) {
     .task-card .avatar {
@@ -1812,7 +1817,7 @@ span.date {
         height: 25px;
     }
     .tasks .avatars {
-        margin-top: -1px;
+        margin-top: -3px;
     }
     .task-card .col-5, .task-card .col-3 {
         font-size: 14px;
