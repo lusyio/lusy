@@ -8,9 +8,9 @@ if ($companyUsageSpacePercent > 90){
     $bgall = 'bg-primary';
 }
 ?>
-<nav class="navbar-expand-lg flex-column" style="width: 85%">
+<nav class="navbar-expand-lg flex-column">
 
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse navbarNav" id="navbarNav">
   		<ul class="navbar-nav w-100">
             <?php if (in_array('main', $menu[$roleu])): ?>
 			<li class="nav-item pb-2"><a class="nav-link" href="/"><i class="fas fa-home mr-2"></i> <?=$_main?></a></li>
