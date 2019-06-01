@@ -42,7 +42,7 @@
                                         $viewStatusTitle = 'Не просмотрено';
                                     }
                                     ?>
-                                    <img src="/<?=getAvatarLink($coworker)?>" title="<?= $viewStatusTitle ?>" class="avatar mr-1">
+                                    <img src="/<?php //getAvatarLink($coworker); ?>" title="<?= $viewStatusTitle ?>" class="avatar mr-1 d-none">
                                 <?php endforeach; ?>
                             </div>
                         </div>
