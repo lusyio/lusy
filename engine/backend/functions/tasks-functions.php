@@ -3,6 +3,7 @@
 function prepareTasks(&$tasks)
 {
     global $id;
+    global $roleu;
     global $_months;
     foreach ($tasks as &$task) {
         if (!is_null($task['datepostpone']) && $task['datepostpone'] != '0000-00-00') {
@@ -16,12 +17,16 @@ function prepareTasks(&$tasks)
             $task['classRole'] .= ' worker';
             $task['mainRole'] = 'worker';
         }
-        if ($task['idmanager'] == $id) {
+        if ($task['idmanager'] == $id || $roleu == 'ceo') {
             $task['classRole'] .= ' manager';
             $task['mainRole'] = 'manager';
 
         }
-        $task['coworkers'] = explode(',', $task['taskCoworkers']);
+        if (!is_null($task['taskCoworkers'])) {
+            $task['coworkers'] = explode(',', $task['taskCoworkers']);
+        } else {
+            $task['coworkers'] = [];
+        }
         $task['countCoworkers'] = count($task['coworkers']);
         $task['viewStatus'] = json_decode($task['view_status'], true);
 

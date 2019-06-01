@@ -3,9 +3,7 @@
         <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['classRole'] ?>">
             <div class="card-body tasks-list <?= ($isTaskRead)?'':'alert-primary'; ?>">
                 <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?> ">
-
                     <p class="font-weight-light text-ligther d-none"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
-
                     <div class="row">
                         <div class="col-sm-6">
                             <h5 class="card-title mb-3"><span><?= $n['name'] ?></span></h5>
@@ -33,7 +31,8 @@
                         </div>
                         <div class="col-sm-3 d-flex" style="align-items: center; justify-content: flex-end;">
                             <div class="float-right">
-                                <img src="/<?=getAvatarLink($n['idmanager'])?>" title="<?= $viewStatusTitleManager ?>" class="avatar mr-1"> |
+                                <img src="/<?=getAvatarLink($n['idmanager'])?>" title="<?= $viewStatusTitleManager ?>" class="avatar"> |
+                                <img src="/<?=getAvatarLink($n['idworker'])?>" title="<?= $viewStatusTitleManager ?>" class="avatar">
                                 <?php
                                 foreach ($n['coworkers'] as $coworker):
                                     if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$coworker])) {
@@ -42,7 +41,7 @@
                                         $viewStatusTitle = 'Не просмотрено';
                                     }
                                     ?>
-                                    <img src="/<?=getAvatarLink($coworker)?>" title="<?= $viewStatusTitle ?>" class="avatar mr-1">
+                                     | <img src="/<?=getAvatarLink($coworker)?>" title="<?= $viewStatusTitle ?>" class="avatar">
                                 <?php endforeach; ?>
                             </div>
                         </div>
