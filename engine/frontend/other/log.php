@@ -1,23 +1,23 @@
 <div class="container-fluid">
-    <div class="card mb-3">
-        <div class="card-body pb-2">
+    <div class="mb-3">
+        <div class="pb-2">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="d-inline-block">
-                        <div id="taskSearch" data-type="task" class="btn btn-secondary type-search words-search">
-                            <span>Задачи</span>
+                        <div id="allSearch" class="btn btn-light view-status-search words-search active">
+                            <span><i class="fas fa-align-justify mr-2"></i> Показать все</span>
                             <span class="count"></span>
                         </div>
-                        <div id="commentSearch" data-type="comment" class="btn btn-secondary type-search words-search">
-                            <span>Комментарии</span>
+                        <div id="newSearch" class="btn btn-light view-status-search words-search">
+                            <span><i class="fas fa-plus mr-2"></i> Только новые</span>
                             <span class="count"></span>
                         </div>
-                        <div id="newSearch" class="btn btn-secondary view-status-search words-search">
-                            <span>Показать новые</span>
+                        <div id="taskSearch" data-type="task" class="btn btn-light type-search words-search">
+                            <span><i class="far fa-clipboard mr-2"></i> Задачи</span>
                             <span class="count"></span>
                         </div>
-                        <div id="allSearch" class="btn btn-secondary view-status-search words-search active">
-                            <span>Показать все</span>
+                        <div id="commentSearch" data-type="comment" class="btn btn-light type-search words-search">
+                            <span><i class="far fa-comment mr-2"></i> Комментарии</span>
                             <span class="count"></span>
                         </div>
                     </div>

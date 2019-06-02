@@ -408,15 +408,13 @@ list-group:hover {
     color: #898989;
 }
 
-.words-search:hover {
-    background-color: #f1f3f4 !important;
-    color: #898989;
-}
+
 
 .words-search:not(:disabled):not(.disabled).active, .words-search:not(:disabled):not(.disabled):active, .show > .words-search.dropdown-toggle {
-    background-color: #e8eaed;
-    color: #898989;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+    background-color: #5b93df;
+    color: #ffffff;
+    box-shadow: none;
+    border: none;
 }
 
 .popUpDiv > .words-search {
