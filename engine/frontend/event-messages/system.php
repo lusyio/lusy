@@ -18,7 +18,7 @@
 
     <span class="before <?=$bg?>"><i class="<?=$icon?>"></i></span>
     <div class="position-relative">
-        <span class="date"><?= date("d.m i:s", strtotime($event['datetime'])); ?></span>
+        <span class="date"><?= date("d.m H:i", strtotime($event['datetime'])); ?></span>
         <img src="/<?=getAvatarLink($event['author_id'])?>" class="avatar mr-2">
         <span class="font-weight-bold">Lusy</span>
     </div>
