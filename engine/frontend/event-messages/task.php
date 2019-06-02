@@ -38,7 +38,7 @@
         <?php
         $action = $GLOBALS['_logCancelTask'];
         $bg = 'bg-danger';
-        $icon = 'far fa-calendar-times';
+        $icon = 'fas fa-times';
         ?>
     <?php endif; ?>
     <?php if ($event['action'] == 'canceldate'): // запрос на перенос срока отклонен ?>
