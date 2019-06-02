@@ -26,10 +26,18 @@
         ?>
     <?php endif; ?>
 
+    <?php if ($event['action'] == 'confirmdate'): // запрос на перенос срока утвержден ?>
+        <?php
+        $action = $GLOBALS['_logConfirmDate'];
+        $bg = 'bg-success';
+        $icon = 'fas fa-check';
+        ?>
+    <?php endif; ?>
+
     <?php if ($event['action'] == 'canceltask'): // задача отменена ?>
         <?php
         $action = $GLOBALS['_logCancelTask'];
-        $bg = 'bg-dark';
+        $bg = 'bg-danger';
         $icon = 'far fa-calendar-times';
         ?>
     <?php endif; ?>
