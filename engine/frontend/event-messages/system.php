@@ -6,7 +6,7 @@
         <?php
             $bg = 'bg-success';
             $icon = 'fas fa-user';
-            $action = $GLOBALS['_newUserRegistered'] . '<a href="/../' . $event["link"] .'">' . $event['name'] . ' ' .$event['surname'] . '</a>';
+            $action = $GLOBALS['_newUserRegistered'] . ' <a href="/../' . $event["link"] .'">' . $event['name'] . ' ' .$event['surname'] . '</a>';
         ?>
     <?php endif; ?>
 

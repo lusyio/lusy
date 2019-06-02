@@ -17,6 +17,15 @@
         ?>
     <?php endif; ?>
 
+
+    <?php if ($event['action'] == 'postpone'): // запрос на перенос срока отклонен ?>
+        <?php
+        $action = $GLOBALS['__logPostPone'];
+        $bg = 'bg-warning';
+        $icon = 'far fa-calendar-alt';
+        ?>
+    <?php endif; ?>
+
     <?php if ($event['action'] == 'canceldate'): // запрос на перенос срока отклонен ?>
         <?php
             $action = $GLOBALS['_logCancelDate'];
