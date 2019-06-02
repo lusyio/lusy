@@ -1,30 +1,36 @@
-<div data-event-id="<?= $event['event_id'] ?>"
-     class="card card-body m-1 event <?= ($event['view_status']) ? '' : 'new-event' ?> task">
+<li data-event-id="<?= $event['event_id'] ?>"
+     class="event <?= ($event['view_status']) ? '' : 'new-event' ?> task">
 
     <?php if ($event['action'] == 'createtask'): // создание, назначение задачи ?>
-        <?= $event['name'] ?> <?= $event['surname'] ?> <?= $GLOBALS['_logNewTask'] ?> <?= $event['datetime'] ?>
+        <?php $action = $GLOBALS['_logNewTask']; ?>
     <?php endif; ?>
 
     <?php if ($event['action'] == 'senddate'): // назначение нового срока ?>
-        <?= $event['name'] ?> <?= $event['surname'] ?> <?= $GLOBALS['_logNewDate'] ?> <?= $event['datetime'] ?>
+        <?php $action = $GLOBALS['_logNewDate']; ?>
     <?php endif; ?>
 
     <?php if ($event['action'] == 'canceldate'): // запрос на перенос срока отклонен ?>
-        <?= $event['name'] ?> <?= $event['surname'] ?> <?= $GLOBALS['_logCancelDate'] ?> <?= $event['datetime'] ?>
+        <?php $action = $GLOBALS['_logCancelDate']; ?>
     <?php endif; ?>
 
     <?php if ($event['action'] == 'sendonreview'): // отправлен отчет о выполнении ?>
-        <?= $event['name'] ?> <?= $event['surname'] ?> <?= $GLOBALS['_logSendOnReview'] ?> <?= $event['datetime'] ?>
+        <?php $action = $GLOBALS['_logSendOnReview']; ?>
     <?php endif; ?>
 
     <?php if ($event['action'] == 'workreturn'): // возврат на доработку ?>
-        <?= $event['name'] ?> <?= $event['surname'] ?> <?= $GLOBALS['_logWorkReturn'] ?> <?= $event['datetime'] ?>
+        <?php $action = $GLOBALS['_logWorkReturn']; ?>
     <?php endif; ?>
 
     <?php if ($event['action'] == 'workdone'): // задача завершена?>
-        <?= $GLOBALS['_logWorkDone'] ?> <?= $event['datetime'] ?>
+        <?php $action = $GLOBALS['_logWorkDone']; ?>
     <?php endif; ?>
-
-    <a href="/../<?= $event['link'] ?>">Перейти</a>
-</div>
+    <span class="before bg-danger"><i class="fas fa-exclamation"></i></span>
+    <div class="position-relative">
+        <span class="date"><?= $event['datetime'] ?></span>
+        <img src="/upload/avatar/2.jpg" class="avatar mr-1">
+        <a href="/profile/2/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
+    </div>
+    <p class="mt-2"><?= $action ?>
+        <a href="/../<?= $event['link'] ?>">Перейти</a></p>
+</li>
 
