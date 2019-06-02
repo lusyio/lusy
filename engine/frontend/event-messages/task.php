@@ -20,7 +20,7 @@
 
     <?php if ($event['action'] == 'postpone'): // запрос на перенос срока отправлен ?>
         <?php
-        $action = $GLOBALS['__logPostPone'];
+        $action = $GLOBALS['_logPostPone'];
         $bg = 'bg-warning';
         $icon = 'far fa-calendar-alt';
         ?>
@@ -28,7 +28,7 @@
 
     <?php if ($event['action'] == 'canceltask'): // задача отменена ?>
         <?php
-        $action = $GLOBALS['_logCancelDate'];
+        $action = $GLOBALS['_logCancelTask'];
         $bg = 'bg-dark';
         $icon = 'far fa-calendar-times';
         ?>
