@@ -17,7 +17,7 @@
         </div>
     </div>
     <button id="workdone" type="button" class="btn btn-outline-primary mt-3 mb-1"><i class="fas fa-check mr-2"></i> <?=$GLOBALS["_completetask"]?></button>
-    <button id="cancelTask" type="button" class="btn btn-outline-danger mt-3 mb-1"><?=$GLOBALS["_cancel"]?> <i class="fas fa-times cancel" id="cancel-icon-button"></i></button>
+    <button id="cancelTask" type="button" class="btn btn-outline-danger mt-3 mb-1"><i class="fas fa-times cancel mr-2" id="cancel-icon-button"></i> <?=$GLOBALS["_cancel"]?></button>
 </div>
 
 

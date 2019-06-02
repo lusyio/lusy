@@ -191,7 +191,7 @@
     box-shadow: rgba(13, 28, 60, 0.16) 0px 7px 12px 1px;
 }
 .sort span {
-    color: #5E5E5E;
+    color: #c6c9dc;
 }
 .task-card h5 {
     font-weight: 400;
@@ -539,10 +539,6 @@ input:checked[type="checkbox"]::before {
 }
 
 
-#return-manager {
-    color: white;
-}
-
 .btn-warning {
     color: white;
     background-color: #edc345;
@@ -595,7 +591,15 @@ input:checked[type="checkbox"]::before {
 .btn-outline-danger:hover {
     background-color: #d4515d;
 }
+.btn-outline-warning {
+    border: none;
+    color: #ffc107;
+}
 
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    color: white;
+}
 .badge-danger {
     background-color: #d4515d !important;
 }
