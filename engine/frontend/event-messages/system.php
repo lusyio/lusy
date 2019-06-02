@@ -1,8 +1,6 @@
 <li data-event-id="<?=$event['event_id']?>" class="event <?= ($event['view_status'])? '' : 'new-event' ?> <?= ($event['action'] == 'comment')? 'comment' : 'task'; ?>">
 
     <?php if ($event['action'] == 'newUserRegistered'): // новый пользователь ?>
-        <?= $GLOBALS['_newUserRegistered'] ?> <?= $event['name'] ?> <?= $event['surname'] ?> <?= $event['datetime'] ?>
-        <a href="/../<?= $event['link'] ?>">Перейти</a>
         <?php
             $bg = 'bg-success';
             $icon = 'fas fa-user';
