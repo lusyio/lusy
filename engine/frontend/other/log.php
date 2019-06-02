@@ -38,18 +38,6 @@
     </div>
 
 </div>
-<style>
-    .new-event {
-        background-color: #f3f7ff;
-    }
-
-    .event {
-        -webkit-transition: all 1s ease-out; /** Chrome & Safari **/
-        -moz-transition: all 1s ease-out; /** Firefox **/
-        -o-transition: all 1s ease-out; /** Opera **/
-        transition: all 1s ease-out;
-    }
-</style>
 <script>
     var pageName = 'log';
     $(document).ready(function () {

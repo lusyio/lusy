@@ -950,7 +950,7 @@ input:checked[type="checkbox"]::before {
     position: absolute;
     right: 10px;
     display: none;
-    z-index: 4;
+    z-index: 999;
     border-radius: 8px;
 }
 
@@ -1296,6 +1296,19 @@ a {
     margin-top: 8px;
 }
 
+
+.event {
+    -webkit-transition: all 1s ease-out; /** Chrome & Safari **/
+    -moz-transition: all 1s ease-out; /** Firefox **/
+    -o-transition: all 1s ease-out; /** Opera **/
+    transition: all 1s ease-out;
+}
+.new-event {
+    background-color: rgba(242, 242, 244, 0.4);
+}
+.event p:first-letter {
+    text-transform: capitalize;
+}
 .level {
     font-size: 9px !important;
     color: white;
@@ -1362,7 +1375,7 @@ a {
     padding: 0;
 }
 
-#log .comment {
+#log .commentText {
     background-color: #f2f2f4;
     border-radius: 5px;
     border-top-left-radius: 0;
@@ -1379,7 +1392,8 @@ a {
 }
 
 #log {
-    height: 420px;
+    height: auto;
+    max-height: 500px;
     overflow-y: scroll;
     padding: 0 20px 0 0;
     margin-left: -10px;
@@ -1419,7 +1433,7 @@ ul.timeline:before {
 }
 
 ul.timeline > li {
-    margin: 20px 0;
+    margin: 25px 0;
     padding-left: 20px;
 }
 
@@ -1552,8 +1566,8 @@ span.date {
 
 .anim-show {
     opacity: 0;
-    transition: 1s;
-    animation: show 1s 1;
+    transition: 0.4s;
+    animation: show 0.4s 1;
     animation-fill-mode: forwards;
     animation-delay: 0s;
 }

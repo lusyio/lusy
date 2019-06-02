@@ -1,36 +1,60 @@
 <li data-event-id="<?= $event['event_id'] ?>"
-     class="event <?= ($event['view_status']) ? '' : 'new-event' ?> task">
+     class="event <?= ($event['view_status']) ? '' : 'new-event' ?> task mb-3">
 
     <?php if ($event['action'] == 'createtask'): // создание, назначение задачи ?>
-        <?php $action = $GLOBALS['_logNewTask']; ?>
+        <?php
+            $action = $GLOBALS['_logNewTask'];
+            $bg = 'bg-primary';
+            $icon = 'fas fa-plus';
+        ?>
     <?php endif; ?>
 
     <?php if ($event['action'] == 'senddate'): // назначение нового срока ?>
-        <?php $action = $GLOBALS['_logNewDate']; ?>
+        <?php
+            $action = $GLOBALS['_logNewDate'];
+            $bg = 'bg-primary';
+            $icon = 'far fa-calendar-plus';
+        ?>
     <?php endif; ?>
 
     <?php if ($event['action'] == 'canceldate'): // запрос на перенос срока отклонен ?>
-        <?php $action = $GLOBALS['_logCancelDate']; ?>
+        <?php
+            $action = $GLOBALS['_logCancelDate'];
+            $bg = 'bg-danger';
+            $icon = 'far fa-calendar-times';
+        ?>
     <?php endif; ?>
 
-    <?php if ($event['action'] == 'sendonreview'): // отправлен отчет о выполнении ?>
-        <?php $action = $GLOBALS['_logSendOnReview']; ?>
+    <?php if ($event['action'] == 'review'): // отправлен отчет о выполнении ?>
+        <?php
+            $action = $GLOBALS['_logSendOnReview'];
+            $bg = 'bg-primary';
+            $icon = 'fas fa-file-import';
+        ?>
     <?php endif; ?>
 
     <?php if ($event['action'] == 'workreturn'): // возврат на доработку ?>
-        <?php $action = $GLOBALS['_logWorkReturn']; ?>
+        <?php
+            $action = $GLOBALS['_logWorkReturn'];
+            $bg = 'bg-warning';
+            $icon = 'fas fa-exchange-alt';
+        ?>
     <?php endif; ?>
 
     <?php if ($event['action'] == 'workdone'): // задача завершена?>
-        <?php $action = $GLOBALS['_logWorkDone']; ?>
+        <?php
+            $action = $GLOBALS['_logWorkDone'];
+            $bg = 'bg-success';
+            $icon = 'fas fa-check';
+        ?>
     <?php endif; ?>
-    <span class="before bg-danger"><i class="fas fa-exclamation"></i></span>
+    <span class="before <?=$bg?>"><i class="<?=$icon?>"></i></span>
     <div class="position-relative">
-        <span class="date"><?= $event['datetime'] ?></span>
-        <img src="/upload/avatar/2.jpg" class="avatar mr-1">
-        <a href="/profile/2/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
+        <span class="date"><?= date("d.m i:s", strtotime($event['datetime'])); ?></span>
+        <img src="/<?=getAvatarLink($event['author_id'])?>" class="avatar mr-2">
+        <a href="/profile/<?=$event['author_id']?>/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
     </div>
     <p class="mt-2"><?= $action ?>
-        <a href="/../<?= $event['link'] ?>">Перейти</a></p>
+        <a href="/../<?= $event['link'] ?>" class="font-italic">"<?=$event['taskname']?>"</a></p>
 </li>
 

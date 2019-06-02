@@ -13,7 +13,7 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
     $commentViewStatusTitleManager = 'Не просмотрено';
 }
 ?>
-<div class="<?= $commentClass[$commentStatus] ?> <?= ($isNew) ? 'bg-success' : '' ?> mb-3" id="<?= $c['id'] ?>">
+<div class="<?= $commentClass[$commentStatus] ?> <?= ($isNew) ? 'new-event' : '' ?> mb-3" id="<?= $c['id'] ?>">
     <div class="row">
         <div class="col-1">
             <img src="/<?= getAvatarLink($c['iduser']) ?>" class="avatar mt-1">
