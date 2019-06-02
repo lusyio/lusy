@@ -15,7 +15,7 @@
 
     <title><?= $title ?></title>
 </head>
-<body>
+<body class="anim-show">
 <?php if (!empty($_SESSION['auth'])) { ?>
 <?php inc('nav', 'top-sidebar'); ?>
 <div class="container">
