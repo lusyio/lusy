@@ -106,7 +106,7 @@ $(document).ready(function () {
         $(this.files).each(function () {
             names = this.name;
             fileList.set(n, $(this)[0]);
-            $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
+            $(".file-name").show().append("<div val='" + n + "' class='filenames mt-1'>" +
                 "<i class='fas fa-paperclip mr-1'></i>" + names +
                 "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
                 "</div>");
