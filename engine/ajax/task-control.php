@@ -7,13 +7,14 @@ if (isset($_POST['it'])) {
     $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
     $taskAuthorId =  DBOnce('author', 'tasks', 'id='.$idtask);
     $idTaskManager = DBOnce('manager', 'tasks', 'id='.$idtask);
+    $idTaskWorker = DBOnce('worker', 'tasks', 'id='.$idtask);
     if ($id == $idTaskManager) {
         $isManager = true;
     }
     $coworkersQuery = $pdo->prepare("SELECT worker_id FROM task_coworkers WHERE task_id = :taskId");
     $coworkersQuery->execute(array(':taskId' => $idtask));
     $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_COLUMN, 0);
-    if(in_array($id, $coworkers)) {
+    if($id == $idTaskWorker || in_array($id, $coworkers)) {
         $isWorker = true;
     }
 }
