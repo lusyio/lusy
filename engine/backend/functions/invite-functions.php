@@ -45,7 +45,7 @@ function createInvite($inviteeMail, $inviteePosition)
     $queryData = [
         ':companyId' => $idc,
         ':code' => $code,
-        ':inviteDate' => date("Y-m-d H:i:s"),
+        ':inviteDate' => time(),
         ':inviteStatus' => 0,
         ':email' => $inviteeMail,
         ':inviteePosition' => $inviteePosition,

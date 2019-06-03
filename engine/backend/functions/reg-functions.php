@@ -36,22 +36,23 @@ function addUser($email, $password, $companyId, $position, $name = '', $surname 
         ':role' => $position,
         ':name' => $name,
         ':surname' => $surname,
-        ':registerDate' => date("Y-m-d"),
+        ':registerDate' => time(),
     ];
     $addUserQuery->execute($queryData);
     return $pdo->lastInsertId();
 }
 
-function addCompany($companyName, $companyLanguage)
+function addCompany($companyName, $companyLanguage, $companyTimeZone)
 {
     global $pdo;
-    $addCompanyQuery = $pdo->prepare('INSERT INTO company(idcompany, lang, tariff, datareg, activated) VALUES (:companyName, :language, :premium, :registerDate, :activated)');
+    $addCompanyQuery = $pdo->prepare('INSERT INTO company(idcompany, lang, tariff, datareg, activated, timezone) VALUES (:companyName, :language, :premium, :registerDate, :activated, :companyTimeZone)');
     $queryData = [
         ':companyName' => $companyName,
         ':language' => $companyLanguage,
         ':premium' => 0,
-        ':registerDate' => date("Y-m-d"),
+        ':registerDate' => time(),
         ':activated' => 0,
+        ':companyTimeZone' => $companyTimeZone,
     ];
     $addCompanyQuery->execute($queryData);
     return $pdo->lastInsertId();

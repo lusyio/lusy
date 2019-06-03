@@ -5,16 +5,21 @@ require_once 'engine/backend/functions/reg-functions.php';
 global $pdo;
 
 $regErrors = [];
-if (isset($_POST['companyName']) && isset($_POST['email'])&& isset($_POST['password'])) {
-    $companyName = filter_var($_POST['companyName'], FILTER_SANITIZE_STRING);
-    $login = filter_var($_POST['email'], FILTER_SANITIZE_STRING);
-    $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['password'])) {
+    if (isset($_POST['timezone'])) {
+        $companyTimeZone = filter_var($_POST['timezone'], FILTER_SANITIZE_STRING);
+    }else {
+        $companyTimeZone = 'UTC';
+    }
+    $companyName = filter_var(trim($_POST['companyName']), FILTER_SANITIZE_STRING);
+    $login = filter_var(trim($_POST['email']), FILTER_SANITIZE_STRING);
+    $password = filter_var(trim($_POST['password']), FILTER_SANITIZE_STRING);
 
     $isLoginGood = !isEmailExist($login);
 
     if ($isLoginGood) {
         $companyLanguage = getUserLanguage();
-        $companyId = addCompany($companyName, $companyLanguage);
+        $companyId = addCompany($companyName, $companyLanguage, $companyTimeZone);
         if ($companyId) {
             $activationCode = createActivationCode($companyId);
             require_once 'engine/phpmailer/LusyMailer.php';

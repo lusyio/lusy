@@ -52,19 +52,19 @@ $worker = $task['worker'];
 $workername = $task['workerName'];
 $workersurname = $task['workerSurname'];
 
-$datecreate = date("d.m.Y", strtotime($task['datecreate']));
-$datedone = date("d.m", strtotime($task['datedone']));
+$datecreate = date("d.m.Y", $task['datecreate']);
+$datedone = date("d.m", $task['datedone']);
 if ($task['datepostpone'] == '0000-00-00' || $task['datepostpone'] == '') {
     $datepostpone = '';
     $dayPostpone = '';
     $monthPostpone = '';
 } else {
-    $datepostpone = " >> " . date("d.m", strtotime($task['datepostpone']));
-    $dayPostpone = date('j', strtotime($task['datepostpone']));
-    $monthPostpone = $_months[date('n', strtotime($task['datepostpone'])) - 1];
+    $datepostpone = " >> " . date("d.m", $task['datepostpone']);
+    $dayPostpone = date('j', $task['datepostpone']);
+    $monthPostpone = $_months[date('n', $task['datepostpone']) - 1];
 }
-$dayDone = date('j', strtotime($task['datedone']));
-$monthDone = $_months[date('n', strtotime($task['datedone'])) - 1];
+$dayDone = date('j', $task['datedone']);
+$monthDone = $_months[date('n', $task['datedone']) - 1];
 
 $nowdate = date("d.m.Y");
 $dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
@@ -73,7 +73,7 @@ $view = $task['view'];
 $viewState = '';
 $viewStatus = json_decode($task['view_status'], true);
 if(is_null($viewStatus) || !isset($viewStatus[$id]['datetime'])) {
-    $viewStatus[$id]['datetime'] = $datetime;
+    $viewStatus[$id]['datetime'] = time();
     $viewStatusJson = json_encode($viewStatus);
     $viewQuery = $pdo->prepare('UPDATE `tasks` SET view_status = :viewStatus where id=:taskId');
     $viewQuery->execute(array(':viewStatus' => $viewStatusJson, ':taskId' => $id_task));

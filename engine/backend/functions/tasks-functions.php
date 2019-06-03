@@ -6,12 +6,12 @@ function prepareTasks(&$tasks)
     global $roleu;
     global $_months;
     foreach ($tasks as &$task) {
-        if (!is_null($task['datepostpone']) && $task['datepostpone'] != '0000-00-00') {
+        if (!is_null($task['datepostpone']) && $task['datepostpone'] != 0) {
             $task['datedone'] = $task["datepostpone"];
         }
         $task['dateProgress'] = getDateProgress($task['datedone'], $task['datecreate']);
-        $task['deadLineDay'] = date('j', strtotime($task['datedone']));
-        $task['deadLineMonth'] = $_months[date('n', strtotime($task['datedone'])) - 1];
+        $task['deadLineDay'] = date('j', $task['datedone']);
+        $task['deadLineMonth'] = $_months[date('n', $task['datedone']) - 1];
         $task['classRole'] = '';
         if ($task['idworker'] == $id) {
             $task['classRole'] .= ' worker';
@@ -35,10 +35,10 @@ function prepareTasks(&$tasks)
 
 function getDateProgress($finishDate, $createDate)
 {
-    $dateCreateDateDoneDiff = strtotime($finishDate) - strtotime($createDate);
-    if (strtotime($finishDate) > time()) {
+    $dateCreateDateDoneDiff = $finishDate - $createDate;
+    if ($finishDate > time()) {
         $daysTotal = $dateCreateDateDoneDiff / (60 * 60 * 24) + 1;
-        $daysPassed = ceil((time() - strtotime($createDate)) / (60 * 60 * 24));
+        $daysPassed = ceil((time() - $createDate) / (60 * 60 * 24));
         return round(($daysPassed) * 100 / $daysTotal);
     } else {
         return 100;
