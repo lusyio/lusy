@@ -207,10 +207,12 @@ if ($id == $worker and $view == 0) {
                        placeholder="<?= $GLOBALS["_writecomment"] ?>..." required>
 
                 <button type="submit" class="btn btn-light btn-file mr-3"><i class="fas fa-file-upload custom-date"></i><input
-                            id="sendFiless" type="file"></button>
+                            id="sendFiles" type="file" multiple></button>
 
                 <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>"><i
                             class="fas fa-paper-plane"></i></button>
+            </div>
+            <div style="display: none" class="bg-white file-name container-files">
             </div>
         </div>
     </div>
