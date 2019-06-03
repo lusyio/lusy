@@ -1,35 +1,30 @@
 <a href="/task/<?= $n['idtask'] ?>/" class="text-decoration-none cust">
     <div class="task-card">
-        <div class="card mb-2 tasks <?= $n['status'] ?><?= $n['classRole'] ?>">
-            <div class="card-body tasks-list <?= ($isTaskRead)?'':'alert-primary'; ?>">
+        <div class="card mb-2 tasks  <?= $n['status'] ?><?= $n['classRole'] ?>">
+            <div class="card-body tasks-list">
                 <div class="d-block border-left-tasks <?= $borderColor[$n['status']] ?> ">
-
                     <p class="font-weight-light text-ligther d-none"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></p>
-
                     <div class="row">
-                        <div class="col-sm-6">
-                            <h5 class="card-title mb-3"><span><?= $n['name'] ?></span></h5>
-                            <div class="d-inline-flex w-100">
-                                <div class="w-custom">
-                                    <div class="progress position-relative h-100  mr-1">
-                                        <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: <?= $n['dateProgress'] ?>%" aria-valuenow="<?= $n['dateProgress'] ?>%" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <medium class="justify-content-center d-flex position-absolute w-100 h-100">
-                                            <div class="p-custom"><i class="far fa-calendar-times text-ligther-custom">
-                                                </i><span class="text-ligther-custom ml-2"><?=$GLOBALS["_deadlinelist"]?> </span><span><?= $n['deadLineDay'] ?> <?= $n['deadLineMonth'] ?></span>
-                                            </div>
-                                        </medium>
+                        <div class="col-sm-6 col-12">
+                            <div class="d-flex">
+                                <div class="mr-3">
+                                    <span class="taskname"><?= ($isTaskRead)?'':'<span class="text-danger font-weight-bold mr-1">!</span>'; ?><?= $n['name'] ?></span>
+                                </div>
+                                <div class="d-flex fc">
+                                    <div class="informer d-flex mr-3 <?= ($hasNewComments)?'text-primary':''; ?>"><i class="fas fa-comments">
+                                        </i><span class="ml-1"><?=$n['countcomments']?></span>
                                     </div>
-                                </div>
-                                <div class="informer p-2 rounded mr-1 <?= ($hasNewComments)?'bg-success':''; ?>"><i class="fas fa-comments">
-                                    </i><span class="ml-2"><?=$n['countcomments']?></span>
-                                </div>
-                                <div class="informer p-2 rounded">
-                                    <i class="fas fa-file"></i><span class="ml-2"><?=$n['countAttachedFiles']?></span>
+                                    <div class="informer d-flex">
+                                        <i class="fas fa-file"></i><span class="ml-1"><?=$n['countAttachedFiles']?></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3 d-flex" style="align-items: center">
-                            <div class="font-weight-light text-ligther"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></div>
+                        <div class="col-sm-2 col-5">
+                            <?= $taskStatusText[$n['mainRole']][$n['status']] ?>
+                        </div>
+                        <div class="col-sm-2 col-3 <?= ($n['status']=='overdue')?'text-danger font-weight-bold':''; ?> <?= ($n['status']=='inwork' and $n['datedone']==$now)?'text-warning font-weight-bold':''; ?>">
+                            <?= $n['deadLineDay'] ?> <?= $n['deadLineMonth'] ?>
                         </div>
                         <div class="col-sm-2 col-4 avatars">
                             <div>
