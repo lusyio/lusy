@@ -56,7 +56,7 @@ $(document).ready(function () {
         var selectName = $('.selected-role').text();
         console.log(selectName);
         if (selectName === 'Актуальные') {
-            resetSearch();
+            $('.selected-role').html('Актуальные');
             $('#actualSearch').removeClass('active');
         }
     });
