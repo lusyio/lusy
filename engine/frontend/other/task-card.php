@@ -31,22 +31,10 @@
                         <div class="col-sm-3 d-flex" style="align-items: center">
                             <div class="font-weight-light text-ligther"><?= $taskStatusText[$n['mainRole']][$n['status']] ?></div>
                         </div>
-                        <div class="col-sm-3 d-flex" style="align-items: center; justify-content: flex-end;">
-                            <div class="float-right">
-                                <img src="/<?=getAvatarLink($n['idmanager'])?>" title="<?= $viewStatusTitleManager ?>" class="avatar mr-1"> |
-                                <?php
-                                foreach ($n['coworkers'] as $coworker):
-                                    if ($coworker == '') {
-                                        continue;
-                                    }
-                                    if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$coworker])) {
-                                        $viewStatusTitle = 'Просмотрено ' . $n['viewStatus'][$coworker]['datetime'];
-                                    } else {
-                                        $viewStatusTitle = 'Не просмотрено';
-                                    }
-                                    ?>
-                                    <img src="/<?=getAvatarLink($coworker)?>" title="<?= $viewStatusTitle ?>" class="avatar mr-1">
-                                <?php endforeach; ?>
+                        <div class="col-sm-2 col-4 avatars">
+                            <div>
+                                <img src="/<?=getAvatarLink($n['idmanager'])?>" title="<?= $viewStatusTitleManager ?>" class="avatar"> |
+                                <img src="/<?=getAvatarLink($n['idworker'])?>" title="<?= $viewStatusTitleManager ?>" class="avatar">
                             </div>
                         </div>
                     </div>
