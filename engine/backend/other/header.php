@@ -64,6 +64,9 @@ require_once 'engine/backend/functions/common-functions.php';
                 die();
             }
         }
+        // обновляем время последнего посещения
+        setLastVisit();
+
         include 'engine/backend/main/main.php';
         $cometTrackChannelName = getCometTrackChannelName();
 			if (!empty($_GET['task']) or !empty($_GET['tasks'])) {

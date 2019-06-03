@@ -7,7 +7,8 @@
                         <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
                     </div>
                     <div class="col text-center align-center">
-                        <h4 class="mb-3"><?= $userData['name'] ?> <?= $userData['surname'] ?></h4>
+                        <h4 class=""><?= $userData['name'] ?> <?= $userData['surname'] ?></h4>
+                        <h5 class="mb-3 text-muted-reg"><?= ($userData['online'])? $GLOBALS['_online'] : ((isset($userData['activity']))? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $userData['activity']) : '') ?></h5>
                         <?php if (!is_null($userData['about']) && $userData['about'] != ''): ?>
                             <p class="text-justify"><?= nl2br($userData['about']) ?></p>
                         <?php else: ?>

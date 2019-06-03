@@ -295,6 +295,11 @@ function getUserData($userId)
             $userData['social'][$network] = $link;
         }
     }
+    $onlineUsers = getOnlineUsersList();
+    $userData['online'] = false;
+    if (in_array($userData['id'], $onlineUsers) || $userData['activity'] > time() - 180) {
+        $userData['online'] = true;
+    }
     return $userData;
 }
 
@@ -322,5 +327,25 @@ function localDateTime($utcTimestamp)
     }
 
     return $givenDateTime->getTimestamp();
+}
+
+function setLastVisit()
+{
+    global $id;
+    global $pdo;
+    $addVisitQuery = $pdo->prepare('UPDATE users SET activity = :visitTime WHERE id = :userId');
+    $addVisitQuery->execute(array(':userId' => $id, ':visitTime' => time()));
+}
+
+function getOnlineUsersList()
+{
+    global $id;
+    global $idc;
+    global $pdo;
+    global $cometPdo;
+    $onlineUsersQuery = $cometPdo->prepare('SELECT * FROM users_in_pipes WHERE name = :channelName');
+    $onlineUsersQuery->execute(array(':channelName' => getCometTrackChannelName()));
+    $onlineUsers = $onlineUsersQuery ->fetchAll(PDO::FETCH_ASSOC);
+    return array_column($onlineUsers, 'user_id');
 }
 

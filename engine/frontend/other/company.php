@@ -35,13 +35,14 @@
                             <a href="/profile/<?= $n['id'] ?>/"><img src="/<?= getAvatarLink($n["id"]) ?>"
                                                                      class="avatar-img rounded-circle w-100 mb-4"/>
                                 <span class="company-online-indicator">
-                                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator company"></i>
+                                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator company <?=($n['online'])? 'text-success' : '' ?>"></i>
                                 </span>
                             </a>
                         </div>
                         <div>
                             <p class="ml-5 h5 company-profile-fio">
                                 <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
+                                <span class="text-muted-reg"><?= ($n['online'])? $GLOBALS['_online'] : ((isset($n['activity']))? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
                             </p>
                             <div class="ml-5">
                                 <?php

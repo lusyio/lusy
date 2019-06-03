@@ -34,10 +34,13 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
 
         // подключаем языковой файл
         require_once(realpath('engine/backend/lang/' . $langc . '.php'));
+
+        // обновляем время последнего посещения
+        setLastVisit();
     }
+
     // кладем запрос в переменную
     $zapros = filter_var($_POST['ajax'], FILTER_SANITIZE_STRING);
-
     // подключаем файл php
     require_once(realpath('engine/ajax/' . $zapros . '.php'));
 } else {
