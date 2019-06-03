@@ -27,7 +27,7 @@
                 </div>
             </a>
         <?php endif; ?>
-        <div class="card-body border-bottom <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
+        <div class="card-body pb-0 border-bottom <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
             <div class="row">
                 <div class="col-sm">
                     <div class="d-flex">
@@ -51,17 +51,6 @@
                                 ?>
                                 <span class="d-block"><i
                                             class="fas fa-envelope mr-1 text-muted"></i> <?= $n['email'] ?></span>
-                                <span class="d-block social-company">
-                            <a href="#" class="text-decoration-none">
-                                <i class="fab fa-vk icon-social mr-3"></i>
-                            </a>
-                            <a href="#" class="text-decoration-none">
-                                <i class="fab fa-facebook-square icon-social mr-3"></i>
-                            </a>
-                            <a href="#" class="text-decoration-none">
-                                <i class="fab fa-instagram icon-social mr-3"></i>
-                            </a>
-                            </span>
                             </div>
                         </div>
                     </div>
