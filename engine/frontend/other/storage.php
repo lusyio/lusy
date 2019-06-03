@@ -39,7 +39,8 @@ if ($userTotalFilesSize == 0): ?>
     <div class="search-container">
         <div id="searchResult">
             <div class="search-empty">
-                <p>Хранилище файлов пусто.</p>
+                <p>Тут сейчас пусто.</p>
+                <p>Вы можете прикреплять файлы к задачам и сообщениям.</p>
             </div>
         </div>
     </div>
