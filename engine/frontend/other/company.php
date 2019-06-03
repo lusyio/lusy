@@ -1,9 +1,12 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
 <div class="card mb-3">
     <div class="card-body text-center">
         <div>
             <h2 class="d-inline text-uppercase font-weight-bold"><?= $namecompany ?></h2>
             <?php if ($isCeo): ?>
-            <a class="d-inline float-right" href="/invite/"><i class="fas fa-user-plus icon-company"></i></a>
+                <a class="d-inline float-right" href="/invite/"><i class="fas fa-user-plus icon-company"></i></a>
             <?php endif; ?>
         </div>
     </div>
@@ -24,43 +27,55 @@
                 </div>
             </a>
         <?php endif; ?>
-        <div class="card-body border-bottom <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
+        <div class="card-body pb-0 border-bottom <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm">
                     <div class="d-flex">
                         <div class="user-pic position-relative" style="width:85px">
-                            <a href="/profile/<?= $n[$id] ?>/"><img src="/<?=getAvatarLink($n["id"]) ?>" class="avatar-img rounded-circle w-100 mb-4"/></a></div>
-                        <p class="ml-3 mt-4"><a
-                                    href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a></p>
+                            <a href="/profile/<?= $n['id'] ?>/"><img src="/<?= getAvatarLink($n["id"]) ?>"
+                                                                     class="avatar-img rounded-circle w-100 mb-4"/>
+                                <span class="company-online-indicator">
+                                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator company"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div>
+                            <p class="ml-5 h5 company-profile-fio">
+                                <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
+                            </p>
+                            <div class="ml-5">
+                                <?php
+                                if ($n['phone'] != null) {
+                                    echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
+                                }
+                                ?>
+                                <span class="d-block company-profile-email"><i
+                                            class="fas fa-envelope mr-1 text-muted"></i> <?= $n['email'] ?></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-5">
-                    <div class="ml-3 mt-4">
-                        <span>Phone : <?= $n['phone'] ?></span>
-                        <br>
-                        <span>Email : <?=$n['email'] ?></span>
-                    </div>
-                </div>
-                <div class="col-sm-1">
-                    <div class="ml-3 mt-4">
-<!--                        <span><i class="fas fa-long-arrow-alt-up edit-profile"></i></span>-->
-                    </div>
-                </div>
-                <div class="col-sm-1">
+
+                <div class="col-sm-1 text-right">
                     <?php if ($isCeo): ?>
-                        <div class="float-right">
-                            <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
+                        <div>
+                            <a href="/settings/">
+                                <i id="editProfile" class="fas fa-pencil-alt edit-profile"></i>
+                            </a>
                         </div>
                         <?php if ($isFired && $n['id'] != $id): ?>
-                        <div class="float-right mt-3">
-                            <a href="#" title="" data-user-id="<?= $n['id'] ?>"
-                               class="restore-user"><i class="fas fa-user-check edit-profile"></i></a>
-                        </div>
+                            <div class="mt-3">
+                                <a href="#" title="" data-user-id="<?= $n['id'] ?>"
+                                   class="restore-user"><i class="fas fa-user-check edit-profile"></i>
+                                </a>
+                            </div>
                         <?php elseif ($n['id'] != $id): ?>
-                        <div class="float-right mt-3">
-                            <a href="#" title="" data-user-id="<?= $n['id'] ?>" class="fire-user"><i
-                                        class="fas fa-user-slash edit-profile"></i></a>
-                        </div>
+                            <div class="mt-3">
+                                <a href="#" data-user-id="<?= $n['id'] ?>" class="fire-user" data-toggle="tooltip"
+                                   data-placement="bottom" title="Уволить сотрудника">
+                                    <i class="fas fa-user-slash edit-profile"></i>
+                                </a>
+                            </div>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
@@ -68,12 +83,12 @@
         </div>
     <?php endforeach; ?>
     <?php if (!$isFiredShown):
-    $isFiredShown = true; ?>
-    <a href="#" id="showFired" class="text-decoration-none text-center d-none">
-        <div class="card-body border-bottom">
-            Уволенные сотрудники
-        </div>
-    </a>
+        $isFiredShown = true; ?>
+        <a href="#" id="showFired" class="text-decoration-none text-center d-none">
+            <div class="card-body border-bottom">
+                Уволенные сотрудники
+            </div>
+        </a>
     <?php endif; ?>
 </div>
 <style>
@@ -86,7 +101,13 @@
     }
 </style>
 <script>
-    $(document).ready(function() {
+
+    $(document).ready(function () {
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
         var $firedButton = $('#showFired');
 
 

@@ -4,6 +4,9 @@ $(document).ready(function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
         fileList.delete(num);
+        if (fileList.size === 0){
+            $('.file-name').hide();
+        }
     });
 
     var fileList = new Map();

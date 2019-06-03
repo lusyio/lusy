@@ -8,7 +8,6 @@
                     </div>
                     <div class="col text-center align-center">
                         <h4 class="mb-3"><?= $userData['name'] ?> <?= $userData['surname'] ?></h4>
-                        <h5>About</h5>
                         <?php if (!is_null($userData['about']) && $userData['about'] != ''): ?>
                             <p class="text-justify"><?= nl2br($userData['about']) ?></p>
                         <?php else: ?>
@@ -38,7 +37,7 @@
                                 <a href="https://vk.com/<?= $socialNetworks['vk'] ?>" target="_blank"><i class="fab fa-vk icon-social mr-3"></i></a>
                                 <?php endif; ?>
                                 <?php if (key_exists('facebook', $socialNetworks)): ?>
-                                <a href="https://facebook.com/<?= $socialNetworks['facebook'] ?>" target="_blank"><i class="fab fa-facebook-f icon-social mr-3"></i></a>
+                                <a href="https://facebook.com/<?= $socialNetworks['facebook'] ?>" target="_blank"><i class="fab fa-facebook-square icon-social mr-3"></i></a>
                                 <?php endif; ?>
                                 <?php if (key_exists('instagram', $socialNetworks)): ?>
                                 <a href="https://instagram.com/<?= $socialNetworks['instagram'] ?>" target="_blank"><i class="fab fa-instagram icon-social mr-3"></i></a>
