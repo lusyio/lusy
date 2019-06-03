@@ -55,16 +55,12 @@ $workersurname = $task['workerSurname'];
 $datecreate = date("d.m.Y", $task['datecreate']);
 $datedone = date("d.m", $task['datedone']);
 if ($task['datepostpone'] == '0000-00-00' || $task['datepostpone'] == '') {
-    $datepostpone = '';
-    $dayPostpone = '';
-    $monthPostpone = '';
+    $actualDeadline = $task['datedone'];
 } else {
-    $datepostpone = " >> " . date("d.m", $task['datepostpone']);
-    $dayPostpone = date('j', $task['datepostpone']);
-    $monthPostpone = $_months[date('n', $task['datepostpone']) - 1];
+    $actualDeadline = $task['datepostpone'];
 }
-$dayDone = date('j', $task['datedone']);
-$monthDone = $_months[date('n', $task['datedone']) - 1];
+$dayDone = date('j', $actualDeadline);
+$monthDone = $_months[date('n', $actualDeadline) - 1];
 
 $nowdate = date("d.m.Y");
 $dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
