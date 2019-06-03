@@ -7,7 +7,7 @@
 <link href="/assets/css/cropper.css" rel="stylesheet">
 
 <div class="row justify-content-center">
-    <div class="col-12 col-lg-10 col-xl-8">
+    <div class="col-12 col-lg-10 col-xl-10">
         <div class="card">
             <div class="card-body p-5">
                 <div class="row">

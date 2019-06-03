@@ -1639,10 +1639,14 @@ span.date {
     background-color: #f6f6f6;
     border: none !important;
     color: #6c757d;
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
     font-size: 12px;
     padding-left: 20px;
+}
+
+#search:focus{
+    box-shadow: none;
 }
 
 #search:-ms-input-placeholder { /* Internet Explorer 10-11 */
@@ -1650,9 +1654,18 @@ span.date {
 }
 
 #searchButton {
-    background: #e4e4e4;
+    background: #f6f6f6;
     color: #808080;
     border: none;
+    transition: 100ms;
+}
+
+#searchButton:hover{
+    background-color: #e4e4e4;
+}
+
+#searchButton:focus{
+    outline: 0;
 }
 
 .navbar-brand {

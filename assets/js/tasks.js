@@ -199,6 +199,7 @@ $(document).ready(function () {
     $(".search-done").on('click', function () {
         if ($(this).hasClass('active')) {
             resetSearch();
+            $('#actualSearch').removeClass('active');
             $(".selected-role").html($(this).find('.archive-name').text());
             $(".tasks").hide();
             loadDoneTasks();
@@ -213,6 +214,7 @@ $(document).ready(function () {
     $(".search-cancel").on('click', function () {
         if ($(this).hasClass('active')) {
             resetSearch();
+            $('#actualSearch').removeClass('active');
             $(".selected-role").html($(this).find('.archive-name').text());
             $(".tasks").hide();
             loadCanceledTasks();

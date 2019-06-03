@@ -195,7 +195,6 @@ $(document).ready(function(){
 			$.post("/ajax.php", {module: 'sendpostpone', text: text, datepostpone: datepostpone, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
 				location.reload();
-				location.reload();
 			}
 		} else {
 			$("#reportarea1").addClass('border-danger');
@@ -208,7 +207,7 @@ $(document).ready(function(){
 		if (sendDate) {
 			$.post("/ajax.php", {module: 'sendDate', sendDate: sendDate, it: $it, ajax: 'task-control' },controlUpdate);
 			function controlUpdate(data) {
-				//location.reload();
+				location.reload();
 			}
 		} else {
 			$("#example-date-input").addClass('border-danger');
