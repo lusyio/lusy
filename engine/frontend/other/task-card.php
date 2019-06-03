@@ -23,7 +23,7 @@
                         <div class="col-sm-2 col-5">
                             <?= $taskStatusText[$n['mainRole']][$n['status']] ?>
                         </div>
-                        <div class="col-sm-2 col-3 <?= ($n['status']=='overdue')?'text-danger font-weight-bold':''; ?> <?= ($n['status']=='inwork' and $n['datedone']==$now)?'text-warning font-weight-bold':''; ?>">
+                        <div class="col-sm-2 col-3 <?= ($n['status']=='overdue')?'text-danger font-weight-bold':''; ?> <?= ($n['status']=='inwork' and date("Y-m-d", $n['datedone']) == $now)?'text-warning font-weight-bold':''; ?>">
                             <?= $n['deadLineDay'] ?> <?= $n['deadLineMonth'] ?>
                         </div>
                         <div class="col-sm-2 col-4 avatars">
