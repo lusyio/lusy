@@ -40,7 +40,7 @@
                             </a>
                         </div>
                         <div>
-                            <p class="ml-5 h5">
+                            <p class="ml-5 h5 company-profile-fio">
                                 <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
                             </p>
                             <div class="ml-5">
@@ -49,7 +49,7 @@
                                     echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
                                 }
                                 ?>
-                                <span class="d-block"><i
+                                <span class="d-block company-profile-email"><i
                                             class="fas fa-envelope mr-1 text-muted"></i> <?= $n['email'] ?></span>
                             </div>
                         </div>

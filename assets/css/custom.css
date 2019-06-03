@@ -1193,6 +1193,14 @@ input:checked[type="checkbox"]::before {
     color: #dcdcdc;
 }
 
+.company-profile-fio{
+    margin-bottom: 15px;
+}
+
+.company-profile-email{
+    margin-top: 10px;
+}
+
 .company-online-indicator{
     position: absolute;
     top: 0;
