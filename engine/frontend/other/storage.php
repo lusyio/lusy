@@ -34,8 +34,16 @@ if ($companyUsageSpacePercent > 90) {
 if ($normalizedCompanyFilesSize['size'] > 0) {
     include 'engine/frontend/other/searchbarfile.php';
 }
-?>
-<hr>
+if ($userTotalFilesSize == 0): ?>
+    <hr>
+    <div class="search-container">
+        <div id="searchResult">
+            <div class="search-empty">
+                <p>Хранилище файлов пусто.</p>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <?php foreach ($fileList as $file): ?>
     <div class="card files">
         <div class="card-body file-list">
@@ -55,23 +63,23 @@ if ($normalizedCompanyFilesSize['size'] > 0) {
                         </div>
                         <div class="col-md-1">
                             <span class="text-ligther deleteFile"><i val="<?= $file['file_id'] ?>"
-                                                                    class="fas fa-times-circle delete-file-icon"></i></span>
+                                                                     class="fas fa-times-circle delete-file-icon"></i></span>
                         </div>
                     </div>
 
                     <div class="row mt-1">
                         <div class="col">
                             <?php if ($file['comment_type'] != 'conversation'): ?>
-                            <a href="<?= $file['attachedToLink'] ?>"
-                               class="text-ligther">
-                                <?= $file['name'] ?> <?= $file['surname'] ?> <?= $GLOBALS["_attachto"] ?> <?= $GLOBALS['_' . $file['comment_type']] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?>
-                            </a>
+                                <a href="<?= $file['attachedToLink'] ?>"
+                                   class="text-ligther">
+                                    <?= $file['name'] ?> <?= $file['surname'] ?> <?= $GLOBALS["_attachto"] ?> <?= $GLOBALS['_' . $file['comment_type']] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?>
+                                </a>
                             <?php else: ?>
-                            <span
-                               class="text-ligther">
+                                <span
+                                        class="text-ligther">
                                 <?= $file['name'] ?> <?= $file['surname'] ?> <?= $GLOBALS["_attachto"] ?> <?= $GLOBALS['_' . $file['comment_type']] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?>
                             </span>
-                        <?php endif; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -84,8 +92,8 @@ if ($normalizedCompanyFilesSize['size'] > 0) {
         $("#searchFile").on("keyup", function () {
 
             // переопределяем метод contains для регистроНЕзависимого поиска
-            $.expr[":"].contains = $.expr.createPseudo(function(arg) {
-                return function( elem ) {
+            $.expr[":"].contains = $.expr.createPseudo(function (arg) {
+                return function (elem) {
                     return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
                 };
             });
@@ -100,11 +108,11 @@ if ($normalizedCompanyFilesSize['size'] > 0) {
         });
         $('.files').hover(
             function () {
-            $(this).find('.deleteFile').fadeIn();
-        }, function () {
-            $(this).find('.deleteFile').fadeOut();
+                $(this).find('.deleteFile').fadeIn();
+            }, function () {
+                $(this).find('.deleteFile').fadeOut();
 
-        });
+            });
 
         $(".deleteFile").on('click', function () {
             var fileId = $(this).find('.delete-file-icon').attr('val');
