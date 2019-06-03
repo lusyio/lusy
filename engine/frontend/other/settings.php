@@ -99,7 +99,7 @@
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i
-                                            class="fab fa-facebook-f"></i></span>
+                                            class="fab fa-facebook-square"></i></span>
                             </div>
                             <input id="settingsFacebook" name="settingsFacebook" type="text" placeholder="facebook"
                                    class="form-control email"

@@ -1182,10 +1182,22 @@ input:checked[type="checkbox"]::before {
     overflow: auto;
 }
 
-.onlineIndicator {
+.onlineIndicator{
     font-size: 10px;
     vertical-align: middle;
     color: #898989;
+}
+
+.company{
+    font-size: 13px;
+    color: #dcdcdc;
+}
+
+.company-online-indicator{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    z-index: 3;
 }
 
 .system {
@@ -1986,6 +1998,10 @@ label.error {
 .icon-social {
     color: #6c757d;
     transition: 200ms;
+}
+
+.social-company{
+    font-size: 20px;
 }
 
 .icon-social:hover {
