@@ -3,6 +3,16 @@ session_start();
 ob_start();
 include 'conf.php';
 
+addTimeZoneToCompany();
+makeTimeStampInComments();
+makeTimeStampInCompany();
+makeTimeStampInEvents();
+makeTimeStampInInvitations();
+makeTimeStampInMail();
+makeTimeStampInUsers();
+makeTimeStampInActivityUsers();
+makeTimeStampInTasks();
+
 include 'engine/backend/other/header.php'; 
 include 'engine/frontend/other/header.php';
 
@@ -28,6 +38,23 @@ if (isset($_GET['activate']) && isset($_GET['code']))
 if (isset($_GET['join']))
 {
     inc('other', 'join');
+}
+
+function addTimeZoneToCompany()
+{
+    global $pdo;
+    $sql = $pdo->prepare('SHOW COLUMNS FROM `comments`');
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'timezone') {
+            return;
+        }
+    }
+    $addColumnQuery = $pdo->prepare('alter table company add timezone text null;');
+    $addColumnQuery->execute();
+    $fillColumnQuery = $pdo->prepare('UPDATE company SET timezone = :timezone');
+    $fillColumnQuery->execute(array(':timezone' => 'Europe/Moscow'));
 }
 
 function makeTimeStampInComments()
