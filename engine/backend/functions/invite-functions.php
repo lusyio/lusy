@@ -83,3 +83,11 @@ function updateInvite($inviteId, $newUserId)
     $updateInviteQuery = $pdo->prepare('UPDATE invitations SET status=:newUserId WHERE invite_id=:inviteId');
     $updateInviteQuery->execute(array('newUserId' => $newUserId, 'inviteId' => $inviteId));
 }
+
+function isEmailInvited($inviteeMail)
+{
+    global $pdo;
+    $emailQuery = $pdo->prepare('SELECT invite_id FROM invitations WHERE email=:email');
+    $emailQuery->execute(array(':email' => mb_strtolower($inviteeMail)));
+    return (boolean) $emailQuery->fetch(PDO::FETCH_ASSOC);
+}

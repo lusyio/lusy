@@ -6,6 +6,7 @@ global $idc;
 global $roleu;
 
 require_once 'engine/backend/functions/invite-functions.php';
+require_once 'engine/backend/functions/reg-functions.php';
 
 if ($_POST['module'] == 'deleteInvite') {
     $inviteId = filter_var($_POST['inviteId'], FILTER_SANITIZE_NUMBER_INT);
@@ -13,6 +14,10 @@ if ($_POST['module'] == 'deleteInvite') {
 }
 if ($_POST['module'] == 'createInvite' && isset($_POST['invitee-mail'])  && $roleu == 'ceo') {
     $inviteeMail = filter_var($_POST['invitee-mail'], FILTER_SANITIZE_STRING);
+    if (isEmailExist($inviteeMail) || isEmailInvited($inviteeMail)) {
+        echo 'emailexist';
+        die;
+    }
     $inviteePosition = 'worker';
     $inviteId = createInvite($inviteeMail, $inviteePosition);
     $invite = readInvite($inviteId);

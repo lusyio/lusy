@@ -117,41 +117,45 @@
                     success: function (data) {
                         console.log(data);
                         if (data) {
-                            $('#invitee-mail').val('');
-                            $('.invite-send').prop('disabled', false);
-                            var invite = JSON.parse(data);
-                            var inviteRow = "";
-                            inviteRow += window.location.hostname.toString() + '/join/' + invite['code'] + '/';
-                            $('.invite-container').append("<div class=\"card mb-2 invite-card\">\n" +
-                                "                <div class=\"card-body p-2 text-center\">\n" +
-                                "                    <div class=\"row\">\n" +
-                                "                        <div class=\"col-1\">\n" +
-                                "                            <span><i val=\' " + inviteRow + " \'\n" +
-                                "                                     class=\"far fa-copy copy-link\"></i></span>\n" +
-                                "                        </div>\n" +
-                                "                        <div class=\"col-4\">\n" + invite['email'] +
-                                "                        </div>\n" +
-                                "                        <div class=\"col-4\">\n" +
-                                "                            <div class=\"invite-date\">\n" + invite['invite_date'] +
-                                "                            </div>\n" +
-                                "                        </div>\n" +
-                                "                            <div class=\"col-3\">\n" +
-                                "                                <span>Отправлено</span>\n" +
-                                "                                <a class=\"invite-cancel\" data-invite-id=\' " + invite.invite_id + " \'><i\n" +
-                                "                                            class=\"far fa-times-circle invite-delete\"></i></a>\n" +
-                                "                            </div>\n" +
-                                "                    </div>\n" +
-                                "                </div>\n" +
-                                "            </div>");
-                            console.log(inviteRow);
-                            var $newInvite = $('.invite-card').last();
-                            $newInvite.css({'background-color': '#dbe7f6'});
-                            $('html, body').animate({
-                                scrollTop: $newInvite.offset().top - 100
-                            }, 1000);
-                            setTimeout(function () {
-                                $newInvite.attr('style', '');
-                            }, 3000);
+                            if (data === 'emailexist') {
+                                console.log('такой email уже используется');
+                            } else {
+                                $('#invitee-mail').val('');
+                                $('.invite-send').prop('disabled', false);
+                                var invite = JSON.parse(data);
+                                var inviteRow = "";
+                                inviteRow += window.location.hostname.toString() + '/join/' + invite['code'] + '/';
+                                $('.invite-container').append("<div class=\"card mb-2 invite-card\">\n" +
+                                    "                <div class=\"card-body p-2 text-center\">\n" +
+                                    "                    <div class=\"row\">\n" +
+                                    "                        <div class=\"col-1\">\n" +
+                                    "                            <span><i val=\' " + inviteRow + " \'\n" +
+                                    "                                     class=\"far fa-copy copy-link\"></i></span>\n" +
+                                    "                        </div>\n" +
+                                    "                        <div class=\"col-4\">\n" + invite['email'] +
+                                    "                        </div>\n" +
+                                    "                        <div class=\"col-4\">\n" +
+                                    "                            <div class=\"invite-date\">\n" + invite['invite_date'] +
+                                    "                            </div>\n" +
+                                    "                        </div>\n" +
+                                    "                            <div class=\"col-3\">\n" +
+                                    "                                <span>Отправлено</span>\n" +
+                                    "                                <a class=\"invite-cancel\" data-invite-id=\' " + invite.invite_id + " \'><i\n" +
+                                    "                                            class=\"far fa-times-circle invite-delete\"></i></a>\n" +
+                                    "                            </div>\n" +
+                                    "                    </div>\n" +
+                                    "                </div>\n" +
+                                    "            </div>");
+                                console.log(inviteRow);
+                                var $newInvite = $('.invite-card').last();
+                                $newInvite.css({'background-color': '#dbe7f6'});
+                                $('html, body').animate({
+                                    scrollTop: $newInvite.offset().top - 100
+                                }, 1000);
+                                setTimeout(function () {
+                                    $newInvite.attr('style', '');
+                                }, 3000);
+                            }
                         } else {
                             console.log('Произошла ошибка');
                         }
