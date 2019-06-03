@@ -3,15 +3,15 @@ session_start();
 ob_start();
 include 'conf.php';
 
-addTimeZoneToCompany();
-makeTimeStampInComments();
-makeTimeStampInCompany();
-makeTimeStampInEvents();
-makeTimeStampInInvitations();
-makeTimeStampInMail();
-makeTimeStampInUsers();
-makeTimeStampInActivityUsers();
-makeTimeStampInTasks();
+//addTimeZoneToCompany();
+//makeTimeStampInComments();
+//makeTimeStampInCompany();
+//makeTimeStampInEvents();
+//makeTimeStampInInvitations();
+//makeTimeStampInMail();
+//makeTimeStampInUsers();
+//makeTimeStampInActivityUsers();
+//makeTimeStampInTasks();
 
 include 'engine/backend/other/header.php'; 
 include 'engine/frontend/other/header.php';
