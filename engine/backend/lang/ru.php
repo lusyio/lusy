@@ -25,11 +25,12 @@ $_placeholdernewtask = 'Опишите суть задачи';
 $_choosefilenewtask = 'Выберите файл';
 $_deadlinenewtask = 'Выберите файл';
 $_responsiblenewtask = 'Ответственный';
-$_placeholderresponsiblenewtask = 'Выберите ответственного';
+$_placeholderresponsiblenewtask = 'Не выбран';
 $_coworkersnewtask = 'Соисполнители';
-$_placeholdercoworkersnewtask = 'Выберите соисполнителя';
+$_placeholdercoworkersnewtask = 'Нажмите, чтобы добавить';
 $_createnewtask = 'Создать задачу';
 $_cancelnewtask = 'Отменить создание задачи';
+$_selectlistcoworkerstasknew = 'Список пуст';
 
 // задачи
 $_tasks = 'Задачи';

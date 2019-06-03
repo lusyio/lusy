@@ -29,7 +29,6 @@
                             </div>
                         </a>
                     <?php endforeach; ?>
-                    <br>
                 </div>
                 <div id="commentSearch" class="resultSet">
                     <p class="text-reg">Комментарии (<?= count($result['comment']); ?>)</p>

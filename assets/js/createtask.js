@@ -30,7 +30,7 @@ $(document).ready(function () {
             listArr.push(list);
         });
         console.log(listArr);
-        if (listArr.length === 0){
+        if (listArr.length === 0) {
             $('.placeholder-coworkers').show();
         }
     }
@@ -53,6 +53,20 @@ $(document).ready(function () {
             $('.responsible-card').find("[val = " + list + "]").removeClass('d-none');
         })
     }
+
+    function coworkersListEmpty() {
+        var list = [];
+        $(".select-coworker:visible").each(function () {
+            list.push(Math.random());
+        });
+        if (list.length === 0) {
+            $('.empty-list').show();
+        } else {
+            $('.empty-list').hide();
+        }
+        console.log(list);
+    }
+
 
 //работа с ответственными
     $(".container-responsible").on('click', function () {
@@ -81,9 +95,10 @@ $(document).ready(function () {
 //работа с соисполнителями
     $(".container-coworker ").on('click', function () {
         $(".coworkers").fadeToggle(200);
+        coworkersListEmpty();
     });
 
-    $(document).on('click', function (e){ // событие клика по веб-документу
+    $(document).on('click', function (e) { // событие клика по веб-документу
         var div = $(".coworkers-toggle"); // тут указываем ID элемента
         var dov = $('.coworkers');
         if (!div.is(e.target) // если клик был не по нашему блоку
@@ -99,6 +114,7 @@ $(document).ready(function () {
         $('.coworker-card').find("[val = " + id + "]").removeClass('d-none');
         updateResponsible();
         checkPlaceholderCoworkers();
+        coworkersListEmpty();
     });
 
     $(".select-coworker").on('click', function () {
@@ -108,6 +124,7 @@ $(document).ready(function () {
         // $('.responsible-card').find("[val = " + id + "]").addClass('d-none');
         $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
         updateResponsible();
+        coworkersListEmpty();
     });
 
 //создание новой задачи
@@ -121,6 +138,7 @@ $(document).ready(function () {
         var delta = quill.root.innerHTML;
         var datedone = $("#datedone").val();
         var fd = new FormData();
+        console.log(datedone);
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
         });
@@ -144,7 +162,34 @@ $(document).ready(function () {
                 },
             });
         } else {
-            console.log('asdasd');
+            if (responsible == null) {
+                $('.container-responsible').css({'border-color': '#dc3545',
+                'transition': '1000ms'});
+                setTimeout(function () {
+                    $('.container-responsible').css('border-color', "#ced4da");
+                }, 1000)
+            }
+            if (name === ''){
+                $('#name').css({'border-color': '#dc3545',
+                    'transition': '1000ms'});
+                setTimeout(function () {
+                    $('#name').css('border-color', "#ced4da");
+                }, 1000)
+            }
+            if (delta === '<p><br></p>') {
+                $('#editor').css({'border-color': '#dc3545',
+                    'transition': '1000ms'});
+                setTimeout(function () {
+                    $('#editor').css('border-color', "#ced4da");
+                }, 1000)
+            }
+            if (datedone === ''){
+                $('#datedone').css({'border-color': '#dc3545',
+                    'transition': '1000ms'});
+                setTimeout(function () {
+                    $('#datedone').css('border-color', "#ced4da");
+                }, 1000)
+            }
         }
     });
 

@@ -1,5 +1,8 @@
 <div class="coworkers">
     <div class="coworker-card">
+        <div class="empty-list text-muted">
+            Список пуст
+        </div>
         <?php
         $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
         foreach ($users as $n) { ?>

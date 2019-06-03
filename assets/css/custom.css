@@ -2,6 +2,10 @@
     background: #F8F9FA;
 }
 
+body{
+    background-color: #f1f1f136;
+}
+
 #task .card-body {
     padding: 2rem 3rem;
 }
@@ -17,7 +21,8 @@
 
 .top-sidebar {
     background-color: rgb(255, 255, 255);
-    box-shadow: rgba(13, 28, 60, 0.04) 0px 4px 44px 0px;
+    /*box-shadow: rgba(13, 28, 60, 0.04) 0px 4px 44px 0px;*/
+    box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
 }
 
 .alerts a {
@@ -1489,6 +1494,11 @@ span.date {
 
 .container-responsible:hover {
     cursor: pointer;
+}
+
+.empty-list{
+    display: none;
+    padding: 7px;
 }
 
 .select-coworker {
