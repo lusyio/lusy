@@ -22,6 +22,10 @@ require_once 'engine/backend/functions/common-functions.php';
         $id = $sessionCookie['uid'];
         $idc = DBOnce('idcompany', 'users', 'id="' . $id . '"');
         $timestamp = time();
+
+        $companyTimeZone = DBOnce('timezone', 'company', 'id=' . $idc);
+        date_default_timezone_set($companyTimeZone);
+
         updateCookieTime($sessionCookie, $timestamp);
         setcookie('token', createCookieString($sessionCookie['sid'], $sessionCookie['uid'], $timestamp), time() + 60 * 60 * 24 * 30, '/');
     }
