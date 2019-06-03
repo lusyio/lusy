@@ -29,7 +29,7 @@ if($_POST['module'] == 'sendonreview' && $isWorker) {
 	$sql->execute();
 
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = 'report', `view`=0 ,`datetime` = :datetime");
-	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => time()));
 	$commentId = $pdo->lastInsertId();
 
 	if (count($_FILES) > 0) {
@@ -49,7 +49,7 @@ if($_POST['module'] == 'sendpostpone' && $isWorker) {
 	$sql->execute();
 
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :report, `iduser` = :iduser, `idtask` = :idtask, `status` = :status, `view`=0, `datetime` = :datetime");
-	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'status' => $status, 'datetime' => $datetime));
+	$sql->execute(array('report' => $text, 'iduser' => $id, 'idtask' => $idtask, 'status' => $status, 'datetime' => time()));
 
     resetViewStatus($idtask);
     addEvent('postpone', $idtask, $taskAuthorId);
@@ -81,7 +81,7 @@ if($_POST['module'] == 'workreturn' && $isManager) {
 	$sql->execute(array('datepostpone' => $datepostpone, 'idtask' => $idtask));
 
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'returned', `view`=0, `datetime` = :datetime");
-	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => time()));
 	$commentId = $pdo->lastInsertId();
 
 	if (count($_FILES) > 0) {
@@ -113,13 +113,13 @@ if($_POST['module'] == 'createTask') {
         $managerId = $id;
     }
     $coworkers = array_unique($coworkers, SORT_NUMERIC);
-	$name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
-	$description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
-	$datedone = filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS);
+	$name = filter_var(trim($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS));
+	$description = filter_var(trim($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS));
+	$datedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
 	$worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
 	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, 'new', :author, :manager, :worker, :companyId, :description, '0') ";
 	$sql = $pdo->prepare($query);
-	$sql->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => $now, ':author' => $id, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $idc, ':datedone' => $datedone));
+	$sql->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => time(), ':author' => $id, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $idc, ':datedone' => $datedone));
 	if ($sql) {
 		$idtask = $pdo->lastInsertId();
 		if (!empty($idtask)) {
@@ -146,7 +146,7 @@ if($_POST['module'] == 'createTask') {
 
 if($_POST['module'] == 'cancelTask' && $isManager) {
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "canceled", `report` = :report WHERE id='.$idtask);
-	$sql->execute(array('report' => $now));
+	$sql->execute(array('report' => time()));
 	echo 'success';
     resetViewStatus($idtask);
     addEvent('canceltask', $idtask, $idTaskManager);
@@ -160,7 +160,7 @@ if ($_POST['module'] == 'cancelDate' && $isManager) {
 	$sql->execute();
 	$text = "Перенос отклонен";
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
-	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => time()));
     resetViewStatus($idtask);
     addEvent('canceldate', $idtask, $idTaskManager);
 
@@ -172,22 +172,22 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 	$statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
 	$datepostpone = preg_split('~:~', $statusWithDate)[1];
 	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = :datepostpone WHERE id=" . $idtask);
-	$sql->execute(array('datepostpone' => $datepostpone));
+	$sql->execute(array('datepostpone' => strtotime($datepostpone)));
 	$text = "Перенос одобрен. Новый срок: " . date("d.m", strtotime($datepostpone));
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
-	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => time()));
     resetViewStatus($idtask);
     addEvent('confirmdate', $idtask, $idTaskManager);
 
 }
 
 if ($_POST['module'] == 'sendDate' && $isManager) {
-	$datepostpone = filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS);
+	$datepostpone = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS));
 	$sql = $pdo->prepare('UPDATE `tasks` SET `datepostpone` = :datepostpone, `view` = 0 WHERE id='.$idtask);
 	$sql->execute(array('datepostpone' => $datepostpone));
-	$text = "Новый срок: " . date("d.m", strtotime($datepostpone));
+	$text = "Новый срок: " . date("d.m", $datepostpone);
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
-	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => $datetime));
+	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => time()));
     resetViewStatus($idtask);
     addEvent('senddate', $idtask, $idTaskManager);
 
@@ -207,7 +207,7 @@ function resetViewStatus($taskId) {
     global $pdo;
     global $datetime;
     $viewStatus = [];
-    $viewStatus[$id]['datetime'] = $datetime;
+    $viewStatus[$id]['datetime'] = time();
     $viewStatusJson = json_encode($viewStatus);
     $viewQuery = $pdo->prepare('UPDATE `tasks` SET view_status = :viewStatus where id=:taskId');
     $viewQuery->execute(array(':viewStatus' => $viewStatusJson, ':taskId' => $taskId));

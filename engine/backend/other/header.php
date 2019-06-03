@@ -25,6 +25,8 @@ require_once 'engine/backend/functions/common-functions.php';
 
         $companyTimeZone = DBOnce('timezone', 'company', 'id=' . $idc);
         date_default_timezone_set($companyTimeZone);
+        $now = date("Y-m-d");
+        $datetime = date("Y-m-d H:i:s");
 
         updateCookieTime($sessionCookie, $timestamp);
         setcookie('token', createCookieString($sessionCookie['sid'], $sessionCookie['uid'], $timestamp), time() + 60 * 60 * 24 * 30, '/');

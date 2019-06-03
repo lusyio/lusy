@@ -27,13 +27,13 @@ FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask OR
         $result = $row->fetch();
         $nameuser = $result[0];
         $surnameuser = $result[1];
-        $d = gmdate("d", localDateTime(time())); // текущий день
-        $dc = gmdate("d", localDateTime($c['datetime'])); // день из лога
+        $d = date("d"); // текущий день
+        $dc = date("d", $c['datetime']); // день из лога
         if ($d == $dc) { // сравниваем их, если равны, то писать только время
-            $dc = gmdate("H:i", localDateTime($c['datetime']));
+            $dc = date("H:i", $c['datetime']);
             $isDeletable = true;
         } else {
-            $dc = gmdate("d.m H:i", localDateTime($c['datetime']));
+            $dc = date("d.m H:i", $c['datetime']);
             $isDeletable = false;
         }
         if (preg_match('~^request~', $c['status'])) {
@@ -46,12 +46,12 @@ FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask OR
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
         $commentViewStatus = json_decode($c['view_status'], true);
         if(is_null($commentViewStatus) || !isset($commentViewStatus[$id]['datetime'])) {
-            $commentViewStatus[$id]['datetime'] = localDateTime(time());
+            $commentViewStatus[$id]['datetime'] = time();
             $commentViewStatusJson = json_encode($commentViewStatus);
             $viewQuery = $pdo->prepare('UPDATE `comments` SET view_status = :viewStatus where id=:commentId');
             $viewQuery->execute(array(':viewStatus' => $commentViewStatusJson, ':commentId' => $c['id']));
         }
-        if ($lastVisit != 0 && $lastVisit < localDateTime($c['datetime'])) {
+        if ($lastVisit != 0 && $lastVisit < $c['datetime']) {
             $isNew = true;
         } else {
             $isNew = false;

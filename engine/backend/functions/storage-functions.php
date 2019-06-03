@@ -140,7 +140,7 @@ function prepareFileList(array &$fileList) {
         $file['sizeSuffix'] = $normalizedFileSize['suffix'];
         $fileNameParts = explode('.', $file['file_name']);
         $file['extension'] = mb_strtolower(array_pop($fileNameParts));
-        $file['date'] = date('d.m.Y', strtotime($file['uploadDate']));
+        $file['date'] = date('d.m.Y', $file['uploadDate']);
     }
 }
 

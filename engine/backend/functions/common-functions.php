@@ -88,7 +88,7 @@ function addEvent($action, $taskId, $recipientId)
         ':authorId' => $id,
         ':recipientId' => $recipientId,
         ':companyId' => $idc,
-        'datetime' => date("Y-m-d H:i:s"),
+        'datetime' => time(),
     ];
     $addEventQuery->execute($eventData);
     if ($recipientId != $id) {
@@ -140,7 +140,7 @@ function addMassEvent($action, $taskId, $comment)
 
     $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
-    $datetime = date("Y-m-d H:i:s");
+    $datetime = time();
 
     $sendToCometQuery  = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
     $type = 'comment';
@@ -152,7 +152,7 @@ function addMassEvent($action, $taskId, $comment)
             ':recipientId' => $recipient,
             ':authorId' => $id,
             ':companyId' => $idc,
-            ':datetime' => $datetime,
+            ':datetime' => time(),
             ':comment' => $comment,
         ];
 
@@ -185,14 +185,14 @@ function addMassSystemEvent($action, $comment = '', $companyId = '')
 
     $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
-    $datetime = date("Y-m-d H:i:s");
+    $datetime = time();
     $eventData = [
         ':action' => $action,
         ':taskId' => '',
         ':recipientId' => '',
         ':authorId' => '',
         ':companyId' => $idc,
-        ':datetime' => $datetime,
+        ':datetime' => time(),
         ':comment' => $comment,
     ];
     $addEventQuery->execute($eventData);
@@ -324,27 +324,3 @@ function localDateTime($utcTimestamp)
     return $givenDateTime->getTimestamp();
 }
 
-/**Преобразует время сервера в UTC-время
- * @param $localTimestamp int временная метка в формате unix-времени
- * @return int временная метка в формате unix-времени
- * @throws Exception
- */
-function serverDateTime($localTimestamp)
-{
-    $givenDateTime = new DateTime();
-    $givenDateTime->setTimestamp($localTimestamp);
-
-    // определяем тайм-зону сервера
-    $date = new DateTime();
-    $ServerTimeZone = $date->getTimezone();
-
-    $serverTimeOffsetFromGmt = timezone_offset_get($ServerTimeZone, $givenDateTime);
-    $offset = new DateInterval('PT' . abs($serverTimeOffsetFromGmt) . 'S');
-    if ($serverTimeOffsetFromGmt > 0) {
-        $givenDateTime->sub($offset);
-    } else {
-        $givenDateTime->add($offset);
-    }
-    var_dump($givenDateTime);
-    return $givenDateTime->getTimestamp();
-}

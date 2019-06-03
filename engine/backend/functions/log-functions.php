@@ -30,7 +30,7 @@ function logAction($userId, $action, $taskId = null)
     {
         $logQuery = "INSERT INTO log(action, task, sender, datetime) VALUES (:action, :taskId, :userId, :dateTime)";
         $dbh = $pdo->prepare($logQuery);
-        $dbh->execute(array(':action' => $action, ':taskId' => $taskId, ':userId' => $userId, ':dateTime' => $datetime));
+        $dbh->execute(array(':action' => $action, ':taskId' => $taskId, ':userId' => $userId, ':dateTime' => time()));
     }
 }
 
@@ -164,5 +164,13 @@ function renderEvent($event)
     } else {
         include 'engine/frontend/event-messages/task.php';
     }
+}
+
+function markAsRead($eventId)
+{
+    global $id;
+    global $pdo;
+    $markQuery = $pdo->prepare('UPDATE events SET view_status = 1 WHERE event_id = :eventId AND recipient_id = :userId');
+    $markQuery->execute(array(':eventId' => $eventId, ':userId' => $id));
 }
 

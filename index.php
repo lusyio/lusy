@@ -38,7 +38,7 @@ function makeTimeStampInComments()
     $sql->execute();
     $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
     foreach ($columns as $column) {
-        if ($column['Field'] != 'datetime' && $column['Type'] != 'datetime') {
+        if ($column['Field'] == 'datetime' && $column['Type'] != 'datetime') {
             $getDateTimeQuery = $pdo->prepare('SELECT id, datetime FROM comments');
             $getDateTimeQuery->execute();
             $commentsDateTime = $getDateTimeQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -54,6 +54,196 @@ function makeTimeStampInComments()
         }
     }
 }
+
+function makeTimeStampInCompany()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `company`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'datareg' && $column['Type'] != 'int(11)') {
+            $getDataregQuery = $pdo->prepare('SELECT id, datareg FROM company');
+            $getDataregQuery->execute();
+            $companyDatareg = $getDataregQuery->fetchAll(PDO::FETCH_ASSOC);
+            $deleteQuery = $pdo->prepare('alter table company drop column datareg');
+            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table company add datareg int');
+            $createQuery->execute();
+            $updateQuery = $pdo->prepare('update company set datareg=:datetime WHERE id=:id');
+            foreach ($companyDatareg as $company) {
+                $updateQuery->execute(array(':id' => $company['id'], ':datetime' => strtotime($company['datareg'])));
+            }
+            break;
+        }
+    }
+}
+
+function makeTimeStampInEvents()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `events`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'datetime' && $column['Type'] != 'int(11)') {
+            $getDatetimeQuery = $pdo->prepare('SELECT event_id, datetime FROM events');
+            $getDatetimeQuery->execute();
+            $eventDatetime = $getDatetimeQuery->fetchAll(PDO::FETCH_ASSOC);
+            $deleteQuery = $pdo->prepare('alter table events drop column datetime');
+            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table events add datetime int');
+            $createQuery->execute();
+            $updateQuery = $pdo->prepare('update events set datetime=:datetime WHERE event_id=:id');
+            foreach ($eventDatetime as $event) {
+                $updateQuery->execute(array(':id' => $event['event_id'], ':datetime' => strtotime($event['datetime'])));
+            }
+            break;
+        }
+    }
+}
+
+function makeTimeStampInInvitations()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `invitations`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'invite_date' && $column['Type'] != 'int(11)') {
+            $getDatetimeQuery = $pdo->prepare('SELECT invite_id, invite_date FROM invitations');
+            $getDatetimeQuery->execute();
+            $inviteDatetime = $getDatetimeQuery->fetchAll(PDO::FETCH_ASSOC);
+            $deleteQuery = $pdo->prepare('alter table invitations drop column invite_date');
+            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table invitations add invite_date int');
+            $createQuery->execute();
+            $updateQuery = $pdo->prepare('update invitations set invite_date=:datetime WHERE invite_id=:id');
+            foreach ($inviteDatetime as $invite) {
+                $updateQuery->execute(array(':id' => $invite['invite_id'], ':datetime' => strtotime($invite['invite_date'])));
+            }
+            break;
+        }
+    }
+}
+
+function makeTimeStampInMail()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `mail`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'datetime' && $column['Type'] != 'int(11)') {
+            $getDatetimeQuery = $pdo->prepare('SELECT message_id, datetime FROM mail');
+            $getDatetimeQuery->execute();
+            $mailDatetime = $getDatetimeQuery->fetchAll(PDO::FETCH_ASSOC);
+            $deleteQuery = $pdo->prepare('alter table mail drop column datetime');
+            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table mail add datetime int');
+            $createQuery->execute();
+            $updateQuery = $pdo->prepare('update mail set datetime=:datetime WHERE message_id=:id');
+            foreach ($mailDatetime as $mail) {
+                $updateQuery->execute(array(':id' => $mail['message_id'], ':datetime' => strtotime($mail['datetime'])));
+            }
+            break;
+        }
+    }
+}
+
+function makeTimeStampInUsers()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'register_date' && $column['Type'] != 'int(11)') {
+            $getDatetimeQuery = $pdo->prepare('SELECT id, register_date FROM users');
+            $getDatetimeQuery->execute();
+            $usersDatetime = $getDatetimeQuery->fetchAll(PDO::FETCH_ASSOC);
+            $deleteQuery = $pdo->prepare('alter table users drop column register_date');
+            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table users add register_date int');
+            $createQuery->execute();
+            $updateQuery = $pdo->prepare('update users set register_date=:datetime WHERE id=:id');
+            foreach ($usersDatetime as $user) {
+                $updateQuery->execute(array(':id' => $user['id'], ':datetime' => strtotime($user['register_date'])));
+            }
+            break;
+        }
+    }
+}
+
+function makeTimeStampInActivityUsers()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `users`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'register_date' && $column['Type'] != 'int(11)') {
+            $deleteQuery = $pdo->prepare('alter table users drop column activity');
+            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table users add activity int');
+            $createQuery->execute();
+            break;
+        }
+    }
+}
+
+function makeTimeStampInTasks()
+{
+    global $pdo;
+    $sql = 'SHOW COLUMNS FROM `tasks`';
+    $sql = $pdo->prepare($sql);
+    $sql->execute();
+    $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($columns as $column) {
+        if ($column['Field'] == 'datecreate' && $column['Type'] != 'int(11)') {
+            $getTaskDatesQuery = $pdo->prepare('SELECT id, datecreate, datepostpone, datedone FROM tasks');
+            $getTaskDatesQuery->execute();
+            $taskDates = $getTaskDatesQuery->fetchAll(PDO::FETCH_ASSOC);
+
+            $deleteQuery = $pdo->prepare('alter table tasks drop column datecreate');
+            $deleteQuery->execute();
+            $deleteQuery = $pdo->prepare('alter table tasks drop column datepostpone');
+            $deleteQuery->execute();
+            $deleteQuery = $pdo->prepare('alter table tasks drop column datedone');
+            $deleteQuery->execute();
+
+            $createQuery = $pdo->prepare('alter table tasks add datecreate int');
+            $createQuery->execute();
+            $createQuery = $pdo->prepare('alter table tasks add datepostpone int');
+            $createQuery->execute();
+            $createQuery = $pdo->prepare('alter table tasks add datedone int');
+            $createQuery->execute();
+
+            $updateCreateQuery = $pdo->prepare('update tasks set datecreate=:datetime WHERE id=:id');
+            $updatePostponeQuery = $pdo->prepare('update tasks set datepostpone=:datetime WHERE id=:id');
+            $updateDoneQuery = $pdo->prepare('update tasks set datedone=:datetime WHERE id=:id');
+            foreach ($taskDates as $task) {
+                if (!is_null($task['datecreate'])) {
+                    $updateCreateQuery->execute(array(':id' => $task['id'], ':datetime' => strtotime($task['datecreate'])));
+                }
+                if (isset($task['datepostpone']) && !is_null($task['datepostpone']) && $task['datepostpone'] != '' && $task['datepostpone'] != '0000-00-00') {
+                    $updatePostponeQuery->execute(array(':id' => $task['id'], ':datetime' => strtotime($task['datepostpone'])));
+                }
+                if (!is_null($task['datedone'])) {
+                    $updateDoneQuery->execute(array(':id' => $task['id'], ':datetime' => strtotime($task['datedone'])));
+                }
+            }
+            break;
+        }
+    }
+}
+
 
 include 'engine/backend/other/footer.php';
 include 'engine/frontend/other/footer.php';
