@@ -32,7 +32,6 @@ require_once 'engine/backend/functions/common-functions.php';
         setcookie('token', createCookieString($sessionCookie['sid'], $sessionCookie['uid'], $timestamp), time() + 60 * 60 * 24 * 30, '/');
     }
 	if (!empty($_SESSION['auth'])) {
-
         // скачивание прикрепленного файла
         if (!empty($_GET['file'])) {
             $file = 'upload/files/' . $_GET['file'];
@@ -50,7 +49,21 @@ require_once 'engine/backend/functions/common-functions.php';
                 exit();
             }
         }
-
+        // загрузка аватарки
+        if (!empty($_GET['avatar']) && !empty($_GET['name'])) {
+            if (!isset($_SESSION['idc'])) {
+                $_SESSION['idc'] = DBOnce('idcompany', 'users', 'id="' . $_SESSION['id'] . '"');
+            }
+            if ($_GET['avatar'] == $_SESSION['idc']) {
+                $file = 'upload/avatar/' . $_GET['avatar'] . '/' . $_GET['name'] . '.png';
+                header('Content-type: image/png');
+                readfile($file);
+                die();
+            } else {
+                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
+                die();
+            }
+        }
         include 'engine/backend/main/main.php';
         $cometTrackChannelName = getCometTrackChannelName();
 			if (!empty($_GET['task']) or !empty($_GET['tasks'])) {

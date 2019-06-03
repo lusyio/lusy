@@ -21,6 +21,8 @@ RewriteRule ^(.*)$ index.php [F,L]
 </FilesMatch>
 #перенаправление на скачивание файла
 RewriteRule ^upload/files/([-a-z0-9/]+)$ /index.php?file=$1 [L]
+#перенаправление на загрузку аватарок
+RewriteRule ^upload/avatar/([0-9]+)/([-a-zA-Z0-9]+).png$ /index.php?avatar=$1&name=$2 [L]
 RewriteRule ^restore/([0-9]+)/([-a-z0-9]+)/$ /index.php?restore=$1&code=$2 [L]
 RewriteRule ^activate/([0-9]+)/([-a-z0-9]+)/$ /index.php?activate=$1&code=$2 [L]
 RewriteRule ^join/([-a-z0-9]+)/$ /index.php?join=$1 [L]
