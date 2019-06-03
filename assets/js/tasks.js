@@ -303,6 +303,8 @@ $(document).ready(function () {
         doneTasksOffset = 0;
         canceledTasksOffset = 0;
         $('.status').html('');
+        $('div.canceled').remove();
+        $('div.done').remove();
         $(".words-search").each(function () {
             var status = $(this);
             $(".load-archive-page").hide();
@@ -314,8 +316,6 @@ $(document).ready(function () {
                 $(".words-search").removeClass('active');
                 $('.archive-search').removeClass('active');
                 $(".selected-status").html('');
-                $('div.canceled').remove();
-                $('div.done').remove();
             }
             $(".tasks").show();
         });
