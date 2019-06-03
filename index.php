@@ -65,15 +65,15 @@ function makeTimeStampInComments()
     $sql->execute();
     $columns = $sql->fetchAll(PDO::FETCH_ASSOC);
     foreach ($columns as $column) {
-        if ($column['Field'] == 'datetime' && $column['Type'] != 'datetime') {
+        if ($column['Field'] == 'datetime') {
             $getDateTimeQuery = $pdo->prepare('SELECT id, datetime FROM comments');
             $getDateTimeQuery->execute();
             $commentsDateTime = $getDateTimeQuery->fetchAll(PDO::FETCH_ASSOC);
-            $deleteQuery = $pdo->prepare('alter table comments drop column datetime');
-            $deleteQuery->execute();
-            $createQuery = $pdo->prepare('alter table comments add datetime int');
+//            $deleteQuery = $pdo->prepare('alter table comments drop column datetime');
+//            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table comments add datetimett int');
             $createQuery->execute();
-            $updateQuery = $pdo->prepare('update comments set datetime=:datetime WHERE id=:id');
+            $updateQuery = $pdo->prepare('update comments set datetimett=:datetime WHERE id=:id');
             foreach ($commentsDateTime as $comment) {
                 $updateQuery->execute(array(':id' => $comment['id'], ':datetime' => strtotime($comment['datetime'])));
             }
@@ -94,11 +94,11 @@ function makeTimeStampInCompany()
             $getDataregQuery = $pdo->prepare('SELECT id, datareg FROM company');
             $getDataregQuery->execute();
             $companyDatareg = $getDataregQuery->fetchAll(PDO::FETCH_ASSOC);
-            $deleteQuery = $pdo->prepare('alter table company drop column datareg');
-            $deleteQuery->execute();
-            $createQuery = $pdo->prepare('alter table company add datareg int');
+//            $deleteQuery = $pdo->prepare('alter table company drop column datareg');
+//            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table company add dataregtt int');
             $createQuery->execute();
-            $updateQuery = $pdo->prepare('update company set datareg=:datetime WHERE id=:id');
+            $updateQuery = $pdo->prepare('update company set dataregtt=:datetime WHERE id=:id');
             foreach ($companyDatareg as $company) {
                 $updateQuery->execute(array(':id' => $company['id'], ':datetime' => strtotime($company['datareg'])));
             }
@@ -119,11 +119,11 @@ function makeTimeStampInEvents()
             $getDatetimeQuery = $pdo->prepare('SELECT event_id, datetime FROM events');
             $getDatetimeQuery->execute();
             $eventDatetime = $getDatetimeQuery->fetchAll(PDO::FETCH_ASSOC);
-            $deleteQuery = $pdo->prepare('alter table events drop column datetime');
-            $deleteQuery->execute();
-            $createQuery = $pdo->prepare('alter table events add datetime int');
+//            $deleteQuery = $pdo->prepare('alter table events drop column datetime');
+//            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table events add datetimett int');
             $createQuery->execute();
-            $updateQuery = $pdo->prepare('update events set datetime=:datetime WHERE event_id=:id');
+            $updateQuery = $pdo->prepare('update events set datetimett=:datetime WHERE event_id=:id');
             foreach ($eventDatetime as $event) {
                 $updateQuery->execute(array(':id' => $event['event_id'], ':datetime' => strtotime($event['datetime'])));
             }
@@ -144,11 +144,11 @@ function makeTimeStampInInvitations()
             $getDatetimeQuery = $pdo->prepare('SELECT invite_id, invite_date FROM invitations');
             $getDatetimeQuery->execute();
             $inviteDatetime = $getDatetimeQuery->fetchAll(PDO::FETCH_ASSOC);
-            $deleteQuery = $pdo->prepare('alter table invitations drop column invite_date');
-            $deleteQuery->execute();
-            $createQuery = $pdo->prepare('alter table invitations add invite_date int');
+//            $deleteQuery = $pdo->prepare('alter table invitations drop column invite_date');
+//            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table invitations add invite_datett int');
             $createQuery->execute();
-            $updateQuery = $pdo->prepare('update invitations set invite_date=:datetime WHERE invite_id=:id');
+            $updateQuery = $pdo->prepare('update invitations set invite_datett=:datetime WHERE invite_id=:id');
             foreach ($inviteDatetime as $invite) {
                 $updateQuery->execute(array(':id' => $invite['invite_id'], ':datetime' => strtotime($invite['invite_date'])));
             }
@@ -169,11 +169,11 @@ function makeTimeStampInMail()
             $getDatetimeQuery = $pdo->prepare('SELECT message_id, datetime FROM mail');
             $getDatetimeQuery->execute();
             $mailDatetime = $getDatetimeQuery->fetchAll(PDO::FETCH_ASSOC);
-            $deleteQuery = $pdo->prepare('alter table mail drop column datetime');
-            $deleteQuery->execute();
-            $createQuery = $pdo->prepare('alter table mail add datetime int');
+//            $deleteQuery = $pdo->prepare('alter table mail drop column datetime');
+//            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table mail add datetimett int');
             $createQuery->execute();
-            $updateQuery = $pdo->prepare('update mail set datetime=:datetime WHERE message_id=:id');
+            $updateQuery = $pdo->prepare('update mail set datetimett=:datetime WHERE message_id=:id');
             foreach ($mailDatetime as $mail) {
                 $updateQuery->execute(array(':id' => $mail['message_id'], ':datetime' => strtotime($mail['datetime'])));
             }
@@ -194,11 +194,11 @@ function makeTimeStampInUsers()
             $getDatetimeQuery = $pdo->prepare('SELECT id, register_date FROM users');
             $getDatetimeQuery->execute();
             $usersDatetime = $getDatetimeQuery->fetchAll(PDO::FETCH_ASSOC);
-            $deleteQuery = $pdo->prepare('alter table users drop column register_date');
-            $deleteQuery->execute();
-            $createQuery = $pdo->prepare('alter table users add register_date int');
+//            $deleteQuery = $pdo->prepare('alter table users drop column register_date');
+//            $deleteQuery->execute();
+            $createQuery = $pdo->prepare('alter table users add register_datett int');
             $createQuery->execute();
-            $updateQuery = $pdo->prepare('update users set register_date=:datetime WHERE id=:id');
+            $updateQuery = $pdo->prepare('update users set register_datett=:datetime WHERE id=:id');
             foreach ($usersDatetime as $user) {
                 $updateQuery->execute(array(':id' => $user['id'], ':datetime' => strtotime($user['register_date'])));
             }
@@ -238,23 +238,23 @@ function makeTimeStampInTasks()
             $getTaskDatesQuery->execute();
             $taskDates = $getTaskDatesQuery->fetchAll(PDO::FETCH_ASSOC);
 
-            $deleteQuery = $pdo->prepare('alter table tasks drop column datecreate');
-            $deleteQuery->execute();
-            $deleteQuery = $pdo->prepare('alter table tasks drop column datepostpone');
-            $deleteQuery->execute();
-            $deleteQuery = $pdo->prepare('alter table tasks drop column datedone');
-            $deleteQuery->execute();
+//            $deleteQuery = $pdo->prepare('alter table tasks drop column datecreate');
+//            $deleteQuery->execute();
+//            $deleteQuery = $pdo->prepare('alter table tasks drop column datepostpone');
+//            $deleteQuery->execute();
+//            $deleteQuery = $pdo->prepare('alter table tasks drop column datedone');
+//            $deleteQuery->execute();
 
-            $createQuery = $pdo->prepare('alter table tasks add datecreate int');
+            $createQuery = $pdo->prepare('alter table tasks add datecreatett int');
             $createQuery->execute();
-            $createQuery = $pdo->prepare('alter table tasks add datepostpone int');
+            $createQuery = $pdo->prepare('alter table tasks add datepostponett int');
             $createQuery->execute();
-            $createQuery = $pdo->prepare('alter table tasks add datedone int');
+            $createQuery = $pdo->prepare('alter table tasks add datedonett int');
             $createQuery->execute();
 
-            $updateCreateQuery = $pdo->prepare('update tasks set datecreate=:datetime WHERE id=:id');
-            $updatePostponeQuery = $pdo->prepare('update tasks set datepostpone=:datetime WHERE id=:id');
-            $updateDoneQuery = $pdo->prepare('update tasks set datedone=:datetime WHERE id=:id');
+            $updateCreateQuery = $pdo->prepare('update tasks set datecreatett=:datetime WHERE id=:id');
+            $updatePostponeQuery = $pdo->prepare('update tasks set datepostponett=:datetime WHERE id=:id');
+            $updateDoneQuery = $pdo->prepare('update tasks set datedonett=:datetime WHERE id=:id');
             foreach ($taskDates as $task) {
                 if (!is_null($task['datecreate'])) {
                     $updateCreateQuery->execute(array(':id' => $task['id'], ':datetime' => strtotime($task['datecreate'])));
