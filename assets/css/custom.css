@@ -399,7 +399,7 @@ list-group:hover {
 
 }
 
-.archive-search {
+.archive-search{
     padding: .375rem .75rem;
     background-color: #ffffff;
     text-align: left;
@@ -409,19 +409,20 @@ list-group:hover {
     width: 100%;
 }
 
-.archive-search:hover {
+.archive-search:hover{
     background-color: #e4e4e4;
     color: #898989;
 }
 
 .words-search:hover{
-    background-color: #f2f2f2;
+    background-color: #f1f3f4 !important;
+    color: #898989;
 }
 
-.words-search:not(:disabled):not(.disabled).active, .words-search:not(:disabled):not(.disabled):active, .show > .words-search.dropdown-toggle {
-    background-color: #e4e4e4;
-    box-shadow: none;
-    border: none;
+.words-search:not(:disabled):not(.disabled).active, .words-search:not(:disabled):not(.disabled):active, .show>.words-search.dropdown-toggle {
+    background-color: #e8eaed;
+    color: #898989;
+    box-shadow: 0 2px 5px rgba(0,0,0, .2);
 }
 
 .popUpDiv > .words-search {

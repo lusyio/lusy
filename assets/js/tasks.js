@@ -48,14 +48,15 @@ $(document).ready(function () {
     });
 
     $('.role-search, .status-search').on('click', function () {
-        filterTasks();
         $('div.done').remove();
         $('div.canceled').remove();
         $(".archive-search").removeClass('active');
+        filterTasks();
         countAll();
         var selectName = $('.selected-role').text();
+        console.log(selectName);
         if (selectName === 'Актуальные') {
-            $('.selected-role').html('');
+            resetSearch();
             $('#actualSearch').removeClass('active');
         }
     });
@@ -180,11 +181,10 @@ $(document).ready(function () {
         canceledTasksOffset++;
         loadCanceledTasks();
     });
-    var arr = [];
 
+    var arr = [];
     function actualOn() {
         $('.status-search').each(function () {
-            var b = 0;
             if ($(this).hasClass('active') === false) {
                 arr.push(Math.random());
             }
@@ -233,6 +233,7 @@ $(document).ready(function () {
         countAll();
     });
 
+
     function filterTasks() {
         $(".load-archive-page").hide();
         var text = $('#searchInput').val();
@@ -264,7 +265,6 @@ $(document).ready(function () {
             $(".selected-role").html("Актуальные");
             $("#resetSearch").show();
         }
-
         $('.tasks').each(function () {
             var $el = $(this);
             var $hasStatus = false;
