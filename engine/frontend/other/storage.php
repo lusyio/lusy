@@ -122,7 +122,7 @@ if ($userTotalFilesSize == 0): ?>
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
-                headers: {'Cookie' : document.cookie },
+
                 data: {
                     module: 'deleteFile',
                     fileId: fileId,

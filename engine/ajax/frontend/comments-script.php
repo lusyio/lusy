@@ -5,7 +5,7 @@
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
-                headers: {'Cookie' : document.cookie },
+
                 data: {
                     ic: $idcom,
                     ajax: 'task-comments-del'},

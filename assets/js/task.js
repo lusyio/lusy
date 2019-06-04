@@ -20,13 +20,13 @@ $(document).ready(function () {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-            headers: {'Cookie' : document.cookie },
+
             data: {
                 it: $it,
                 lastVisit: lastVisit,
                 ajax: 'task-comments'
             },
-            success: onCommentSuccess(data),
+            success: onCommentSuccess,
         });
         var currentTime = parseInt(new Date().getTime() / 1000);
 
@@ -143,7 +143,7 @@ $(document).ready(function () {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
-                headers: {'Cookie' : document.cookie },
+
                 cache: false,
                 processData: false,
                 contentType: false,
@@ -197,12 +197,12 @@ $(document).ready(function () {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
-                headers: {'Cookie' : document.cookie },
+
                 cache: false,
                 processData: false,
                 contentType: false,
                 data: fd,
-                success: controlUpdate(data),
+                success: controlUpdate,
             });
 
         } else {
@@ -218,7 +218,7 @@ $(document).ready(function () {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
-                headers: {'Cookie' : document.cookie },
+
                 data: {
                     module: 'sendpostpone',
                     text: text,
@@ -226,7 +226,7 @@ $(document).ready(function () {
                     it: $it,
                     ajax: 'task-control'
                 },
-                success: controlUpdate()
+                success: controlUpdate
             });
 
         } else {
@@ -241,13 +241,13 @@ $(document).ready(function () {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
-                headers: {'Cookie' : document.cookie },
+
                 data: {
                     module: 'sendDate',
                     sendDate: sendDate,
                     it: $it,
                     ajax: 'task-control'},
-                success: controlUpdate(data),
+                success: controlUpdate,
             });
 
         } else {
@@ -260,13 +260,13 @@ $(document).ready(function () {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-            headers: {'Cookie' : document.cookie },
+
             data: {
                 module: 'confirmDate',
                 it: $it,
                 ajax: 'task-control',
             },
-            success: controlUpdate(data),
+            success: controlUpdate,
         });
     });
 
@@ -275,13 +275,13 @@ $(document).ready(function () {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-            headers: {'Cookie' : document.cookie },
+
             data: {
                 module: 'cancelDate',
                 it: $it,
                 ajax: 'task-control'
             },
-            success: controlUpdate(data),
+            success: controlUpdate,
         });
     });
 
@@ -293,13 +293,13 @@ $(document).ready(function () {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-            headers: {'Cookie' : document.cookie },
+
             data: {
                 module: 'workdone',
                 it: $it,
                 ajax: 'task-control'
             },
-            success: controlUpdate(data),
+            success: controlUpdate,
         });
 
         // } else {
@@ -316,7 +316,7 @@ $(document).ready(function () {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
-                headers: {'Cookie' : document.cookie },
+
                 data: {
                     module: 'workreturn',
                     text: text,
@@ -324,7 +324,7 @@ $(document).ready(function () {
                     it: $it,
                     ajax: 'task-control'
                 },
-                success: controlUpdate(data),
+                success: controlUpdate,
             });
 
         } else {
@@ -340,13 +340,13 @@ $(document).ready(function () {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-            headers: {'Cookie' : document.cookie },
+
             data: {
                 module: 'inwork',
                 it: $it,
                 ajax: 'task-control',
             },
-            success: controlUpdate(data),
+            success: controlUpdate,
         });
 
         // } else {
@@ -359,13 +359,13 @@ $(document).ready(function () {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-            headers: {'Cookie' : document.cookie },
+
             data: {
                 module: 'cancelTask',
                 it: $it,
                 ajax: 'task-control'
             },
-            success: controlUpdate(data),
+            success: controlUpdate,
         });
     });
 
@@ -459,7 +459,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-            headers: {'Cookie' : document.cookie },
+
             data: {
                 ic: $idcom,
                 ajax: 'task-comments-del'

@@ -230,7 +230,7 @@ if ($id == $worker and $view == 0) {
 <script src="/assets/js/datepicker.js"></script>
 <script>
     $(document).ready(function () {
-
+        <?= ($worker == $id && $view == '0')? 'decreaseTaskCounter();' : '' ?>
         $(document).on('click', function (e){ // событие клика по веб-документу
             var div = $(".deadline-block"); // тут указываем ID элемента
             var dov = $('#change-date');
