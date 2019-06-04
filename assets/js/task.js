@@ -1,5 +1,7 @@
 $(document).ready(function () {
-
+    function controlUpdate(data) {
+        location.reload();
+    }
 
     // при загрузке обновляем комменты
 
@@ -15,7 +17,17 @@ $(document).ready(function () {
     // функция загрузки комментариев
     function updateComments() {
         var lastVisit = getCookie($it);
-        $.post("/ajax.php", {it: $it, lastVisit: lastVisit, ajax: 'task-comments'}, onCommentSuccess);
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            headers: {'Cookie' : document.cookie },
+            data: {
+                it: $it,
+                lastVisit: lastVisit,
+                ajax: 'task-comments'
+            },
+            success: onCommentSuccess(data),
+        });
         var currentTime = parseInt(new Date().getTime() / 1000);
 
 
@@ -131,6 +143,7 @@ $(document).ready(function () {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
+                headers: {'Cookie' : document.cookie },
                 cache: false,
                 processData: false,
                 contentType: false,
@@ -184,19 +197,14 @@ $(document).ready(function () {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
+                headers: {'Cookie' : document.cookie },
                 cache: false,
                 processData: false,
                 contentType: false,
                 data: fd,
-                success: function (data) {
-                    controlUpdate(data)
-                },
+                success: controlUpdate(data),
             });
 
-            function controlUpdate(data) {
-                console.log(data);
-                location.reload();
-            }
         } else {
             $("#reportarea").addClass('border-danger');
         }
@@ -207,17 +215,20 @@ $(document).ready(function () {
         var datepostpone = $("#example-date-input").val();
         var text = $("#reportarea1").val();
         if (text) {
-            $.post("/ajax.php", {
-                module: 'sendpostpone',
-                text: text,
-                datepostpone: datepostpone,
-                it: $it,
-                ajax: 'task-control'
-            }, controlUpdate);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                headers: {'Cookie' : document.cookie },
+                data: {
+                    module: 'sendpostpone',
+                    text: text,
+                    datepostpone: datepostpone,
+                    it: $it,
+                    ajax: 'task-control'
+                },
+                success: controlUpdate()
+            });
 
-            function controlUpdate(data) {
-                location.reload();
-            }
         } else {
             $("#reportarea1").addClass('border-danger');
         }
@@ -227,11 +238,18 @@ $(document).ready(function () {
     $("#sendDate").click(function () {
         var sendDate = $("#example-date-input").val();
         if (sendDate) {
-            $.post("/ajax.php", {module: 'sendDate', sendDate: sendDate, it: $it, ajax: 'task-control'}, controlUpdate);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                headers: {'Cookie' : document.cookie },
+                data: {
+                    module: 'sendDate',
+                    sendDate: sendDate,
+                    it: $it,
+                    ajax: 'task-control'},
+                success: controlUpdate(data),
+            });
 
-            function controlUpdate(data) {
-                location.reload();
-            }
         } else {
             $("#example-date-input").addClass('border-danger');
         }
@@ -239,20 +257,32 @@ $(document).ready(function () {
 
     // Манагер принимает дату
     $("#confirmDate").click(function () {
-        $.post("/ajax.php", {module: 'confirmDate', it: $it, ajax: 'task-control'}, controlUpdate);
-
-        function controlUpdate(data) {
-            location.reload();
-        }
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            headers: {'Cookie' : document.cookie },
+            data: {
+                module: 'confirmDate',
+                it: $it,
+                ajax: 'task-control',
+            },
+            success: controlUpdate(data),
+        });
     });
 
     // Манагер отменят дату
     $("#cancelDate").click(function () {
-        $.post("/ajax.php", {module: 'cancelDate', it: $it, ajax: 'task-control'}, controlUpdate);
-
-        function controlUpdate(data) {
-            location.reload();
-        }
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            headers: {'Cookie' : document.cookie },
+            data: {
+                module: 'cancelDate',
+                it: $it,
+                ajax: 'task-control'
+            },
+            success: controlUpdate(data),
+        });
     });
 
 // Кнопка принять для worker'a (в статусе "на рассмотрении""), переводит в статус done - завершен
@@ -260,11 +290,17 @@ $(document).ready(function () {
     $("#workdone").click(function () {
         // var report = $("#reportarea").val();
         // if (report) {
-        $.post("/ajax.php", {module: 'workdone', it: $it, ajax: 'task-control'}, controlUpdate);
-
-        function controlUpdate(data) {
-            location.reload();
-        }
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            headers: {'Cookie' : document.cookie },
+            data: {
+                module: 'workdone',
+                it: $it,
+                ajax: 'task-control'
+            },
+            success: controlUpdate(data),
+        });
 
         // } else {
         // 	$("#reportarea").addClass('border-danger');
@@ -277,17 +313,20 @@ $(document).ready(function () {
         var datepostpone = $("#example-date-input").val();
         var text = $("#reportarea").val();
         if (text) {
-            $.post("/ajax.php", {
-                module: 'workreturn',
-                text: text,
-                datepostpone: datepostpone,
-                it: $it,
-                ajax: 'task-control'
-            }, controlUpdate);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                headers: {'Cookie' : document.cookie },
+                data: {
+                    module: 'workreturn',
+                    text: text,
+                    datepostpone: datepostpone,
+                    it: $it,
+                    ajax: 'task-control'
+                },
+                success: controlUpdate(data),
+            });
 
-            function controlUpdate(data) {
-                location.reload();
-            }
         } else {
             $("#reportarea").addClass('border-danger');
         }
@@ -298,11 +337,17 @@ $(document).ready(function () {
     $("#inwork").click(function () {
         // var report = $("#reportarea").val();
         // if (report) {
-        $.post("/ajax.php", {module: 'inwork', it: $it, ajax: 'task-control'}, controlUpdate);
-
-        function controlUpdate(data) {
-            location.reload();
-        }
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            headers: {'Cookie' : document.cookie },
+            data: {
+                module: 'inwork',
+                it: $it,
+                ajax: 'task-control',
+            },
+            success: controlUpdate(data),
+        });
 
         // } else {
         // 	$("#reportarea").addClass('border-danger');
@@ -311,11 +356,17 @@ $(document).ready(function () {
 
     //Отмена таска
     $("#cancelTask").click(function () {
-        $.post("/ajax.php", {module: 'cancelTask', it: $it, ajax: 'task-control'}, controlUpdate);
-
-        function controlUpdate(data) {
-            location.reload();
-        }
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            headers: {'Cookie' : document.cookie },
+            data: {
+                module: 'cancelTask',
+                it: $it,
+                ajax: 'task-control'
+            },
+            success: controlUpdate(data),
+        });
     });
 
 
@@ -405,11 +456,20 @@ $(document).ready(function () {
 
     $("#comments").on('click', '.delc', (function () {
         $idcom = $(this).val();
-        $.post("/ajax.php", {ic: $idcom, ajax: 'task-comments-del'}).done(function () {
-            $($idcom).fadeOut();
-            setTimeout(function () {
-                $($idcom).remove();
-            }, 500);
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            headers: {'Cookie' : document.cookie },
+            data: {
+                ic: $idcom,
+                ajax: 'task-comments-del'
+            },
+            success: function () {
+                $($idcom).fadeOut();
+                setTimeout(function () {
+                    $($idcom).remove();
+                }, 500);
+            }
         });
     }));
 

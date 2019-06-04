@@ -117,7 +117,16 @@
     }
 
     function markAsRead(eventId) {
-        $.post("/ajax.php", {module: 'markAsRead', eventId: eventId, ajax: 'log'});
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            headers: {'Cookie' : document.cookie },
+            data: {
+                module: 'markAsRead',
+                eventId: eventId,
+                ajax: 'log'
+            },
+        })
     }
 
 </script>
