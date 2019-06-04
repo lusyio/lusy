@@ -74,7 +74,7 @@
     <?php endif; ?>
     <span class="before <?=$bg?>"><i class="<?=$icon?>"></i></span>
     <div class="position-relative">
-        <span class="date"><?= date("d.m H:i", strtotime($event['datetime'])); ?></span>
+        <span class="date"><?= date("d.m H:i", $event['datetime']); ?></span>
         <img src="/<?=getAvatarLink($event['author_id'])?>" class="avatar mr-2">
         <a href="/profile/<?=$event['author_id']?>/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
     </div>
