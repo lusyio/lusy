@@ -3,13 +3,24 @@
 require_once 'engine/backend/functions/reg-functions.php';
 
 global $pdo;
-
+$userLanguage = getUserLanguage();
 $regErrors = [];
 if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['password'])) {
     if (isset($_POST['timezone'])) {
         $companyTimeZone = filter_var($_POST['timezone'], FILTER_SANITIZE_STRING);
     }else {
         $companyTimeZone = 'UTC';
+    }
+    if (isset($_POST['language'])) {
+        if ($_POST['language'] == 'ru') {
+            $companyLanguage = 'ru';
+        } else if ($_POST['language'] == 'en') {
+            $companyLanguage = 'en';
+        } else {
+            $companyLanguage = 'en';
+        }
+    } else {
+        $companyLanguage = 'en';
     }
     $companyName = filter_var(trim($_POST['companyName']), FILTER_SANITIZE_STRING);
     $login = filter_var(trim($_POST['email']), FILTER_SANITIZE_STRING);
@@ -18,7 +29,6 @@ if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['pass
     $isLoginGood = !isEmailExist($login);
 
     if ($isLoginGood) {
-        $companyLanguage = getUserLanguage();
         $companyId = addCompany($companyName, $companyLanguage, $companyTimeZone);
         if ($companyId) {
             $activationCode = createActivationCode($companyId);

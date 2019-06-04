@@ -118,8 +118,19 @@
                         </select>
                     </div>
                     <div>
+                        <div class="form-group mb-0">
+                        <div class="text-reg text-center mb-3">
+                            и язык
+                        </div>
+                        <select id="language" name="language" class="form-control required">
+                            <option></option>
+                            <option value="ru" <?= ($userLanguage == 'ru')? 'selected' : ''?>>Русский</option>
+                            <option value="en" <?= ($userLanguage == 'en')? 'selected' : ''?>>English</option>
+                        </select>
+                    </div>
+                    <div>
                         <small class="text-muted text-muted-reg">
-                            Часовой пояс
+                            Language / Язык
                         </small>
                     </div>
                 </section>
