@@ -48,17 +48,14 @@ $(document).ready(function () {
     });
 
     $('.role-search, .status-search').on('click', function () {
+        $('.actual').hide();
         $('div.done').remove();
         $('div.canceled').remove();
+        $(".archive").html('');
         $(".archive-search").removeClass('active');
+        filterRole();
         filterTasks();
         countAll();
-        var selectName = $('.selected-role').text();
-        console.log(selectName);
-        if (selectName === 'Актуальные') {
-            $('.selected-role').html('Актуальные');
-            $('#actualSearch').removeClass('active');
-        }
     });
 
     nameStatus();
@@ -116,7 +113,7 @@ $(document).ready(function () {
                     $(".inwork-status").html('');
                 }
             }
-            actualOn();
+            // actualOn();
         })
     }
 
@@ -183,28 +180,30 @@ $(document).ready(function () {
     });
 
     var arr = [];
-    function actualOn() {
-        $('.status-search').each(function () {
-            if ($(this).hasClass('active') === false) {
-                arr.push(Math.random());
-            }
-            if (arr.length === 5) {
-                resetSearch();
-                countAll();
-            }
-        });
-        arr = [];
-    }
+
+    // function actualOn() {
+    //     $('.status-search').each(function () {
+    //         if ($(this).hasClass('active') === false) {
+    //             arr.push(Math.random());
+    //         }
+    //         if (arr.length === 5) {
+    //             resetSearch();
+    //             countAll();
+    //         }
+    //     });
+    //     arr = [];
+    // }
 
     $(".search-done").on('click', function () {
         if ($(this).hasClass('active')) {
             resetSearch();
             $('#actualSearch').removeClass('active');
-            $(".selected-role").html($(this).find('.archive-name').text());
+            $(".archive").html($(this).find('.archive-name').text());
             $(".tasks").hide();
             loadDoneTasks();
             $("#resetSearch").show();
             $('.search-done').addClass('active');
+            $('.actual').hide();
         } else {
             resetSearch();
             countAll();
@@ -215,11 +214,12 @@ $(document).ready(function () {
         if ($(this).hasClass('active')) {
             resetSearch();
             $('#actualSearch').removeClass('active');
-            $(".selected-role").html($(this).find('.archive-name').text());
+            $(".archive").html($(this).find('.archive-name').text());
             $(".tasks").hide();
             loadCanceledTasks();
             $("#resetSearch").show();
             $('.search-cancel').addClass('active');
+            $('.actual').hide();
         } else {
             resetSearch();
             countAll();
@@ -233,6 +233,43 @@ $(document).ready(function () {
         countAll();
     });
 
+    var rolesNames = {};
+
+    function filterRole() {
+        var rolename;
+        $('.role-search').each(function (i) {
+            var role = 'role' + i;
+            if ($(this).hasClass('active')) {
+                rolename = $(this).find('.role-name').text();
+                rolesNames[role] = rolename;
+            } else {
+                delete rolesNames[role];
+            }
+            console.log(rolesNames);
+        });
+        if (Object.keys(rolesNames).length > 0) {
+            $('.in').show();
+            $('.out').show();
+            $("#actualSearch").removeClass('active');
+            $('.actual').hide();
+            if ("role0" in rolesNames) {
+                $(".in").html("Входящие" + ",");
+                $("#resetSearch").show();
+            } else {
+                $('.in').html('');
+            }
+            if ("role1" in rolesNames) {
+                $(".out").html("Исходящие" + ",");
+                $("#resetSearch").show();
+            } else {
+                $('.out').html('');
+            }
+        } else {
+            $('.in').hide();
+            $('.out').hide();
+            $("#resetSearch").show();
+        }
+    }
 
     function filterTasks() {
         $(".load-archive-page").hide();
@@ -240,9 +277,7 @@ $(document).ready(function () {
         var textRegex = new RegExp(text, 'i');
         var statuses = [];
         var statusesNames = [];
-        var rolesNames = [];
         var roles = [];
-
         $('.status-search').each(function () {
             if ($(this).hasClass('active')) {
                 statuses.push($(this).attr('rel'));
@@ -252,19 +287,8 @@ $(document).ready(function () {
         $('.role-search').each(function () {
             if ($(this).hasClass('active')) {
                 roles.push($(this).attr('rol'));
-                rolesNames.push($(this).find('.role-name').text());
             }
         });
-
-        if (rolesNames.length > 0) {
-            $(rolesNames).each(function () {
-                $(".selected-role").html(rolesNames + ",");
-                $("#resetSearch").show();
-            });
-        } else {
-            $(".selected-role").html("Актуальные");
-            $("#resetSearch").show();
-        }
         $('.tasks').each(function () {
             var $el = $(this);
             var $hasStatus = false;
@@ -296,7 +320,13 @@ $(document).ready(function () {
             } else {
                 $el.hide();
             }
-        })
+        });
+        if (Object.keys(rolesNames).length === 0 && statuses.length === 0) {
+            resetSearch();
+            $("#actualSearch").addClass('active');
+        } else {
+            $("#actualSearch").removeClass('active')
+        }
     }
 
     function resetSearch() {
@@ -305,6 +335,7 @@ $(document).ready(function () {
         $('.status').html('');
         $('div.canceled').remove();
         $('div.done').remove();
+        $(".archive").html('');
         $(".words-search").each(function () {
             var status = $(this);
             $(".load-archive-page").hide();
@@ -319,7 +350,7 @@ $(document).ready(function () {
             }
             $(".tasks").show();
         });
-        $(".selected-role").html("Актуальные");
+        $(".actual").show();
         $('#actualSearch').addClass('active');
     }
 

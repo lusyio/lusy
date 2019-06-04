@@ -49,6 +49,13 @@ body{
     padding-left: 1.25rem;
 }
 
+.archive{
+    border-bottom: 1px dashed;
+    cursor: pointer;
+    font-size: 14px;
+    height: 24px;
+}
+
 .filter-select {
     border-bottom: 1px dashed;
     cursor: pointer;

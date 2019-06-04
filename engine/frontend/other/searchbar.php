@@ -9,7 +9,9 @@
     <div class="d-inline-flex">
         <div id="filterSelect" class="position-relative mr-1 mb-2">
             <span class="text-ligther">Показывать </span>
-            <span class="filter-select selected-role">Актуальные</span>
+            <span class="filter-select selected-role actual">Актуальные</span>
+            <span class="filter-select in selected-role "></span>
+            <span class="filter-select out selected-role "></span>
             <span class="selected-status text-secondary"></span>
             <div class="popUpDiv">
                 <div id="actualSearch" class="words-search w-100 active">
@@ -49,6 +51,7 @@
                     </div>
                 <?php endif; ?>
             </div>
+            <span class="status archive"
             <span class="status new-status"></span>
             <span class="status inwork-status"></span>
             <span class="status overdue-status"></span>
