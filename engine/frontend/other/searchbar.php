@@ -88,7 +88,7 @@
 
 <script>
     $(document).ready(function () {
-        $("#filterSelect").on('click', '.filter-select', function () {
+        $("#filterSelect").on('click', '.filter-select, .archive', function () {
             $(".popUpDiv").fadeToggle(200);
         });
 
