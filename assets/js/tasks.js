@@ -338,6 +338,8 @@ $(document).ready(function () {
         $('div.canceled').remove();
         $('div.done').remove();
         $(".archive").html('');
+        $(".in").hide();
+        $(".out").hide();
         $(".words-search").each(function () {
             var status = $(this);
             $(".load-archive-page").hide();
