@@ -3,7 +3,7 @@
 function fiomess($iduser) {
     global $pdo;
     $fio = DBOnce('name','users','id='.$iduser) . ' ' . DBOnce('surname','users','id='.$iduser);
-    echo $fio;
+    return $fio;
 }
 
 function lastmess($iduser) {
