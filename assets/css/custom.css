@@ -1188,7 +1188,8 @@ input:checked[type="checkbox"]::before {
 }
 
 #chatBox {
-    height:100vmin;
+    position: relative;
+    height: calc(100vh - 280px);
     overflow: auto;
 }
 
