@@ -1181,7 +1181,7 @@ input:checked[type="checkbox"]::before {
 }
 
 #chatBox {
-    height: 610px;
+    height:100vmin;
     overflow: auto;
 }
 
@@ -1242,6 +1242,14 @@ input:checked[type="checkbox"]::before {
 .my-message {
     border-radius: 10px;
     padding: 1rem;
+}
+
+.no-messages{
+    font-size: 20px;
+    text-align: center;
+    color: #65686c;
+    padding: 72px 10px;
+    font-weight: 200;
 }
 
 .not-my-message {

@@ -1,5 +1,3 @@
-
-
 <div class="card">
     <div class="card-header pt-0">
         <h5 class="mb-0"><?= fiomess($recipientId) ?> <i class="fas fa-circle mr-1 ml-1 onlineIndicator"></i></h5>
@@ -10,7 +8,7 @@
                 <?php include 'engine/frontend/other/message.php'; ?>
             <?php endforeach; ?>
         <?php else: ?>
-            <p class="no-messages">Нет сообщений</p>
+            <div class="no-messages">Нет сообщений</div>
         <?php endif; ?>
     </div>
 </div>
@@ -83,9 +81,9 @@
         var attachedFiles = [];
         var attachedFile = [];
 
-        function sizeFile(){
+        function sizeFile() {
             $("#sendFiles").bind('change', function () {
-                for (var i = 0; i<this.files.length; i++) {
+                for (var i = 0; i < this.files.length; i++) {
                     var size = this.files[i].size;
                     var names = this.files[i].name;
                     if (size > 20 * 1024 * 1024) {
@@ -93,7 +91,7 @@
                         $("#sendBtn").prop('disabled', true);
                     } else {
                         $(".newmess").append("<div class='filenames'>"
-                            +names+
+                            + names +
                             "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
                             "</div>");
                         $("#oversize").remove();
@@ -108,20 +106,20 @@
             });
         }
 
-        $(window).resize(function(){
-            var small_height = 250;
-            var medium_height = 350;
-            var big_height = 550;
-
-            if($(window).height() < 600 )
-            {
-                $('#chatBox').height(small_height);
-            }
-            else
-            {
-                $('#chatBox').height(medium_height);
-            }
-        });
+        // $(window).resize(function(){
+        //     var small_height = 250;
+        //     var medium_height = 350;
+        //     var big_height = 550;
+        //
+        //     if($(window).height() < 600 )
+        //     {
+        //         $('#chatBox').height(small_height);
+        //     }
+        //     else
+        //     {
+        //         $('#chatBox').height(medium_height);
+        //     }
+        // });
 
         $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
 
@@ -181,7 +179,7 @@
                     data: fd,
                     success: function (data) {
                         console.log(data);
-                        if( $('#chatBox').find($('.no-messages')).length) {
+                        if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }
                         $("#mes").val('');
@@ -191,7 +189,7 @@
                     },
                 });
                 $("#mes").removeClass('border-danger');
-            }else {
+            } else {
                 $("#mes").addClass('border-danger');
             }
 
