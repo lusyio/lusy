@@ -1926,6 +1926,10 @@ label.error {
     transition: 200ms;
 }
 
+.spinner-invite{
+    /*display: none;*/
+}
+
 .icon-invite:hover {
     color: #5d95db;
 }
