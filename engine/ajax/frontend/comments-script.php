@@ -2,11 +2,19 @@
     $(document).ready(function () {
         $(".delc").click(function () {
             $idcom = $(this).val();
-            $.post("/ajax.php", {ic: $idcom, ajax: 'task-comments-del'}).done(function () {
-                $($idcom).fadeOut();
-                setTimeout(function () {
-                    $($idcom).remove();
-                }, 500);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                headers: {'Cookie' : document.cookie },
+                data: {
+                    ic: $idcom,
+                    ajax: 'task-comments-del'},
+                success: function () {
+                    $($idcom).fadeOut();
+                    setTimeout(function () {
+                        $($idcom).remove();
+                    }, 500);
+                }
             });
         });
     });

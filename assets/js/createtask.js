@@ -156,6 +156,7 @@ $(document).ready(function () {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
+                headers: {'Cookie' : document.cookie },
                 cache: false,
                 processData: false,
                 contentType: false,

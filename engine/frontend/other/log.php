@@ -4,20 +4,20 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="d-inline-block">
-                        <div id="allSearch" class="btn btn-light view-status-search words-search active">
-                            <span><i class="fas fa-align-justify mr-2"></i> Показать все</span>
+                        <div id="allSearch" class="btn btn-light view-status-search active">
+                            <span><i class="fas fa-align-justify mr-2"></i> <?=$_buttonLogShowAll?></span>
                             <span class="count"></span>
                         </div>
-                        <div id="newSearch" class="btn btn-light view-status-search words-search">
-                            <span><i class="fas fa-plus mr-2"></i> Только новые</span>
+                        <div id="newSearch" class="btn btn-light view-status-search">
+                            <span><i class="fas fa-plus mr-2"></i> <?=$_buttonLogShowNew?></span>
                             <span class="count"></span>
                         </div>
-                        <div id="taskSearch" data-type="task" class="btn btn-light type-search words-search">
-                            <span><i class="far fa-clipboard mr-2"></i> Задачи</span>
+                        <div id="taskSearch" data-type="task" class="btn btn-light type-search">
+                            <span><i class="far fa-clipboard mr-2"></i> <?=$_tasks?></span>
                             <span class="count"></span>
                         </div>
-                        <div id="commentSearch" data-type="comment" class="btn btn-light type-search words-search">
-                            <span><i class="far fa-comment mr-2"></i> Комментарии</span>
+                        <div id="commentSearch" data-type="comment" class="btn btn-light type-search">
+                            <span><i class="far fa-comment mr-2"></i> <?=$_comments?></span>
                             <span class="count"></span>
                         </div>
                     </div>
@@ -117,7 +117,16 @@
     }
 
     function markAsRead(eventId) {
-        $.post("/ajax.php", {module: 'markAsRead', eventId: eventId, ajax: 'log'});
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            headers: {'Cookie' : document.cookie },
+            data: {
+                module: 'markAsRead',
+                eventId: eventId,
+                ajax: 'log'
+            },
+        })
     }
 
 </script>

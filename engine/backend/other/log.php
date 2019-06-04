@@ -3,6 +3,10 @@ global $id;
 global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
+global $_buttonLogShowAll;
+global $_buttonLogShowNew;
+global $_tasks;
+global $_comments;
 
 require_once 'engine/backend/functions/log-functions.php';
 

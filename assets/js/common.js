@@ -35,11 +35,24 @@ function subscribeToMessagesNotification (userId) {
         }
         if (window.pageName && pageName === 'log') {
             console.log('start event request');
-            $.post("/ajax.php", {module: 'getEvent', eventId: eventId, ajax: 'log'}, function (event) {
-                if (event) {
-                    $('#eventBox').prepend(event);
+
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                headers: {'Cookie' : document.cookie },
+                data: {
+                    module: 'getEvent',
+                    eventId: eventId,
+                    ajax: 'log'
+                },
+                success: function (event) {
+                    if (event) {
+                        $('#eventBox').prepend(event);
+                    }
                 }
-            });
+            })
+
+
         }
     });
     console.log('подписки пройдены');
@@ -152,6 +165,7 @@ function checkNotifications(event, id) {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
+            headers: {'Cookie' : document.cookie },
             cache: false,
             processData: false,
             contentType: false,

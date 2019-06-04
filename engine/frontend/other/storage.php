@@ -119,15 +119,21 @@ if ($userTotalFilesSize == 0): ?>
             var fileId = $(this).find('.delete-file-icon').attr('val');
             var file = $(this).parents(".files");
             console.log(fileId);
-            $.post("/ajax.php", {
-                module: 'deleteFile',
-                fileId: fileId,
-                ajax: 'storage'
-            }, function (data) {
-                if (data) {
-                    console.log(data);
-                } else {
-                    file.fadeOut(750);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                headers: {'Cookie' : document.cookie },
+                data: {
+                    module: 'deleteFile',
+                    fileId: fileId,
+                    ajax: 'storage'
+                }
+                success: function (data) {
+                    if (data) {
+                        console.log(data);
+                    } else {
+                        file.fadeOut(750);
+                    }
                 }
             });
         })
