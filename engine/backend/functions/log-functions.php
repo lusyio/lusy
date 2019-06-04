@@ -173,6 +173,12 @@ function markAsRead($eventId)
     global $id;
     global $pdo;
     $markQuery = $pdo->prepare('UPDATE events SET view_status = 1 WHERE event_id = :eventId AND recipient_id = :userId');
-    $markQuery->execute(array(':eventId' => $eventId, ':userId' => $id));
+    if (is_array($eventId)) {
+        foreach ($eventId as $event) {
+            $markQuery->execute(array(':eventId' => $event, ':userId' => $id));
+        }
+    } else {
+        $markQuery->execute(array(':eventId' => $eventId, ':userId' => $id));
+    }
 }
 

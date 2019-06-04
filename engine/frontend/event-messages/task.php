@@ -79,6 +79,6 @@
         <a href="/profile/<?=$event['author_id']?>/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
     </div>
     <p class="mt-2"><?= $action ?>
-        <a href="/../<?= $event['link'] ?>" class="font-italic">"<?=$event['taskname']?>"</a></p>
+        <a href="/../<?= $event['link'] ?>" class="font-italic task-link">"<?=$event['taskname']?>"</a></p>
 </li>
 

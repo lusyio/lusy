@@ -5,6 +5,9 @@ global $datetime;
 global $cometHash;
 global $cometTrackChannelName;
 global $_months;
+
+require_once 'engine/backend/functions/log-functions.php';
+
 if ($roleu == 'ceo') {
     $isCeo = true;
 } else {
@@ -78,6 +81,17 @@ if (!is_null($viewStatus) && isset($viewStatus[$manager]['datetime'])) {
     $viewStatusTitleManager = 'Просмотрено ' . $viewStatus[$manager]['datetime'];
 } else {
     $viewStatusTitleManager = 'Не просмотрено';
+}
+
+if ($worker == $id) {
+    $taskEventsQuery = $pdo->prepare('SELECT event_id FROM events WHERE task_id = :taskId AND recipient_id = :userId AND view_status=0');
+    $taskEventsQuery->execute(array(':taskId' => $idtask, ':userId' => $id));
+    $taskEvents = $taskEventsQuery->fetchAll(PDO::FETCH_COLUMN);
+    markAsRead($taskEvents);
+    if ($view == '0') {
+        $setViewedQuery = $pdo->prepare('UPDATE `tasks` SET view = :viewState where id = :taskId');
+        $setViewedQuery->execute(array('viewState' => 1, ':taskId' => $idtask));
+    }
 }
 
 $coworkersId = array_column($coworkers, 'worker_id');

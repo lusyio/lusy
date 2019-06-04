@@ -86,17 +86,22 @@
         }
 
         $('#eventBox').on('mouseover', '.new-event', function () {
-            $(this).removeClass('new-event');
-            var eventId = $(this).data('event-id');
-            if ($(this).hasClass('comment')) {
-                decreaseCommentCounter();
-            }
             if ($(this).hasClass('task')) {
-                decreaseTaskCounter();
-            }
-            console.log(eventId);
+                var $taskLink = $(this).find('.task-link');
+                $taskLink.addClass('text-primary');
+                setTimeout(function () {
+                    $taskLink.removeClass('text-primary');
+                },1000);
+            } else {
+                $(this).removeClass('new-event');
+                var eventId = $(this).data('event-id');
+                if ($(this).hasClass('comment')) {
+                    decreaseCommentCounter();
+                }
+                console.log(eventId);
 
-            markAsRead(eventId);
+                markAsRead(eventId);
+            }
         })
     });
 
@@ -120,7 +125,7 @@
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-            headers: {'Cookie' : document.cookie },
+
             data: {
                 module: 'markAsRead',
                 eventId: eventId,
