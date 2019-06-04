@@ -56,8 +56,8 @@ $(document).ready(function () {
         filterRole();
         filterTasks();
         countAll();
+        pasteComma();
     });
-
     nameStatus();
 
 
@@ -88,13 +88,13 @@ $(document).ready(function () {
             var statusName = $(this).find('.status-name').text();
             if ($(this).hasClass('active')) {
                 if (statusName === 'В работе') {
-                    $(".inwork-status").html("<span class=\"filter-select text-primary\">" + statusName + "</span>" + ", ");
+                    $(".inwork-status").html("<span class=\"filter-select text-primary\">" + statusName + "</span>");
                 }
                 if (statusName === 'Просрочено') {
-                    $(".overdue-status").html("<span class=\"filter-select  text-danger\">" + statusName + "</span>" + ", ");
+                    $(".overdue-status").html("<span class=\"filter-select  text-danger\">" + statusName + "</span>");
                 }
                 if (statusName === 'Перенос срока') {
-                    $(".postpone-status").html("<span class=\"filter-select  text-warning\">" + statusName + "</span>" + ", ");
+                    $(".postpone-status").html("<span class=\"filter-select  text-warning\">" + statusName + "</span>");
                 }
                 if (statusName === 'На рассмотрении') {
                     $(".pending-status").html("<span class=\"filter-select  text-secondary\">" + statusName + "</span>");
@@ -114,6 +114,7 @@ $(document).ready(function () {
                 }
             }
             // actualOn();
+            pasteComma();
         })
     }
 
@@ -236,6 +237,11 @@ $(document).ready(function () {
     });
 
     var rolesNames = {};
+    
+    function pasteComma() {
+        $('.comma').remove();
+        $('.filter-select:visible:not(:empty):not(:last)').append('<span class="comma">, </span>')
+    }
 
     function filterRole() {
         var rolename;
@@ -247,7 +253,6 @@ $(document).ready(function () {
             } else {
                 delete rolesNames[role];
             }
-            console.log(rolesNames);
         });
         if (Object.keys(rolesNames).length > 0) {
             $('.in').show();
@@ -255,13 +260,13 @@ $(document).ready(function () {
             $("#actualSearch").removeClass('active');
             $('.actual').hide();
             if ("role0" in rolesNames) {
-                $(".in").html("Входящие" + ",");
+                $(".in").html("Входящие");
                 $("#resetSearch").show();
             } else {
                 $('.in').html('');
             }
             if ("role1" in rolesNames) {
-                $(".out").html("Исходящие" + ",");
+                $(".out").html("Исходящие");
                 $("#resetSearch").show();
             } else {
                 $('.out').html('');
