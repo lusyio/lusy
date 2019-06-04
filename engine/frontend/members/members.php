@@ -77,6 +77,9 @@
                     <?php } ?>
                 </div>
                 <div class="text-left collapse" id="coworkersList">
+                    <div class="empty-list text-muted text-center">
+                        Список пуст
+                    </div>
                     <?php
                     foreach ($users as $n) { ?>
                         <div val="<?php echo $n['id'] ?>"
@@ -142,6 +145,20 @@
             updateCoworkers();
         });
 
+        function coworkersListEmpty() {
+            var list = [];
+            $(".members-coworker-select:visible").each(function () {
+                list.push(Math.random());
+            });
+            if (list.length === 0) {
+                $('.empty-list').show();
+            } else {
+                $('.empty-list').hide();
+                console.log('asdasd')
+            }
+            console.log(list);
+        }
+
         //работа с ответственными
         $(".members-select-responsible").on('click', function () {
             var id = $(this).attr('val');
@@ -153,6 +170,7 @@
             $('.container-coworker').find("[val = " + id + "]").addClass('d-none');
             $(".container-members-responsible-selected").find("[val = " + id + "]").removeClass('d-none');
             updateCoworkers();
+            coworkersListEmpty();
         });
 
         //работа с соисполнителями
@@ -162,6 +180,7 @@
             // $('#responsibleList').find("[val = " + id + "]").addClass('d-none');
             $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
             updateResponsible();
+            coworkersListEmpty();
         });
 
         $('.add-worker').on('click', function () {
@@ -169,6 +188,7 @@
             $(this).addClass('d-none');
             $('#coworkersList').find("[val = " + id + "]").removeClass('d-none');
             updateResponsible();
+            coworkersListEmpty();
         });
 
         $("#confirmMembers").on('click', function () {

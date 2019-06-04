@@ -4,7 +4,7 @@ $(document).ready(function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
         fileList.delete(num);
-        if (fileList.size === 0){
+        if (fileList.size === 0) {
             $('.file-name').hide();
         }
     });
@@ -166,29 +166,37 @@ $(document).ready(function () {
             });
         } else {
             if (responsible == null) {
-                $('.container-responsible').css({'border-color': '#dc3545',
-                'transition': '1000ms'});
+                $('.container-responsible').css({
+                    'border-color': '#dc3545',
+                    'transition': '1000ms'
+                });
                 setTimeout(function () {
                     $('.container-responsible').css('border-color', "#ced4da");
                 }, 1000)
             }
-            if (name === ''){
-                $('#name').css({'border-color': '#dc3545',
-                    'transition': '1000ms'});
+            if (name === '') {
+                $('#name').css({
+                    'border-color': '#dc3545',
+                    'transition': '1000ms'
+                });
                 setTimeout(function () {
                     $('#name').css('border-color', "#ced4da");
                 }, 1000)
             }
             if (delta === '<p><br></p>') {
-                $('#editor').css({'border-color': '#dc3545',
-                    'transition': '1000ms'});
+                $('#editor').css({
+                    'border-color': '#dc3545',
+                    'transition': '1000ms'
+                });
                 setTimeout(function () {
                     $('#editor').css('border-color', "#ced4da");
                 }, 1000)
             }
-            if (datedone === ''){
-                $('#datedone').css({'border-color': '#dc3545',
-                    'transition': '1000ms'});
+            if (datedone === '') {
+                $('#datedone').css({
+                    'border-color': '#dc3545',
+                    'transition': '1000ms'
+                });
                 setTimeout(function () {
                     $('#datedone').css('border-color', "#ced4da");
                 }, 1000)

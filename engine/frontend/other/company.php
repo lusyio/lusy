@@ -35,24 +35,40 @@
                             <a href="/profile/<?= $n['id'] ?>/"><img src="/<?= getAvatarLink($n["id"]) ?>"
                                                                      class="avatar-img rounded-circle w-100 mb-4"/>
                                 <span class="company-online-indicator">
-                                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator company <?=($n['online'])? 'text-success' : '' ?>"></i>
+                                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator company <?= ($n['online']) ? 'text-success' : '' ?>"></i>
                                 </span>
                             </a>
                         </div>
                         <div>
-                            <p class="ml-5 h5 company-profile-fio">
-                                <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
-                                <span class="text-muted-reg"><?= ($n['online'])? $GLOBALS['_online'] : ((isset($n['activity']))? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
-                            </p>
-                            <div class="ml-5">
-                                <?php
-                                if ($n['phone'] != null) {
-                                    echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
-                                }
-                                ?>
-                                <span class="d-block company-profile-email"><i
-                                            class="fas fa-envelope mr-1 text-muted"></i> <?= $n['email'] ?></span>
-                            </div>
+                            <?php
+                            if ($n["name"] != null && $n["surname"] != null): ?>
+                                <p class="ml-5 h5 company-profile-fio">
+                                    <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
+                                    <span class="text-muted-reg"><?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
+                                </p>
+                                <div class="ml-5">
+                                    <?php
+                                    if ($n['phone'] != null) {
+                                        echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
+                                    }
+                                    ?>
+                                    <span class="d-block company-profile-email"><i
+                                                class="fas fa-envelope mr-1 text-muted"></i> <?= $n['email'] ?></span>
+                                </div>
+                            <?php
+                            else: ?>
+                                <p class="ml-5 h5 company-profile-fio">
+                                    <a href="/profile/<?= $n["id"] ?>/"><?= $n['email'] ?></a>
+                                    <span class="text-muted-reg"><?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
+                                </p>
+                                <div class="ml-5">
+                                    <?php
+                                    if ($n['phone'] != null) {
+                                        echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
+                                    }
+                                    ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
