@@ -67,6 +67,16 @@ $_edit = 'Изменить';
 $_titlecompanyusage = 'Файлы компании';
 $_titleuserusage = 'Файлы пользователя';
 
+//инвайты
+$_headerinvite = 'Отправить приглашение';
+$_howtoinvite = 'Чтобы пригласить сотрудника, введите его почту и укажите роль';
+$_placeholderinvite = 'Почта получателя';
+$_usedemailinvite = 'Этот email уже использован';
+$_createinvite = 'Отправить';
+$_sentinvite = 'Отправлено';
+$_registeredinvite = 'Зарегистрирован';
+$_copyinvite = 'Скопировать приглашение';
+
 //Регистрация
 $_registration = 'Регистрация';
 $_namecompany = 'Название компании';

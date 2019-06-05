@@ -688,7 +688,7 @@ input:checked[type="checkbox"]::before {
 
 .navbar-toggler {
     margin-top: 10px;
-    padding-right: 0px;
+    padding: 5px;
 }
 
 .status-icon.rounded-circle.noty-m {
@@ -1846,7 +1846,7 @@ span.date {
         width: 85%;
     }
     .top-sidebar .collapse {
-        display: block !important;
+        display: flex !important;
     }
 }
 
@@ -1857,6 +1857,9 @@ span.date {
         padding: 10px 0px 5px;
         text-align: left !important;
     }
+    [data-trigger="dropdown"] {
+    padding: 0;
+}
     .user-img {
         position: absolute;
         right: 0px;

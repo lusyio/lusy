@@ -1,11 +1,14 @@
-<h3 class="pb-3"><b>Отправить приглашение</b></h3>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<h3 class="pb-3"><b><?= $GLOBALS['_headerinvite'] ?></b></h3>
 <form id="create-invite" method="post" action="">
     <div class="card mb-3">
         <div class="card-body">
             <div class="mb-3 text-center">
                 <a class="d-inline float-left" href="/company/"><i class="fas fa-arrow-left icon-invite"></i></a>
                 <div class="text-reg ml-4">
-                    Чтобы пригласить сотрудника, введите его почту и укажите роль
+                    <?= $GLOBALS['_howtoinvite'] ?>
                 </div>
             </div>
             <div class="row">
@@ -13,17 +16,17 @@
                     <div class="input-group">
                         <input id="invitee-mail" class="form-control" type="email" name="invitee-mail"
                                aria-describedby="emailHelp"
-                               placeholder="Почта получателя"
+                               placeholder="<?= $GLOBALS['_placeholderinvite'] ?>"
                                required>
                     </div>
-                    <div class="text-muted-reg text-center mt-3 d-none">Этот email уже использован</div>
+                    <div class="text-muted-reg text-center mt-3 d-none"><?= $GLOBALS['_usedemailinvite'] ?></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col text-center mt-3">
                     <button type="submit" class="btn btn-outline-primary rounded invite-send">
                         <span class="spinner-border spinner-border-sm d-none"></span>
-                        Отправить</button>
+                        <?= $GLOBALS['_createinvite'] ?></button>
                 </div>
             </div>
         </div>
@@ -37,7 +40,7 @@
                     <div class="row">
                         <div class="col-1">
                             <span><i val="<?= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?>"
-                                     class="far fa-copy copy-link"></i></span>
+                                     class="far fa-copy copy-link" data-toggle="tooltip" data-placement="bottom" title="<?= $GLOBALS['_copyinvite'] ?>"></i></span>
                         </div>
                         <div class="col-4">
                             <?= $invite['email'] ?>
@@ -49,11 +52,11 @@
                         </div>
                         <?php if ($invite['status']): ?>
                             <div class="col-3">
-                                <a href="/../profile/<?= $invite['status']; ?>">Зарегистрирован</a>
+                                <a href="/../profile/<?= $invite['status']; ?>"><?= $GLOBALS['_registeredinvite'] ?></a>
                             </div>
                         <?php else: ?>
                             <div class="col-3">
-                                <span>Отправлено</span>
+                                <span><?= $GLOBALS['_sentinvite'] ?></span>
                                 <a href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
                                             class="far fa-times-circle invite-delete"></i></a>
                             </div>
@@ -68,6 +71,10 @@
 </div>
 <script>
     $(document).ready(function () {
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
 
         $(".invite-container").on('click', '.copy-link', function () {
             var val = $(this).attr('val');
@@ -145,7 +152,7 @@
                                     "                    <div class=\"row\">\n" +
                                     "                        <div class=\"col-1\">\n" +
                                     "                            <span><i val=\' " + inviteRow + " \'\n" +
-                                    "                                     class=\"far fa-copy copy-link\"></i></span>\n" +
+                                    "                                     class=\"far fa-copy copy-link\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Скопировать приглашение\"></i></span>\n" +
                                     "                        </div>\n" +
                                     "                        <div class=\"col-4\">\n" + invite['email'] +
                                     "                        </div>\n" +
