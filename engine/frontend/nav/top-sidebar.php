@@ -33,7 +33,7 @@
                         <i class="fas fa-fire-alt" id="overdueIcon"></i>
                         <strong class="text-danger" id="overdueCount"></strong>
                     </a>
-                    <a href="/log/<?= ($newCommentCount) ? '#new-comments' : '#comments' ?>" class="mr-3 text-decoration-none">
+                    <a href="/log/#comments" class="mr-3 text-decoration-none">
                         <i class="far fa-comment" id="commentIcon"></i>
                         <strong class="text-warning" id="commentCount"></strong>
                     </a>
