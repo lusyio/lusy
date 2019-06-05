@@ -28,20 +28,20 @@
                 </form>
             </div>
             <div class="col-sm-4 navbarNav collapse navbar-collapse">
-                <div class="float-right text-right alerts position-relative">
-                    <a href="/log/#tasks" class="mr-3 text-decoration-none">
+                <div id="counters" class="float-right text-right alerts position-relative">
+                    <a href="/log/#tasks" class="mr-3 text-decoration-none  d-none">
                         <i class="far fa-clipboard" id="notificationIcon"></i>
                         <strong class="text-primary" id="notificationCount"></strong>
                     </a>
-                    <a href="/tasks/#overdue" class="mr-3 text-decoration-none">
+                    <a href="/tasks/#overdue" class="mr-3 text-decoration-none  d-none">
                         <i class="fas fa-fire-alt" id="overdueIcon"></i>
                         <strong class="text-danger" id="overdueCount"></strong>
                     </a>
-                    <a href="/log/#comments" class="mr-3 text-decoration-none">
+                    <a href="/log/#comments" class="mr-3 text-decoration-none  d-none">
                         <i class="far fa-comment" id="commentIcon"></i>
                         <strong class="text-warning" id="commentCount"></strong>
                     </a>
-                    <a href="/mail/" class="mr-3 text-decoration-none">
+                    <a href="/mail/" class="mr-3 text-decoration-none  d-none">
                         <i class="far fa-envelope" id="messagesIcon"></i>
                         <strong class="text-success" id="messagesCount"></strong>
                     </a>
