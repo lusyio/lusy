@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-sm-3">
                 <a class="navbar-brand text-uppercase font-weight-bold visible-lg mt-1" href="/"><?= $namec ?></a>
-                <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target=".navbarNav"
+                <button class="navbar-toggler float-right position-relative" type="button" data-toggle="collapse" data-target=".navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><i
                             class="fas fa-bars"></i>
-                    <span class="company-online-indicator">
-                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator top-sidebar-indicator"></i>
+                    <span class="events-indicator">
+                    <i class="fas fa-circle mr-1 ml-1 top-sidebar-indicator"></i>
                 </span>
                 </button>
             </div>
