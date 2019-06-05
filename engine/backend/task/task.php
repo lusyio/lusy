@@ -7,6 +7,7 @@ global $cometTrackChannelName;
 global $_months;
 
 require_once 'engine/backend/functions/log-functions.php';
+require_once 'engine/backend/functions/tasks-functions.php';
 
 if ($roleu == 'ceo') {
     $isCeo = true;
