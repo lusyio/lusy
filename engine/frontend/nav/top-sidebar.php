@@ -25,21 +25,21 @@
             </div>
             <div class="col-sm-4 navbarNav collapse navbar-collapse">
                 <div class="float-right text-right alerts position-relative">
-                    <a href="/log/<?= ($newLogCount) ? '#new-tasks' : '#tasks' ?>" class="mr-3 text-decoration-none">
-                        <i class="far fa-clipboard <?= ($newLogCount) ? 'text-primary' : '' ?>" id="notificationIcon"></i>
-                        <strong class="text-primary" id="notificationCount"><?= ($newLogCount) ? $newLogCount : '' ?></strong>
+                    <a href="/log/#tasks" class="mr-3 text-decoration-none">
+                        <i class="far fa-clipboard" id="notificationIcon"></i>
+                        <strong class="text-primary" id="notificationCount"></strong>
                     </a>
                     <a href="/tasks/#overdue" class="mr-3 text-decoration-none">
-                        <i class="fas fa-fire-alt <?= ($newOverdueCount) ? 'text-danger' : '' ?>" id="overdueIcon"></i>
-                        <strong class="text-danger" id="overdueCount"><?= ($newOverdueCount) ? $newOverdueCount : '' ?></strong>
+                        <i class="fas fa-fire-alt" id="overdueIcon"></i>
+                        <strong class="text-danger" id="overdueCount"></strong>
                     </a>
                     <a href="/log/<?= ($newCommentCount) ? '#new-comments' : '#comments' ?>" class="mr-3 text-decoration-none">
-                        <i class="far fa-comment  <?= ($newCommentCount) ? 'text-warning' : '' ?>" id="commentIcon"></i>
-                        <strong class="text-warning" id="commentCount"><?= ($newCommentCount) ? $newCommentCount : '' ?></strong>
+                        <i class="far fa-comment" id="commentIcon"></i>
+                        <strong class="text-warning" id="commentCount"></strong>
                     </a>
                     <a href="/mail/" class="mr-3 text-decoration-none">
-                        <i class="far fa-envelope <?= ($newMailCount) ? 'text-success' : '' ?>" id="messagesIcon"></i>
-                        <strong class="text-success" id="messagesCount"><?= ($newMailCount) ? $newMailCount : '' ?></strong>
+                        <i class="far fa-envelope" id="messagesIcon"></i>
+                        <strong class="text-success" id="messagesCount"></strong>
                     </a>
                     <? //=$id?><!--/"><img class="user-img rounded-circle" src="/upload/avatar/-->
                     <? //=$id?><!--.jpg"/></a>-->
