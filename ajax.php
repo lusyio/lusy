@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
-
+    setlocale(LC_ALL, 'ru_RU');
     // подключаем pdo
     require_once(realpath('conf.php'));
 

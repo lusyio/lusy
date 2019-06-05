@@ -1,6 +1,8 @@
 <?php
 session_start();
 ob_start();
+setlocale(LC_ALL, 'ru_RU');
+
 include 'conf.php';
 
 //addTimeZoneToCompany();
