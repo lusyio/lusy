@@ -211,6 +211,13 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
             $deleteCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $oldCoworker));
         }
     }
+
+    $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
+    if ($newWorker != $idTaskWorker) {
+        $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
+        $changeWorkerQuery->execute(array(':taskId' => $idtask, ':newWorker' => $newWorker));
+    }
+
     resetViewStatus($idtask);
 }
 
