@@ -88,16 +88,16 @@ $(document).ready(function () {
             var statusName = $(this).find('.status-name').text();
             if ($(this).hasClass('active')) {
                 if (statusName === 'В работе') {
-                    $(".inwork-status").html("<span class=\"filter-select text-primary\">" + statusName + "</span>");
+                    $(".inwork-status").html("<span class=\"filter-select text-primary\"><span>" + statusName + "</span></span>");
                 }
                 if (statusName === 'Просрочено') {
-                    $(".overdue-status").html("<span class=\"filter-select  text-danger\">" + statusName + "</span>");
+                    $(".overdue-status").html("<span class=\"filter-select  text-danger\"><span>" + statusName + "</span></span>");
                 }
                 if (statusName === 'Перенос срока') {
-                    $(".postpone-status").html("<span class=\"filter-select  text-warning\">" + statusName + "</span>");
+                    $(".postpone-status").html("<span class=\"filter-select  text-warning\"><span>" + statusName + "</span></span>");
                 }
                 if (statusName === 'На рассмотрении') {
-                    $(".pending-status").html("<span class=\"filter-select  text-secondary\">" + statusName + "</span>");
+                    $(".pending-status").html("<span class=\"filter-select  text-secondary\"><span>" + statusName + "</span></span>");
                 }
             } else {
                 if (statusName === 'На рассмотрении') {
@@ -260,13 +260,13 @@ $(document).ready(function () {
             $("#actualSearch").removeClass('active');
             $('.actual').hide();
             if ("role0" in rolesNames) {
-                $(".in").html("Входящие");
+                $(".in").html("<span>Входящие</span>");
                 $("#resetSearch").show();
             } else {
                 $('.in').html('');
             }
             if ("role1" in rolesNames) {
-                $(".out").html("Исходящие");
+                $(".out").html("<span>Исходящие</span>");
                 $("#resetSearch").show();
             } else {
                 $('.out').html('');

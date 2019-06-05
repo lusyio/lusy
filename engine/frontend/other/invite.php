@@ -16,11 +16,14 @@
                                placeholder="Почта получателя"
                                required>
                     </div>
+                    <div class="text-muted-reg text-center mt-3 d-none"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col text-center mt-3">
-                    <button type="submit" class="btn btn-outline-primary rounded invite-send">Отправить</button>
+                    <button type="submit" class="btn btn-outline-primary rounded invite-send">
+                        <span class="spinner-border spinner-border-sm d-none"></span>
+                        Отправить</button>
                 </div>
             </div>
         </div>
@@ -104,6 +107,7 @@
             var inviteeMail = $('#invitee-mail').val();
             if (inviteeMail) {
                 $('.invite-send').prop('disabled', true);
+                $('.spinner-border').removeClass('d-none');
                 var fd = new FormData();
                 fd.append('ajax', 'invite');
                 fd.append('module', 'createInvite');
@@ -119,11 +123,19 @@
                     success: function (data) {
                         console.log(data);
                         if (data) {
+                            $('.invite-send').prop('disabled', false);
+                            $('.spinner-border').addClass('d-none');
                             if (data === 'emailexist') {
-                                console.log('такой email уже используется');
+                                $('#invitee-mail').css({
+                                    'border-color': '#dc3545',
+                                    'transition': '1000ms'
+                                });
+                                setTimeout(function () {
+                                    $('#invitee-mail').css('border-color', "#ced4da");
+                                }, 1000);
+                                $(".text-muted-reg").removeClass('d-none').html("Этот email уже использовался");
                             } else {
                                 $('#invitee-mail').val('');
-                                $('.invite-send').prop('disabled', false);
                                 var invite = JSON.parse(data);
                                 var inviteRow = "";
                                 inviteRow += window.location.hostname.toString() + '/join/' + invite['code'] + '/';

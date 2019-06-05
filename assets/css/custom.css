@@ -57,12 +57,16 @@ body{
 }
 
 .filter-select {
-    border-bottom: 1px dashed;
     cursor: pointer;
     font-size: 14px;
     height: 24px;
 }
-
+.filter-select span {
+    border-bottom: 1px dashed;
+}
+.filter-select span.comma {
+    border-bottom: none !important;
+}
 .file-list .fa-circle {
     font-size: 5px;
     vertical-align: middle;
@@ -1924,6 +1928,10 @@ label.error {
 .icon-invite {
     color: rgba(198, 199, 200, 0.69);
     transition: 200ms;
+}
+
+.spinner-invite{
+    /*display: none;*/
 }
 
 .icon-invite:hover {
