@@ -142,7 +142,10 @@
         }
 
         $('.icon-members-change-coworker').on('click', function () {
-            updateCoworkers();
+            setTimeout(function () {
+                updateCoworkers();
+                coworkersListEmpty();
+            }, 100);
         });
 
         function coworkersListEmpty() {
@@ -197,8 +200,6 @@
             $('.add-worker:visible').each(function () {
                 coworkers.push($(this).attr('val'));
             });
-            console.log(responsible);
-            console.log(coworkers);
             var fd = new FormData();
             fd.append('module', 'addCoworker');
             fd.append('worker', responsible);
@@ -214,7 +215,7 @@
                 contentType: false,
                 data: fd,
                 success: function (data) {
-                    // location.reload();
+                    location.reload();
                 },
             });
         });
