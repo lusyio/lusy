@@ -68,6 +68,12 @@ $monthDone = $_months[date('n', $actualDeadline) - 1];
 $nowdate = date("d.m.Y");
 $dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 
+if (!is_null($task['datepostpone']) && $task['datepostpone'] != 0) {
+    $dateProgress = getDateProgress($task['datepostpone'], $task['datecreate']);
+} else {
+    $dateProgress = getDateProgress($task['datedone'], $task['datecreate']);
+}
+
 $view = $task['view'];
 $viewState = '';
 $viewStatus = json_decode($task['view_status'], true);

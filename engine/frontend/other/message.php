@@ -4,7 +4,7 @@
             <img src="/<?=getAvatarLink($message['sender'])?>" class="avatar-conversation">
         </div>
         <div class="col">
-            <p class="m-0"><?= $message['author'] ?> <span class="d-none"><?=$message['status']?></span> <span class="date"><?= date('d.m H:s', $message['datetime']) ?></span></p>
+            <p class="m-0"><?= $message['author'] ?> <span class="d-none"><?=$message['status']?></span> <span class="date"><?= date('d.m H:i', $message['datetime']) ?></span></p>
             <p class="m-0"><?= nl2br($message['mes']) ?></p>
             <?php if (count($message['files']) > 0): ?>
                 <?php foreach ($message['files'] as $file): ?>
