@@ -27,8 +27,8 @@ body{
 }
 
 .top-sidebar-indicator{
-    font-size: 8px;
-    color: #dd7e7e !important;
+    font-size: 6px;
+    color: #dc3545 !important;
 }
 
 .alerts a {
@@ -1251,7 +1251,12 @@ input:checked[type="checkbox"]::before {
     right: 5px;
     z-index: 3;
 }
-
+.events-indicator {
+    position: absolute;
+    top: -1px;
+    right: 10px;
+    z-index: 3;
+}
 .system {
     font-size: 14px;
     z-index: 1;
