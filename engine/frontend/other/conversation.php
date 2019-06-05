@@ -38,16 +38,6 @@
     var $userId = <?=$id?>;
     var pageName = 'conversation';
     $(document).ready(function () {
-        var numberToSubtract = $('#chatBox .alert-primary').length;
-        console.log(numberToSubtract);
-        var messagesCount = $('#messagesCount').text();
-        messagesCount = messagesCount - numberToSubtract;
-        if (messagesCount) {
-            $('#messagesCount').text(messagesCount);
-        } else {
-            $('#messagesIcon').removeClass('text-warning');
-            $('#messagesCount').text('');
-        }
         cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
         cometApi.subscription("msg.new", function (e) {
             console.log(e);
@@ -71,6 +61,9 @@
                         }
                         $("#mes").val('');
                         $('#chatBox').append(response);
+                        getCounters(function (data) {
+                            updateCounters(data);
+                        });
                     },
                 });
             } else if (e.data.senderId != $userId) {

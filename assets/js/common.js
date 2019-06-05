@@ -4,10 +4,9 @@ function subscribeToMessagesNotification (userId) {
     cometApi.subscription("msg.new", function (e) {
         console.log('получено сообщение');
         console.log(e);
-        console.log('запускаем обновление счетчика');
-        if (e.data.senderId != userId) {
-            updateMessagesCounter();
-        }
+        getCounters(function (data) {
+            updateCounters(data);
+        });
         // if (!window.pageName || pageName !== 'conversation') {
         //     checkNotifications('newMessage', e.data.messageId);
         // }
@@ -16,8 +15,9 @@ function subscribeToMessagesNotification (userId) {
 
     cometApi.subscription("msg.newTask", function (e) {
         console.log(e);
-        updateNotificationsCounter();
-        //checkNotifications('newTask', e.data)
+        getCounters(function (data) {
+            updateCounters(data);
+        });
     });
     console.log('подписыаемся на новые события в логе');
 
@@ -26,13 +26,9 @@ function subscribeToMessagesNotification (userId) {
         console.log(e);
         console.log(window.pageName);
         var eventId = e.data.eventId;
-        if (e.data.type === 'comment') {
-            increaseCommentCounter()
-        }
-        if (e.data.type === 'task') {
-            console.log(e);
-            updateNotificationsCounter();
-        }
+        getCounters(function (data) {
+            updateCounters(data);
+        });
         if (window.pageName && pageName === 'log') {
             console.log('start event request');
 
@@ -179,5 +175,120 @@ function checkNotifications(event, id) {
                 }
             },
         });
+    }
+}
+
+function getCounters(callback) {
+    $.ajax({
+        url: '/ajax.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            ajax: 'top-sidebar',
+            module: 'count',
+        },
+        success: callback,
+    });
+}
+
+function setCounters(counts) {
+    setTaskCounter(counts.task);
+    setHotCounter(counts.hot);
+    setCommentCounter(counts.comment);
+    setMailCounter(counts.mail);
+    console.log(counts);
+    setMobileIndicator(counts);
+}
+
+function updateCounters(counts) {
+    var oldCounts = {};
+    oldCounts.task = parseInt($('#notificationCount').text() || 0);
+    oldCounts.hot = parseInt($('#overdueCount').text() || 0);
+    oldCounts.comment = parseInt($('#commentCount').text() || 0);
+    oldCounts.mail = parseInt($('#messagesCount').text() || 0);
+    console.log(oldCounts);
+    if (counts.task > oldCounts.task) {
+        console.log('new task');
+    }
+    if (counts.hot > oldCounts.hot) {
+        console.log('new hot');
+    }
+    if (counts.comment > oldCounts.comment) {
+        console.log('new comment');
+    }
+    if (counts.mail > oldCounts.mail) {
+        console.log('new mail');
+    }
+    setCounters(counts);
+}
+
+function setTaskCounter(count) {
+    var counter = $('#notificationCount');
+    var icon = $('#notificationIcon');
+    var link = counter.closest('a');
+    if (count == '0') {
+        counter.text('');
+        icon.removeClass('text-primary');
+        link.attr('href', link.attr('href').replace('new-tasks', 'tasks'));
+    } else {
+        counter.text(count);
+        icon.addClass('text-primary');
+        link.attr('href', link.attr('href').replace('tasks', 'new-tasks'));
+    }
+
+}
+function setHotCounter(count) {
+    var counter = $('#overdueCount');
+    var icon = $('#overdueIcon');
+
+    if (count == '0') {
+        counter.text('');
+        icon.removeClass('text-danger');
+    } else {
+        counter.text(count);
+        icon.addClass('text-danger');
+    }
+}
+function setCommentCounter(count) {
+    var counter = $('#commentCount');
+    var icon = $('#commentIcon');
+    var link = counter.closest('a');
+    if (count == '0') {
+        counter.text('');
+        icon.removeClass('text-warning');
+        link.attr('href', link.attr('href').replace('new-comments', 'comments'));
+    } else {
+        counter.text(count);
+        icon.addClass('text-warning');
+        link.attr('href', link.attr('href').replace('comments', 'new-comments'));
+    }
+
+}
+function setMailCounter(count) {
+    var counter = $('#messagesCount');
+    var icon = $('#messagesIcon');
+
+    if (count == '0') {
+        counter.text('');
+        icon.removeClass('text-success');
+    } else {
+        counter.text(count);
+        icon.addClass('text-success');
+    }
+
+}
+
+function setMobileIndicator(counts) {
+    var hasNewCounts = false;
+    $.each(counts, function (k, v) {
+        if (v > 0) {
+            hasNewCounts = true;
+            return false;
+        }
+    });
+    if (hasNewCounts) {
+        // отобразить точку
+    } else {
+        // скрыть точку
     }
 }

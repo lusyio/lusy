@@ -48,6 +48,9 @@
         cometApi.onAuthFalill(function(){
             console.log("Подключились успешно но не авторизовались")
         });
+        getCounters(function (data) {
+            setCounters(data);
+        });
         subscribeToMessagesNotification(userId);
         subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
         checkNotifications('onLoad');
