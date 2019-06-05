@@ -213,7 +213,7 @@
                 contentType: false,
                 data: fd,
                 success: function (data) {
-                    location.reload();
+                    // location.reload();
                 },
             });
         });
