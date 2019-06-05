@@ -328,8 +328,9 @@ $(document).ready(function () {
                 $el.hide();
             }
         });
-        if (Object.keys(rolesNames).length === 0 && statuses.length === 0) {
+        if (Object.keys(rolesNames).length === 0 && statuses.length === 0 && text === 0) {
             resetSearch();
+            countAll();
             $("#actualSearch").addClass('active');
         } else {
             $("#actualSearch").removeClass('active')
@@ -388,9 +389,11 @@ $(document).ready(function () {
         $(".load-archive-page").hide();
         var count = $('.tasks' + ':visible').length;
         if (count === 0) {
+            $('.task-box').addClass('d-none');
             $('.tasks-search-container').show();
         } else {
             $('.tasks-search-container').hide();
+            $('.task-box').removeClass('d-none');
         }
         $('.count-all').html(' (' + count + ')');
     }

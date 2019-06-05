@@ -3,7 +3,7 @@
 <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <?php include 'engine/frontend/other/searchbar.php' ?>
 <div id="taskBox">
-    <div style="padding: 0.8rem;" class="d-none d-sm-block">
+    <div style="padding: 0.8rem;" class="d-none d-sm task-box">
         <div style="padding-left: 7px;">
             <div class="row sort">
                 <div class="col-sm-6">
