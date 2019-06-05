@@ -16,7 +16,7 @@
         <span class="count reports-count"></span>
     </div>
     <div data-filter-type="all" class="btn btn-secondary words-search comment-filter">
-        <span><i class="fas fa-times ml-1"></i></span></div>
+        <span><i class="fas fa-times"></i></span></div>
 </div>
 <hr>
 <div id="comments" class="mt-4"></div>

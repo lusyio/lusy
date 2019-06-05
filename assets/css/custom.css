@@ -665,6 +665,9 @@ input:checked[type="checkbox"]::before {
     color: #93c259 !important;
     margin-left: 5px;
     margin-top: 5px;
+    padding: 5px;
+    transition: 200ms;
+    border-radius: 25%;
 }
 
 .custom-file {
@@ -676,14 +679,35 @@ input:checked[type="checkbox"]::before {
 .fas.fa-times.custom-date.cancel {
     color: #d64c5e !important;
     margin-left: 13px;
+    padding: 5px;
+    transition: 200ms;
+    border-radius: 25%;
+    width: 35px;
+    text-align: center;
 }
 
 .fas.fa-check.custom-date.accept:hover {
-    text-shadow: 1px 1px 2px black, 0 0 1em #93c162;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: rgba(147, 193, 98, 0.31);
+    /*text-shadow: 1px 1px 2px black, 0 0 1em #93c162;*/
+}
+
+.fas.fa-check.custom-date.accept:active {
+    box-shadow: 0 0 3px #93c162;
+    border-radius: 50%;
 }
 
 .fas.fa-times.custom-date.cancel:hover {
-    text-shadow: 1px 1px 2px black, 0 0 1em #d24f5e;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: rgba(212, 74, 95, 0.31);
+    /*text-shadow: 1px 1px 2px black, 0 0 1em #d24f5e;*/
+}
+
+.fas.fa-times.custom-date.cancel:active{
+    box-shadow: 0 0 3px #d44a5f;
+    border-radius: 50%;
 }
 
 .navbar-toggler {
