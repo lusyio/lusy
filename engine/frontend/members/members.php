@@ -204,6 +204,7 @@
             fd.append('worker', responsible);
             fd.append('coworkers', JSON.stringify(coworkers));
             fd.append('ajax', 'task-control');
+            fd.append('it', $it);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
