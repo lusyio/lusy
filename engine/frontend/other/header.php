@@ -50,6 +50,7 @@
         });
         getCounters(function (data) {
             setCounters(data);
+            $('#counters a').removeClass('d-none');
         });
         subscribeToMessagesNotification(userId);
         subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
