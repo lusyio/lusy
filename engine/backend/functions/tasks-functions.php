@@ -13,7 +13,12 @@ function prepareTasks(&$tasks)
         $task['deadLineDay'] = date('j', $task['datedone']);
         $task['deadLineMonth'] = $_months[date('n', $task['datedone']) - 1];
         $task['classRole'] = '';
-        if ($task['idworker'] == $id) {
+        if (!is_null($task['taskCoworkers'])) {
+            $task['coworkers'] = explode(',', $task['taskCoworkers']);
+        } else {
+            $task['coworkers'] = [];
+        }
+        if ($task['idworker'] == $id || in_array($id, $task['coworkers'])) {
             $task['classRole'] .= ' worker';
             $task['mainRole'] = 'worker';
         }
@@ -21,11 +26,6 @@ function prepareTasks(&$tasks)
             $task['classRole'] .= ' manager';
             $task['mainRole'] = 'manager';
 
-        }
-        if (!is_null($task['taskCoworkers'])) {
-            $task['coworkers'] = explode(',', $task['taskCoworkers']);
-        } else {
-            $task['coworkers'] = [];
         }
         $task['countCoworkers'] = count($task['coworkers']);
         $task['viewStatus'] = json_decode($task['view_status'], true);
