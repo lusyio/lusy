@@ -850,10 +850,6 @@ input:checked[type="checkbox"]::before {
     background-color: rgba(93, 149, 219, 0.11);
 }
 
-.deadline-block {
-    width: 80%;
-}
-
 .deadline-block:hover {
     cursor: pointer;
 }
@@ -1890,9 +1886,7 @@ span.date {
     [data-trigger="dropdown"] {
     padding: 0;
 }
-    .deadline-block{
-        width: 100%;
-    }
+
 
     .user-img {
         position: absolute;
