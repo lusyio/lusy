@@ -328,7 +328,7 @@ $(document).ready(function () {
                 $el.hide();
             }
         });
-        if (Object.keys(rolesNames).length === 0 && statuses.length === 0 && text === 0) {
+        if (Object.keys(rolesNames).length === 0 && statuses.length === 0 && text === '') {
             resetSearch();
             countAll();
             $("#actualSearch").addClass('active');

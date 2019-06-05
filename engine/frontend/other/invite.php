@@ -16,7 +16,7 @@
                                placeholder="Почта получателя"
                                required>
                     </div>
-                    <div class="text-muted-reg text-center mt-3 d-none"></div>
+                    <div class="text-muted-reg text-center mt-3 d-none">Этот email уже использован</div>
                 </div>
             </div>
             <div class="row">
@@ -133,8 +133,9 @@
                                 setTimeout(function () {
                                     $('#invitee-mail').css('border-color', "#ced4da");
                                 }, 1000);
-                                $(".text-muted-reg").removeClass('d-none').html("Этот email уже использовался");
+                                $(".text-muted-reg").removeClass('d-none');
                             } else {
+                                $(".text-muted-reg").addClass('d-none');
                                 $('#invitee-mail').val('');
                                 var invite = JSON.parse(data);
                                 var inviteRow = "";
