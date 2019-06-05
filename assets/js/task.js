@@ -114,6 +114,27 @@ $(document).ready(function () {
     var sizes;
     var n = 0;
 
+    $(".file-name-review").on('click', '.cancelFile', function () {
+        $(this).closest(".filenames").remove();
+        var num = parseInt($(this).closest(".filenames").attr('val'));
+        fileList.delete(num);
+        if (fileList.size === 0) {
+            $('.file-name-review').hide();
+        }
+    });
+
+    $('#sendFilesReview').bind('change', function () {
+        $(this.files).each(function () {
+            names = this.name;
+            fileList.set(n, $(this)[0]);
+            $(".file-name-review").show().append("<div val='" + n + "' class='filenames mt-1'>" +
+                "<i class='fas fa-paperclip mr-1'></i>" + names +
+                "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                "</div>");
+            n++;
+        });
+    });
+
     $("#sendFiles").bind('change', function () {
         $(this.files).each(function () {
             names = this.name;
@@ -186,10 +207,11 @@ $(document).ready(function () {
     // на рассмотрение
     $("#sendonreview").click(function () {
         var text = $("#reportarea").val();
-        var attachedFile = $('input[type=file]').prop('files')[0];
         var fd = new FormData();
+        fileList.forEach(function (file, i) {
+            fd.append('file' + i, file);
+        });
         fd.append('module', 'sendonreview');
-        fd.append('file', attachedFile);
         fd.append('ajax', 'task-control');
         fd.append('text', text);
         fd.append('it', $it);
