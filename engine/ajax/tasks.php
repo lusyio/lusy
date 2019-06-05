@@ -24,7 +24,8 @@ WHERE t.idcompany = :companyId AND t.status IN ('done', 'canceled') ORDER BY sor
        (SELECT c.datetime FROM comments c WHERE c.status='comment' AND c.idtask = t.id ORDER BY c.datetime DESC LIMIT 1) AS lastCommentTime,
        (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
 FROM tasks t
-WHERE (manager=:userId OR worker=:userId) AND t.status IN ('done', 'canceled') ORDER BY sort_date";
+LEFT JOIN task_coworkers tc ON tc.task_id = t.id
+WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status IN ('done', 'canceled') ORDER BY sort_date";
 
     if ($roleu == 'ceo') {
         $dbh = $pdo->prepare($ceoTasksQuery);
@@ -114,7 +115,8 @@ WHERE t.idcompany = :companyId AND t.status = 'done' ORDER BY sort_date LIMIT :l
        (SELECT c.datetime FROM comments c WHERE c.status='comment' AND c.idtask = t.id ORDER BY c.datetime DESC LIMIT 1) AS lastCommentTime,
        (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
 FROM tasks t
-WHERE (manager=:userId OR worker=:userId) AND t.status = 'done' ORDER BY sort_date LIMIT :limit OFFSET :offset";
+LEFT JOIN task_coworkers tc ON tc.task_id = t.id
+WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status = 'done' ORDER BY sort_date LIMIT :limit OFFSET :offset";
 
     if ($roleu == 'ceo') {
         $dbh = $pdo->prepare($ceoTasksQuery);
@@ -206,7 +208,8 @@ WHERE t.idcompany = :companyId AND t.status = 'canceled' ORDER BY sort_date LIMI
        (SELECT c.datetime FROM comments c WHERE c.status='comment' AND c.idtask = t.id ORDER BY c.datetime DESC LIMIT 1) AS lastCommentTime,
        (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
 FROM tasks t
-WHERE (manager=:userId OR worker=:userId) AND t.status = 'canceled' ORDER BY sort_date LIMIT :limit OFFSET :offset";
+LEFT JOIN task_coworkers tc ON tc.task_id = t.id
+WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status = 'canceled' ORDER BY sort_date LIMIT :limit OFFSET :offset";
 
     if ($roleu == 'ceo') {
         $dbh = $pdo->prepare($ceoTasksQuery);

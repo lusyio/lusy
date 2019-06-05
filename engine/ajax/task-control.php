@@ -195,12 +195,23 @@ if ($_POST['module'] == 'sendDate' && $isManager) {
 }
 
 if ($_POST['module'] == 'addCoworker' && $isManager) {
-    $newCoworkerId = filter_var($_POST['newCoworkerId'], FILTER_SANITIZE_NUMBER_INT);
-    if (!in_array($newCoworkerId, $coworkers)) {
-        $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
-        $addCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $newCoworkerId));
-        resetViewStatus($idtask);
+    $unsafeCoworkers = json_decode($_POST['coworkers']);
+    $newCoworkers = [];
+    foreach ($unsafeCoworkers as $c) {
+        $newCoworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
     }
+    $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
+    foreach ($newCoworkers as $newCoworker)
+        if (!in_array($newCoworker, $coworkers)) { //добавляем соисполнителя, если его еще нет в таблице
+            $addCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $newCoworker));
+        }
+    $deleteCoworkerQuery = $pdo->prepare('DELETE FROM task_coworkers where task_id = :taskId AND worker_id = :coworkerId');
+    foreach ($coworkers as $oldCoworker) {
+        if (!in_array($oldCoworker, $newCoworkers)) { // удаляем соисполнителя, если его нет в новом списке соисполнителей
+            $deleteCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $oldCoworker));
+        }
+    }
+    resetViewStatus($idtask);
 }
 
 function resetViewStatus($taskId) {
