@@ -116,8 +116,9 @@ if ($id == $worker and $view == 0) {
                     <div class="position-relative deadline-block">
                         <div class="progress position-relative mr-1"
                              style="height: 30px; font-size: 14px; z-index: 1; ">
-                            <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: <?= $task['dateProgress']?>%"
-                                 aria-valuenow="5%" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-secondary-custom rounded" role="progressbar"
+                                 style="width: <?= $dateProgress ?>%"
+                                 aria-valuenow="<?= $dateProgress ?>%" aria-valuemin="0" aria-valuemax="100"></div>
                             <medium class="justify-content-center d-flex position-absolute w-100 h-100">
                                 <div class="p-1 date-inside">
                                     <i class="far fa-calendar-times text-ligther-custom"></i><span
@@ -135,9 +136,11 @@ if ($id == $worker and $view == 0) {
                                             <textarea name="report" id="reportarea1" class="form-control" rows="4"
                                                       placeholder="Причина" required></textarea>
                                         <?php endif; ?>
-                                        <input class="form-control form-control-sm" value="" type="date" id="example-date-input"
+                                        <input class="form-control form-control-sm" value="" type="date"
+                                               id="example-date-input"
                                                min="">
-                                        <button type="submit" id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
+                                        <button type="submit"
+                                                id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
                                                 class="btn btn-success btn-sm text-center mt-1 mb-1"><?= $GLOBALS["_change"] ?></button>
                                     </div>
                                 </div>
@@ -171,8 +174,6 @@ if ($id == $worker and $view == 0) {
                     </div>
                 </div>
             </div>
-
-
 
 
             <div class="mt-5 mb-5 text-justify"><?= $description ?></div>
@@ -229,8 +230,8 @@ if ($id == $worker and $view == 0) {
 <script src="/assets/js/datepicker.js"></script>
 <script>
     $(document).ready(function () {
-        <?= ($worker == $id && $view == '0')? 'decreaseTaskCounter();' : '' ?>
-        $(document).on('click', function (e){ // событие клика по веб-документу
+        <?= ($worker == $id && $view == '0') ? 'decreaseTaskCounter();' : '' ?>
+        $(document).on('click', function (e) { // событие клика по веб-документу
             var div = $(".deadline-block"); // тут указываем ID элемента
             var dov = $('#change-date');
             if (!div.is(e.target)  // если клик был не по нашему блоку
