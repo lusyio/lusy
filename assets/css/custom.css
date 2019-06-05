@@ -1820,6 +1820,7 @@ span.date {
         padding-top: 3rem;
     }
 
+
     #searchForm .form-group {
         padding-left: 20px;
     }
@@ -1889,6 +1890,10 @@ span.date {
     [data-trigger="dropdown"] {
     padding: 0;
 }
+    .deadline-block{
+        width: 100%;
+    }
+
     .user-img {
         position: absolute;
         right: 0;

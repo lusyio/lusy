@@ -112,7 +112,7 @@ if ($id == $worker and $view == 0) {
             <h4 class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5"><?= $nametask ?></h4>
             <hr>
             <div class="row">
-                <div class="col-5">
+                <div class="col-6">
                     <div class="position-relative deadline-block">
                         <div class="progress position-relative mr-1"
                              style="height: 30px; font-size: 14px; z-index: 1; ">
@@ -148,7 +148,7 @@ if ($id == $worker and $view == 0) {
                         </div>
                     </div>
                 </div>
-                <div class="col-7">
+                <div class="col-6">
                     <div class="float-right">
                         <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
                         <span class=" text-secondary slash">|</span>
