@@ -287,8 +287,8 @@ function setMobileIndicator(counts) {
         }
     });
     if (hasNewCounts) {
-        // отобразить точку
+        $('.top-sidebar-indicator').show();
     } else {
-        // скрыть точку
+        $('.top-sidebar-indicator').hide();
     }
 }

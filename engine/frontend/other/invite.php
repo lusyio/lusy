@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="mb-3 text-center">
                 <a class="d-inline float-left" href="/company/"><i class="fas fa-arrow-left icon-invite"></i></a>
-                <div class="text-reg ml-5">
+                <div class="text-reg ml-4">
                     Чтобы пригласить сотрудника, введите его почту и укажите роль
                 </div>
             </div>

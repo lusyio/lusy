@@ -81,7 +81,6 @@ $statusBar = [
         'ic3' => 'fas fa-times',
     ],
 ];
-
 if ($dayost < 0) {
     $statusBar['postpone']['border'] = 'border-danger';
 };
@@ -117,7 +116,7 @@ if ($id == $worker and $view == 0) {
                     <div class="position-relative deadline-block">
                         <div class="progress position-relative mr-1"
                              style="height: 30px; font-size: 14px; z-index: 1; ">
-                            <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: 5%"
+                            <div class="progress-bar bg-secondary-custom rounded" role="progressbar" style="width: <?= $task['dateProgress']?>%"
                                  aria-valuenow="5%" aria-valuemin="0" aria-valuemax="100"></div>
                             <medium class="justify-content-center d-flex position-absolute w-100 h-100">
                                 <div class="p-1 date-inside">
