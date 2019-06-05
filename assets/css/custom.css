@@ -1229,8 +1229,8 @@ input:checked[type="checkbox"]::before {
 }
 .events-indicator {
     position: absolute;
-    top: -1px;
-    right: 10px;
+    top: -11px;
+    right: -6px;
     z-index: 3;
 }
 .system {
