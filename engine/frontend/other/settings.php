@@ -161,7 +161,103 @@
                         </button>
                     </div>
                 </div>
-
+                <?php if($roleu == 'ceo'): ?>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="text-reg text-center mb-3">
+                            Настройки компании
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <input id="companyName" name="companyName" type="text" class="form-control company-name"
+                                   value="<?= $companyData['idcompany'] ?>">
+                        </div>
+                        <div>
+                            <small class="text-muted text-muted-reg">
+                                Наименование компании (до 8-ми символов)
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <input id="companyFullName" name="companyFullName" type="text" class="form-control company-full-name"
+                                   value="<?= $companyData['full_company_name'] ?>">
+                        </div>
+                        <div>
+                            <small class="text-muted text-muted-reg">
+                                Полное наименование компании
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <textarea id="companyDescription" name="companyDescription" type="text" class="form-control company-description"
+                                      value="<?= $companyData['description'] ?>"></textarea>
+                        </div>
+                        <div>
+                            <small class="text-muted text-muted-reg">
+                                Описание компании
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <input id="companySite" name="companySite" type="text" class="form-control company-site"
+                                   value="<?= $companyData['site'] ?>">
+                        </div>
+                        <div>
+                            <small class="text-muted text-muted-reg">
+                                Web-сайт
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <select id="companyTimezone" name="companyTimezone" class="form-control company-timezone">
+                                <option></option>
+                                <?php foreach ($timeZones as $timeZone => $text): ?>
+                                <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone)? 'selected' : '' ?>><?= $text ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div>
+                            <small class="text-muted text-muted-reg">
+                                Часовой пояс компании
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <input id="companyPassword" name="companyPassword" type="text" class="form-control company-password"
+                                   value="">
+                        </div>
+                        <div>
+                            <small class="text-muted text-muted-reg">
+                                Введите свой пароль для сохранения изменений компании
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit" disabled>Сохранить изменения компании
+                        </button>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
 
