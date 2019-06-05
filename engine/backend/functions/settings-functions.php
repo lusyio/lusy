@@ -41,3 +41,13 @@ function setNewPassword($newPassword)
     $setNewPasswordQuery->execute(array(':newPassword' => $hash,  ':userId' => $id));
 }
 
+function getCompanyData()
+{
+    global $pdo;
+    global $idc;
+    $companyDataQuery = $pdo->prepare('SELECT idcompany, full_company_name, site, description, timezone FROM company WHERE id = :companyId');
+    $companyDataQuery->execute(array(':companyId' => $idc));
+    $result = $companyDataQuery->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
