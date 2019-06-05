@@ -1335,7 +1335,7 @@ a {
 }
 
 .user-img {
-    width: 45px;
+    width: 40px;
 }
 
 .indy span {
@@ -1846,7 +1846,7 @@ span.date {
         width: 85%;
     }
     .top-sidebar .collapse {
-        display: flex !important;
+        display: block !important;
     }
 }
 
@@ -1862,9 +1862,9 @@ span.date {
 }
     .user-img {
         position: absolute;
-        right: 0px;
+        right: 0;
         width: 35px;
-        bottom: -2px;
+        bottom: 0;
     }
     .profile-submenu {
         position: fixed;
