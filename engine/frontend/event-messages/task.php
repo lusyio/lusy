@@ -1,84 +1,161 @@
 <li data-event-id="<?= $event['event_id'] ?>"
-     class="event <?= ($event['view_status']) ? '' : 'new-event' ?> task mb-3">
+     class="event <?= ($event['view_status']) ? '' : 'new-event' ?> <?= ($event['action'] == 'createtask') ? '' : 'readable-here' ?> task mb-3">
 
-    <?php if ($event['action'] == 'createtask'): // создание, назначение задачи ?>
-        <?php
-            $action = $GLOBALS['_logNewTask'];
-            $bg = 'bg-primary';
-            $icon = 'fas fa-plus';
-        ?>
-    <?php endif; ?>
+    <?php
+    if ($event['action'] == 'createtask') { // создание, назначение задачи
+        $bg = 'bg-primary';
+        $icon = 'fas fa-plus';
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youCreatedTask'] . ' ' . $event['taskname'] . '. ';
+            $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
+            $eventText .= $GLOBALS['_periodOfExecutionUntil'] . ' ' . date('d.m', $event['datedone']);
+        } else {
+            $eventText = $GLOBALS['_assignedYouTask'] . ' - ' . $event['taskname'];
+        }
+    }
 
-    <?php if ($event['action'] == 'senddate'): // назначение нового срока ?>
-        <?php
-            $action = $GLOBALS['_logNewDate'];
-            $bg = 'bg-primary';
-            $icon = 'far fa-calendar-plus';
-        ?>
-    <?php endif; ?>
+    if ($event['action'] == 'viewtask') {
+        $bg = 'bg-primary';
+        $icon = 'fas fa-plus';
+        $eventText = $GLOBALS['_sawTheTask'] . ' ' . $event['taskname'] . '.';
+    }
 
-
-    <?php if ($event['action'] == 'postpone'): // запрос на перенос срока отправлен ?>
-        <?php
-        $action = $GLOBALS['_logPostPone'];
-        $bg = 'bg-warning';
-        $icon = 'far fa-calendar-alt';
-        ?>
-    <?php endif; ?>
-
-    <?php if ($event['action'] == 'confirmdate'): // запрос на перенос срока утвержден ?>
-        <?php
-        $action = $GLOBALS['_logConfirmDate'];
-        $bg = 'bg-success';
-        $icon = 'fas fa-check';
-        ?>
-    <?php endif; ?>
-
-    <?php if ($event['action'] == 'canceltask'): // задача отменена ?>
-        <?php
-        $action = $GLOBALS['_logCancelTask'];
+    if ($event['action'] == 'canceltask') { // создание, назначение задачи
         $bg = 'bg-danger';
         $icon = 'fas fa-times';
-        ?>
-    <?php endif; ?>
-    <?php if ($event['action'] == 'canceldate'): // запрос на перенос срока отклонен ?>
-        <?php
-            $action = $GLOBALS['_logCancelDate'];
-            $bg = 'bg-danger';
-            $icon = 'far fa-calendar-times';
-        ?>
-    <?php endif; ?>
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youCanceledTheTask'] . ' - ' . $event['taskname'];
+        } else {
+            $eventText = $GLOBALS['_taskCanceled'] . ' - ' . $event['taskname'];
+        }
+    }
 
-    <?php if ($event['action'] == 'review'): // отправлен отчет о выполнении ?>
-        <?php
-            $action = $GLOBALS['_logSendOnReview'];
-            $bg = 'bg-primary';
-            $icon = 'fas fa-file-import';
-        ?>
-    <?php endif; ?>
+    if ($event['action'] == 'overdue') {
+        $bg = 'bg-danger';
+        $icon = 'fas fa-plus';
+        $eventText = $GLOBALS['_taskOverdue'] . ' ' . $event['taskname'];
+    }
 
-    <?php if ($event['action'] == 'workreturn'): // возврат на доработку ?>
-        <?php
-            $action = $GLOBALS['_logWorkReturn'];
-            $bg = 'bg-warning';
-            $icon = 'fas fa-exchange-alt';
-        ?>
-    <?php endif; ?>
+    if ($event['action'] == 'review') { // создание, назначение задачи
+        $bg = 'bg-primary';
+        $icon = 'fas fa-file-import';
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youSentOnReview'] . ' - ' . $event['taskname'];
+        } else {
+            $eventText = $GLOBALS['_youReceivedTaskReport'] . ' - ' . $event['taskname'];
+        }
+    }
 
-    <?php if ($event['action'] == 'workdone'): // задача завершена?>
-        <?php
-            $action = $GLOBALS['_logWorkDone'];
-            $bg = 'bg-success';
-            $icon = 'fas fa-check';
-        ?>
-    <?php endif; ?>
+    if ($event['action'] == 'workreturn') { // создание, назначение задачи
+        $bg = 'bg-warning';
+        $icon = 'fas fa-exchange-alt';
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youReturnedTask'] . ' - ' . $event['taskname'] . '. ';
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+        } else {
+            $eventText = $GLOBALS['_taskReturnedToYou'] . ' - ' . $event['taskname'];
+        }
+    }
+
+    if ($event['action'] == 'workdone') { // создание, назначение задачи
+        $bg = 'bg-success';
+        $icon = 'fas fa-check';
+        if ($event['worker'] == $id) {
+            $eventText = $GLOBALS['_workDoneWorker'];
+        } else {
+            $eventText = $GLOBALS['_workDoneManager'];
+        }
+    }
+
+    if ($event['action'] == 'postpone') { // создание, назначение задачи
+        $bg = 'bg-warning';
+        $icon = 'far fa-calendar-alt';
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youAskedToPostpone'] . ' - ' . $event['taskname'];
+        } else {
+            $eventText = $GLOBALS['_workerAskedToPostpone'] . ' - ' . $event['taskname'];
+        }
+    }
+
+    if ($event['action'] == 'confirmdate') { // создание, назначение задачи
+        $bg = 'bg-success';
+        $icon = 'fas fa-check';
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youConfirmPostponeAsk'] . ' - ' . $event['taskname'] . '. ';
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+        } else {
+            $eventText = $GLOBALS['_confirmYourPostponeAsk'] . ' - ' . $event['taskname'];
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+        }
+    }
+
+    if ($event['action'] == 'canceldate') { // создание, назначение задачи
+        $bg = 'bg-danger';
+        $icon = 'far fa-calendar-times';
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youDeclinePostponeAsk'] . ' - ' . $event['taskname'];
+        } else {
+            $eventText = $GLOBALS['_declineYourPostponeAsk'] . ' - ' . $event['taskname'];
+        }
+    }
+
+    if ($event['action'] == 'changeworker') { // создание, назначение задачи
+        $bg = 'bg-danger';
+        $icon = 'far fa-calendar-times';
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youChangedWorker'] . ' - ' . $event['taskname'] . '. ';
+            $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
+        } else {
+            $eventText = $GLOBALS['_youAreSuspendedFromTheTask'] . ' - ' . $event['taskname'];
+        }
+    }
+
+    if ($event['action'] == 'senddate') { // создание, назначение задачи
+        $bg = 'bg-primary';
+        $icon = 'far fa-calendar-plus';
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youSetNewDateInTask'] . ' - ' . $event['taskname'];
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+        } else {
+            $eventText = $GLOBALS['_newDateInYourTask'] . ' - ' . $event['taskname'];
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+        }
+    }
+
+    if ($event['action'] == 'addcoworker') { // создание, назначение задачи
+        $bg = 'bg-primary';
+        $icon = 'far fa-calendar-plus';
+        if ($event['author_id'] == '1') {
+            $coworkerName = DBOnce('name', 'users', 'id=' . $event['comment']);
+            $coworkerSurname = DBOnce('surname', 'users', 'id=' . $event['comment']);
+            $eventText = $GLOBALS['_youAddCoworker'] . ' - ' . $event['taskname'];
+            $eventText .= $GLOBALS['_newCoworker'] . ' - ' . $coworkerName . ' ' . $coworkerSurname;
+        } else {
+            $eventText = $GLOBALS['_youAreNewCoworker'] . ' - ' . $event['taskname'];
+        }
+    }
+
+    if ($event['action'] == 'removecoworker') { // создание, назначение задачи
+        $bg = 'bg-primary';
+        $icon = 'far fa-calendar-plus';
+        if ($event['author_id'] == '1') {
+            $coworkerName = DBOnce('name', 'users', 'id=' . $event['comment']);
+            $coworkerSurname = DBOnce('surname', 'users', 'id=' . $event['comment']);
+            $eventText = $GLOBALS['_youRemoveCoworker'] . ' - ' . $event['taskname'];
+            $eventText .= $GLOBALS['_removedCoworker'] . ' - ' . $coworkerName . ' ' . $coworkerSurname;
+        } else {
+            $eventText = $GLOBALS['_youAreNotCoworker'] . ' - ' . $event['taskname'];
+        }
+    }
+?>
     <span class="before <?=$bg?>"><i class="<?=$icon?>"></i></span>
     <div class="position-relative">
         <span class="date"><?= date("d.m H:i", $event['datetime']); ?></span>
         <img src="/<?=getAvatarLink($event['author_id'])?>" class="avatar mr-2">
         <a href="/profile/<?=$event['author_id']?>/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
     </div>
-    <p class="mt-2"><?= $action ?>
+    <p class="mt-2"><?= $eventText ?>
         <a href="/../<?= $event['link'] ?>" class="font-italic task-link">"<?=$event['taskname']?>"</a></p>
 </li>
+
 

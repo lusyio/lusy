@@ -92,14 +92,10 @@
                 setTimeout(function () {
                     $taskLink.removeClass('text-primary');
                 },1000);
-            } else {
+            }
+            if ($(this).hasClass('readable-here')) {
                 $(this).removeClass('new-event');
                 var eventId = $(this).data('event-id');
-                if ($(this).hasClass('comment')) {
-                    decreaseCommentCounter();
-                }
-                console.log(eventId);
-
                 markAsRead(eventId);
             }
         })
@@ -131,6 +127,9 @@
                 eventId: eventId,
                 ajax: 'log'
             },
+            success: getCounters(function (data) {
+                updateCounters(data);
+            })
         })
     }
 

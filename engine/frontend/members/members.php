@@ -2,7 +2,7 @@
     <div class="members">
         <div class="members-card position-relative">
             <div class="text-justify owner">
-                <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($manager) ?>"
+                <img src="/<?= getAvatarLink($manager) ?>"
                      class="avatar-added mr-1">
                 <a href="#"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
             </div>
@@ -25,7 +25,7 @@
                         <div val="<?php echo $n['id'] ?>"
                              class="row members-responsible-selected <?= ($n['id'] == $worker) ? '' : 'd-none' ?>">
                             <div class="col-1">
-                                <img title="<?= $viewStatusTitle ?>" src="/<?= getAvatarLink($n['id']) ?>"
+                                <img src="/<?= getAvatarLink($n['id']) ?>"
                                      class="avatar-added mr-1">
                             </div>
                             <div class="col text-left">
