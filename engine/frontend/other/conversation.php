@@ -8,7 +8,7 @@
                 <?php include 'engine/frontend/other/message.php'; ?>
             <?php endforeach; ?>
         <?php else: ?>
-            <div class="no-messages">Нет сообщений</div>
+            <div class="no-messages"><?= $GLOBALS['_emptyconversation'] ?></div>
         <?php endif; ?>
     </div>
 </div>
@@ -17,11 +17,11 @@
         <form>
             <div class="d-flex">
                 <div class="form-group w-100 mr-2">
-                    <textarea class="form-control" id="mes" name="mes" rows="1" placeholder="Введите сообщение . . ."
+                    <textarea class="form-control" id="mes" name="mes" rows="1" placeholder="<?= $GLOBALS['_enterconversation'] ?>"
                               required></textarea>
                 </div>
                 <div class="mr-2">
-                    <input type="button" class="btn btn-primary" id="sendBtn" value="Отправить">
+                    <input type="button" class="btn btn-primary" id="sendBtn" value="<?= $GLOBALS['_sendconversation'] ?>">
                 </div>
                 <div>
                     <span class="btn btn-light btn-file">

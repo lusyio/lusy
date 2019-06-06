@@ -303,24 +303,29 @@ body{
     border-bottom-color: rgba(0, 0, 0, 0.1);
 }
 
+
 .dialogs {
     border-radius: 8px;
+    border: none;
+    z-index: 5;
     background-color: #fff;
+    box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
 }
 
 .dialogs:hover {
-    background-color: #f7f7f7;
-    box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
+    /*background-color: #f7f7f7;*/
+    /*box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);*/
 }
 
 .dialog {
+    transition: 200ms;
     border-radius: 8px;
     background-color: #fff;
 }
 
 .dialog:hover {
-    background-color: #f7f7f7;
-    box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
+    text-decoration: none;
+    background-color: #eceeee;
 }
 
 .cancel-file {
@@ -1885,8 +1890,27 @@ span.date {
     }
     [data-trigger="dropdown"] {
     padding: 0;
-}
+    }
 
+    .avatar-profile{
+        width: 70px !important;
+    }
+
+    .task-box{
+        display: none !important;
+    }
+
+    .coworkers{
+        width: 90%;
+    }
+
+    .responsible{
+        width: 90%;
+    }
+
+    .members{
+        width: 340px;
+    }
 
     .user-img {
         position: absolute;
@@ -2102,6 +2126,59 @@ label.error {
     background: #5d94da;
     color: #fff;
     padding: 0.5em 1em;
+}
+
+.ripple {
+    background-position: center !important;
+    transition: background 0.4s !important;
+}
+.ripple:hover {
+    background: rgba(158,158,158,.2) radial-gradient(circle, transparent 1%, rgba(158,158,158,.2) 1%) center/15000% !important;
+}
+.ripple:active {
+    background-color: white !important;
+    background-size: 100% !important;
+    transition: background 0s !important;
+}
+
+.min{
+    height: 40px !important;
+    min-width: 40px !important;
+    width: 40px !important;
+}
+
+.google-icon-btn {
+    outline: none !important;
+    border-radius: 50%;
+    height: 56px;
+    margin: auto;
+    min-width: 56px;
+    width: 56px;
+    padding: 0;
+    overflow: hidden;
+    background: rgba(158,158,158,.2);
+    box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12), 0 1px 1px 0 rgba(0,0,0,.24);
+    position: relative;
+    border: none;
+    display: inline-block;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    will-change: box-shadow;
+    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    line-height: 36px;
+    vertical-align: middle;
+}
+
+.google-icon-btn:active {
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+    background-color: rgba(158,158,158,.4);
 }
 
 .select-country {
@@ -2336,7 +2413,7 @@ label.error {
     background: #f8f9fa;
     display: block;
     margin: 0.5em;
-    min-height: 16em;
+    min-height: 25.5em;
     overflow: hidden;
     position: relative;
     width: auto;

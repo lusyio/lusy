@@ -62,7 +62,7 @@
             <!-- Link -->
             <div class="text-center">
               <small class="text-muted text-center">
-                <?=$_notregistrated?>? <a href="/reg/"><?=$_registration?></a>.
+                <?=$_notregistrated?>? <a href="/reg/"><?= $_registrationreg ?></a>.
               </small>
             </div>
 

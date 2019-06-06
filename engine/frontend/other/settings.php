@@ -14,11 +14,9 @@
                     <a class="float-left" href="/profile/"><i class="fas fa-arrow-left icon-invite"></i></a>
                     <div class="col-6 text-center">
                         <label class="label" data-toggle="tooltip" title=""
-                               data-original-title="Смена изображения">
-                            <a class="float-right <?= (strpos(getAvatarLink($id), 'alter'))? 'd-none' : ''; ?>" href="#" id="deleteAvatar" title="Удалить аватар" style="
-                                position: fixed;
-                                padding-left: 178px;
-                            ">
+                               data-original-title="<?= $GLOBALS['_changeavatarsettings'] ?>">
+                            <a class="float-right <?= (strpos(getAvatarLink($id), 'alter')) ? 'd-none' : ''; ?>"
+                               href="#" id="deleteAvatar" title="Удалить аватар">
                                 <i class="fas fa-times icon-invite"></i>
                             </a>
                             <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
@@ -38,7 +36,8 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="modalLabel">Обрезать изображение</h5>
+                                        <h5 class="modal-title"
+                                            id="modalLabel"><?= $GLOBALS['_cutavatarsettings'] ?></h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -52,9 +51,10 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            Назад
+                                            <?= $GLOBALS['_backsettings'] ?>
                                         </button>
-                                        <button type="button" class="btn btn-primary" id="crop">Загрузить</button>
+                                        <button type="button" class="btn btn-primary"
+                                                id="crop"><?= $GLOBALS['_uploadsettings'] ?></button>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                         <div class="input-group">
                             <textarea rows="3" id="settingsDescription" name="settingsDescription" type="text"
                                       class="form-control name"
-                                      placeholder="Немного о себе"><?= $userData['about']; ?></textarea>
+                                      placeholder="<?= $GLOBALS['_aboutsettings'] ?>"><?= $userData['about']; ?></textarea>
                         </div>
                     </div>
                     <div class="col pl-0">
@@ -135,7 +135,7 @@
                             <!--                                <option value="1" class="flag">🇺🇸 +1</option>-->
                             <!--                            </select>-->
                             <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
-                                   placeholder="Номер телефона"
+                                   placeholder="<?= $GLOBALS['_phonesettings'] ?>"
                                    class="form-control phone-number" value="<?= $userData['phone']; ?>">
                         </div>
                     </div>
@@ -144,118 +144,125 @@
                     <div class="col-6">
                         <div class="input-group">
                             <input id="settingsNewPassword" name="settingsNewPassword" type="password"
-                                   class="form-control new-password" placeholder="новый пароль">
+                                   class="form-control new-password"
+                                   placeholder="<?= $GLOBALS['_newpasswordsettings'] ?>">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-group">
                             <input id="password" name="password" type="password" class="form-control password"
-                                   placeholder="старый пароль"
+                                   placeholder="<?= $GLOBALS['_passwordsettings'] ?>"
                                    required>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-5">
                     <div class="col text-center">
-                        <button class="btn btn-outline-primary" id="sendChanges" type="submit">Сохранить изменения
+                        <button class="btn btn-outline-primary" id="sendChanges" type="submit">
+                            <?= $GLOBALS['_savesettings'] ?>
                         </button>
                     </div>
                 </div>
-                <?php if($roleu == 'ceo'): ?>
-                <div class="row mt-5">
-                    <div class="col-12">
-                        <div class="text-reg text-center mb-3">
-                            Настройки компании
+                <?php if ($roleu == 'ceo'): ?>
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="text-reg text-center mb-3">
+                                <?= $GLOBALS['_companysettings'] ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <input id="companyName" name="companyName" type="text" class="form-control company-name"
+                                       value="<?= $companyData['idcompany'] ?>">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_namecompanysettings'] ?>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <input id="companyFullName" name="companyFullName" type="text"
+                                       class="form-control company-full-name"
+                                       value="<?= $companyData['full_company_name'] ?>">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_fullnamecompanysettings'] ?>
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="input-group">
-                            <input id="companyName" name="companyName" type="text" class="form-control company-name"
-                                   value="<?= $companyData['idcompany'] ?>">
+                            <textarea id="companyDescription" name="companyDescription" type="text"
+                                      class="form-control company-description"><?= $companyData['description'] ?></textarea>
                         </div>
                         <div>
                             <small class="text-muted text-muted-reg">
-                                Наименование компании (до 8-ми символов)
+                                <?= $GLOBALS['_aboutcompanysettings'] ?>
                             </small>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <input id="companyFullName" name="companyFullName" type="text" class="form-control company-full-name"
-                                   value="<?= $companyData['full_company_name'] ?>">
-                        </div>
-                        <div>
-                            <small class="text-muted text-muted-reg">
-                                Полное наименование компании
-                            </small>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <textarea id="companyDescription" name="companyDescription" type="text" class="form-control company-description"><?= $companyData['description'] ?></textarea>
-                        </div>
-                        <div>
-                            <small class="text-muted text-muted-reg">
-                                Описание компании
-                            </small>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <input id="companySite" name="companySite" type="text" class="form-control company-site"
+                                       value="<?= $companyData['site'] ?>">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_websitecompanysettings'] ?>
+                                </small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <input id="companySite" name="companySite" type="text" class="form-control company-site"
-                                   value="<?= $companyData['site'] ?>">
-                        </div>
-                        <div>
-                            <small class="text-muted text-muted-reg">
-                                Web-сайт
-                            </small>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <select id="companyTimezone" name="companyTimezone" class="form-control company-timezone">
-                                <option></option>
-                                <?php foreach ($timeZones as $timeZone => $text): ?>
-                                <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone)? 'selected' : '' ?>><?= $text ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div>
-                            <small class="text-muted text-muted-reg">
-                                Часовой пояс компании
-                            </small>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <select id="companyTimezone" name="companyTimezone"
+                                        class="form-control company-timezone">
+                                    <option></option>
+                                    <?php foreach ($timeZones as $timeZone => $text): ?>
+                                        <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone) ? 'selected' : '' ?>><?= $text ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_clockcompanysettings'] ?>
+                                </small>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <input id="companyPassword" name="companyPassword" type="text" class="form-control company-password"
-                                   value="">
-                        </div>
-                        <div>
-                            <small class="text-muted text-muted-reg">
-                                Введите свой пароль для сохранения изменений компании
-                            </small>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <input id="companyPassword" name="companyPassword" type="text"
+                                       class="form-control company-password"
+                                       value="">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_enterpasswordcompanysettings'] ?>
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row mt-5">
                     <div class="col text-center">
-                        <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">Сохранить изменения компании
+                        <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
+                            <?= $GLOBALS['_savecompanysettings'] ?>
                         </button>
                     </div>
-                </div>
                 <?php endif; ?>
             </div>
         </div>
@@ -280,7 +287,7 @@
                 data: fd,
                 success: function () {
                     $("#deleteAvatar").addClass('d-none');
-                    var newLink = $('.user-img').attr('src').replace('.png', '-alter.png?'+ new Date().getTime());
+                    var newLink = $('.user-img').attr('src').replace('.png', '-alter.png?' + new Date().getTime());
                     $('#avatar').attr('src', newLink);
                     $('.user-img').attr('src', newLink);
                 },
@@ -478,8 +485,8 @@
                             $("#deleteAvatar").removeClass('d-none');
                             setTimeout(function () {
                                 $alert.fadeOut()
-                            },2000);
-                            var newLink = $('.user-img').attr('src').replace('-alter', '').replace('png', 'png?'+ new Date().getTime());
+                            }, 2000);
+                            var newLink = $('.user-img').attr('src').replace('-alter', '').replace('png', 'png?' + new Date().getTime());
                             $('.user-img').attr('src', newLink);
                         },
 
@@ -488,7 +495,7 @@
                             $alert.show().fadeIn().addClass('alert-warning').text('Ошибка при загрузке');
                             setTimeout(function () {
                                 $alert.fadeOut()
-                            },3000)
+                            }, 3000)
                         },
 
                         complete: function () {

@@ -23,7 +23,7 @@
             $isFiredShown = true; ?>
             <a href="#" id="showFired" class="text-decoration-none text-center">
                 <div class="card-body border-bottom">
-                    Уволенные сотрудники
+                    <?= $GLOBALS['_firedcompany'] ?>
                 </div>
             </a>
         <?php endif; ?>
@@ -89,7 +89,7 @@
                         <?php elseif ($n['id'] != $id): ?>
                             <div class="mt-3">
                                 <a href="#" data-user-id="<?= $n['id'] ?>" class="fire-user" data-toggle="tooltip"
-                                   data-placement="bottom" title="Уволить сотрудника">
+                                   data-placement="bottom" title="<?= $GLOBALS['_fireoutcompany'] ?>">
                                     <i class="fas fa-user-slash edit-profile"></i>
                                 </a>
                             </div>
@@ -103,7 +103,7 @@
         $isFiredShown = true; ?>
         <a href="#" id="showFired" class="text-decoration-none text-center d-none">
             <div class="card-body border-bottom">
-                Уволенные сотрудники
+                <?= $GLOBALS['_firedcompany'] ?>
             </div>
         </a>
     <?php endif; ?>

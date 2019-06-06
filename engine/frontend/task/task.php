@@ -137,7 +137,7 @@ if ($id == $worker and $view == 0) {
                                                       placeholder="Причина" required></textarea>
                                         <?php endif; ?>
                                         <input class="form-control form-control-sm" value="" type="date"
-                                               id="example-date-input"
+                                               id="deadlineInput"
                                                min="">
                                         <button type="submit"
                                                 id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"

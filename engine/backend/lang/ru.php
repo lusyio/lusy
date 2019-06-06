@@ -18,6 +18,14 @@ $_logout = 'Выйти';
 $_invite = 'Приглашения';
 $_reports = 'Отчеты';
 
+//топсайдбар-поиск
+$_searchtopsidebar = 'Поиск по задачам, комментариям и файлам';
+$_resultsearchtopsidebar = 'Результаты по запросу:';
+$_taskssearchtopsidebar = 'Задачи';
+$_filessearchtopsidebar = 'Файлы';
+$_commentssearchtopsidebar = 'Комментарии';
+$_emptysearchtopsidebar = 'По запросу ничего не найдено.';
+
 //новая задача
 $_newtask = 'Новая задача';
 $_namenewtask = 'Наименование задачи';
@@ -42,6 +50,17 @@ $_overdue = 'Просрочено';
 $_new = 'В работе';
 $_pending = 'На рассмотрении';
 $_deleteworker = 'Удалить';
+$_statustasks = 'Статус';
+$_deadlinetasks = 'Дедлайн';
+$_memberstasks = 'Участники';
+
+//поиск-задачи
+$_searchbar = 'Поиск по задачам';
+$_showsearchbar = 'Показывать';
+$_actualsearchbar = 'Актуальные';
+$_completesearchbar = 'Завершенные';
+$_canceledsearchbar = 'Отмененные';
+$_emptysearchbar = 'По запросу ничего не найдено.';
 
 // задачи лист
 $_tasknewlist = 'Новая задача';
@@ -56,6 +75,10 @@ $_canceledlist = 'Отменена';
 $_donelist = 'Завершена';
 $_deadlinelist = 'Дедлайн:';
 
+//Компания
+$_firedcompany = 'Уволенные сотрудники';
+$_fireoutcompany = 'Уволить сотрудника';
+
 //Файлы
 $_attachto = 'прикрепил к';
 $_fileplaceholder = 'Введите название файла';
@@ -66,6 +89,8 @@ $_files = 'Файлы';
 $_edit = 'Изменить';
 $_titlecompanyusage = 'Файлы компании';
 $_titleuserusage = 'Файлы пользователя';
+$_emptyliststorage = 'Тут сейчас пусто';
+$_emptylistsnotytorage = 'Вы можете прикреплять файлы к задачам и сообщениям';
 
 //инвайты
 $_headerinvite = 'Отправить приглашение';
@@ -77,8 +102,24 @@ $_sentinvite = 'Отправлено';
 $_registeredinvite = 'Зарегистрирован';
 $_copyinvite = 'Скопировать приглашение';
 
+//Вступление
+$_registrationjoin = 'Регистрация';
+$_invitedtojoin = 'Приглашение в компанию';
+$_placeholdernamejoin = 'Введите имя';
+$_placeholdersurnamejoin = 'Введите фамилию';
+$_placeholderpasswordjoin = 'Введите пароль';
+$_passwordnotyjoin = 'Не менее 8 символов';
+$_registerjoin = 'Зарегистрироваться';
+
+//Диалоги-мэйл-мэсэдж-конверсашион
+$_emptyconversation = 'Нет сообщений';
+$_enterconversation = 'Введите сообщение';
+$_sendconversation = 'Отправить';
+$_mailconversation = 'Диалоги';
+$_deletedconversation = '(удален)';
+
 //Регистрация
-$_registration = 'Регистрация';
+$_registrationreg = 'Регистрация';
 $_namecompany = 'Название компании';
 $_adminlogin = 'Логин администратора';
 $_adminemail = 'E-mail администратора';
@@ -95,6 +136,9 @@ $_notregistrated = 'Еще не зарегистрированы';
 $_forgotpassword = 'Забыли пароль';
 $_restorepassword = 'Восстановить пароль';
 
+//Профиль
+$_aboutprofile = 'Пока ничего';
+
 
 // новые кнопки - Окс
 $_done = 'Выполнено'; // статус для перевода задачи из "на рассмотрении" в "Выполнено"
@@ -110,6 +154,23 @@ $_change = 'Перенести';
 
 //Настройки
 $_settings = 'Настройки';
+$_changeavatarsettings = 'Сменить изображение';
+$_cutavatarsettings = 'Обрезать изображение';
+$_backsettings = 'Назад';
+$_uploadsettings = 'Загрузить';
+$_aboutsettings = 'Немного о себе';
+$_phonesettings = 'Номер телефона';
+$_newpasswordsettings = 'Новый пароль';
+$_passwordsettings = 'Введите свой пароль';
+$_savesettings = 'Сохранить изменения';
+$_companysettings = 'Настройки компании';
+$_namecompanysettings = 'Наименование компании (до 8-ми символов)';
+$_fullnamecompanysettings = 'Полное наименование компании';
+$_aboutcompanysettings = 'Описание компании';
+$_websitecompanysettings = 'Веб-сайт';
+$_clockcompanysettings = 'Часовой пояс компании';
+$_enterpasswordcompanysettings = 'Введите свой пароль для сохранения изменений компании';
+$_savecompanysettings = 'Сохранить изменениея компании';
 
 // новые кнопки - Окс
 $_inbox = 'Входящие';
@@ -154,8 +215,6 @@ $_worker = 'Сотрудник';
 
 // Поиск и фильтры
 $_search = 'Поиск';
-$_searchtext = 'Поиск по задачам, комментариям и файлам';
-$_searchplaceholder = 'Поиск по задачам';
 $_inworkfilter = 'В работе';
 $_pendingfilter = 'На рассмотрении';
 $_postponefilter = 'Перенос срока';

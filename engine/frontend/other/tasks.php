@@ -7,16 +7,16 @@
         <div style="padding-left: 7px;">
             <div class="row sort">
                 <div class="col-sm-6">
-                    <span>Имя задачи</span>
+                    <span><?= $GLOBALS['_taskname'] ?></span>
                 </div>
                 <div class="col-sm-2">
-                    <span>Статус</span>
+                    <span><?= $GLOBALS['_statustasks'] ?></span>
                 </div>
                 <div class="col-sm-2">
-                    <span>Дедлайн</span>
+                    <span><?= $GLOBALS['_deadlinetasks'] ?></span>
                 </div>
                 <div class="col-sm-2">
-                    <span>Участники</span>
+                    <span><?= $GLOBALS['_memberstasks'] ?></span>
                 </div>
             </div>
         </div>
