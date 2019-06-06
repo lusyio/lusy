@@ -32,7 +32,7 @@
                             Теперь выберите часовой пояс, в котором работает ваша компания
                         </div>
                         <select id="timezone" name="timezone" class="form-control required">
-                            <option></option>
+                            <option disabled>Выберите часовой пояс</option>
                             <option value="Etc/GMT+12">(GMT-12:00) International Date Line West</option>
                             <option value="Pacific/Midway">(GMT-11:00) Midway Island, Samoa</option>
                             <option value="Pacific/Honolulu">(GMT-10:00) Hawaii</option>
@@ -123,7 +123,7 @@
                             и язык
                         </div>
                         <select id="language" name="language" class="form-control required">
-                            <option></option>
+                            <option disabled>Выберите язык</option>
                             <option value="ru" <?= ($userLanguage == 'ru')? 'selected' : ''?>>Русский</option>
                             <option value="en" <?= ($userLanguage == 'en')? 'selected' : ''?>>English</option>
                         </select>

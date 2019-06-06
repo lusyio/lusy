@@ -17,7 +17,7 @@
                         <div class="input-group">
                             <div class="custom-file">
                                 <input class="form-control" id="search" type="text" name="request" autocomplete="off"
-                                       placeholder="<?= $_searchtext ?>...">
+                                       placeholder="<?= $GLOBALS['_searchtopsidebar'] ?>...">
                             </div>
                             <div class="input-group-append">
                                 <button class="input-group-text" id="searchButton"><i class="fas fa-search"></i>

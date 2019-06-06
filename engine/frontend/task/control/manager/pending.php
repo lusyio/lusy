@@ -19,7 +19,7 @@
     <div class="form-group">
         <p class="text-ligther mt-3"><?=$GLOBALS["_pendingtext"]?>:</p>
         <textarea name="report" id="reportarea" class="form-control mb-3" rows="3" placeholder="<?=$GLOBALS["_pendingareatext"]?>" required></textarea>
-        <input class="form-control" type="date" id="example-date-input" min="<?= $GLOBALS["now"] ?>" value="<?= $GLOBALS["now"] ?>">
+        <input class="form-control" type="date" id="returnDateInput" min="<?= $GLOBALS["now"] ?>" value="<?= $GLOBALS["now"] ?>">
         <div class="form-group row d-block mb-0">
             <button type="button" id="backbutton" class="btn btn-secondary w-30 text-center mt-3 mb-1 ml-3" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><?=$GLOBALS["_back"]?></button>
             <button type="submit" id="workreturn" class="btn btn-outline-primary w-30 text-center mt-3 mb-1"><i class="fas fa-exchange-alt mr-2"></i> <?=$GLOBALS["_return"]?></button>

@@ -234,7 +234,7 @@ $(document).ready(function () {
 
     // Перенос срока
     $("#sendpostpone").click(function () {
-        var datepostpone = $("#example-date-input").val();
+        var datepostpone = $("#deadlineInput").val();
         var text = $("#reportarea1").val();
         if (text) {
             $.ajax({
@@ -258,7 +258,7 @@ $(document).ready(function () {
 
     // Манагер ставит дату
     $("#sendDate").click(function () {
-        var sendDate = $("#example-date-input").val();
+        var sendDate = $("#deadlineInput").val();
         if (sendDate) {
             $.ajax({
                 url: '/ajax.php',
@@ -332,7 +332,7 @@ $(document).ready(function () {
 // Кнопка "принять" для worker'a (в статусе "на рассмотрении"")
 
     $("#workreturn").click(function () {
-        var datepostpone = $("#example-date-input").val();
+        var datepostpone = $("#returnDateInput").val();
         var text = $("#reportarea").val();
         if (text) {
             $.ajax({
@@ -422,6 +422,12 @@ $(document).ready(function () {
     }
     dated = curr_year + "-" + curr_month + "-" + curr_date;
     var element = document.getElementById("example-date-input");
+    var elementt = document.getElementById("deadlineInput");
+    if (!elementt) {
+    } else {
+        dateControl.value = dated;
+        dateControl.min = dated;
+    }
     if (!element) {
     } else {
         dateControl.value = dated;

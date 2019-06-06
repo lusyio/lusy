@@ -2,20 +2,20 @@
     <div class="card-body pb-1">
         <div class="input-group">
             <input id="searchInput" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2"
-                   type="text" placeholder="<?= $GLOBALS["_searchplaceholder"] ?>...">
+                   type="text" placeholder="<?= $GLOBALS["_searchbar"] ?>...">
             <span class="icon-searchbar"><i class="fas fa-search"></i></span>
         </div>
     </div>
     <div class="d-inline-flex">
         <div id="filterSelect" class="position-relative mr-1 mb-2">
-            <span class="text-ligther">Показывать </span>
-            <span class="filter-select selected-role actual"><span>Актуальные</span></span>
+            <span class="text-ligther"><?= $GLOBALS['_showsearchbar'] ?></span>
+            <span class="filter-select selected-role actual"><span><?= $GLOBALS['_actualsearchbar'] ?></span></span>
             <span class="filter-select in selected-role "></span>
             <span class="filter-select out selected-role "></span>
             <span class="selected-status text-secondary"></span>
             <div class="popUpDiv">
                 <div id="actualSearch" class="words-search w-100 active">
-                    <span class="role-name">Актуальные</span>
+                    <span class="role-name"><?= $GLOBALS['_actualsearchbar'] ?></span>
                     <span class="count"> (<?= $countAllTasks ?>)</span>
                 </div>
                 <?php if ($isWorker): ?>
@@ -40,13 +40,13 @@
                 <hr class="m-0">
                 <?php if ($countArchiveDoneTasks > 0): ?>
                     <div class="archive-search search-done words-search">
-                        <span class="archive-name">Завершенные</span>
+                        <span class="archive-name"><?= $GLOBALS['_completesearchbar'] ?></span>
                         <span class="done-count">(<?= $countArchiveDoneTasks ?>)</span>
                     </div>
                 <?php endif; ?>
                 <?php if ($countArchiveCanceledTasks > 0): ?>
                     <div class="archive-search search-cancel words-search">
-                        <span class="archive-name">Отмененные</span>
+                        <span class="archive-name"><?= $GLOBALS['_canceledsearchbar'] ?></span>
                         <span class="done-count">(<?= $countArchiveCanceledTasks ?>)</span>
                     </div>
                 <?php endif; ?>
@@ -73,7 +73,7 @@
 <div class="search-container tasks-search-container">
     <div id="searchResult">
         <div class="search-empty">
-            <p>По запросу ничего не найдено.</p>
+            <p><?= $GLOBALS['_emptysearchbar'] ?></p>
         </div>
     </div>
 </div>

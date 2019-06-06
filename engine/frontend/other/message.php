@@ -9,7 +9,7 @@
             <?php if (count($message['files']) > 0): ?>
                 <?php foreach ($message['files'] as $file): ?>
                     <?php if ($file['is_deleted']): ?>
-                        <p class="m-0"><s><?= $file['file_name'] ?></s> (удален)</p>
+                        <p class="m-0"><s><?= $file['file_name'] ?></s> <?= $GLOBALS['_deletedconversation'] ?></p>
                     <?php else: ?>
                         <p class="m-0"><a class="" href="../../<?= $file['file_path'] ?>"><?= $file['file_name'] ?></a></p>
                     <?php endif; ?>
