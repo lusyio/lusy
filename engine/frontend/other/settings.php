@@ -198,18 +198,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <div class="input-group">
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="input-group">
                             <textarea id="companyDescription" name="companyDescription" type="text"
-                                      class="form-control company-description"
-                                      value="<?= $companyData['description'] ?>"></textarea>
-                            </div>
-                            <div>
-                                <small class="text-muted text-muted-reg">
-                                    <?= $GLOBALS['_aboutcompanysettings'] ?>
-                                </small>
-                            </div>
+                                      class="form-control company-description"><?= $companyData['description'] ?></textarea>
+                        </div>
+                        <div>
+                            <small class="text-muted text-muted-reg">
+                                <?= $GLOBALS['_aboutcompanysettings'] ?>
+                            </small>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -257,12 +256,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-5">
-                        <div class="col text-center">
-                            <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit" disabled>
-                                <?= $GLOBALS['_savecompanysettings'] ?>
-                            </button>
-                        </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
+                            <?= $GLOBALS['_savecompanysettings'] ?>
+                        </button>
                     </div>
                 <?php endif; ?>
             </div>
@@ -291,11 +290,10 @@
                     var newLink = $('.user-img').attr('src').replace('.png', '-alter.png?' + new Date().getTime());
                     $('#avatar').attr('src', newLink);
                     $('.user-img').attr('src', newLink);
-
                 },
             });
-
         });
+
         $("#sendChanges").on('click', function () {
             var social = {};
             var socialVk = "vk";
@@ -347,6 +345,41 @@
                 $("#password").addClass('border-danger');
             }
         });
+        $("#sendCompanyChanges").on('click', function () {
+            var companyName = $('#companyName').val();
+            var companyFullName = $('#companyFullName').val();
+            var companySite = $('#companySite').val();
+            var companyDescription = $('#companyDescription').val();
+            var companyTimezone = $('#companyTimezone').val();
+            var companyPassword = $('#companyPassword').val();
+
+            var fd = new FormData();
+            fd.append('ajax', 'settings');
+            fd.append('module', 'changeCompanyData');
+            fd.append('companyName', companyName);
+            fd.append('companyFullName', companyFullName);
+            fd.append('companyDescription', companyDescription);
+            fd.append('companySite', companySite);
+            fd.append('companyTimezone', companyTimezone);
+            fd.append('companyPassword', companyPassword);
+
+            if (companyPassword) {
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function () {
+                        location.reload();
+                    },
+                });
+            } else {
+                $("#companyPassword").addClass('border-danger');
+            }
+        })
     });
 
     window.addEventListener('DOMContentLoaded', function () {

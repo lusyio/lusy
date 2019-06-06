@@ -51,3 +51,19 @@ function getCompanyData()
     return $result;
 }
 
+function setNewCompanyData($name, $fullName, $site, $description, $timezone)
+{
+    global $pdo;
+    global $idc;
+    $companyDataQuery = $pdo->prepare('UPDATE company SET idcompany = :companyName,  full_company_name = :fullCompanyName , site = :companySite, description = :companyDescription, timezone = :companyTimezone WHERE id = :companyId');
+    $newData = [
+        ':companyName' => $name,
+        ':fullCompanyName' => $fullName,
+        ':companySite' => $site,
+        ':companyDescription' => $description,
+        ':companyTimezone' => $timezone,
+        ':companyId' => $idc,
+    ];
+    $companyDataQuery->execute($newData);
+}
+
