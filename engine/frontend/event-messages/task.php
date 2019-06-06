@@ -1,5 +1,5 @@
 <li data-event-id="<?= $event['event_id'] ?>"
-     class="event <?= ($event['view_status']) ? '' : 'new-event' ?> task mb-3">
+     class="event <?= ($event['view_status']) ? '' : 'new-event' ?> <?= ($event['action'] == 'createtask') ? '' : 'readable-here' ?> task mb-3">
 
     <?php
     if ($event['action'] == 'createtask') { // создание, назначение задачи

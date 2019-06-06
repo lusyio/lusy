@@ -13,5 +13,6 @@ if (count($_FILES) > 0) {
     uploadAttachedFiles('comment', $idcomment);
 }
 
-addMassEvent('comment', $idtask, $idcomment);
+addCommentEvent($idtask, $idcomment);
+
 ?>

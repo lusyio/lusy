@@ -1,5 +1,5 @@
 <li data-event-id="<?= $event['event_id'] ?>"
-     class="event <?= ($event['view_status']) ? '' : 'new-event' ?> comment">
+     class="event <?= ($event['view_status']) ? '' : 'new-event' ?> comment readable-here">
 
 
     <span class="before bg-secondary"><i class="fas fa-comment"></i></span>

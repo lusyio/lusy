@@ -95,7 +95,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $id,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -103,7 +103,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $id,
             ':recipientId' => $recipientId,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery->execute($eventDataForAuthor);
         $addEventQuery->execute($eventDataForWorker);
@@ -126,7 +126,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $id,
             ':recipientId' => $recipientId,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery->execute($eventData);
         $eventId = $pdo->lastInsertId();
@@ -145,7 +145,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $taskManager,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -153,7 +153,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $id,
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
@@ -176,7 +176,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $taskManager,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -184,7 +184,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
@@ -199,7 +199,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $taskWorker,
             ':recipientId' => $taskManager,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -207,7 +207,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
@@ -230,7 +230,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $taskManager,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -238,7 +238,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $taskManager,
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
@@ -261,7 +261,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $taskManager,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -269,7 +269,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
@@ -294,7 +294,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $id,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -302,7 +302,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $id,
             ':recipientId' => $recipientId,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery->execute($eventDataForAuthor);
         $addEventQuery->execute($eventDataForWorker);
@@ -325,7 +325,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $id,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -333,7 +333,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $id,
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery->execute($eventDataForAuthor);
         $addEventQuery->execute($eventDataForWorker);
@@ -356,7 +356,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $id,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -364,7 +364,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $id,
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery->execute($eventDataForAuthor);
         $addEventQuery->execute($eventDataForWorker);
@@ -383,7 +383,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $id,
             ':recipientId' => $recipientId,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery->execute($eventDataForWorker);
         $workerEventId = $pdo->lastInsertId();
@@ -405,7 +405,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $id,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -413,7 +413,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $id,
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
         ];
         $addEventQuery->execute($eventDataForAuthor);
         $addEventQuery->execute($eventDataForWorker);
@@ -436,7 +436,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => 1,
             ':recipientId' => $id,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
             'comment' => $recipientId,
         ];
         $eventDataForWorker = [
@@ -445,7 +445,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':authorId' => $id,
             ':recipientId' => $recipientId,
             ':companyId' => $idc,
-            'datetime' => time(),
+            ':datetime' => time(),
             'comment' => '',
         ];
         $addEventQuery->execute($eventDataForAuthor);
@@ -470,7 +470,7 @@ function addEvent($action, $taskId, $recipientId = null)
 //        ':authorId' => $id,
 //        ':recipientId' => $recipientId,
 //        ':companyId' => $idc,
-//        'datetime' => time(),
+//        ':datetime' => time(),
 //    ];
 //    $addEventQuery->execute($eventData);
 //    if ($recipientId != $id) {
@@ -729,5 +729,50 @@ function getOnlineUsersList()
     $onlineUsersQuery->execute(array(':channelName' => getCometTrackChannelName()));
     $onlineUsers = $onlineUsersQuery ->fetchAll(PDO::FETCH_ASSOC);
     return array_column($onlineUsers, 'user_id');
+}
+
+function addCommentEvent($taskId, $commentId)
+{
+    global $id;
+    global $idc;
+    global $pdo;
+    global $cometPdo;
+
+    $executorsQuery = $pdo->prepare('SELECT worker, manager FROM tasks WHERE id = :taskId');
+    $executorsQuery->execute(array(':taskId' => $taskId));
+    $executors = $executorsQuery->fetch(PDO::FETCH_ASSOC);
+    $coworkersQuery = $pdo->prepare('SELECT worker_id FROM task_coworkers WHERE task_id = :taskId');
+    $coworkersQuery->execute(array(':taskId' => $taskId));
+    $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_COLUMN);
+
+    $recipients = $coworkers;
+    $recipients[] = $executors['manager'];
+    $recipients[] = $executors['worker'];
+    array_unique($recipients);
+
+    $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
+    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
+    foreach ($recipients as $recipient) {
+            if ($recipient != $id) {
+                $eventData = [
+                    ':action' => 'comment',
+                    ':taskId' => $taskId,
+                    ':authorId' => $id,
+                    ':recipientId' => $recipient,
+                    ':companyId' => $idc,
+                    ':datetime' => time(),
+                    ':comment' => $commentId,
+                ];
+                $addEventQuery->execute($eventData);
+                $eventId = $pdo->lastInsertId();
+
+                $pushData = [
+                    'type' => 'comment',
+                    'eventId' => $eventId,
+                ];
+                $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
+            }
+        }
 }
 

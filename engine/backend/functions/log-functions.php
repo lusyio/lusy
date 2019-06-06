@@ -87,7 +87,7 @@ function getEventsForUser()
     global $idc;
     global $pdo;
 
-    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS commentId, c.comment AS commentText, e.datetime, e.view_status, t.datepostpone, t.worker FROM events e
+    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS comment, c.comment AS commentText, e.datetime, e.view_status, t.datepostpone, t.worker FROM events e
   LEFT JOIN tasks t ON t.id = e.task_id
   LEFT JOIN users u on u.id = e.author_id
   LEFT JOIN comments c on c.id = e.comment                                                                              
@@ -105,7 +105,7 @@ function getEventByIdForUser($eventId)
     global $idc;
     global $pdo;
 
-    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS commentId, c.comment AS commentText, e.datetime, e.view_status, t.name AS taskName FROM events e
+    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS comment, c.comment AS commentText, e.datetime, e.view_status, t.name AS taskName FROM events e
   LEFT JOIN tasks t ON t.id = e.task_id
   LEFT JOIN users u on u.id = e.author_id
   LEFT JOIN comments c on c.id = e.comment                                                                              
@@ -122,7 +122,7 @@ function getAllEvents()
     global $idc;
     global $pdo;
 
-    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS commentId, c.comment AS commentText, e.datetime, e.view_status, t.name AS taskName FROM events e
+    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment, c.comment AS commentText, e.datetime, e.view_status, t.name AS taskName FROM events e
   LEFT JOIN tasks t ON t.id = e.task_id
   LEFT JOIN users u on u.id = e.author_id
   LEFT JOIN comments c on c.id = e.comment                                                                              
@@ -140,12 +140,12 @@ function prepareEvents(&$events)
     foreach ($events as &$event) {
         $event['link'] = '';
         if ($event['action'] == 'comment') {
-            $event['link'] = 'task/' . $event['task_id'] . '/#' . $event['commentId'];
+            $event['link'] = 'task/' . $event['task_id'] . '/#' . $event['comment'];
             $event['taskname'] = DBOnce('name','tasks','id='.$event['task_id']);
         } else if ($event['action'] == 'newUserRegistered') {
-            $event['link'] = 'profile/' . $event['commentId'] . '/';
-            $event['name'] = DBOnce('name', 'users', 'id = ' . $event['commentId']);
-            $event['surname'] = DBOnce('surname', 'users', 'id = ' . $event['commentId']);
+            $event['link'] = 'profile/' . $event['comment'] . '/';
+            $event['name'] = DBOnce('name', 'users', 'id = ' . $event['comment']);
+            $event['surname'] = DBOnce('surname', 'users', 'id = ' . $event['comment']);
         } else {
             $event['link'] = 'task/' . $event['task_id'] . '/';
             $event['taskname'] = DBOnce('name','tasks','id='.$event['task_id']);
