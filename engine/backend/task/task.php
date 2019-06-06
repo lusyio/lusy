@@ -98,6 +98,7 @@ if ($worker == $id) {
     if ($view == '0') {
         $setViewedQuery = $pdo->prepare('UPDATE `tasks` SET view = :viewState where id = :taskId');
         $setViewedQuery->execute(array('viewState' => 1, ':taskId' => $idtask));
+        addEvent('viewtask', $idtask, $manager);
     }
 }
 

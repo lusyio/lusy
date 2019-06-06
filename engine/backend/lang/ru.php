@@ -140,6 +140,8 @@ $_buttonLogShowAll = 'Показать все';
 $_buttonLogShowNew = 'Только новые';
 
 
+
+
 // комментарии
 $_writecomment = 'Напишите свой комментарий';
 $_feed = 'Лента';
@@ -177,6 +179,43 @@ $_logCancelDate = 'отклонил перенос срока задачи';
 $_logConfirmDate = 'одобрил перенос срока задачи';
 $_logSendOnReview = 'отправил отчет о выполнении задачи';
 $_logWorkReturn = 'вернул вам задачу на доработку';
+
+
+
+$_youCreatedTask = 'Вы создали задачу';
+$_responsible = 'Ответственный';
+$_periodOfExecutionUntil = 'Срок выполнения до';
+$_assignedYouTask = 'Назначил Вам задачу';
+
+$_sawTheTask = 'Ознакомился с задачей';
+
+$_youCanceledTheTask = 'Вы отменили задачу';
+$_taskCanceled = 'Задача отменена';
+$_taskOverdue = 'Задача просрочена';
+$_youSentOnReview = 'Вы отправили задачу на рассмотрение';
+$_youReceivedTaskReport = 'Задача выполнена, отправлен отчет о выполнении';
+$_youReturnedTask = 'Вы вернули задачу';
+$_taskNewDeadline = 'Новый срок';
+$_taskReturnedToYou = 'Вам возвращена задача с новым сроком';
+$_workDoneWorker = 'Задача принята и завершена';
+$_workDoneManager = 'Задача завершена';
+$_youAskedToPostpone = 'Вы запросили изменение срока для задачи';
+$_workerAskedToPostpone = 'Запросил перенос срока задачи';
+$_confirmYourPostponeAsk = 'Одобрен перенос срока задачи';
+$_youConfirmPostponeAsk = 'Вы одобрили перенос срока задачи';
+$_declineYourPostponeAsk = 'Отказ в переносе срока задачи';
+$_youDeclinePostponeAsk = 'Вы отказали в переносе срока задачи';
+$_youAreSuspendedFromTheTask = 'Задача переназначена для другого сотрудника';
+$_youChangedWorker = 'Вы сменили ответственного в задаче';
+$_youSetNewDateInTask = 'Вы назначили новый срок для задачи';
+$_newDateInYourTask = 'Назначен новый срок для задачи';
+$_youAddCoworker = 'Вы добавили нового соисполнителя для задачи';
+$_youAreNewCoworker = 'Вас назначили соисполнителем для задачи';
+$_newCoworker = 'Новый соисполнитель';
+$_youRemoveCoworker = 'Вы исключили соисполнителя из задачи';
+$_youAreNotCoworker = 'Вас исключили из соисполнителей задачи';
+$_removedCoworker = 'Исключенный соисполнитель';
+
 // Приглашения
 $_newUserRegistered = 'Зарегистрировался новый сотрудник';
 $_newCompanyRegistered = 'Добро пожаловать в Lusy.io! Ваша компания зарегистрирована.';

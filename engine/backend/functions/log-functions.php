@@ -87,7 +87,7 @@ function getEventsForUser()
     global $idc;
     global $pdo;
 
-    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS commentId, c.comment AS commentText, e.datetime, e.view_status, t.name AS taskName FROM events e
+    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS commentId, c.comment AS commentText, e.datetime, e.view_status, t.datepostpone, t.worker FROM events e
   LEFT JOIN tasks t ON t.id = e.task_id
   LEFT JOIN users u on u.id = e.author_id
   LEFT JOIN comments c on c.id = e.comment                                                                              
@@ -136,6 +136,7 @@ function getAllEvents()
 
 function prepareEvents(&$events)
 {
+    global $pdo;
     foreach ($events as &$event) {
         $event['link'] = '';
         if ($event['action'] == 'comment') {
@@ -148,6 +149,12 @@ function prepareEvents(&$events)
         } else {
             $event['link'] = 'task/' . $event['task_id'] . '/';
             $event['taskname'] = DBOnce('name','tasks','id='.$event['task_id']);
+            $event['datedone'] = DBOnce('datedone','tasks','id='.$event['task_id']);
+            $workerQuery = $pdo->prepare('SELECT u.name, u.surname FROM users u LEFT JOIN tasks t ON u.id = t.worker WHERE t.id = :taskId');
+            $workerQuery->execute(array(':taskId' => $event['task_id']));
+            $worker = $workerQuery->fetch(PDO::FETCH_ASSOC);
+            $event['workerName'] = $worker['name'];
+            $event['workerSurname'] = $worker['surname'];
         }
     }
     unset($event);
