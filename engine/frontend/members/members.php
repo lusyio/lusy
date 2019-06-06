@@ -149,17 +149,11 @@
         });
 
         function coworkersListEmpty() {
-            var list = [];
-            $(".members-coworker-select:visible").each(function () {
-                list.push(Math.random());
-            });
-            if (list.length === 0) {
-                $('.empty-list').show();
-            } else {
+            if ($(".members-coworker-select").is(':visible')) {
                 $('.empty-list').hide();
-                console.log('asdasd')
+            } else {
+                $('.empty-list').show();
             }
-            console.log(list);
         }
 
         //работа с ответственными

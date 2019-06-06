@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header pt-0">
-        <h5 class="mb-0"><?= fiomess($recipientId) ?> <i class="fas fa-circle mr-1 ml-1 onlineIndicator"></i></h5>
+        <a href="/profile/<?= $id ?>/" class="mb-0 h5"><?= fiomess($recipientId) ?> <i class="fas fa-circle mr-1 ml-1 onlineIndicator"></i></a>
     </div>
     <div class="card-body" id="chatBox">
         <?php if ($messages): ?>

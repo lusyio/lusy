@@ -317,16 +317,17 @@ body{
     /*box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);*/
 }
 
-.dialog {
+.dialog-mail {
     transition: 200ms;
-    border-radius: 8px;
     background-color: #fff;
+    box-shadow: 0 0 1px 1px rgba(20,23,28,.1)
 }
 
-.dialog:hover {
+.dialog-mail:hover{
     text-decoration: none;
     background-color: #eceeee;
 }
+
 
 .cancel-file {
     font-size: 12px !important;
@@ -1241,9 +1242,16 @@ input:checked[type="checkbox"]::before {
 .company-profile-fio{
     margin-bottom: 15px;
 }
+.fio-profile{
+    font-size: 1.5rem;
+}
 
 .company-profile-email{
-    margin-top: 10px;
+    margin-top: 5px;
+}
+
+.activity-company{
+    font-size: 14px;
 }
 
 .company-online-indicator{
@@ -1654,6 +1662,12 @@ span.date {
     border-radius: 100%;
 }
 
+.avatar-mail-list{
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+}
+
 .anim-show {
     opacity: 0;
     transition: 0.4s;
@@ -1821,7 +1835,6 @@ span.date {
         padding-top: 3rem;
     }
 
-
     #searchForm .form-group {
         padding-left: 20px;
     }
@@ -1898,6 +1911,10 @@ span.date {
 
     .task-box{
         display: none !important;
+    }
+
+    .fio-profile{
+        font-size: 17px;
     }
 
     .coworkers{
@@ -2216,6 +2233,8 @@ label.error {
 .create-task {
     text-align: -webkit-center;
 }
+
+
 
 .image-profile {
     width: 190px;

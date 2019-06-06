@@ -58,16 +58,11 @@ $(document).ready(function () {
     }
 
     function coworkersListEmpty() {
-        var list = [];
-        $(".select-coworker:visible").each(function () {
-            list.push(Math.random());
-        });
-        if (list.length === 0) {
-            $('.empty-list').show();
-        } else {
+        if ($(".select-coworker").is(':visible')) {
             $('.empty-list').hide();
+        } else {
+            $('.empty-list').show();
         }
-        console.log(list);
     }
 
 

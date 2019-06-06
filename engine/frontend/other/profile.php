@@ -7,10 +7,10 @@
                         <img class="rounded-circle avatar-profile" id="avatar" src="/<?= getAvatarLink($profileId) ?>"
                              alt="avatar">
                     </div>
-                    <div class="col">
-                        <h4><?= $userData['name'] ?> <?= $userData['surname'] ?></h4>
+                    <div class="col ml-2">
+                        <div class="fio-profile"><?= $userData['name'] ?> <?= $userData['surname'] ?></div>
                         <span class="text-muted-reg"><?= ($userData['online']) ? $GLOBALS['_online'] : ((isset($userData['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $userData['activity']) : '') ?></span>
-                        <p class="text-secondary mt-4 mb-2">
+                        <p class="text-secondary mt-3 mb-2">
                             <i class="fas fa-phone mr-3"></i> <?= $userData['phone'] ?>
                         </p>
                         <p class="text-secondary mb-2">
@@ -48,11 +48,11 @@
                     <?php endif; ?>
                 </div>
                 <hr>
-                <div class="text-reg"> О себе:</div>
+                <div> О себе:</div>
                 <?php if (!is_null($userData['about']) && $userData['about'] != ''): ?>
-                    <p class="text-justify text-reg"><?= nl2br($userData['about']) ?></p>
+                    <p class="text-justify"><?= nl2br($userData['about']) ?></p>
                 <?php else: ?>
-                    <p class="text-justify text-reg"><?= $GLOBALS['_aboutprofile'] ?></p>
+                    <p class="text-justify"><?= $GLOBALS['_aboutprofile'] ?></p>
                 <?php endif; ?>
 
             </div>

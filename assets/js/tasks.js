@@ -113,7 +113,6 @@ $(document).ready(function () {
                     $(".inwork-status").html('');
                 }
             }
-            // actualOn();
             pasteComma();
         })
     }
@@ -181,21 +180,6 @@ $(document).ready(function () {
         canceledTasksOffset++;
         loadCanceledTasks();
     });
-
-    var arr = [];
-
-    // function actualOn() {
-    //     $('.status-search').each(function () {
-    //         if ($(this).hasClass('active') === false) {
-    //             arr.push(Math.random());
-    //         }
-    //         if (arr.length === 5) {
-    //             resetSearch();
-    //             countAll();
-    //         }
-    //     });
-    //     arr = [];
-    // }
 
     $(".search-done").on('click', function () {
         if ($(this).hasClass('active')) {

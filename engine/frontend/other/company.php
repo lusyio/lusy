@@ -42,14 +42,14 @@
                         <div>
                             <?php
                             if ($n["name"] != null && $n["surname"] != null): ?>
-                                <p class="ml-5 h5 company-profile-fio">
+                                <p class="ml-5 h5 mb-0 company-profile-fio">
                                     <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
-                                    <span class="text-muted-reg"><?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
                                 </p>
-                                <div class="ml-5">
+                                <span class="ml-5 text-muted-reg activity-company"><?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
+                                <div class="ml-5 mt-2">
                                     <?php
                                     if ($n['phone'] != null) {
-                                        echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
+                                        echo "<span><i class=\"fas fa-phone mr-1 text-muted \"></i> {$n['phone']} </span>";
                                     }
                                     ?>
                                     <span class="d-block company-profile-email"><i
