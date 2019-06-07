@@ -1224,7 +1224,7 @@ input:checked[type="checkbox"]::before {
 
 #chatBox {
     position: relative;
-    height: calc(100vh - 280px);
+    height: calc(100vh - 310px);
     overflow: auto;
 }
 
@@ -1332,6 +1332,10 @@ input:checked[type="checkbox"]::before {
 
 .message:first-child{
     border-top: none !important;
+}
+
+.message-width{
+    max-width: 91%;
 }
 
 .no-messages{
@@ -1951,6 +1955,10 @@ span.date {
     .mobile-online-indicator{
         top: -5px;
         right: 0;
+    }
+
+    .message-width{
+        max-width: 83%
     }
 
     .header-profile::after{

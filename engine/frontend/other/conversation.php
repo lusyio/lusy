@@ -1,7 +1,8 @@
 <div class="card">
     <div class="card-header pt-0 pl-0">
         <a class="float-left" href="/mail/"><i class="fas fa-arrow-left icon-invite"></i></a>
-        <a href="/profile/<?= $id ?>/" class="mb-0 h5 ml-3"><?= fiomess($recipientId) ?> <i class="fas fa-circle mr-1 ml-1 onlineIndicator"></i></a>
+        <a href="/profile/<?= $id ?>/" class="mb-0 h5 ml-3"><?= fiomess($recipientId) ?> <i
+                    class="fas fa-circle mr-1 ml-1 onlineIndicator"></i></a>
     </div>
     <div class="card-body p-0" id="chatBox">
         <?php if ($messages): ?>
@@ -16,19 +17,17 @@
 <div class="card mt-3">
     <div class="card-body pb-0">
         <form>
-            <div class="d-flex">
-                <div class="form-group w-100 mr-2">
-                    <textarea class="form-control" id="mes" name="mes" rows="1" placeholder="<?= $GLOBALS['_enterconversation'] ?>"
-                              required></textarea>
-                </div>
-                <div class="mr-2">
-                    <input type="button" class="btn btn-primary" id="sendBtn" value="<?= $GLOBALS['_sendconversation'] ?>">
-                </div>
-                <div>
-                    <span class="btn btn-light btn-file">
+            <div class="form-group w-100 mr-2 text-area">
+                <textarea class="form-control" id="mes" name="mes" rows="1"
+                          placeholder="<?= $GLOBALS['_enterconversation'] ?>"
+                          required></textarea>
+            </div>
+            <div class="mb-3">
+                <input type="button" class="btn btn-primary" id="sendBtn"
+                       value="<?= $GLOBALS['_sendconversation'] ?>">
+                <span class="btn btn-light btn-file float-right">
                         <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
-                    </span>
-                </div>
+                </span>
             </div>
         </form>
         <div class="newmess"></div>
@@ -84,10 +83,10 @@
                     var size = this.files[i].size;
                     var names = this.files[i].name;
                     if (size > 20 * 1024 * 1024) {
-                        $(".btn-file").append("<span id='oversize'>Размер файла превышен</span>");
+                        $(".text-area").append("<span id='oversize'>Размер файла превышен</span>");
                         $("#sendBtn").prop('disabled', true);
                     } else {
-                        $(".newmess").append("<div class='filenames'>"
+                        $(".text-area").append("<div class='filenames'>"
                             + names +
                             "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
                             "</div>");

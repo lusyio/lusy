@@ -3,10 +3,10 @@
         <div class="card">
             <div class="card-body p-4">
                 <div class="float-left mr-4 position-relative">
-                <img class="rounded-circle avatar-profile " id="avatar"
+                    <img class="rounded-circle avatar-profile " id="avatar"
                          src="/<?= getAvatarLink($profileId) ?>"
                          alt="avatar">
-                <span class="online-indicator-profile mobile-online-indicator">
+                    <span class="online-indicator-profile mobile-online-indicator">
                     <i class="fas fa-circle mr-1 ml-1 onlineIndicator mail <?= ($isOnline) ? 'text-success' : '' ?>"></i>
                 </span>
                 </div>
@@ -14,7 +14,9 @@
                     <div class="fio-profile"><?= $userData['name'] ?> <?= $userData['surname'] ?></div>
                     <span class="text-muted-reg"><?= ($userData['online']) ? $GLOBALS['_online'] : ((isset($userData['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $userData['activity']) : '') ?></span>
                     <?php if ($id === $profileId): ?>
-                        <div class="float-right">
+                        <div style="position: absolute;
+                                    right: 10px;
+                                    top: 10px;">
                             <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
                         </div>
                     <?php endif; ?>
