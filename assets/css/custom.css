@@ -1952,6 +1952,10 @@ span.date {
         display: none;
     }
 
+    [role="menuitem"]{
+        width: 17rem !important;
+    }
+
     .mobile-online-indicator{
         top: -5px;
         right: 0;

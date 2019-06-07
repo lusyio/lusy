@@ -7,7 +7,7 @@
                          src="/<?= getAvatarLink($profileId) ?>"
                          alt="avatar">
                     <span class="online-indicator-profile mobile-online-indicator">
-                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator mail <?= ($isOnline) ? 'text-success' : '' ?>"></i>
+                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator mail <?= ($userData['online']) ? 'text-success' : '' ?>"></i>
                 </span>
                 </div>
                 <div class='header-profile'>
@@ -33,22 +33,22 @@
                         <div class="row">
                             <div class="col">
                                 <div class="socials text-reg">
-                                        <span>
-                                            <?php if (key_exists('vk', $socialNetworks)): ?>
-                                                <a href="https://vk.com/<?= $socialNetworks['vk'] ?>" target="_blank"><i
-                                                            class="fab fa-vk icon-social mr-3"></i></a>
-                                            <?php endif; ?>
-                                            <?php if (key_exists('facebook', $socialNetworks)): ?>
-                                                <a href="https://facebook.com/<?= $socialNetworks['facebook'] ?>"
-                                                   target="_blank"><i
-                                                            class="fab fa-facebook-square icon-social mr-3"></i></a>
-                                            <?php endif; ?>
-                                            <?php if (key_exists('instagram', $socialNetworks)): ?>
-                                                <a href="https://instagram.com/<?= $socialNetworks['instagram'] ?>"
-                                                   target="_blank"><i
-                                                            class="fab fa-instagram icon-social mr-3"></i></a>
-                                            <?php endif; ?>
-                                        </span>
+                                    <span>
+                                        <?php if (key_exists('vk', $socialNetworks)): ?>
+                                            <a href="https://vk.com/<?= $socialNetworks['vk'] ?>" target="_blank"><i
+                                                        class="fab fa-vk icon-social mr-3"></i></a>
+                                        <?php endif; ?>
+                                        <?php if (key_exists('facebook', $socialNetworks)): ?>
+                                            <a href="https://facebook.com/<?= $socialNetworks['facebook'] ?>"
+                                               target="_blank"><i
+                                                        class="fab fa-facebook-square icon-social mr-3"></i></a>
+                                        <?php endif; ?>
+                                        <?php if (key_exists('instagram', $socialNetworks)): ?>
+                                            <a href="https://instagram.com/<?= $socialNetworks['instagram'] ?>"
+                                               target="_blank"><i
+                                                        class="fab fa-instagram icon-social mr-3"></i></a>
+                                        <?php endif; ?>
+                                    </span>
                                 </div>
                             </div>
                         </div>

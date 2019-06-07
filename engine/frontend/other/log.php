@@ -69,7 +69,7 @@
             $('.view-status-search').removeClass('active');
             el.addClass('active');
             filterEvents();
-        })
+        });
         if (action === 'new-comments') {
             $('#commentSearch').trigger('click');
             $('#newSearch').trigger('click');

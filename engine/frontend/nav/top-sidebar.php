@@ -30,7 +30,7 @@
             <div class="col-sm-4 navbarNav collapse navbar-collapse text-right">
                 <div id="counters" class="alerts position-relative">
                     <a href="/log/#tasks" class="mr-3 text-decoration-none  d-none">
-                        <i class="far fa-clipboard" id="notificationIcon"></i>
+                        <i class="far fa-bell" id="notificationIcon"></i>
                         <strong class="text-primary" id="notificationCount"></strong>
                     </a>
                     <a href="/tasks/#overdue" class="mr-3 text-decoration-none  d-none">
