@@ -21,20 +21,29 @@ if ($_POST['module'] == 'joinUser') {
     $newUserId = addUser($inviteeMail, $inviteePassword, $inviteData['company_id'], $inviteData['invitee_position'], $inviteeName, $inviteeSurname);
     updateInvite($inviteData['invite_id'], $newUserId);
 
-    require_once 'engine/phpmailer/LusyMailer.php';
-    $mail = new \PHPMailer\PHPMailer\LusyMailer();
-    $mail->addAddress($inviteeMail);
-    $mail->isHTML();
-    $mail->Subject = "Добро пожаловать в Lusy.io";
-    $companyName = DBOnce('idcompany', 'company', 'id='.$inviteData['company_id']);
-    $args = [
-        'companyName' => $companyName,
-    ];
-    $mail->setMessageContent('user-welcome', $args);
-    $mail->send();
-
     session_start();
     $_SESSION['login'] = $inviteeMail;
     $_SESSION['password'] = $inviteePassword;
-    addMassSystemEvent('newUserRegistered', $newUserId, $inviteData['company_id']);
+    $idc = $inviteData['company_id'];
+    addEvent('newuser', '', $newUserId);
+
+    require_once 'engine/phpmailer/LusyMailer.php';
+    require_once 'engine/phpmailer/Exception.php';
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+    try {
+        $mail->addAddress($inviteeMail);
+        $mail->isHTML();
+        $mail->Subject = "Добро пожаловать в Lusy.io";
+        $companyName = DBOnce('idcompany', 'company', 'id='.$inviteData['company_id']);
+        $args = [
+            'companyName' => $companyName,
+        ];
+        $mail->setMessageContent('user-welcome', $args);
+        $mail->send();
+    } catch (Exception $e) {
+
+    }
+
+
+
 }

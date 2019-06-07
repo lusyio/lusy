@@ -3,6 +3,9 @@
 require_once 'engine/backend/functions/reg-functions.php';
 require_once 'engine/backend/functions/invite-functions.php';
 
+$userLanguage = 'ru';
+require_once 'engine/backend/lang/'.$userLanguage.'.php';
+
 $code = filter_var($_GET['join'], FILTER_SANITIZE_STRING);
 
 $inviteData = readInviteByCode($code);

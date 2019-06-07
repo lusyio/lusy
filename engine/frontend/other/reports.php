@@ -8,17 +8,21 @@ $inviteeMail = 'mr-kelevras@yandex.ru';
 $template = 'user-invite';
 
 require_once 'engine/phpmailer/LusyMailer.php';
+require_once 'engine/phpmailer/Exception.php';
 $mail = new \PHPMailer\PHPMailer\LusyMailer();
-$mail->addAddress($inviteeMail);
-$mail->isHTML();
-$mail->Subject = "Добро пожаловать в Lusy.io";
-$companyName = DBOnce('idcompany', 'company', 'id='.$idc);
-$args = [
-    'companyName' => $companyName,
-];
-$mail->setMessageContent($template, $args);
+try {
+    $mail->addAddress($inviteeMail);
 
+    $mail->isHTML();
+    $mail->Subject = "Добро пожаловать в Lusy.io";
+    $companyName = DBOnce('idcompany', 'company', 'id=' . $idc);
+    $args = [
+        'companyName' => $companyName,
+    ];
+    $mail->setMessageContent($template, $args);
+} catch (Exception $e) {
 
+}
 
 if (isset($_POST["send"])) {
     $mail->send();

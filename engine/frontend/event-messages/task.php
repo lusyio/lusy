@@ -8,7 +8,7 @@
         if ($event['author_id'] == '1') {
             $eventText = $GLOBALS['_youCreatedTask'] . ' ' . $event['taskname'] . '. ';
             $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
-            $eventText .= $GLOBALS['_periodOfExecutionUntil'] . ' ' . date('d.m', $event['datedone']);
+            $eventText .= $GLOBALS['_periodOfExecutionUntil'] . ' ' . date('d.m', $event['comment']);
         } else {
             $eventText = $GLOBALS['_assignedYouTask'] . ' - ' . $event['taskname'];
         }
@@ -51,7 +51,7 @@
         $icon = 'fas fa-exchange-alt';
         if ($event['author_id'] == '1') {
             $eventText = $GLOBALS['_youReturnedTask'] . ' - ' . $event['taskname'] . '. ';
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         } else {
             $eventText = $GLOBALS['_taskReturnedToYou'] . ' - ' . $event['taskname'];
         }
@@ -82,10 +82,10 @@
         $icon = 'fas fa-check';
         if ($event['author_id'] == '1') {
             $eventText = $GLOBALS['_youConfirmPostponeAsk'] . ' - ' . $event['taskname'] . '. ';
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         } else {
             $eventText = $GLOBALS['_confirmYourPostponeAsk'] . ' - ' . $event['taskname'];
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         }
     }
 
@@ -115,10 +115,10 @@
         $icon = 'far fa-calendar-plus';
         if ($event['author_id'] == '1') {
             $eventText = $GLOBALS['_youSetNewDateInTask'] . ' - ' . $event['taskname'];
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         } else {
             $eventText = $GLOBALS['_newDateInYourTask'] . ' - ' . $event['taskname'];
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['datepostpone']);
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         }
     }
 
