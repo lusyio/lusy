@@ -59,7 +59,9 @@
                         if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }
-                        $("#mes").val('');
+                        if (e.data.senderId == $userId) {
+                            $("#mes").val('');
+                        }
                         $('#chatBox').append(response);
                         getCounters(function (data) {
                             updateCounters(data);
