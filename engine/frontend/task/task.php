@@ -122,7 +122,7 @@ if ($id == $worker and $view == 0) {
                             <medium class="justify-content-center d-flex position-absolute w-100 h-100">
                                 <div class="p-1 date-inside">
                                     <i class="far fa-calendar-times text-ligther-custom"></i><span
-                                            class="text-ligther-custom ml-2"><?= $GLOBALS['_deadlinelist'] ?></span> <?= $dayDone ?> <?= $monthDone ?>
+                                            class="text-ligther-custom ml-2 deadline-block-word"><?= $GLOBALS['_deadlinelist'] ?></span> <?= $dayDone ?> <?= $monthDone ?>
                                     <span></span>
                                 </div>
                             </medium>
@@ -138,7 +138,7 @@ if ($id == $worker and $view == 0) {
                                         <?php endif; ?>
                                         <input class="form-control form-control-sm" value="" type="date"
                                                id="deadlineInput"
-                                               min="">
+                                               min="">d
                                         <button type="submit"
                                                 id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
                                                 class="btn btn-success btn-sm text-center mt-1 mb-1"><?= $GLOBALS["_change"] ?></button>

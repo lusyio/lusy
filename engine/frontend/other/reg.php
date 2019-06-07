@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-7 my-5">
+        <div class="col-12 col-lg-7 my-4">
             <h1 class="display-4 text-center mb-3">
                 Регистрация
             </h1>
@@ -160,7 +160,7 @@
         </div>
     </div>
     <hr>
-    <div class="text-center">
+    <div class="text-center pb-3">
         <small class="text-muted text-center">
             Уже зарегистрированы? <a href="/login/">Авторизация</a>.
         </small>

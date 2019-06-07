@@ -25,11 +25,6 @@ function timelastmess($iduser){
     global $id;
     $sql = DB('*','mail','(sender = '.$iduser.' or recipient = '.$iduser.') and (sender = '.$id.' or recipient = '.$id.') order by datetime DESC limit 1');
     foreach ($sql as $n) {
-        if ($id == $n['sender']) {
-            $author = 'Вы: ';
-        } else {
-            $author = '';
-        }
         echo '<span>'. date('d.m H:s', $n['datetime']) . '</span>';
     }
 }

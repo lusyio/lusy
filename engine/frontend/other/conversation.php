@@ -1,8 +1,9 @@
 <div class="card">
-    <div class="card-header pt-0">
-        <a href="/profile/<?= $id ?>/" class="mb-0 h5"><?= fiomess($recipientId) ?> <i class="fas fa-circle mr-1 ml-1 onlineIndicator"></i></a>
+    <div class="card-header pt-0 pl-0">
+        <a class="float-left" href="/mail/"><i class="fas fa-arrow-left icon-invite"></i></a>
+        <a href="/profile/<?= $id ?>/" class="mb-0 h5 ml-3"><?= fiomess($recipientId) ?> <i class="fas fa-circle mr-1 ml-1 onlineIndicator"></i></a>
     </div>
-    <div class="card-body" id="chatBox">
+    <div class="card-body p-0" id="chatBox">
         <?php if ($messages): ?>
             <?php foreach ($messages as $message): ?>
                 <?php include 'engine/frontend/other/message.php'; ?>
@@ -100,20 +101,13 @@
             });
         }
 
-        // $(window).resize(function(){
-        //     var small_height = 250;
-        //     var medium_height = 350;
-        //     var big_height = 550;
-        //
-        //     if($(window).height() < 600 )
-        //     {
-        //         $('#chatBox').height(small_height);
-        //     }
-        //     else
-        //     {
-        //         $('#chatBox').height(medium_height);
-        //     }
-        // });
+        // function scrollSmoothToBottom (id) {
+        //     var div = document.getElementById(id);
+        //     $('#' + id).animate({
+        //         scrollTop: div.scrollHeight - div.clientHeight
+        //     }, 500);
+        // }
+        // scrollSmoothToBottom('chatBox');
 
         $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
 
@@ -180,14 +174,13 @@
                         $("#mes").val('');
                         $(".filenames").html("");
                         attachedFiles = [];
-
                     },
                 });
                 $("#mes").removeClass('border-danger');
+
             } else {
                 $("#mes").addClass('border-danger');
             }
-
         });
         $('#chatBox').on('mouseover', '.message', function () {
             var el = $(this);

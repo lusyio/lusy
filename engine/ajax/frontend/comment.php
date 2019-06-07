@@ -18,7 +18,7 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
         <div class="col-1">
             <img src="/<?= getAvatarLink($c['iduser']) ?>" class="avatar mt-1">
         </div>
-        <div class="col-11">
+        <div class="col">
             <div class="position-relative">
 				<span class="date text-secondary">
 					<?= $dc ?>

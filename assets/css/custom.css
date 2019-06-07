@@ -1228,10 +1228,20 @@ input:checked[type="checkbox"]::before {
     overflow: auto;
 }
 
+#chatBox::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
 .onlineIndicator{
     font-size: 10px;
     vertical-align: middle;
     color: #898989;
+}
+
+.mail{
+    font-size: 13px;
+    color: #dcdcdc;
 }
 
 .company{
@@ -1254,12 +1264,29 @@ input:checked[type="checkbox"]::before {
     font-size: 14px;
 }
 
-.company-online-indicator{
+.online-indicator{
     position: absolute;
     top: 0;
     right: 5px;
     z-index: 3;
 }
+
+.online-indicator-profile{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 3;
+}
+
+.dialog-list{
+    top: -7px;
+}
+
+.dialog-list-mail{
+    font-size: 10px;
+    color: #dcdcdc;
+}
+
 .events-indicator {
     position: absolute;
     top: -11px;
@@ -1297,6 +1324,14 @@ input:checked[type="checkbox"]::before {
 .my-message {
     border-radius: 10px;
     padding: 1rem;
+}
+
+.message:last-child{
+    border-bottom: 1px solid #dee2e6!important;
+}
+
+.message:first-child{
+    border-top: none !important;
 }
 
 .no-messages{
@@ -1692,6 +1727,10 @@ span.date {
     align-self: center !important;
 }
 
+.custom-profile{
+
+}
+
 #inwork .card-title {
     border-left: 5px solid;
     margin-left: -20px;
@@ -1903,6 +1942,34 @@ span.date {
     }
     [data-trigger="dropdown"] {
     padding: 0;
+    }
+
+    .deadline-block-word{
+        display: none;
+    }
+
+    .mobile-online-indicator{
+        top: -5px;
+        right: 0;
+    }
+
+    .header-profile::after{
+        display: block;
+        clear: both;
+        content: "";
+    }
+
+    .dialog-list{
+        top: -8px;
+        right: 8px;
+    }
+
+    .wizard > .content {
+        min-height: 32rem !important;
+    }
+
+    .user-pic{
+        width: 45px !important;
     }
 
     .avatar-profile{
