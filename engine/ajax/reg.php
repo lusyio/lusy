@@ -28,16 +28,22 @@ if ($_POST['module'] == 'joinUser') {
     addEvent('newuser', '', $newUserId);
 
     require_once 'engine/phpmailer/LusyMailer.php';
+    require_once 'engine/phpmailer/Exception.php';
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
-    $mail->addAddress($inviteeMail);
-    $mail->isHTML();
-    $mail->Subject = "Добро пожаловать в Lusy.io";
-    $companyName = DBOnce('idcompany', 'company', 'id='.$inviteData['company_id']);
-    $args = [
-        'companyName' => $companyName,
-    ];
-    $mail->setMessageContent('user-welcome', $args);
-    $mail->send();
+    try {
+        $mail->addAddress($inviteeMail);
+        $mail->isHTML();
+        $mail->Subject = "Добро пожаловать в Lusy.io";
+        $companyName = DBOnce('idcompany', 'company', 'id='.$inviteData['company_id']);
+        $args = [
+            'companyName' => $companyName,
+        ];
+        $mail->setMessageContent('user-welcome', $args);
+        $mail->send();
+    } catch (Exception $e) {
+
+    }
+
 
 
 }

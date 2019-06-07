@@ -12,14 +12,18 @@ if (isset($_GET['activate']) && isset($_GET['code'])) {
         if ($result) {
             $companyMail = DBOnce('email', 'users', 'idcompany=' . $companyId . ' AND role=\'ceo\'');
             require_once 'engine/phpmailer/LusyMailer.php';
+            require_once 'engine/phpmailer/Exception.php';
             $mail = new \PHPMailer\PHPMailer\LusyMailer();
-            $mail->addAddress($companyMail);
-            $mail->isHTML();
-            $mail->Subject = "Добро пожаловать в Lusy.io";
-            $args = [];
-            $mail->setMessageContent('company-welcome', $args);
-            $mail->send();
+            try {
+                $mail->addAddress($companyMail);
+                $mail->isHTML();
+                $mail->Subject = "Добро пожаловать в Lusy.io";
+                $args = [];
+                $mail->setMessageContent('company-welcome', $args);
+                $mail->send();
+            } catch (Exception $e) {
 
+            }
             header('location: /login/');
         }
     }
