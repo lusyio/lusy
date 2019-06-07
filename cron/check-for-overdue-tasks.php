@@ -14,5 +14,5 @@ $makeOverdueTasksQuery = $pdo->prepare('UPDATE tasks SET status = :newStatus WHE
 $makeOverdueTasksQuery->execute(array(':newStatus' => 'overdue',':oldStatus' => 'inwork','nowTime' => time()-86400));
 
 foreach ($overdueTasks as $task) {
-    addEvent('overdue', $task);
+    addEvent('overdue', $task, '');
 }

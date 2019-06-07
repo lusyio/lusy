@@ -163,7 +163,7 @@ function prepareEvents(&$events)
 function renderEvent($event)
 {
     $systemEvents = [
-        'sendInvite', 'newUserRegistered', 'newCompanyRegistered',
+        'sendInvite', 'newuser', 'newcompany',
     ];
 
     if ($event['action'] == 'comment') {

@@ -31,6 +31,12 @@ if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['pass
     if ($isLoginGood) {
         $companyId = addCompany($companyName, $companyLanguage, $companyTimeZone);
         if ($companyId) {
+            $ceoId = addUser($login, $password, $companyId, 'ceo');
+            $_SESSION['login'] = $login;
+            $_SESSION['password'] = $password;
+
+            addEvent('newcompany', '' , '$companyId' , $ceoId);
+
             $activationCode = createActivationCode($companyId);
             require_once 'engine/phpmailer/LusyMailer.php';
             $mail = new \PHPMailer\PHPMailer\LusyMailer();
@@ -43,10 +49,6 @@ if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['pass
             $mail->setMessageContent('company-activation', $args);
             $mail->send();
 
-            addUser($login, $password, $companyId, 'ceo');
-            $_SESSION['login'] = $login;
-            $_SESSION['password'] = $password;
-            addMassSystemEvent('newCompanyRegistered', '' , $companyId);
             header('location: /login/');
             ob_flush();
             die;

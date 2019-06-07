@@ -21,6 +21,12 @@ if ($_POST['module'] == 'joinUser') {
     $newUserId = addUser($inviteeMail, $inviteePassword, $inviteData['company_id'], $inviteData['invitee_position'], $inviteeName, $inviteeSurname);
     updateInvite($inviteData['invite_id'], $newUserId);
 
+    session_start();
+    $_SESSION['login'] = $inviteeMail;
+    $_SESSION['password'] = $inviteePassword;
+    $idc = $inviteData['company_id'];
+    addEvent('newuser', '', $newUserId);
+
     require_once 'engine/phpmailer/LusyMailer.php';
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
     $mail->addAddress($inviteeMail);
@@ -33,8 +39,5 @@ if ($_POST['module'] == 'joinUser') {
     $mail->setMessageContent('user-welcome', $args);
     $mail->send();
 
-    session_start();
-    $_SESSION['login'] = $inviteeMail;
-    $_SESSION['password'] = $inviteePassword;
-    addMassSystemEvent('newUserRegistered', $newUserId, $inviteData['company_id']);
+
 }

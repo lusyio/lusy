@@ -66,7 +66,7 @@ function getCometTrackChannelName()
     return $channelName;
 }
 
-function addEvent($action, $taskId, $recipientId = null)
+function addEvent($action, $taskId, $comment, $recipientId = null)
 {
     global $id;
     global $idc;
@@ -74,7 +74,7 @@ function addEvent($action, $taskId, $recipientId = null)
     global $cometPdo;
 
     $possibleActions = ['createtask', 'viewtask', 'comment', 'overdue', 'review', 'postpone', 'confirmdate', 'canceldate',
-        'senddate', 'workreturn', 'workdone', 'canceltask', 'changeworker', 'addcoworker', 'removecoworker'];
+        'senddate', 'workreturn', 'workdone', 'canceltask', 'changeworker', 'addcoworker', 'removecoworker', 'newuser', 'newcompany'];
 
     if (!in_array($action, $possibleActions)) {
         return false;
@@ -87,8 +87,8 @@ function addEvent($action, $taskId, $recipientId = null)
     $taskWorker = $executors['worker'];
 
     if ($action == 'createtask') {
-        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
-      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
         $eventDataForAuthor = [
             ':action' => $action,
             ':taskId' => $taskId,
@@ -96,6 +96,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':recipientId' => $id,
             ':companyId' => $idc,
             ':datetime' => time(),
+            ':comment' => $comment,
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -104,6 +105,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':recipientId' => $recipientId,
             ':companyId' => $idc,
             ':datetime' => time(),
+            ':comment' => $comment,
         ];
         $addEventQuery->execute($eventDataForAuthor);
         $addEventQuery->execute($eventDataForWorker);
@@ -231,6 +233,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':recipientId' => $taskManager,
             ':companyId' => $idc,
             ':datetime' => time(),
+            ':comment' => $comment,
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -239,9 +242,10 @@ function addEvent($action, $taskId, $recipientId = null)
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
             ':datetime' => time(),
+            ':comment' => $comment,
         ];
-        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
-      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
         $addEventQuery->execute($eventDataForManager);
         $addEventQuery->execute($eventDataForWorker);
         $workerEventId = $pdo->lastInsertId();
@@ -317,8 +321,8 @@ function addEvent($action, $taskId, $recipientId = null)
     }
 
     if ($action == 'confirmdate' || $action == 'canceldate') {
-        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
-      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
         $eventDataForAuthor = [
             ':action' => $action,
             ':taskId' => $taskId,
@@ -326,6 +330,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':recipientId' => $id,
             ':companyId' => $idc,
             ':datetime' => time(),
+            ':comment' => $comment,
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -334,6 +339,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
             ':datetime' => time(),
+            ':comment' => $comment,
         ];
         $addEventQuery->execute($eventDataForAuthor);
         $addEventQuery->execute($eventDataForWorker);
@@ -398,7 +404,7 @@ function addEvent($action, $taskId, $recipientId = null)
 
     if ($action == 'senddate') {
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
-      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
         $eventDataForAuthor = [
             ':action' => $action,
             ':taskId' => $taskId,
@@ -406,6 +412,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':recipientId' => $id,
             ':companyId' => $idc,
             ':datetime' => time(),
+            ':comment' => $comment,
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -414,6 +421,7 @@ function addEvent($action, $taskId, $recipientId = null)
             ':recipientId' => $taskWorker,
             ':companyId' => $idc,
             ':datetime' => time(),
+            ':comment' => $comment,
         ];
         $addEventQuery->execute($eventDataForAuthor);
         $addEventQuery->execute($eventDataForWorker);
@@ -460,34 +468,37 @@ function addEvent($action, $taskId, $recipientId = null)
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
     }
 
+    if ($action == 'newuser') {
+        $ceoId = DBOnce('id', 'users', 'idcompany=' . $idc . ' AND role="ceo"');
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
+        $datetime = time();
+        $eventData = [
+            ':action' => $action,
+            ':taskId' => '',
+            ':recipientId' => $ceoId,
+            ':authorId' => 1,
+            ':companyId' => $idc,
+            ':datetime' => time(),
+            ':comment' => $comment,
+        ];
+        $addEventQuery->execute($eventData);
+    }
 
-
-//    $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime)
-//      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
-//    $eventData = [
-//        ':action' => $action,
-//        ':taskId' => $taskId,
-//        ':authorId' => $id,
-//        ':recipientId' => $recipientId,
-//        ':companyId' => $idc,
-//        ':datetime' => time(),
-//    ];
-//    $addEventQuery->execute($eventData);
-//    if ($recipientId != $id) {
-//
-//        $eventId = $pdo->lastInsertId();
-//        if ($action == 'comment') {
-//            $type = 'comment';
-//        } else {
-//            $type = 'task';
-//        }
-//        $pushData = [
-//            'type' => $type,
-//            'eventId' => $eventId,
-//        ];
-//        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-//        $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
-//    }
+    if ($action = 'newcompany') {
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
+        $datetime = time();
+        $eventData = [
+            ':action' => $action,
+            ':taskId' => '',
+            ':recipientId' => $recipientId,
+            ':authorId' => 1,
+            ':companyId' => $idc,
+            ':datetime' => time(),
+        ];
+        $addEventQuery->execute($eventData);
+    }
 }
 
 function addMassEvent($action, $taskId, $comment)
@@ -524,7 +535,7 @@ function addMassEvent($action, $taskId, $comment)
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
     $datetime = time();
 
-    $sendToCometQuery  = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
+    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
     $type = 'comment';
 
     foreach ($recipients as $recipient) {
@@ -559,7 +570,7 @@ function addMassSystemEvent($action, $comment = '', $companyId = '')
         $idc = $companyId;
     }
 
-    $possibleActions = ['newUserRegistered', 'newCompanyRegistered'];
+    $possibleActions = ['newuser', 'newcompany'];
 
     if (!in_array($action, $possibleActions)) {
         return;
@@ -608,15 +619,15 @@ function createAlterAvatar($userId)
     global $idc;
 
     // Получаем из БД имя и фамилию пользователя, обрезаем до одной  буквы если пустые - заменяем точками
-    $userName = trim(DBOnce('name', 'users', 'id='.$userId));
-    $userSurname = trim(DBOnce('surname', 'users', 'id='.$userId));
+    $userName = trim(DBOnce('name', 'users', 'id=' . $userId));
+    $userSurname = trim(DBOnce('surname', 'users', 'id=' . $userId));
     if ($userName == '') {
         $userName = '.';
     }
     if ($userSurname == '') {
         $userSurname = '.';
     }
-    $letters = mb_strtoupper(' '. mb_substr($userName, 0, 1) . mb_substr($userSurname, 0, 1) . ' ');
+    $letters = mb_strtoupper(' ' . mb_substr($userName, 0, 1) . mb_substr($userSurname, 0, 1) . ' ');
 
     // Размеры аватарки, шрифта и файл шрифта
     $imageHeight = 190;
@@ -630,7 +641,7 @@ function createAlterAvatar($userId)
 
     // Набор фоновых цветов для случайного выбора
     $colors = [
-        [56,192,208],[0,48,128],[69,176,230],[61,136,242],[230,69,69],[243,151,24],[71,204,193],[24,184,152],[0,83,156],[232,24,32],[184,193,217],[24,184,152],[168,200,232],[86,191,104],[143,152,79],[145,97,243],
+        [56, 192, 208], [0, 48, 128], [69, 176, 230], [61, 136, 242], [230, 69, 69], [243, 151, 24], [71, 204, 193], [24, 184, 152], [0, 83, 156], [232, 24, 32], [184, 193, 217], [24, 184, 152], [168, 200, 232], [86, 191, 104], [143, 152, 79], [145, 97, 243],
     ];
     $colorSet = array_rand($colors);
     $backgroundColor = imagecolorallocate($im, $colors[$colorSet][0], $colors[$colorSet][1], $colors[$colorSet][2]);
@@ -639,7 +650,7 @@ function createAlterAvatar($userId)
     //Измеряем ширину букв для центровки и наносим текст в полученные координаты
     $textCartesians = imagettfbbox($textSize, 0, $fontFile, $letters);
     $lettersWidth = abs($textCartesians[0] - $textCartesians[2]);
-    $startX = ($imageHeight - $lettersWidth)  / 2;
+    $startX = ($imageHeight - $lettersWidth) / 2;
     $startY = 126; // подбирается вручную, в зависимости от размера шрифта
     $text_color = imagecolorallocate($im, 255, 255, 255);
     imageTtfText($im, $textSize, 0, $startX, $startY, $text_color, $fontFile, $letters);
@@ -727,7 +738,7 @@ function getOnlineUsersList()
     global $cometPdo;
     $onlineUsersQuery = $cometPdo->prepare('SELECT * FROM users_in_pipes WHERE name = :channelName');
     $onlineUsersQuery->execute(array(':channelName' => getCometTrackChannelName()));
-    $onlineUsers = $onlineUsersQuery ->fetchAll(PDO::FETCH_ASSOC);
+    $onlineUsers = $onlineUsersQuery->fetchAll(PDO::FETCH_ASSOC);
     return array_column($onlineUsers, 'user_id');
 }
 
@@ -754,25 +765,25 @@ function addCommentEvent($taskId, $commentId)
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
     $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
     foreach ($recipients as $recipient) {
-            if ($recipient != $id) {
-                $eventData = [
-                    ':action' => 'comment',
-                    ':taskId' => $taskId,
-                    ':authorId' => $id,
-                    ':recipientId' => $recipient,
-                    ':companyId' => $idc,
-                    ':datetime' => time(),
-                    ':comment' => $commentId,
-                ];
-                $addEventQuery->execute($eventData);
-                $eventId = $pdo->lastInsertId();
+        if ($recipient != $id) {
+            $eventData = [
+                ':action' => 'comment',
+                ':taskId' => $taskId,
+                ':authorId' => $id,
+                ':recipientId' => $recipient,
+                ':companyId' => $idc,
+                ':datetime' => time(),
+                ':comment' => $commentId,
+            ];
+            $addEventQuery->execute($eventData);
+            $eventId = $pdo->lastInsertId();
 
-                $pushData = [
-                    'type' => 'comment',
-                    'eventId' => $eventId,
-                ];
-                $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
-            }
+            $pushData = [
+                'type' => 'comment',
+                'eventId' => $eventId,
+            ];
+            $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
         }
+    }
 }
 
