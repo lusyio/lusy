@@ -189,7 +189,7 @@ if ($_POST['module'] == 'sendDate' && $isManager) {
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => time()));
     resetViewStatus($idtask);
-    addEvent('senddate', $idtask, '');
+    addEvent('senddate', $idtask, $datepostpone);
 
 }
 
