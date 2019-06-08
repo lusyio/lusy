@@ -173,7 +173,7 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 	$datepostpone = preg_split('~:~', $statusWithDate)[1];
 	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = :datepostpone WHERE id=" . $idtask);
 	$sql->execute(array('datepostpone' => strtotime($datepostpone)));
-	$text = "Перенос одобрен. Новый срок: " . date("d.m", strtotime($datepostpone));
+	$text = "Перенос одобрен. Новый срок: " . date("d.m", $datepostpone);
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
 	$sql->execute(array('text' => $text, 'iduser' => $id, 'idtask' => $idtask, 'datetime' => time()));
     resetViewStatus($idtask);
