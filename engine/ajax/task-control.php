@@ -44,7 +44,7 @@ if($_POST['module'] == 'sendonreview' && $isWorker) {
 if($_POST['module'] == 'sendpostpone' && $isWorker) {
 	$text = filter_var($_POST['text'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$datepostpone = filter_var($_POST['datepostpone'],FILTER_SANITIZE_SPECIAL_CHARS);
-	$status = 'request:' . $datepostpone;
+	$status = 'request:' . strtotime($datepostpone);
 
 	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "postpone" WHERE id='.$idtask);
 	$sql->execute();

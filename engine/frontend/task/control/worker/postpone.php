@@ -5,7 +5,11 @@
 
 <div class="postpone-manager">
     <p class="text-ligther">
+        <?php if ($worker == $id): ?>
+    Вы запросили перенос срока на дату <?=$postponedate?>
+        <?php else: ?>
     <?=$workername?> <?=$workersurname?> запрашивает перенос срока на дату <?=$postponedate?>
+        <?php endif; ?>
     </p>
     <div>
         <h5>Причина:</h5>
