@@ -183,7 +183,7 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 
 if ($_POST['module'] == 'sendDate' && $isManager) {
 	$datepostpone = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS));
-	$sql = $pdo->prepare('UPDATE `tasks` SET `datepostpone` = :datepostpone, `view` = 0 WHERE id='.$idtask);
+	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = :datepostpone, `view` = 0 WHERE id=".$idtask);
 	$sql->execute(array('datepostpone' => $datepostpone));
 	$text = "Новый срок: " . date("d.m", $datepostpone);
 	$sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :text, `iduser` = :iduser, `idtask` = :idtask, `status` = 'postpone', `view`=0, `datetime` = :datetime");
