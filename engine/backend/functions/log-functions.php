@@ -162,6 +162,7 @@ function prepareEvents(&$events)
 
 function renderEvent($event)
 {
+    global $id;
     $systemEvents = [
         'sendInvite', 'newuser', 'newcompany',
     ];
