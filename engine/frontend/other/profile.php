@@ -53,13 +53,12 @@
                             </div>
                         </div>
                     <?php endif; ?>
-                    <div> О себе:</div>
-                    <?php if (!is_null($userData['about']) && $userData['about'] != ''): ?>
-                        <p class="text-justify"><?= nl2br($userData['about']) ?></p>
-                    <?php else: ?>
-                        <p class="text-justify"><?= $GLOBALS['_aboutprofile'] ?></p>
-                    <?php endif; ?>
                 </div>
+                <?php if (!is_null($userData['about']) && $userData['about'] != ''): ?>
+                    <div class="clearfix"></div>
+                    <hr class="mt-5">
+                    <p class="text-justify text-secondary"><?= nl2br($userData['about']) ?></p>
+                <?php endif; ?>
             </div>
         </div>
     </div>

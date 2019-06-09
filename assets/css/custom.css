@@ -1273,8 +1273,8 @@ input:checked[type="checkbox"]::before {
 
 .online-indicator-profile{
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 4px;
+    right: 13px;
     z-index: 3;
 }
 
@@ -2283,7 +2283,7 @@ label.error {
 }
 
 #avatar {
-    width: 190px;
+    width: 140px;
     box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
 }
 
