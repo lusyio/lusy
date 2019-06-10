@@ -82,6 +82,18 @@
             $('#overdueSearch').trigger('click');
             $(".popUpDiv").hide();
         }
+        if (action === 'inwork') {
+            $('#inworkSearch').trigger('click');
+            $(".popUpDiv").hide();
+        }
+        if (action === 'pending') {
+            $('#pendingSearch').trigger('click');
+            $(".popUpDiv").hide();
+        }
+        if (action === 'postpone') {
+            $('#postponeSearch').trigger('click');
+            $(".popUpDiv").hide();
+        }
         $(".progress-bar ").each(function () {
             var danger = $(this).attr('aria-valuenow');
             var danger1 = Number.parseInt(danger);
