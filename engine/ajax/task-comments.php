@@ -11,7 +11,7 @@ $countcomments = DBOnce('COUNT(*) as count', 'comments', 'idtask=' . $idtask);
 if ($countcomments > 0) {
     include 'engine/ajax/frontend/comments-header.php';
     $comments = $pdo->prepare('SELECT c.id, c.iduser, c.comment, c.status, c.datetime, c.view_status, t.manager 
-FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask ORDER BY datetime DESC');
+FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask ORDER BY datetime DESC, c.id DESC');
     $comments->execute(array(':idtask' => $idtask));
     $comments = $comments->fetchAll(PDO::FETCH_BOTH);
 

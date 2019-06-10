@@ -201,6 +201,12 @@ $l_comment = 'Оставил комментарий в задаче';
 $l_overduetask = 'Задача просрочена';
 $_buttonLogShowAll = 'Показать все';
 $_buttonLogShowNew = 'Только новые';
+$_taskWasCreated = 'Задача создана';
+$_postponeWasRequested = 'Запрошен перенос срока';
+$_postponeWasCanceled = 'Перенос срока отклонен';
+$_postponeWasConfirmed = 'Перенос срока одобрен';
+$_dateWasChanged = 'Перенесен срок';
+
 
 
 
@@ -233,7 +239,7 @@ $_months = ['января',  'февраля',  'марта',  'апреля',  
 $_logNewTask = 'назначил вам задачу';
 $_logNewDate = 'перенес срок задачи';
 $_logNewComment = 'оставил комментарий к задаче';
-$_logCancelTask = 'задача отменена';
+$_logCancelTask = 'Задача отменена';
 $_logWorkDone = 'Задача выполнена';
 $_logPostPone = 'запросил перенос срока для задачи';
 $_logCancelDate = 'отклонил перенос срока задачи';
@@ -272,11 +278,12 @@ $_youSetNewDateInTask = 'Вы назначили новый срок для за
 $_newDateInYourTask = 'Назначен новый срок для задачи';
 $_youAddCoworker = 'Вы добавили нового соисполнителя для задачи';
 $_youAreNewCoworker = 'Вас назначили соисполнителем для задачи';
+$_newWorker = 'Новый ответственный';
 $_newCoworker = 'Новый соисполнитель';
 $_youRemoveCoworker = 'Вы исключили соисполнителя из задачи';
 $_youAreNotCoworker = 'Вас исключили из соисполнителей задачи';
 $_removedCoworker = 'Исключенный соисполнитель';
-
+$_coworkerWasRemoved = 'Исключен соисполнитель';
 // Приглашения
 $_newUserRegistered = 'Зарегистрировался новый сотрудник';
 $_newCompanyRegistered = 'Добро пожаловать в Lusy.io! Ваша компания зарегистрирована.';
