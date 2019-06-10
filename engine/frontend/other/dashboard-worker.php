@@ -8,6 +8,11 @@
                 <div class="carousel-item">
                     <p class="text-center pt-5 pb-4">Это информационные слайды</p>
                 </div>
+                <div class="carousel-item">
+                    <?php
+                    include 'engine/frontend/other/chart.php';
+                    ?>
+                </div>
             </div>
         </div>
     </div>
@@ -16,7 +21,9 @@
 <ol class="carousel-indicators position-relative">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 </ol>
+
 <div class="row">
     <div class="col-sm-4 mb-3">
         <a href="/tasks/" class="text-decoration-none">
