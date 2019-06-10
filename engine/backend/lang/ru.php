@@ -43,6 +43,7 @@ $_selectlistcoworkerstasknew = 'Список пуст';
 
 // задачи
 $_tasks = 'Задачи';
+$_alltasks = 'Задач';
 $_taskname = 'Имя задачи';
 $_tasknew = 'Новая задача';
 $_inprogress = 'В работе';

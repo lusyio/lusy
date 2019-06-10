@@ -4,6 +4,9 @@ global $_overdue;
 global $_pending;
 global $_inprogress;
 global $_history;
+global $_pending;
+global $_alltasks;
+global $_postpone;
 global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
@@ -12,9 +15,10 @@ global $cometTrackChannelName;
 $worker = DBOnce('COUNT(*)','tasks','worker='.$id);
 $manager = DBOnce('COUNT(*)','tasks','manager='.$id);
 $all = $worker + $manager;
-$inwork = DBOnce('COUNT(*) as count','tasks','(status="new" or status="inwork" or status="returned") and worker='.$id);
-$pending = DBOnce('COUNT(*) as count','tasks','worker='.$id.' and status="pending"');
-$overdue = DBOnce('COUNT(*) as count','tasks','worker='.$id.' and status="overdue"');
+$inwork = DBOnce('COUNT(*) as count','tasks','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.')');
+$pending = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="pending"');
+$postpone = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="postpone"');
+$overdue = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
 
 
 require_once 'engine/backend/functions/log-functions.php';
