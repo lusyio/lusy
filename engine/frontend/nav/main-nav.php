@@ -48,7 +48,10 @@ if ($companyUsageSpacePercent > 90){
 				</a>
 			</li>
             <?php endif; ?>
-
+            <?php if ($idc == 1) : ?>
+                <hr class="w-100">
+                <li class="nav-item pb-2"><a class="nav-link" href="/godmode/"><i class="fas fa-rocket mr-2 fa-fw"></i> GodMode</a></li>
+            <?php endif; ?>
         </ul>
   </div>
 </nav>
