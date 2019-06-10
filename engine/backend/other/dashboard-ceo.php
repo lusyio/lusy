@@ -12,9 +12,7 @@ global $cometHash;
 global $cometTrackChannelName;
 
 
-$worker = DBOnce('COUNT(*)','tasks','worker='.$id);
-$manager = DBOnce('COUNT(*)','tasks','manager='.$id);
-$all = $worker + $manager;
+$all = DBOnce('COUNT(*)','tasks','(status!="done" and status!="canceled") and (worker='.$id.' or manager='.$id.')');
 $inwork = DBOnce('COUNT(*) as count','tasks','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.')');
 $pending = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="pending"');
 $postpone = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="postpone"');

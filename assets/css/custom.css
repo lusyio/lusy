@@ -1956,7 +1956,9 @@ span.date {
     .deadline-block-word{
         display: none;
     }
-
+    .no-events {
+        display: none;
+    }
     [role="menuitem"]{
         width: 17rem !important;
     }

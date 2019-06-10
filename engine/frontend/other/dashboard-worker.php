@@ -37,9 +37,9 @@
             </div>
         </a>
     </div>
-    <div class="col-sm-4 mb-3">
+    <div class="col-sm-4 mb-3<?= ($inwork == 0) ? ' no-events' : ''; ?>">
         <a href="/tasks/#inwork" class="text-decoration-none">
-            <div class="card<?= ($inwork == 0) ? ' no-events' : ''; ?>">
+            <div class="card">
                 <div class="card-body pb-2 pt-2">
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-bolt text-primary fa-fw mr-1"></i></span>
@@ -49,9 +49,9 @@
             </div>
         </a>
     </div>
-    <div class="col-sm-4 mb-3">
+    <div class="col-sm-4 mb-3<?= ($overdue == 0) ? ' no-events' : ''; ?>">
         <a href="/tasks/#overdue" class="text-decoration-none">
-            <div class="card<?= ($overdue == 0) ? ' no-events' : ''; ?>">
+            <div class="card">
                 <div class="card-body pb-2 pt-2">
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-fire-alt text-danger fa-fw mr-1"></i></span>
@@ -61,9 +61,9 @@
             </div>
         </a>
     </div>
-    <div class="col-sm-4 mb-3">
+    <div class="col-sm-4 mb-3<?= ($pending == 0) ? ' no-events' : ''; ?>">
         <a href="/tasks/#pending" class="text-decoration-none">
-            <div class="card<?= ($pending == 0) ? ' no-events' : ''; ?>">
+            <div class="card">
                 <div class="card-body pb-2 pt-2">
                     <span class="font-weight-bold float-left mr-2"><i class="fas fa-search text-success fa-fw mr-1"></i></span>
                     <p class="mb-0"><span class="font-weight-bold"><?= $pending ?></span> <span
@@ -72,9 +72,9 @@
             </div>
         </a>
     </div>
-    <div class="col-sm-4 mb-3">
+    <div class="col-sm-4 mb-3<?= ($postpone == 0) ? ' no-events' : ''; ?>">
         <a href="/tasks/#postpone" class="text-decoration-none">
-            <div class="card<?= ($postpone == 0) ? ' no-events' : ''; ?>">
+            <div class="card">
                 <div class="card-body pb-2 pt-2">
                     <span class="font-weight-bold float-left mr-2"><i class="fas fa-clock text-warning fa-fw mr-1"></i></span>
                     <p class="mb-0"><span class="font-weight-bold"><?= $postpone ?></span> <span

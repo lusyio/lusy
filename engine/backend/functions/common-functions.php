@@ -485,7 +485,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $addEventQuery->execute($eventData);
     }
 
-    if ($action = 'newcompany') {
+    if ($action == 'newcompany') {
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
         $datetime = time();
