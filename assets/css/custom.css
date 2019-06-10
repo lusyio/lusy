@@ -1956,6 +1956,10 @@ span.date {
         width: 17rem !important;
     }
 
+    .avatar-settings{
+        width: 100px !important;
+    }
+
     .mobile-online-indicator{
         top: -5px;
         right: 0;

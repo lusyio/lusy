@@ -12,14 +12,15 @@
             <div class="card-body p-4">
                 <div class="row">
                     <a class="float-left" href="/profile/"><i class="fas fa-arrow-left icon-invite"></i></a>
-                    <div class="col-6 text-center">
+                    <div class="col-5 col-lg-6 text-center">
                         <label class="label" data-toggle="tooltip" title=""
                                data-original-title="<?= $GLOBALS['_changeavatarsettings'] ?>">
                             <a class="float-right <?= (strpos(getAvatarLink($id), 'alter')) ? 'd-none' : ''; ?>"
                                href="#" id="deleteAvatar" title="Удалить аватар">
                                 <i class="fas fa-times icon-invite"></i>
                             </a>
-                            <img class="rounded-circle" id="avatar" src="/<?= getAvatarLink($id) ?>" alt="avatar">
+                            <img class="rounded-circle avatar-settings" id="avatar" src="/<?= getAvatarLink($id) ?>"
+                                 alt="avatar">
                             <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                         </label>
                         <div id="progress-settings" class="progress" style="display: none;">
@@ -60,8 +61,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col text-center align-center">
-                        <h4><?= $userData['name']; ?> <?= $userData['surname']; ?></h4>
+                    <div class="col text-center align-center fio-profile">
+                        <?= $userData['name']; ?> <?= $userData['surname']; ?>
                     </div>
                 </div>
 
@@ -84,33 +85,37 @@
                                       class="form-control name"
                                       placeholder="<?= $GLOBALS['_aboutsettings'] ?>"><?= $userData['about']; ?></textarea>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-4">
+                <div class="row mt-3">
+                    <div class="col-6 col-lg-4">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fab fa-vk"></i></span>
+                            <span class="input-group-text">
+                                <i class="fab fa-vk"></i>
+                            </span>
                             </div>
                             <input id="settingsVk" name="settingsVk" type="text"
                                    class="form-control email" placeholder="vk.com"
                                    value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : ''; ?>">
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6 col-lg-4">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                            class="fab fa-facebook-square"></i></span>
+                                <span class="input-group-text">
+                                    <i class="fab fa-facebook-square"></i>
+                                </span>
                             </div>
                             <input id="settingsFacebook" name="settingsFacebook" type="text" placeholder="facebook"
                                    class="form-control email"
                                    value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : ''; ?>">
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6 col-lg-4">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                            class="fab fa-instagram"></i></span>
+                                <span class="input-group-text">
+                                    <i class="fab fa-instagram"></i>
+                                </span>
                             </div>
                             <input id="settingsInstagram" name="settingsInstagram" type="text" placeholder="instagram"
                                    class="form-control email"
@@ -118,14 +123,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-6">
-                        <div class="input-group">
+                <div class="row mt-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="input-group mb-2">
                             <input id="settingsEmail" name="settingsEmail" type="email"
                                    class="form-control email" value="<?= $userData['email']; ?>">
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-lg-6">
                         <div class="input-group">
                             <!--                                    <button class="rounded-left class=btn border-secondary btn-outline-light dropdown-toggle select-country"-->
                             <!--                                            type="button" data-toggle="dropdown" aria-haspopup="true"-->
@@ -142,15 +147,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col-6">
-                        <div class="input-group">
+                <div class="row mt-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="input-group mb-2">
                             <input id="settingsNewPassword" name="settingsNewPassword" type="password"
                                    class="form-control new-password"
                                    placeholder="<?= $GLOBALS['_newpasswordsettings'] ?>">
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-lg-6">
                         <div class="input-group">
                             <input id="password" name="password" type="password" class="form-control password"
                                    placeholder="<?= $GLOBALS['_passwordsettings'] ?>"
@@ -166,76 +171,76 @@
                     </div>
                 </div>
                 <?php if ($roleu == 'ceo'): ?>
-                <hr class="mt-4">
-                <div class="text-reg text-center mb-3 mt-3">
-                    <?= $GLOBALS['_companysettings'] ?>
-                </div>
-                <div class="input-group">
-                    <input id="companyName" name="companyName" type="text" class="form-control company-name"
-                           value="<?= $companyData['idcompany'] ?>">
-                </div>
-                <div>
-                    <small class="text-muted text-muted-reg">
-                        <?= $GLOBALS['_namecompanysettings'] ?>
-                    </small>
-                </div>
-                <div class="input-group mt-3">
-                    <input id="companyFullName" name="companyFullName" type="text"
-                           class="form-control company-full-name"
-                           value="<?= $companyData['full_company_name'] ?>">
-                </div>
-                <div>
-                    <small class="text-muted text-muted-reg">
-                        <?= $GLOBALS['_fullnamecompanysettings'] ?>
-                    </small>
-                </div>
-                <div class="input-group mt-3">
+                    <hr class="mt-4">
+                    <div class="text-reg text-center mb-3 mt-3">
+                        <?= $GLOBALS['_companysettings'] ?>
+                    </div>
+                    <div class="input-group">
+                        <input id="companyName" name="companyName" type="text" class="form-control company-name"
+                               value="<?= $companyData['idcompany'] ?>">
+                    </div>
+                    <div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_namecompanysettings'] ?>
+                        </small>
+                    </div>
+                    <div class="input-group mt-3">
+                        <input id="companyFullName" name="companyFullName" type="text"
+                               class="form-control company-full-name"
+                               value="<?= $companyData['full_company_name'] ?>">
+                    </div>
+                    <div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_fullnamecompanysettings'] ?>
+                        </small>
+                    </div>
+                    <div class="input-group mt-3">
                             <textarea id="companyDescription" name="companyDescription" type="text"
                                       class="form-control company-description"><?= $companyData['description'] ?></textarea>
-                </div>
-                <div>
-                    <small class="text-muted text-muted-reg">
-                        <?= $GLOBALS['_aboutcompanysettings'] ?>
-                    </small>
-                </div>
-                <div class="input-group mt-3">
-                    <input id="companySite" name="companySite" type="text" class="form-control company-site"
-                           value="<?= $companyData['site'] ?>">
-                </div>
-                <div>
-                    <small class="text-muted text-muted-reg">
-                        <?= $GLOBALS['_websitecompanysettings'] ?>
-                    </small>
-                </div>
-                <div class="input-group mt-3">
-                    <select id="companyTimezone" name="companyTimezone"
-                            class="form-control company-timezone">
-                        <option></option>
-                        <?php foreach ($timeZones as $timeZone => $text): ?>
-                            <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone) ? 'selected' : '' ?>><?= $text ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div>
-                    <small class="text-muted text-muted-reg">
-                        <?= $GLOBALS['_clockcompanysettings'] ?>
-                    </small>
-                </div>
-                <div class="input-group mt-3">
-                    <input id="companyPassword" name="companyPassword" type="text"
-                           class="form-control company-password"
-                           value="">
-                </div>
-                <div>
-                    <small class="text-muted text-muted-reg">
-                        <?= $GLOBALS['_enterpasswordcompanysettings'] ?>
-                    </small>
-                </div>
-                <div class="text-center mt-3">
-                    <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
-                        <?= $GLOBALS['_savecompanysettings'] ?>
-                    </button>
-                </div>
+                    </div>
+                    <div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_aboutcompanysettings'] ?>
+                        </small>
+                    </div>
+                    <div class="input-group mt-3">
+                        <input id="companySite" name="companySite" type="text" class="form-control company-site"
+                               value="<?= $companyData['site'] ?>">
+                    </div>
+                    <div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_websitecompanysettings'] ?>
+                        </small>
+                    </div>
+                    <div class="input-group mt-3">
+                        <select id="companyTimezone" name="companyTimezone"
+                                class="form-control company-timezone">
+                            <option></option>
+                            <?php foreach ($timeZones as $timeZone => $text): ?>
+                                <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone) ? 'selected' : '' ?>><?= $text ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_clockcompanysettings'] ?>
+                        </small>
+                    </div>
+                    <div class="input-group mt-3">
+                        <input id="companyPassword" name="companyPassword" type="text"
+                               class="form-control company-password"
+                               value="">
+                    </div>
+                    <div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_enterpasswordcompanysettings'] ?>
+                        </small>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
+                            <?= $GLOBALS['_savecompanysettings'] ?>
+                        </button>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

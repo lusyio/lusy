@@ -4,20 +4,24 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="d-inline-block">
-                        <div id="allSearch" class="btn btn-light view-status-search active">
+                        <div id="allSearch" class="btn btn-light view-status-search active mb-2">
                             <span><i class="fas fa-align-justify mr-2"></i> <?=$_buttonLogShowAll?></span>
                             <span class="count"></span>
                         </div>
-                        <div id="newSearch" class="btn btn-light view-status-search">
+                        <div id="newSearch" class="btn btn-light view-status-search mb-2">
                             <span><i class="fas fa-plus mr-2"></i> <?=$_buttonLogShowNew?></span>
                             <span class="count"></span>
                         </div>
-                        <div id="taskSearch" data-type="task" class="btn btn-light type-search">
+                        <div id="taskSearch" data-type="task" class="btn btn-light type-search mb-2">
                             <span><i class="far fa-clipboard mr-2"></i> <?=$_tasks?></span>
                             <span class="count"></span>
                         </div>
-                        <div id="commentSearch" data-type="comment" class="btn btn-light type-search">
+                        <div id="commentSearch" data-type="comment" class="btn btn-light type-search mb-2">
                             <span><i class="far fa-comment mr-2"></i> <?=$_comments?></span>
+                            <span class="count"></span>
+                        </div>
+                        <div id="systemSearch" data-type="system" class="btn btn-light type-search mb-2">
+                            <span><i class="fas fa-info mr-2"></i>Системные</span>
                             <span class="count"></span>
                         </div>
                     </div>
