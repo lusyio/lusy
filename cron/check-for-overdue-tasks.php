@@ -10,7 +10,7 @@ $overdueTasksQuery = $pdo->prepare('SELECT id FROM tasks WHERE status = :oldStat
 $overdueTasksQuery->execute(array(':oldStatus' => 'inwork','nowTime' => time()-86400));
 $overdueTasks = $overdueTasksQuery->fetchAll(PDO::FETCH_COLUMN);
 
-$makeOverdueTasksQuery = $pdo->prepare('UPDATE tasks SET status = :newStatus WHERE status = :oldStatus AND (((ISNULL(datepostpone) OR datepostpone = 0) AND datedone < :nowTime) OR (datepostpone < :nowTime))');
+$makeOverdueTasksQuery = $pdo->prepare('UPDATE tasks SET status = :newStatus WHERE status = :oldStatus AND (((ISNULL(datepostpone) OR datepostpone = 0) AND datedone < :nowTime) OR (datepostpone > 0 AND datepostpone < :nowTime))');
 $makeOverdueTasksQuery->execute(array(':newStatus' => 'overdue',':oldStatus' => 'inwork','nowTime' => time()-86400));
 
 foreach ($overdueTasks as $task) {
