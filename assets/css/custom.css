@@ -1540,6 +1540,14 @@ a {
     top: -7px;
 }
 
+.slide-dashboard{
+    font-size: 20px;
+    text-align: center;
+    color: #65686c;
+    padding: 52px 10px;
+    font-weight: 300;
+}
+
 #log {
     height: auto;
     max-height: 500px;

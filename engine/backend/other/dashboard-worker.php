@@ -17,10 +17,12 @@ $inwork = DBOnce('COUNT(*) as count','tasks','(status="new" or status="inwork" o
 $pending = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="pending"');
 $postpone = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="postpone"');
 $overdue = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
+$done = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="done"');
 
 
 require_once 'engine/backend/functions/log-functions.php';
 
+$userData = getUserData($id);
 $events = getEventsForUser();
 prepareEvents($events);
 

@@ -1,28 +1,46 @@
-<div class="card">
-    <div class="card-body">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div class="card">
+        <div class="card-body" style="min-height: 204px">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <p class="text-center pt-5 pb-4">Добро пожаловать в систему Lusy.io!</p>
+                    <div class="slide-dashboard">
+                        Добро пожаловать в систему Lusy.io! 🤗
+                    </div>
                 </div>
                 <div class="carousel-item">
-                    <p class="text-center pt-5 pb-4">Это информационные слайды</p>
+                    <div class="slide-dashboard">
+                        Это информационные слайды 🤔
+                    </div>
                 </div>
+                <?php if ($userData['name'] == null && $userData['surname'] == null) :  ?>
                 <div class="carousel-item">
-                    <?php
-                    include 'engine/frontend/other/chart.php';
-                    ?>
+                    <div class="slide-dashboard">
+                        <span>У Вас не указаны имя и фамилия</span>
+                        <br>
+                        <span>Давайте познакомимся! 🖖</span>
+                    </div>
+                </div>
+                <?php endif ?>
+                <div class="carousel-item">
+                    <div class="slide-dashboard">
+                        <span>Отличная работа! Ваша статистика задач:</span>
+                        <br>
+                        <span><i class="fas fa-check text-success"></i>  <?= $done ?> выполненных</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <ol class="carousel-indicators position-relative">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+    </ol>
+
 </div>
 
-<ol class="carousel-indicators position-relative">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-</ol>
 
 <div class="row">
     <div class="col-sm-4 mb-3">
