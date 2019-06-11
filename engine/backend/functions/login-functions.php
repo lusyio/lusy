@@ -104,6 +104,4 @@ function updateCookieTime($sessionCookie, $timestamp)
     $query = 'UPDATE user_sessions SET timestamp=:timestamp WHERE session_id=:sessionId';
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':sessionId' => $sessionCookie['sid'], ':timestamp' => $timestamp));
-    $sessionId = $pdo->lastInsertId();
-    return $sessionId;
 }
