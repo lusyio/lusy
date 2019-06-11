@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once 'engine/backend/functions/login-functions.php';
 $sessionCookie = parseCookie($_COOKIE['token']);
 removeSessions($sessionCookie['sid']);
