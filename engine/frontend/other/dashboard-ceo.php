@@ -17,6 +17,7 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 </ol>
+
 <div class="row">
     <div class="col-sm-4 mb-3">
         <a href="/tasks/" class="text-decoration-none">
@@ -30,51 +31,61 @@
             </div>
         </a>
     </div>
-    <div class="col-sm-4 mb-3<?= ($inwork == 0) ? ' no-events' : ''; ?>">
-        <a href="/tasks/#inwork" class="text-decoration-none">
-            <div class="card">
-                <div class="card-body pb-2 pt-2">
+    <div class="col-sm-4 mb-3">
+        <div<?= ($inwork == 0) ? ' class="no-events"' : ''; ?>>
+            <a href="/tasks/#inwork" class="text-decoration-none">
+                <div class="card">
+                    <div class="card-body pb-2 pt-2">
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-bolt text-primary fa-fw mr-1"></i></span>
-                    <p class="mb-0"><span class="font-weight-bold"><?= $inwork ?></span> <span
-                                class="text-lowercase"><?= $_inprogress ?></span></p>
+                        <p class="mb-0"><span class="font-weight-bold"><?= $inwork ?></span> <span
+                                    class="text-lowercase"><?= $_inprogress ?></span></p>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-    <div class="col-sm-4 mb-3<?= ($overdue == 0) ? ' no-events' : ''; ?>">
-        <a href="/tasks/#overdue" class="text-decoration-none">
-            <div class="card">
-                <div class="card-body pb-2 pt-2">
+    <div class="col-sm-4 mb-3">
+        <div<?= ($overdue == 0) ? ' class="no-events"' : ''; ?>>
+            <a href="/tasks/#overdue" class="text-decoration-none">
+                <div class="card">
+                    <div class="card-body pb-2 pt-2">
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-fire-alt text-danger fa-fw mr-1"></i></span>
-                    <p class="mb-0"><span class="font-weight-bold"><?= $overdue ?></span> <span
-                                class="text-lowercase"><?= $_overdue ?></span></p>
+                        <p class="mb-0"><span class="font-weight-bold"><?= $overdue ?></span> <span
+                                    class="text-lowercase"><?= $_overdue ?></span></p>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-    <div class="col-sm-4 mb-3<?= ($pending == 0) ? ' no-events' : ''; ?>">
-        <a href="/tasks/#pending" class="text-decoration-none">
-            <div class="card">
-                <div class="card-body pb-2 pt-2">
-                    <span class="font-weight-bold float-left mr-2"><i class="fas fa-search text-success fa-fw mr-1"></i></span>
-                    <p class="mb-0"><span class="font-weight-bold"><?= $pending ?></span> <span
-                                class="text-lowercase"><?= $_pending ?></span></p>
+    <div class="col-sm-4 mb-3">
+        <div<?= ($pending == 0) ? ' class="no-events"' : ''; ?>>
+            <a href="/tasks/#pending" class="text-decoration-none">
+                <div class="card">
+                    <div class="card-body pb-2 pt-2">
+                        <span class="font-weight-bold float-left mr-2"><i
+                                    class="fas fa-search text-success fa-fw mr-1"></i></span>
+                        <p class="mb-0"><span class="font-weight-bold"><?= $pending ?></span> <span
+                                    class="text-lowercase"><?= $_pending ?></span></p>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-    <div class="col-sm-4 mb-3<?= ($postpone == 0) ? ' no-events' : ''; ?>">
-        <a href="/tasks/#postpone" class="text-decoration-none">
-            <div class="card">
-                <div class="card-body pb-2 pt-2">
-                    <span class="font-weight-bold float-left mr-2"><i class="fas fa-clock text-warning fa-fw mr-1"></i></span>
-                    <p class="mb-0"><span class="font-weight-bold"><?= $postpone ?></span> <span
-                                class="text-lowercase"><?= $_postpone ?></span></p>
+    <div class="col-sm-4 mb-3">
+        <div<?= ($postpone == 0) ? ' class="no-events"' : ''; ?>>
+            <a href="/tasks/#postpone" class="text-decoration-none">
+                <div class="card">
+                    <div class="card-body pb-2 pt-2">
+                        <span class="font-weight-bold float-left mr-2"><i
+                                    class="fas fa-clock text-warning fa-fw mr-1"></i></span>
+                        <p class="mb-0"><span class="font-weight-bold"><?= $postpone ?></span> <span
+                                    class="text-lowercase"><?= $_postpone ?></span></p>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
 </div>
 
