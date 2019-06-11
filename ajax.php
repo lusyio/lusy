@@ -19,24 +19,29 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
         }
 
     } else {
-        // Получаем userId из Cookies
-        $token = $_COOKIE['token'];
-        $id = parseCookie($token)['uid'];
+        if (!empty($_COOKIE['token'])) {
+            // Получаем userId из Cookies
+            $token = $_COOKIE['token'];
+            $id = parseCookie($token)['uid'];
 
-        // вычисляем id компании пользователя
-        $idc = DBOnce('idcompany', 'users', 'id=' . $id);
+            // вычисляем id компании пользователя
+            $idc = DBOnce('idcompany', 'users', 'id=' . $id);
 
-        // определяем язык компании
-        $langc = DBOnce('lang', 'company', 'id=' . $idc);
+            // определяем язык компании
+            $langc = DBOnce('lang', 'company', 'id=' . $idc);
 
-        // определяем роль пользователя
-        $roleu = DBOnce('role', 'users', 'id=' . $id);
+            // определяем роль пользователя
+            $roleu = DBOnce('role', 'users', 'id=' . $id);
 
-        // подключаем языковой файл
-        require_once(realpath('engine/backend/lang/' . $langc . '.php'));
+            // подключаем языковой файл
+            require_once(realpath('engine/backend/lang/' . $langc . '.php'));
 
-        // обновляем время последнего посещения
-        setLastVisit();
+            // обновляем время последнего посещения
+            setLastVisit();
+        } else {
+            die();
+
+        }
     }
 
     // кладем запрос в переменную
