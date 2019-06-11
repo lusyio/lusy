@@ -29,7 +29,7 @@ require_once 'engine/backend/functions/common-functions.php';
         $datetime = date("Y-m-d H:i:s");
 
         updateCookieTime($sessionCookie, $timestamp);
-        setcookie('token', createCookieString($sessionCookie['sid'], $sessionCookie['uid'], $timestamp), time() + 60 * 60 * 24 * 30, '/');
+        setcookie('token', createCookieString($sessionCookie['sid'], $sessionCookie['uid'], $timestamp), time() + 60 * 60 * 24 * 30, '/', '', true);
     }
 	if (!empty($_SESSION['auth'])) {
         // скачивание прикрепленного файла
