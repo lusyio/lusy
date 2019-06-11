@@ -1,30 +1,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-<h3 class="pb-3"><b><?= $GLOBALS['_headerinvite'] ?></b></h3>
 <form id="create-invite" method="post" action="">
     <div class="card mb-3">
-        <div class="card-body">
-            <div class="mb-3 text-center">
-                <a class="d-inline float-left" href="/company/"><i class="fas fa-arrow-left icon-invite"></i></a>
-                <div class="text-reg ml-4">
-                    <?= $GLOBALS['_howtoinvite'] ?>
-                </div>
-            </div>
+        <div class="card-body pb-2">
             <div class="row">
-                <div class="col-6 offset-3">
-                    <div class="input-group">
+                <div class="col-md-9 col-sm-6">
+                    <div class="input-group mb-1">
                         <input id="invitee-mail" class="form-control" type="email" name="invitee-mail"
                                aria-describedby="emailHelp"
                                placeholder="<?= $GLOBALS['_placeholderinvite'] ?>"
                                required>
                     </div>
+                    <small class="text-ligther"><?= $GLOBALS['_howtoinvite'] ?></small>
                     <div class="text-muted-reg text-center mt-3 d-none"><?= $GLOBALS['_usedemailinvite'] ?></div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col text-center mt-3">
-                    <button type="submit" class="btn btn-outline-primary rounded invite-send">
+                <div class="col-md-3 col-sm-6">
+                    <button type="submit" class="btn btn-primary rounded w-100">
                         <span class="spinner-border spinner-border-sm d-none"></span>
                         <?= $GLOBALS['_createinvite'] ?></button>
                 </div>
@@ -32,13 +24,30 @@
         </div>
     </div>
 </form>
+<hr>
 <div class="invite-container">
     <?php if (count($invites)): ?>
+        <div class="d-sm task-box mb-1">
+            <div class="card-body pb-2  ">
+                <div class="row sort">
+                    <div class="col-4">
+                        <span><?= $GLOBALS['_email'] ?></span>
+                    </div>
+                    <div class="col-4">
+                        <span><?= $GLOBALS['_dateinvite'] ?></span>
+                    </div>
+                    <div class="col-4">
+                        <span><?= $GLOBALS['_statustasks'] ?></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <?php foreach ($invites as $invite): ?>
             <div class="card mb-2 invite-card">
-                <div class="card-body p-2 text-center">
+                <div class="card-body pt-3 pb-3">
                     <div class="row">
-                        <div class="col-1">
+                        <div class="col-1 d-none">
                             <span><i val="<?= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?>"
                                      class="far fa-copy copy-link" data-toggle="tooltip" data-placement="bottom" title="<?= $GLOBALS['_copyinvite'] ?>"></i></span>
                         </div>
@@ -47,15 +56,15 @@
                         </div>
                         <div class="col-4">
                             <div class="invite-date">
-                                <?= $invite['invite_date'] ?>
+                                <?= date('d.m.Y',$invite['invite_date']) ?>
                             </div>
                         </div>
                         <?php if ($invite['status']): ?>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <a href="/../profile/<?= $invite['status']; ?>"><?= $GLOBALS['_registeredinvite'] ?></a>
                             </div>
                         <?php else: ?>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <span><?= $GLOBALS['_sentinvite'] ?></span>
                                 <a href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
                                             class="far fa-times-circle invite-delete"></i></a>

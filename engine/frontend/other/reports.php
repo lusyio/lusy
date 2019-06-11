@@ -5,7 +5,7 @@
 <?php
 global $idc;
 $inviteeMail = 'mr-kelevras@yandex.ru';
-$template = 'user-invite';
+$template = 'company-welcome';
 
 require_once 'engine/phpmailer/LusyMailer.php';
 require_once 'engine/phpmailer/Exception.php';

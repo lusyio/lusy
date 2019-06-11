@@ -363,7 +363,20 @@ list-group:hover {
 .filter-bar {
     /*display: none;*/
 }
+#invitee-mail {
+    line-height: 1.53;
+    letter-spacing: 0.1px;
+    height: 38px;
+    background-color: #f6f6f6;
+    border: none !important;
+    color: #6c757d;
+    border-radius: 10px;
+    padding: 12px 16px 12px 18px;
+}
 
+#invitee-mail:focus {
+    box-shadow: none;
+}
 #searchInput {
     line-height: 1.53;
     letter-spacing: 0.1px;
@@ -1398,7 +1411,6 @@ input:checked[type="checkbox"]::before {
     background: linear-gradient(135deg, rgb(238, 240, 249) 0%, rgb(252, 252, 252) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eef0f9', endColorstr='#fcfcfc', GradientType=1);
 }
-
 ul.navbar-nav {
     flex-direction: column !important;
 }
