@@ -6,7 +6,7 @@ removeSessions($sessionCookie['sid']);
 setcookie('token', null, -1, '/');
 unset($_COOKIE[session_name()]);
 unset($_SESSION);
-//session_destroy();
+session_destroy();
 header('location: /login/');
 ob_end_flush();
 ?>
