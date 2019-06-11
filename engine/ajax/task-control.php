@@ -135,7 +135,7 @@ if($_POST['module'] == 'createTask') {
     }
     resetViewStatus($idtask);
     addTaskCreateComments($idtask, $worker, $coworkers);
-    addEvent('createtask', $idtask, '', $worker);
+    addEvent('createtask', $idtask, $datedone, $worker);
 
 }
 
