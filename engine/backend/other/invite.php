@@ -22,6 +22,6 @@ if (isset($_POST['position'])) {
     createInvite($inviteeMail, $inviteePosition);
 }
 
-$invitesQuery = $pdo->prepare('SELECT invite_id, code, invite_date, status, email, invitee_position FROM invitations WHERE company_id=:companyId');
+$invitesQuery = $pdo->prepare('SELECT invite_id, code, invite_date, status, email, invitee_position FROM invitations WHERE company_id=:companyId ORDER BY invite_date DESC');
 $invitesQuery->execute(array(':companyId' => $idc));
 $invites = $invitesQuery->fetchAll(PDO::FETCH_ASSOC);
