@@ -54,7 +54,7 @@ if (!empty($_COOKIE['token'])) {
 
                     removeExcessiveSessionsIfExists($id);
                     $sessionId = createSession($id, $timestamp);
-                    setcookie('token', createCookieString($sessionId, $id, $timestamp), time() + 60 * 60 * 24 * 30, '/');
+                    setcookie('token', createCookieString($sessionId, $id, $timestamp), time() + 60 * 60 * 24 * 30, '/', '');
                     header('location: /');
                     ob_end_flush();
                     die();
