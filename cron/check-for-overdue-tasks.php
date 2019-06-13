@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 include __DIR__ . '/../conf.php'; // подключаем базу данных
 require_once __DIR__ . '/../engine/backend/functions/common-functions.php';
+require_once __DIR__ . '/../engine/backend/functions/task-functions.php';
 
 
 $overdueTasksQuery = $pdo->prepare('SELECT id FROM tasks WHERE status = :oldStatus AND ((ISNULL(datepostpone) AND datedone < :nowTime) OR (datepostpone < :nowTime))');
