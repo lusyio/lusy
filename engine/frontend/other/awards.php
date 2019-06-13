@@ -13,12 +13,10 @@
                 <h4>Решебник 1</h4>
                 <hr>
                 <div class="circle" data-value="0.5"></div>
-                <div class="avards d-inline-block">
-                    <div class="award-star">
-                        <i class="fas fa-star" style="color: white;"></i>
-                    </div>
+                <div class="award-star">
+                    <i class="fas fa-star" style="color: white;"></i>
                 </div>
-                <div class="text-muted">Сделано 5/10 задач</div>
+                <div class="text-muted mt-3">Сделано 5/10 задач</div>
                 <hr>
             </div>
         </div>
@@ -37,12 +35,10 @@
                     &quot;image&quot;: &quot;http://i.imgur.com/pT0i89v.png&quot;
                                 }"
                      data-reverse="true"></div>
-                <div class="avards d-inline-block">
-                    <div class="award-star">
-                        <i class="fas fa-star" style="color: white;"></i>
-                    </div>
+                <div class="award-star">
+                    <i class="fas fa-star" style="color: white;"></i>
                 </div>
-                <div class="text-muted">Сделано 5/10 задач</div>
+                <div class="text-muted mt-3">Сделано 9/10 задач</div>
                 <hr>
             </div>
         </div>
@@ -53,12 +49,10 @@
                 <h4>Решебник 1</h4>
                 <hr>
                 <div class="circle"></div>
-                <div class="avards d-inline-block">
-                    <div class="award-star">
-                        <i class="fas fa-star" style="color: white;"></i>
-                    </div>
+                <div class="award-star">
+                    <i class="fas fa-star" style="color: white;"></i>
                 </div>
-                <div class="text-muted">Сделано 5/10 задач</div>
+                <div class="text-muted mt-3">Сделано 0/10 задач</div>
                 <hr>
             </div>
         </div>
