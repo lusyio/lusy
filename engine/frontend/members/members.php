@@ -166,6 +166,10 @@
             }, 100);
         });
 
+        $(".edit-members").on('click', function () {
+            checkContainerCoworkers();
+        });
+
         function checkContainerCoworkers() {
             if ($(".add-worker").is(':visible')) {
                 $('.placeholder-coworkers').hide();
