@@ -129,27 +129,23 @@ if ($id == $worker and $view == 0) {
                         </div>
                         <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
                         <div id="change-date">
-                            <div class="form-group mb-0 p-2">
-                                <div class="row">
-                                    <div class="col">
-                                        <?php if ($role != 'manager'): ?>
-                                            <textarea name="report" id="reportarea1" class="form-control" rows="4"
-                                                      placeholder="Причина" required></textarea>
-                                        <?php endif; ?>
-                                        <input class="form-control form-control-sm" value="" type="date"
-                                               id="deadlineInput"
-                                               min="">
-                                        <button type="submit"
-                                                id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
-                                                class="btn btn-success btn-sm text-center mt-1 mb-1"><?= $GLOBALS["_change"] ?></button>
-                                    </div>
-                                </div>
+                            <div class="form-group mb-0 p-3">
+                                <?php if ($role != 'manager'): ?>
+                                    <textarea name="report" id="reportarea1" class="form-control mb-2" rows="3"
+                                              placeholder="Причина" required></textarea>
+                                <?php endif; ?>
+                                <input class="form-control form-control-sm mb-2" value="" type="date"
+                                       id="deadlineInput"
+                                       min="">
+                                <button type="submit"
+                                        id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
+                                        class="btn btn-primary btn-sm float-left mb-3"><?= $GLOBALS["_change"] ?></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-lg-8">
-                    <div class="float-right">
+                    <div class="float-right members-block" style="margin-right: 24px">
                         <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
                         <span class=" text-secondary slash">|</span>
                         <img src="/<?= getAvatarLink($worker) ?>" class="avatar ml-1">
@@ -165,12 +161,10 @@ if ($id == $worker and $view == 0) {
                                         src="/<?= getAvatarLink($coworker['worker_id']) ?>" alt="worker image"
                                         class="avatar ml-1"></span>
                         <?php endforeach; ?>
-                        <div class="tooltip-avatar">
 
                             <?php
                             include 'engine/frontend/members/members.php';
                             ?>
-                        </div>
                     </div>
                 </div>
             </div>

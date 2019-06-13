@@ -1,4 +1,7 @@
-<div id="avatarNew"><i class="far fa-plus-square avatar-new"></i>
+<div id="avatarNew">
+    <span class="position-absolute edit-members">
+        <i class="far fa-plus-square avatar-new"></i>
+    </span>
     <div class="members">
         <div class="members-card position-relative">
             <div class="text-justify owner">
@@ -12,10 +15,12 @@
                     <div class="col text-left">
                         <span>Ответственный</span>
                     </div>
-                    <div class="col-2 text-right">
-                        <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
-                           data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
-                    </div>
+                    <?php if ($isCeo || $role == 'manager'): ?>
+                        <div class="col-2 text-right">
+                            <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
+                               data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <hr class="mt-0 mb-1">
                 <div class="container-members-responsible-selected">
@@ -59,12 +64,24 @@
                     <div class="col text-justify">
                         <span>Соисполнители</span>
                     </div>
-                    <div class="col-2 text-right">
-                        <i class="fas fa-pencil-alt icon-members-change-coworker" data-toggle="collapse"
-                           data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList"></i>
-                    </div>
+                    <?php if ($isCeo || $role == 'manager'): ?>
+                        <div class="col-2 text-right">
+                            <i class="fas fa-pencil-alt icon-members-change-coworker" data-toggle="collapse"
+                               data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList"></i>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="mb-1 container p-1 container-coworker d-flex flex-wrap align-content-sm-stretch">
+                    <?php if ($isCeo || $role == 'manager'): ?>
+                        <div class="text-muted placeholder-coworkers" data-toggle="collapse"
+                             data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList">Нажмите,
+                            чтобы добавить
+                        </div>
+                    <?php else: ?>
+                        <div class="text-muted placeholder-coworkers">
+                            Список пуст
+                        </div>
+                    <?php endif; ?>
                     <?php
                     foreach ($users as $n) { ?>
                         <div val="<?php echo $n['id'] ?>"
@@ -98,7 +115,7 @@
                     <hr class="mt-1 mb-1">
                 </div>
                 <div class="mt-3 text-center">
-                    <button class="btn btn-success btn-sm" id="confirmMembers" type="button">Сохранить</button>
+                    <button class="btn btn-primary btn-sm" id="confirmMembers" type="button">Сохранить</button>
                 </div>
             </div>
         </div>
@@ -144,9 +161,18 @@
         $('.icon-members-change-coworker').on('click', function () {
             setTimeout(function () {
                 updateCoworkers();
+                checkContainerCoworkers();
                 coworkersListEmpty();
             }, 100);
         });
+
+        function checkContainerCoworkers() {
+            if ($(".add-worker").is(':visible')) {
+                $('.placeholder-coworkers').hide();
+            } else {
+                $('.placeholder-coworkers').show();
+            }
+        }
 
         function coworkersListEmpty() {
             if ($(".members-coworker-select").is(':visible')) {
@@ -167,6 +193,7 @@
             $('.container-coworker').find("[val = " + id + "]").addClass('d-none');
             $(".container-members-responsible-selected").find("[val = " + id + "]").removeClass('d-none');
             updateCoworkers();
+            checkContainerCoworkers();
             coworkersListEmpty();
         });
 
@@ -177,6 +204,7 @@
             // $('#responsibleList').find("[val = " + id + "]").addClass('d-none');
             $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
             updateResponsible();
+            checkContainerCoworkers();
             coworkersListEmpty();
         });
 
@@ -185,6 +213,7 @@
             $(this).addClass('d-none');
             $('#coworkersList').find("[val = " + id + "]").removeClass('d-none');
             updateResponsible();
+            checkContainerCoworkers();
             coworkersListEmpty();
         });
 
