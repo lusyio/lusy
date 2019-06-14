@@ -892,12 +892,12 @@ input:checked[type="checkbox"]::before {
 }
 
 .members-block{
-    z-index: 3;
+    position: relative;
+    z-index: 2;
 }
 
-.members-block:hover .edit-members {
-    opacity: 1;
-    right: -3px;
+.member-block:hover .edit-members {
+    right: -23px;
     transition: 300ms;
 }
 
@@ -1433,13 +1433,10 @@ input:checked[type="checkbox"]::before {
 }
 
 .edit-members{
-    opacity: 0;
-    z-index: 2;
     transition: 0.5s;
-    right: 33px;
+    right: 10px;
     top: -2px;
     height: 28px;
-    color: white;
     padding: 2px 5px 2px 15px;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;

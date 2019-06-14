@@ -144,27 +144,28 @@ if ($id == $worker and $view == 0) {
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-8">
-                    <div class="float-right members-block" style="margin-right: 24px">
-                        <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
-                        <span class=" text-secondary slash">|</span>
-                        <img src="/<?= getAvatarLink($worker) ?>" class="avatar ml-1">
-                        <?php
-                        foreach ($coworkers as $coworker):
-                            if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
-                                $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
-                            } else {
-                                $viewStatusTitle = 'Не просмотрено';
-                            }
-                            ?>
-                            <span class="mb-0" title="<?= $viewStatusTitle ?>"><img
-                                        src="/<?= getAvatarLink($coworker['worker_id']) ?>" alt="worker image"
-                                        class="avatar ml-1"></span>
-                        <?php endforeach; ?>
-
+                <div class="col-6 col-lg-8 ">
+                    <div class="member-block">
+                        <div class="float-right members-block">
+                            <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
+                            <span class=" text-secondary slash">|</span>
+                            <img src="/<?= getAvatarLink($worker) ?>" class="avatar ml-1">
                             <?php
-                            include 'engine/frontend/members/members.php';
-                            ?>
+                            foreach ($coworkers as $coworker):
+                                if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
+                                    $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
+                                } else {
+                                    $viewStatusTitle = 'Не просмотрено';
+                                }
+                                ?>
+                                <span class="mb-0" title="<?= $viewStatusTitle ?>"><img
+                                            src="/<?= getAvatarLink($coworker['worker_id']) ?>" alt="worker image"
+                                            class="avatar ml-1"></span>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php
+                        include 'engine/frontend/members/members.php';
+                        ?>
                     </div>
                 </div>
             </div>
@@ -224,10 +225,37 @@ if ($id == $worker and $view == 0) {
 <script src="/assets/js/datepicker.js"></script>
 <script>
 
-    (function(b){b.fn.autoResize=function(f){var a=b.extend({onResize:function(){},animate:!0,animateDuration:150,animateCallback:function(){},extraSpace:20,limit:1E3},f);this.filter("textarea").each(function(){var d=b(this).css({"overflow-y":"hidden",display:"block"}),f=d.height(),g=function(){var c={};b.each(["height","width","lineHeight","textDecoration","letterSpacing"],function(b,a){c[a]=d.css(a)});return d.clone().removeAttr("id").removeAttr("name").css({position:"absolute",top:0,left:-9999}).css(c).attr("tabIndex","-1").insertBefore(d)}(),h=null,e=function(){g.height(0).val(b(this).val()).scrollTop(1E4);var c=Math.max(g.scrollTop(),f)+a.extraSpace,e=b(this).add(g);h!==c&&(h=c,c>=a.limit?b(this).css("overflow-y",""):(a.onResize.call(this),a.animate&&"block"===d.css("display")?e.stop().animate({height:c},a.animateDuration,a.animateCallback):e.height(c)))};d.unbind(".dynSiz").bind("keyup.dynSiz",e).bind("keydown.dynSiz",e).bind("change.dynSiz",e)});return this}})(jQuery);
+    (function (b) {
+        b.fn.autoResize = function (f) {
+            var a = b.extend({
+                onResize: function () {
+                }, animate: !0, animateDuration: 150, animateCallback: function () {
+                }, extraSpace: 20, limit: 1E3
+            }, f);
+            this.filter("textarea").each(function () {
+                var d = b(this).css({"overflow-y": "hidden", display: "block"}), f = d.height(), g = function () {
+                    var c = {};
+                    b.each(["height", "width", "lineHeight", "textDecoration", "letterSpacing"], function (b, a) {
+                        c[a] = d.css(a)
+                    });
+                    return d.clone().removeAttr("id").removeAttr("name").css({
+                        position: "absolute",
+                        top: 0,
+                        left: -9999
+                    }).css(c).attr("tabIndex", "-1").insertBefore(d)
+                }(), h = null, e = function () {
+                    g.height(0).val(b(this).val()).scrollTop(1E4);
+                    var c = Math.max(g.scrollTop(), f) + a.extraSpace, e = b(this).add(g);
+                    h !== c && (h = c, c >= a.limit ? b(this).css("overflow-y", "") : (a.onResize.call(this), a.animate && "block" === d.css("display") ? e.stop().animate({height: c}, a.animateDuration, a.animateCallback) : e.height(c)))
+                };
+                d.unbind(".dynSiz").bind("keyup.dynSiz", e).bind("keydown.dynSiz", e).bind("change.dynSiz", e)
+            });
+            return this
+        }
+    })(jQuery);
 
     // инициализация
-    jQuery(function(){
+    jQuery(function () {
         jQuery('textarea').autoResize();
     });
 

@@ -71,7 +71,8 @@
                 <div class="row pt-4">
                     <div class="col-6">
                         <div class="input-group mt-3">
-                            <input id="settingsName" name="settingsName" type="text" class="form-control input-settings name text-center"
+                            <input id="settingsName" name="settingsName" type="text"
+                                   class="form-control input-settings name text-center"
                                    value="<?= $userData['name']; ?>">
                         </div>
                         <small class="text-muted text-muted-reg">
@@ -81,7 +82,8 @@
                     <div class="col-6">
                         <div class="input-group mt-3">
                             <input id="settingsSurname" name="settingsSurname" type="text"
-                                   class="form-control input-settings surname text-center" value="<?= $userData['surname']; ?>">
+                                   class="form-control input-settings surname text-center"
+                                   value="<?= $userData['surname']; ?>">
                         </div>
                         <small class="text-muted text-muted-reg">
                             Фамилия
@@ -167,28 +169,8 @@
                         </small>
                     </div>
                 </div>
-<!--                <div class="row">-->
-<!--                    <div class="col-12 col-lg-6">-->
-<!--                        <div class="input-group mt-3">-->
-<!--                            <input id="settingsNewPassword" name="settingsNewPassword" type="password"-->
-<!--                                   class="form-control new-password">-->
-<!--                        </div>-->
-<!--                        <small class="text-muted text-muted-reg">-->
-<!--                            --><?//= $GLOBALS['_newpasswordsettings'] ?>
-<!--                        </small>-->
-<!--                    </div>-->
-<!--                    <div class="col-12 col-lg-6">-->
-<!--                        <div class="input-group mt-3">-->
-<!--                            <input id="password" name="password" type="password" class="form-control password"-->
-<!--                                   required>-->
-<!--                        </div>-->
-<!--                        <small class="text-muted text-muted-reg">-->
-<!--                            --><?//= $GLOBALS['_passwordsettings'] ?>
-<!--                        </small>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <div class="row mt-5">
-                    <div class="col text-center">
+                <div class="row mt-5 pb-4">
+                    <div class="col-12  text-center">
                         <button class="btn btn-outline-primary" id="sendChanges" type="submit">
                             <?= $GLOBALS['_savesettings'] ?>
                         </button>
@@ -200,7 +182,8 @@
                         <?= $GLOBALS['_companysettings'] ?>
                     </div>
                     <div class="input-group">
-                        <input id="companyName" name="companyName" type="text" class="form-control input-settings company-name"
+                        <input id="companyName" name="companyName" type="text"
+                               class="form-control input-settings company-name"
                                value="<?= $companyData['idcompany'] ?>">
                     </div>
                     <div>
@@ -228,7 +211,8 @@
                         </small>
                     </div>
                     <div class="input-group mt-3">
-                        <input id="companySite" name="companySite" type="text" class="form-control input-settings company-site"
+                        <input id="companySite" name="companySite" type="text"
+                               class="form-control input-settings company-site"
                                value="<?= $companyData['site'] ?>">
                     </div>
                     <div>
@@ -250,22 +234,54 @@
                             <?= $GLOBALS['_clockcompanysettings'] ?>
                         </small>
                     </div>
-<!--                    <div class="input-group mt-3">-->
-<!--                        <input id="companyPassword" name="companyPassword" type="text"-->
-<!--                               class="form-control input-settings company-password"-->
-<!--                               value="">-->
-<!--                    </div>-->
-<!--                    <div>-->
-<!--                        <small class="text-muted text-muted-reg">-->
-<!--                            --><?//= $GLOBALS['_enterpasswordcompanysettings'] ?>
-<!--                        </small>-->
-<!--                    </div>-->
+                    <!--                    <div class="input-group mt-3">-->
+                    <!--                        <input id="companyPassword" name="companyPassword" type="text"-->
+                    <!--                               class="form-control input-settings company-password"-->
+                    <!--                               value="">-->
+                    <!--                    </div>-->
+                    <!--                    <div>-->
+                    <!--                        <small class="text-muted text-muted-reg">-->
+                    <!--                            --><? //= $GLOBALS['_enterpasswordcompanysettings'] ?>
+                    <!--                        </small>-->
+                    <!--                    </div>-->
                     <div class="text-center mt-3">
                         <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
                             <?= $GLOBALS['_savecompanysettings'] ?>
                         </button>
                     </div>
                 <?php endif; ?>
+                <hr>
+                <div class="text-reg text-center mb-3 mt-3">
+                    Смена пароля
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="input-group mt-3">
+                            <input id="password" name="password" type="password"
+                                   class="form-control input-settings password"
+                                   required>
+                        </div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_passwordsettings'] ?>
+                        </small>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="input-group mt-3">
+                            <input id="settingsNewPassword" name="settingsNewPassword" type="password"
+                                   class="form-control input-settings new-password">
+                        </div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_newpasswordsettings'] ?>
+                        </small>
+                    </div>
+                </div>
+                <div class="row mt-5 pb-4">
+                    <div class="col-12  text-center">
+                        <button class="btn btn-outline-primary" id="sendPassword" type="submit">
+                            Сохранить пароль
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -295,39 +311,15 @@
             });
         });
 
-        $("#sendChanges").on('click', function () {
-            var social = {};
-            var socialVk = "vk";
-            var socialFacebook = "facebook";
-            var description = $("#settingsDescription").val();
-            var vk = $("#settingsVk").val();
-            var facebook = $("#settingsFacebook").val();
-            var instagram = $("#settingsInstagram").val();
-            var name = $("#settingsName").val();
-            var surname = $("#settingsSurname").val();
-            var email = $("#settingsEmail").val();
-            var phoneNumber = $("#settingsPhoneNumber").val();
+        $("#sendPassword").on("click", function () {
             var newPassword = $("#settingsNewPassword").val();
             var password = $("#password").val();
-            // var countryNumber = $("#countryNumber").val();
-            // console.log(countryNumber);
-            social[socialVk] = vk;
-            social[socialFacebook] = facebook;
             var fd = new FormData();
 
             fd.append('ajax', 'settings');
             fd.append('module', 'changeData');
-            fd.append('name', name);
-            fd.append('surname', surname);
-            fd.append('email', email);
-            fd.append('phone', phoneNumber);
             fd.append('newPassword', newPassword);
             fd.append('password', password);
-            fd.append('about', description);
-            fd.append('vk', vk);
-            fd.append('facebook', facebook);
-            fd.append('instagram', instagram);
-            console.log(password);
             if (password) {
                 $.ajax({
                     url: '/ajax.php',
@@ -345,6 +337,58 @@
             } else {
                 $("#password").addClass('border-danger');
             }
+        });
+
+        $("#sendChanges").on('click', function () {
+            var social = {};
+            var socialVk = "vk";
+            var socialFacebook = "facebook";
+            var description = $("#settingsDescription").val();
+            var vk = $("#settingsVk").val();
+            var facebook = $("#settingsFacebook").val();
+            var instagram = $("#settingsInstagram").val();
+            var name = $("#settingsName").val();
+            var surname = $("#settingsSurname").val();
+            var email = $("#settingsEmail").val();
+            var phoneNumber = $("#settingsPhoneNumber").val();
+            // var newPassword = $("#settingsNewPassword").val();
+            // var password = $("#password").val();
+            // var countryNumber = $("#countryNumber").val();
+            // console.log(countryNumber);
+            social[socialVk] = vk;
+            social[socialFacebook] = facebook;
+            var fd = new FormData();
+
+            fd.append('ajax', 'settings');
+            fd.append('module', 'changeData');
+            fd.append('name', name);
+            fd.append('surname', surname);
+            fd.append('email', email);
+            fd.append('phone', phoneNumber);
+            // fd.append('newPassword', newPassword);
+            // fd.append('password', password);
+            fd.append('about', description);
+            fd.append('vk', vk);
+            fd.append('facebook', facebook);
+            fd.append('instagram', instagram);
+            console.log(password);
+            // if (password) {
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (data) {
+                    location.reload();
+                    console.log('success')
+                },
+            });
+            // } else {
+            //     $("#password").addClass('border-danger');
+            // }
         });
         $("#sendCompanyChanges").on('click', function () {
             var companyName = $('#companyName').val();

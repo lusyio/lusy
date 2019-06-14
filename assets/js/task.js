@@ -268,7 +268,8 @@ $(document).ready(function () {
                     module: 'sendDate',
                     sendDate: sendDate,
                     it: $it,
-                    ajax: 'task-control'},
+                    ajax: 'task-control'
+                },
                 success: controlUpdate,
             });
 

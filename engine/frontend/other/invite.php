@@ -41,59 +41,50 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <?php foreach ($invites as $invite): ?>
-            <div class="card mb-2 invite-card">
-                <div class="card-body pt-3 pb-3">
-                    <div class="row">
-                        <div class="col-1 d-none">
-                            <span><i val="<?= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?>"
-                                     class="far fa-copy copy-link" data-toggle="tooltip" data-placement="bottom" title="<?= $GLOBALS['_copyinvite'] ?>"></i></span>
-                        </div>
-                        <div class="col-4">
-                            <?= $invite['email'] ?>
-                        </div>
-                        <div class="col-4">
-                            <div class="invite-date">
-                                <?= date('d.m.Y',$invite['invite_date']) ?>
-                            </div>
-                        </div>
-                        <?php if ($invite['status']): ?>
-                            <div class="col-4">
-                                <a href="/../profile/<?= $invite['status']; ?>"><?= $GLOBALS['_registeredinvite'] ?></a>
-                            </div>
-                        <?php else: ?>
-                            <div class="col-4">
-                                <span><?= $GLOBALS['_sentinvite'] ?></span>
-                                <a href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
-                                            class="far fa-times-circle invite-delete"></i></a>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        <?php
-        endforeach;
+        <div id="invites-container">
+            <?php include 'engine/ajax/invite-card.php' ?>
+        </div>
+    <?php
     endif;
     ?>
 </div>
 <script>
     $(document).ready(function () {
 
+        // updateInvites();
+
+        // функция загрузки ивайтов
+        function updateInvites() {
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+
+                data: {
+                    ajax: 'invite-card'
+                },
+                success: onInviteSuccess,
+            });
+
+            function onInviteSuccess(data) {
+                $('#invites-container').html(data).fadeIn();
+            }
+
+        }
+
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         });
 
-        $(".invite-container").on('click', '.copy-link', function () {
-            var val = $(this).attr('val');
-            var textArea = document.createElement("textarea");
-            textArea.value = val;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-        });
+        // $(".invite-container").on('click', '.copy-link', function () {
+        //     var val = $(this).attr('val');
+        //     var textArea = document.createElement("textarea");
+        //     textArea.value = val;
+        //     document.body.appendChild(textArea);
+        //     textArea.select();
+        //     document.execCommand('copy');
+        //     document.body.removeChild(textArea);
+        // });
 
         $('.invite-container').on('click', '.invite-cancel', function (e) {
             e.preventDefault();
@@ -152,40 +143,42 @@
                                 $(".text-muted-reg").removeClass('d-none');
                             } else {
                                 $(".text-muted-reg").addClass('d-none');
-                                $('#invitee-mail').val('');
-                                var invite = JSON.parse(data);
-                                var inviteRow = "";
-                                inviteRow += window.location.hostname.toString() + '/join/' + invite['code'] + '/';
-                                $('.invite-container').append("<div class=\"card mb-2 invite-card\">\n" +
-                                    "                <div class=\"card-body p-2 text-center\">\n" +
-                                    "                    <div class=\"row\">\n" +
-                                    "                        <div class=\"col-1\">\n" +
-                                    "                            <span><i val=\' " + inviteRow + " \'\n" +
-                                    "                                     class=\"far fa-copy copy-link\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Скопировать приглашение\"></i></span>\n" +
-                                    "                        </div>\n" +
-                                    "                        <div class=\"col-4\">\n" + invite['email'] +
-                                    "                        </div>\n" +
-                                    "                        <div class=\"col-4\">\n" +
-                                    "                            <div class=\"invite-date\">\n" + invite['invite_date'] +
-                                    "                            </div>\n" +
-                                    "                        </div>\n" +
-                                    "                            <div class=\"col-3\">\n" +
-                                    "                                <span>Отправлено</span>\n" +
-                                    "                                <a class=\"invite-cancel\" data-invite-id=\' " + invite.invite_id + " \'><i\n" +
-                                    "                                            class=\"far fa-times-circle invite-delete\"></i></a>\n" +
-                                    "                            </div>\n" +
-                                    "                    </div>\n" +
-                                    "                </div>\n" +
-                                    "            </div>");
-                                console.log(inviteRow);
-                                var $newInvite = $('.invite-card').last();
-                                $newInvite.css({'background-color': '#dbe7f6'});
-                                $('html, body').animate({
-                                    scrollTop: $newInvite.offset().top - 100
-                                }, 1000);
-                                setTimeout(function () {
-                                    $newInvite.attr('style', '');
-                                }, 3000);
+                                updateInvites();
+                                // $('#invitee-mail').val('');
+                                // var invite = JSON.parse(data);
+                                // var inviteRow = "";
+                                // $('#invites-container').load("/invite/ #invite-card");
+                                // inviteRow += window.location.hostname.toString() + '/join/' + invite['code'] + '/';
+                                // $('.invite-container').append("<div class=\"card mb-2 invite-card\">\n" +
+                                //     "                <div class=\"card-body p-2 text-center\">\n" +
+                                //     "                    <div class=\"row\">\n" +
+                                //     "                        <div class=\"col-1\">\n" +
+                                //     "                            <span><i val=\' " + inviteRow + " \'\n" +
+                                //     "                                     class=\"far fa-copy copy-link\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Скопировать приглашение\"></i></span>\n" +
+                                //     "                        </div>\n" +
+                                //     "                        <div class=\"col-4\">\n" + invite['email'] +
+                                //     "                        </div>\n" +
+                                //     "                        <div class=\"col-4\">\n" +
+                                //     "                            <div class=\"invite-date\">\n" + invite['invite_date'] +
+                                //     "                            </div>\n" +
+                                //     "                        </div>\n" +
+                                //     "                            <div class=\"col-3\">\n" +
+                                //     "                                <span>Отправлено</span>\n" +
+                                //     "                                <a class=\"invite-cancel\" data-invite-id=\' " + invite.invite_id + " \'><i\n" +
+                                //     "                                            class=\"far fa-times-circle invite-delete\"></i></a>\n" +
+                                //     "                            </div>\n" +
+                                //     "                    </div>\n" +
+                                //     "                </div>\n" +
+                                //     "            </div>");
+                                // console.log(inviteRow);
+                                // var $newInvite = $('.invite-card').first();
+                                // $newInvite.css({'background-color': '#dbe7f6'});
+                                // $('html, body').animate({
+                                //     scrollTop: $newInvite.offset().top - 100
+                                // }, 1000);
+                                // setTimeout(function () {
+                                //     $newInvite.attr('style', '');
+                                // }, 3000);
                             }
                         } else {
                             console.log('Произошла ошибка');
@@ -193,6 +186,6 @@
                     },
                 });
             }
-        })
-    })
+        });
+    });
 </script>
