@@ -15,8 +15,8 @@
                     <span class="text-muted-reg"><?= ($userData['online']) ? $GLOBALS['_online'] : ((isset($userData['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $userData['activity']) : '') ?></span>
                     <?php if ($id === $profileId): ?>
                         <div style="position: absolute;
-                                    right: 10px;
-                                    top: 10px;">
+                                    right: 25px;
+                                    top: 20px;">
                             <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
                         </div>
                     <?php endif; ?>

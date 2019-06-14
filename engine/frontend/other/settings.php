@@ -11,14 +11,16 @@
         <div class="card">
             <div class="card-body p-4">
                 <div class="row">
-                    <a class="float-left" href="/profile/"><i class="fas fa-arrow-left icon-invite"></i></a>
-                    <div class="col-5 col-lg-6 text-center">
+                    <div class="col-5 col-lg-5 text-center">
+                        <a class="float-left" href="/profile/">
+                            <i class="fas fa-arrow-left icon-invite"></i>
+                        </a>
+                        <a class="float-right <?= (strpos(getAvatarLink($id), 'alter')) ? 'd-none' : ''; ?>"
+                           href="#" id="deleteAvatar" title="Удалить аватар">
+                            <i class="fas fa-times icon-invite"></i>
+                        </a>
                         <label class="label" data-toggle="tooltip" title=""
                                data-original-title="<?= $GLOBALS['_changeavatarsettings'] ?>">
-                            <a class="float-right <?= (strpos(getAvatarLink($id), 'alter')) ? 'd-none' : ''; ?>"
-                               href="#" id="deleteAvatar" title="Удалить аватар">
-                                <i class="fas fa-times icon-invite"></i>
-                            </a>
                             <img class="rounded-circle avatar-settings" id="avatar" src="/<?= getAvatarLink($id) ?>"
                                  alt="avatar">
                             <input type="file" class="sr-only" id="input" name="image" accept="image/*">
@@ -66,72 +68,88 @@
                     </div>
                 </div>
 
-                <div class="row mt-4">
+                <div class="row pt-4">
                     <div class="col-6">
-                        <div class="input-group">
-                            <input id="settingsName" name="settingsName" type="text" class="form-control name"
+                        <div class="input-group mt-3">
+                            <input id="settingsName" name="settingsName" type="text" class="form-control input-settings name text-center"
                                    value="<?= $userData['name']; ?>">
                         </div>
+                        <small class="text-muted text-muted-reg">
+                            Имя
+                        </small>
                     </div>
                     <div class="col-6">
-                        <div class="input-group">
+                        <div class="input-group mt-3">
                             <input id="settingsSurname" name="settingsSurname" type="text"
-                                   class="form-control surname" value="<?= $userData['surname']; ?>">
+                                   class="form-control input-settings surname text-center" value="<?= $userData['surname']; ?>">
                         </div>
+                        <small class="text-muted text-muted-reg">
+                            Фамилия
+                        </small>
                     </div>
                 </div>
                 <div class="input-group mt-3">
-                            <textarea rows="3" id="settingsDescription" name="settingsDescription" type="text"
-                                      class="form-control name"
-                                      placeholder="<?= $GLOBALS['_aboutsettings'] ?>"><?= $userData['about']; ?></textarea>
+                    <textarea rows="3" id="settingsDescription" name="settingsDescription" type="text"
+                              class="form-control input-settings  name"><?= $userData['about']; ?>
+                    </textarea>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-6 col-lg-4">
-                        <div class="input-group mb-2">
+                <small class="text-muted text-muted-reg">
+                    <?= $GLOBALS['_aboutsettings'] ?>
+                </small>
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <div class="input-group mt-3">
                             <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fab fa-vk"></i>
                             </span>
                             </div>
                             <input id="settingsVk" name="settingsVk" type="text"
-                                   class="form-control email" placeholder="vk.com"
+                                   class="form-control input-settings email"
                                    value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : ''; ?>">
                         </div>
                     </div>
-                    <div class="col-6 col-lg-4">
-                        <div class="input-group mb-2">
+                    <div class="col-12 col-lg-4">
+                        <div class="input-group mt-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fab fa-facebook-square"></i>
                                 </span>
                             </div>
-                            <input id="settingsFacebook" name="settingsFacebook" type="text" placeholder="facebook"
-                                   class="form-control email"
+                            <input id="settingsFacebook" name="settingsFacebook" type="text"
+                                   class="form-control input-settings email"
                                    value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : ''; ?>">
                         </div>
                     </div>
-                    <div class="col-6 col-lg-4">
-                        <div class="input-group">
+                    <div class="col-12 col-lg-4">
+                        <div class="input-group mt-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fab fa-instagram"></i>
                                 </span>
                             </div>
-                            <input id="settingsInstagram" name="settingsInstagram" type="text" placeholder="instagram"
-                                   class="form-control email"
+                            <input id="settingsInstagram" name="settingsInstagram" type="text"
+                                   class="form-control input-settings email"
                                    value="<?= (isset($userData['social']['instagram'])) ? $userData['social']['instagram'] : ''; ?>">
                         </div>
                     </div>
                 </div>
-                <div class="row mt-3">
+                <small class="text-muted text-muted-reg">
+                    Социальные сети
+                </small>
+
+                <div class="row">
                     <div class="col-12 col-lg-6">
-                        <div class="input-group mb-2">
+                        <div class="input-group mt-3">
                             <input id="settingsEmail" name="settingsEmail" type="email"
-                                   class="form-control email" value="<?= $userData['email']; ?>">
+                                   class="form-control input-settings email" value="<?= $userData['email']; ?>">
                         </div>
+                        <small class="text-muted text-muted-reg">
+                            Электронная почта
+                        </small>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <div class="input-group">
+                        <div class="input-group mt-3">
                             <!--                                    <button class="rounded-left class=btn border-secondary btn-outline-light dropdown-toggle select-country"-->
                             <!--                                            type="button" data-toggle="dropdown" aria-haspopup="true"-->
                             <!--                                            aria-expanded="false">-->
@@ -142,27 +160,33 @@
                             <!--                                <option value="1" class="flag">🇺🇸 +1</option>-->
                             <!--                            </select>-->
                             <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
-                                   placeholder="<?= $GLOBALS['_phonesettings'] ?>"
-                                   class="form-control phone-number" value="<?= $userData['phone']; ?>">
+                                   class="form-control input-settings phone-number" value="<?= $userData['phone']; ?>">
                         </div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_phonesettings'] ?>
+                        </small>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group mb-2">
-                            <input id="settingsNewPassword" name="settingsNewPassword" type="password"
-                                   class="form-control new-password"
-                                   placeholder="<?= $GLOBALS['_newpasswordsettings'] ?>">
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group">
-                            <input id="password" name="password" type="password" class="form-control password"
-                                   placeholder="<?= $GLOBALS['_passwordsettings'] ?>"
-                                   required>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-12 col-lg-6">-->
+<!--                        <div class="input-group mt-3">-->
+<!--                            <input id="settingsNewPassword" name="settingsNewPassword" type="password"-->
+<!--                                   class="form-control new-password">-->
+<!--                        </div>-->
+<!--                        <small class="text-muted text-muted-reg">-->
+<!--                            --><?//= $GLOBALS['_newpasswordsettings'] ?>
+<!--                        </small>-->
+<!--                    </div>-->
+<!--                    <div class="col-12 col-lg-6">-->
+<!--                        <div class="input-group mt-3">-->
+<!--                            <input id="password" name="password" type="password" class="form-control password"-->
+<!--                                   required>-->
+<!--                        </div>-->
+<!--                        <small class="text-muted text-muted-reg">-->
+<!--                            --><?//= $GLOBALS['_passwordsettings'] ?>
+<!--                        </small>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="row mt-5">
                     <div class="col text-center">
                         <button class="btn btn-outline-primary" id="sendChanges" type="submit">
@@ -176,7 +200,7 @@
                         <?= $GLOBALS['_companysettings'] ?>
                     </div>
                     <div class="input-group">
-                        <input id="companyName" name="companyName" type="text" class="form-control company-name"
+                        <input id="companyName" name="companyName" type="text" class="form-control input-settings company-name"
                                value="<?= $companyData['idcompany'] ?>">
                     </div>
                     <div>
@@ -186,7 +210,7 @@
                     </div>
                     <div class="input-group mt-3">
                         <input id="companyFullName" name="companyFullName" type="text"
-                               class="form-control company-full-name"
+                               class="form-control input-settings company-full-name"
                                value="<?= $companyData['full_company_name'] ?>">
                     </div>
                     <div>
@@ -196,7 +220,7 @@
                     </div>
                     <div class="input-group mt-3">
                             <textarea id="companyDescription" name="companyDescription" type="text"
-                                      class="form-control company-description"><?= $companyData['description'] ?></textarea>
+                                      class="form-control input-settings  company-description"><?= $companyData['description'] ?></textarea>
                     </div>
                     <div>
                         <small class="text-muted text-muted-reg">
@@ -204,7 +228,7 @@
                         </small>
                     </div>
                     <div class="input-group mt-3">
-                        <input id="companySite" name="companySite" type="text" class="form-control company-site"
+                        <input id="companySite" name="companySite" type="text" class="form-control input-settings company-site"
                                value="<?= $companyData['site'] ?>">
                     </div>
                     <div>
@@ -214,7 +238,7 @@
                     </div>
                     <div class="input-group mt-3">
                         <select id="companyTimezone" name="companyTimezone"
-                                class="form-control company-timezone">
+                                class="form-control input-settings company-timezone">
                             <option></option>
                             <?php foreach ($timeZones as $timeZone => $text): ?>
                                 <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone) ? 'selected' : '' ?>><?= $text ?></option>
@@ -226,16 +250,16 @@
                             <?= $GLOBALS['_clockcompanysettings'] ?>
                         </small>
                     </div>
-                    <div class="input-group mt-3">
-                        <input id="companyPassword" name="companyPassword" type="text"
-                               class="form-control company-password"
-                               value="">
-                    </div>
-                    <div>
-                        <small class="text-muted text-muted-reg">
-                            <?= $GLOBALS['_enterpasswordcompanysettings'] ?>
-                        </small>
-                    </div>
+<!--                    <div class="input-group mt-3">-->
+<!--                        <input id="companyPassword" name="companyPassword" type="text"-->
+<!--                               class="form-control input-settings company-password"-->
+<!--                               value="">-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <small class="text-muted text-muted-reg">-->
+<!--                            --><?//= $GLOBALS['_enterpasswordcompanysettings'] ?>
+<!--                        </small>-->
+<!--                    </div>-->
                     <div class="text-center mt-3">
                         <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
                             <?= $GLOBALS['_savecompanysettings'] ?>

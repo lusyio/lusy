@@ -4,7 +4,7 @@ $_main = 'Рабочий стол';
 $_log = 'Лог';
 $_report = 'Отчет';
 $_days = 'дней';
-$_awards = 'Награды';
+$_awards = 'Достижения';
 $_company = 'Компания';
 $_infobase = 'База знаний';
 $_storage = 'Файлы';
@@ -173,7 +173,7 @@ $_aboutcompanysettings = 'Описание компании';
 $_websitecompanysettings = 'Веб-сайт';
 $_clockcompanysettings = 'Часовой пояс компании';
 $_enterpasswordcompanysettings = 'Введите свой пароль для сохранения изменений компании';
-$_savecompanysettings = 'Сохранить изменениея компании';
+$_savecompanysettings = 'Сохранить изменения компании';
 
 // новые кнопки - Окс
 $_inbox = 'Входящие';

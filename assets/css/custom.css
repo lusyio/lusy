@@ -671,6 +671,15 @@ input:checked[type="checkbox"]::before {
     border-color: #83b258;
 }
 
+.input-settings{
+    background-color: #fcfbfc;
+}
+
+.input-settings:focus{
+    background-color: #fefefe;
+    box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2), 0 5px 15px 0 rgba(37, 44, 97, 0.15);
+}
+
 .postpone-manager {
     background-color: #f7f7f7;
     display: block;
@@ -1500,6 +1509,9 @@ a {
     margin-top: 8px;
 }
 
+.avatar-settings{
+    width: 140px !important;
+}
 
 .event {
     -webkit-transition: all 1s ease-out; /** Chrome & Safari **/
@@ -2031,6 +2043,11 @@ span.date {
     .deadline-block-word{
         display: none;
     }
+
+    .add-newtask-button{
+        display: flex !important;
+    }
+
     .no-events {
         display: none;
     }
@@ -2315,7 +2332,7 @@ label.error {
     transition: background 0.4s !important;
 }
 .ripple:hover {
-    background: rgba(158,158,158,.2) radial-gradient(circle, transparent 1%, rgba(158,158,158,.2) 1%) center/15000% !important;
+    background: rgba(158,158,158,.4) radial-gradient(circle, transparent 1%, rgba(158,158,158,.4) 1%) center/15000% !important;
 }
 .ripple:active {
     background-color: white !important;
@@ -2327,6 +2344,29 @@ label.error {
     height: 40px !important;
     min-width: 40px !important;
     width: 40px !important;
+}
+
+.google-icon-btn.primary{
+    background: rgba(93, 149, 219, 0.8);
+    color: white;
+}
+
+.google-icon-btn.primary:active{
+    background: rgb(93, 149, 219);
+}
+
+.ripple.primary:hover {
+    background: rgba(93, 149, 219) radial-gradient(circle, transparent 1%, rgba(93, 149, 219) 1%) center/15000% !important;
+}
+
+.ripple.primary:active {
+    background-color: white !important;
+    background-size: 100% !important;
+    transition: background 0s !important;
+}
+
+.add-newtask-button{
+    display: none;
 }
 
 .google-icon-btn {
