@@ -20,6 +20,18 @@ function setStatus($taskId, $status, $postponeDate = null)
     $sql->execute($data);
 }
 
+function setFinalStatus($taskId, $status)
+{
+    global $pdo;
+    $sql = $pdo->prepare('UPDATE `tasks` SET `status` = :status, report = :report WHERE id = :taskId');
+    $data = [
+        ':taskId' => $taskId,
+        ':status' => $status,
+        ':report' => time(),
+    ];
+    $sql->execute($data);
+}
+
 function resetViewStatus($taskId)
 {
     global $id;

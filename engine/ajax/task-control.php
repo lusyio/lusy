@@ -56,7 +56,7 @@ if($_POST['module'] == 'sendpostpone' && $isWorker) {
 // Завершение задачи
 
 if($_POST['module'] == 'workdone' && $isManager) {
-    setStatus($idtask, 'done');
+    setFinalStatus($idtask, 'done');
     addFinalComments($idtask, 'done');
     resetViewStatus($idtask);
     addEvent('workdone', $idtask, '');
@@ -66,7 +66,7 @@ if($_POST['module'] == 'workdone' && $isManager) {
 // Отмена задачи
 
 if($_POST['module'] == 'cancelTask' && $isManager) {
-    setStatus($idtask, 'canceled');
+    setFinalStatus($idtask, 'canceled');
     addFinalComments($idtask, 'canceled');
     resetViewStatus($idtask);
     addEvent('canceltask', $idtask, '');
