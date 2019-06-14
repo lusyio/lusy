@@ -105,3 +105,50 @@ function updateCookieTime($sessionCookie, $timestamp)
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':sessionId' => $sessionCookie['sid'], ':timestamp' => $timestamp));
 }
+
+function isCookieValid($sessionCookie)
+{
+    if (!$sessionCookie) {
+        return false;
+    }
+    if (!isCookieExistAndValidByTimestamp($sessionCookie)) {
+        removeSessions($sessionCookie['sid']);
+        return false;
+    }
+    return true;
+}
+
+function authorizeByCookie()
+{
+    $sessionCookie = parseCookie($_COOKIE['token']);
+    if (isCookieValid($sessionCookie)) {
+        $GLOBALS['id'] = $sessionCookie['uid'];
+        $_SESSION['auth'] = true;
+        $_SESSION['id'] = $sessionCookie['uid'];
+        $GLOBALS['idc'] = DBOnce('idcompany', 'users', 'id="' . $sessionCookie['uid'] . '"');
+        $_SESSION['idc'] = $GLOBALS['idc'];
+        $newTimestamp = time();
+        $newCookieString = createCookieString($sessionCookie['sid'], $sessionCookie['uid'], $newTimestamp);
+        updateCookieTime($sessionCookie, $newTimestamp);
+        setcookie('token', $newCookieString, time() + 60 * 60 * 24 * 30, '/');
+    } else {
+        setcookie('token', null, -1, '/');
+        header('location: /login/');
+        ob_end_flush();
+        exit;
+    }
+}
+function authorize()
+{
+    if (!empty($_SESSION['auth'])) {
+        $GLOBALS['id'] = $_SESSION['id'];
+        $GLOBALS['idc'] = DBOnce('idcompany', 'users', 'id="' . $GLOBALS['id'] . '"');
+        return true;
+
+    } elseif (!empty($_COOKIE['token'])) {
+        authorizeByCookie();
+        $GLOBALS['idc'] = DBOnce('idcompany', 'users', 'id="' . $GLOBALS['id'] . '"');
+        return true;
+    }
+    return false;
+}
