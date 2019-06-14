@@ -197,8 +197,8 @@ if ($id == $worker and $view == 0) {
     <div class="card mt-3">
         <div class="card-body">
             <div class="d-flex comin">
-                <input class="form-control mr-3" id="comin" name="comment" type="text" autocomplete="off"
-                       placeholder="<?= $GLOBALS["_writecomment"] ?>..." required>
+                <textarea class="form-control mr-3" id="comin" rows="1" name="comment" type="text" autocomplete="off"
+                          placeholder="<?= $GLOBALS["_writecomment"] ?>..." required></textarea>
 
                 <button type="submit" class="btn btn-light btn-file mr-3"><i class="fas fa-file-upload custom-date"></i><input
                             id="sendFiles" type="file" multiple></button>
@@ -223,6 +223,14 @@ if ($id == $worker and $view == 0) {
 <script src="/assets/js/task.js"></script>
 <script src="/assets/js/datepicker.js"></script>
 <script>
+
+    (function(b){b.fn.autoResize=function(f){var a=b.extend({onResize:function(){},animate:!0,animateDuration:150,animateCallback:function(){},extraSpace:20,limit:1E3},f);this.filter("textarea").each(function(){var d=b(this).css({"overflow-y":"hidden",display:"block"}),f=d.height(),g=function(){var c={};b.each(["height","width","lineHeight","textDecoration","letterSpacing"],function(b,a){c[a]=d.css(a)});return d.clone().removeAttr("id").removeAttr("name").css({position:"absolute",top:0,left:-9999}).css(c).attr("tabIndex","-1").insertBefore(d)}(),h=null,e=function(){g.height(0).val(b(this).val()).scrollTop(1E4);var c=Math.max(g.scrollTop(),f)+a.extraSpace,e=b(this).add(g);h!==c&&(h=c,c>=a.limit?b(this).css("overflow-y",""):(a.onResize.call(this),a.animate&&"block"===d.css("display")?e.stop().animate({height:c},a.animateDuration,a.animateCallback):e.height(c)))};d.unbind(".dynSiz").bind("keyup.dynSiz",e).bind("keydown.dynSiz",e).bind("change.dynSiz",e)});return this}})(jQuery);
+
+    // инициализация
+    jQuery(function(){
+        jQuery('textarea').autoResize();
+    });
+
     $(document).ready(function () {
         <?= ($worker == $id && $view == '0') ? 'decreaseTaskCounter();' : '' ?>
         $(document).on('click', function (e) { // событие клика по веб-документу

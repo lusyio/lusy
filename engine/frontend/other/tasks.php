@@ -3,6 +3,15 @@
 <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <?php include 'engine/frontend/other/searchbar.php' ?>
 <div id="taskBox">
+    <div class="row pb-2 add-newtask-button">
+        <div class="col text-center">
+            <span class="mr-2">
+                <small class="text-muted-reg">Добавить новую задачу</small>
+            </span>
+            <button onclick="window.location.href='/task/new/'" class="google-icon-btn primary min ripple">+
+            </button>
+        </div>
+    </div>
     <div style="padding: 0.8rem;" class="d-none d-sm task-box">
         <div style="padding-left: 7px;">
             <div class="row sort">
