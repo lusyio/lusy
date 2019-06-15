@@ -187,6 +187,16 @@ function markAsRead($eventId)
         }
     } else {
         $markQuery->execute(array(':eventId' => $eventId, ':userId' => $id));
+        $action = DBOnce('action', 'events', 'event_id=' . (int) $eventId);
+        if ($action == 'createtask') {
+            $idtask = DBOnce('task_id', 'events', 'event_id=' . (int) $eventId);
+            $manager = DBOnce('manager', 'tasks', 'id=' . $idtask);
+            if ($id != $manager){
+                $setViewedQuery = $pdo->prepare('UPDATE `tasks` SET view = :viewState where id = :taskId');
+                $setViewedQuery->execute(array('viewState' => 1, ':taskId' => $idtask));
+                addEvent('viewtask', $idtask, '', $manager);
+            }
+        }
     }
 }
 
