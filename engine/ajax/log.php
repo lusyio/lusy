@@ -7,10 +7,7 @@ require_once 'engine/backend/functions/log-functions.php';
 
 if ($_POST['module'] == 'markAsRead') {
     $eventId = filter_var($_POST['eventId'], FILTER_SANITIZE_NUMBER_INT);
-    $eventAction = DBOnce('action', 'events', 'event_id=' . $eventId);
-    if ($eventAction != 'createtask') {
-        markAsRead($eventId);
-    }
+    markAsRead($eventId);
 }
 
 if ($_POST['module'] == 'getEvent') {

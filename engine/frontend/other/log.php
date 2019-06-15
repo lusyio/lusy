@@ -97,11 +97,9 @@
                     $taskLink.removeClass('text-primary');
                 },1000);
             }
-            if ($(this).hasClass('readable-here')) {
-                $(this).removeClass('new-event');
-                var eventId = $(this).data('event-id');
-                markAsRead(eventId);
-            }
+            $(this).removeClass('new-event');
+            var eventId = $(this).data('event-id');
+            markAsRead(eventId);
         })
     });
 

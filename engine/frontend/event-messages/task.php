@@ -2,47 +2,59 @@
      class="event <?= ($event['view_status']) ? '' : 'new-event' ?> <?= ($event['action'] == 'createtask') ? '' : 'readable-here' ?> task mb-3">
 
     <?php
+    $taskLink = '<a href="/../' . $event['link'] . '" class="font-italic task-link">' . $event['taskname'] . '"</a></p>';
+
     if ($event['action'] == 'createtask') { // создание, назначение задачи
         $bg = 'bg-primary';
         $icon = 'fas fa-plus';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youCreatedTask'] . ' ' . $event['taskname'] . '. ';
+            $eventText = $GLOBALS['_youCreatedTask'] . ' ';
+            $eventText .= $taskLink;
             $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
             $eventText .= $GLOBALS['_periodOfExecutionUntil'] . ' ' . date('d.m', $event['comment']);
         } else {
-            $eventText = $GLOBALS['_assignedYouTask'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_assignedYouTask'] . ' - ';
+            $eventText .= $taskLink;
+
         }
     }
 
     if ($event['action'] == 'viewtask') {
         $bg = 'bg-primary';
         $icon = 'fas fa-plus';
-        $eventText = $GLOBALS['_sawTheTask'] . ' ' . $event['taskname'] . '.';
+        $eventText = $GLOBALS['_sawTheTask'] . ' ';
+        $eventText .= $taskLink;
+
     }
 
     if ($event['action'] == 'canceltask') { // создание, назначение задачи
         $bg = 'bg-danger';
         $icon = 'fas fa-times';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youCanceledTheTask'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youCanceledTheTask'] . ' - ';
+            $eventText .= $taskLink;
         } else {
-            $eventText = $GLOBALS['_taskCanceled'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_taskCanceled'] . ' - ';
+            $eventText .= $taskLink;
         }
     }
 
     if ($event['action'] == 'overdue') {
         $bg = 'bg-danger';
         $icon = 'fas fa-plus';
-        $eventText = $GLOBALS['_taskOverdue'] . ' ' . $event['taskname'];
+        $eventText = $GLOBALS['_taskOverdue'] . ' ';
+        $eventText .= $taskLink;
     }
 
     if ($event['action'] == 'review') { // создание, назначение задачи
         $bg = 'bg-primary';
         $icon = 'fas fa-file-import';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youSentOnReview'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youSentOnReview'] . ' - ';
+            $eventText .= $taskLink;
         } else {
-            $eventText = $GLOBALS['_youReceivedTaskReport'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youReceivedTaskReport'] . ' - ';
+            $eventText .= $taskLink;
         }
     }
 
@@ -50,10 +62,13 @@
         $bg = 'bg-warning';
         $icon = 'fas fa-exchange-alt';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youReturnedTask'] . ' - ' . $event['taskname'] . '. ';
+            $eventText = $GLOBALS['_youReturnedTask'] . ' - ';
+            $eventText .= $taskLink . '. ';
             $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         } else {
-            $eventText = $GLOBALS['_taskReturnedToYou'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_taskReturnedToYou'] . ' - ';
+            $eventText .= $taskLink;
+
         }
     }
 
@@ -61,9 +76,11 @@
         $bg = 'bg-success';
         $icon = 'fas fa-check';
         if ($event['worker'] == $id) {
-            $eventText = $GLOBALS['_workDoneWorker'];
+            $eventText = $GLOBALS['_workDoneWorker'] . ' - ';
+            $eventText .= $taskLink;
         } else {
-            $eventText = $GLOBALS['_workDoneManager'];
+            $eventText = $GLOBALS['_workDoneManager'] . ' - ';
+            $eventText .= $taskLink;
         }
     }
 
@@ -71,9 +88,11 @@
         $bg = 'bg-warning';
         $icon = 'far fa-calendar-alt';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youAskedToPostpone'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youAskedToPostpone'] . ' - ';
+            $eventText .= $taskLink;
         } else {
-            $eventText = $GLOBALS['_workerAskedToPostpone'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_workerAskedToPostpone'] . ' - ';
+            $eventText .= $taskLink;
         }
     }
 
@@ -81,10 +100,12 @@
         $bg = 'bg-success';
         $icon = 'fas fa-check';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youConfirmPostponeAsk'] . ' - ' . $event['taskname'] . '. ';
+            $eventText = $GLOBALS['_youConfirmPostponeAsk'] . ' - ';
+            $eventText .= $taskLink . '. ';
             $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         } else {
-            $eventText = $GLOBALS['_confirmYourPostponeAsk'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_confirmYourPostponeAsk'] . ' - ';
+            $eventText .= $taskLink;
             $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         }
     }
@@ -93,9 +114,12 @@
         $bg = 'bg-danger';
         $icon = 'far fa-calendar-times';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youDeclinePostponeAsk'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youDeclinePostponeAsk'] . ' - ';
+            $eventText .= $taskLink;
         } else {
-            $eventText = $GLOBALS['_declineYourPostponeAsk'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_declineYourPostponeAsk'] . ' - ';
+            $eventText .= $taskLink;
+
         }
     }
 
@@ -103,10 +127,12 @@
         $bg = 'bg-danger';
         $icon = 'far fa-calendar-times';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youChangedWorker'] . ' - ' . $event['taskname'] . '. ';
+            $eventText = $GLOBALS['_youChangedWorker'] . ' - ';
+            $eventText .= $taskLink . '. ';
             $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
         } else {
-            $eventText = $GLOBALS['_youAreSuspendedFromTheTask'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youAreSuspendedFromTheTask'] . ' - ';
+            $eventText .= $taskLink;
         }
     }
 
@@ -114,10 +140,12 @@
         $bg = 'bg-primary';
         $icon = 'far fa-calendar-plus';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youSetNewDateInTask'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youSetNewDateInTask'] . ' - ';
+            $eventText .= $taskLink;
             $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         } else {
-            $eventText = $GLOBALS['_newDateInYourTask'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_newDateInYourTask'] . ' - ';
+            $eventText .= $taskLink;
             $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
         }
     }
@@ -128,10 +156,12 @@
         if ($event['author_id'] == '1') {
             $coworkerName = DBOnce('name', 'users', 'id=' . $event['comment']);
             $coworkerSurname = DBOnce('surname', 'users', 'id=' . $event['comment']);
-            $eventText = $GLOBALS['_youAddCoworker'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youAddCoworker'] . ' - ';
+            $eventText .= $taskLink;
             $eventText .= $GLOBALS['_newCoworker'] . ' - ' . $coworkerName . ' ' . $coworkerSurname;
         } else {
-            $eventText = $GLOBALS['_youAreNewCoworker'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youAreNewCoworker'] . ' - ';
+            $eventText .= $taskLink;
         }
     }
 
@@ -141,10 +171,12 @@
         if ($event['author_id'] == '1') {
             $coworkerName = DBOnce('name', 'users', 'id=' . $event['comment']);
             $coworkerSurname = DBOnce('surname', 'users', 'id=' . $event['comment']);
-            $eventText = $GLOBALS['_youRemoveCoworker'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youRemoveCoworker'] . ' - ';
+            $eventText .= $taskLink;
             $eventText .= $GLOBALS['_removedCoworker'] . ' - ' . $coworkerName . ' ' . $coworkerSurname;
         } else {
-            $eventText = $GLOBALS['_youAreNotCoworker'] . ' - ' . $event['taskname'];
+            $eventText = $GLOBALS['_youAreNotCoworker'] . ' - ';
+            $eventText .= $taskLink;
         }
     }
 ?>
@@ -155,7 +187,6 @@
         <a href="/profile/<?=$event['author_id']?>/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
     </div>
     <p class="mt-2"><?= $eventText ?>
-        <a href="/../<?= $event['link'] ?>" class="font-italic task-link">"<?=$event['taskname']?>"</a></p>
 </li>
 
 
