@@ -11,10 +11,50 @@
             <li>Управление тарифами и лимитами</li>
             <li>Управление ачивками</li>
         </ul>
+        <div class="add-article">
+            <form method="post" id="addArticle" class="form-group">
+                <h5 class="text-center mb-3">Добавление статьи</h5>
+                <input class="form-control mb-1" id="articleTitle" type="text" placeholder="Заголовок">
+                <input class="form-control mb-1" id="articleUrl" placeholder="ЧПУ">
+                <input class="form-control mb-1" id="articleCategory" placeholder="Категория">
+                <textarea class="form-control mb-1" id="articleDescription" placeholder="Краткое описание"></textarea>
+                <textarea class="form-control mb-1" id="articleText" placeholder="Полный текст"></textarea>
+                <input type="date" id="articleDate" class="form-control mb-1">
+                <button id="sendArticle" class="btn btn-primary">Добавить</button>
+            </form>
+        </div>
     </div>
 </div>
 
 <script>
+    $(document).ready(function () {
+        $('#sendArticle').on('click', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                data: {
+                    ajax: 'godmode',
+                    module: 'addArticle',
+                    articleTitle: $('#articleTitle').val(),
+                    articleUrl: $('#articleUrl').val(),
+                    articleCategory: $('#articleCategory').val(),
+                    articleDescription: $('#articleDescription').val(),
+                    articleText: $('#articleText').val(),
+                    articleDate: $('#articleDate').val(),
+                },
+                success: function (response) {
+                    if (response === '1') {
+                        $('#addArticle')[0].reset();
+                    } else {
+                        console.log('Error');
+                        console.log(response);
+                    }
+                }
+            });
+        })
+    });
     function createConfig(details, data) {
         return {
             type: 'line',
