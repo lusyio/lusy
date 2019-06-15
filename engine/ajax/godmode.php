@@ -3,7 +3,7 @@ global $pdo;
 global $idc;
 
 if ($_POST['module'] == 'addArticle') {
-    if ($idc != 2) {
+    if ($idc != 1) {
         exit;
     } else {
         $query = $pdo->prepare('INSERT INTO blog(url, language, article_name, article_text, category, description, publish_date) values (:url, :language, :articleName, :articleText, :category, :description, :publishDate)');
