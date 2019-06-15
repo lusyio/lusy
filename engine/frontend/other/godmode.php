@@ -11,9 +11,27 @@
             <li>Управление тарифами и лимитами</li>
             <li>Управление ачивками</li>
         </ul>
+        <div class="articles-list">
+            <?php foreach ($articlesList as $article): ?>
+            <div class="article" data-article-id="<?=$article['article_id']?>">
+                <h4 class="article-name"><?=$article['article_name']?></h4>
+                <h5 class="article-category"><?=$article['category']?></h5>
+                <h5 class="article-date"><?= date('Y-m-d', $article['publish_date']); ?></h5>
+                <h5 class="article-url"><?=$article['url']?></h5>
+                <div class="article-description"><?=$article['description']?></div>
+                <a href="#" class="show-article-text">Показать/скрыть</a>
+                <a href="#" class="edit-article">Редактировать</a>
+                <div class="article-text d-none">
+                    <?=$article['article_text']?>
+                </div>
+                <a href="#" class="article-text d-none">Показать/скрыть</a>
+            </div>
+            <?php endforeach; ?>
+        </div>
         <div class="add-article">
             <form method="post" id="addArticle" class="form-group">
                 <h5 class="text-center mb-3">Добавление статьи</h5>
+                <input class="form-control mb-1" id="articleId" type="hidden" placeholder="id" value="0">
                 <input class="form-control mb-1" id="articleTitle" type="text" placeholder="Заголовок">
                 <input class="form-control mb-1" id="articleUrl" placeholder="ЧПУ">
                 <input class="form-control mb-1" id="articleCategory" placeholder="Категория">
@@ -28,15 +46,42 @@
 
 <script>
     $(document).ready(function () {
+        $('.edit-article').on('click', function (e) {
+            e.preventDefault();
+           var $parentDiv = $(this).closest('.article');
+           $('#articleId').val($parentDiv.data('article-id'));
+           $('#articleTitle').val($parentDiv.find('.article-name').text().trim());
+           $('#articleUrl').val($parentDiv.find('.article-url').text().trim());
+           $('#articleCategory').val($parentDiv.find('.article-category').text().trim());
+           $('#articleDescription').val($parentDiv.find('.article-description').html().trim());
+           $('#articleText').val($parentDiv.find('.article-text').html().trim());
+           $('#articleDate').val($parentDiv.find('.article-date').text().trim());
+        });
+
+        $('.show-article-text').on('click', function (e) {
+            e.preventDefault();
+           var text = $(this).siblings('.article-text');
+           if (text.hasClass('d-none')) {
+               text.removeClass('d-none')
+           } else {
+               text.addClass('d-none')
+           }
+        });
         $('#sendArticle').on('click', function (e) {
             e.preventDefault();
+            if ($('#articleId').val() == '0') {
+                var module = 'addArticle'
+            } else {
+                var module = 'updateArticle'
+            }
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
                 cache: false,
                 data: {
                     ajax: 'godmode',
-                    module: 'addArticle',
+                    module: module,
+                    articleId: $('#articleId').val(),
                     articleTitle: $('#articleTitle').val(),
                     articleUrl: $('#articleUrl').val(),
                     articleCategory: $('#articleCategory').val(),

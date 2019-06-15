@@ -28,3 +28,7 @@ while (count($eventsCount) < 24 && $t <= $endTime) {
     $t += 60 * 60;
 }
 
+$articlesQuery = $pdo->prepare('SELECT article_id, url, language, article_name, article_text, category, description, publish_date FROM blog');
+$articlesQuery->execute();
+$articlesList = $articlesQuery->fetchAll(PDO::FETCH_ASSOC);
+
