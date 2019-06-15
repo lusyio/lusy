@@ -1,5 +1,11 @@
 <?php
+global $idc;
 global $pdo;
+
+if ($idc != 1) {
+    header('Location: /');
+}
+
 $startTime = strtotime(date('Y-m-d'));
 $endTime = time();
 $eventsCountSql = $pdo->prepare('SELECT COUNT(ALL *) as count, datetime - datetime%(60*60) as period FROM events WHERE datetime between :startTime AND :endTime GROUP BY datetime - datetime%(60*60)');
