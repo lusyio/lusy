@@ -56,13 +56,17 @@
         })
     });
     function createConfig(details, data) {
+        var hours = [];
+        for (var i = 0; i < 24; i++) {
+            hours.push(i + ':00');
+        }
         return {
             type: 'line',
             data: {
-                labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00'],
+                labels: hours,
                 datasets: [{
                     steppedLine: details.steppedLine,
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: <?= json_encode($eventsCount); ?>,
                     borderColor: details.color,
                     fill: false,
                 }]
