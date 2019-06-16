@@ -1,11 +1,56 @@
 <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
-<div class="card">
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="chart"></div>
+            </div>
+            <div class="col-sm-4">
+                <p style=" font-size: 2.1em; margin-bottom: -10px; ">?</p>
+                <small class="text-secondary">Активных компаний</small>
+                <hr>
+                <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countCompanies?></span><small class="text-secondary">компаний зарегистрировано</small></div>
+                <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countUsers?></span><small class="text-secondary">пользователей</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mb-0"><?=$countTasks?></h4>
+                <small class="text-secondary">задач</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mb-0"><?=$countComments?></h4>
+                <small class="text-secondary">комментарий</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mb-0"><?=$countMail?></h4>
+                <small class="text-secondary">сообщений</small>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card d-none">
     <div class="card-body">
         <h5 class="text-center mb-3">Кол-во событий в системе за 24 часа</h5>
         <div class="chart mb-3"></div>
 
         <ul>
-            <li>Общая статистика по системе (кол-во компаний, платных/бесплатных, пользователей, задач, комментариев и тд)</li>
+            <li>Общая статистика по системе (кол-во компаний, платных/бесплатных, пользователей, задач, комментариев и
+                тд)
+            </li>
             <li>Отладка - учет ошибок php и sql</li>
             <li>Добавление статей на сайт</li>
             <li>Управление тарифами и лимитами</li>
@@ -13,25 +58,38 @@
         </ul>
     </div>
 </div>
-<div class="card mt-3">
+<div class="d-flex mt-3">
+    <button type="button" data-toggle="collapse" href="#articles" role="button" aria-expanded="false"
+            aria-controls="articles" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
+                class="fas fa-file-alt h3 mb-0 mt-2"></i>
+        <p class="mb-0">Статьи</p></button>
+    <button type="button" data-toggle="collapse" href="#emails" role="button" aria-expanded="false"
+            aria-controls="emails" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
+                class="fas fa-envelope h3 mb-0 mt-2"></i>
+        <p class="mb-0">Письма</p></button>
+</div>
+<div class="card mt-3 collapse" id="articles">
     <div class="card-body">
         <h5 class="text-center mb-3">Статьи</h5>
         <div class="articles-list">
             <?php foreach ($articlesList as $article): ?>
-            <div class="article mb-2" data-article-id="<?=$article['article_id']?>">
-                <p class="article-name font-weight-bold"><?=$article['article_name']?></p>
-                <p class="article-category"><?=$article['category']?></p>
-                <p class="article-date"><?= date('Y-m-d', $article['publish_date']); ?></p>
-                <p class="article-url font-italic"><?=$article['url']?></p>
-                <div class="article-description text-muted"><?=$article['description']?></div>
-                <button class="btn btn-outline-primary show-article-text btn-sm">Показать/скрыть полный текст</button>
-                <button class="btn btn-outline-warning edit-article btn-sm">Редактировать</button>
-                <div class="article-text mt-3 d-none">
-                    <?=$article['article_text']?>
+                <div class="article mb-2" data-article-id="<?= $article['article_id'] ?>">
+                    <p class="article-name font-weight-bold"><?= $article['article_name'] ?></p>
+                    <p class="article-category"><?= $article['category'] ?></p>
+                    <p class="article-date"><?= date('Y-m-d', $article['publish_date']); ?></p>
+                    <p class="article-url font-italic"><?= $article['url'] ?></p>
+                    <div class="article-description text-muted"><?= $article['description'] ?></div>
+                    <button class="btn btn-outline-primary show-article-text btn-sm">Показать/скрыть полный текст
+                    </button>
+                    <button class="btn btn-outline-warning edit-article btn-sm">Редактировать</button>
+                    <div class="article-text mt-3 d-none">
+                        <?= $article['article_text'] ?>
+                    </div>
+                    <button class="btn btn-outline-primary show-article-text article-text btn-sm d-none">Показать/скрыть
+                        полный текст
+                    </button>
                 </div>
-                <button class="btn btn-outline-primary show-article-text article-text btn-sm d-none">Показать/скрыть полный текст</button>
-            </div>
-            <hr>
+                <hr>
             <?php endforeach; ?>
         </div>
         <div class="add-article">
@@ -49,7 +107,7 @@
         </div>
     </div>
 </div>
-<div class="card mt-3">
+<div class="card mt-3 collapse" id="emails">
     <div class="card-body">
         <h5 class="text-center mb-3">Шаблоны e-mail</h5>
         <div class="mail-templates-list">
@@ -76,19 +134,21 @@
         <div class="mail-template-edit">
             <div class="mail-edit">
                 <label for="mailBody">content-header.php</label>
-                <textarea class="form-control mb-1" id="mailHeader" rows="6"><?php include $emailTemplatesDir . 'content-header.php'; ?></textarea>
+                <textarea class="form-control mb-1" id="mailHeader"
+                          rows="6"><?php include $emailTemplatesDir . 'content-header.php'; ?></textarea>
                 <button class="form-control btn btn-outline-warning">Сохранить</button>
             </div>
             <div class="mail-edit">
                 <label for="mailBody">Body</label>
                 <input id="bodyFileName" class="body-filename" value="" hidden>
                 <input class="form-control mb-1 body-filename" value="" disabled>
-                <textarea class="form-control mb-1" id="mailBody"rows="8"></textarea>
+                <textarea class="form-control mb-1" id="mailBody" rows="8"></textarea>
                 <button class="form-control btn btn-outline-warning">Сохранить</button>
             </div>
             <div class="mail-edit">
                 <label for="mailFooter">content-footer.php</label>
-                <textarea class="form-control mb-1" id="mailFooter" rows="6"><?php include $emailTemplatesDir . 'content-footer.php'; ?></textarea>
+                <textarea class="form-control mb-1" id="mailFooter"
+                          rows="6"><?php include $emailTemplatesDir . 'content-footer.php'; ?></textarea>
                 <button class="form-control btn btn-outline-warning">Сохранить</button>
             </div>
 
@@ -96,77 +156,14 @@
         </div>
     </div>
 </div>
-
 <script>
-    $(document).ready(function () {
-        $('.edit-mail-body').on('click', function () {
-           $('#mailBody').val($(this).closest('.mail-template').find('.mail-body').html());
-           $('.body-filename').val($(this).closest('.mail-template').find('.mail-template-name').text() );
-           $('#bodyFileName').val($(this).closest('.mail-template').find('.mail-template-name').text() );
-        });
-
-
-        $('.edit-article').on('click', function (e) {
-            e.preventDefault();
-           var $parentDiv = $(this).closest('.article');
-           $('#articleId').val($parentDiv.data('article-id'));
-           $('#articleTitle').val($parentDiv.find('.article-name').text().trim());
-           $('#articleUrl').val($parentDiv.find('.article-url').text().trim());
-           $('#articleCategory').val($parentDiv.find('.article-category').text().trim());
-           $('#articleDescription').val($parentDiv.find('.article-description').html().trim());
-           $('#articleText').val($parentDiv.find('.article-text').html().trim());
-           $('#articleDate').val($parentDiv.find('.article-date').text().trim());
-        });
-
-        $('.show-article-text').on('click', function (e) {
-            e.preventDefault();
-           var text = $(this).closest('.article').find('.article-text');
-           if (text.hasClass('d-none')) {
-               text.removeClass('d-none');
-           } else {
-               text.addClass('d-none')
-           }
-        });
-        $('#sendArticle').on('click', function (e) {
-            e.preventDefault();
-            if ($('#articleId').val() == '0') {
-                var module = 'addArticle'
-            } else {
-                var module = 'updateArticle'
-            }
-            $.ajax({
-                url: '/ajax.php',
-                type: 'POST',
-                cache: false,
-                data: {
-                    ajax: 'godmode',
-                    module: module,
-                    articleId: $('#articleId').val(),
-                    articleTitle: $('#articleTitle').val(),
-                    articleUrl: $('#articleUrl').val(),
-                    articleCategory: $('#articleCategory').val(),
-                    articleDescription: $('#articleDescription').val(),
-                    articleText: $('#articleText').val(),
-                    articleDate: $('#articleDate').val(),
-                },
-                success: function (response) {
-                    if (response === '1') {
-                        $('#addArticle')[0].reset();
-                    } else {
-                        console.log('Error');
-                        console.log(response);
-                    }
-                }
-            });
-        })
-    });
     function createConfig(details, data) {
         var hours = [];
         for (var i = 0; i < 24; i++) {
             hours.push(i + ':00');
         }
         return {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: hours,
                 datasets: [{
@@ -188,7 +185,8 @@
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            stepSize: 1
                         }
                     }]
                 }
@@ -229,4 +227,5 @@
         });
     };
 </script>
+<script src="/assets/js/godmode.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>

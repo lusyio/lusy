@@ -6,6 +6,11 @@ if ($idc != 1) {
     header('Location: /');
 }
 
+$countCompanies = DBOnce('count(*)','company','');
+$countUsers = DBOnce('count(*)','users','');
+$countTasks = DBOnce('count(*)','tasks','');
+$countComments = DBOnce('count(*)','comments','status="comment"');
+$countMail = DBOnce('count(*)','mail','');
 $startTime = strtotime(date('Y-m-d'));
 $endTime = time();
 $eventsCountSql = $pdo->prepare('SELECT COUNT(ALL *) as count, datetime - datetime%(60*60) as period FROM events WHERE datetime between :startTime AND :endTime GROUP BY datetime - datetime%(60*60)');
