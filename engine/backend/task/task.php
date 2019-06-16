@@ -98,7 +98,10 @@ if ($worker == $id) {
     if ($view == '0') {
         $setViewedQuery = $pdo->prepare('UPDATE `tasks` SET view = :viewState where id = :taskId');
         $setViewedQuery->execute(array('viewState' => 1, ':taskId' => $idtask));
-        addEvent('viewtask', $idtask, '', $manager);
+        $isOldTask = (boolean) DBOnce('count(*)', 'events', 'task_id='.$idtask.' and action="viewtask"');
+        if (!$isOldTask) {
+            addEvent('viewtask', $idtask, '', $manager);
+        }
     }
 }
 
