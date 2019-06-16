@@ -163,8 +163,9 @@ if ($id == $worker and $view == 0) {
                                             class="avatar ml-1"></span>
                             <?php endforeach; ?>
                         </div>
-                        <?php
-                        include 'engine/frontend/members/members.php';
+                        <?php if ($role == 'manager') {
+                            include 'engine/frontend/members/members.php';
+                        }
                         ?>
                     </div>
                 </div>
