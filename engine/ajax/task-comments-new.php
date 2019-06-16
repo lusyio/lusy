@@ -1,6 +1,6 @@
 <?php 
 $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
-$text = filter_var($_POST['text'], FILTER_SANITIZE_SPECIAL_CHARS);
+$text = filter_var(trim($_POST['text']), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 $datetime = time();
 setcookie($idtask, localDateTime($datetime), time() + 60 * 60 * 24 * 30, '/');

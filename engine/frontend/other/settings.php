@@ -92,8 +92,7 @@
                 </div>
                 <div class="input-group mt-3">
                     <textarea rows="3" id="settingsDescription" name="settingsDescription" type="text"
-                              class="form-control input-settings  name"><?= $userData['about']; ?>
-                    </textarea>
+                              class="form-control input-settings  name"><?= $userData['about']; ?></textarea>
                 </div>
                 <small class="text-muted text-muted-reg">
                     <?= $GLOBALS['_aboutsettings'] ?>
@@ -317,10 +316,10 @@
             var fd = new FormData();
 
             fd.append('ajax', 'settings');
-            fd.append('module', 'changeData');
+            fd.append('module', 'changePassword');
             fd.append('newPassword', newPassword);
             fd.append('password', password);
-            if (password) {
+            if (password && newPassword) {
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -331,7 +330,6 @@
                     data: fd,
                     success: function (data) {
                         location.reload();
-                        console.log('success')
                     },
                 });
             } else {

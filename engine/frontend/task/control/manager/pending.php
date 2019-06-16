@@ -3,7 +3,7 @@
 <div class="postpone-manager">
     <div class="report">
         <h4 class="text-ligther">Отчет:</h4>
-        <p><?=$report?></p>
+        <p><?= nl2br(htmlspecialchars($report)) ?></p>
         <?php if (count($files) > 0): ?>
             <p class="">Прикрепленнные файлы:</p>
             <?php foreach ($files as $file): ?>

@@ -16,7 +16,6 @@ $messageStatus = DBOnce('status', 'comments', "idtask=" . $idtask . " and (statu
 $note = '';
 $displayNote = 'd-none';
 if ($request != false) {
-	$request = nl2br($request);
 	$displayNote = '';
 	if ($messageStatus == 'returned') {
 		$note = 'Причина возврата:';

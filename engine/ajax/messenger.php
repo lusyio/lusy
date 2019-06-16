@@ -9,7 +9,7 @@ global $idc;
 require_once 'engine/backend/functions/common-functions.php';
 
 if ($_POST['module'] == 'sendMessage') {
-    $mes = filter_var($_POST['mes'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $mes = filter_var($_POST['mes'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $recipientId = filter_var($_POST['recipientId'], FILTER_SANITIZE_NUMBER_INT);
     $messageTime = time();
     if (!empty($mes)) {

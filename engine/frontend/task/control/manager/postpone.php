@@ -10,7 +10,7 @@
         </p>
         <div>
             <h5>Причина:</h5>
-            <?=$request?>
+            <?=nl2br(htmlspecialchars($request))?>
         </div>
         <div class="pl-2">
             <i class="fas fa-check custom-date accept" id="confirmDate"></i><i class="fas fa-times custom-date cancel" id="cancelDate"></i>

@@ -6,7 +6,7 @@
 <div class="postpone-manager <?=$displayNote?>" id="inwork-postpone-manager">
     <div class="report">
         <h4 class="text-ligther"><?=$note?></h4>
-        <p><?=$request?></p>
+        <p><?=nl2br(htmlspecialchars($request))?></p>
     </div>
 </div>
 

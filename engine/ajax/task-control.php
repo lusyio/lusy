@@ -27,7 +27,7 @@ if ($roleu == 'ceo') {
 }
 
 if($_POST['module'] == 'sendonreview' && $isWorker) {
-    $report = filter_var($_POST['text'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $report = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
     setStatus($idtask, 'pending');
     $commentId = addSendOnReviewComments($idtask, $report);
@@ -41,7 +41,7 @@ if($_POST['module'] == 'sendonreview' && $isWorker) {
 }
 
 if($_POST['module'] == 'sendpostpone' && $isWorker) {
-	$text = filter_var($_POST['text'], FILTER_SANITIZE_SPECIAL_CHARS);
+	$text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$datepostpone = filter_var($_POST['datepostpone'],FILTER_SANITIZE_SPECIAL_CHARS);
 	$status = 'request:' . strtotime($datepostpone);
 
@@ -77,7 +77,7 @@ if($_POST['module'] == 'cancelTask' && $isManager) {
 
 if($_POST['module'] == 'workreturn' && $isManager) {
 	$datepostpone = filter_var($_POST['datepostpone'], FILTER_SANITIZE_SPECIAL_CHARS);
-	$text = filter_var($_POST['text'], FILTER_SANITIZE_SPECIAL_CHARS);
+	$text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	setStatus($idtask, 'returned', strtotime($datepostpone));
 	$commentId = addWorkReturnComments($idtask, strtotime($datepostpone), $text);
