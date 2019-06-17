@@ -35,8 +35,8 @@ if ($isAuthorized) {
             $_SESSION['idc'] = DBOnce('idcompany', 'users', 'id="' . $_SESSION['id'] . '"');
         }
         if ($_GET['avatar'] == $_SESSION['idc']) {
-            $file = 'upload/avatar/' . $_GET['avatar'] . '/' . $_GET['name'] . '.png';
-            header('Content-type: image/png');
+            $file = 'upload/avatar/' . $_GET['avatar'] . '/' . $_GET['name'] . '.jpg';
+            header('Content-type: image/jpg');
             readfile($file);
             die();
         } else {
