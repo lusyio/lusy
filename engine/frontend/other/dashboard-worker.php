@@ -12,7 +12,7 @@
                         Это информационные слайды 🤔
                     </div>
                 </div>
-                <?php if ($userData['name'] == null && $userData['surname'] == null) :  ?>
+                <?php if (empty($userData['name']) && empty($userData['surname'])):  ?>
                 <div class="carousel-item">
                     <div class="slide-dashboard">
                         <span>У Вас не указаны имя и фамилия</span>
@@ -20,7 +20,7 @@
                         <span>Давайте познакомимся! 🖖</span>
                     </div>
                 </div>
-                <?php endif ?>
+                <?php endif; ?>
                 <div class="carousel-item">
                     <div class="slide-dashboard">
                         <span>Отличная работа! Ваша статистика задач:</span>
