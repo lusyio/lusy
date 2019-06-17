@@ -1,3 +1,4 @@
+<script src="/assets/js/circle-progress.min.js"></script>
 <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-md-10 col-xl-10">
         <div class="card">
@@ -63,4 +64,52 @@
         </div>
     </div>
 </div>
+
+<div class="row justify-content-center mt-3">
+    <div class="col-12 col-lg-10 col-md-10 col-xl-10">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="ml-4">Достижения</h4>
+                <hr class="m-0">
+                <div class="d-flex">
+                    <div class="col-1 mt-3 ml-2 achievement-sm" title="Решебник 1">
+                        <div class="circle-sm" data-value="1"></div>
+                        <div class="award-star award-sm">
+                            <i class="fas fa-star" style="color: white;"></i>
+                        </div>
+                    </div>
+                    <div class="col-1 mt-3 ml-2 achievement-sm" title="Комментатор 1">
+                        <div class="circle-sm" data-value="1"></div>
+                        <div class="award-star award-sm bg-warning">
+                            <i class="fas fa-comments" style="color: white;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.circle-sm').circleProgress({
+        size: 45,
+        fill: {
+            gradient: ["red", "orange"]
+        }
+    });
+
+    $('.circle-md').circleProgress({
+        size: 75,
+        fill: {
+            gradient: ["red", "orange"]
+        }
+    });
+
+    $('.circle').circleProgress({
+        size: 75,
+        fill: {
+            gradient: ["red", "orange"]
+        }
+    });
+</script>
 

@@ -71,7 +71,7 @@
                         if (e.data.senderId == $userId) {
                             $("#mes").val('');
                         }
-                        $('#chatBox').append(response);
+                        $('#chatBox').append(response).scrollTop($("#chatBox")[0].scrollHeight);
                         getCounters(function (data) {
                             updateCounters(data);
                         });
@@ -184,6 +184,7 @@
                         $("#mes").val('');
                         $(".filenames").html("");
                         attachedFiles = [];
+
                     },
                 });
                 $("#mes").removeClass('border-danger');
