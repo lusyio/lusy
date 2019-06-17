@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="mb-2">
-            <input type="text" id="name" class="form-control" placeholder="<?= $GLOBALS['_namenewtask'] ?>" required>
+            <input type="text" id="name" class="form-control" placeholder="<?= $GLOBALS['_namenewtask'] ?>" autocomplete="off" autofocus required>
         </div>
         <div id="editor" class="mb-2">
         </div>
