@@ -146,7 +146,7 @@ function prepareFileList(array &$fileList) {
 
 /**
  * При необходимости конвертирует размер переданный в байтах
- * в нормальный вид (1-1023 Б, 1-1023 КБ или 1-... МБ)
+ * в нормальный вид (1-1023 Б, 1-1023 КБ, 1-... МБ ли 1-... ГБ)
  * и возвращает массив из элементов ['size']['suffix']
  * @param int $size размер в байтах
  * @return array ['size'] - конвертированное значение ['suffix'] - суффикс/размерность
@@ -154,7 +154,10 @@ function prepareFileList(array &$fileList) {
 function normalizeSize($size)
 {
     $result = [];
-    if ($size >= 1024 * 1024) {
+    if ($size >= 1024 * 1024 * 1024) {
+        $result['size'] = round($size / (1024 * 1024 * 1024));
+        $result['suffix'] = 'ГБ';
+    } elseif ($size >= 1024 * 1024) {
         $result['size'] = round($size / (1024 * 1024));
         $result['suffix'] = 'МБ';
     } elseif ($size >= 1024) {
