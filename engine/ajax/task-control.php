@@ -143,7 +143,7 @@ if($_POST['module'] == 'createTask') {
 //отклонение запроса на перенос срока
 
 if ($_POST['module'] == 'cancelDate' && $isManager) {
-	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = null WHERE id=" . $idtask); //TODO нужно разобраться со статусами
+	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork' WHERE id=" . $idtask); //TODO нужно разобраться со статусами
 	$sql->execute();
 
     addChangeDateComments($idtask, 'canceldate');
@@ -159,7 +159,7 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 	$datepostpone = preg_split('~:~', $statusWithDate)[1];
 	setStatus($idtask, 'inwork', $datepostpone);
 
-	addChangeDateComments($idtask, 'confirmdate');
+	addChangeDateComments($idtask, 'confirmdate', $datepostpone);
     resetViewStatus($idtask);
     addEvent('confirmdate', $idtask, $datepostpone);
 
@@ -167,10 +167,10 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 
 if ($_POST['module'] == 'sendDate' && $isManager) {
 	$datepostpone = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS));
-	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', `datepostpone` = :datepostpone, `view` = 0 WHERE id=".$idtask);
+	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', datedone = :datepostpone, `view` = 0 WHERE id=".$idtask);
 	$sql->execute(array('datepostpone' => $datepostpone));
 
-    addChangeDateComments($idtask, 'senddate');
+    addChangeDateComments($idtask, 'senddate', $datepostpone);
     resetViewStatus($idtask);
     addEvent('senddate', $idtask, $datepostpone);
 

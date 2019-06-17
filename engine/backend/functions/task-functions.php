@@ -10,7 +10,7 @@ function setStatus($taskId, $status, $postponeDate = null)
             ':status' => $status
         ];
     } else {
-        $sql = $pdo->prepare('UPDATE `tasks` SET `status` = :status, datepostpone = :datepostpone WHERE id = :taskId');
+        $sql = $pdo->prepare('UPDATE `tasks` SET `status` = :status, datedone = :datepostpone WHERE id = :taskId');
         $data = [
             ':taskId' => $taskId,
             ':status' => $status,
@@ -84,7 +84,7 @@ function addPostponeComments($taskId, $date, $text)
     $commentId = $pdo->lastInsertId();
     echo $commentId;
     $commentData[':status'] = 'system';
-    $commentData[':commentText'] = 'postpone';
+    $commentData[':commentText'] = 'postpone:' . $date;
     $sql->execute($commentData);
 
     return $commentId;
@@ -109,7 +109,7 @@ function addWorkReturnComments($taskId, $date, $text)
     $commentId = $pdo->lastInsertId();
 
     $commentData[':status'] = 'system';
-    $commentData[':commentText'] = 'returned';
+    $commentData[':commentText'] = 'returned:' . $date;
     $sql->execute($commentData);
 
     return $commentId;
@@ -156,16 +156,22 @@ function addTaskCreateComments($taskId, $workerId, $coworkers)
     }
 }
 
-function addChangeDateComments($taskId, $status)
+function addChangeDateComments($taskId, $status, $date = null)
 {
     global $id;
     global $pdo;
+
+    if (is_null($date)) {
+        $commentStatus = $status;
+    } else {
+        $commentStatus = $status . ':' . $date;
+    }
 
     $sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :commentText, `iduser` = :iduser, `idtask` = :idtask, `status` = :status, `view`=0, `datetime` = :datetime");
 
     $commentData = [
         ':status' => 'system',
-        ':commentText' => $status,
+        ':commentText' => $commentStatus,
         ':iduser' => $id,
         ':idtask' => $taskId,
         ':datetime' => time(),
@@ -192,6 +198,7 @@ function addChangeExecutorsComments($taskId, $action, $executorId)
     ];
     $sql->execute($commentData);
 }
+
 function addOverdueComment($taskId)
 {
     global $pdo;

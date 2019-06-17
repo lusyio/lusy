@@ -501,5 +501,9 @@ $(document).ready(function () {
             }
         });
     }));
+    $("#comments").on('mouseover', '.new-event', (function () {
+            $(this).removeClass('new-event');
+        })
+    );
 
 });

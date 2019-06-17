@@ -58,22 +58,16 @@ $workersurname = $task['workerSurname'];
 
 $datecreate = date("d.m.Y", $task['datecreate']);
 $datedone = date("d.m", $task['datedone']);
-if ($task['datepostpone'] == '0000-00-00' || $task['datepostpone'] == '') {
-    $actualDeadline = $task['datedone'];
-} else {
-    $actualDeadline = $task['datepostpone'];
-}
+$actualDeadline = $task['datedone'];
+
 $dayDone = date('j', $actualDeadline);
 $monthDone = $_months[date('n', $actualDeadline) - 1];
 
 $nowdate = date("d.m.Y");
 $dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 
-if (!is_null($task['datepostpone']) && $task['datepostpone'] != 0) {
-    $dateProgress = getDateProgress($task['datepostpone'], $task['datecreate']);
-} else {
-    $dateProgress = getDateProgress($task['datedone'], $task['datecreate']);
-}
+$dateProgress = getDateProgress($task['datedone'], $actualDeadline);
+
 
 $view = $task['view'];
 $viewState = '';
@@ -132,4 +126,9 @@ ob_end_flush();
 
 if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
     $status = 'inwork';
+}
+
+$enableComments = true;
+if ($status == 'done' || $status == 'canceled') {
+    $enableComments = false;
 }
