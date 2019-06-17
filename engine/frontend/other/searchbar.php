@@ -92,6 +92,10 @@
             $(".popUpDiv").fadeToggle(200);
         });
 
+        $('.popUpDiv').on('mouseleave', function () {
+            $('.popUpDiv').fadeOut(200);
+        });
+
         $(document).on('click', function (e) {
             if (!$(e.target).closest("#filterSelect").length) {
                 $('.popUpDiv').fadeOut(200);

@@ -913,6 +913,18 @@ input:checked[type="checkbox"]::before {
     transition: 200ms;
 }
 
+.complete-awards::after {
+    width: 241px;
+    height: 279px;
+    content: "";
+    background: url(/upload/bg-sprinkles.svg);
+    opacity: 0.15;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 2;
+}
+
 .avatar-added {
     vertical-align: middle;
     width: 20px;

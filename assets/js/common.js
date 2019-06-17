@@ -287,8 +287,8 @@ function setMobileIndicator(counts) {
         }
     });
     if (hasNewCounts) {
-        $('.top-sidebar-indicator').show();
+        $('.top-sidebar-indicator').removeClass('d-none');
     } else {
-        $('.top-sidebar-indicator').hide();
+        $('.top-sidebar-indicator').addClass('d-none');
     }
 }
