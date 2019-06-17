@@ -102,6 +102,10 @@
                 <textarea class="form-control mb-1" id="articleDescription" placeholder="Краткое описание"></textarea>
                 <textarea class="form-control mb-1" id="articleText" placeholder="Полный текст"></textarea>
                 <input type="date" id="articleDate" class="form-control mb-1">
+                <label for="imgSmall">Миниатюра</label>
+                <input class="form-control" type="file" id="imgSmall" name="img_small">
+                <label for="imgFull">Полное изображение</label>
+                <input class="form-control" type="file" id="imgFull" name="img_full">
                 <button type="button" class="show-preview-modal btn btn-outline-primary" data-preview-type="article">
                     Предварительный просмотр
                 </button>

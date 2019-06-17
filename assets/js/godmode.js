@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     $('.show-preview-modal').on('click', function () {
         if ($(this).data('preview-type') == 'mail') {
             var modalContent = $('#mailHeader').val();
@@ -42,26 +43,31 @@ $(document).ready(function () {
 
     $('#sendArticle').on('click', function (e) {
         e.preventDefault();
+        var fd = new FormData;
+        fd.append('ajax','godmode');
+        fd.append('articleId',$('#articleId').val());
+        fd.append('articleTitle',$('#articleTitle').val());
+        fd.append('articleUrl',$('#articleUrl').val());
+        fd.append('articleCategory',$('#articleCategory').val());
+        fd.append('articleDescription',$('#articleDescription').val());
+        fd.append('articleText',$('#articleText').val());
+        fd.append('articleDate',$('#articleDate').val());
+        fd.append('imgSmall', $('#imgSmall').prop('files')[0]);
+        fd.append('imgFull', $('#imgFull').prop('files')[0]);
+
         if ($('#articleId').val() == '0') {
-            var module = 'addArticle'
+            fd.append('module', 'addArticle');
         } else {
-            var module = 'updateArticle'
+            fd.append('module', 'updateArticle');
         }
+
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
             cache: false,
-            data: {
-                ajax: 'godmode',
-                module: module,
-                articleId: $('#articleId').val(),
-                articleTitle: $('#articleTitle').val(),
-                articleUrl: $('#articleUrl').val(),
-                articleCategory: $('#articleCategory').val(),
-                articleDescription: $('#articleDescription').val(),
-                articleText: $('#articleText').val(),
-                articleDate: $('#articleDate').val(),
-            },
+            processData: false,
+            contentType: false,
+            data: fd,
             success: function (response) {
                 if (response === '1') {
                     $('#addArticle')[0].reset();
