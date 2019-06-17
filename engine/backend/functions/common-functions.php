@@ -176,6 +176,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
     }
 
     if ($action == 'overdue') {
+        $idc = DBOnce('idcompany', 'tasks', 'id=' . (int) $taskId);
         $eventDataForManager = [
             ':action' => $action,
             ':taskId' => $taskId,
