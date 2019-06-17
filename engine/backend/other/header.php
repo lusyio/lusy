@@ -30,14 +30,15 @@ if ($isAuthorized) {
         }
     }
     // загрузка аватарки
-    if (!empty($_GET['avatar']) && !empty($_GET['name'])) {
+    if (isset($_GET['avatar']) && !empty($_GET['name'])) {
         if (empty($_SESSION['idc'])) {
             $_SESSION['idc'] = DBOnce('idcompany', 'users', 'id="' . $_SESSION['id'] . '"');
         }
-        if ($_GET['avatar'] == $_SESSION['idc'] || $_GET['avatar'] = 0) {
+        if ($_GET['avatar'] == '0' || $_GET['avatar'] == $_SESSION['idc']) {
             $file = 'upload/avatar/' . $_GET['avatar'] . '/' . $_GET['name'] . '.jpg';
             $last_modified_time = filemtime($file);
             $etag = md5_file($file);
+            ob_clean();
             header("Last-Modified: ".gmdate("D, d M Y H:i:s", $last_modified_time)." GMT");
             header("Etag: $etag");
             if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $last_modified_time || @trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag) {
