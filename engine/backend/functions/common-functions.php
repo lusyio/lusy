@@ -11,6 +11,20 @@ function uploadAttachedFiles($type, $eventId)
     global $pdo;
     global $idc;
     global $id;
+
+    require_once 'engine/backend/functions/storage-functions.php';
+
+    $providedStorageSpace = getProvidedStorageSpace();
+    $companyTotalFilesSize = getCompanyFilesTotalSize();
+    $availableSpace = $providedStorageSpace - $companyTotalFilesSize;
+    $uploadFilesSize = 0;
+    foreach ($_FILES as $file) {
+        $uploadFilesSize += $file['size'];
+    }
+    if ($uploadFilesSize > $availableSpace) {
+        return;
+    }
+
     $maxFileSize = 20 * 1024 * 1024;
     $types = ['task', 'comment', 'conversation'];
     if (!in_array($type, $types)) {

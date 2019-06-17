@@ -170,10 +170,7 @@ if ($id == $worker and $view == 0) {
                     </div>
                 </div>
             </div>
-
-
             <div class="mt-5 mb-5 text-justify"><?= $description ?></div>
-
             <?php if (count($files) > 0): ?>
                 <?php foreach ($files as $file): ?>
                     <?php if ($file['is_deleted']): ?>
@@ -194,8 +191,7 @@ if ($id == $worker and $view == 0) {
             </div>
         </div>
     </div>
-
-
+<?php if ($enableComments): ?>
     <div class="card mt-3">
         <div class="card-body">
             <div class="d-flex comin">
@@ -212,7 +208,7 @@ if ($id == $worker and $view == 0) {
             </div>
         </div>
     </div>
-
+<?php endif; ?>
     <div class="card mt-3">
         <div class="card-body">
             <?php include 'engine/frontend/task/notyfeed.php' ?>
