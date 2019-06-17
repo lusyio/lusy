@@ -36,7 +36,9 @@ if ($isAuthorized) {
         }
         if ($_GET['avatar'] == $_SESSION['idc']) {
             $file = 'upload/avatar/' . $_GET['avatar'] . '/' . $_GET['name'] . '.jpg';
-            header('Content-type: image/jpg');
+            header('Content-type: image/jpeg');
+            header("Cache-Control: private");
+            header("Cache-Control: max-age=2592000");
             readfile($file);
             die();
         } else {

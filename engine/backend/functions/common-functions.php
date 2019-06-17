@@ -632,7 +632,11 @@ function addMassSystemEvent($action, $comment = '', $companyId = '')
 
 function getAvatarLink($userId)
 {
-    global $idc;
+    if ($userId == 1) {
+        $idc = 0;
+    } else {
+        global $idc;
+    }
     $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.jpg';
     $alterAvatarPath = 'upload/avatar/' . $idc . '/' . $userId . '-alter.jpg';
     if (file_exists($avatarPath)) {
@@ -651,7 +655,11 @@ function getAvatarLink($userId)
  */
 function createAlterAvatar($userId)
 {
-    global $idc;
+    if ($userId == 1) {
+        $idc = 0;
+    } else {
+        global $idc;
+    }
 
     // Получаем из БД имя и фамилию пользователя, обрезаем до одной  буквы если пустые - заменяем точками
     $userName = trim(DBOnce('name', 'users', 'id=' . $userId));
