@@ -34,7 +34,7 @@ if ($isAuthorized) {
         if (empty($_SESSION['idc'])) {
             $_SESSION['idc'] = DBOnce('idcompany', 'users', 'id="' . $_SESSION['id'] . '"');
         }
-        if ($_GET['avatar'] == $_SESSION['idc']) {
+        if ($_GET['avatar'] == $_SESSION['idc'] || $_GET['avatar'] = 0) {
             $file = 'upload/avatar/' . $_GET['avatar'] . '/' . $_GET['name'] . '.jpg';
             $last_modified_time = filemtime($file);
             $etag = md5_file($file);
