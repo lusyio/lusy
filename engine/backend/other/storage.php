@@ -5,7 +5,6 @@ global $cometHash;
 global $cometTrackChannelName;
 global $roleu;
 
-
 require_once 'engine/backend/functions/storage-functions.php';
 
 $companyTotalFilesSize = getCompanyFilesTotalSize();
@@ -14,7 +13,7 @@ $normalizedCompanyFilesSize = normalizeSize($companyTotalFilesSize);
 $userTotalFilesSize = getUserFilesTotalSize();
 $normalizedUserFilesSize = normalizeSize($userTotalFilesSize);
 
-$providedSpace = 100 * 1024 * 1024;
+$providedSpace = getProvidedStorageSpace();
 $normalizedProvidedSpace = normalizeSize($providedSpace);
 
 $companyUsageSpacePercent = round($companyTotalFilesSize * 100 / $providedSpace);

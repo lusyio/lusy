@@ -170,3 +170,20 @@ function normalizeSize($size)
     return $result;
 }
 
+/**
+ * Возвращает максимальный объем хранилища файлов в соответствии с тарифом компании
+ * @return float|int Объем хранилища в байтах
+ */
+function getProvidedStorageSpace()
+{
+    global $idc;
+
+    $tariff = DBOnce('tariff', 'company', 'id='.$idc);
+    if ($tariff == 1) {
+        $providedSpace = 1024 * 1024 * 1024;
+    } else {
+        $providedSpace = 100 * 1024 * 1024;
+    }
+    return $providedSpace;
+}
+
