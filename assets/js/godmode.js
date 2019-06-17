@@ -1,10 +1,22 @@
 $(document).ready(function () {
+    $('.show-preview-modal').on('click', function () {
+        if ($(this).data('preview-type') == 'mail') {
+            var modalContent = $('#mailHeader').val();
+            var modalContent = modalContent + $('#mailBody').val();
+            var modalContent = modalContent + $('#mailFooter').val();
+            $('#previewModal').find('.modal-body').html(modalContent);
+        } else if ($(this).data('preview-type') == 'article') {
+            var modalContent = $('#articleText').val();
+            $('#previewModal').find('.modal-body').html(modalContent);
+        }
+        $('#previewModal').modal('show');
+    });
+
     $('.edit-mail-body').on('click', function () {
         $('#mailBody').val($(this).closest('.mail-template').find('.mail-body').html());
         $('.body-filename').val($(this).closest('.mail-template').find('.mail-template-name').text() );
         $('#bodyFileName').val($(this).closest('.mail-template').find('.mail-template-name').text() );
     });
-
 
     $('.edit-article').on('click', function (e) {
         e.preventDefault();

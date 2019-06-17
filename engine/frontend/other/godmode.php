@@ -102,6 +102,9 @@
                 <textarea class="form-control mb-1" id="articleDescription" placeholder="Краткое описание"></textarea>
                 <textarea class="form-control mb-1" id="articleText" placeholder="Полный текст"></textarea>
                 <input type="date" id="articleDate" class="form-control mb-1">
+                <button type="button" class="show-preview-modal btn btn-outline-primary" data-preview-type="article">
+                    Предварительный просмотр
+                </button>
                 <button id="sendArticle" class="btn btn-primary">Добавить</button>
             </form>
         </div>
@@ -143,6 +146,9 @@
                 <input id="bodyFileName" class="body-filename" value="" hidden>
                 <input class="form-control mb-1 body-filename" value="" disabled>
                 <textarea class="form-control mb-1" id="mailBody" rows="8"></textarea>
+                <button type="button" class="show-preview-modal form-control btn btn-outline-primary" data-preview-type="mail">
+                    Предварительный просмотр
+                </button>
                 <button class="form-control btn btn-outline-warning">Сохранить</button>
             </div>
             <div class="mail-edit">
@@ -151,8 +157,24 @@
                           rows="6"><?php include $emailTemplatesDir . 'content-footer.php'; ?></textarea>
                 <button class="form-control btn btn-outline-warning">Сохранить</button>
             </div>
-
-
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
         </div>
     </div>
 </div>
