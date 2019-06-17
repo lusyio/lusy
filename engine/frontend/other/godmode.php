@@ -6,7 +6,7 @@
                 <div class="chart"></div>
             </div>
             <div class="col-sm-4">
-                <p style=" font-size: 2.1em; margin-bottom: -10px; ">?</p>
+                <p style=" font-size: 2.1em; margin-bottom: -10px; "><?= $activeCompanies; ?></p>
                 <small class="text-secondary">Активных компаний</small>
                 <hr>
                 <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countCompanies?></span><small class="text-secondary">компаний зарегистрировано</small></div>

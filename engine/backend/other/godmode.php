@@ -11,6 +11,13 @@ $countUsers = DBOnce('count(*)','users','');
 $countTasks = DBOnce('count(*)','tasks','');
 $countComments = DBOnce('count(*)','comments','status="comment"');
 $countMail = DBOnce('count(*)','mail','');
+$currentDatetime = time();
+$activeCompaniesQuery = $pdo->prepare('SELECT COUNT(*) FROM (SELECT count(*) AS eventsCount FROM events WHERE datetime > :datetime group by company_id) as e WHERE eventsCount > :eventsToBeActive');
+$activeCompaniesQuery->bindValue(':datetime', $currentDatetime - (3600 * 24 * 30), PDO::PARAM_INT);
+$activeCompaniesQuery->bindValue(':eventsToBeActive', 5, PDO::PARAM_INT);
+$activeCompaniesQuery->execute();
+$activeCompanies = $activeCompaniesQuery->fetch(PDO::FETCH_COLUMN);
+
 $startTime = strtotime(date('Y-m-d'));
 $endTime = time();
 $eventsCountSql = $pdo->prepare('SELECT COUNT(ALL *) as count, datetime - datetime%(60*60) as period FROM events WHERE datetime between :startTime AND :endTime GROUP BY datetime - datetime%(60*60)');
