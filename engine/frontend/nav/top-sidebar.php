@@ -7,7 +7,7 @@
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><i
                             class="fas fa-bars"></i>
                     <span class="events-indicator">
-                    <i class="fas fa-circle mr-1 ml-1 top-sidebar-indicator"></i>
+                    <i class="fas fa-circle mr-1 ml-1 top-sidebar-indicator d-none"></i>
                 </span>
                 </button>
             </div>
