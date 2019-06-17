@@ -487,7 +487,7 @@
                     imageSmoothingQuality: 'high',
                 });
                 initialAvatarURL = avatar.src;
-                avatar.src = canvas.toDataURL();
+                avatar.src = canvas.toDataURL('image/jpeg', 0.8);
                 $progress.show();
                 $alert.removeClass('alert-success alert-warning');
                 $alert.css({'position': 'absolute', 'z-index': '1'})
@@ -529,7 +529,7 @@
                             setTimeout(function () {
                                 $alert.fadeOut()
                             }, 2000);
-                            var newLink = $('.user-img').attr('src').replace('-alter', '').replace('png', 'png?' + new Date().getTime());
+                            var newLink = $('.user-img').attr('src').replace('-alter', '').replace('jpg', 'jpg?' + new Date().getTime());
                             $('.user-img').attr('src', newLink);
                         },
 
@@ -545,7 +545,7 @@
                             $progress.hide();
                         },
                     });
-                });
+                }, "image/jpeg", 0.8);
             }
         });
     });

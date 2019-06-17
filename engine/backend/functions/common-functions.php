@@ -633,8 +633,8 @@ function addMassSystemEvent($action, $comment = '', $companyId = '')
 function getAvatarLink($userId)
 {
     global $idc;
-    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.png';
-    $alterAvatarPath = 'upload/avatar/' . $idc . '/' . $userId . '-alter.png';
+    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.jpg';
+    $alterAvatarPath = 'upload/avatar/' . $idc . '/' . $userId . '-alter.jpg';
     if (file_exists($avatarPath)) {
         return $avatarPath;
     } elseif (file_exists($alterAvatarPath)) {
@@ -645,8 +645,8 @@ function getAvatarLink($userId)
     }
 }
 
-/**Генерирует аватарку пользователя из первых букв имени и фамилии в формате .png
- * и сохраняет в директории upload/avatar с именем $userId-alter.png
+/**Генерирует аватарку пользователя из первых букв имени и фамилии в формате .jpg
+ * и сохраняет в директории upload/avatar с именем $userId-alter.jpg
  * @param $userId int ID пользователя
  */
 function createAlterAvatar($userId)
@@ -694,15 +694,15 @@ function createAlterAvatar($userId)
     if (!realpath($avatarDir)) {
         mkdir($avatarDir, 0777, true);
     }
-    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '-alter.png';
-    imagepng($im, $avatarPath);
+    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '-alter.jpg';
+    imagejpeg($im, $avatarPath);
     imagedestroy($im);
 }
 
 function deleteAvatar($userId)
 {
     global $idc;
-    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.png';
+    $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.jpg';
     if (file_exists($avatarPath)) {
         unlink($avatarPath);
     }
