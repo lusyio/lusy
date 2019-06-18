@@ -81,7 +81,7 @@
     if ($event['action'] == 'workdone') { // создание, назначение задачи
         $bg = 'bg-success';
         $icon = 'fas fa-check';
-        if ($event['worker'] == $id) {
+        if ($event['worker'] == $id && !$isSelfTask) {
             $eventText = $GLOBALS['_workDoneWorker'] . ' - ';
             $eventText .= $taskLink;
         } else {

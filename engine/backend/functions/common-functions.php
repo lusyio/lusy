@@ -311,7 +311,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, view_status) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :viewStatus)');
         $addEventQuery->execute($eventDataForManager);
-        if ($isSelfTask) {
+        if (!$isSelfTask) {
             $addEventQuery->execute($eventDataForWorker);
             $workerEventId = $pdo->lastInsertId();
 
