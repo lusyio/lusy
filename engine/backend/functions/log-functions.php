@@ -163,6 +163,7 @@ function prepareEvents(&$events)
 function renderEvent($event)
 {
     global $id;
+    global $pdo;
     $systemEvents = [
         'sendInvite', 'newuser', 'newcompany',
     ];
@@ -172,6 +173,12 @@ function renderEvent($event)
     } else if (in_array($event['action'], $systemEvents)) {
         include 'engine/frontend/event-messages/system.php';
     } else {
+        $executorsQuery = $pdo->prepare('SELECT worker, manager FROM tasks WHERE id = :taskId');
+        $executorsQuery->execute(array(':taskId' => $event['task_id']));
+        $executors = $executorsQuery->fetch(PDO::FETCH_ASSOC);
+        $taskManager = $executors['manager'];
+        $taskWorker = $executors['worker'];
+        $isSelfTask = ($taskManager == $taskWorker);
         include 'engine/frontend/event-messages/task.php';
     }
 }

@@ -8,9 +8,15 @@
         $bg = 'bg-primary';
         $icon = 'fas fa-plus';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youCreatedTask'] . ' ';
-            $eventText .= $taskLink . '. ';
-            $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
+
+            if ($isSelfTask) {
+                $eventText = $GLOBALS['_youCreatedSelfTask'] . ' ';
+                $eventText .= $taskLink . '. ';
+            } else {
+                $eventText = $GLOBALS['_youCreatedTask'] . ' ';
+                $eventText .= $taskLink . '. ';
+                $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
+            }
             $eventText .= $GLOBALS['_periodOfExecutionUntil'] . ' ' . date('d.m', $event['comment']);
         } else {
             $eventText = $GLOBALS['_assignedYouTask'] . ' - ';

@@ -251,6 +251,7 @@ $_logWorkReturn = 'вернул задачу на доработку';
 
 
 $_youCreatedTask = 'Вы создали задачу';
+$_youCreatedSelfTask = 'Вы создали персональную задачу';
 $_responsible = 'Ответственный';
 $_periodOfExecutionUntil = 'Срок выполнения до';
 $_assignedYouTask = 'Назначил Вам задачу';
