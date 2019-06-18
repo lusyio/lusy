@@ -52,7 +52,7 @@
 <script>
     $(document).ready(function () {
 
-        // updateInvites();
+        updateInvites();
 
         // функция загрузки ивайтов
         function updateInvites() {

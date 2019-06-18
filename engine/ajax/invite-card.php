@@ -1,3 +1,8 @@
+<?php
+$invitesQuery = $pdo->prepare('SELECT invite_id, code, invite_date, status, email, invitee_position FROM invitations WHERE company_id=:companyId ORDER BY invite_date DESC');
+$invitesQuery->execute(array(':companyId' => $idc));
+$invites = $invitesQuery->fetchAll(PDO::FETCH_ASSOC);
+?>
 <?php foreach ($invites as $invite): ?>
     <div class="card mb-2 invite-card">
         <div class="card-body pt-3 pb-3">
