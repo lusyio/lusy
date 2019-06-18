@@ -195,7 +195,10 @@ body{
     font-size: 10px;
     padding-top: 7px;
 }
-
+.informer span {
+    position: relative;
+    top: -1px;
+}
 #idtask:hover {
     text-decoration: none;
     color: #202429;
