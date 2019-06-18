@@ -394,7 +394,6 @@
             var companySite = $('#companySite').val();
             var companyDescription = $('#companyDescription').val();
             var companyTimezone = $('#companyTimezone').val();
-            var companyPassword = $('#companyPassword').val();
 
             var fd = new FormData();
             fd.append('ajax', 'settings');
@@ -404,9 +403,7 @@
             fd.append('companyDescription', companyDescription);
             fd.append('companySite', companySite);
             fd.append('companyTimezone', companyTimezone);
-            fd.append('companyPassword', companyPassword);
 
-            if (companyPassword) {
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -419,9 +416,6 @@
                         location.reload();
                     },
                 });
-            } else {
-                $("#companyPassword").addClass('border-danger');
-            }
         })
     });
 
