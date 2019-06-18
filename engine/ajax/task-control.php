@@ -86,7 +86,7 @@ if($_POST['module'] == 'workreturn' && $isManager) {
 		uploadAttachedFiles('comment', $commentId);
 	}
     resetViewStatus($idtask);
-    addEvent('workreturn', $idtask, $datepostpone);
+    addEvent('workreturn', $idtask, strtotime($datepostpone));
 
 }
 
