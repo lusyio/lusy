@@ -1109,29 +1109,37 @@ input:checked[type="checkbox"]::before {
 
 
 
-
-
+.award .badge-secondary {
+    background-color: #e5e5e5;
+}
 
 .award{
-    border: 2px solid #e4e4e4;
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
+    border-radius: 5px;
+    display: block;
+    padding: 20px 10px;
+    width: 210px;
+    background: white;
+    position: relative;
+    -webkit-transition: box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
+    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s;
+    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
+    box-shadow: 0 10px 15px rgba(14,21,47,.05);
 }
 
 .award-star{
+    color: white;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .3);
-    line-height: 1.6;
-    background-color: #2c7be5;
+    line-height: 1.65;
     text-align: center;
     width: 35px;
     height: 35px;
-    position: absolute;
-    top: 101px;
-    left: 103px;
     font-size: 20px;
     border-radius: 50%;
     border: 1px solid white;
+    margin: auto;
+    position: relative;
+    margin-top: -60px;
+    margin-bottom: 40px;
 }
 
 .award-md{
@@ -1391,6 +1399,7 @@ input:checked[type="checkbox"]::before {
 
 .dialog-list{
     top: -7px;
+    right: 16px;
 }
 
 .dialog-list-mail{

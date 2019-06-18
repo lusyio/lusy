@@ -21,7 +21,7 @@
                                         <img src="/<?= getAvatarLink($user['id']) ?>"
                                              class="avatar-img rounded-circle w-100"/>
                                         <span class="online-indicator dialog-list">
-                                            <i class="fas fa-circle mr-1 ml-1 onlineIndicator dialog-list-mail <?= ($isOnline) ? 'text-success' : '' ?>"></i>
+                                            <i class="fas fa-circle mr-1 ml-1 onlineIndicator dialog-list-mail <?= ($user['online']) ? 'text-success' : '' ?>"></i>
                                         </span>
                                     </div>
                                 </div>
