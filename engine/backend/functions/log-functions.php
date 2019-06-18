@@ -26,8 +26,7 @@ function logAction($userId, $action, $taskId = null)
     global $pdo;
     global $datetime;
     global $pointsRules;
-    if (array_key_exists($action, $pointsRules))
-    {
+    if (array_key_exists($action, $pointsRules)) {
         $logQuery = "INSERT INTO log(action, task, sender, datetime) VALUES (:action, :taskId, :userId, :dateTime)";
         $dbh = $pdo->prepare($logQuery);
         $dbh->execute(array(':action' => $action, ':taskId' => $taskId, ':userId' => $userId, ':dateTime' => time()));
@@ -69,12 +68,13 @@ function calculateExperience($userId)
     return $experiencePoints;
 }
 
-function getAchievements($userId) {
+function getAchievements($userId)
+{
     $actions = countActions($userId);
     global $countableAchievementsRules;
     $userAchievements = [];
     foreach ($countableAchievementsRules as $ach => $rules) {
-        if(array_key_exists($rules['filter'], $actions) && $actions[$rules['filter']] >= $rules['amount']) {
+        if (array_key_exists($rules['filter'], $actions) && $actions[$rules['filter']] >= $rules['amount']) {
             $userAchievements[] = $ach;
         }
     }
@@ -94,7 +94,7 @@ function getEventsForUser()
   WHERE e.recipient_id = :userId OR (e.recipient_id = 0 AND e.company_id = :companyId)
   ORDER BY e.datetime DESC');
 
-    $eventsQuery->execute(array(':userId' =>$id, ':companyId' =>$idc));
+    $eventsQuery->execute(array(':userId' => $id, ':companyId' => $idc));
     $events = $eventsQuery->fetchAll(PDO::FETCH_ASSOC);
     return $events;
 }
@@ -112,7 +112,7 @@ function getEventByIdForUser($eventId)
   WHERE (e.recipient_id = :userId OR (e.recipient_id = 0 AND e.company_id = :companyId)) AND e.event_id = :eventId
   ORDER BY e.datetime DESC');
 
-    $eventsQuery->execute(array(':userId' =>$id, ':companyId' =>$idc, ':eventId' => $eventId));
+    $eventsQuery->execute(array(':userId' => $id, ':companyId' => $idc, ':eventId' => $eventId));
     $events = $eventsQuery->fetchAll(PDO::FETCH_ASSOC);
     return $events;
 }
@@ -129,7 +129,7 @@ function getAllEvents()
   WHERE e.company_id = :companyId
   ORDER BY e.datetime DESC');
 
-    $eventsQuery->execute(array(':companyId' =>$idc));
+    $eventsQuery->execute(array(':companyId' => $idc));
     $events = $eventsQuery->fetchAll(PDO::FETCH_ASSOC);
     return $events;
 }
@@ -141,15 +141,15 @@ function prepareEvents(&$events)
         $event['link'] = '';
         if ($event['action'] == 'comment') {
             $event['link'] = 'task/' . $event['task_id'] . '/#' . $event['comment'];
-            $event['taskname'] = DBOnce('name','tasks','id='.$event['task_id']);
+            $event['taskname'] = DBOnce('name', 'tasks', 'id=' . $event['task_id']);
         } else if ($event['action'] == 'newUserRegistered') {
             $event['link'] = 'profile/' . $event['comment'] . '/';
             $event['name'] = DBOnce('name', 'users', 'id = ' . $event['comment']);
             $event['surname'] = DBOnce('surname', 'users', 'id = ' . $event['comment']);
         } else {
             $event['link'] = 'task/' . $event['task_id'] . '/';
-            $event['taskname'] = DBOnce('name','tasks','id='.$event['task_id']);
-            $event['datedone'] = DBOnce('datedone','tasks','id='.$event['task_id']);
+            $event['taskname'] = DBOnce('name', 'tasks', 'id=' . $event['task_id']);
+            $event['datedone'] = DBOnce('datedone', 'tasks', 'id=' . $event['task_id']);
             $workerQuery = $pdo->prepare('SELECT u.name, u.surname FROM users u LEFT JOIN tasks t ON u.id = t.worker WHERE t.id = :taskId');
             $workerQuery->execute(array(':taskId' => $event['task_id']));
             $worker = $workerQuery->fetch(PDO::FETCH_ASSOC);
@@ -187,20 +187,6 @@ function markAsRead($eventId)
         }
     } else {
         $markQuery->execute(array(':eventId' => $eventId, ':userId' => $id));
-        $action = DBOnce('action', 'events', 'event_id=' . (int) $eventId);
-        if ($action == 'createtask') {
-            $idtask = DBOnce('task_id', 'events', 'event_id=' . (int) $eventId);
-            $manager = DBOnce('manager', 'tasks', 'id=' . $idtask);
-
-            if ($id != $manager){
-                $setViewedQuery = $pdo->prepare('UPDATE `tasks` SET view = :viewState where id = :taskId');
-                $setViewedQuery->execute(array('viewState' => 1, ':taskId' => $idtask));
-                $isOldTask = (boolean) DBOnce('count(*)', 'events', 'task_id='.$idtask.' and action="viewtask"');
-                if (!$isOldTask) {
-                    addEvent('viewtask', $idtask, '', $manager);
-                }
-            }
-        }
     }
 }
 
