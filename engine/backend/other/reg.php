@@ -46,7 +46,7 @@ if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['pass
                 $mail->isHTML();
                 $mail->Subject = "Подтверждение e-mail";
                 $args = [
-                    'activationLink' => $_SERVER['HTTP_HOST'] . '/activate/' . $companyId . '/' . $activationCode . '/',
+                    'activationLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/activate/' . $companyId . '/' . $activationCode . '/',
                 ];
                 $mail->setMessageContent('company-activation', $args);
                 $mail->send();

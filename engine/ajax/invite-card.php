@@ -3,7 +3,7 @@
         <div class="card-body pt-3 pb-3">
             <div class="row">
                 <div class="col-1 d-none">
-                    <span><i val="<?= $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?>"
+                    <span><i val="<?= 'https://' . $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/'; ?>"
                              class="far fa-copy copy-link" data-toggle="tooltip" data-placement="bottom"
                              title="<?= $GLOBALS['_copyinvite'] ?>"></i>
                     </span>

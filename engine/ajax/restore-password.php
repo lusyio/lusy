@@ -22,7 +22,7 @@ if ($userId) {
         $mail->isHTML();
         $mail->Subject = "Восстановление пароля в Lusy.io";
         $args = [
-            'restoreLink' => $_SERVER['HTTP_HOST'] . '/restore/' . $userId . '/' . $restoreCode . '/',
+            'restoreLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/restore/' . $userId . '/' . $restoreCode . '/',
         ];
         $mail->setMessageContent('password-restore', $args);
         $mail->send();

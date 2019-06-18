@@ -32,7 +32,7 @@ if ($_POST['module'] == 'createInvite' && isset($_POST['invitee-mail'])  && $rol
         $mail->Subject = "Приглашение в Lusy.io от " . $companyName;
         $args = [
             'companyName' => $companyName,
-            'inviteLink' => $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/',
+            'inviteLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/join/' . $invite['code'] . '/',
         ];
         $mail->setMessageContent('user-invite', $args);
         $mail->send();
