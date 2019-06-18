@@ -2,12 +2,13 @@
 require_once 'engine/backend/functions/login-functions.php';
 require_once 'engine/backend/functions/common-functions.php';
 $url = $_SERVER['REQUEST_URI'];
-$url = trim($url, '/');
+$urlFirstPart = preg_split('~/~',trim($url, '/'))[0];
+$url = str_replace('/', '', $url);
 $isAuthorized = authorize();
 $onlyForNonAuthorizedPages = ['reg', 'login', 'restore', 'join'];
 
 if ($isAuthorized) {
-    if (in_array(preg_split('~/~',$url)[0], $onlyForNonAuthorizedPages)) {
+    if (in_array($urlFirstPart, $onlyForNonAuthorizedPages)) {
         ob_clean();
         header('location: /');
         exit;
@@ -76,7 +77,6 @@ if ($isAuthorized) {
     if (!empty($_GET['profile'])) {
         $title = DBOnce('name', 'users', 'id=' . $_GET["profile"]) . ' ' . DBOnce('surname', 'users', 'id=' . $_GET["profile"]);
     }
-
 
 } else {
     $publicPages = ['reg', 'login', 'restore', 'activate', 'join'];
