@@ -2,12 +2,13 @@
 require_once 'engine/backend/functions/login-functions.php';
 require_once 'engine/backend/functions/common-functions.php';
 $url = $_SERVER['REQUEST_URI'];
-$url = str_replace('/', '', $url);
+$url = trim($url, '/');
 $isAuthorized = authorize();
 $onlyForNonAuthorizedPages = ['reg', 'login', 'restore', 'join'];
 
 if ($isAuthorized) {
-    if (in_array($url, $onlyForNonAuthorizedPages)) {
+    if (in_array(preg_split('~/~',$url)[0], $onlyForNonAuthorizedPages)) {
+        ob_clean();
         header('location: /');
         exit;
     }
