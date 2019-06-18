@@ -2,15 +2,21 @@
      class="event <?= ($event['view_status']) ? '' : 'new-event' ?> <?= ($event['action'] == 'createtask') ? '' : 'readable-here' ?> task mb-3">
 
     <?php
-    $taskLink = '<a href="/../' . $event['link'] . '" class="font-italic task-link">' . $event['taskname'] . '"</a></p>';
+    $taskLink = '<a href="/../' . $event['link'] . '" class="font-italic task-link">' . $event['taskname'] . '</a>';
 
     if ($event['action'] == 'createtask') { // создание, назначение задачи
         $bg = 'bg-primary';
         $icon = 'fas fa-plus';
         if ($event['author_id'] == '1') {
-            $eventText = $GLOBALS['_youCreatedTask'] . ' ';
-            $eventText .= $taskLink;
-            $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
+
+            if ($isSelfTask) {
+                $eventText = $GLOBALS['_youCreatedSelfTask'] . ' ';
+                $eventText .= $taskLink . '. ';
+            } else {
+                $eventText = $GLOBALS['_youCreatedTask'] . ' ';
+                $eventText .= $taskLink . '. ';
+                $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
+            }
             $eventText .= $GLOBALS['_periodOfExecutionUntil'] . ' ' . date('d.m', $event['comment']);
         } else {
             $eventText = $GLOBALS['_assignedYouTask'] . ' - ';
@@ -75,7 +81,7 @@
     if ($event['action'] == 'workdone') { // создание, назначение задачи
         $bg = 'bg-success';
         $icon = 'fas fa-check';
-        if ($event['worker'] == $id) {
+        if ($event['worker'] == $id && !$isSelfTask) {
             $eventText = $GLOBALS['_workDoneWorker'] . ' - ';
             $eventText .= $taskLink;
         } else {
@@ -186,7 +192,7 @@
         <img src="/<?=getAvatarLink($event['author_id'])?>" class="avatar mr-2">
         <a href="/profile/<?=$event['author_id']?>/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
     </div>
-    <p class="mt-2"><?= $eventText ?>
+    <p class="mt-2"><?= $eventText ?></p>
 </li>
 
 

@@ -62,17 +62,11 @@ if ($_POST['module'] == 'changePassword') {
 }
 
 if ($_POST['module'] == 'changeCompanyData' && $roleu == 'ceo') {
-    if (isset($_POST['companyPassword'])) {
-        $password = filter_var(trim($_POST['companyPassword']), FILTER_SANITIZE_STRING);
-        $hash = DBOnce('password', 'users', 'id=' . $id);
-        if (password_verify($password, $hash)) {
-            $companyName = filter_var(trim($_POST['companyName']), FILTER_SANITIZE_STRING);
-            $companyFullName = filter_var(trim($_POST['companyFullName']), FILTER_SANITIZE_STRING);
-            $companySite = filter_var(trim($_POST['companySite']), FILTER_SANITIZE_STRING);
-            $companyDescription = filter_var(trim($_POST['companyDescription']), FILTER_SANITIZE_STRING);
-            $companyTimezone = filter_var(trim($_POST['companyTimezone']), FILTER_SANITIZE_STRING);
-            setNewCompanyData($companyName, $companyFullName, $companySite, $companyDescription, $companyTimezone);
-        }
-    }
+    $companyName = filter_var(trim($_POST['companyName']), FILTER_SANITIZE_STRING);
+    $companyFullName = filter_var(trim($_POST['companyFullName']), FILTER_SANITIZE_STRING);
+    $companySite = filter_var(trim($_POST['companySite']), FILTER_SANITIZE_STRING);
+    $companyDescription = filter_var(trim($_POST['companyDescription']), FILTER_SANITIZE_STRING);
+    $companyTimezone = filter_var(trim($_POST['companyTimezone']), FILTER_SANITIZE_STRING);
+    setNewCompanyData($companyName, $companyFullName, $companySite, $companyDescription, $companyTimezone);
 }
 

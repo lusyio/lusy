@@ -394,7 +394,6 @@
             var companySite = $('#companySite').val();
             var companyDescription = $('#companyDescription').val();
             var companyTimezone = $('#companyTimezone').val();
-            var companyPassword = $('#companyPassword').val();
 
             var fd = new FormData();
             fd.append('ajax', 'settings');
@@ -404,9 +403,7 @@
             fd.append('companyDescription', companyDescription);
             fd.append('companySite', companySite);
             fd.append('companyTimezone', companyTimezone);
-            fd.append('companyPassword', companyPassword);
 
-            if (companyPassword) {
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -419,9 +416,6 @@
                         location.reload();
                     },
                 });
-            } else {
-                $("#companyPassword").addClass('border-danger');
-            }
         })
     });
 
@@ -487,7 +481,7 @@
                     imageSmoothingQuality: 'high',
                 });
                 initialAvatarURL = avatar.src;
-                avatar.src = canvas.toDataURL();
+                avatar.src = canvas.toDataURL('image/jpeg', 0.8);
                 $progress.show();
                 $alert.removeClass('alert-success alert-warning');
                 $alert.css({'position': 'absolute', 'z-index': '1'})
@@ -529,7 +523,7 @@
                             setTimeout(function () {
                                 $alert.fadeOut()
                             }, 2000);
-                            var newLink = $('.user-img').attr('src').replace('-alter', '').replace('png', 'png?' + new Date().getTime());
+                            var newLink = $('.user-img').attr('src').replace('-alter', '').replace('jpg', 'jpg?' + new Date().getTime());
                             $('.user-img').attr('src', newLink);
                         },
 
@@ -545,7 +539,7 @@
                             $progress.hide();
                         },
                     });
-                });
+                }, "image/jpeg", 0.8);
             }
         });
     });

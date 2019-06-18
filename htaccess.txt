@@ -14,15 +14,18 @@ RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
 
 RewriteRule ^(.*)$ index.php [F,L]
 
-
 <FilesMatch "\.(htaccess|htpasswd|ini|phps|fla|psd|log|sh|sql|inc)$">
  Order Allow,Deny
  Deny from all
 </FilesMatch>
+#кэширование скриптов и стилей
+<FilesMatch ".(js|css)$">
+  Header set Cache-Control "max-age=604800"
+</FilesMatch>
 #перенаправление на скачивание файла
 RewriteRule ^upload/files/([-a-z0-9/]+)$ /index.php?file=$1 [L]
 #перенаправление на загрузку аватарок
-RewriteRule ^upload/avatar/([0-9]+)/([-a-zA-Z0-9]+).png$ /index.php?avatar=$1&name=$2 [L]
+RewriteRule ^upload/avatar/([0-9]+)/([-a-zA-Z0-9]+).jpg$ /index.php?avatar=$1&name=$2 [L]
 RewriteRule ^restore/([0-9]+)/([-a-z0-9]+)/$ /index.php?restore=$1&code=$2 [L]
 RewriteRule ^activate/([0-9]+)/([-a-z0-9]+)/$ /index.php?activate=$1&code=$2 [L]
 RewriteRule ^join/([-a-z0-9]+)/$ /index.php?join=$1 [L]

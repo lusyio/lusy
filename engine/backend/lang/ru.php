@@ -32,7 +32,7 @@ $_newtask = 'Новая задача';
 $_namenewtask = 'Наименование задачи';
 $_placeholdernewtask = 'Опишите суть задачи';
 $_choosefilenewtask = 'Выберите файл';
-$_deadlinenewtask = 'Выберите файл';
+$_deadlinenewtask = 'Срок выполнения';
 $_responsiblenewtask = 'Ответственный';
 $_placeholderresponsiblenewtask = 'Не выбран';
 $_coworkersnewtask = 'Соисполнители';
@@ -251,6 +251,7 @@ $_logWorkReturn = 'вернул задачу на доработку';
 
 
 $_youCreatedTask = 'Вы создали задачу';
+$_youCreatedSelfTask = 'Вы создали персональную задачу';
 $_responsible = 'Ответственный';
 $_periodOfExecutionUntil = 'Срок выполнения до';
 $_assignedYouTask = 'Назначил Вам задачу';

@@ -84,18 +84,17 @@ if (!is_null($viewStatus) && isset($viewStatus[$manager]['datetime'])) {
     $viewStatusTitleManager = 'Не просмотрено';
 }
 
-if ($worker == $id) {
-    $taskEventsQuery = $pdo->prepare('SELECT event_id FROM events WHERE task_id = :taskId AND recipient_id = :userId AND view_status=0');
-    $taskEventsQuery->execute(array(':taskId' => $idtask, ':userId' => $id));
-    $taskEvents = $taskEventsQuery->fetchAll(PDO::FETCH_COLUMN);
-    markAsRead($taskEvents);
-    if ($view == '0') {
-        $setViewedQuery = $pdo->prepare('UPDATE `tasks` SET view = :viewState where id = :taskId');
-        $setViewedQuery->execute(array('viewState' => 1, ':taskId' => $idtask));
-        $isOldTask = (boolean) DBOnce('count(*)', 'events', 'task_id='.$idtask.' and action="viewtask"');
-        if (!$isOldTask) {
-            addEvent('viewtask', $idtask, '', $manager);
-        }
+$taskEventsQuery = $pdo->prepare('SELECT event_id FROM events WHERE task_id = :taskId AND recipient_id = :userId AND view_status=0');
+$taskEventsQuery->execute(array(':taskId' => $idtask, ':userId' => $id));
+$taskEvents = $taskEventsQuery->fetchAll(PDO::FETCH_COLUMN);
+markAsRead($taskEvents);
+
+if ($worker == $id && $view == '0') {
+    $setViewedQuery = $pdo->prepare('UPDATE `tasks` SET view = :viewState where id = :taskId');
+    $setViewedQuery->execute(array('viewState' => 1, ':taskId' => $idtask));
+    $isOldTask = (boolean)DBOnce('count(*)', 'events', 'task_id=' . $idtask . ' and action="viewtask"');
+    if (!$isOldTask) {
+        addEvent('viewtask', $idtask, '', $manager);
     }
 }
 
@@ -111,6 +110,7 @@ if ($id == $manager || $isCeo) {
 
 $viewer = $pdo->prepare('UPDATE `comments` SET view = "1" where idtask="' . $id_task . '" and iduser!=' . $id);
 $viewer->execute();
+
 
 //измменяем статус "в работе"
 

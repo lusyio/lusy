@@ -1,4 +1,5 @@
 <?php
+session_cache_limiter('none');
 session_start();
 ob_start();
 setlocale(LC_ALL, 'ru_RU');
