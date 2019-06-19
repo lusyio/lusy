@@ -8,7 +8,7 @@ $queryFromFront = json_decode($_POST['data'], true);
 $text = $queryFromFront['query'];
 $statusList = $queryFromFront['status'];
 $roleList = $queryFromFront['role'];
-$query = "SELECT t.id, t.name, t.datedone, t.datepostpone, t.manager, u1.surname AS surnamem, u1.name AS namem, u2.surname AS surnamew, u2.name AS namew, t.worker, t.status FROM tasks t LEFT JOIN users u1 ON t.manager=u1.id LEFT JOIN users u2 ON t.worker=u2.id WHERE t.idcompany=:companyId AND t.name LIKE :text";
+$query = "SELECT t.id, t.name, t.datedone, t.manager, u1.surname AS surnamem, u1.name AS namem, u2.surname AS surnamew, u2.name AS namew, t.worker, t.status FROM tasks t LEFT JOIN users u1 ON t.manager=u1.id LEFT JOIN users u2 ON t.worker=u2.id WHERE t.idcompany=:companyId AND t.name LIKE :text";
 
 if (sizeof($statusList) > 0 && validateStatuses($statusList)) {
     $filters = implode("', '", $statusList);

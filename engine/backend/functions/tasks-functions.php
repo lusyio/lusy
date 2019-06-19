@@ -6,9 +6,6 @@ function prepareTasks(&$tasks)
     global $roleu;
     global $_months;
     foreach ($tasks as &$task) {
-        if (!is_null($task['datepostpone']) && $task['datepostpone'] != 0) {
-            $task['datedone'] = $task["datepostpone"];
-        }
         $task['dateProgress'] = getDateProgress($task['datedone'], $task['datecreate']);
         $task['deadLineDay'] = date('j', $task['datedone']);
         $task['deadLineMonth'] = $_months[date('n', $task['datedone']) - 1];
