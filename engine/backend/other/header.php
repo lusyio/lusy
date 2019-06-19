@@ -13,6 +13,9 @@ if ($isAuthorized) {
         header('location: /');
         exit;
     }
+    // Устанавливаем часовой пояс компании
+    $companyTimeZone = DBOnce('timezone', 'company', 'id=' . $idc);
+    date_default_timezone_set($companyTimeZone);
     // обновляем время последнего посещения
     setLastVisit();
     // скачивание прикрепленного файла
