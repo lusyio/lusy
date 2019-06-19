@@ -25,9 +25,12 @@ if ($_POST['module'] == 'changeData') {
     $phone = preg_replace("~[^0-9]~", '', $_POST['phone']);
     $about = filter_var($_POST['about'], FILTER_SANITIZE_STRING);
 
-    $vk = filter_var($_POST['vk'], FILTER_SANITIZE_STRING);
-    $facebook = filter_var($_POST['facebook'], FILTER_SANITIZE_STRING);
-    $instagram = filter_var($_POST['instagram'], FILTER_SANITIZE_STRING);
+    $vk = filter_var($_POST['vk'], FILTER_SANITIZE_URL);
+    $vk = preg_replace('~((http[s]?:\/\/)?(www.)?(m.)?vk.com\/)?(\/)?~', '', $vk);
+    $facebook = filter_var($_POST['facebook'], FILTER_SANITIZE_URL);
+    $facebook = preg_replace('~((http[s]?:\/\/)?(www.)?(m.)?facebook.com\/)?(\/)?~', '', $facebook);
+    $instagram = filter_var($_POST['instagram'], FILTER_SANITIZE_URL);
+    $instagram = preg_replace('~((http[s]?:\/\/)?(www.)?(m.)?instagram.com\/)?(\/)?~', '', $facebook);
     $socialNetworks = [];
     if ($vk != '') {
         $socialNetworks['vk'] = $vk;
