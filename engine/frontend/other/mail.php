@@ -13,7 +13,7 @@
                 <div class="collapse list-group" id="collapseUsers">
                     <?php
                     foreach ($userList as $user){
-                        $isOnline = in_array($user['id'], $onlineUsersList)ж
+                        $isOnline = in_array($user['id'], $onlineUsersList);
                      ?>
                         <a href="./<?= $user['id'] ?>/"
                            class="list-group-item list-group-item-action rounded-0 border-left-0 border-right-0">
