@@ -706,6 +706,10 @@ input:checked[type="checkbox"]::before {
     color: #898989;
 
 }
+.invateButton {
+    font-size: 12px;
+    margin-top: 4px;
+}
 
 .fas.fa-times.custom-date.cancel {
     color: #d64c5e !important;
@@ -2027,7 +2031,9 @@ span.date {
         padding-left: 1.5rem;
         padding-top: 3rem;
     }
-
+    .user-pic {
+        left: 10px;
+    }
     #searchForm .form-group {
         padding-left: 20px;
     }

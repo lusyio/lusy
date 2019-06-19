@@ -2,6 +2,7 @@
 global $idc;
 global $id;
 global $roleu;
+global $_buttonInvateNew;
 
 if ($roleu == 'ceo') {
     $isCeo = true;
