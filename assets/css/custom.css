@@ -897,6 +897,8 @@ input:checked[type="checkbox"]::before {
 .members-block{
     position: relative;
     z-index: 2;
+    background-color: white;
+    border-radius: 8px;
 }
 
 .member-block:hover .edit-members {
@@ -905,12 +907,11 @@ input:checked[type="checkbox"]::before {
 }
 
 .avatar-new {
-    vertical-align: middle;
-    text-align: center;
+    line-height: 0.9 !important;
     width: 30px;
     height: 30px;
     border-radius: 10%;
-    color: #b9b9b9;
+    color: white;
     font-size: 30px;
     cursor: pointer;
     transition: 200ms;
@@ -1004,10 +1005,6 @@ input:checked[type="checkbox"]::before {
 
 .card-coworker-delete:hover {
     color: #d04d5f;
-}
-
-.avatar-new:hover {
-    color: #5d95db;
 }
 
 .tooltip-avatar {
@@ -1496,10 +1493,12 @@ input:checked[type="checkbox"]::before {
 
 .edit-members{
     transition: 0.5s;
-    right: 10px;
-    top: -2px;
-    height: 28px;
-    padding: 2px 5px 2px 15px;
+    right: 15px;
+    top: 0;
+    width: 48px;
+    height: 30px;
+    background: grey;
+    padding: 2px 5px 2px 17px;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -1736,7 +1735,7 @@ ul.timeline > li span.before {
 
 span.date {
     position: absolute;
-    z-index: 400;
+    z-index: 2;
     right: 0;
     font-size: 11px;
     top: 0;
@@ -2121,6 +2120,10 @@ span.date {
     .mobile-online-indicator{
         top: -5px;
         right: 0;
+    }
+
+    .dialog-list{
+        right: 0px;
     }
 
     .message-width{

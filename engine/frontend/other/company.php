@@ -31,7 +31,7 @@
                 </div>
             </a>
         <?php endif; ?>
-        <div class="card-body pb-0 border-bottom <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
+        <div class="card-body pb-2 border-bottom <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
             <div class="row">
                 <div class="col-2 col-lg-2 pl-1">
                     <div class="user-pic position-relative" style="width:85px">
