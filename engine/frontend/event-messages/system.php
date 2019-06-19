@@ -4,7 +4,7 @@
         <?php
             $bg = 'bg-success';
             $icon = 'fas fa-user';
-            $action = $GLOBALS['_newUserRegistered'] . ' <a href="/../' . $event["comment"] .'">' . $event['name'] . ' ' .$event['surname'] . '</a>';
+            $action = $GLOBALS['_newUserRegistered'] . ' <a href="/profile/' . $event["comment"] .'">' . $event['name'] . ' ' .$event['surname'] . '</a>';
         ?>
     <?php endif; ?>
 
