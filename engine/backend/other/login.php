@@ -2,7 +2,7 @@
 $lang = 'ru';
 require_once 'engine/backend/functions/login-functions.php';
 require_once 'engine/backend/lang/' . $lang . '.php';
-
+$loginError = false;
 if (!empty($_POST['login']) and !empty($_POST['password'])) {
     $login = trim(filter_var($_POST['login']), FILTER_SANITIZE_STRING);
     $password = trim(filter_var($_POST['password']), FILTER_SANITIZE_STRING);
@@ -33,13 +33,13 @@ if (isset($login) && isset($password)) {
                 ob_end_flush();
                 die();
             } else {
-                echo 'Неверные данные';
+                $loginError = true;
             }
         } else {
-            echo 'Такого логина в данной компании нет';
+            $loginError = true;
         }
     } else {
-        echo 'Неверно указаны данные';
+        $loginError = true;
     }
 }
 
