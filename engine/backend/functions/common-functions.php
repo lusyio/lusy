@@ -843,3 +843,17 @@ function addCommentEvent($taskId, $commentId)
     }
 }
 
+function concatName($name, $surname)
+{
+    if ($name != '' && $surname != '') {
+        $fullName = $name . ' ' . $surname;
+    } else {
+        if ($name != '') {
+            $fullName = $name;
+        } else {
+            $fullName = $surname;
+        }
+    }
+    return $fullName;
+}
+

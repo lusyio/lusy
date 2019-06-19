@@ -13,7 +13,7 @@
                 <div class="collapse list-group" id="collapseUsers">
                     <?php
                     foreach ($userList as $user){
-                        $isOnline = in_array($user['id'], $onlineUsersList)
+                        $isOnline = in_array($user['id'], $onlineUsersList)ж
                      ?>
                         <a href="./<?= $user['id'] ?>/"
                            class="list-group-item list-group-item-action rounded-0 border-left-0 border-right-0">
@@ -39,6 +39,7 @@
                 <?php
                 foreach ($dialog as $n) {
                     $newMessages = numberOfNewMessages($n);
+                    $lastMessage = lastmess($n);
                     $isOnline = in_array($n, $onlineUsersList) ?>
                     <div class="dialog-mail border-secondary p-3">
                         <a class="text-decoration-none text-dark" href="./<?= $n ?>/">
@@ -59,8 +60,8 @@
                                         <!--                                              class="badge badge-success -->
                                         <? //= ($isOnline) ? '' : 'd-none' ?><!--">Online</span>-->
                                     </p>
-                                    <span><?= lastmess($n) ?></span>
-                                    <span class="date mr-2"><?= timelastmess($n) ?></span>
+                                    <span><?= ($lastMessage['sender'] == $id)? 'Вы: ' : '';?> <?= $lastMessage['mes'] ?></span>
+                                    <span class="date mr-2"><?= date('d.m h:i', $lastMessage['datetime']); ?></span>
                                 </div>
                             </div>
                         </a>

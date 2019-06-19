@@ -2,31 +2,28 @@
 
 function fiomess($iduser) {
     global $pdo;
-    $fio = DBOnce('name','users','id='.$iduser) . ' ' . DBOnce('surname','users','id='.$iduser);
-    return $fio;
+    $name = DBOnce('name','users','id='.$iduser);
+    $surname = DBOnce('surname','users','id='.$iduser);
+    if ($name != '' && $surname != '') {
+        $fullName = $name . ' ' . $surname;
+    } else {
+        if ($name != '') {
+            $fullName = $name;
+        } else {
+            $fullName = $surname;
+        }
+    }
+    return $fullName;
 }
 
 function lastmess($iduser) {
     global $pdo;
     global $id;
-    $sql = DB('*','mail','(sender = '.$iduser.' or recipient = '.$iduser.') and (sender = '.$id.' or recipient = '.$id.') order by datetime DESC limit 1');
-    foreach ($sql as $n) {
-        if ($id == $n['sender']) {
-            $author = 'Вы: ';
-        } else {
-            $author = '';
-        }
-        echo '<span>' . $author . $n['mes'] . '</span>';
-    }
-}
+    $sql = $pdo->prepare("SELECT sender, mes, datetime FROM mail WHERE (sender = :userId or recipient = :userId ) and (sender = :id or recipient = :id) order by datetime DESC limit 1");
+    $sql->execute(array(':userId' => $iduser, ':id' => $id));
+    $result = $sql->fetch(PDO::FETCH_ASSOC);
 
-function timelastmess($iduser){
-    global $pdo;
-    global $id;
-    $sql = DB('*','mail','(sender = '.$iduser.' or recipient = '.$iduser.') and (sender = '.$id.' or recipient = '.$id.') order by datetime DESC limit 1');
-    foreach ($sql as $n) {
-        echo '<span>'. date('d.m H:i', $n['datetime']) . '</span>';
-    }
+    return $result;
 }
 
 function numberOfNewMessages($idSender)
