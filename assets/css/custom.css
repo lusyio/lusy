@@ -1110,7 +1110,13 @@ input:checked[type="checkbox"]::before {
 
 
 
-
+.login-error{
+    color: #7a2a31;
+    padding: 15px;
+    border: 1px solid rgba(255, 0, 0, 0.38);
+    border-radius: 8px;
+    background-color: rgba(255, 0, 0, 0.02);
+}
 
 .award .badge-secondary {
     background-color: #e5e5e5;
@@ -1120,7 +1126,7 @@ input:checked[type="checkbox"]::before {
     border-radius: 5px;
     display: block;
     padding: 20px 10px;
-    width: 210px;
+    min-width: 210px;
     background: white;
     position: relative;
     -webkit-transition: box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
@@ -1167,12 +1173,14 @@ input:checked[type="checkbox"]::before {
     text-align: center;
     width: 25px;
     height: 25px;
-    position: absolute;
-    top: 10px;
-    left: 25px;
+    margin: auto;
+    position: relative;
+    margin-top: -42px;
+    margin-bottom: 40px;
     font-size: 15px;
     border-radius: 50%;
     border: 1px solid white;
+    margin-left: 10px;
 }
 
 .members {
@@ -1183,7 +1191,7 @@ input:checked[type="checkbox"]::before {
     text-align: center;
     border-radius: 6px;
     position: absolute;
-    z-index: 1;
+    z-index: 3;
     top: 100%;
     right: 0%;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, .3);

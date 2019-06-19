@@ -23,7 +23,7 @@
                 <i class="fas fa-user"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Приглашатор</h5>
+        <h6 class="text-uppercase font-weight-bold">Приглашатор</h6>
         <small class="text-muted mt-3">Пригласил 1 сотрудника</small>
         <hr>
         <span class="badge badge-primary">20.05.2019</span>
@@ -46,10 +46,10 @@
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
                  data-value="0.20"></div>
             <div class="award-star bg-secondary">
-                <i class="fas fa-star"></i>
+                <i class="fas fa-birthday-cake"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Решебник 1</h5>
+        <h6 class="text-uppercase font-weight-bold">Кекс</h6>
         <small class="text-muted mt-3">Завершил 10 задач</small>
         <hr>
         <span class="badge badge-secondary">5/10</span>
@@ -59,10 +59,10 @@
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
                  data-value="0.20"></div>
             <div class="award-star bg-secondary">
-                <i class="fas fa-star"></i>
+                <i class="fas fa-birthday-cake"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Решебник 2</h5>
+        <h6 class="text-uppercase font-weight-bold">Тортик</h6>
         <small class="text-muted mt-3">Завершил 50 задач</small>
         <hr>
         <span class="badge badge-secondary">5/50</span>
@@ -71,10 +71,10 @@
         <div>
             <div class="circle" data-value="0.00"></div>
             <div class="award-star bg-secondary">
-                <i class="fas fa-star"></i>
+                <i class="fas fa-birthday-cake"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Решебник 3</h5>
+        <h6 class="text-uppercase font-weight-bold">Фруктовый торт</h6>
         <small class="text-muted mt-3">Завершил 100 задач</small>
         <hr>
         <span class="badge badge-secondary">5/100</span>
@@ -84,10 +84,10 @@
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
                  data-value="0.20"></div>
             <div class="award-star bg-secondary">
-                <i class="fas fa-star"></i>
+                <i class="fas fa-birthday-cake"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Решебник 4</h5>
+        <h6 class="text-uppercase font-weight-bold">Огромный торт с кремом</h6>
         <small class="text-muted mt-3">Завершил 1000 задач</small>
         <hr>
         <span class="badge badge-secondary">5/1000</span>
@@ -103,7 +103,7 @@
                 <i class="fas fa-atom"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Манагер</h5>
+        <h6 class="text-uppercase font-weight-bold">Манагер</h6>
         <small class="text-muted mt-3">Назначил 10 задач</small>
         <hr>
         <span class="badge badge-secondary">5/10</span>
@@ -116,7 +116,7 @@
                 <i class="fas fa-atom"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Акула бизнеса</h5>
+        <h6 class="text-uppercase font-weight-bold">Акула бизнеса</h6>
         <small class="text-muted mt-3">Назначил 50 задач</small>
         <hr>
         <span class="badge badge-secondary">5/50</span>
@@ -129,7 +129,7 @@
                 <i class="fas fa-atom"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">LVL100 B0$$</h5>
+        <h6 class="text-uppercase font-weight-bold">LVL100 B0$$</h6>
         <small class="text-muted mt-3">Назначил 100 задач</small>
         <hr>
         <span class="badge badge-secondary">5/100</span>
@@ -141,7 +141,7 @@
                 <i class="fas fa-atom"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Президент мира</h5>
+        <h6 class="text-uppercase font-weight-bold">Президент мира</h6>
         <small class="text-muted mt-3">Назначил 1000 задач</small>
         <hr>
         <span class="badge badge-secondary">5/1000</span>
@@ -166,7 +166,7 @@
                 <i class="fas fa-handshake"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Знакомство</h5>
+        <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
         <small class="text-muted mt-3">Заполнил профиль</small>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
@@ -178,8 +178,8 @@
                 <i class="fas fa-thumbs-up"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Работяга</h5>
-        <small class="text-muted mt-3">Завершить первую задачу</small>
+        <h6 class="text-uppercase font-weight-bold">Рабочий класс</h6>
+        <small class="text-muted mt-3">Завершил задачу</small>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
@@ -190,8 +190,8 @@
                 <i class="fab fa-accessible-icon"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Помощник</h5>
-        <small class="text-muted mt-3">Отправить баг репорт</small>
+        <h6 class="text-uppercase font-weight-bold">Помощник</h6>
+        <small class="text-muted mt-3">Отправил баг репорт</small>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
@@ -202,12 +202,62 @@
                 <i class="fas fa-meh"></i>
             </div>
         </div>
-        <h5 class="text-uppercase font-weight-bold">Bad boy</h5>
+        <h6 class="text-uppercase font-weight-bold">Bad ass</h6>
         <small class="text-muted mt-3">Первая просрочка</small>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
+</div>
 
+<div class="d-flex text-center flex-wrap">
+    <div class="award mr-3 mt-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-user-tie""></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Кто тут главный</h6>
+        <small class="text-muted mt-3">Одобрен перенос</small>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
+    <div class="award mr-3 mt-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-user-friends"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Командная работа</h6>
+        <small class="text-muted mt-3">Завершил задачу с соисполнителем</small>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
+    <div class="award mr-3 mt-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-broadcast-tower"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Сигнал получен</h6>
+        <small class="text-muted mt-3">Получил личное сообщение</small>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
+    <div class="award mt-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Шоу талантов</h6>
+        <small class="text-muted mt-3">Выполнил 500 задач за месяц</small>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
 </div>
 
 <script>

@@ -12,7 +12,9 @@
                 </div>
                 <div class="collapse list-group" id="collapseUsers">
                     <?php
-                    foreach ($userList as $user): ?>
+                    foreach ($userList as $user){
+                        $isOnline = in_array($user['id'], $onlineUsersList)
+                     ?>
                         <a href="./<?= $user['id'] ?>/"
                            class="list-group-item list-group-item-action rounded-0 border-left-0 border-right-0">
                             <div class="row">
@@ -21,7 +23,7 @@
                                         <img src="/<?= getAvatarLink($user['id']) ?>"
                                              class="avatar-img rounded-circle w-100"/>
                                         <span class="online-indicator dialog-list">
-                                            <i class="fas fa-circle mr-1 ml-1 onlineIndicator dialog-list-mail <?= ($user['online']) ? 'text-success' : '' ?>"></i>
+                                            <i class="fas fa-circle mr-1 ml-1 onlineIndicator dialog-list-mail <?= ($isOnline) ? 'text-success' : '' ?>"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -30,7 +32,7 @@
                                 </div>
                             </div>
                         </a>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </div>
             </div>
             <div class="list-group dialog">
