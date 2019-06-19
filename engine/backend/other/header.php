@@ -77,7 +77,8 @@ if ($isAuthorized) {
     if (!empty($_GET['profile'])) {
         $title = DBOnce('name', 'users', 'id=' . $_GET["profile"]) . ' ' . DBOnce('surname', 'users', 'id=' . $_GET["profile"]);
     }
-
+    require_once 'engine/backend/functions/achievement-functions.php';
+    checkAchievements($id);
 } else {
     $publicPages = ['reg', 'login', 'restore', 'activate', 'join'];
     $canProceed = false;
@@ -111,3 +112,4 @@ if (empty($title)) {
         }
     }
 }
+
