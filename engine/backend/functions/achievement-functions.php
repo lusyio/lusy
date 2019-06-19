@@ -2,12 +2,21 @@
 $ACHIEVEMENTS = [
     'MEETING',
     'INVITOR',
-    'FINISHER_1',
-    'FINISHER_2',
-    'FINISHER_3',
-    'DELEGATING_1',
-    'DELEGATING_2',
-    'DELEGATING_3',
+    'BUGREPORT',
+    'MESSAGE_1',
+    'TASKOVERDUE_1',
+    'TASKPOSTPONE_1',
+    'TASKDONEWITHCOWORKER_1',
+    'TASKDONE_1',
+    'TASKDONE_10',
+    'TASKDONE_50',
+    'TASKDONE_100',
+    'TASKDONE_1000',
+    'TASKDONEPERMONTH_500',
+    'TASKCREATE_10',
+    'TASKCREATE_50',
+    'TASKCREATE_100',
+    'TASKCREATE_1000',
 ];
 
 /**Возвращает массив с названиями достижений, имеющихся у пользователя
@@ -50,9 +59,21 @@ function getUserProgress($userId)
     $doneQuery->execute(array(':userId' => $userId));
     $taskDone = $doneQuery->fetch(PDO::FETCH_COLUMN);
 
+    $doneWithCoworkerQuery = $pdo->prepare("SELECT COUNT(*) FROM task_coworkers tc LEFT JOIN tasks t ON tc.task_id = t.id WHERE t.worker = :userId AND t.status = 'done'");
+    $doneWithCoworkerQuery->execute(array(':userId' => $userId));
+    $taskDoneWithCoworker = $doneWithCoworkerQuery->fetch(PDO::FETCH_COLUMN);
+
     $createQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks WHERE manager = :userId");
     $createQuery->execute(array(':userId' => $userId));
     $taskCreate = $createQuery->fetch(PDO::FETCH_COLUMN);
+
+    $overdueQuery = $pdo->prepare("SELECT COUNT(*) FROM events e LEFT JOIN tasks t on e.task_id = t.id WHERE e.action = 'overdue' AND t.worker = :userId");
+    $overdueQuery->execute(array(':userId' => $userId));
+    $taskOverdue = $overdueQuery->fetch(PDO::FETCH_COLUMN);
+
+    $postponeQuery = $pdo->prepare("SELECT COUNT(*) FROM events e LEFT JOIN tasks t on e.task_id = t.id WHERE e.action = 'confirmdate' AND t.worker = :userId");
+    $postponeQuery->execute(array(':userId' => $userId));
+    $taskPostpone = $postponeQuery->fetch(PDO::FETCH_COLUMN);
 
     $userDataQuery = $pdo->prepare("SELECT name, surname, idcompany FROM users WHERE id = :userId");
     $userDataQuery->execute(array(':userId' => $userId));
@@ -68,11 +89,20 @@ function getUserProgress($userId)
         $inviteSent = true;
     }
 
+    $messageQuery = $pdo->prepare("SELECT COUNT(*) FROM mail WHERE recipient = :userId");
+    $messageQuery->execute(array(':userId' => $userId));
+    $message = $messageQuery->fetch(PDO::FETCH_COLUMN);
+
     $result = [
         'taskDone' => $taskDone,
         'taskCreate' => $taskCreate,
         'profileFilled' => $isProfileFilled,
         'inviteSent' => $inviteSent,
+        'taskOverdue' => $taskOverdue,
+        'taskPostpone' => $taskPostpone,
+        'taskDoneWithCoworker' => $taskDoneWithCoworker,
+        'message' => $message,
+        'bugReport' => 0,
     ];
     return $result;
 }

@@ -298,13 +298,18 @@ $_wasOnline = 'был в сети';
 $_youGotNewAchievement = 'Новое достижение';
 $_MEETING = 'Знакомство';
 $_INVITOR = 'Приглашатор';
-$_FINISHER_1 = 'Решебник 1';
-$_FINISHER_2 = 'Решебник 2';
-$_FINISHER_3 = 'Решебник 3';
-$_DELEGATING_1 = 'Манагер';
-$_DELEGATING_2 = 'Акула бизнеса';
-$_DELEGATING_3 = 'LVL100 BO$$';
-
-
-
-
+$_BUGREPORT = 'Помощник';
+$_MESSAGE_1 = 'Решебник 2';
+$_TASKOVERDUE_1 = 'Bad Ass';
+$_TASKPOSTPONE_1 = 'Кто тут главный';
+$_TASKDONEWITHCOWORKER_1 = 'Командная работа';
+$_TASKDONE_1 = 'Рабочий класс';
+$_TASKDONE_10 = 'Кекс';
+$_TASKDONE_50 = 'Тортик';
+$_TASKDONE_100 = 'Фруктовый торт';
+$_TASKDONE_1000 = 'Огромный торт с кремом';
+$_TASKDONEPERMONTH_500 = 'Приглашатор';
+$_TASKCREATE_10 = 'Манагер';
+$_TASKCREATE_50 = 'Акула бизнеса';
+$_TASKCREATE_100 = 'LVL100 BO$$';
+$_TASKCREATE_1000 = 'Президент мира';
