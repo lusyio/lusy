@@ -1,5 +1,5 @@
 <?php
-if (is_int($report)) {
+if (ctype_digit($report)) {
     $datedone = date('d.m.Y', $report);
 } else {
     $datedone = $report;

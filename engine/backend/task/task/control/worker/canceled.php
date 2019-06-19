@@ -1,5 +1,5 @@
 <?php
-if (is_int($report)) {
+if (ctype_digit($report)) {
     $dateCancel = date('d.m.Y', $report);
 } else {
     $dateCancel = $report;
