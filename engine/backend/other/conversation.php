@@ -1,5 +1,6 @@
 <?php
 global $id;
+global $idc;
 global $cometHash;
 
 require_once 'engine/backend/functions/mail-functions.php';

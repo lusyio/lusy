@@ -23,12 +23,18 @@
                     <?php endif; ?>
                 </div>
                 <div class="custom-profile float-left">
-                    <p class="text-secondary mt-3 mb-2">
-                        <i class="fas fa-phone mr-3"></i> <?= $userData['phone'] ?>
-                    </p>
-                    <p class="text-secondary mb-2">
+                    <?php if ($userData['phone'] === '--'): ?>
+                        <a class="text-secondary mt-3 mb-2 d-block">
+                            <i class="fas fa-phone mr-3"></i> <?= $userData['phone'] ?>
+                        </a>
+                    <?php else: ?>
+                        <a href="tel:<?= $userData['phone'] ?>" class="text-secondary mt-3 mb-2 d-block">
+                            <i class="fas fa-phone mr-3"></i> <?= $userData['phone'] ?>
+                        </a>
+                    <?php endif; ?>
+                    <a href="mailto:<?= $userData['email'] ?>" class="text-secondary mb-2 d-block">
                         <i class="fas fa-envelope mr-3"></i> <?= $userData['email'] ?>
-                    </p>
+                    </a>
 
                     <?php if (!is_null($socialNetworks) && count($socialNetworks)): ?>
                         <div class="row">

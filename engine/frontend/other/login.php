@@ -53,7 +53,20 @@
             </div>
             
             <hr>
-
+              <?php
+              if ($loginError == true):
+              ?>
+              <div class="login-error text-center mb-3">
+                  <h6>
+                      Вход не удался
+                  </h6>
+                  <span>
+                    Неправильный логин или пароль
+                  </span>
+              </div>
+              <?php
+              endif;
+              ?>
             <!-- Submit -->
             <button class="btn btn-lg btn-block btn-primary mb-3">
               Авторизоваться
