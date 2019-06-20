@@ -68,10 +68,10 @@
         margin-top: 30px;
     }
 </style>
-<table>
+<table style="width: 100%;">
     <tbody>
         <tr>
-            <td><h3 class="logo">LUSY</h3></td>
+            <td style="padding: 0px;"><h3 class="logo" style="color: #202429;font-size: 1.25rem;font-weight: 700;text-align: center;max-width: 600px;margin: 10px auto 20px;border-bottom: 1px solid #e4e4e4;padding-bottom: 20px;letter-spacing: 3px;">LUSY</h3></td>
         </tr>
         <tr>
-            <td>
+            <td style="padding: 0px;">
