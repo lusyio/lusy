@@ -1123,6 +1123,18 @@ input:checked[type="checkbox"]::before {
     background-color: #e5e5e5;
 }
 
+.award-container{
+    width: 780px;
+    padding: 5px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.award-container::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
 .award{
     border-radius: 5px;
     display: block;
@@ -2257,6 +2269,12 @@ label.error {
 
 .text-muted-reg {
     color: #6c757da6 !important;
+}
+
+.text-award{
+    max-width: 190px;
+    word-wrap: break-word;
+    font-size: 80%
 }
 
 .icon-invite {

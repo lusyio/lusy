@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="d-flex text-center">
+<div class="d-flex text-center award-container">
     <div class="award mr-3 mt-3">
         <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
@@ -24,7 +24,7 @@
             </div>
         </div>
         <h6 class="text-uppercase font-weight-bold">Приглашатор</h6>
-        <small class="text-muted mt-3">Пригласил 1 сотрудника</small>
+        <small class="text-muted mt-2 text-award">Пригласил 1 сотрудника</small>
         <hr>
         <span class="badge badge-primary">20.05.2019</span>
     </div>
@@ -40,111 +40,139 @@
     </div>
 </div>
 
-<div class="d-flex text-center ">
-    <div class="award award-active mr-3 mt-3">
+<div class="d-flex text-center award-container">
+    <div class="award mr-3 mt-3">
         <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
-                 data-value="0.20"></div>
+                 data-value="0.00"></div>
             <div class="award-star bg-secondary">
-                <i class="fas fa-birthday-cake"></i>
+                <i class="fas fa-star"></i>
             </div>
         </div>
-        <h6 class="text-uppercase font-weight-bold">Кекс</h6>
-        <small class="text-muted mt-3">Завершил 10 задач</small>
+        <h6 class="text-uppercase font-weight-bold">Новичок</h6>
+        <div class="text-muted mt-2 text-award">Завершил 10 задач</div>
         <hr>
-        <span class="badge badge-secondary">5/10</span>
+        <span class="badge badge-secondary">0/10</span>
     </div>
     <div class="award mr-3 mt-3">
         <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
-                 data-value="0.20"></div>
+                 data-value="0.00"></div>
             <div class="award-star bg-secondary">
-                <i class="fas fa-birthday-cake"></i>
+                <i class="fas fa-star"></i>
             </div>
         </div>
-        <h6 class="text-uppercase font-weight-bold">Тортик</h6>
-        <small class="text-muted mt-3">Завершил 50 задач</small>
+        <h6 class="text-uppercase font-weight-bold">Умелый</h6>
+        <div class="text-muted mt-2 text-award">Завершил 50 задач</div>
         <hr>
-        <span class="badge badge-secondary">5/50</span>
+        <span class="badge badge-secondary">0/50</span>
     </div>
     <div class="award mr-3 mt-3">
         <div>
-            <div class="circle" data-value="0.00"></div>
-            <div class="award-star bg-secondary">
-                <i class="fas fa-birthday-cake"></i>
-            </div>
-        </div>
-        <h6 class="text-uppercase font-weight-bold">Фруктовый торт</h6>
-        <small class="text-muted mt-3">Завершил 100 задач</small>
-        <hr>
-        <span class="badge badge-secondary">5/100</span>
-    </div>
-    <div class="award mt-3">
-        <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
-                 data-value="0.20"></div>
+                 data-value="0.00"></div>
             <div class="award-star bg-secondary">
-                <i class="fas fa-birthday-cake"></i>
+                <i class="fas fa-star"></i>
             </div>
         </div>
-        <h6 class="text-uppercase font-weight-bold">Огромный торт с кремом</h6>
-        <small class="text-muted mt-3">Завершил 1000 задач</small>
+        <h6 class="text-uppercase font-weight-bold">Опытный</h6>
+        <div class="text-muted mt-2 text-award">Завершил 100 задач</div>
         <hr>
-        <span class="badge badge-secondary">5/1000</span>
+        <span class="badge badge-secondary">0/100</span>
     </div>
-</div>
-
-<div class="d-flex text-center ">
     <div class="award mt-3 mr-3">
         <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
-                 data-value="0.20"></div>
+                 data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Мастер</h6>
+        <div class="text-muted mt-2 text-award">Завершил 200 задач</div>
+        <hr>
+        <span class="badge badge-secondary">0/200</span>
+    </div>
+    <div class="award mt-3 mr-3">
+        <div>
+            <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
+                 data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Гуру</h6>
+        <div class="text-muted mt-2 text-award">Завершил 500 задач</div>
+        <hr>
+        <span class="badge badge-secondary">0/500</span>
+    </div>
+</div>
+
+<div class="d-flex text-center award-container">
+    <div class="award mt-3 mr-3">
+        <div>
+            <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
+                 data-value="0.00"></div>
             <div class="award-star bg-secondary">
                 <i class="fas fa-atom"></i>
             </div>
         </div>
         <h6 class="text-uppercase font-weight-bold">Манагер</h6>
-        <small class="text-muted mt-3">Назначил 10 задач</small>
+        <div class="text-muted mt-2 text-award">Назначил 10 задач</div>
         <hr>
-        <span class="badge badge-secondary">5/10</span>
+        <span class="badge badge-secondary">0/10</span>
     </div>
     <div class="award mr-3 mt-3">
         <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
-                 data-value="0.20"></div>
+                 data-value="0.00"></div>
             <div class="award-star bg-secondary">
                 <i class="fas fa-atom"></i>
             </div>
         </div>
-        <h6 class="text-uppercase font-weight-bold">Акула бизнеса</h6>
-        <small class="text-muted mt-3">Назначил 50 задач</small>
+        <h6 class="text-uppercase font-weight-bold">Делегатор</h6>
+        <div class="text-muted mt-2 text-award">Назначил 50 задач</div>
         <hr>
-        <span class="badge badge-secondary">5/50</span>
+        <span class="badge badge-secondary">0/50</span>
     </div>
     <div class="award mt-3 mr-3">
         <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
-                 data-value="0.20"></div>
+                 data-value="0.00"></div>
             <div class="award-star bg-secondary">
                 <i class="fas fa-atom"></i>
             </div>
         </div>
         <h6 class="text-uppercase font-weight-bold">LVL100 B0$$</h6>
-        <small class="text-muted mt-3">Назначил 100 задач</small>
+        <div class="text-muted mt-2 text-award">Назначил 100 задач</div>
         <hr>
-        <span class="badge badge-secondary">5/100</span>
+        <span class="badge badge-secondary">0/100</span>
     </div>
-    <div class="award mt-3">
+    <div class="award mt-3 mr-3">
         <div>
-            <div class="circle" data-value="0.00"></div>
+            <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
+                 data-value="0.00"></div>
             <div class="award-star bg-secondary">
                 <i class="fas fa-atom"></i>
             </div>
         </div>
-        <h6 class="text-uppercase font-weight-bold">Президент мира</h6>
-        <small class="text-muted mt-3">Назначил 1000 задач</small>
+        <h6 class="text-uppercase font-weight-bold">Акула бизнеса</h6>
+        <div class="text-muted mt-2 text-award">Назначил 200 задач</div>
         <hr>
-        <span class="badge badge-secondary">5/1000</span>
+        <span class="badge badge-secondary">0/200</span>
+    </div>
+    <div class="award mt-3 mr-3">
+        <div>
+            <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
+                 data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-atom"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Великий</h6>
+        <div class="text-muted mt-2 text-award">Назначил 500 задач</div>
+        <hr>
+        <span class="badge badge-secondary">0/500</span>
     </div>
 </div>
 
@@ -158,7 +186,7 @@
     </div>
 </div>
 
-<div class="d-flex text-center">
+<div class="d-flex text-center award-container">
     <div class="award mr-3 mt-3">
         <div>
             <div class="circle" data-value="0.00"></div>
@@ -167,7 +195,7 @@
             </div>
         </div>
         <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
-        <small class="text-muted mt-3">Заполнил профиль</small>
+        <div class="text-muted mt-2 text-award">Заполнил профиль</div>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
@@ -178,47 +206,20 @@
                 <i class="fas fa-thumbs-up"></i>
             </div>
         </div>
-        <h6 class="text-uppercase font-weight-bold">Рабочий класс</h6>
-        <small class="text-muted mt-3">Завершил задачу</small>
+        <h6 class="text-uppercase font-weight-bold">Начало карьеры</h6>
+        <div class="text-muted mt-2 text-award">Завершил задачу</div>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
-    <div class="award mr-3 mt-3">
-        <div>
-            <div class="circle" data-value="0.00"></div>
-            <div class="award-star bg-secondary">
-                <i class="fab fa-accessible-icon"></i>
-            </div>
-        </div>
-        <h6 class="text-uppercase font-weight-bold">Помощник</h6>
-        <small class="text-muted mt-3">Отправил баг репорт</small>
-        <hr>
-        <span class="badge badge-secondary">не достигнуто</span>
-    </div>
-    <div class="award mt-3">
+    <div class="award mt-3 mr-3">
         <div>
             <div class="circle" data-value="0.00"></div>
             <div class="award-star bg-secondary">
                 <i class="fas fa-meh"></i>
             </div>
         </div>
-        <h6 class="text-uppercase font-weight-bold">Bad ass</h6>
-        <small class="text-muted mt-3">Первая просрочка</small>
-        <hr>
-        <span class="badge badge-secondary">не достигнуто</span>
-    </div>
-</div>
-
-<div class="d-flex text-center flex-wrap">
-    <div class="award mr-3 mt-3">
-        <div>
-            <div class="circle" data-value="0.00"></div>
-            <div class="award-star bg-secondary">
-                <i class="fas fa-user-tie""></i>
-            </div>
-        </div>
-        <h6 class="text-uppercase font-weight-bold">Кто тут главный</h6>
-        <small class="text-muted mt-3">Одобрен перенос</small>
+        <h6 class="text-uppercase font-weight-bold">Потрачено</h6>
+        <div class="text-muted mt-2 text-award">Первая просрочка</div>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
@@ -229,11 +230,76 @@
                 <i class="fas fa-user-friends"></i>
             </div>
         </div>
-        <h6 class="text-uppercase font-weight-bold">Командная работа</h6>
-        <small class="text-muted mt-3">Завершил задачу с соисполнителем</small>
+        <h6 class="text-uppercase font-weight-bold">В команде</h6>
+        <div class="text-muted mt-2 text-award">Завершил задачу с соисполнителем</div>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
+    <div class="award mt-3 mr-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-medal"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Красавчик</h6>
+        <div class="text-muted mt-2 text-award">Месяц без просрочки</div>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
+    <div class="award mt-3 mr-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Больше всех</h6>
+        <div class="text-muted mt-2 text-award">Завершил больше всех задач за месяц</div>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
+    <div class="award mt-3 mr-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Цезарь</h6>
+        <div class="text-muted mt-2 text-award">20 задач в работе</div>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
+    <div class="award mt-3 mr-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Поймал кураж</h6>
+        <div class="text-muted mt-2 text-award">Назначил 30 задач за день</div>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
+</div>
+
+
+<div class="d-none">
+    <div class="award mr-3 mt-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fab fa-accessible-icon"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Помощник</h6>
+        <div class="text-muted mt-3">Отправил баг репорт</div>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
+
     <div class="award mr-3 mt-3">
         <div>
             <div class="circle" data-value="0.00"></div>
@@ -242,19 +308,20 @@
             </div>
         </div>
         <h6 class="text-uppercase font-weight-bold">Сигнал получен</h6>
-        <small class="text-muted mt-3">Получил личное сообщение</small>
+        <div class="text-muted mt-3 text-award">Получил личное сообщение</div>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
-    <div class="award mt-3">
+
+    <div class="award mr-3 mt-3">
         <div>
             <div class="circle" data-value="0.00"></div>
             <div class="award-star bg-secondary">
-                <i class="fas fa-user-graduate"></i>
+                <i class="fas fa-user-tie"></i>
             </div>
         </div>
-        <h6 class="text-uppercase font-weight-bold">Шоу талантов</h6>
-        <small class="text-muted mt-3">Выполнил 500 задач за месяц</small>
+        <h6 class="text-uppercase font-weight-bold">Сам себе босс</h6>
+        <div class="text-muted mt-3">Одобрен перенос</div>
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
