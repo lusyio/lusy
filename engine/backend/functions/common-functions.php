@@ -646,7 +646,7 @@ function addMassSystemEvent($action, $comment = '', $companyId = '')
 function getAvatarLink($userId)
 {
     if ($userId == 1) {
-        $idc = 0;
+        return 'upload/avatar/0/1-alter.jpg';
     } else {
         global $idc;
     }
@@ -669,7 +669,7 @@ function getAvatarLink($userId)
 function createAlterAvatar($userId)
 {
     if ($userId == 1) {
-        $idc = 0;
+        return;
     } else {
         global $idc;
     }
