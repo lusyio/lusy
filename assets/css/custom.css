@@ -1338,6 +1338,13 @@ input:checked[type="checkbox"]::before {
 .no-events i, .no-events p {
     color: #e8e8e8 !important;
 }
+.eventText {
+    margin-top: 10px;
+    line-height: 1.8;
+}
+.eventText a, .eventText span {
+    color: #9e9e9e;
+}
 #change-date {
     display: none;
     width: 300px;

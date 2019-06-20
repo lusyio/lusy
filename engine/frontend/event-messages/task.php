@@ -2,7 +2,7 @@
      class="event <?= ($event['view_status']) ? '' : 'new-event' ?> <?= ($event['action'] == 'createtask') ? '' : 'readable-here' ?> task mb-3">
 
     <?php
-    $taskLink = '<a href="/../' . $event['link'] . '" class="font-italic task-link">' . $event['taskname'] . '</a>';
+    $taskLink = '<a href="/../' . $event['link'] . '">' . $event['taskname'] . '</a>';
 
     if ($event['action'] == 'createtask') { // создание, назначение задачи
         $bg = 'bg-primary';
@@ -15,12 +15,11 @@
             } else {
                 $eventText = $GLOBALS['_youCreatedTask'] . ' ';
                 $eventText .= $taskLink . '. ';
-                $eventText .= $GLOBALS['_responsible'] . ' ' . $event['workerName'] . ' ' . $event['workerSurname'] . '. ';
+                $eventText .= $GLOBALS['_responsible'] . ' <span>' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>. ';
             }
-            $eventText .= $GLOBALS['_periodOfExecutionUntil'] . ' ' . date('d.m', $event['comment']);
+            $eventText .= $GLOBALS['_periodOfExecutionUntil'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         } else {
-            $eventText = $GLOBALS['_assignedYouTask'] . ' - ';
-            $eventText .= $taskLink;
+            $eventText = $GLOBALS['_assignedYouTask'] . ' - ' . $taskLink;
 
         }
     }
@@ -70,7 +69,7 @@
         if ($event['author_id'] == '1') {
             $eventText = $GLOBALS['_youReturnedTask'] . ' - ';
             $eventText .= $taskLink . '. ';
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         } else {
             $eventText = $GLOBALS['_taskReturnedToYou'] . ' - ';
             $eventText .= $taskLink;
@@ -108,11 +107,11 @@
         if ($event['author_id'] == '1') {
             $eventText = $GLOBALS['_youConfirmPostponeAsk'] . ' - ';
             $eventText .= $taskLink . '. ';
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         } else {
             $eventText = $GLOBALS['_confirmYourPostponeAsk'] . ' - ';
             $eventText .= $taskLink;
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         }
     }
 
@@ -147,12 +146,12 @@
         $icon = 'far fa-calendar-plus';
         if ($event['author_id'] == '1') {
             $eventText = $GLOBALS['_youSetNewDateInTask'] . ' - ';
-            $eventText .= $taskLink;
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
+            $eventText .= $taskLink . '. ';
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         } else {
             $eventText = $GLOBALS['_newDateInYourTask'] . ' - ';
             $eventText .= $taskLink;
-            $eventText .= $GLOBALS['_taskNewDeadline'] . ' ' . date('d.m', $event['comment']);
+            $eventText .= $GLOBALS['_taskNewDeadline'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         }
     }
 
@@ -192,7 +191,7 @@
         <img src="/<?=getAvatarLink($event['author_id'])?>" class="avatar mr-2">
         <a href="/profile/<?=$event['author_id']?>/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
     </div>
-    <p class="mt-2"><?= $eventText ?></p>
+    <p class="eventText"><?= $eventText ?></p>
 </li>
 
 
