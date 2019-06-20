@@ -910,6 +910,10 @@ input:checked[type="checkbox"]::before {
     transition: 300ms;
 }
 
+.award hr {
+    width: 70px;
+}
+
 .avatar-new {
     line-height: 0.9 !important;
     width: 30px;

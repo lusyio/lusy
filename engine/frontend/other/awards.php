@@ -277,6 +277,18 @@
         <hr>
         <span class="badge badge-secondary">не достигнуто</span>
     </div>
+    <div class="award mt-3 mr-3">
+        <div>
+            <div class="circle" data-value="0.00"></div>
+            <div class="award-star bg-secondary">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+        </div>
+        <h6 class="text-uppercase font-weight-bold">Шоу талантов</h6>
+        <div class="text-muted mt-2 text-award">Завершить 500 задач за месяц</div>
+        <hr>
+        <span class="badge badge-secondary">не достигнуто</span>
+    </div>
 </div>
 
 
