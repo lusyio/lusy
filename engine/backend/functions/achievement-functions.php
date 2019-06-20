@@ -7,16 +7,22 @@ $ACHIEVEMENTS = [
     'TASKOVERDUE_1',
     'TASKPOSTPONE_1',
     'TASKDONEWITHCOWORKER_1',
+    'SELFTASK_1',
     'TASKDONE_1',
     'TASKDONE_10',
     'TASKDONE_50',
     'TASKDONE_100',
-    'TASKDONE_1000',
+    'TASKDONE_200',
+    'TASKDONE_500',
     'TASKDONEPERMONTH_500',
     'TASKCREATE_10',
     'TASKCREATE_50',
     'TASKCREATE_100',
-    'TASKCREATE_1000',
+    'TASKCREATE_200',
+    'TASKCREATE_500',
+    'COMMENT_1000',
+    'TASKOVERDUEPERMONTH_0',
+    'TASKDONEPERMONTH_LEADER',
 ];
 
 /**Возвращает массив с названиями достижений, имеющихся у пользователя
@@ -79,7 +85,7 @@ function getUserProgress($userId)
     $userDataQuery->execute(array(':userId' => $userId));
     $userData = $userDataQuery->fetch(PDO::FETCH_ASSOC);
     $avatarPath = 'upload/avatar/' . $userData['idcompany'] . '/' . $userId . '.jpg';
-    if (!empty($userData['name']) && !empty($userData['surname']) && file_exists($avatarPath)){
+    if (!empty($userData['name']) && !empty($userData['surname']) && file_exists($avatarPath)) {
         $isProfileFilled = true;
     }
 
@@ -93,6 +99,19 @@ function getUserProgress($userId)
     $messageQuery->execute(array(':userId' => $userId));
     $message = $messageQuery->fetch(PDO::FETCH_COLUMN);
 
+    $selfTaskQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks WHERE worker = :userId AND manager = :userId");
+    $selfTaskQuery->execute(array(':userId' => $userId));
+    $selfTask = $selfTaskQuery->fetch(PDO::FETCH_COLUMN);
+
+    $taskCreateTodayQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks WHERE manager = :userId AND datecreate > :startTime");
+    $startTime = strtotime(date('Y-m-d'));
+    $taskCreateTodayQuery->execute(array(':userId' => $userId, ':startTime' => $startTime));
+    $taskCreateToday = $taskCreateTodayQuery->fetch(PDO::FETCH_COLUMN);
+
+    $commentQuery = $pdo->prepare("SELECT COUNT(*) FROM comments WHERE iduser = :userId AND status = 'comment'");
+    $commentQuery->execute(array(':userId' => $userId));
+    $comment = $commentQuery->fetch(PDO::FETCH_COLUMN);
+
     $result = [
         'taskDone' => $taskDone,
         'taskCreate' => $taskCreate,
@@ -103,6 +122,9 @@ function getUserProgress($userId)
         'taskDoneWithCoworker' => $taskDoneWithCoworker,
         'message' => $message,
         'bugReport' => 0,
+        'selfTask' => $selfTask,
+        'taskCreateToday' => $taskCreateToday,
+        'comment' => $taskCreateToday,
     ];
     return $result;
 }
@@ -110,7 +132,20 @@ function getUserProgress($userId)
 function getAchievementConditions()
 {
     global $pdo;
-    $query = $pdo->prepare("SELECT achievement_name, multiple, conditions, output_name FROM achievement_rules");
+    $query = $pdo->prepare("SELECT achievement_name, multiple, conditions, output_name FROM achievement_rules WHERE periodic = 0");
+    $query->execute();
+    $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
+    $result = [];
+    foreach ($queryResult as $achievement) {
+        $result[$achievement['achievement_name']] = $achievement;
+    }
+    return $result;
+}
+
+function getPeriodicAchievementConditions()
+{
+    global $pdo;
+    $query = $pdo->prepare("SELECT achievement_name, multiple, conditions, output_name FROM achievement_rules WHERE periodic = 1");
     $query->execute();
     $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
     $result = [];
@@ -128,7 +163,7 @@ function checkAchievements($userId)
 
     foreach ($achievementsList as $ach => $props) {
         $conditions = json_decode($props['conditions'], true);
-        if (!in_array($ach, $earnedAchievements)) {
+        if ($props['multiple'] == 1 || !in_array($ach, $earnedAchievements)) {
             $conditionsSatisfied = true;
             foreach ($conditions as $property => $condition) {
                 if (!checkRule($userProgress[$property], $condition)) {
@@ -143,10 +178,96 @@ function checkAchievements($userId)
     }
 }
 
-function checkRule($property, $rule) {
+function checkPeriodicAchievements($userId)
+{
+    $earnedAchievements = getUserAchievements($userId);
+    $userProgress = getUserProgress($userId);
+    $achievementsList = getAchievementConditions();
+
+    foreach ($achievementsList as $ach => $props) {
+        $conditions = json_decode($props['conditions'], true);
+        if ($props['multiple'] == 1 || !in_array($ach, $earnedAchievements)) {
+            $conditionsSatisfied = true;
+            foreach ($conditions as $property => $condition) {
+                if (!checkRule($userProgress[$property], $condition)) {
+                    $conditionsSatisfied = false;
+                    break;
+                }
+            }
+            if ($conditionsSatisfied) {
+                addAchievement($ach, $userId);
+            }
+        }
+    }
+}
+
+function getMonthlyDoneTaskInCompany($companyId, $firstDay)
+{
+    global $pdo;
+
+    $taskDonePerMonthLeaderQuery = $pdo->prepare("SELECT COUNT(*) AS count, worker AS userId FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE status = 'done' AND idcompany = :companyId AND e.action = 'workdone' AND e.datetime > :firstDay GROUP BY worker ORDER BY count DESC");
+    $taskDonePerMonthLeaderQuery->execute(array(':companyId' => $companyId, ':firstDay' => $firstDay));
+    $doneTasks = $taskDonePerMonthLeaderQuery->fetchAll(PDO::FETCH_ASSOC);
+    return $doneTasks;
+}
+function getMonthlyOverdueWorkersInCompany($companyId, $firstDay)
+{
+    global $pdo;
+
+    $taskOverduePerMonthLeaderQuery = $pdo->prepare("SELECT COUNT(*) AS count, worker AS userId FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE idcompany = :companyId AND e.action = 'overdue' AND e.datetime > :firstDay GROUP BY worker ORDER BY count DESC");
+    $taskOverduePerMonthLeaderQuery->execute(array(':companyId' => $companyId, ':firstDay' => $firstDay));
+    $overdueTasks = $taskOverduePerMonthLeaderQuery->fetchAll(PDO::FETCH_ASSOC);
+    $workers = [];
+    foreach ($overdueTasks as $tasks) {
+        $workers[] = $tasks['userId'];
+    }
+    return $workers;
+}
+
+function checkTaskDoneLeaderAchievementsInCompany($companyId, $firstDay)
+{
+    $taskLeaders = getMonthlyDoneTaskInCompany($companyId, $firstDay);
+    $hasMoreThanOneLeader = false;
+    if (count($taskLeaders) > 1 && $taskLeaders[0]['count'] == $taskLeaders[1]['count']) {
+        $hasMoreThanOneLeader = true;
+    }
+    if (!$hasMoreThanOneLeader && count($taskLeaders) > 0 && $taskLeaders[0]['count'] > 0) {
+        addAchievement('TASKDONEPERMONTH_LEADER', $taskLeaders[0]['userId']);
+    }
+    foreach ($taskLeaders as $tasks) {
+        if ($tasks['count'] >= 500) {
+            addAchievement('TASKDONEPERMONTH_500', $taskLeaders[0]['userId']);
+        }
+    }
+}
+
+function checkTaskDonePerMonthInCompany($companyId, $firstDay)
+{
+    $TASK_GOAL = 500;
+    $doneTasks = getMonthlyDoneTaskInCompany($companyId, $firstDay);
+    foreach ($doneTasks as $tasks) {
+        if ($tasks['count'] >= $TASK_GOAL) {
+            addAchievement('TASKDONEPERMONTH_500', $tasks['userId']);
+        }
+    }
+}
+
+function checkTaskOverduePerMonthInCompany($companyId, $firstDay)
+{
+    $companyUsers = DBOnce('id', 'users' , 'idcompany = ' . $companyId . ' AND is_fired = 0');
+    $overdueWorkers = getMonthlyOverdueWorkersInCompany($companyId, $firstDay);
+    foreach ($companyUsers as $user) {
+        if (!in_array($user, $overdueWorkers)) {
+            addAchievement('TASKOVERDUEPERMONTH_0', $user);
+        }
+    }
+}
+
+function checkRule($property, $rule)
+{
     if ($rule['condition'] == 'more') {
         return $property > $rule['value'];
-    } elseif ($rule['condition'] == 'less'){
+    } elseif ($rule['condition'] == 'less') {
         return $property < $rule['value'];
     } else {
         return $property == $rule['value'];
@@ -159,5 +280,5 @@ function addAchievement($achievement, $userId)
     $query = $pdo->prepare("INSERT INTO user_achievements (user_id, achievement, datetime) VALUES (:userId, :achievement, :datetime)");
     $query->execute(array(':userId' => $userId, ':achievement' => $achievement, ':datetime' => time()));
 
-    addEvent('newachievement','0', $achievement, '$userId');
+    addEvent('newachievement', '0', $achievement, '$userId');
 }
