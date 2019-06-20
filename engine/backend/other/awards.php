@@ -14,4 +14,3 @@ $assignedTasksQuery->execute(array(':managerId' => $id));
 $assignedTasksCount = $assignedTasksQuery->fetch(PDO::FETCH_COLUMN);
 
 ?>
-Достижения

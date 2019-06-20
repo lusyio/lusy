@@ -1124,6 +1124,10 @@ input:checked[type="checkbox"]::before {
     transition: 200ms;
 }
 
+.award .bg-secondary {
+    background-color: rgba(0, 0, 0, .3) !important;
+}
+
 .award-container{
     width: 780px;
     padding: 5px;

@@ -2,7 +2,7 @@
 <div class="row mb-4">
     <div class="col">
         <span class="h3">Прогесс достижений</span>
-        <div class="progress col mt-2 mb-2 p-0">
+        <div class="progress col mt-3 mb-2 p-0 w">
             <div class="progress-bar bg-success" role="progressbar" style="width: 8%" aria-valuenow="1"
                  aria-valuemin="0"
                  aria-valuemax="100" title="Достижения"><span class="text-white ml-3">2/123</span></div>
@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<div class="row mt-4 mb-1">
+<div class="row mt-5 mb-1">
     <div class="col">
         <h3>Путь Ответственного</h3>
     </div>
@@ -100,7 +100,7 @@
     </div>
 </div>
 
-<div class="row mt-4 mb-1">
+<div class="row mt-5 mb-1">
     <div class="col">
         <h3>Путь Руководителя</h3>
     </div>
@@ -174,7 +174,7 @@
     </div>
 </div>
 
-<div class="row mt-4 mb-1">
+<div class="row mt-5 mb-1">
     <div class="col">
         <h3>Разовые достижения</h3>
     </div>
