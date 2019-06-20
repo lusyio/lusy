@@ -1,12 +1,84 @@
-<div class="card">
+<script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card overflow-hidden">
+            <div class="card-body pb-0">
+                <div><span class="numberSlide">23</span><i class="iconSlide fas fa-check text-white float-right"></i>
+                </div>
+                <div>
+                    <small class="text-secondary">Завершено задач за месяц</small>
+                </div>
+            </div>
+            <div class="chart"></div>
+        </div>
+    </div>
+    <div class="col-sm-8" id="taskListSlide">
+            <a href="/task/5/" class="text-decoration-none cust">
+                <div class="task-card">
+                    <div class="card mb-2 tasks  pending manager">
+                        <div class="card-body tasks-list">
+                            <div class="d-block border-left-tasks border-warning ">
+                                <p class="font-weight-light text-ligther d-none">Выполнено</p>
+                                <div class="row">
+                                    <div class="col-sm-9 col-12">
+                                        <div>
+                                            <span class="taskname">Учет часового пояса и языка</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-3  ">
+                                        31 мая
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <?php for ($i = 1; $i <= 7; $i++) { ?>
+                <a href="/task/5/" class="text-decoration-none cust">
+                    <div class="task-card">
+                        <div class="card mb-2 tasks  pending manager">
+                            <div class="card-body tasks-list">
+                                <div class="d-block border-left-tasks border-warning ">
+                                    <p class="font-weight-light text-ligther d-none">Выполнено</p>
+                                    <div class="row">
+                                        <div class="col-sm-9 col-12">
+                                            <div>
+                                                <span class="taskname">Учет часового пояса и языка</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-3  ">
+                                            31 мая
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <?php } ?>
+        <div class="bottomGradient"></div>
+    </div>
+</div>
+<div class="card position-relative d-none">
     <div class="card-body">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <p class="text-center pt-5 pb-4">Добро пожаловать в систему Lusy.io!</p>
-                </div>
-                <div class="carousel-item">
-                    <p class="text-center pt-5 pb-4">Это информационные слайды</p>
+                <div class="carousel-item text-center active">
+                    <h1 class="font-weight-bold text-success mb-0">23</h1>
+                    <small class="text-dark font-weight-bold">Завершено задач</small>
+                    <hr>
+                    <div class="d-flex justify-content-center">
+                        <div class="mb-1 mr-3">
+                            <small class="text-secondary"><i class="fas fa-fire-alt text-danger fa-fw mr-2"></i>Был
+                                просрочен срок - <span class="font-weight-bold text-dark">9</span></small>
+                        </div>
+                        <div>
+                            <small class="text-secondary"><i class="fas fa-clock text-warning fa-fw mr-2"></i>Запрошен
+                                перенос срока - <span class="font-weight-bold text-dark">1</span></small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -15,7 +87,6 @@
 
 <ol class="carousel-indicators position-relative">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 </ol>
 
 <div class="row">
@@ -102,7 +173,75 @@
         </div>
     </div>
 </div>
+<script>
+    function createConfig(details, data) {
+        return {
+            type: 'line',
+            data: {
+                labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+                datasets: [{
+                    steppedLine: details.steppedLine,
+                    data: data,
+                    fill: true,
+                    backgroundColor: "rgba(40, 167, 69, 0.5)",
+                    borderColor: 'transparent'
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: false,
+                    text: details.label,
+                },
+                label: {
+                    display: false
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        display: false
+                    }],
+                    yAxes: [{
+                        display: false
+                    }]
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                }
+            }
+        };
+    }
 
+
+    window.onload = function () {
+
+        var container = document.querySelector('.chart');
+
+        var data = [0, 3, 5, 2, 4, 0, 7];
+
+        var steppedLineSettings = [{
+            color: window.chartColors.red
+        }];
+
+
+        steppedLineSettings.forEach(function (details) {
+            var div = document.createElement('div');
+            div.classList.add('chart-container');
+
+            var canvas = document.createElement('canvas');
+            div.appendChild(canvas);
+            container.appendChild(div);
+
+            var ctx = canvas.getContext('2d');
+            var config = createConfig(details, data);
+            new Chart(ctx, config);
+        });
+    };
+</script>
 <script>
     $(document).ready(function () {
         $('.carousel').carousel({
