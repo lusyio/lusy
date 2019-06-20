@@ -45,11 +45,23 @@ function getUserAchievements($userId)
 function getUserAchievementsForRender($userId)
 {
     global $pdo;
-    $query = $pdo->prepare('SELECT ar.output_name FROM user_achievements ua LEFT JOIN achievement_rules ar ON ua.achievement = ar.achievement_name WHERE ua.user_id = :userId');
+    $query = $pdo->prepare('SELECT achievement, datetime FROM user_achievements WHERE user_id = :userId');
     $query->execute(array(':userId' => $userId));
     $result = $query->fetchAll(PDO::FETCH_COLUMN);
     if (!is_array($result)) {
         $result = [];
+    }
+    return $result;
+}
+function getUserNonMultipleAchievements($userId)
+{
+    global $pdo;
+    $query = $pdo->prepare('SELECT ua.achievement, ua.datetime FROM user_achievements ua LEFT JOIN achievement_rules ar ON ua.achievement = ar.achievement_name WHERE ua.user_id = :userId AND ar.multiple = 0 ORDER BY ua.datetime DESC');
+    $query->execute(array(':userId' => $userId));
+    $achievements = $query->fetchAll(PDO::FETCH_ASSOC);
+    $result = [];
+    foreach ($achievements as $a) {
+        $result[$a['achievement']] = $a['datetime'];
     }
     return $result;
 }
