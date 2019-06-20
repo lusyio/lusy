@@ -2,7 +2,7 @@
 <div class="row mb-4">
     <div class="col">
         <span class="h3">Прогесс достижений</span>
-        <div class="progress col mt-3 mb-2 p-0 w">
+        <div class="progress progress-awards col mt-3 mb-2 p-0 w">
             <div class="progress-bar bg-success" role="progressbar" style="width: 8%" aria-valuenow="1"
                  aria-valuemin="0"
                  aria-valuemax="100" title="Достижения"><span class="text-white ml-3">2/123</span></div>
@@ -351,7 +351,6 @@
     $(document).ready(function () {
         $('.award-container').hScroll(30);
     });
-
 
     $('.circle').circleProgress({
         size: 75,

@@ -77,18 +77,45 @@
             <div class="card-body">
                 <h4 class="ml-4">Достижения</h4>
                 <hr class="m-0">
-                <div class="d-flex">
-                    <div class="col-1 mt-3 ml-2 achievement-sm" title="Решебник 1">
-                        <div class="circle-sm" data-value="1"></div>
-                        <div class="award-star award-sm">
-                            <i class="fas fa-star" style="color: white;"></i>
+                <div class="d-flex flex-wrap text-center">
+                    <div class="award award-sm mr-3 mt-3">
+                        <div>
+                            <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
+                                 data-value="1.00"></div>
+                            <div class="award-star bg-primary">
+                                <i class="fas fa-user"></i>
+                            </div>
                         </div>
+                        <h6 class="text-uppercase font-weight-bold">Приглашатор</h6>
+                        <small class="text-muted mt-2 text-award">Пригласил 1 сотрудника</small>
+                        <hr>
+                        <span class="badge badge-primary">20.05.2019</span>
                     </div>
-                    <div class="col-1 mt-3 ml-2 achievement-sm" title="Комментатор 1">
-                        <div class="circle-sm" data-value="1"></div>
-                        <div class="award-star award-sm bg-warning">
-                            <i class="fas fa-comments" style="color: white;"></i>
+                    <div class="award award-sm mr-3 mt-3">
+                        <div>
+                            <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
+                                 data-value="1.00"></div>
+                            <div class="award-star bg-primary">
+                                <i class="fas fa-user"></i>
+                            </div>
                         </div>
+                        <h6 class="text-uppercase font-weight-bold">Новичок</h6>
+                        <small class="text-muted mt-2 text-award">Завершил 10 задач</small>
+                        <hr>
+                        <span class="badge badge-primary">20.05.2019</span>
+                    </div>
+                    <div class="award award-sm mt-3">
+                        <div>
+                            <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
+                                 data-value="1.00"></div>
+                            <div class="award-star bg-primary">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
+                        <small class="text-muted mt-2 text-award">Заполнил профиль</small>
+                        <hr>
+                        <span class="badge badge-primary">20.05.2019</span>
                     </div>
                 </div>
             </div>
@@ -96,26 +123,24 @@
     </div>
 </div>
 
+<div class="d-none">
+    <div class="achievement-sm mr-2 mt-3" data-toggle="tooltip" data-placement="bottom" title="Новичок">
+        <div class="circle-sm" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}" data-value="1"></div>
+        <div class="award-star award-sm bg-primary">
+            <i class="fas fa-star" style="color: white;margin-right: 1px;"></i>
+        </div>
+    </div>
+    <div class="achievement-sm mr-2 mt-3" data-toggle="tooltip" data-placement="bottom" title="Начало карьеры">
+        <div class="circle-sm" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}" data-value="1"></div>
+        <div class="award-star award-sm bg-primary">
+            <i class="fas fa-thumbs-up" style="color: white;margin-right: 1px;"></i>
+        </div>
+    </div>
+</div>
+
 <script>
-    $('.circle-sm').circleProgress({
-        size: 45,
-        fill: {
-            gradient: ["red", "orange"]
-        }
-    });
-
-    $('.circle-md').circleProgress({
-        size: 75,
-        fill: {
-            gradient: ["red", "orange"]
-        }
-    });
-
     $('.circle').circleProgress({
-        size: 75,
-        fill: {
-            gradient: ["red", "orange"]
-        }
+        size: 75
     });
 </script>
 

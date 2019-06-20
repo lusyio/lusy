@@ -72,18 +72,95 @@
     </div>
 </div>
 
-<div class="card mt-3 w-50" >
-    <div class="card-body pb-0 border-bottom">
-        <div class="row">
-            <div class="col-2">
+<div class="mt-3">
+    <div class="card ">
+        <div class="d-flex flex-wrap">
+            <div class="card-body w-50 border-bottom border-right">
+                <img src="/upload/avatar/2/2-alter.jpg" class="avatar">
+                <div class="d-inline ml-2"><span>Иван петрович</span></div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-muted">
+                            <div>Выполнено</div>
+                            <div>Просрочено</div>
+                            <div>Комментарии</div>
+                            <div>События</div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div>12</div>
+                        <div>24</div>
+                        <div>23</div>
+                        <div>12</div>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <p>Имя фамилия</p>
-                <p>Выполнено</p>
-                <p>Просрочено</p>
-                <p>Комментарии</p>
-                <p>События</p>
+            <div class="card-body w-50 border-bottom ">
+                <img src="/upload/avatar/2/2-alter.jpg" class="avatar">
+                <div class="d-inline ml-2">Иван петрович</div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-muted">
+                            <div>Выполнено</div>
+                            <div>Просрочено</div>
+                            <div>Комментарии</div>
+                            <div>События</div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div>12</div>
+                        <div>24</div>
+                        <div>23</div>
+                        <div>12</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body w-50 border-bottom border-right">
+                <img src="/upload/avatar/2/2-alter.jpg" class="avatar">
+                <div class="d-inline ml-2">Иван петрович</div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-muted">
+                            <div>Выполнено</div>
+                            <div>Просрочено</div>
+                            <div>Комментарии</div>
+                            <div>События</div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div>12</div>
+                        <div>24</div>
+                        <div>23</div>
+                        <div>12</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body w-50 border-bottom">
+                <img src="/upload/avatar/2/2-alter.jpg" class="avatar">
+                <div class="d-inline ml-2">Иван петрович</div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-muted">
+                            <div>Выполнено</div>
+                            <div>Просрочено</div>
+                            <div>Комментарии</div>
+                            <div>События</div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div>12</div>
+                        <div>24</div>
+                        <div>23</div>
+                        <div>12</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
