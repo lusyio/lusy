@@ -1,20 +1,16 @@
 <script src="/assets/js/circle-progress.min.js"></script>
-<div class="row">
+<div class="row mb-4">
     <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <span class="h3">Прогесс достижений</span><span class="text-muted-reg ml-3">2/123</span>
-                <div class="progress col mt-2 mb-2 p-0">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 8%" aria-valuenow="1"
-                         aria-valuemin="0"
-                         aria-valuemax="100" title="Достижения"></div>
-                </div>
-            </div>
+        <span class="h3">Прогесс достижений</span>
+        <div class="progress col mt-2 mb-2 p-0">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 8%" aria-valuenow="1"
+                 aria-valuemin="0"
+                 aria-valuemax="100" title="Достижения"><span class="text-white ml-3">2/123</span></div>
         </div>
     </div>
 </div>
 
-<div class="d-flex text-center award-container">
+<div class="d-flex text-center flex-wrap">
     <div class="award mr-3 mt-3">
         <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
@@ -30,17 +26,13 @@
     </div>
 </div>
 
-<div class="row mt-3">
+<div class="row mt-4 mb-1">
     <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <h3>Путь становления</h3>
-            </div>
-        </div>
+        <h3>Путь Ответственного</h3>
     </div>
 </div>
 
-<div class="d-flex text-center award-container">
+<div class="d-flex text-center flex-wrap">
     <div class="award mr-3 mt-3">
         <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
@@ -108,7 +100,13 @@
     </div>
 </div>
 
-<div class="d-flex text-center award-container">
+<div class="row mt-4 mb-1">
+    <div class="col">
+        <h3>Путь Руководителя</h3>
+    </div>
+</div>
+
+<div class="d-flex text-center flex-wrap">
     <div class="award mt-3 mr-3">
         <div>
             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 0, 0, .3)&quot;}"
@@ -176,18 +174,14 @@
     </div>
 </div>
 
-<div class="row mt-3">
+<div class="row mt-4 mb-1">
     <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <h3>Разовые достижения</h3>
-            </div>
-        </div>
+        <h3>Разовые достижения</h3>
     </div>
 </div>
 
-<div class="d-flex text-center award-container">
-    <div class="award mr-3 mt-3">
+<div class="d-flex text-center flex-wrap">
+    <div class="award mt-3 mr-3">
         <div>
             <div class="circle" data-value="0.00"></div>
             <div class="award-star bg-secondary">
@@ -342,7 +336,7 @@
         };
     });
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.award-container').hScroll(30);
     });
 

@@ -1121,6 +1121,7 @@ input:checked[type="checkbox"]::before {
 
 .award .badge-secondary {
     background-color: #e5e5e5;
+    transition: 200ms;
 }
 
 .award-container{
@@ -1146,6 +1147,17 @@ input:checked[type="checkbox"]::before {
     transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s;
     transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
     box-shadow: 0 10px 15px rgba(14,21,47,.05);
+}
+
+.award:hover {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+    z-index: 1;
+    box-shadow: 0 22px 50px rgba(14,21,47,.2);
+}
+
+.award:hover .badge-secondary {
+    background-color: rgba(0, 0, 0, .3);
 }
 
 .award-star{
