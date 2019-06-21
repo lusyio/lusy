@@ -1,10 +1,22 @@
+<?php
+$borderColor = [
+    'new' => 'border-primary',
+    'inwork' => 'border-primary',
+    'overdue' => 'border-danger',
+    'postpone' => 'border-warning',
+    'pending' => 'border-warning',
+    'returned' => 'border-primary',
+    'done' => 'border-success',
+    'canceled' => 'border-secondary',
+];
+?>
 <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 <div class="row">
     <div class="col-sm-4">
         <div class="card overflow-hidden">
             <div class="card-body pb-0">
-                <div><span class="numberSlide"><?= $completetask ?></span><i
+                <div><span class="numberSlide"><?= $taskDoneCountOverall ?></span><i
                             class="iconSlide fas fa-check float-right"></i>
                 </div>
                 <div>
@@ -19,21 +31,39 @@
     <div class="col-sm-8">
         <div class="bottomGradient"></div>
         <div id="taskListSlide">
-            <?php for ($i = 1; $i <= 7; $i++) { ?>
-                <a href="/task/5/" class="text-decoration-none cust">
+            <?php foreach ($tasks as $task): ?>
+                <a href="/task/<?= $task['id'] ?>/" class="text-decoration-none cust">
                     <div class="task-card">
-                        <div class="card mb-2 tasks  pending manager">
+                        <div class="card mb-2 tasks">
                             <div class="card-body tasks-list">
-                                <div class="d-block border-left-tasks border-warning ">
+                                <div class="d-block border-left-tasks <?= $borderColor[$task['status']] ?>">
                                     <p class="font-weight-light text-ligther d-none">Выполнено</p>
                                     <div class="row">
                                         <div class="col-sm-9 col-12">
                                             <div>
-                                                <span class="taskname">Учет часового пояса и языка</span>
+                                                <span class="taskname"><?= $task['name'] ?></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 col-3  ">
-                                            31 мая
+                                        <div class="col-sm-2 col-3  "><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+            <?php if ($countAllTasks > 20): ?>
+                <a href="/tasks/" class="text-decoration-none cust">
+                    <div class="task-card">
+                        <div class="card mb-2 tasks  pending manager">
+                            <div class="card-body tasks-list">
+                                <div class="d-block">
+                                    <p class="font-weight-light text-ligther d-none">Выполнено</p>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="text-center">
+                                                <span class="taskname">Просмотреть все задачи</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +71,24 @@
                         </div>
                     </div>
                 </a>
-            <?php } ?>
+            <?php endif; ?>
+            <?php if ($countAllTasks == 0): ?>
+                    <div class="task-card">
+                        <div class="card mb-2 tasks">
+                            <div class="card-body tasks-list">
+                                <div class="d-block">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="text-center">
+                                                <span class="taskname">Нет задач в работе</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -173,7 +220,7 @@
             return {
                 type: 'line',
                 data: {
-                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+                    labels: [<?= $datesString ?>],
                     datasets: [{
                         steppedLine: details.steppedLine,
                         data: data,
@@ -219,7 +266,7 @@
 
             var container = document.querySelector('.chart');
 
-            var data = [0, 3, 5, 2, 4, 0, 7];
+            var data = [<?=$taskCountString?>];
 
             var steppedLineSettings = [{
                 color: window.chartColors.red

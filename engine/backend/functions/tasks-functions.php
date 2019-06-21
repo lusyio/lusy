@@ -10,16 +10,16 @@ function prepareTasks(&$tasks)
         $task['deadLineDay'] = date('j', $task['datedone']);
         $task['deadLineMonth'] = $_months[date('n', $task['datedone']) - 1];
         $task['classRole'] = '';
-        if (!is_null($task['taskCoworkers'])) {
+        if (!empty($task['taskCoworkers']) && !is_null($task['taskCoworkers'])) {
             $task['coworkers'] = explode(',', $task['taskCoworkers']);
         } else {
             $task['coworkers'] = [];
         }
-        if ($task['idworker'] == $id || in_array($id, $task['coworkers'])) {
+        if (!empty($task['idworker']) && ($task['idworker'] == $id || in_array($id, $task['coworkers']))) {
             $task['classRole'] .= ' worker';
             $task['mainRole'] = 'worker';
         }
-        if ($task['idmanager'] == $id || $roleu == 'ceo') {
+        if (!empty($task['idmanager']) && $task['idmanager'] == $id || $roleu == 'ceo') {
             $task['classRole'] .= ' manager';
             $task['mainRole'] = 'manager';
 
