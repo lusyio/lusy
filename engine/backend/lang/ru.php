@@ -92,7 +92,7 @@ $_edit = 'Изменить';
 $_titlecompanyusage = 'Файлы компании';
 $_titleuserusage = 'Файлы пользователя';
 $_emptyliststorage = 'Тут сейчас пусто';
-$_emptylistsnotytorage = 'Вы можете прикреплять файлы к задачам и сообщениям';
+$_emptylistsnotystorage = 'Вы можете прикреплять файлы к задачам и сообщениям';
 
 //инвайты
 $_buttonInvateNew = 'Пригласить сотрудников';

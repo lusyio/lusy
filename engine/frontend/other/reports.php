@@ -82,14 +82,14 @@
                 <div class="row">
                     <div class="col">
                         <div class="text-muted">
-                            <div>Выполнено</div>
+                            <div class="text-success">Выполнено</div>
                             <div>Просрочено</div>
                             <div>Комментарии</div>
                             <div>События</div>
                         </div>
                     </div>
                     <div class="col-2">
-                        <div>12</div>
+                        <div class="text-success">50</div>
                         <div>24</div>
                         <div>23</div>
                         <div>12</div>
@@ -104,14 +104,14 @@
                     <div class="col">
                         <div class="text-muted">
                             <div>Выполнено</div>
-                            <div>Просрочено</div>
+                            <div class="text-danger">Просрочено</div>
                             <div>Комментарии</div>
                             <div>События</div>
                         </div>
                     </div>
                     <div class="col-2">
                         <div>12</div>
-                        <div>24</div>
+                        <div class="text-danger">50</div>
                         <div>23</div>
                         <div>12</div>
                     </div>
@@ -126,14 +126,14 @@
                         <div class="text-muted">
                             <div>Выполнено</div>
                             <div>Просрочено</div>
-                            <div>Комментарии</div>
+                            <div class="text-warning">Комментарии</div>
                             <div>События</div>
                         </div>
                     </div>
                     <div class="col-2">
                         <div>12</div>
                         <div>24</div>
-                        <div>23</div>
+                        <div class="text-warning">50</div>
                         <div>12</div>
                     </div>
                 </div>
@@ -148,14 +148,14 @@
                             <div>Выполнено</div>
                             <div>Просрочено</div>
                             <div>Комментарии</div>
-                            <div>События</div>
+                            <div class="text-primary">События</div>
                         </div>
                     </div>
                     <div class="col-2">
                         <div>12</div>
                         <div>24</div>
                         <div>23</div>
-                        <div>12</div>
+                        <div class="text-primary">50</div>
                     </div>
                 </div>
             </div>

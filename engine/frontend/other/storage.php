@@ -38,9 +38,11 @@ if ($userTotalFilesSize == 0): ?>
     <hr>
     <div class="search-container">
         <div id="searchResult">
-            <div class="search-empty">
-                <p><?= $GLOBALS['_emptyliststorage'] ?></p>
-                <p><?= $GLOBALS['_emptylistnotystorage'] ?></p>
+            <div class="card">
+                <div class="card-body search-empty">
+                    <p><?= $GLOBALS['_emptyliststorage'] ?></p>
+                    <p><?= $GLOBALS['_emptylistsnotystorage'] ?></p>
+                </div>
             </div>
         </div>
     </div>
@@ -59,8 +61,8 @@ if ($userTotalFilesSize == 0): ?>
                                 class="fas fa-circle mr-1 ml-1"></i> <?= $file['file_size'] ?> <?= $file['sizeSuffix'] ?></span>
                     <span class="text-ligther ml-1"> <i
                                 class="fas fa-circle mr-1 ml-1"></i> <?= $file['date'] ?></span>
-                    <span class="text-ligther deleteFile"><i val="<?= $file['file_id'] ?>"
-                                                             class="fas fa-times-circle delete-file-icon"></i></span>
+                    <span class="text-ligther deleteFile float-right"><i val="<?= $file['file_id'] ?>"
+                                                                         class="fas fa-times-circle delete-file-icon"></i></span>
 
                     <?php if ($file['comment_type'] != 'conversation'): ?>
                         <a href="<?= $file['attachedToLink'] ?>"
@@ -68,8 +70,7 @@ if ($userTotalFilesSize == 0): ?>
                             <?= $file['name'] ?> <?= $file['surname'] ?> <?= $GLOBALS["_attachto"] ?> <?= $GLOBALS['_' . $file['comment_type']] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?>
                         </a>
                     <?php else: ?>
-                        <span
-                                class="text-ligther">
+                        <span class="text-ligther">
                                 <?= $file['name'] ?> <?= $file['surname'] ?> <?= $GLOBALS["_attachto"] ?> <?= $GLOBALS['_' . $file['comment_type']] ?> <?= (is_null($file['taskName'])) ? '' : "'{$file['taskName']}'" ?>
                             </span>
                     <?php endif; ?>
@@ -99,9 +100,9 @@ if ($userTotalFilesSize == 0): ?>
         });
         $('.files').hover(
             function () {
-                $(this).find('.deleteFile').fadeIn();
+                $(this).find('.deleteFile').stop().fadeIn();
             }, function () {
-                $(this).find('.deleteFile').fadeOut();
+                $(this).find('.deleteFile').stop().fadeOut();
 
             });
 
@@ -117,7 +118,7 @@ if ($userTotalFilesSize == 0): ?>
                     module: 'deleteFile',
                     fileId: fileId,
                     ajax: 'storage'
-                }
+                },
                 success: function (data) {
                     if (data) {
                         console.log(data);

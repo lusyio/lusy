@@ -72,8 +72,10 @@
 
 <div class="search-container tasks-search-container">
     <div id="searchResult">
-        <div class="search-empty">
-            <p><?= $GLOBALS['_emptysearchbar'] ?></p>
+        <div class="card">
+            <div class="card-body search-empty">
+                <p><?= $GLOBALS['_emptysearchbar'] ?></p>
+            </div>
         </div>
     </div>
 </div>
