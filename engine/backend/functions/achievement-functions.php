@@ -1,28 +1,29 @@
 <?php
 $ACHIEVEMENTS = [
-    'MEETING',
+    'meeting',
     'INVITOR',
-    'BUGREPORT',
-    'MESSAGE_1',
-    'TASKOVERDUE_1',
-    'TASKPOSTPONE_1',
-    'TASKDONEWITHCOWORKER_1',
-    'SELFTASK_1',
-    'TASKDONE_1',
-    'TASKDONE_10',
-    'TASKDONE_50',
-    'TASKDONE_100',
-    'TASKDONE_200',
-    'TASKDONE_500',
-    'TASKDONEPERMONTH_500',
-    'TASKCREATE_10',
-    'TASKCREATE_50',
-    'TASKCREATE_100',
-    'TASKCREATE_200',
-    'TASKCREATE_500',
-    'COMMENT_1000',
-    'TASKOVERDUEPERMONTH_0',
-    'TASKDONEPERMONTH_LEADER',
+    'bugReport',
+    'message_1',
+    'taskOverdue_1',
+    'taskPostpone_1',
+    'taskDoneWithCoworker_1',
+    'selfTask_1',
+    'taskDone_1',
+    'taskDone_10',
+    'taskDone_50',
+    'taskDone_100',
+    'taskDone_200',
+    'taskDone_500',
+    'taskDonePerMonth_500',
+    'taskCreate_10',
+    'taskCreate_50',
+    'taskCreate_100',
+    'taskCreate_200',
+    'taskCreate_500',
+    'comment_1000',
+    'taskOverduePerMonth_0',
+    'taskDonePerMonth_leader',
+    'taskInwork_20' => 'fas fa-user-graduate',
 ];
 
 /**Возвращает массив с названиями достижений, имеющихся у пользователя
@@ -53,15 +54,19 @@ function getUserAchievementsForRender($userId)
     }
     return $result;
 }
+
 function getUserNonMultipleAchievements($userId)
 {
     global $pdo;
-    $query = $pdo->prepare('SELECT ua.achievement, ua.datetime FROM user_achievements ua LEFT JOIN achievement_rules ar ON ua.achievement = ar.achievement_name WHERE ua.user_id = :userId AND ar.multiple = 0 ORDER BY ua.datetime DESC');
+    $query = $pdo->prepare('SELECT ua.achievement, ua.datetime FROM user_achievements ua LEFT JOIN achievement_rules ar ON ua.achievement = ar.achievement_name WHERE ua.user_id = :userId ORDER BY ua.datetime DESC');
     $query->execute(array(':userId' => $userId));
     $achievements = $query->fetchAll(PDO::FETCH_ASSOC);
     $result = [];
     foreach ($achievements as $a) {
-        $result[$a['achievement']] = $a['datetime'];
+        $result[$a['achievement']] = [
+            'datetime' => $a['datetime'],
+            'got' => true,
+            ];
     }
     return $result;
 }
@@ -69,7 +74,7 @@ function getUserNonMultipleAchievements($userId)
 function getUserProgress($userId)
 {
     global $pdo;
-
+    $idc = DBOnce('idcompany', 'users', 'id = ' . $userId);
     $isProfileFilled = false;
     $inviteSent = false;
 
@@ -124,6 +129,28 @@ function getUserProgress($userId)
     $commentQuery->execute(array(':userId' => $userId));
     $comment = $commentQuery->fetch(PDO::FETCH_COLUMN);
 
+    $taskInworkQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks WHERE worker = :userId AND status = 'inwork'");
+    $taskInworkQuery->execute(array(':userId' => $userId));
+    $taskInwork = $taskInworkQuery->fetch(PDO::FETCH_COLUMN);
+
+    $firstDay = strtotime(date('Y-m-01'));
+
+    $taskDonePerMonthQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE t.worker = :userId AND e.action = 'workdone' AND e.datetime > :firstDay");
+    $taskDonePerMonthQuery->execute(array(':userId' => $userId, ':firstDay' => $firstDay));
+    $taskDonePerMonth = $taskDonePerMonthQuery->fetch(PDO::FETCH_COLUMN);
+    $taskOverduePerMonthQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE t.worker = :userId AND e.action = 'overdue' AND e.datetime > :firstDay");
+    $taskOverduePerMonthQuery->execute(array(':userId' => $userId, ':firstDay' => $firstDay));
+    $taskOverduePerMonth = $taskOverduePerMonthQuery->fetch(PDO::FETCH_COLUMN);
+
+    $taskDoneChartQuery = $pdo->prepare("SELECT COUNT(*) AS tasks, t.worker FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE e.action = 'workdone' AND t.idcompany = :companyId AND e.datetime > :firstDay GROUP BY t.worker ORDER BY tasks DESC");
+    $taskDoneChartQuery->execute(array(':companyId' => $idc, ':firstDay' => $firstDay));
+    $taskDoneChart = $taskDoneChartQuery->fetchAll(PDO::FETCH_ASSOC);
+    $position = count($taskDoneChart);
+    foreach ($taskDoneChart as $key => $value) {
+        if ($value['worker'] == $userId) {
+            $position = $key + 1;
+        }
+    }
     $result = [
         'taskDone' => $taskDone,
         'taskCreate' => $taskCreate,
@@ -136,15 +163,24 @@ function getUserProgress($userId)
         'bugReport' => 0,
         'selfTask' => $selfTask,
         'taskCreateToday' => $taskCreateToday,
-        'comment' => $taskCreateToday,
+        'comment' => $comment,
+        'taskInwork' => $taskInwork,
+        'taskDonePerMonth' => $taskDonePerMonth,
+        'taskOverduePerMonth' => $taskOverduePerMonth,
+        'taskDonePerMonthPlace' => $position,
     ];
     return $result;
 }
 
-function getAchievementConditions()
+function getAchievementConditions($withPeriodic = false)
 {
     global $pdo;
-    $query = $pdo->prepare("SELECT achievement_name, multiple, conditions, output_name FROM achievement_rules WHERE periodic = 0");
+    if ($withPeriodic) {
+        $query = $pdo->prepare("SELECT achievement_name, multiple, conditions, hidden FROM achievement_rules");
+
+    } else {
+        $query = $pdo->prepare("SELECT achievement_name, multiple, conditions, hidden FROM achievement_rules WHERE periodic = 0");
+    }
     $query->execute();
     $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
     $result = [];
@@ -157,7 +193,7 @@ function getAchievementConditions()
 function getPeriodicAchievementConditions()
 {
     global $pdo;
-    $query = $pdo->prepare("SELECT achievement_name, multiple, conditions, output_name FROM achievement_rules WHERE periodic = 1");
+    $query = $pdo->prepare("SELECT achievement_name, multiple, conditions, hidden FROM achievement_rules WHERE periodic = 1");
     $query->execute();
     $queryResult = $query->fetchAll(PDO::FETCH_ASSOC);
     $result = [];
@@ -222,6 +258,7 @@ function getMonthlyDoneTaskInCompany($companyId, $firstDay)
     $doneTasks = $taskDonePerMonthLeaderQuery->fetchAll(PDO::FETCH_ASSOC);
     return $doneTasks;
 }
+
 function getMonthlyOverdueWorkersInCompany($companyId, $firstDay)
 {
     global $pdo;
@@ -244,33 +281,33 @@ function checkTaskDoneLeaderAchievementsInCompany($companyId, $firstDay)
         $hasMoreThanOneLeader = true;
     }
     if (!$hasMoreThanOneLeader && count($taskLeaders) > 0 && $taskLeaders[0]['count'] > 0) {
-        addAchievement('TASKDONEPERMONTH_LEADER', $taskLeaders[0]['userId']);
+        addAchievement('taskDonePerMonth_leader', $taskLeaders[0]['userId']);
     }
     foreach ($taskLeaders as $tasks) {
         if ($tasks['count'] >= 500) {
-            addAchievement('TASKDONEPERMONTH_500', $taskLeaders[0]['userId']);
+            addAchievement('taskDonePerMonth_500', $taskLeaders[0]['userId']);
         }
     }
 }
 
-function checkTaskDonePerMonthInCompany($companyId, $firstDay)
+function checktaskDonePerMonthInCompany($companyId, $firstDay)
 {
     $TASK_GOAL = 500;
     $doneTasks = getMonthlyDoneTaskInCompany($companyId, $firstDay);
     foreach ($doneTasks as $tasks) {
         if ($tasks['count'] >= $TASK_GOAL) {
-            addAchievement('TASKDONEPERMONTH_500', $tasks['userId']);
+            addAchievement('taskDonePerMonth_500', $tasks['userId']);
         }
     }
 }
 
 function checkTaskOverduePerMonthInCompany($companyId, $firstDay)
 {
-    $companyUsers = DBOnce('id', 'users' , 'idcompany = ' . $companyId . ' AND is_fired = 0');
+    $companyUsers = DBOnce('id', 'users', 'idcompany = ' . $companyId . ' AND is_fired = 0');
     $overdueWorkers = getMonthlyOverdueWorkersInCompany($companyId, $firstDay);
     foreach ($companyUsers as $user) {
         if (!in_array($user, $overdueWorkers)) {
-            addAchievement('TASKOVERDUEPERMONTH_0', $user);
+            addAchievement('taskOverduePerMonth_0', $user);
         }
     }
 }
@@ -279,6 +316,8 @@ function checkRule($property, $rule)
 {
     if ($rule['condition'] == 'more') {
         return $property > $rule['value'];
+    } elseif ($rule['condition'] == 'moreOrEqual') {
+        return $property >= $rule['value'];
     } elseif ($rule['condition'] == 'less') {
         return $property < $rule['value'];
     } else {
@@ -293,4 +332,25 @@ function addAchievement($achievement, $userId)
     $query->execute(array(':userId' => $userId, ':achievement' => $achievement, ':datetime' => time()));
 
     addEvent('newachievement', '0', $achievement, '$userId');
+}
+
+function getNonPathAchievements()
+{
+    global $pdo;
+    $pathAchievements = [
+        'taskDone_10',
+        'taskDone_50',
+        'taskDone_100',
+        'taskDone_200',
+        'taskDone_500',
+        'taskCreate_10',
+        'taskCreate_50',
+        'taskCreate_100',
+        'taskCreate_200',
+        'taskCreate_500'];
+    $achievementsQuery = $pdo->prepare("SELECT achievement_name FROM achievement_rules");
+    $achievementsQuery->execute();
+    $achievements = $achievementsQuery->fetchAll(PDO::FETCH_COLUMN);
+    $result = array_diff($achievements, $pathAchievements);
+    return $result;
 }

@@ -1,6 +1,6 @@
 <?php
 global $id;
-global $idс;
+global $idc;
 global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
@@ -19,41 +19,117 @@ $assignedTasksCount = $assignedTasksQuery->fetch(PDO::FETCH_COLUMN);
 $userProgress = getUserProgress($id);
 $nonMultipleAchievements = getUserNonMultipleAchievements($id);
 $workerPath = [
-    'TASKDONE_10' => [
-        'got' => key_exists('TASKDONE_10', $nonMultipleAchievements),
-        'title' => $GLOBALS['_TASKDONE_10'],
-        'count' => (key_exists('TASKDONE_10', $nonMultipleAchievements)) ? date('d.m.Y', $nonMultipleAchievements['TASKDONE_10']) : $userProgress['taskDone'] . '/10',
+    'taskDone_10' => [
+        'got' => key_exists('taskDone_10', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskDone_10'],
+        'count' => (key_exists('taskDone_10', $nonMultipleAchievements)) ? date('d.m.Y', $nonMultipleAchievements['taskDone_10']['datetime']) : $userProgress['taskDone'] . '/10',
         'value' => (($userProgress['taskDone'] / 10) > 1) ? 1 : str_replace(',', '.', $userProgress['taskDone'] / 10),
-        'text' => 'Завершил 10 задач'
     ],
-    'TASKDONE_50' => [
-        'got' => key_exists('TASKDONE_50', $nonMultipleAchievements),
-        'title' => $GLOBALS['_TASKDONE_50'],
-        'count' => (key_exists('_TASKDONE_50', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['_TASKDONE_50']) : $userProgress['taskDone'] . '/50',
+    'taskDone_50' => [
+        'got' => key_exists('taskDone_50', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskDone_50'],
+        'count' => (key_exists('_taskDone_50', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['_taskDone_50']['datetime']) : $userProgress['taskDone'] . '/50',
         'value' => (($userProgress['taskDone'] / 50) > 1) ? 1 : str_replace(',', '.', $userProgress['taskDone'] / 50),
-        'text' => 'Завершил 50 задач'
     ],
-    'TASKDONE_100' => [
-        'got' => key_exists('TASKDONE_100', $nonMultipleAchievements),
-        'title' => $GLOBALS['_TASKDONE_100'],
-        'count' => (key_exists('TASKDONE_100', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['TASKDONE_100']) : $userProgress['taskDone'] . '/100',
+    'taskDone_100' => [
+        'got' => key_exists('taskDone_100', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskDone_100'],
+        'count' => (key_exists('taskDone_100', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['taskDone_100']['datetime']) : $userProgress['taskDone'] . '/100',
         'value' => (($userProgress['taskDone'] / 100) > 1) ? 1 : str_replace(',', '.', $userProgress['taskDone'] / 100),
-        'text' => 'Завершил 100 задач'
     ],
-    'TASKDONE_200' => [
-        'got' => key_exists('TASKDONE_200', $nonMultipleAchievements),
-        'title' => $GLOBALS['_TASKDONE_200'],
+    'taskDone_200' => [
+        'got' => key_exists('taskDone_200', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskDone_200'],
         'count' => ($userProgress['taskDone'] > 200) ? '200' : $userProgress['taskDone'] . '/200',
-        'value' => (key_exists('TASKDONE_200', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['TASKDONE_200']) : str_replace(',', '.', $userProgress['taskDone'] / 200),
-        'text' => 'Завершил 200 задач'
+        'value' => (key_exists('taskDone_200', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['taskDone_200']['datetime']) : str_replace(',', '.', $userProgress['taskDone'] / 200),
     ],
-    'TASKDONE_500' => [
-        'got' => key_exists('_TASKDONE_500', $nonMultipleAchievements),
-        'title' => $GLOBALS['_TASKDONE_500'],
+    'taskDone_500' => [
+        'got' => key_exists('taskDone_500', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskDone_500'],
         'count' => ($userProgress['taskDone'] > 500) ? '500' : $userProgress['taskDone'] . '/500',
-        'value' => (key_exists('_TASKDONE_500', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['_TASKDONE_500']) : str_replace(',', '.', $userProgress['taskDone'] / 500),
-        'text' => 'Завершил 500 задач'
+        'value' => (key_exists('_taskDone_500', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['_taskDone_500']['datetime']) : str_replace(',', '.', $userProgress['taskDone'] / 500),
     ],
-]
+];
 
+$managerPath = [
+    'taskCreate_10' => [
+        'got' => key_exists('taskCreate_10', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskCreate_10'],
+        'count' => (key_exists('taskCreate_10', $nonMultipleAchievements)) ? date('d.m.Y', $nonMultipleAchievements['taskCreate_10']['datetime']) : $userProgress['taskCreate'] . '/10',
+        'value' => (($userProgress['taskCreate'] / 10) > 1) ? 1 : str_replace(',', '.', $userProgress['taskCreate'] / 10),
+    ],
+    'taskCreate_50' => [
+        'got' => key_exists('taskCreate_50', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskCreate_50'],
+        'count' => (key_exists('_taskCreate_50', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['_taskCreate_50']['datetime']) : $userProgress['taskCreate'] . '/50',
+        'value' => (($userProgress['taskCreate'] / 50) > 1) ? 1 : str_replace(',', '.', $userProgress['taskCreate'] / 50),
+    ],
+    'taskCreate_100' => [
+        'got' => key_exists('taskCreate_100', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskCreate_100'],
+        'count' => (key_exists('taskCreate_100', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['taskCreate_100']['datetime']) : $userProgress['taskCreate'] . '/100',
+        'value' => (($userProgress['taskCreate'] / 100) > 1) ? 1 : str_replace(',', '.', $userProgress['taskCreate'] / 100),
+    ],
+    'taskCreate_200' => [
+        'got' => key_exists('taskCreate_200', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskCreate_200'],
+        'count' => ($userProgress['taskCreate'] > 200) ? '200' : $userProgress['taskCreate'] . '/200',
+        'value' => (key_exists('taskCreate_200', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['taskCreate_200']['datetime']) : str_replace(',', '.', $userProgress['taskCreate'] / 200),
+    ],
+    'taskCreate_500' => [
+        'got' => key_exists('taskCreate_500', $nonMultipleAchievements),
+        'title' => $GLOBALS['_taskCreate_500'],
+        'count' => ($userProgress['taskCreate'] > 500) ? '500' : $userProgress['taskCreate'] . '/500',
+        'value' => (key_exists('taskCreate_500', $nonMultipleAchievements)) ?  date('d.m.Y', $nonMultipleAchievements['taskCreate_500']['datetime']) : str_replace(',', '.', $userProgress['taskCreate'] / 500),
+    ],
+];
+
+$otherAchievementsList = getNonPathAchievements();
+$achievementConditions = getAchievementConditions(true);
+$achievementConditionsValues = [];
+foreach ($achievementConditions as $name => $cond) {
+    $conditions = json_decode($cond['conditions'], true);
+    $ruleName = array_key_first($conditions);
+    $achievementConditionsValues[$name] = [
+        'ruleName' => $ruleName,
+        'value' => array_shift($conditions)['value'],
+    ];
+    unset($ruleName);
+}
+$otherAchievements = [];
+$onceAchievements = [
+    'invitor', 'meeting', 'taskDone_1', 'taskOverdue_1', 'taskPostpone_1', 'taskDoneWithCoworker_1', 'message_1', 'bugReport_1', 'selfTask_1', 'taskOverduePerMonth_0',
+];
+foreach ($otherAchievementsList as $a) {
+    $goal = $achievementConditionsValues[$a]['value'];
+    if (is_bool($goal)) {
+        if ($goal) {
+            $goal = 1;
+        } else {
+            $goal = 0;
+        }
+    }
+    if ($achievementConditions[$a]['hidden'] == '0') {
+        $hidden = false;
+    } else {
+        $hidden = true;
+    }
+    $ruleName = $achievementConditionsValues[$a]['ruleName'];
+    $got = key_exists($a, $nonMultipleAchievements);
+    $otherAchievements[$a] = [
+        'hidden' => $hidden,
+        'got' => $got,
+        'title' => $GLOBALS['_' . $a],
+        'count' => ($userProgress[$ruleName] > $goal) ? $goal : intval($userProgress[$ruleName]) . '/' . $goal,
+        'value' => ($got) ?  date('d.m.Y', $nonMultipleAchievements[$a]['datetime']) : str_replace(',', '.', ($goal == 0) ? '0' : $userProgress[$ruleName] / $goal)
+    ];
+    if ($a == 'taskDonePerMonth_leader') {
+        $usersCount = DBOnce('COUNT(*)', 'users', 'idcompany = ' . $idc . ' AND is_fired = 0');
+        $otherAchievements[$a]['count'] = $userProgress[$ruleName] . ' ' . $GLOBALS['_place'];
+        $otherAchievements[$a]['value'] = str_replace(',', '.',1 - (($userProgress[$ruleName] - 1) / ($usersCount - 1)));
+    }
+    if (in_array($a, $onceAchievements)) {
+        $otherAchievements[$a]['count'] = $GLOBALS['_notAchieved'];
+    }
+}
 ?>
