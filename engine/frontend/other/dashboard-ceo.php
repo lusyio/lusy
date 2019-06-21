@@ -147,8 +147,8 @@
             var height = $('.chart-container').children().height();
 
             let gradient = ctx.createLinearGradient(0, 0, 0, height);
-            gradient.addColorStop(0, 'rgba(40, 167, 69, 0.1)');
-            gradient.addColorStop(0.9, 'white');
+            gradient.addColorStop(1, 'rgba(40, 167, 69, 0.1)');
+            gradient.addColorStop(1, 'white');
             ctx.fillStyle = gradient;
             ctx.fillRect(10, 10, 200, 100);
             return {
