@@ -4,37 +4,17 @@
     <div class="col-sm-4">
         <div class="card overflow-hidden">
             <div class="card-body pb-0">
-                <div><span class="numberSlide">23</span><i class="iconSlide fas fa-check text-white float-right"></i>
+                <div><span class="numberSlide"><?=$completetask?></span><i class="iconSlide fas fa-check float-right"></i>
                 </div>
                 <div>
                     <small class="text-secondary">Завершено задач за месяц</small>
                 </div>
             </div>
             <div class="chart"></div>
+            <div class="slideChartFooter2"></div>
         </div>
     </div>
     <div class="col-sm-8" id="taskListSlide">
-            <a href="/task/5/" class="text-decoration-none cust">
-                <div class="task-card">
-                    <div class="card mb-2 tasks  pending manager">
-                        <div class="card-body tasks-list">
-                            <div class="d-block border-left-tasks border-warning ">
-                                <p class="font-weight-light text-ligther d-none">Выполнено</p>
-                                <div class="row">
-                                    <div class="col-sm-9 col-12">
-                                        <div>
-                                            <span class="taskname">Учет часового пояса и языка</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 col-3  ">
-                                        31 мая
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
             <?php for ($i = 1; $i <= 7; $i++) { ?>
                 <a href="/task/5/" class="text-decoration-none cust">
                     <div class="task-card">
@@ -184,7 +164,7 @@
                     data: data,
                     fill: true,
                     backgroundColor: "rgba(40, 167, 69, 0.5)",
-                    borderColor: 'transparent'
+                    borderColor: '#28a745'
                 }]
             },
             options: {
@@ -204,7 +184,10 @@
                         display: false
                     }],
                     yAxes: [{
-                        display: false
+                        display: false,
+                        ticks: {
+                            suggestedMin: -2    // minimum will be 0, unless there is a lower value.
+                        }
                     }]
                 },
                 elements: {

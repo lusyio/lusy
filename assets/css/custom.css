@@ -1604,8 +1604,8 @@ a {
     padding: 8px;
     border-radius: 50%;
     font-size: 14px;
-    background: #28a745;
-    opacity: 0.7;
+    background: #28a7453b;
+    color: #28a745;
     position: relative;
     top: -10px;
     right: -10px;

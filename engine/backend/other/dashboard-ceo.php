@@ -26,7 +26,7 @@ prepareEvents($events);
 
 $newtask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "new" and worker='.$id);
 $overduetask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "overdue" and worker='.$id);
-$completetask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "done" and worker='.$id);
+$completetask = DBOnce('COUNT(*) as count','tasks','status = "done" and (worker='.$id.' or manager='.$id.')');
 
 $newtask2 = DB('*','tasks','view="0" and status = "new" and worker='.$id);
 
