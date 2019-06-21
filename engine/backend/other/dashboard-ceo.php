@@ -69,7 +69,7 @@ prepareTasks($tasks);
 $startTime = strtotime('today - 6 days');
 $endTime = time();
 $offset = get_timezone_offset(date_default_timezone_get(), 'UTC');
-$taskDoneCountSql = $pdo->prepare("SELECT COUNT(DISTINCT task_id) as count, e.datetime - e.datetime%(60*60*24) + :timeZoneOffset as period FROM events e WHERE datetime between :startTime AND :endTime AND action = 'workdone' and company_id = :companyId GROUP BY datetime - datetime%(60*60*24)");
+$taskDoneCountSql = $pdo->prepare("SELECT COUNT(DISTINCT task_id) as count, e.datetime - e.datetime%(60*60*24) + :timeZoneOffset as period FROM events e WHERE e.datetime between :startTime AND :endTime AND e.action = 'workdone' and e.company_id = :companyId GROUP BY period");
 $taskDoneCountSql->bindValue(':timeZoneOffset', (int) $offset, PDO::PARAM_INT);
 $taskDoneCountSql->bindValue(':startTime', (int) $startTime, PDO::PARAM_INT);
 $taskDoneCountSql->bindValue(':endTime', (int) $endTime, PDO::PARAM_INT);
