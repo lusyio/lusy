@@ -3,15 +3,21 @@
 <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <?php include 'engine/frontend/other/searchbar.php' ?>
 <div id="taskBox">
-    <div class="row pb-2 add-newtask-button">
-        <div class="col text-center">
-            <span class="mr-2">
-                <small class="text-muted-reg">Добавить новую задачу</small>
-            </span>
-            <button onclick="window.location.href='/task/new/'" class="google-icon-btn primary min ripple">+
-            </button>
+    <a href="/task/new/" class="text-decoration-none cust add-newtask-button">
+        <div class="task-card">
+            <div class="card mb-2 tasks">
+                <div class="card-body tasks-list">
+                    <div class="row">
+                        <div class="col text-center">
+                        <span class="mr-2">
+                            <small class="text-muted-reg">Добавить новую задачу</small>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </a>
     <div style="padding: 0.8rem;" class="d-none d-sm task-box">
         <div style="padding-left: 7px;">
             <div class="row sort">
@@ -29,7 +35,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <?php
     $borderColor = [

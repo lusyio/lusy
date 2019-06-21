@@ -5,6 +5,7 @@
 body{
     /*background-color: #f1f1f136;*/
     background-color: #fdfdfd;
+    font-smooth: subpixel-antialiased;
 }
 
 #task .card-body {
@@ -1084,7 +1085,7 @@ input:checked[type="checkbox"]::before {
 
 .coworkers {
     display: none;
-    width: 609px;
+    width: calc(100% - 30px);
     background-color: #fff;
     color: black;
     text-align: center;
@@ -1098,7 +1099,7 @@ input:checked[type="checkbox"]::before {
 
 .responsible {
     display: none;
-    width: 290px;
+    width: calc(100% - 15px);
     background-color: #fff;
     color: black;
     text-align: center;
@@ -1618,6 +1619,12 @@ a {
     height: 213px;
     overflow-y: scroll;
 }
+
+.wrap {
+    position:relative;
+    overflow:hidden;
+}
+
 .bottomGradient {
     height: 30px;
     width: 100%;
@@ -2164,7 +2171,7 @@ span.date {
     }
 
     .add-newtask-button{
-        display: flex !important;
+        display: inline !important;
     }
 
     .no-events {
@@ -2220,14 +2227,6 @@ span.date {
 
     .fio-profile{
         font-size: 17px;
-    }
-
-    .coworkers{
-        width: 90%;
-    }
-
-    .responsible{
-        width: 90%;
     }
 
     .members{

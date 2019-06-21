@@ -4,7 +4,8 @@
     <div class="col-sm-4">
         <div class="card overflow-hidden">
             <div class="card-body pb-0">
-                <div><span class="numberSlide"><?=$completetask?></span><i class="iconSlide fas fa-check float-right"></i>
+                <div><span class="numberSlide"><?= $completetask ?></span><i
+                            class="iconSlide fas fa-check float-right"></i>
                 </div>
                 <div>
                     <small class="text-secondary">Завершено задач за месяц</small>
@@ -14,7 +15,9 @@
             <div class="slideChartFooter2"></div>
         </div>
     </div>
-    <div class="col-sm-8" id="taskListSlide">
+    <div class="wrap col-sm-8">
+        <div class="bottomGradient"></div>
+        <div id="taskListSlide">
             <?php for ($i = 1; $i <= 7; $i++) { ?>
                 <a href="/task/5/" class="text-decoration-none cust">
                     <div class="task-card">
@@ -38,7 +41,7 @@
                     </div>
                 </a>
             <?php } ?>
-        <div class="bottomGradient"></div>
+        </div>
     </div>
 </div>
 <div class="card position-relative d-none">
