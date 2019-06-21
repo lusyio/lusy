@@ -113,21 +113,21 @@
                     <div style="margin-top: 15%;"><?= $overdue ?></div>
                     <small class="text-muted company-tasks">Просрочено</small>
                 </div>
-                <div class="col-1 text-right d-none">
+                <div class="position-absolute" style="right: 8px">
                     <?php if ($isCeo): ?>
-                        <div>
+                        <div class="d-none">
                             <a href="/settings/">
                                 <i id="editProfile" class="fas fa-pencil-alt edit-profile"></i>
                             </a>
                         </div>
                         <?php if ($isFired && $n['id'] != $id): ?>
-                            <div class="mt-1">
+                            <div class="mt">
                                 <a href="#" title="" data-user-id="<?= $n['id'] ?>" class="restore-user">
                                     <i class="fas fa-user-check edit-profile"></i>
                                 </a>
                             </div>
                         <?php elseif ($n['id'] != $id): ?>
-                            <div class="mt-1">
+                            <div class="mt">
                                 <a href="#" data-user-id="<?= $n['id'] ?>" class="fire-user" data-toggle="tooltip"
                                    data-placement="bottom" title="<?= $GLOBALS['_fireoutcompany'] ?>">
                                     <i class="fas fa-user-slash edit-profile"></i>
