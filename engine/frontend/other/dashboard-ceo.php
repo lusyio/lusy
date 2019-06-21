@@ -12,6 +12,7 @@ $borderColor = [
 ?>
 <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+
 <div class="row">
     <div class="col-sm-4">
         <div class="card overflow-hidden">
@@ -39,12 +40,12 @@ $borderColor = [
                                 <div class="d-block border-left-tasks <?= $borderColor[$task['status']] ?>">
                                     <p class="font-weight-light text-ligther d-none">Выполнено</p>
                                     <div class="row">
-                                        <div class="col-sm-9 col-12">
+                                        <div class="col-9">
                                             <div>
                                                 <span class="taskname"><?= $task['name'] ?></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 col-3  "><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></div>
+                                        <div class="col-3 p-0"><span></span><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></span></div>
                                     </div>
                                 </div>
                             </div>
@@ -73,21 +74,11 @@ $borderColor = [
                 </a>
             <?php endif; ?>
             <?php if ($countAllTasks == 0): ?>
-                    <div class="task-card">
-                        <div class="card mb-2 tasks">
-                            <div class="card-body tasks-list">
-                                <div class="d-block">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="text-center">
-                                                <span class="taskname">Нет задач в работе</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="card search-empty">
+                <div class="card-body">
+                    <span>У вас пока нет задач, создайте первую задачу</span>
+                </div>
+            </div>
             <?php endif; ?>
         </div>
     </div>
@@ -116,11 +107,7 @@ $borderColor = [
     </div>
 </div>
 
-<ol class="carousel-indicators position-relative">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-</ol>
-
-<div class="row">
+<div class="row mt-5">
     <div class="col-sm-4 mb-3">
         <a href="/tasks/" class="text-decoration-none">
             <div class="card">
@@ -213,7 +200,7 @@ $borderColor = [
             var height = $('.chart-container').children().height();
 
             let gradient = ctx.createLinearGradient(0, 0, 0, height);
-            gradient.addColorStop(0, 'green');
+            gradient.addColorStop(1, 'rgba(40, 167, 69, 0.1)');
             gradient.addColorStop(1, 'white');
             ctx.fillStyle = gradient;
             ctx.fillRect(10, 10, 200, 100);

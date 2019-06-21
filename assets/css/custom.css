@@ -5,6 +5,7 @@
 body{
     /*background-color: #f1f1f136;*/
     background-color: #fdfdfd;
+    -webkit-font-smoothing: subpixel-antialiased;
 }
 
 #task .card-body {
@@ -22,7 +23,7 @@ body{
 
 .top-sidebar {
     background-color: rgb(255, 255, 255);
-    box-shadow: rgba(13, 28, 60, 0.04) 0px 4px 44px 0px;
+    box-shadow: rgba(13, 28, 60, 0.05) 0px 4px 15px 0px;
     /*box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);*/
 }
 
@@ -1162,7 +1163,7 @@ input:checked[type="checkbox"]::before {
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
     z-index: 1;
-    box-shadow: 0 22px 50px rgba(14,21,47,.2);
+    box-shadow: 0 15px 20px rgba(14,21,47,.2);
 }
 
 .award:hover .badge-secondary {
@@ -1396,6 +1397,10 @@ input:checked[type="checkbox"]::before {
     color: #dcdcdc;
 }
 
+.company-tasks{
+    display: none;
+}
+
 .company-profile-fio{
     margin-bottom: 15px;
 }
@@ -1416,6 +1421,13 @@ input:checked[type="checkbox"]::before {
     top: 0;
     right: 5px;
     z-index: 3;
+}
+
+.online-indicator-company{
+    top: -5px;
+    right: 0;
+    z-index: 3;
+    position: absolute;
 }
 
 .online-indicator-profile{
@@ -1604,7 +1616,7 @@ a {
     padding: 8px;
     border-radius: 50%;
     font-size: 14px;
-    background: #28a7453b;
+    background: #e9f6ec;
     color: #28a745;
     position: relative;
     top: -10px;
@@ -1617,10 +1629,13 @@ a {
 #taskListSlide {
     height: 213px;
     overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0px 15px 15px 15px;
+    margin: 0px -15px -15px -15px;
 }
 
 .bottomGradient {
-    height: 30px;
+    height: 15px;
     width: 100%;
     position: absolute;
     bottom: 0px;
@@ -1634,7 +1649,8 @@ a {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0089fff1', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 #taskListSlide::-webkit-scrollbar {
-    display: none;
+    width: 0;
+    background: transparent;
 }
 .event p:first-letter {
     text-transform: capitalize;
@@ -1689,7 +1705,7 @@ a {
 }
 
 .card {
-    box-shadow: rgba(13, 28, 60, 0.06) 0px 4px 44px 0px;
+    box-shadow: rgba(13, 28, 60, 0.10) 0px 4px 10px 0px;
     border: none !important;
 }
 
@@ -1738,7 +1754,8 @@ a {
 }
 
 #log::-webkit-scrollbar {
-    display: none;
+    width: 0;
+    background: transparent;
 }
 
 #log:before {
@@ -2166,6 +2183,10 @@ span.date {
 
     .add-newtask-button{
         display: inline !important;
+    }
+
+    .company-tasks{
+        display: inline;
     }
 
     .no-events {
