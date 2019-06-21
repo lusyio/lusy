@@ -111,8 +111,10 @@ if($_POST['module'] == 'createTask') {
         $managerId = $id;
     }
     $coworkers = array_unique($coworkers, SORT_NUMERIC);
-	$name = filter_var(trim($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS));
-	$description = filter_var(trim($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS));
+	$name = trim($_POST['name']);
+	$name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
+	$description = trim($_POST['description']);
+	$description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$datedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
 	$worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
 
