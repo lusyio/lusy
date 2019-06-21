@@ -18,6 +18,7 @@ create table achievement_rules
   periodic tinyint null
 );
 
+
 INSERT INTO achievement_rules (achievement_id, achievement_name, multiple, conditions, hidden, periodic) VALUES (1, 'MEETING', 0, '{"profileFilled":{"value":true,"condition": "equal"}}', null, 0);
 INSERT INTO achievement_rules (achievement_id, achievement_name, multiple, conditions, hidden, periodic) VALUES (2, 'INVITOR', 0, '{"inviteSent":{"value":true,"condition": "equal"}}', null, 0);
 INSERT INTO achievement_rules (achievement_id, achievement_name, multiple, conditions, hidden, periodic) VALUES (3, 'TASKDONE_1', 0, '{"taskDone":{"value":0,"condition": "more"}}', null, 0);
