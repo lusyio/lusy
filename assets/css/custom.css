@@ -1397,6 +1397,10 @@ input:checked[type="checkbox"]::before {
     color: #dcdcdc;
 }
 
+.company-tasks{
+    display: none;
+}
+
 .company-profile-fio{
     margin-bottom: 15px;
 }
@@ -2178,6 +2182,10 @@ span.date {
 
     .add-newtask-button{
         display: inline !important;
+    }
+
+    .company-tasks{
+        display: inline;
     }
 
     .no-events {

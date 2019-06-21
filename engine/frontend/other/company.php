@@ -36,6 +36,9 @@
     foreach ($sql
 
              as $n):
+        $overdue = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="overdue"');
+        $done = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="done"');
+        $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')');
         if ($n['is_fired'] != 0) {
             $isFired = true;
         } else {
@@ -61,7 +64,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-10 col-sm-4">
                     <?php
                     if ($n["name"] != null && $n["surname"] != null): ?>
                         <p class="h5 mb-0 company-profile-fio">
@@ -89,25 +92,28 @@
                                 <?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?>
                             </span>
                         </p>
-<!--                        <div>-->
-<!--                            --><?php
+                        <!--                        <div>-->
+                        <!--                            --><?php
 //                            if ($n['phone'] != null) {
 //                                echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
 //                            }
 //                            ?>
-<!--                        </div>-->
+                        <!--                        </div>-->
                     <?php endif; ?>
                 </div>
-                <div class="col-2 text-center">
-                    <div style="margin-top: 15%;">5</div>
+                <div class="col-4 col-sm-2 text-center">
+                    <div style="margin-top: 15%;"><?= $done ?></div>
+                    <small class="text-muted company-tasks">Выполнено</small>
                 </div>
-                <div class="col-2 text-center">
-                    <div style="margin-top: 15%;">10</div>
+                <div class="col-4 col-sm-2 text-center">
+                    <div style="margin-top: 15%;"><?= $inwork ?></div>
+                    <small class="text-muted company-tasks">В работе</small>
                 </div>
-                <div class="col-2 text-center">
-                    <div style="margin-top: 15%;" >20</div>
+                <div class="col-4 col-sm-2 text-center">
+                    <div style="margin-top: 15%;"><?= $overdue ?></div>
+                    <small class="text-muted company-tasks">Просрочено</small>
                 </div>
-                <div class="col-1 text-right">
+                <div class="col-1 text-right d-none">
                     <?php if ($isCeo): ?>
                         <div>
                             <a href="/settings/">

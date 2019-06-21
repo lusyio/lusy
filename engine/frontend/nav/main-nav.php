@@ -34,9 +34,9 @@ if ($companyUsageSpacePercent > 90){
 			<li class="nav-item pb-2"><a class="nav-link" href="/company/"><i class="fas fa-users mr-2 fa-fw"></i> <?=$_company?></a></li>
             <?php endif; ?>
                 <li class="nav-item pb-2"><a class="nav-link" href="/awards/"><i class="fas fa-trophy mr-2 fa-fw"></i> <?=$_awards?></a></li>
-            <?php if (in_array('reports', $menu[$roleu])): ?>
-                <li class="nav-item pb-2"><a class="nav-link" href="/reports/"><i class="fas fa-chart-pie mr-2 fa-fw"></i> <?=$GLOBALS['_reports']?></a></li>
-            <?php endif; ?>
+<!--            --><?php //if (in_array('reports', $menu[$roleu])): ?>
+<!--                <li class="nav-item pb-2"><a class="nav-link" href="/reports/"><i class="fas fa-chart-pie mr-2 fa-fw"></i> --><?//=$GLOBALS['_reports']?><!--</a></li>-->
+<!--            --><?php //endif; ?>
             <?php if (in_array('storage', $menu[$roleu])): ?>
 			<li class="nav-item pb-2 files-nav">
 				<a class="nav-link" href="/storage/">
