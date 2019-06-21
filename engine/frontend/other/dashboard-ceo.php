@@ -11,11 +11,12 @@
                     <small class="text-secondary">Завершено задач за месяц</small>
                 </div>
             </div>
+            <canvas class="d-none" id="canvas"></canvas>
             <div class="chart"></div>
             <div class="slideChartFooter2"></div>
         </div>
     </div>
-    <div class="wrap col-sm-8">
+    <div class="col-sm-8">
         <div class="bottomGradient"></div>
         <div id="taskListSlide">
             <?php for ($i = 1; $i <= 7; $i++) { ?>
@@ -157,76 +158,89 @@
     </div>
 </div>
 <script>
-    function createConfig(details, data) {
-        return {
-            type: 'line',
-            data: {
-                labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
-                datasets: [{
-                    steppedLine: details.steppedLine,
-                    data: data,
-                    fill: true,
-                    backgroundColor: "rgba(40, 167, 69, 0.5)",
-                    borderColor: '#28a745'
-                }]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: false,
-                    text: details.label,
-                },
-                label: {
-                    display: false
-                },
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [{
-                        display: false
-                    }],
-                    yAxes: [{
-                        display: false,
-                        ticks: {
-                            suggestedMin: -2    // minimum will be 0, unless there is a lower value.
-                        }
+    $(document).ready(function () {
+
+        function createConfig(details, data) {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            var height = $('.chart-container').children().height();
+
+            let gradient = ctx.createLinearGradient(0, 0, 0, height);
+            gradient.addColorStop(0, 'green');
+            gradient.addColorStop(1, 'white');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(10, 10, 200, 100);
+            return {
+                type: 'line',
+                data: {
+                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+                    datasets: [{
+                        steppedLine: details.steppedLine,
+                        data: data,
+                        fill: 'start',
+                        backgroundColor: gradient,
+                        borderColor: '#28a745'
                     }]
                 },
-                elements: {
-                    point: {
-                        radius: 0
+                options: {
+                    responsive: true,
+                    title: {
+                        display: false,
+                        text: details.label,
+                    },
+                    label: {
+                        display: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: false
+                        }],
+                        yAxes: [{
+                            display: false,
+                            ticks: {
+                                suggestedMin: -2    // minimum will be 0, unless there is a lower value.
+                            }
+                        }]
+                    },
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
                     }
                 }
-            }
+            };
+        }
+
+
+        window.onload = function () {
+
+            var container = document.querySelector('.chart');
+
+            var data = [0, 3, 5, 2, 4, 0, 7];
+
+            var steppedLineSettings = [{
+                color: window.chartColors.red
+            }];
+
+
+            steppedLineSettings.forEach(function (details) {
+                var div = document.createElement('div');
+                div.classList.add('chart-container');
+
+                var canvas = document.createElement('canvas');
+                div.appendChild(canvas);
+                container.appendChild(div);
+
+                var ctx = canvas.getContext('2d');
+                var config = createConfig(details, data);
+                new Chart(ctx, config);
+            });
         };
-    }
 
-
-    window.onload = function () {
-
-        var container = document.querySelector('.chart');
-
-        var data = [0, 3, 5, 2, 4, 0, 7];
-
-        var steppedLineSettings = [{
-            color: window.chartColors.red
-        }];
-
-
-        steppedLineSettings.forEach(function (details) {
-            var div = document.createElement('div');
-            div.classList.add('chart-container');
-
-            var canvas = document.createElement('canvas');
-            div.appendChild(canvas);
-            container.appendChild(div);
-
-            var ctx = canvas.getContext('2d');
-            var config = createConfig(details, data);
-            new Chart(ctx, config);
-        });
-    };
+    });
 </script>
 <script>
     $(document).ready(function () {
