@@ -1,5 +1,6 @@
 <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+
 <div class="row">
     <div class="col-sm-4">
         <div class="card overflow-hidden">
@@ -42,38 +43,18 @@
                     </div>
                 </a>
             <?php } ?>
-        </div>
-    </div>
-</div>
-<div class="card position-relative d-none">
-    <div class="card-body">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item text-center active">
-                    <h1 class="font-weight-bold text-success mb-0">23</h1>
-                    <small class="text-dark font-weight-bold">Завершено задач</small>
-                    <hr>
-                    <div class="d-flex justify-content-center">
-                        <div class="mb-1 mr-3">
-                            <small class="text-secondary"><i class="fas fa-fire-alt text-danger fa-fw mr-2"></i>Был
-                                просрочен срок - <span class="font-weight-bold text-dark">9</span></small>
-                        </div>
-                        <div>
-                            <small class="text-secondary"><i class="fas fa-clock text-warning fa-fw mr-2"></i>Запрошен
-                                перенос срока - <span class="font-weight-bold text-dark">1</span></small>
-                        </div>
-                    </div>
+
+            <div class="card search-empty">
+                <div class="card-body">
+                    <span>У вас пока нет задач, создайте первую задачу</span>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
 
-<ol class="carousel-indicators position-relative">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-</ol>
-
-<div class="row">
+<div class="row mt-5">
     <div class="col-sm-4 mb-3">
         <a href="/tasks/" class="text-decoration-none">
             <div class="card">

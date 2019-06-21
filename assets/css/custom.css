@@ -1617,6 +1617,8 @@ a {
 #taskListSlide {
     height: 213px;
     overflow-y: scroll;
+    overflow-x: hidden;
+
 }
 
 .bottomGradient {
@@ -1634,7 +1636,8 @@ a {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0089fff1', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 #taskListSlide::-webkit-scrollbar {
-    display: none;
+    width: 0;
+    background: transparent;
 }
 .event p:first-letter {
     text-transform: capitalize;
@@ -1738,7 +1741,8 @@ a {
 }
 
 #log::-webkit-scrollbar {
-    display: none;
+    width: 0;
+    background: transparent;
 }
 
 #log:before {
