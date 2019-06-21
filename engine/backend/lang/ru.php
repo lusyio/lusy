@@ -296,7 +296,7 @@ $_online = 'сейчас в сети';
 $_wasOnline = 'был в сети';
 
 //Награды
-$_youGotNewAchievement = 'Новое достижение';
+$_youGotNewAchievement = 'Получено новое достижение';
 $_meeting = 'Знакомство';
 $_meeting_text = 'Заполнил профиль';
 $_invitor = 'Приглашатор';
