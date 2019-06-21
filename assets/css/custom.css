@@ -5,6 +5,7 @@
 body{
     /*background-color: #f1f1f136;*/
     background-color: #fdfdfd;
+    -webkit-font-smoothing: subpixel-antialiased;
 }
 
 #task .card-body {
@@ -1416,6 +1417,13 @@ input:checked[type="checkbox"]::before {
     top: 0;
     right: 5px;
     z-index: 3;
+}
+
+.online-indicator-company{
+    top: -5px;
+    right: 0;
+    z-index: 3;
+    position: absolute;
 }
 
 .online-indicator-profile{

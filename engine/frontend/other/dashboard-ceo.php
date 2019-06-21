@@ -28,13 +28,13 @@
                                 <div class="d-block border-left-tasks border-warning ">
                                     <p class="font-weight-light text-ligther d-none">Выполнено</p>
                                     <div class="row">
-                                        <div class="col-sm-9 col-12">
+                                        <div class="col-9">
                                             <div>
                                                 <span class="taskname">Учет часового пояса и языка</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 col-3  ">
-                                            31 мая
+                                        <div class="col-3 p-0">
+                                            <span>31 мая</span>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                     <span>У вас пока нет задач, создайте первую задачу</span>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>

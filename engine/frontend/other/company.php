@@ -7,9 +7,27 @@
             <span class="navbar-brand text-uppercase font-weight-bold"><?= $namecompany ?></span>
             <?php if ($isCeo): ?>
                 <a class="btn btn-primary d-inline float-right invateButton" href="/invite/">
-                    <i class="fas fa-user-plus text-white mr-1"></i> <?=$_buttonInvateNew?>
+                    <i class="fas fa-user-plus text-white mr-1"></i> <?= $_buttonInvateNew ?>
                 </a>
             <?php endif; ?>
+        </div>
+    </div>
+</div>
+<div style="padding: 0.8rem;" class="d-sm task-box">
+    <div style="padding-left: 7px;">
+        <div class="row sort">
+            <div class="col-5">
+                <span>Имя сотрудника</span>
+            </div>
+            <div class="col-2 text-center">
+                <span>Выполнено</span>
+            </div>
+            <div class="col-2 text-center">
+                <span>В работе</span>
+            </div>
+            <div class="col-2 text-center">
+                <span>Просрочено</span>
+            </div>
         </div>
     </div>
 </div>
@@ -31,33 +49,36 @@
                 </div>
             </a>
         <?php endif; ?>
-        <div class="card-body border-bottom <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
+        <div class="card-body p-2 border-bottom <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
             <div class="row">
-                <div class="col-2 col-lg-2 pl-1">
-                    <div class="user-pic position-relative" style="width:85px">
+                <div class="col-lg-1 col-2">
+                    <div class="user-pic position-relative" style="width:45px">
                         <a href="/profile/<?= $n['id'] ?>/">
                             <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-img rounded-circle w-100"/>
-                            <span class="online-indicator mobile-online-indicator">
+                            <span class="online-indicator-company">
                                     <i class="fas fa-circle mr-1 ml-1 onlineIndicator company <?= ($n['online']) ? 'text-success' : '' ?>"></i>
                             </span>
                         </a>
                     </div>
                 </div>
-                <div class="col pr-0 pl-0">
+                <div class="col-4">
                     <?php
                     if ($n["name"] != null && $n["surname"] != null): ?>
                         <p class="h5 mb-0 company-profile-fio">
                             <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
                         </p>
+                        <!--                        <span class="d-block company-profile-email">-->
+                        <!--                                <i class="fas fa-envelope mr-2 text-muted fa-fw"></i>--><?//= $n['email'] ?>
+                        <!--                        </span>-->
                         <span class="text-muted-reg activity-company"><?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
-                        <div class="mt-2">
-                            <?php if ($n['phone'] != null) { ?>
-                                <span><i class="fas fa-phone mr-2 text-muted fa-fw"></i><?=$n['phone'] ?></span>
-                           <?php } ?>
-                            <span class="d-block company-profile-email">
-                                <i class="fas fa-envelope mr-2 text-muted fa-fw"></i><?= $n['email'] ?>
-                            </span>
-                        </div>
+                        <!--                        <div class="mt-2">-->
+                        <!--                            --><?php //if ($n['phone'] != null) { ?>
+                        <!--                                <span><i class="fas fa-phone mr-2 text-muted fa-fw"></i>--><?//=$n['phone'] ?><!--</span>-->
+                        <!--                           --><?php //} ?>
+                        <!--                            <span class="d-block company-profile-email">-->
+                        <!--                                <i class="fas fa-envelope mr-2 text-muted fa-fw"></i>--><?//= $n['email'] ?>
+                        <!--                            </span>-->
+                        <!--                        </div>-->
                     <?php
                     else: ?>
                         <p class="h5 company-profile-fio">
@@ -68,14 +89,23 @@
                                 <?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?>
                             </span>
                         </p>
-                        <div>
-                            <?php
-                            if ($n['phone'] != null) {
-                                echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
-                            }
-                            ?>
-                        </div>
+<!--                        <div>-->
+<!--                            --><?php
+//                            if ($n['phone'] != null) {
+//                                echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
+//                            }
+//                            ?>
+<!--                        </div>-->
                     <?php endif; ?>
+                </div>
+                <div class="col-2 text-center">
+                    <div style="margin-top: 15%;">5</div>
+                </div>
+                <div class="col-2 text-center">
+                    <div style="margin-top: 15%;">10</div>
+                </div>
+                <div class="col-2 text-center">
+                    <div style="margin-top: 15%;" >20</div>
                 </div>
                 <div class="col-1 text-right">
                     <?php if ($isCeo): ?>
@@ -85,13 +115,13 @@
                             </a>
                         </div>
                         <?php if ($isFired && $n['id'] != $id): ?>
-                            <div class="mt-3">
+                            <div class="mt-1">
                                 <a href="#" title="" data-user-id="<?= $n['id'] ?>" class="restore-user">
                                     <i class="fas fa-user-check edit-profile"></i>
                                 </a>
                             </div>
                         <?php elseif ($n['id'] != $id): ?>
-                            <div class="mt-3">
+                            <div class="mt-1">
                                 <a href="#" data-user-id="<?= $n['id'] ?>" class="fire-user" data-toggle="tooltip"
                                    data-placement="bottom" title="<?= $GLOBALS['_fireoutcompany'] ?>">
                                     <i class="fas fa-user-slash edit-profile"></i>
