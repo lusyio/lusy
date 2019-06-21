@@ -61,7 +61,7 @@
                                         <? //= ($isOnline) ? '' : 'd-none' ?><!--">Online</span>-->
                                     </p>
                                     <span><?= ($lastMessage['sender'] == $id)? 'Вы: ' : '';?> <?= $lastMessage['mes'] ?></span>
-                                    <span class="date mr-2"><?= date('d.m h:i', $lastMessage['datetime']); ?></span>
+                                    <span class="date mr-2"><?= date('d.m H:i', $lastMessage['datetime']); ?></span>
                                 </div>
                             </div>
                         </a>
