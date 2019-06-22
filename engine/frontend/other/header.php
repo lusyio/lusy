@@ -26,7 +26,7 @@
             ?>
         </div>
         <div class="col-sm-9">
-            <div id="workzone" class="pt-5 pb-3">
+            <div id="workzone" class="pb-3">
                 <?php
                 inc('main', 'workzone');
                 ?>

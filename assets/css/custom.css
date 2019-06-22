@@ -2059,7 +2059,9 @@ span.date {
 .pulse:hover {
     animation: none;
 }
-
+#workzone {
+    margin-top: 40px;
+}
 @-webkit-keyframes pulse {
     0% {
         -webkit-box-shadow: 0 0 0 0 rgba(44, 123, 229, 0.4);
@@ -2188,7 +2190,9 @@ span.date {
     .company-tasks{
         display: inline;
     }
-
+    #workzone {
+        margin-top: 10px;
+    }
     .no-events {
         display: none;
     }

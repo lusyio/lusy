@@ -108,7 +108,7 @@ $borderColor = [
     </div>
 </div>
 
-<div class="row mt-5">
+<div class="row mt-3">
     <div class="col-sm-4 mb-3">
         <a href="/tasks/" class="text-decoration-none">
             <div class="card">
@@ -179,7 +179,7 @@ $borderColor = [
     </div>
 </div>
 
-<div class="card mt-3">
+<div class="card mt-1">
     <div class="card-body pb-0">
         <span class="font-weight-bold"><?= $_history ?></span>
         <hr class="mb-0">
