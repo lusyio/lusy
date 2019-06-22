@@ -30,7 +30,6 @@ $borderColor = [
         </div>
     </div>
     <div class="col-sm-8">
-        <div class="bottomGradient"></div>
         <div id="taskListSlide">
             <?php foreach ($tasks as $task): ?>
                 <a href="/task/<?= $task['id'] ?>/" class="text-decoration-none cust">
@@ -80,6 +79,8 @@ $borderColor = [
                 </div>
             </div>
             <?php endif; ?>
+
+            <div class="bottomGradient"></div>
         </div>
     </div>
 </div>
@@ -218,6 +219,11 @@ $borderColor = [
                 },
                 options: {
                     responsive: true,
+                    layout: {
+                        padding: {
+                            top: 10
+                        }
+                    },
                     title: {
                         display: false,
                         text: details.label,
@@ -235,7 +241,7 @@ $borderColor = [
                         yAxes: [{
                             display: false,
                             ticks: {
-                                suggestedMin: -2    // minimum will be 0, unless there is a lower value.
+                                suggestedMin: -2
                             }
                         }]
                     },
