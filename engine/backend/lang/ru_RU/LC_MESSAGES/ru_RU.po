@@ -1,0 +1,132 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2019-06-23 19:43+0300\n"
+"PO-Revision-Date: 2019-06-23 19:49+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ../../../../..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: engine/frontend/nav/main-nav.php:16
+msgid "Dashboard"
+msgstr "Рабочий стол"
+
+#: engine/frontend/nav/main-nav.php:21
+msgid "Tasks"
+msgstr "Задачи"
+
+#: engine/frontend/nav/main-nav.php:30
+msgid "Create task"
+msgstr "Новая задача"
+
+#: engine/frontend/nav/main-nav.php:34
+msgid "Company"
+msgstr "Компания"
+
+#: engine/frontend/nav/main-nav.php:36
+msgid "Awards"
+msgstr "Достижения"
+
+#: engine/frontend/nav/main-nav.php:44
+msgid "Storage"
+msgstr "Файлы"
+
+#: engine/frontend/nav/main-nav.php:54
+msgid "GodMode"
+msgstr ""
+
+#: engine/frontend/nav/top-sidebar.php:20
+msgid "Search on tasks, comments and files"
+msgstr "Поиск по задачам, комментариям и файлам"
+
+#: engine/frontend/nav/top-sidebar.php:54
+msgid "Profile"
+msgstr "Профиль"
+
+#: engine/frontend/nav/top-sidebar.php:55
+#: engine/frontend/other/dashboard-ceo.php:183
+#: engine/frontend/other/dashboard-worker.php:118
+msgid "History"
+msgstr "Журнал"
+
+#: engine/frontend/nav/top-sidebar.php:56
+msgid "Settings"
+msgstr "Настройки"
+
+#: engine/frontend/nav/top-sidebar.php:57
+msgid "Log Out"
+msgstr "Выход"
+
+#: engine/frontend/other/dashboard-ceo.php:25
+msgid "Tasks done per month"
+msgstr "Завершено задач за месяц"
+
+#: engine/frontend/other/dashboard-ceo.php:41
+#: engine/frontend/other/dashboard-ceo.php:62
+msgid "Done"
+msgstr "Завершено"
+
+#: engine/frontend/other/dashboard-ceo.php:66
+msgid "Show all tasks"
+msgstr "Показать все задачи"
+
+#: engine/frontend/other/dashboard-ceo.php:79
+msgid "You have no tasks yet, create the first task."
+msgstr "У вас пока нет задач, создайте первую задачу."
+
+#: engine/frontend/other/dashboard-ceo.php:94
+msgid "Completed tasks"
+msgstr "Завершено задач"
+
+#: engine/frontend/other/dashboard-ceo.php:98
+msgid "Was overdue"
+msgstr "Просрочено"
+
+#: engine/frontend/other/dashboard-ceo.php:101
+msgid "Postpone requested"
+msgstr "Запрошен перенос срока"
+
+#: engine/frontend/other/dashboard-ceo.php:118
+#: engine/frontend/other/dashboard-worker.php:53
+msgid "task"
+msgid_plural "tasks"
+msgstr[0] "задача"
+msgstr[1] "задачи"
+msgstr[2] "задач"
+
+#: engine/frontend/other/dashboard-ceo.php:131
+#: engine/frontend/other/dashboard-worker.php:66
+msgid "In work"
+msgstr "В работе"
+
+#: engine/frontend/other/dashboard-ceo.php:145
+#: engine/frontend/other/dashboard-worker.php:80
+msgid "Overdue"
+msgstr "Просрочено"
+
+#: engine/frontend/other/dashboard-ceo.php:159
+#: engine/frontend/other/dashboard-worker.php:94
+msgid "Pending"
+msgstr "На рассмотрении"
+
+#: engine/frontend/other/dashboard-ceo.php:173
+#: engine/frontend/other/dashboard-worker.php:108
+msgid "Postponement"
+msgstr "Перенос срока"
+
+#~ msgid "totalTask"
+#~ msgid_plural "totalTasks"
+#~ msgstr[0] "задача"
+#~ msgstr[1] "задачи"
+#~ msgstr[2] "задач"
+
+#~ msgid "TotalTaskPerMonth"
+#~ msgstr "Завершено задач за месяц"

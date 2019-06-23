@@ -50,7 +50,7 @@
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-tasks text-secondary fa-fw mr-1"></i></span>
                     <p class="mb-0"><span class="font-weight-bold"><?= $all ?></span> <span
-                                class="text-lowercase"><?= $_alltasks ?></span></p>
+                                class="text-lowercase"><?= ngettext('task', 'tasks', $all) ?></span></p>
                 </div>
             </div>
         </a>
@@ -63,7 +63,7 @@
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-bolt text-primary fa-fw mr-1"></i></span>
                         <p class="mb-0"><span class="font-weight-bold"><?= $inwork ?></span> <span
-                                    class="text-lowercase"><?= $_inprogress ?></span></p>
+                                    class="text-lowercase"><?= _('In work') ?></span></p>
                     </div>
                 </div>
             </a>
@@ -77,7 +77,7 @@
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-fire-alt text-danger fa-fw mr-1"></i></span>
                         <p class="mb-0"><span class="font-weight-bold"><?= $overdue ?></span> <span
-                                    class="text-lowercase"><?= $_overdue ?></span></p>
+                                    class="text-lowercase"><?= _('Overdue') ?></span></p>
                     </div>
                 </div>
             </a>
@@ -91,7 +91,7 @@
                         <span class="font-weight-bold float-left mr-2"><i
                                     class="fas fa-search text-success fa-fw mr-1"></i></span>
                         <p class="mb-0"><span class="font-weight-bold"><?= $pending ?></span> <span
-                                    class="text-lowercase"><?= $_pending ?></span></p>
+                                    class="text-lowercase"><?= _('Pending') ?></span></p>
                     </div>
                 </div>
             </a>
@@ -105,7 +105,7 @@
                         <span class="font-weight-bold float-left mr-2"><i
                                     class="fas fa-clock text-warning fa-fw mr-1"></i></span>
                         <p class="mb-0"><span class="font-weight-bold"><?= $postpone ?></span> <span
-                                    class="text-lowercase"><?= $_postpone ?></span></p>
+                                    class="text-lowercase"><?= _('Postponement') ?></span></p>
                     </div>
                 </div>
             </a>
@@ -115,7 +115,7 @@
 
 <div class="card mt-3">
     <div class="card-body pb-0">
-        <span class="font-weight-bold"><?= $_history ?></span>
+        <span class="font-weight-bold"><?= _('History') ?></span>
         <hr class="mb-0">
         <div id="log">
             <ul class="timeline" style="bottom: 0px;">
