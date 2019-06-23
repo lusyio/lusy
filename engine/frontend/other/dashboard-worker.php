@@ -129,6 +129,13 @@
 
 <script>
     $(document).ready(function () {
+
+        $('.timeline').on('mouseover', '.new-event', function () {
+            $(this).removeClass('new-event');
+            var eventId = $(this).data('event-id');
+            markAsRead(eventId);
+        });
+
         $('.carousel').carousel({
             interval: 10000
         });

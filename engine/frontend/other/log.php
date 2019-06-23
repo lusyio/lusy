@@ -119,20 +119,4 @@
         })
     }
 
-    function markAsRead(eventId) {
-        $.ajax({
-            url: '/ajax.php',
-            type: 'POST',
-
-            data: {
-                module: 'markAsRead',
-                eventId: eventId,
-                ajax: 'log'
-            },
-            success: getCounters(function (data) {
-                updateCounters(data);
-            })
-        })
-    }
-
 </script>

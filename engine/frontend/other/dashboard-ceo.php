@@ -195,6 +195,12 @@ $borderColor = [
 <script>
     $(document).ready(function () {
 
+        $('.timeline').on('mouseover', '.new-event', function () {
+            $(this).removeClass('new-event');
+            var eventId = $(this).data('event-id');
+            markAsRead(eventId);
+        });
+
         function createConfig(details, data) {
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
