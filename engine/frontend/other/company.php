@@ -1,18 +1,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-<div class="card mb-3">
-    <div class="card-body">
-        <div>
-            <span class="navbar-brand text-uppercase font-weight-bold"><?= $namecompany ?></span>
-            <?php if ($isCeo): ?>
-                <a class="btn btn-primary d-inline float-right invateButton" href="/invite/">
-                    <i class="fas fa-user-plus text-white mr-1"></i> <?= $_buttonInvateNew ?>
-                </a>
-            <?php endif; ?>
+<?php if ($isCeo): ?>
+    <div class="row">
+        <div class="col mb-3">
+            <!--            <span class="navbar-brand text-uppercase font-weight-bold">-->
+            <? //= $namecompany ?><!--</span>-->
+            <a class="btn btn-primary d-inline float-right invateButton" href="/invite/">
+                <i class="fas fa-user-plus text-white mr-1"></i> <?= $_buttonInvateNew ?>
+            </a>
         </div>
     </div>
-</div>
+<?php endif; ?>
 <div style="padding: 0.8rem;" class="d-sm task-box">
     <div style="padding-left: 7px;">
         <div class="row sort">

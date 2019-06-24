@@ -1,6 +1,3 @@
-<script src="/assets/js/linkify.min.js"></script>
-<script src="/assets/js/linkify-jquery.min.js"></script>
-
 <div class="card">
     <div class="card-header pt-0 pl-0">
         <a class="float-left" href="/mail/"><i class="fas fa-arrow-left icon-invite"></i></a>

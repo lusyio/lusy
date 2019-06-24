@@ -1,5 +1,3 @@
-<script src="/assets/js/linkify.min.js"></script>
-<script src="/assets/js/linkify-jquery.min.js"></script>
 <div class="d-inline-block">
     <div data-filter-type="comments" class="btn btn-secondary words-search comment-filter">
         <span><i class="fas fa-comments mr-2"></i>Комментарии</span>
