@@ -6,6 +6,7 @@ global $cometHash;
 global $cometTrackChannelName;
 
 require_once 'engine/backend/functions/achievement-functions.php';
+require_once 'engine/backend/functions/log-functions.php';
 
 
 $completedTasksQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks WHERE worker = :workerId AND status = 'done'");
@@ -15,6 +16,11 @@ $completedTasksCount = $completedTasksQuery->fetch(PDO::FETCH_COLUMN);
 $assignedTasksQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks WHERE manager = :managerId");
 $assignedTasksQuery->execute(array(':managerId' => $id));
 $assignedTasksCount = $assignedTasksQuery->fetch(PDO::FETCH_COLUMN);
+
+$achievementEventsQuery = $pdo->prepare('SELECT event_id FROM events WHERE action = :action AND recipient_id = :userId AND view_status=0');
+$achievementEventsQuery->execute(array(':action' => 'newachievement', ':userId' => $id));
+$achievementEvents = $achievementEventsQuery->fetchAll(PDO::FETCH_COLUMN);
+markAsRead($achievementEvents);
 
 $userProgress = getUserProgress($id);
 $nonMultipleAchievements = getUserNonMultipleAchievements($id);
