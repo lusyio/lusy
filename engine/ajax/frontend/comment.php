@@ -15,10 +15,10 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
 ?>
 <div class="<?= $commentClass[$commentStatus] ?> <?= ($isNew) ? 'new-event' : '' ?> mb-3" id="<?= $c['id'] ?>">
     <div class="row">
-        <div class="col-1">
+        <div class="col-2 col-lg-1">
             <img src="/<?= getAvatarLink($c['iduser']) ?>" class="avatar mt-1">
         </div>
-        <div class="col-11">
+        <div class="col-10 col-lg-11">
             <div class="position-relative">
 				<span class="date text-secondary">
 					<?= $dc ?>
@@ -31,7 +31,7 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
 				</span>
                 <p class="p-0 mb-1 comment-author"><a href="/profile/<?= $c['iduser'] ?>/"
                                                   class="font-weight-bold"><?= $nameuser ?> <?= $surnameuser ?></a></p>
-                <p class="p-0 mb-2 comment-text"><?= nl2br(htmlspecialchars($c['comment'])) ?></p>
+                <p class="p-0 mb-2 comment-text text-justify"><?= nl2br(htmlspecialchars($c['comment'])) ?></p>
                 <div class="text-right comment-viewers d-none">
                     <img src="/<?= getAvatarLink($c['manager']) ?>" class="avatar mr-3"
                          title="<?= $commentViewStatusTitleManager ?>">
