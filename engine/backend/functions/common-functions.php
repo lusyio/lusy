@@ -899,3 +899,20 @@ function get_timezone_offset($remote_tz, $origin_tz = null) {
     $offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
     return $offset;
 }
+
+function countTopsidebar()
+{
+    global $id;
+    $newTaskCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action NOT LIKE "comment"');
+    $overdueCount = DBOnce('count(*)','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
+    $newCommentCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action LIKE "comment"');
+    $newMailCount = DBOnce('count(*)', 'mail', 'recipient='.$id.' AND view_status=0');
+
+    $result = [
+        'task' => $newTaskCount,
+        'hot' => $overdueCount,
+        'comment' => $newCommentCount,
+        'mail' => $newMailCount,
+    ];
+    return $result;
+}
