@@ -707,6 +707,9 @@ input:checked[type="checkbox"]::before {
     color: #898989;
 
 }
+
+
+
 .invateButton {
     font-size: 12px;
     margin-top: 4px;
@@ -2171,6 +2174,9 @@ span.date {
 }
 
 @media (max-width: 768px) {
+    .count-company-tasks{
+        color: black !important;
+    }
     .alerts {
         width: 100%;
         border-top: 1px solid rgba(0,0,0,.1);
@@ -2556,7 +2562,14 @@ label.error {
     border-bottom-color: rgb(222, 226, 230);
 }
 
+.count-company-tasks{
+    color: #c6c9dc;
+    transition: 200ms;
+}
 
+.border-bottom-company:hover .count-company-tasks{
+    color: black;
+}
 
 .google-icon-btn {
     outline: none !important;

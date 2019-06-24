@@ -29,7 +29,7 @@ function subscribeToMessagesNotification (userId) {
         getCounters(function (data) {
             updateCounters(data);
         });
-        if (window.pageName && pageName === 'log') {
+        if (window.pageName && (pageName === 'log' || pageName === 'dashboard')) {
             console.log('start event request');
 
             $.ajax({
@@ -43,7 +43,7 @@ function subscribeToMessagesNotification (userId) {
                 },
                 success: function (event) {
                     if (event) {
-                        $('#eventBox').prepend(event);
+                        $('.timeline').prepend(event);
                     }
                 }
             })

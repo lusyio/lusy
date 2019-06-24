@@ -1,6 +1,6 @@
 <div class="card">
-    <div class="card-header pt-0 pl-0">
-        <a class="float-left" href="/mail/"><i class="fas fa-arrow-left icon-invite"></i></a>
+    <div class="card-header">
+        <a class="text-left" href="/mail/"><i class="fas fa-arrow-left icon-invite"></i></a>
         <a href="/profile/<?= $recipientId ?>/" class="mb-0 h5 ml-3"><?= fiomess($recipientId) ?>
             <i class="fas fa-circle mr-1 ml-1 onlineIndicator <?= (in_array($recipientId, $onlineUsersList)) ? 'text-success' : '' ?>"></i>
         </a>

@@ -192,6 +192,7 @@ $borderColor = [
     </div>
 </div>
 <script>
+    var pageName = 'dashboard';
     $(document).ready(function () {
 
         $('.timeline').on('mouseover', '.new-event', function () {

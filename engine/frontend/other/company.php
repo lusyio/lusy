@@ -1,17 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-<?php if ($isCeo): ?>
-    <div class="row">
-        <div class="col mb-3">
-            <!--            <span class="navbar-brand text-uppercase font-weight-bold">-->
-            <? //= $namecompany ?><!--</span>-->
-            <a class="btn btn-primary d-inline float-right invateButton" href="/invite/">
-                <i class="fas fa-user-plus text-white mr-1"></i> <?= $_buttonInvateNew ?>
-            </a>
-        </div>
-    </div>
-<?php endif; ?>
 <div style="padding: 0.8rem;" class="d-sm task-box">
     <div style="padding-left: 7px;">
         <div class="row sort">
@@ -19,16 +8,17 @@
                 <span>Имя сотрудника</span>
             </div>
             <div class="col-2 text-center">
-                <span>Выполнено</span>
+                <span>В работе</span>
             </div>
             <div class="col-2 text-center">
-                <span>В работе</span>
+                <span>Выполнено</span>
             </div>
             <div class="col-2 text-center">
                 <span>Просрочено</span>
             </div>
         </div>
     </div>
+    <hr class="mt-2 mb-2">
 </div>
 <div class="card">
     <?php
@@ -101,15 +91,15 @@
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-sm-2 text-center">
-                    <div style="margin-top: 15%;"><?= $done ?></div>
-                    <small class="text-muted company-tasks">Выполнено</small>
-                </div>
-                <div class="col-4 col-sm-2 text-center">
-                    <div style="margin-top: 15%;"><?= $inwork ?></div>
+                    <div class="count-company-tasks" style="margin-top: 15%;"><?= $inwork ?></div>
                     <small class="text-muted company-tasks">В работе</small>
                 </div>
                 <div class="col-4 col-sm-2 text-center">
-                    <div style="margin-top: 15%;"><?= $overdue ?></div>
+                    <div class="count-company-tasks" style="margin-top: 15%;"><?= $done ?></div>
+                    <small class="text-muted company-tasks">Выполнено</small>
+                </div>
+                <div class="col-4 col-sm-2 text-center">
+                    <div class="count-company-tasks" style="margin-top: 15%;"><?= $overdue ?></div>
                     <small class="text-muted company-tasks">Просрочено</small>
                 </div>
                 <div class="position-absolute" style="right: 8px">
@@ -147,6 +137,17 @@
         </a>
     <?php endif; ?>
 </div>
+<?php if ($isCeo): ?>
+    <div class="row">
+        <div class="col mt-4 text-center">
+            <!--            <span class="navbar-brand text-uppercase font-weight-bold">-->
+            <? //= $namecompany ?><!--</span>-->
+            <a class="btn btn-primary d-inline" href="/invite/">
+                <i class="fas fa-user-plus text-white mr-1"></i> <?= $_buttonInvateNew ?>
+            </a>
+        </div>
+    </div>
+<?php endif; ?>
 <style>
     .card-body {
         -webkit-transition: background-color 0.5s;
