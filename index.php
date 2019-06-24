@@ -7,6 +7,7 @@ $locale = 'ru_RU';
 putenv("LC_MESSAGES=" . $locale);
 setlocale(5, $locale, $locale);
 bindtextdomain($locale, realpath(__DIR__ . '/engine/backend/lang/'));
+bind_textdomain_codeset($locale, 'UTF-8');
 textdomain($locale);
 include 'conf.php';
 
