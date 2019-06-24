@@ -3,7 +3,11 @@ session_cache_limiter('none');
 session_start();
 ob_start();
 setlocale(LC_ALL, 'ru_RU');
-
+$locale = 'ru_RU';
+putenv("LC_MESSAGES=" . $locale);
+setlocale(5, $locale, $locale);
+bindtextdomain($locale, realpath(__DIR__ . '/engine/backend/lang/'));
+textdomain($locale);
 include 'conf.php';
 
 //addTimeZoneToCompany();

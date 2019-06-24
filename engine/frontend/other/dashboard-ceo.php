@@ -1,4 +1,5 @@
 <?php
+
 $borderColor = [
     'new' => 'border-primary',
     'inwork' => 'border-primary',
@@ -21,7 +22,7 @@ $borderColor = [
                             class="iconSlide fas fa-check float-right"></i>
                 </div>
                 <div>
-                    <small class="text-secondary">Завершено задач за месяц</small>
+                    <small class="text-secondary"><?= _('Tasks done per month') ?></small>
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
@@ -37,7 +38,7 @@ $borderColor = [
                         <div class="card mb-2 tasks">
                             <div class="card-body tasks-list">
                                 <div class="d-block border-left-tasks <?= $borderColor[$task['status']] ?>">
-                                    <p class="font-weight-light text-ligther d-none">Выполнено</p>
+                                    <p class="font-weight-light text-ligther d-none"><?= _('Done') ?></p>
                                     <div class="row">
                                         <div class="col-9">
                                             <div>
@@ -58,11 +59,11 @@ $borderColor = [
                         <div class="card mb-2 tasks  pending manager">
                             <div class="card-body tasks-list">
                                 <div class="d-block">
-                                    <p class="font-weight-light text-ligther d-none">Выполнено</p>
+                                    <p class="font-weight-light text-ligther d-none"><?= _('Done') ?></p>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="text-center">
-                                                <span class="taskname">Просмотреть все задачи</span>
+                                                <span class="taskname"><?= _('Show all tasks') ?></span>
                                             </div>
                                         </div>
                                     </div>
@@ -75,7 +76,7 @@ $borderColor = [
             <?php if ($countAllTasks == 0): ?>
             <div class="card search-empty">
                 <div class="card-body">
-                    <span>У вас пока нет задач, создайте первую задачу</span>
+                    <span><?= _('You have no tasks yet, create the first task.') ?></span>
                 </div>
             </div>
             <?php endif; ?>
@@ -90,16 +91,14 @@ $borderColor = [
             <div class="carousel-inner">
                 <div class="carousel-item text-center active">
                     <h1 class="font-weight-bold text-success mb-0">23</h1>
-                    <small class="text-dark font-weight-bold">Завершено задач</small>
+                    <small class="text-dark font-weight-bold"><?= _('Completed tasks') ?></small>
                     <hr>
                     <div class="d-flex justify-content-center">
                         <div class="mb-1 mr-3">
-                            <small class="text-secondary"><i class="fas fa-fire-alt text-danger fa-fw mr-2"></i>Был
-                                просрочен срок - <span class="font-weight-bold text-dark">9</span></small>
+                            <small class="text-secondary"><i class="fas fa-fire-alt text-danger fa-fw mr-2"></i><?= _('Was overdue') ?> - <span class="font-weight-bold text-dark">9</span></small>
                         </div>
                         <div>
-                            <small class="text-secondary"><i class="fas fa-clock text-warning fa-fw mr-2"></i>Запрошен
-                                перенос срока - <span class="font-weight-bold text-dark">1</span></small>
+                            <small class="text-secondary"><i class="fas fa-clock text-warning fa-fw mr-2"></i><?= _('Postpone requested') ?> - <span class="font-weight-bold text-dark">1</span></small>
                         </div>
                     </div>
                 </div>
@@ -116,7 +115,7 @@ $borderColor = [
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-tasks text-secondary fa-fw mr-1"></i></span>
                     <p class="mb-0"><span class="font-weight-bold"><?= $all ?></span> <span
-                                class="text-lowercase"><?= $_alltasks ?></span></p>
+                                class="text-lowercase"><?= ngettext('task', 'tasks', $all) ?></span></p>
                 </div>
             </div>
         </a>
@@ -129,7 +128,7 @@ $borderColor = [
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-bolt text-primary fa-fw mr-1"></i></span>
                         <p class="mb-0"><span class="font-weight-bold"><?= $inwork ?></span> <span
-                                    class="text-lowercase"><?= $_inprogress ?></span></p>
+                                    class="text-lowercase"><?= _('In work') ?></span></p>
                     </div>
                 </div>
             </a>
@@ -143,7 +142,7 @@ $borderColor = [
                     <span class="font-weight-bold float-left mr-2"><i
                                 class="fas fa-fire-alt text-danger fa-fw mr-1"></i></span>
                         <p class="mb-0"><span class="font-weight-bold"><?= $overdue ?></span> <span
-                                    class="text-lowercase"><?= $_overdue ?></span></p>
+                                    class="text-lowercase"><?= _('Overdue') ?></span></p>
                     </div>
                 </div>
             </a>
@@ -157,7 +156,7 @@ $borderColor = [
                         <span class="font-weight-bold float-left mr-2"><i
                                     class="fas fa-search text-success fa-fw mr-1"></i></span>
                         <p class="mb-0"><span class="font-weight-bold"><?= $pending ?></span> <span
-                                    class="text-lowercase"><?= $_pending ?></span></p>
+                                    class="text-lowercase"><?= _('Pending') ?></span></p>
                     </div>
                 </div>
             </a>
@@ -171,7 +170,7 @@ $borderColor = [
                         <span class="font-weight-bold float-left mr-2"><i
                                     class="fas fa-clock text-warning fa-fw mr-1"></i></span>
                         <p class="mb-0"><span class="font-weight-bold"><?= $postpone ?></span> <span
-                                    class="text-lowercase"><?= $_postpone ?></span></p>
+                                    class="text-lowercase"><?= _('Postponement') ?></span></p>
                     </div>
                 </div>
             </a>
@@ -181,7 +180,7 @@ $borderColor = [
 
 <div class="card mt-1">
     <div class="card-body pb-0">
-        <span class="font-weight-bold"><?= $_history ?></span>
+        <span class="font-weight-bold"><?= _('History') ?></span>
         <hr class="mb-0">
         <div id="log">
             <ul class="timeline" style="bottom: 0px;">
