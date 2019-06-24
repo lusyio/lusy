@@ -16,9 +16,11 @@
             <div class="col-2 text-center">
                 <span>Просрочено</span>
             </div>
+            <div data-toggle="tooltip" data-placement="bottom" title="Статистика за месяц">
+                <i class="fas fa-info-circle icon-company"></i>
+            </div>
         </div>
     </div>
-    <hr class="mt-2 mb-2">
 </div>
 <div class="card">
     <?php

@@ -1102,7 +1102,7 @@ input:checked[type="checkbox"]::before {
 
 .responsible {
     display: none;
-    width: calc(100% - 15px);
+    width: calc(100% - 30px);
     background-color: #fff;
     color: black;
     text-align: center;
@@ -2389,7 +2389,7 @@ label.error {
 
 .icon-company {
     transition: 200ms;
-    vertical-align: -webkit-baseline-middle;
+    /*vertical-align: -webkit-baseline-middle;*/
     color: rgba(198, 199, 200, 0.69);
 }
 
