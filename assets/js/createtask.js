@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    $('.attach-file').on('click', function (e) {
+        e.preventDefault();
+        $('#sendFiles').trigger('click');
+    });
+
     $(".file-name").on('click', '.cancelFile', function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
@@ -127,6 +132,10 @@ $(document).ready(function () {
 
 //создание новой задачи
     $("#createTask").click(function () {
+        var attachedYaFiles = {};
+        $('.attached-ya-file').each(function (i, yaFileToSend) {
+            attachedYaFiles[$(yaFileToSend).data('name')] = $(yaFileToSend).data('link');
+        });
         var responsible = $('.add-responsible:visible').attr('val');
         var coworkers = [];
         $('.add-worker:visible').each(function () {
@@ -146,6 +155,7 @@ $(document).ready(function () {
         fd.append('datedone', datedone);
         fd.append('worker', responsible);
         fd.append('coworkers', JSON.stringify(coworkers));
+        fd.append('yaAttach', JSON.stringify(attachedYaFiles));
         fd.append('ajax', 'task-control');
         if (name != null && delta != null && datedone != null && responsible != null) {
             $.ajax({

@@ -59,6 +59,43 @@ function uploadAttachedFiles($type, $eventId)
         move_uploaded_file($file['tmp_name'], $filePath);
     }
 }
+function addYandexFiles($type, $eventId, $fileList)
+{
+    global $pdo;
+    global $idc;
+    global $id;
+
+    require_once 'engine/backend/functions/storage-functions.php';
+
+    $types = ['task', 'comment', 'conversation'];
+    if (!in_array($type, $types)) {
+        return;
+    }
+
+    if ($type == 'comment') {
+        global $idtask;
+    } elseif ($type == 'conversation') {
+        $idtask = 'm' . floor($eventId / 100);
+    } else {
+        $idtask = $eventId;
+    }
+
+
+    $sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type, company_id, is_deleted, author) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType, :companyId, :isDeleted, :author)');
+    foreach ($fileList as $file) {
+        $sqlData = [
+            ':fileName' => $file['name'],
+            ':fileSize' => 0,
+            ':filePath' => $file['path'],
+            ':commentId' => $eventId,
+            ':commentType' => $type,
+            ':companyId' => $idc,
+            ':isDeleted' => 0,
+            ':author' => $id,
+            ];
+        $sql->execute($sqlData);
+    }
+}
 
 function authorizeComet($id)
 {

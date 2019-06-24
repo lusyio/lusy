@@ -177,7 +177,7 @@ if ($id == $worker and $view == 0) {
                         <p class="text-secondary"><s><i class="fas fa-paperclip"></i> <?= $file['file_name'] ?></s>
                             (удален)</p>
                     <?php else: ?>
-                        <p class="text-secondary"><a class="text-secondary" href="../../<?= $file['file_path'] ?>"><i
+                        <p class="text-secondary"><a class="text-secondary" href="<?= ($file['file_size'] == 0) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
                                         class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a></p>
                     <?php endif; ?>
                 <?php endforeach; ?>
