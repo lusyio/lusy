@@ -31,7 +31,7 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
 				</span>
                 <p class="p-0 mb-1 comment-author"><a href="/profile/<?= $c['iduser'] ?>/"
                                                   class="font-weight-bold"><?= $nameuser ?> <?= $surnameuser ?></a></p>
-                <p class="p-0 mb-2 comment-text text-justify"><?= nl2br(htmlspecialchars($c['comment'])) ?></p>
+                <p class="p-0 mb-2 comment-text"><?= nl2br(htmlspecialchars($c['comment'])) ?></p>
                 <div class="text-right comment-viewers d-none">
                     <img src="/<?= getAvatarLink($c['manager']) ?>" class="avatar mr-3"
                          title="<?= $commentViewStatusTitleManager ?>">
