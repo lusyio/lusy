@@ -77,8 +77,8 @@
             <div class="card-body">
                 <h4 class="ml-4">Достижения</h4>
                 <hr class="m-0">
-                <div class="d-flex flex-wrap text-center" style="margin-left: 4px;">
-                    <div class="award award-sm mr-3 mt-3">
+                <div class="d-flex flex-wrap text-center">
+                    <div class="award award-sm  mt-3">
                         <div>
                             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
                                  data-value="1.00"></div>
@@ -91,7 +91,7 @@
                         <hr>
                         <span class="badge badge-primary">20.05.2019</span>
                     </div>
-                    <div class="award award-sm mr-3 mt-3">
+                    <div class="award award-sm  mt-3">
                         <div>
                             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
                                  data-value="1.00"></div>

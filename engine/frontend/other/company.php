@@ -47,12 +47,12 @@
         if ($isFired && !$isFiredShown):
             $isFiredShown = true; ?>
             <a href="#" id="showFired" class="text-decoration-none text-center">
-                <div class="card-body border-bottom">
+                <div class="card-body border-bottom-company">
                     <?= $GLOBALS['_firedcompany'] ?>
                 </div>
             </a>
         <?php endif; ?>
-        <div class="card-body p-2 border-bottom <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
+        <div class="card-body p-2 border-bottom-company <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
             <div class="row">
                 <div class="col-lg-1 col-2">
                     <div class="user-pic position-relative" style="width:45px">
@@ -142,7 +142,7 @@
     <?php if (!$isFiredShown):
         $isFiredShown = true; ?>
         <a href="#" id="showFired" class="text-decoration-none text-center d-none">
-            <div class="card-body border-bottom">
+            <div class="card-body border-bottom-company">
                 <?= $GLOBALS['_firedcompany'] ?>
             </div>
         </a>

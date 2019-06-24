@@ -4,15 +4,13 @@
 <?php include 'engine/frontend/other/searchbar.php' ?>
 <div id="taskBox">
     <a href="/task/new/" class="text-decoration-none cust add-newtask-button">
-        <div class="task-card">
-            <div class="card mb-2 tasks">
-                <div class="card-body tasks-list">
-                    <div class="row">
-                        <div class="col text-center">
+        <div class="card mb-2 add-newtask-tasks">
+            <div class="card-body" style="padding: 0.8rem;">
+                <div class="row">
+                    <div class="col text-center">
                         <span class="mr-2">
                             <small class="text-muted-reg">Добавить новую задачу</small>
                         </span>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -1146,6 +1146,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .award{
+    margin-right: 15px;
     border-radius: 5px;
     display: block;
     padding: 20px 10px;
@@ -1190,6 +1191,7 @@ input:checked[type="checkbox"]::before {
     border-radius: 5px;
     display: block;
     padding: 20px 10px;
+    margin-right: 10px;
     min-width: 190px;
     max-width: 190px;
 }
@@ -2252,6 +2254,24 @@ span.date {
         width: 340px;
     }
 
+    .text-award{
+        max-width: 160px;
+        word-wrap: break-word;
+        font-size: 80%
+    }
+
+    .award{
+        min-width: 160px;
+        max-width: 160px;
+        margin-right: 12px;
+    }
+
+    .award-sm{
+        min-width: 147px;
+        max-width: 147px;
+        margin-right: 5px;
+    }
+
     .user-img {
         position: absolute;
         right: 0;
@@ -2327,6 +2347,12 @@ label.error {
 
 .text-award{
     max-width: 190px;
+    word-wrap: break-word;
+    font-size: 80%
+}
+
+.text-award{
+    max-width: 160px;
     word-wrap: break-word;
     font-size: 80%
 }
@@ -2516,6 +2542,21 @@ label.error {
 .add-newtask-button{
     display: none;
 }
+
+.add-newtask-tasks{
+    cursor: pointer;
+    transition: 0.2s all;
+    box-shadow: rgba(13, 28, 60, 0.06) 0px 4px 12px 1px;
+}
+
+.border-bottom-company:not(:last-of-type) {
+    border-bottom: 1px solid #dee2e6;
+    border-bottom-width: 1px ;
+    border-bottom-style: solid ;
+    border-bottom-color: rgb(222, 226, 230);
+}
+
+
 
 .google-icon-btn {
     outline: none !important;
