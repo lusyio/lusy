@@ -266,6 +266,7 @@ if ($id == $worker and $view == 0) {
                 dov.fadeOut(200); // скрываем его
             }
         });
+
         // if (!$(e.target).closest(".tooltip-avatar").length) {
         //     $('.members').fadeOut(300);
         //     $('.coworkers').fadeOut(300);

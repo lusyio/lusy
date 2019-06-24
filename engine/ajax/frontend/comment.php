@@ -30,7 +30,8 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                     <?php endif; ?>
 				</span>
                 <p class="p-0 mb-1 comment-author"><a href="/profile/<?= $c['iduser'] ?>/"
-                                                  class="font-weight-bold"><?= $nameuser ?> <?= $surnameuser ?></a></p>
+                                                      class="font-weight-bold"><?= $nameuser ?> <?= $surnameuser ?></a>
+                </p>
                 <p class="p-0 mb-2 comment-text"><?= nl2br(htmlspecialchars($c['comment'])) ?></p>
                 <div class="text-right comment-viewers d-none">
                     <img src="/<?= getAvatarLink($c['manager']) ?>" class="avatar mr-3"
@@ -70,3 +71,9 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
         </div>
     </div>
 </div>
+<script>
+    $('p').linkify();
+    $('#comments').linkify({
+        target: "_blank"
+    });
+</script>
