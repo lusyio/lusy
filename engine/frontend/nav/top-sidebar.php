@@ -17,7 +17,7 @@
                         <div class="input-group">
                             <div class="custom-file">
                                 <input class="form-control" id="search" type="text" name="request" autocomplete="off"
-                                       placeholder="<?= $GLOBALS['_searchtopsidebar'] ?>...">
+                                       placeholder="<?= _('Search on tasks, comments and files') ?>...">
                             </div>
                             <div class="input-group-append">
                                 <button class="input-group-text" id="searchButton"><i class="fas fa-search"></i>
@@ -51,10 +51,10 @@
                         <img class="user-img rounded-circle " src="/<?= getAvatarLink($id) ?>"/>
                     </span>
                     <div class="profile-submenu submenu">
-                        <a href="/profile/<?= $id ?>/"><i class="mr-2 fas fa-user-alt"></i><?= $_profile ?></a>
-                        <a href="/log/"><i class="mr-2 fas fa-bell"></i><?= $_history ?></a>
-                        <a href="/settings/"><i class="mr-2 fas fa-cog"></i><?= $_settings ?></a>
-                        <a href="/logout/"><i class="mr-2 fas fa-sign-out-alt"></i><?= $_logout ?></a>
+                        <a href="/profile/<?= $id ?>/"><i class="mr-2 fas fa-user-alt"></i><?= _('Profile') ?></a>
+                        <a href="/log/"><i class="mr-2 fas fa-bell"></i><?= _('History') ?></a>
+                        <a href="/settings/"><i class="mr-2 fas fa-cog"></i><?= _('Settings') ?></a>
+                        <a href="/logout/"><i class="mr-2 fas fa-sign-out-alt"></i><?= _('Log Out') ?></a>
                     </div>
                 </div>
             </div>
