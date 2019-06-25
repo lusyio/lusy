@@ -113,6 +113,7 @@ if($_POST['module'] == 'createTask') {
             'path' => filter_var($v, FILTER_SANITIZE_STRING),
             ];
     }
+    $yaToken = filter_var($_POST['yaToken'], FILTER_SANITIZE_STRING);
     if (isset($_POST['manager'])) {
         $managerId = filter_var($_POST['manager'], FILTER_SANITIZE_NUMBER_INT);
     } else {
@@ -143,8 +144,8 @@ if($_POST['module'] == 'createTask') {
     if (count($_FILES) > 0) {
         uploadAttachedFiles('task', $idtask);
     }
-    if (count($yandexFiles) > 0) {
-        addYandexFiles('task', $idtask, $yandexFiles);
+    if (count($yandexFiles) > 0 && $yaToken != '') {
+        addYandexFiles('task', $idtask, $yandexFiles, $yaToken);
     }
     resetViewStatus($idtask);
     addTaskCreateComments($idtask, $worker, $coworkers);

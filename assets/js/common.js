@@ -1,8 +1,9 @@
 function subscribeToMessagesNotification (userId) {
     console.log('подписыаемся на новые сообщения');
     cometApi.subscription("msg.yandexToken", function (e) {
+        yt = e.data;
         console.log(e.data);
-        getYandexFiles(e.data);
+        getYandexFiles(yt);
     });
     cometApi.subscription("msg.new", function (e) {
         console.log('получено сообщение');

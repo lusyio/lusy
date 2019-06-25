@@ -124,10 +124,18 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="yaDiskContent">
+            <div class="modal-body">
+                <div id="yaDiskContent">
 
+                </div>
+                <div id="yaControl" class="mt-2 text-center d-none">
+                    <button type="button" id="yaPrev" class="btn btn-outline-secondary" disabled><</button>
+                    <span id="yaPageNumber"></span>
+                    <button type="button" id="yaNext" class="btn btn-outline-secondary">></button>
+                </div>
             </div>
             <div class="modal-footer">
+                <span>После создания задачи выбранные файлы станут публичными и будут доступны по ссылке</span>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                 <button type="button" id="addYandexFiles" class="btn btn-primary" disabled>Выбрать</button>
             </div>
@@ -136,7 +144,9 @@
 </div>
 <script src="/assets/js/createtask.js"></script>
 <script>
-    var yt = '<?= $yandexToken ?>';
+    var yt = '';
+    var yaLimit = 15;
+    var yaPage = 1;
     $(document).ready(function () {
         $("#name").on('input', function () {
             var nameText = $('#name').val();
@@ -150,16 +160,20 @@
         });
 
         $('#openYaDisk').on('click', function () {
+            $('#yaControl').removeClass('d-none');
             if (yt !== '') {
-                getYandexFiles(yt)
+                getYandexFiles(yt);
             } else {
                 window.open('https://oauth.yandex.ru/authorize?response_type=token&client_id=e2e6c4743f6c470493e48748a09b2c3c&display=popup', '', 'width=600,height=800,toolbar=no,menubar=no');
             }
         });
 
-
         $('#yaDiskModal').on('hide.bs.modal', function () {
             $('#yaDiskContent').empty();
+            yaPage = 1;
+            $('#yaPrev').attr('disabled', true);
+            $('#yaNext').attr('disabled', false);
+            $('#yaControl').addClass('d-none');
         })
     });
     var quill = new Quill('#editor', {
@@ -191,6 +205,21 @@
         $('#yaDiskModal').modal('hide');
     });
 
+    $('#yaNext').on('click', function () {
+        yaPage++;
+        getYandexFiles(yt);
+        $('#addYandexFiles').attr('disabled', true);
+
+    });
+    $('#yaPrev').on('click', function () {
+        if (yaPage > 1) {
+            yaPage--;
+            getYandexFiles(yt);
+            $('#addYandexFiles').attr('disabled', true);
+        }
+        $('#yaNext').attr('disabled', false)
+    });
+
     function getYandexFiles(token) {
         $.ajax({
             url: 'https://cloud-api.yandex.net/v1/disk/resources/files',
@@ -203,12 +232,28 @@
             },
             processData: true,
             data: {
-                limit: 15
+                limit: yaLimit,
+                offset: (yaPage - 1) * yaLimit,
             },
             success: function (response) {
-                $(response.items).each(function (i, el) {
-                    $('#yaDiskContent').append('<div class="ya-file" data-link="' + el.file + '" data-file-name="' + el.name + '">' + el.name + '</div>');
-                })
+                if (response.items.length === 0) {
+                    if (yaPage > 1) {
+                        yaPage--;
+                    }
+                    $('#yaNext').attr('disabled', true);
+                    console.log('No more files found');
+                } else {
+                    if (yaPage > 1) {
+                        $('#yaPrev').attr('disabled', false);
+                    } else {
+                        $('#yaPrev').attr('disabled', true);
+                    }
+                    $('#yaDiskContent').empty();
+                    $('#yaPageNumber').text(yaPage);
+                    $(response.items).each(function (i, el) {
+                        $('#yaDiskContent').append('<div class="ya-file" data-link="' + el.path + '" data-file-name="' + el.name + '">' + el.name + '</div>');
+                    })
+                }
             },
         });
     }

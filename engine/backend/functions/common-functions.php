@@ -59,7 +59,7 @@ function uploadAttachedFiles($type, $eventId)
         move_uploaded_file($file['tmp_name'], $filePath);
     }
 }
-function addYandexFiles($type, $eventId, $fileList)
+function addYandexFiles($type, $eventId, $fileList, $yaToken)
 {
     global $pdo;
     global $idc;
@@ -83,10 +83,33 @@ function addYandexFiles($type, $eventId, $fileList)
 
     $sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type, company_id, is_deleted, author) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType, :companyId, :isDeleted, :author)');
     foreach ($fileList as $file) {
+        $token = $yaToken;
+
+// Файл или папка на Диске.
+        $path = $file['path'];
+        $ch = curl_init('https://cloud-api.yandex.net:443/v1/disk/resources/publish?path=' . urlencode($path));
+        curl_setopt($ch, CURLOPT_PUT, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: OAuth ' . $token));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($res, true);
+        $ch = curl_init($response['href']);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: OAuth ' . $token));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        $fileInfoResponse = curl_exec($ch);
+        curl_close($ch);
+
+        $fileInfo = json_decode($fileInfoResponse, true);
+
         $sqlData = [
             ':fileName' => $file['name'],
             ':fileSize' => 0,
-            ':filePath' => $file['path'],
+            ':filePath' => $fileInfo['public_url'],
             ':commentId' => $eventId,
             ':commentType' => $type,
             ':companyId' => $idc,

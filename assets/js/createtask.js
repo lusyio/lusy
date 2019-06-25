@@ -9,7 +9,7 @@ $(document).ready(function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
         fileList.delete(num);
-        if (fileList.size === 0) {
+        if ($('.filenames').length === 0) {
             $('.file-name').hide();
         }
     });
@@ -157,6 +157,7 @@ $(document).ready(function () {
         fd.append('coworkers', JSON.stringify(coworkers));
         fd.append('yaAttach', JSON.stringify(attachedYaFiles));
         fd.append('ajax', 'task-control');
+        fd.append('yaToken', yt);
         if (name != null && delta != null && datedone != null && responsible != null) {
             $.ajax({
                 url: '/ajax.php',
