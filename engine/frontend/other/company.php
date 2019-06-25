@@ -1,6 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
 <div style="padding: 0.8rem;" class="d-sm task-box">
     <div style="padding-left: 7px;">
         <div class="row sort">
@@ -28,7 +25,6 @@
 
              as $n):
         $overdue = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="overdue"');
-        $done = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="done"');
         $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')');
         if ($n['is_fired'] != 0) {
             $isFired = true;
@@ -50,7 +46,7 @@
                         <a href="/profile/<?= $n['id'] ?>/">
                             <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-img rounded-circle w-100"/>
                             <span class="online-indicator-company">
-                                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator company <?= ($n['online']) ? 'text-success' : '' ?>"></i>
+                                <i class="fas fa-circle mr-1 ml-1 onlineIndicator company <?= ($n['online']) ? 'text-success' : '' ?>"></i>
                             </span>
                         </a>
                     </div>
@@ -61,18 +57,7 @@
                         <p class="h5 mb-0 company-profile-fio">
                             <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
                         </p>
-                        <!--                        <span class="d-block company-profile-email">-->
-                        <!--                                <i class="fas fa-envelope mr-2 text-muted fa-fw"></i>--><?//= $n['email'] ?>
-                        <!--                        </span>-->
                         <span class="text-muted-reg activity-company"><?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
-                        <!--                        <div class="mt-2">-->
-                        <!--                            --><?php //if ($n['phone'] != null) { ?>
-                        <!--                                <span><i class="fas fa-phone mr-2 text-muted fa-fw"></i>--><?//=$n['phone'] ?><!--</span>-->
-                        <!--                           --><?php //} ?>
-                        <!--                            <span class="d-block company-profile-email">-->
-                        <!--                                <i class="fas fa-envelope mr-2 text-muted fa-fw"></i>--><?//= $n['email'] ?>
-                        <!--                            </span>-->
-                        <!--                        </div>-->
                     <?php
                     else: ?>
                         <p class="h5 company-profile-fio">
@@ -83,13 +68,6 @@
                                 <?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?>
                             </span>
                         </p>
-                        <!--                        <div>-->
-                        <!--                            --><?php
-//                            if ($n['phone'] != null) {
-//                                echo "<span><i class=\"fas fa-phone mr-1 text-muted\"></i> {$n['phone']} </span>";
-//                            }
-//                            ?>
-                        <!--                        </div>-->
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-sm-2 text-center">
@@ -106,7 +84,6 @@
                     <div class="count-company-tasks" style="margin-top: 15%;">
                         <span class="badge badge-company-primary"><?= $n['doneAsManager'] ?></span>
                         <span class="badge badge-company-dark"><?= $n['doneAsWorker'] ?></span>
-<!--                        --><?//= $done ?>
                     </div>
                     <small class="text-muted company-tasks">Выполнено</small>
                 </div>
@@ -148,8 +125,6 @@
 <?php if ($isCeo): ?>
     <div class="row">
         <div class="col mt-4 text-center">
-            <!--            <span class="navbar-brand text-uppercase font-weight-bold">-->
-            <? //= $namecompany ?><!--</span>-->
             <a class="btn btn-primary d-inline" href="/invite/">
                 <i class="fas fa-user-plus text-white mr-1"></i> <?= $_buttonInvateNew ?>
             </a>

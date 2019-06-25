@@ -18,7 +18,7 @@
                         <div style="position: absolute;
                                     right: 25px;
                                     top: 20px;">
-                            <a href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
+                            <a data-toggle="tooltip" data-placement="bottom" title="Изменить профиль" href="/settings/"><i id="editProfile" class="fas fa-pencil-alt edit-profile"></i></a>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -139,6 +139,9 @@
 </div>
 
 <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
     $('.circle').circleProgress({
         size: 75
     });

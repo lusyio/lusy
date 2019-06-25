@@ -226,7 +226,9 @@ function setTaskCounter(count) {
     var counter = $('#notificationCount');
     var icon = $('#notificationIcon');
     var link = counter.closest('a');
+    var badge = $('#notificationBadge');
     if (count == '0') {
+        badge.addClass('d-none');
         counter.text('');
         icon.removeClass('text-primary');
         link.attr('href', link.attr('href').replace('new-tasks', 'tasks'));
@@ -234,26 +236,32 @@ function setTaskCounter(count) {
         counter.text(count);
         icon.addClass('text-primary');
         link.attr('href', link.attr('href').replace('tasks', 'new-tasks'));
+        badge.removeClass('d-none');
     }
 
 }
 function setHotCounter(count) {
     var counter = $('#overdueCount');
     var icon = $('#overdueIcon');
+    var badge = $('#overdueBadge');
 
     if (count == '0') {
+        badge.addClass('d-none');
         counter.text('');
         icon.removeClass('text-danger');
     } else {
         counter.text(count);
         icon.addClass('text-danger');
+        badge.removeClass('d-none');
     }
 }
 function setCommentCounter(count) {
     var counter = $('#commentCount');
     var icon = $('#commentIcon');
     var link = counter.closest('a');
+    var badge = $('#commentBadge');
     if (count == '0') {
+        badge.addClass('d-none');
         counter.text('');
         icon.removeClass('text-warning');
         link.attr('href', link.attr('href').replace('new-comments', 'comments'));
@@ -261,19 +269,22 @@ function setCommentCounter(count) {
         counter.text(count);
         icon.addClass('text-warning');
         link.attr('href', link.attr('href').replace('comments', 'new-comments'));
+        badge.removeClass('d-none');
     }
 
 }
 function setMailCounter(count) {
     var counter = $('#messagesCount');
     var icon = $('#messagesIcon');
-
+    var badge = $('#messagesBadge');
     if (count == '0') {
+        badge.addClass('d-none');
         counter.text('');
         icon.removeClass('text-success');
     } else {
         counter.text(count);
         icon.addClass('text-success');
+        badge.removeClass('d-none');
     }
 
 }

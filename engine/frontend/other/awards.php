@@ -32,9 +32,11 @@ $badges = [
     <div class="col">
         <span class="h3">Прогресс достижений</span>
         <div class="progress progress-awards col mt-3 mb-2 p-0 w">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 8%" aria-valuenow="1"
+            <div class="progress-bar bg-success" role="progressbar" style="width: 2%" aria-valuenow="1"
                  aria-valuemin="0"
-                 aria-valuemax="100" title="Достижения"><span class="text-white ml-3">2/123</span></div>
+                 aria-valuemax="100" title="Достижения">
+                <div class="text-white ml-3">12/123</div>
+            </div>
         </div>
     </div>
 </div>
@@ -45,31 +47,34 @@ $badges = [
     } ?>
 </div>
 
-<div class="row mt-5 mb-1">
-    <div class="col">
-        <h3>Путь Ответственного</h3>
+<?php if (!key_exists('taskDone_500', $nonMultipleAchievements)): ?>
+    <div class="row mt-5 mb-1">
+        <div class="col">
+            <h3>Путь Ответственного</h3>
+        </div>
     </div>
-</div>
+<?php endif; ?>
 
 <div class="d-flex text-center flex-wrap">
-    <?php foreach ($workerPath as $name => $values){
+    <?php foreach ($workerPath as $name => $values) {
         if ($values['got']) {
             continue;
         } else {
-        include 'engine/frontend/other/award-card.php';
-    }
-} ?>
-
+            include 'engine/frontend/other/award-card.php';
+        }
+    } ?>
 </div>
 
-<div class="row mt-5 mb-1">
-    <div class="col">
-        <h3>Путь Руководителя</h3>
+<?php if (!key_exists('taskCreate_500', $nonMultipleAchievements)): ?>
+    <div class="row mt-5 mb-1">
+        <div class="col">
+            <h3>Путь Руководителя</h3>
+        </div>
     </div>
-</div>
+<?php endif; ?>
 
 <div class="d-flex text-center flex-wrap">
-    <?php foreach ($managerPath as $name => $values){
+    <?php foreach ($managerPath as $name => $values) {
         if ($values['got']) {
             continue;
         } else {
@@ -85,7 +90,7 @@ $badges = [
 </div>
 
 <div class="d-flex text-center flex-wrap">
-    <?php foreach ($otherAchievements as $name => $values){
+    <?php foreach ($otherAchievements as $name => $values) {
         if ($values['got'] || $values['hidden']) {
             continue;
         } else {
@@ -94,7 +99,6 @@ $badges = [
     } ?>
 </div>
 
-</div>
 
 <script>
     jQuery(function ($) {
@@ -112,6 +116,7 @@ $badges = [
     });
 
     $(document).ready(function () {
+
         $('.award-container').hScroll(30);
     });
 

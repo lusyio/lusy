@@ -1,5 +1,5 @@
 <?php if ($values['got']): ?>
-<div class="award mt-3">
+<div class="award mt-3 complete-awards">
     <div>
         <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
              data-value="1.00"></div>

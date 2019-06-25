@@ -61,7 +61,8 @@ if ($userTotalFilesSize == 0): ?>
                                 class="fas fa-circle mr-1 ml-1"></i> <?= $file['file_size'] ?> <?= $file['sizeSuffix'] ?></span>
                     <span class="text-ligther ml-1"> <i
                                 class="fas fa-circle mr-1 ml-1"></i> <?= $file['date'] ?></span>
-                    <span class="text-ligther deleteFile float-right"><i val="<?= $file['file_id'] ?>"
+                    <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
+                          class="text-ligther deleteFile float-right"><i val="<?= $file['file_id'] ?>"
                                                                          class="fas fa-times-circle delete-file-icon"></i></span>
 
                     <?php if ($file['comment_type'] != 'conversation'): ?>
@@ -80,6 +81,9 @@ if ($userTotalFilesSize == 0): ?>
     </div>
 <?php endforeach; ?>
 <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
     $(document).ready(function () {
         $("#searchFile").on("keyup", function () {
 

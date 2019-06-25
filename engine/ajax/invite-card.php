@@ -28,7 +28,7 @@ $invites = $invitesQuery->fetchAll(PDO::FETCH_ASSOC);
                 <?php else: ?>
                     <div class="col-4">
                         <span><?= $GLOBALS['_sentinvite'] ?></span>
-                        <a href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
+                        <a data-toggle="tooltip" data-placement="bottom" title="Отменить приглашение" href="#" class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
                                     class="far fa-times-circle invite-delete"></i></a>
                     </div>
                 <?php endif; ?>
@@ -38,4 +38,8 @@ $invites = $invitesQuery->fetchAll(PDO::FETCH_ASSOC);
 <?php
 endforeach;
 ?>
-
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+</script>

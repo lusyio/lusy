@@ -12,11 +12,11 @@
             <div class="card-body p-4">
                 <div class="row">
                     <div class="col-5 col-lg-5 text-center">
-                        <a class="float-left" href="/profile/">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Назад к профилю" class="float-left" href="/profile/">
                             <i class="fas fa-arrow-left icon-invite"></i>
                         </a>
                         <a class="float-right <?= (strpos(getAvatarLink($id), 'alter')) ? 'd-none' : ''; ?>"
-                           href="#" id="deleteAvatar" title="Удалить аватар">
+                           href="#" id="deleteAvatar" data-toggle="tooltip" data-placement="bottom" title="Удалить аватар">
                             <i class="fas fa-times icon-invite"></i>
                         </a>
                         <label class="label" data-toggle="tooltip" title=""
@@ -287,6 +287,9 @@
 </div>
 
 <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
     $(document).ready(function () {
         $("#deleteAvatar").on('click', function (e) {
             e.preventDefault();

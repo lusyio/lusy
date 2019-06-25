@@ -55,6 +55,30 @@ body{
     padding-left: 1.25rem;
 }
 
+.alerts{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.topsidebar-noty{
+    margin: 0 2px;
+    padding: 10px 0;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    min-width: 46px;
+}
+
+.topsidebar-noty-content{
+    border-radius: 50%;
+    padding: 12px 0;
+}
+
+.topsidebar-noty:hover{
+    background: rgba(20,23,28,.05);
+    border-color: rgba(20,23,28,.05);
+}
+
 .archive{
     border-bottom: 1px dashed;
     cursor: pointer;
@@ -929,16 +953,24 @@ input:checked[type="checkbox"]::before {
     transition: 200ms;
 }
 
-.complete-awards::after {
-    width: 241px;
-    height: 279px;
+.progress-awards{
+    background-color: #e4e4e4;
+}
+
+.complete-awards{
+    transition: 300ms;
+}
+
+.complete-awards:hover::after {
     content: "";
     background: url(/upload/bg-sprinkles.svg);
     opacity: 0.15;
-    left: 0;
     top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     position: absolute;
-    z-index: 2;
+    z-index: -1;
 }
 
 .avatar-added {
@@ -1057,6 +1089,7 @@ input:checked[type="checkbox"]::before {
     width: 150px;
     position: absolute;
     right: 10px;
+    top: 45px;
     display: none;
     z-index: 999;
     border-radius: 8px;
@@ -2187,12 +2220,12 @@ span.date {
     }
 
     .badge-company-dark{
-        background-color: #343a40;
+        background-color: #343a40 !important;
         color: white;
     }
 
     .badge-company-primary{
-        background-color: #5d95db;
+        background-color: #5d95db !important;
         color: white;
     }
 
@@ -2582,6 +2615,23 @@ label.error {
 
 .border-bottom-company:hover .count-company-tasks{
     color: black;
+}
+
+.badge-topsidebar{
+    border: none;
+    min-width: 19px;
+    border-radius: 15px;
+    position: absolute;
+    top: -7px;
+    right: -5px;
+}
+
+.badge-company-dark{
+    background-color: #ebebeb;
+}
+
+.badge-company-primary{
+    background-color: #f2f2f2;
 }
 
 .border-bottom-company:hover .badge-company-dark{

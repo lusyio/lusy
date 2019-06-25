@@ -191,24 +191,25 @@ if ($id == $worker and $view == 0) {
             </div>
         </div>
     </div>
-<?php if ($enableComments): ?>
-    <div class="card mt-3">
-        <div class="card-body">
-            <div class="d-flex comin">
+    <?php if ($enableComments): ?>
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="d-flex comin">
                 <textarea class="form-control mr-3" id="comin" rows="1" name="comment" type="text" autocomplete="off"
                           placeholder="<?= $GLOBALS["_writecomment"] ?>..." required></textarea>
 
-                <button type="submit" class="btn btn-light btn-file mr-3"><i class="fas fa-file-upload custom-date"></i><input
-                            id="sendFiles" type="file" multiple></button>
+                    <button data-toggle="tooltip" data-placement="bottom" title="Прикрепить файлы" type="submit"
+                            class="btn btn-light btn-file mr-3"><i class="fas fa-file-upload custom-date"></i><input
+                                id="sendFiles" type="file" multiple></button>
 
-                <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>"><i
-                            class="fas fa-paper-plane"></i></button>
-            </div>
-            <div style="display: none" class="bg-white file-name container-files">
+                    <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>"><i
+                                class="fas fa-paper-plane"></i></button>
+                </div>
+                <div style="display: none" class="bg-white file-name container-files">
+                </div>
             </div>
         </div>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
     <div class="card mt-3">
         <div class="card-body">
             <?php include 'engine/frontend/task/notyfeed.php' ?>
@@ -221,6 +222,9 @@ if ($id == $worker and $view == 0) {
 <script src="/assets/js/task.js"></script>
 <script src="/assets/js/datepicker.js"></script>
 <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
 
     (function (b) {
         b.fn.autoResize = function (f) {
