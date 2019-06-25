@@ -1,7 +1,4 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/cropper.js"></script>
 <link href="/assets/css/cropper.css" rel="stylesheet">
@@ -12,11 +9,13 @@
             <div class="card-body p-4">
                 <div class="row">
                     <div class="col-5 col-lg-5 text-center">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Назад к профилю" class="float-left" href="/profile/">
+                        <a data-toggle="tooltip" data-placement="bottom" title="Назад к профилю" class="float-left"
+                           href="/profile/">
                             <i class="fas fa-arrow-left icon-invite"></i>
                         </a>
                         <a class="float-right <?= (strpos(getAvatarLink($id), 'alter')) ? 'd-none' : ''; ?>"
-                           href="#" id="deleteAvatar" data-toggle="tooltip" data-placement="bottom" title="Удалить аватар">
+                           href="#" id="deleteAvatar" data-toggle="tooltip" data-placement="bottom"
+                           title="Удалить аватар">
                             <i class="fas fa-times icon-invite"></i>
                         </a>
                         <label class="label" data-toggle="tooltip" title=""
@@ -151,15 +150,6 @@
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="input-group mt-3">
-                            <!--                                    <button class="rounded-left class=btn border-secondary btn-outline-light dropdown-toggle select-country"-->
-                            <!--                                            type="button" data-toggle="dropdown" aria-haspopup="true"-->
-                            <!--                                            aria-expanded="false">-->
-                            <!--                                        <div class="flag d-inline">🇷🇺</div>-->
-                            <!--                                    </button>-->
-                            <!--                            <select id="countryNumber" class="custom-select select-country rounded-left">-->
-                            <!--                                <option value="7" class="flag">🇷🇺 +7</option>-->
-                            <!--                                <option value="1" class="flag">🇺🇸 +1</option>-->
-                            <!--                            </select>-->
                             <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
                                    class="form-control input-settings phone-number" value="<?= $userData['phone']; ?>">
                         </div>
@@ -177,7 +167,7 @@
                 </div>
                 <?php if ($roleu == 'ceo'): ?>
                     <hr class="mt-4">
-                    <div class="text-reg text-center mb-3 mt-3">
+                    <div class="text-reg text-center mb-3 mt-3" style="font-weight: 300;">
                         <?= $GLOBALS['_companysettings'] ?>
                     </div>
                     <div class="input-group">
@@ -233,16 +223,6 @@
                             <?= $GLOBALS['_clockcompanysettings'] ?>
                         </small>
                     </div>
-                    <!--                    <div class="input-group mt-3">-->
-                    <!--                        <input id="companyPassword" name="companyPassword" type="text"-->
-                    <!--                               class="form-control input-settings company-password"-->
-                    <!--                               value="">-->
-                    <!--                    </div>-->
-                    <!--                    <div>-->
-                    <!--                        <small class="text-muted text-muted-reg">-->
-                    <!--                            --><? //= $GLOBALS['_enterpasswordcompanysettings'] ?>
-                    <!--                        </small>-->
-                    <!--                    </div>-->
                     <div class="text-center mt-3">
                         <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
                             <?= $GLOBALS['_savecompanysettings'] ?>
@@ -250,7 +230,7 @@
                     </div>
                 <?php endif; ?>
                 <hr>
-                <div class="text-reg text-center mb-3 mt-3">
+                <div class="text-reg text-center mb-3 mt-3" style="font-weight: 300;">
                     Смена пароля
                 </div>
                 <div class="row">
@@ -407,18 +387,18 @@
             fd.append('companySite', companySite);
             fd.append('companyTimezone', companyTimezone);
 
-                $.ajax({
-                    url: '/ajax.php',
-                    type: 'POST',
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
 
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    data: fd,
-                    success: function () {
-                        location.reload();
-                    },
-                });
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function () {
+                    location.reload();
+                },
+            });
         })
     });
 

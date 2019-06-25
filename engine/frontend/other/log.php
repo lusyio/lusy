@@ -5,19 +5,19 @@
                 <div class="col-sm-12">
                     <div class="d-inline-block">
                         <div id="allSearch" class="btn btn-light view-status-search active mb-2">
-                            <span><i class="fas fa-align-justify mr-2"></i> <?=$_buttonLogShowAll?></span>
+                            <span><i class="fas fa-align-justify mr-2"></i> <?= $_buttonLogShowAll ?></span>
                             <span class="count"></span>
                         </div>
                         <div id="newSearch" class="btn btn-light view-status-search mb-2">
-                            <span><i class="fas fa-plus mr-2"></i> <?=$_buttonLogShowNew?></span>
+                            <span><i class="fas fa-plus mr-2"></i> <?= $_buttonLogShowNew ?></span>
                             <span class="count"></span>
                         </div>
                         <div id="taskSearch" data-type="task" class="btn btn-light type-search mb-2">
-                            <span><i class="far fa-clipboard mr-2"></i> <?=$_tasks?></span>
+                            <span><i class="far fa-clipboard mr-2"></i> <?= $_tasks ?></span>
                             <span class="count"></span>
                         </div>
                         <div id="commentSearch" data-type="comment" class="btn btn-light type-search mb-2">
-                            <span><i class="far fa-comment mr-2"></i> <?=$_comments?></span>
+                            <span><i class="far fa-comment mr-2"></i> <?= $_comments ?></span>
                             <span class="count"></span>
                         </div>
                         <div id="systemSearch" data-type="system" class="btn btn-light type-search mb-2">
@@ -40,11 +40,31 @@
             </div>
         </div>
     </div>
+    <div class="load-log position-absolute">
+        <div id="loadLog" class="rounded-circle btn btn-light">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
 
 </div>
 <script>
     var pageName = 'log';
     $(document).ready(function () {
+        var num = 0;
+        loadLog();
+
+        function loadLog() {
+            $('.event').hide();
+            num += 10;
+            var log = $("#eventBox > .event").slice(0, num);
+            log.show();
+            console.log(num);
+        }
+
+        $('#loadLog').on('click', function () {
+            loadLog();
+        });
+
         var action = window.location.hash.substr(1);
 
         $('#commentIcon').closest('a').on('click', function () {
@@ -95,13 +115,14 @@
                 $taskLink.addClass('text-primary');
                 setTimeout(function () {
                     $taskLink.removeClass('text-primary');
-                },1000);
+                }, 1000);
             }
             $(this).removeClass('new-event');
             var eventId = $(this).data('event-id');
             markAsRead(eventId);
         })
-    });
+    })
+    ;
 
     function filterEvents() {
         var filter = $('.type-search.active').data('type') || 'event';
