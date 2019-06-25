@@ -67,6 +67,7 @@ body{
     border-radius: 50%;
     border: 1px solid transparent;
     min-width: 46px;
+    cursor: pointer;
 }
 
 .topsidebar-noty-content{
@@ -1147,10 +1148,13 @@ input:checked[type="checkbox"]::before {
     padding: 0;
 }
 
+.new-menu-trigger{
+    cursor: pointer;
+}
 
-
-
-
+.new-menu-trigger:hover {
+    background-color: rgba(95, 99, 104, 0.24);
+}
 
 .login-error{
     color: #7a2a31;
@@ -2219,6 +2223,10 @@ span.date {
     padding: 0;
     }
 
+    .badge-topsidebar{
+        right: 0 !important;
+    }
+
     .badge-company-dark{
         background-color: #343a40 !important;
         color: white;
@@ -2326,10 +2334,7 @@ span.date {
     }
 
     .user-img {
-        position: absolute;
-        right: 0;
         width: 35px;
-        bottom: 0;
     }
     .profile-submenu {
         position: fixed;

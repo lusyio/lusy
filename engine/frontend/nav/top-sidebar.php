@@ -71,7 +71,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="p-0 ml-3 new-menu-trigger" data-trigger="dropdown">
+                    <div class="p-1 ml-3 new-menu-trigger" data-trigger="dropdown" style="border-radius: 50%;">
                         <span>
                             <img class="user-img rounded-circle " src="/<?= getAvatarLink($id) ?>"/>
                         </span>
