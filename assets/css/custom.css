@@ -1987,6 +1987,22 @@ span.date {
     display: block;
 }
 
+.text-danger{
+    color: #d4515d !important;
+}
+
+.text-success{
+   color: #93c259 !important;
+}
+
+.text-warning{
+    color: #edc345 !important;
+}
+
+.text-primary{
+   color: #5a93df !important;
+}
+
 #f1 {
     display: flex !important;
 }
@@ -2217,14 +2233,9 @@ span.date {
         width: 100%;
         border-top: 1px solid rgba(0,0,0,.1);
         padding: 10px 0px 5px;
-        text-align: left !important;
     }
     [data-trigger="dropdown"] {
     padding: 0;
-    }
-
-    .badge-topsidebar{
-        right: 0 !important;
     }
 
     .badge-company-dark{

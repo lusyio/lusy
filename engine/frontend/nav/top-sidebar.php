@@ -30,45 +30,49 @@
             </div>
             <div class="col-sm-4 navbarNav collapse navbar-collapse">
                 <div id="counters" class="alerts text-center">
-                    <div data-toggle="tooltip" data-placement="bottom" title="Новые задачи" class="topsidebar-noty">
-                        <div class="position-relative">
-                            <a href="/log/#tasks" class="text-decoration-none d-none topsidebar-noty-content">
-                                <i class="far fa-bell" id="notificationIcon" style="font-size: 18px"></i>
-                                <span class="badge badge-primary badge-topsidebar" id="notificationBadge"">
+                    <div class="d-flex counters-topsidebar">
+                        <div data-toggle="tooltip" data-placement="bottom" title="Новые задачи" class="topsidebar-noty">
+                            <div class="position-relative">
+                                <a href="/log/#tasks" class="text-decoration-none d-none topsidebar-noty-content">
+                                    <i class="far fa-bell" id="notificationIcon" style="font-size: 18px"></i>
+                                    <span class="badge badge-primary badge-topsidebar" id="notificationBadge"">
                                     <small class="text-white" id="notificationCount"></small>
-                                </span>
-                            </a>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div data-toggle="tooltip" data-placement="bottom" title="Просроченные" class="topsidebar-noty">
-                        <div class="position-relative">
-                            <a href="/tasks/#overdue" class="text-decoration-none d-none topsidebar-noty-content">
-                                <i class="fas fa-fire-alt" id="overdueIcon" style="font-size: 18px"></i>
-                                <span class="badge badge-danger badge-topsidebar" id="overdueBadge" style="right: -13px;">
+                        <div data-toggle="tooltip" data-placement="bottom" title="Просроченные" class="topsidebar-noty">
+                            <div class="position-relative">
+                                <a href="/tasks/#overdue" class="text-decoration-none d-none topsidebar-noty-content">
+                                    <i class="fas fa-fire-alt" id="overdueIcon" style="font-size: 18px"></i>
+                                    <span class="badge badge-danger badge-topsidebar" id="overdueBadge">
                                     <small class="text-white" id="overdueCount"></small>
                                 </span>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div data-toggle="tooltip" data-placement="bottom" title="Новые комментарии" class="topsidebar-noty">
-                        <div class="position-relative">
-                            <a href="/log/#comments"
-                               class="text-decoration-none d-none topsidebar-noty-content">
-                                <i class="far fa-comment" id="commentIcon" style="font-size: 18px"></i>
-                                <span class="badge badge-warning badge-topsidebar" id="commentBadge">
+                        <div data-toggle="tooltip" data-placement="bottom" title="Новые комментарии"
+                             class="topsidebar-noty">
+                            <div class="position-relative">
+                                <a href="/log/#comments"
+                                   class="text-decoration-none d-none topsidebar-noty-content">
+                                    <i class="far fa-comment" id="commentIcon" style="font-size: 18px"></i>
+                                    <span class="badge badge-warning badge-topsidebar" id="commentBadge">
                                     <small class="text-white" id="commentCount"></small>
                                 </span>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div data-toggle="tooltip" data-placement="bottom" title="Новые сообщения" class="topsidebar-noty">
-                        <div class="position-relative">
-                            <a href="/mail/" class="text-decoration-none d-none topsidebar-noty-content">
-                                <i class="far fa-envelope" id="messagesIcon" style="font-size: 18px"></i>
-                                <span class="badge badge-success badge-topsidebar" id="messagesBadge">
+                        <div data-toggle="tooltip" data-placement="bottom" title="Новые сообщения"
+                             class="topsidebar-noty">
+                            <div class="position-relative">
+                                <a href="/mail/" class="text-decoration-none d-none topsidebar-noty-content">
+                                    <i class="far fa-envelope" id="messagesIcon" style="font-size: 18px"></i>
+                                    <span class="badge badge-success badge-topsidebar" id="messagesBadge">
                                     <small class="text-white" id="messagesCount"></small>
                                 </span>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="p-1 ml-3 new-menu-trigger" data-trigger="dropdown" style="border-radius: 50%;">
