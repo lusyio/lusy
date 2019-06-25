@@ -81,7 +81,7 @@ $borderColor = [
             </div>
             <?php endif; ?>
 
-<!--            <div class="bottomGradient"></div>-->
+            <div class="bottomGradient"></div>
         </div>
     </div>
 </div>

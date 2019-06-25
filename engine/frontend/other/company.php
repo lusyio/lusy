@@ -93,15 +93,21 @@
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-sm-2 text-center">
-                    <div class="count-company-tasks" style="margin-top: 15%;"><?= $inwork ?></div>
+                    <div class="count-company-tasks small" style="margin-top: 20%;">
+                        <?= $inwork ?>
+                    </div>
                     <small class="text-muted company-tasks">В работе</small>
                 </div>
                 <div class="col-4 col-sm-2 text-center">
-                    <div class="count-company-tasks" style="margin-top: 15%;"><?= $overdue ?></div>
+                    <div class="count-company-tasks small" style="margin-top: 20%;"><?= $overdue ?></div>
                     <small class="text-muted company-tasks">Просрочено</small>
                 </div>
                 <div class="col-4 col-sm-2 text-center">
-                    <div class="count-company-tasks" style="margin-top: 15%;"><?= $done ?></div>
+                    <div class="count-company-tasks" style="margin-top: 15%;">
+                        <span class="badge badge-company-primary"><?= $n['doneAsManager'] ?></span>
+                        <span class="badge badge-company-dark"><?= $n['doneAsWorker'] ?></span>
+<!--                        --><?//= $done ?>
+                    </div>
                     <small class="text-muted company-tasks">Выполнено</small>
                 </div>
                 <div class="position-absolute" style="right: 8px">

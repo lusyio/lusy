@@ -2186,6 +2186,16 @@ span.date {
     padding: 0;
     }
 
+    .badge-company-dark{
+        background-color: #343a40;
+        color: white;
+    }
+
+    .badge-company-primary{
+        background-color: #5d95db;
+        color: white;
+    }
+
     .deadline-block-word{
         display: none;
     }
@@ -2209,6 +2219,11 @@ span.date {
 
     .avatar-settings{
         width: 100px !important;
+    }
+
+    .bottomGradient {
+        width: 92%;
+        bottom: -15px;
     }
 
     .mobile-online-indicator{
@@ -2563,11 +2578,20 @@ label.error {
 
 .count-company-tasks{
     color: #c6c9dc;
-    transition: 200ms;
 }
 
 .border-bottom-company:hover .count-company-tasks{
     color: black;
+}
+
+.border-bottom-company:hover .badge-company-dark{
+    background-color: #343a40;
+    color: white;
+}
+
+.border-bottom-company:hover .badge-company-primary{
+    background-color: #5d95db;
+    color: white;
 }
 
 .google-icon-btn {
