@@ -78,7 +78,7 @@
                 <h4 class="ml-4">Достижения</h4>
                 <hr class="m-0">
                 <div class="d-flex flex-wrap text-center">
-                    <div class="award award-sm  mt-3">
+                    <div class="award award-sm  mt-3" data-toggle="tooltip" data-placement="bottom" title="Заполнил профиль">
                         <div>
                             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
                                  data-value="1.00"></div>
@@ -86,8 +86,7 @@
                                 <i class="fas fa-user"></i>
                             </div>
                         </div>
-                        <h6 class="text-uppercase font-weight-bold">Приглашатор</h6>
-                        <small class="text-muted mt-2 text-award">Пригласил 1 сотрудника</small>
+                        <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
                         <hr>
                         <span class="badge badge-primary">20.05.2019</span>
                     </div>
@@ -99,8 +98,7 @@
                                 <i class="fas fa-user"></i>
                             </div>
                         </div>
-                        <h6 class="text-uppercase font-weight-bold">Новичок</h6>
-                        <small class="text-muted mt-2 text-award">Завершил 10 задач</small>
+                        <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
                         <hr>
                         <span class="badge badge-primary">20.05.2019</span>
                     </div>
@@ -113,7 +111,6 @@
                             </div>
                         </div>
                         <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
-                        <small class="text-muted mt-2 text-award">Заполнил профиль</small>
                         <hr>
                         <span class="badge badge-primary">20.05.2019</span>
                     </div>

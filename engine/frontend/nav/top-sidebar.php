@@ -99,14 +99,20 @@
     });
 
     $(document).ready(function () {
+        var i = 0;
         $('[data-trigger="dropdown"]').on('click', function () {
             var submenu = $(this).parent().find('.submenu');
-            submenu.fadeToggle(300);
-
+            submenu.toggle(300);
+            i++;
+            console.log(i);
+            i % 2 === 0 ? $('.new-menu-trigger').css('background-color', 'white') : $('.new-menu-trigger').css('background-color', 'rgba(95, 99, 104, 0.24)');
         });
         $(document).on('click', function (e) {
             if (!$(e.target).closest(".new-menu-trigger").length) {
-                $('.submenu').fadeOut(300);
+                $('.submenu').hide(300);
+                $('.new-menu-trigger').css('background-color', 'white');
+                i = 0;
+                return i;
             }
             e.stopPropagation();
         });
