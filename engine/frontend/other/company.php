@@ -11,10 +11,10 @@
                 <span>В работе</span>
             </div>
             <div class="col-2 text-center">
-                <span>Выполнено</span>
+                <span>Просрочено</span>
             </div>
             <div class="col-2 text-center">
-                <span>Просрочено</span>
+                <span>Выполнено</span>
             </div>
             <div data-toggle="tooltip" data-placement="bottom" title="Статистика за месяц">
                 <i class="fas fa-info-circle icon-company"></i>
@@ -97,12 +97,12 @@
                     <small class="text-muted company-tasks">В работе</small>
                 </div>
                 <div class="col-4 col-sm-2 text-center">
-                    <div class="count-company-tasks" style="margin-top: 15%;"><?= $done ?></div>
-                    <small class="text-muted company-tasks">Выполнено</small>
-                </div>
-                <div class="col-4 col-sm-2 text-center">
                     <div class="count-company-tasks" style="margin-top: 15%;"><?= $overdue ?></div>
                     <small class="text-muted company-tasks">Просрочено</small>
+                </div>
+                <div class="col-4 col-sm-2 text-center">
+                    <div class="count-company-tasks" style="margin-top: 15%;"><?= $done ?></div>
+                    <small class="text-muted company-tasks">Выполнено</small>
                 </div>
                 <div class="position-absolute" style="right: 8px">
                     <?php if ($isCeo): ?>
