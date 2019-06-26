@@ -17,7 +17,7 @@
             <div class="form-group w-100 mr-2 text-area">
                 <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
                           placeholder="<?= $GLOBALS['_enterconversation'] ?>"
-                          required></textarea>
+                          ></textarea>
             </div>
             <div class="mb-3">
                 <input type="button" class="btn btn-primary" id="sendBtn"
