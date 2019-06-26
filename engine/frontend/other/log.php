@@ -68,6 +68,14 @@
         console.log(num);
     }
 
+    function hideLoadLog(){
+        if ($(".event:visible").length < 10){
+            $("#loadLog").hide();
+        } else {
+            $("#loadLog").show();
+        }
+    }
+
     $(document).ready(function () {
         loadLog();
         $('#loadLog').on('click', function () {
@@ -98,6 +106,7 @@
             filterEvents();
             num = 0;
             loadLog();
+            hideLoadLog();
         });
         $('.view-status-search').on('click', function () {
             var el = $(this);
@@ -106,6 +115,7 @@
             filterEvents();
             num = 0;
             loadLog();
+            hideLoadLog();
         });
         if (action === 'new-comments') {
             $('#commentSearch').trigger('click');
