@@ -1,0 +1,22 @@
+.fio-profile{
+    font-size: 1.5rem;
+}
+.icon-edit-profile{
+    position: absolute;
+    right: 25px;
+    top: 20px;
+}
+.edit-profile {
+    font-size: 15px;
+    color: #e3e5e9;
+    margin-left: 1%;
+}
+.edit-profile:hover {
+    color: #5d95db;
+}
+.online-indicator-profile{
+    position: absolute;
+    top: 4px;
+    right: 13px;
+    z-index: 3;
+}

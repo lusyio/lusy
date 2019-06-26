@@ -1,0 +1,87 @@
+#task .card-body {
+    padding: 2rem 3rem;
+}
+.deadline-block-progress{
+    height: 30px;
+    font-size: 14px;
+    z-index: 1;
+}
+.deadline-block:hover {
+    cursor: pointer;
+}
+
+.deadline-block:hover .date-inside span {
+    border-bottom: 1px dashed grey;
+}
+
+.deadline-block:hover .edit {
+    right: -23px;
+    transition: 0.3s;
+}
+.edit {
+    transition: 0.5s;
+    right: 6px;
+    top: 1px;
+    height: 28px;
+    color: white;
+    background: grey;
+    padding: 2px 5px 2px 15px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#change-date {
+    display: none;
+    width: 300px;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    left: 3%;
+    margin-left: -4px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, .3);
+    padding: 0;
+}
+.members-block{
+    position: relative;
+    z-index: 2;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.member-block:hover .edit-members {
+    right: -16px;
+    transition: 300ms;
+}
+.postpone-manager {
+    background-color: #f7f7f7;
+    display: block;
+    border-radius: 10px;
+    padding: 15px;
+    color: rgba(0, 0, 0, 1);
+    font-weight: 500;
+}
+#comments {
+    display: none;
+}
+.comment {
+    border-radius: 8px;
+}
+.comment.system {
+    font-size: 0.75rem;
+    background-color: #f7f7f7 !important;
+    margin: 5px;
+    border-radius: 10px;
+    padding: 2px;
+    color: rgba(0, 0, 0, 1);
+    margin-left: auto;
+    margin-right: auto;
+    color: #c6c9db;
+}
+#task .comment button {
+    position: absolute;
+    right: -25px;
+    font-size: 10px;
+    top: -11px;
+}

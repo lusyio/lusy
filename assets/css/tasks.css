@@ -1,0 +1,50 @@
+.add-newtask-button{
+    display: none;
+}
+.add-newtask-tasks{
+    cursor: pointer;
+    transition: 0.2s all;
+    box-shadow: rgba(13, 28, 60, 0.06) 0px 4px 12px 1px;
+}
+.task-card .card {
+    transition: 0.2s all;
+    box-shadow: rgba(13, 28, 60, 0.06) 0px 4px 12px 1px;
+}
+.task-card:hover .card {
+    transition: 0.2s all;
+    box-shadow: rgba(13, 28, 60, 0.16) 0px 7px 12px 1px;
+}
+.task-card h5 {
+    font-weight: 400;
+}
+.task-card .col-5, .task-card .col-3 {
+    color: #5E5E5E;
+}
+.task-card .col-5 {
+    padding-right: 0px;
+}
+.tasks-list {
+    padding: 0.8rem;
+    cursor: pointer;
+}
+.border-left-tasks {
+    border-left: 3px solid !important;
+    padding-left: 18px;
+    margin-left: -13px;
+}
+.tasks span.taskname {
+    font-weight: 600;
+}
+.tasks .avatars {
+    margin-bottom: -5px;
+    margin-top: -2px;
+}
+.informer {
+    color: #c6c9dc;
+    font-size: 10px;
+    padding-top: 7px;
+}
+.informer span {
+    position: relative;
+    top: -1px;.task-card .col-sm-6
+}

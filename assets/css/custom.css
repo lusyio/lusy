@@ -1,3 +1,11 @@
+@import "awards.css";
+@import "storage.css";
+@import "company.css";
+@import "tasknew.css";
+@import "tasks.css";
+@import "task.css";
+@import "profile.css";
+
 #searchbody {
     background: #F8F9FA;
 }
@@ -6,10 +14,6 @@ body{
     /*background-color: #f1f1f136;*/
     background-color: #fdfdfd;
     -webkit-font-smoothing: subpixel-antialiased;
-}
-
-#task .card-body {
-    padding: 2rem 3rem;
 }
 
 .navbar-nav a {
@@ -72,7 +76,6 @@ body{
 
 .topsidebar-noty-content{
     border-radius: 50%;
-    padding: 12px 0;
 }
 
 .topsidebar-noty:hover{
@@ -98,11 +101,7 @@ body{
 .filter-select span.comma {
     border-bottom: none !important;
 }
-.file-list .fa-circle {
-    font-size: 5px;
-    vertical-align: middle;
-    line-height: 2;
-}
+
 
 .badge {
     font-weight: 600;
@@ -123,9 +122,7 @@ body{
     color: #c6c9dc;
 }
 
-#comments {
-    display: none;
-}
+
 
 #okdatapicker {
     border-radius: 4px;
@@ -211,20 +208,8 @@ body{
     background-color: #6c757d;
 }
 
-#cancel-icon-button {
-    font-size: 15px;
 
-}
 
-.informer {
-    color: #c6c9dc;
-    font-size: 10px;
-    padding-top: 7px;
-}
-.informer span {
-    position: relative;
-    top: -1px;.task-card .col-sm-6
-}
 #idtask:hover {
     text-decoration: none;
     color: #202429;
@@ -233,26 +218,11 @@ body{
 #editFile {
 
 }
-.task-card .card {
-    transition: 0.2s all;
-    box-shadow: rgba(13, 28, 60, 0.06) 0px 4px 12px 1px;
-}
-.task-card:hover .card {
-    transition: 0.2s all;
-    box-shadow: rgba(13, 28, 60, 0.16) 0px 7px 12px 1px;
-}
+
 .sort span {
     color: #c6c9dc;
 }
-.task-card h5 {
-    font-weight: 400;
-}
-.task-card .col-5, .task-card .col-3 {
-    color: #5E5E5E;
-}
-.task-card .col-5 {
-    padding-right: 0px;
-}
+
 /*.noty2.custom2 {*/
 /*    display: flex;*/
 /*    background: #f7f7f7;*/
@@ -269,21 +239,12 @@ body{
 
 }
 
-.border-left-tasks {
-    border-left: 3px solid !important;
-    padding-left: 18px;
-    margin-left: -13px;
-}
 
 .br-8 {
     border-radius: 8px;
     /*margin-left: 4%;*/
 }
 
-#name {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
 
 .name-manager-tasks {
     width: max-content;
@@ -299,10 +260,6 @@ body{
     padding-left: 5px;
 }
 
-.tasks-list {
-    padding: 0.8rem;
-    cursor: pointer;
-}
 
 .deleteFile {
     display: none;
@@ -326,24 +283,12 @@ body{
     width: 85%;
 }
 
-.file-list {
-    padding: 0.8rem;
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-    border-bottom-color: rgba(0, 0, 0, 0.1);
-}
-
-
 .dialogs {
     border-radius: 8px;
     border: none;
     z-index: 5;
     background-color: #fff;
     box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
-}
-
-.dialogs:hover {
-    /*background-color: #f7f7f7;*/
-    /*box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);*/
 }
 
 .dialog-mail {
@@ -368,14 +313,6 @@ body{
 
 list-group:hover {
     background-color: #f7f7f7;
-}
-
-.tasks span.taskname {
-    font-weight: 600;
-}
-.tasks .avatars {
-    margin-bottom: -5px;
-    margin-top: -2px;
 }
 
 .tasks:hover {
@@ -435,7 +372,7 @@ list-group:hover {
 }
 
 .load-log{
-    bottom: 0;
+    bottom: 35px;
     left: 50%;
     right: 50%;
     z-index: 3;
@@ -453,22 +390,7 @@ list-group:hover {
     border-radius: 8px;
 }
 
-.comment {
-    border-radius: 8px;
-}
 
-.comment.system {
-    font-size: 0.75rem;
-    background-color: #f7f7f7 !important;
-    margin: 5px;
-    border-radius: 10px;
-    padding: 2px;
-    color: rgba(0, 0, 0, 1);
-    margin-left: auto;
-    margin-right: auto;
-    color: #c6c9db;
-
-}
 
 .archive-search{
     padding: .375rem .75rem;
@@ -716,15 +638,6 @@ input:checked[type="checkbox"]::before {
     box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2), 0 5px 15px 0 rgba(37, 44, 97, 0.15);
 }
 
-.postpone-manager {
-    background-color: #f7f7f7;
-    display: block;
-    border-radius: 10px;
-    padding: 15px;
-    color: rgba(0, 0, 0, 1);
-    font-weight: 500;
-}
-
 .fas.fa-check.custom-date.accept {
     color: #93c259 !important;
     margin-left: 5px;
@@ -795,9 +708,7 @@ input:checked[type="checkbox"]::before {
     padding: 0;
 }
 
-.iconFiles {
-    top: 0.3rem;
-}
+
 
 .far.fa-eye.custom {
     font-size: 25px;
@@ -921,35 +832,6 @@ input:checked[type="checkbox"]::before {
     background-color: rgba(93, 149, 219, 0.11);
 }
 
-.deadline-block:hover {
-    cursor: pointer;
-}
-
-.deadline-block:hover .date-inside span {
-    border-bottom: 1px dashed grey;
-}
-
-.deadline-block:hover .edit {
-    right: -23px;
-    transition: 0.3s;
-}
-
-.members-block{
-    position: relative;
-    z-index: 2;
-    background-color: white;
-    border-radius: 8px;
-}
-
-.member-block:hover .edit-members {
-    right: -16px;
-    transition: 300ms;
-}
-
-.award hr {
-    width: 70px;
-}
-
 .avatar-new {
     line-height: 0.9 !important;
     width: 20px;
@@ -960,27 +842,6 @@ input:checked[type="checkbox"]::before {
     cursor: pointer;
     transition: 200ms;
 }
-
-.progress-awards{
-    background-color: #e4e4e4;
-}
-
-.complete-awards{
-    transition: 300ms;
-}
-
-.complete-awards:hover::after {
-    content: "";
-    background: url(/upload/bg-sprinkles.svg);
-    opacity: 0.15;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-}
-
 .avatar-added {
     vertical-align: middle;
     width: 20px;
@@ -1022,15 +883,7 @@ input:checked[type="checkbox"]::before {
     display: inline;
 }
 
-.edit-profile {
-    font-size: 15px;
-    color: #e3e5e9;
-    margin-left: 1%;
-}
 
-.edit-profile:hover {
-    color: #5d95db;
-}
 
 .icon-add-coworker {
     font-size: 15px;
@@ -1082,10 +935,6 @@ input:checked[type="checkbox"]::before {
 
 [data-trigger="dropdown"] {
     padding-bottom: 35px;
-}
-
-.profile-menu-trigger {
-    cursor: pointer;
 }
 
 .submenu {
@@ -1169,82 +1018,6 @@ input:checked[type="checkbox"]::before {
     border: 1px solid rgba(255, 0, 0, 0.38);
     border-radius: 8px;
     background-color: rgba(255, 0, 0, 0.02);
-}
-
-.award .badge-secondary {
-    background-color: #e5e5e5;
-    transition: 200ms;
-}
-
-.award .bg-secondary {
-    background-color: rgba(0, 0, 0, .3) !important;
-}
-
-.award-container{
-    width: 780px;
-    padding: 5px;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-
-.award-container::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-}
-
-.award{
-    margin-right: 15px;
-    border-radius: 5px;
-    display: block;
-    padding: 20px 10px;
-    min-width: 210px;
-    max-width: 210px;
-    background: white;
-    position: relative;
-    -webkit-transition: box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
-    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s;
-    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
-    box-shadow: 0 10px 15px rgba(14,21,47,.05);
-}
-
-.award:hover {
-    -webkit-transform: translateY(-5px);
-    transform: translateY(-5px);
-    z-index: 1;
-    box-shadow: 0 15px 20px rgba(14,21,47,.2);
-}
-
-.award:hover .badge-secondary {
-    background-color: rgba(0, 0, 0, .3);
-}
-
-.award-star{
-    color: white;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, .3);
-    line-height: 1.65;
-    text-align: center;
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
-    border-radius: 50%;
-    border: 1px solid white;
-    margin: auto;
-    position: relative;
-    margin-top: -60px;
-    margin-bottom: 40px;
-}
-
-.award-sm{
-    border-radius: 5px;
-    display: block;
-    padding: 20px 10px;
-    margin-right: 18px;
-    min-width: 190px;
-    max-width: 190px;
-}
-
-.award-sm:last-of-type{
-    margin-right: 0;
 }
 
 .members {
@@ -1408,20 +1181,6 @@ input:checked[type="checkbox"]::before {
 .eventText a, .eventText span {
     color: #9e9e9e;
 }
-#change-date {
-    display: none;
-    width: 300px;
-    background-color: #fff;
-    color: black;
-    text-align: center;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
-    left: 3%;
-    margin-left: -4px;
-    box-shadow: 2px 2px 15px rgba(0, 0, 0, .3);
-    padding: 0;
-}
 
 #chatBox {
     position: relative;
@@ -1445,48 +1204,10 @@ input:checked[type="checkbox"]::before {
     color: #dcdcdc;
 }
 
-.company{
-    font-size: 13px;
-    color: #dcdcdc;
-}
-
-.company-tasks{
-    display: none;
-}
-
-.company-profile-fio{
-    margin-bottom: 15px;
-}
-.fio-profile{
-    font-size: 1.5rem;
-}
-
-.company-profile-email{
-    margin-top: 5px;
-}
-
-.activity-company{
-    font-size: 14px;
-}
-
 .online-indicator{
     position: absolute;
     top: 0;
     right: 5px;
-    z-index: 3;
-}
-
-.online-indicator-company{
-    top: -5px;
-    right: 0;
-    z-index: 3;
-    position: absolute;
-}
-
-.online-indicator-profile{
-    position: absolute;
-    top: 4px;
-    right: 13px;
     z-index: 3;
 }
 
@@ -1564,29 +1285,6 @@ input:checked[type="checkbox"]::before {
     padding: 1rem;
 }
 
-.edit {
-    transition: 0.5s;
-    right: 6px;
-    top: 1px;
-    height: 28px;
-    color: white;
-    background: grey;
-    padding: 2px 5px 2px 15px;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.edit-members{
-    transition: 0.5s;
-    right: 15px;
-    top: 0;
-    height: 30px;
-    background: grey;
-    padding: 4px 5px 6px 15px;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
 .noty-m {
     font-size: 9px !important;
     color: #f7f7f7;
@@ -1653,6 +1351,22 @@ a {
 
 .avatar-settings{
     width: 140px !important;
+}
+
+.noty-icon-settings{
+    width: 45px;
+    height: 45px;
+    padding: 10px 0;
+    background-color: #e4e4e4
+}
+.noty-icon-size-settings{
+    font-size: 25px;
+}
+.noty-padding-content-settings{
+    padding: 10px 0;
+}
+.hr-settings{
+    width: 90%;
 }
 
 .event {
@@ -1782,12 +1496,7 @@ a {
     font-size: 14px;
 }
 
-#task .comment button {
-    position: absolute;
-    right: -25px;
-    font-size: 10px;
-    top: -11px;
-}
+
 
 .slide-dashboard{
     font-size: 20px;
@@ -2038,10 +1747,6 @@ span.date {
 
 .align-center {
     align-self: center !important;
-}
-
-.custom-profile{
-
 }
 
 #inwork .card-title {
@@ -2444,12 +2149,6 @@ label.error {
 }
 
 .text-award{
-    max-width: 190px;
-    word-wrap: break-word;
-    font-size: 80%
-}
-
-.text-award{
     max-width: 160px;
     word-wrap: break-word;
     font-size: 80%
@@ -2479,16 +2178,6 @@ label.error {
     cursor: pointer;
 }
 
-.icon-company {
-    transition: 200ms;
-    /*vertical-align: -webkit-baseline-middle;*/
-    color: rgba(198, 199, 200, 0.69);
-}
-
-.icon-company:hover {
-    color: #5d95db;
-}
-
 .invite-send:hover {
     background-color: #5d95db;
     border-color: #5d95db;
@@ -2496,10 +2185,6 @@ label.error {
 
 .invite-send {
     border-color: #5d95db;
-}
-
-.attach-file {
-
 }
 
 .filenames {
@@ -2566,24 +2251,6 @@ label.error {
     transition: 200ms;
 }
 
-.social-company{
-    font-size: 20px;
-}
-
-.icon-social:hover {
-    color: #5d95db;
-}
-
-.edit-profileimage {
-    position: absolute;
-    background-color: #ffa87f;
-    border-radius: 100%;
-    padding: 6px;
-    color: white;
-    top: 74%;
-    right: 0;
-}
-
 .join {
     background-color: #f8f9fa;
     padding: 2.5%;
@@ -2637,31 +2304,6 @@ label.error {
     transition: background 0s !important;
 }
 
-.add-newtask-button{
-    display: none;
-}
-
-.add-newtask-tasks{
-    cursor: pointer;
-    transition: 0.2s all;
-    box-shadow: rgba(13, 28, 60, 0.06) 0px 4px 12px 1px;
-}
-
-.border-bottom-company:not(:last-of-type) {
-    border-bottom: 1px solid #dee2e6;
-    border-bottom-width: 1px ;
-    border-bottom-style: solid ;
-    border-bottom-color: rgb(222, 226, 230);
-}
-
-.count-company-tasks{
-    color: #c6c9dc;
-}
-
-.border-bottom-company:hover .count-company-tasks{
-    color: black;
-}
-
 .badge-topsidebar{
     border: none;
     min-width: 19px;
@@ -2669,24 +2311,6 @@ label.error {
     position: absolute;
     top: -7px;
     right: -5px;
-}
-
-.badge-company-dark{
-    background-color: #ebebeb;
-}
-
-.badge-company-primary{
-    background-color: #f2f2f2;
-}
-
-.border-bottom-company:hover .badge-company-dark{
-    background-color: #343a40;
-    color: white;
-}
-
-.border-bottom-company:hover .badge-company-primary{
-    background-color: #5d95db;
-    color: white;
 }
 
 .google-icon-btn {
@@ -2741,29 +2365,10 @@ label.error {
     cursor: pointer;
 }
 
-.edit-profileimage:hover {
-    background-color: #464646;
-}
-
 .btn-outline-primary:hover {
     color: #fff;
     background-color: #5a93df;
     border-color: #5a93df;
-}
-
-#createTask {
-    width: 80%;
-}
-
-.create-task {
-    text-align: -webkit-center;
-}
-
-
-
-.image-profile {
-    width: 190px;
-    box-shadow: 0 0.35rem 1.5rem rgba(9, 9, 18, 0.17);
 }
 
 .push-message {
@@ -2812,12 +2417,6 @@ label.error {
 .invite-date {
     font-size: 14px;
 }
-
-#editor {
-    background-color: white;
-    height: 160px;
-}
-
 
 /*
     Common

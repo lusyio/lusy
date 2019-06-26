@@ -114,8 +114,7 @@ if ($id == $worker and $view == 0) {
             <div class="row">
                 <div class="col-6 col-lg-4">
                     <div class="position-relative deadline-block">
-                        <div class="progress position-relative mr-1"
-                             style="height: 30px; font-size: 14px; z-index: 1; ">
+                        <div class="progress deadline-block-progress position-relative mr-1">
                             <div class="progress-bar bg-secondary-custom rounded" role="progressbar"
                                  style="width: <?= $dateProgress ?>%"
                                  aria-valuenow="<?= $dateProgress ?>%" aria-valuemin="0" aria-valuemax="100"></div>
