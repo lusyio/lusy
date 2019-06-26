@@ -49,18 +49,19 @@
 </div>
 <script>
     var pageName = 'log';
-    $(document).ready(function () {
-        var num = 0;
-        loadLog();
 
+    $(document).ready(function () {
+
+        var num = 0;
         function loadLog() {
-            $('.event').hide();
             num += 10;
-            var log = $("#eventBox > .event").slice(0, num);
+            var log = $(".event:visible").slice(0, num);
+            $('.event').hide();
             log.show();
             console.log(num);
         }
 
+        loadLog();
         $('#loadLog').on('click', function () {
             loadLog();
         });
@@ -87,12 +88,16 @@
                 el.addClass('active');
             }
             filterEvents();
+            num = 0;
+            loadLog();
         });
         $('.view-status-search').on('click', function () {
             var el = $(this);
             $('.view-status-search').removeClass('active');
             el.addClass('active');
             filterEvents();
+            num = 0;
+            loadLog();
         });
         if (action === 'new-comments') {
             $('#commentSearch').trigger('click');
@@ -120,9 +125,8 @@
             $(this).removeClass('new-event');
             var eventId = $(this).data('event-id');
             markAsRead(eventId);
-        })
-    })
-    ;
+        });
+    });
 
     function filterEvents() {
         var filter = $('.type-search.active').data('type') || 'event';
