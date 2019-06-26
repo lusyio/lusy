@@ -174,6 +174,7 @@ $(document).ready(function () {
                         var currentTime = parseInt(new Date().getTime() / 1000);
                         setCookie($it, currentTime, {
                             expires: 60 * 60 * 24 * 30,
+                            path: '/',
                         });
                         updateComments();
                     }, 200);
