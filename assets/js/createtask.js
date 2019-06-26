@@ -133,8 +133,12 @@ $(document).ready(function () {
 //создание новой задачи
     $("#createTask").click(function () {
         var attachedYaFiles = {};
-        $('.attached-ya-file').each(function (i, yaFileToSend) {
+        $('.attached-yandex-disk-file').each(function (i, yaFileToSend) {
             attachedYaFiles[$(yaFileToSend).data('name')] = $(yaFileToSend).data('link');
+        });
+        var attachedGoogleFiles = {};
+        $('.attached-google-drive-file').each(function (i, googleFileToSend) {
+            attachedGoogleFiles[$(googleFileToSend).data('name')] = $(googleFileToSend).data('link');
         });
         var responsible = $('.add-responsible:visible').attr('val');
         var coworkers = [];
@@ -156,6 +160,7 @@ $(document).ready(function () {
         fd.append('worker', responsible);
         fd.append('coworkers', JSON.stringify(coworkers));
         fd.append('yaAttach', JSON.stringify(attachedYaFiles));
+        fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('ajax', 'task-control');
         fd.append('yaToken', yt);
         if (name != null && delta != null && datedone != null && responsible != null) {

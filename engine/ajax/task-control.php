@@ -114,6 +114,14 @@ if($_POST['module'] == 'createTask') {
             ];
     }
     $yaToken = filter_var($_POST['yaToken'], FILTER_SANITIZE_STRING);
+    $unsafeGoogleFiles = json_decode($_POST['googleAttach']);
+    $googleFiles = [];
+    foreach ($unsafeGoogleFiles as $k => $v) {
+        $googleFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+        ];
+    }
     if (isset($_POST['manager'])) {
         $managerId = filter_var($_POST['manager'], FILTER_SANITIZE_NUMBER_INT);
     } else {
@@ -146,6 +154,9 @@ if($_POST['module'] == 'createTask') {
     }
     if (count($yandexFiles) > 0 && $yaToken != '') {
         addYandexFiles('task', $idtask, $yandexFiles, $yaToken);
+    }
+    if (count($googleFiles) > 0) {
+        addGoogleFiles('task', $idtask, $googleFiles);
     }
     resetViewStatus($idtask);
     addTaskCreateComments($idtask, $worker, $coworkers);

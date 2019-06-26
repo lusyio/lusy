@@ -36,6 +36,8 @@
                     <span class="attach-file">С компьютера</span></a>
                 <a class="dropdown-item" id="openYaDisk" href="#" data-toggle="modal" data-target="#yaDiskModal"><i class="custom-date mr-2 fab fa-yandex"></i>
                     <span>Из Яндекс.Диска</span></a>
+                <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i class="custom-date mr-2 fab fa-google-drive"></i>
+                    <span>Из Google Drive</span></a>
             </div>
         </div>
         <div class="row mt-2">
@@ -142,6 +144,156 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    //=Create object of FilePicker Constructor function function & set Properties===
+    function SetPicker() {
+        var picker = new FilePicker(
+            {
+                apiKey: 'AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc',
+                clientId: '34979060720-4dmsjervh14tqqgqs81pd6f14ed04n3d.apps.googleusercontent.com',
+                buttonEl: document.getElementById("openGoogleDrive"),
+                onClick: function (file) {
+                    //PopupCenter('https://drive.google.com/file/d/' + file.id + '/view', "", 1026, 500);
+                }
+            });
+    }
+    //====================Create POPUP function==============
+    function PopupCenter(url, title, w, h) {
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        return window.open(url, title, 'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+    }
+    //===============Create Constructor function==============
+    function FilePicker(User) {
+        //Configuration
+        this.apiKey = User.apiKey;
+        this.clientId = User.clientId;
+        //Button
+        this.buttonEl = User.buttonEl;
+        //Click Events
+        this.onClick = User.onClick;
+        this.buttonEl.addEventListener('click', this.open.bind(this));
+        //Disable the button until the API loads, as it won't work properly until then.
+        this.buttonEl.disabled = true;
+        //Load the drive API
+        gapi.client.setApiKey(this.apiKey);
+        gapi.client.load('drive', 'v2', this.DriveApiLoaded.bind(this));
+        gapi.load('picker', '1', { callback: this.PickerApiLoaded.bind(this) });
+    }
+    FilePicker.prototype = {
+        //==========Check Authentication & Call ShowPicker() function=======
+        open: function () {
+            // Check if the user has already authenticated
+            var token = gapi.auth.getToken();
+            if (token) {
+                this.ShowPicker();
+            } else {
+                // The user has not yet authenticated with Google
+                // We need to do the authentication before displaying the drive picker.
+                this.DoAuth(false, function ()
+                { this.ShowPicker(); }.bind(this));
+            }
+        },
+        //========Show the file picker once authentication has been done.=========
+        ShowPicker: function () {
+            var accessToken = gapi.auth.getToken().access_token;
+            //========Show Different Display View in Picker Dialog box=======
+            //View all the documents of Google drive
+            //var DisplayView = new google.picker.View(google.picker.ViewId.DOCS);
+            //View all the documents of a Specific folder of Google drive
+            //var DisplayView = new google.picker.DocsView().setParent('PUT YOUR FOLDER ID');
+            //View all the documents & folders of google drive
+            var DisplayView = new google.picker.DocsView().setIncludeFolders(true);
+            //Only view all Folders in Google drive.
+            //var DisplayView = new google.picker.DocsView()
+            //    .setIncludeFolders(true)
+            //    .setMimeTypes('application/vnd.google-apps.folder')
+            //    .setSelectFolderEnabled(true);
+            //Use DocsUploadView to upload documents to Google Drive.
+            //var UploadView = new google.picker.DocsUploadView();
+            //addViewGroup(new google.picker.ViewGroup(google.picker.ViewId.DOCS).
+            // addView(google.picker.ViewId.DOCUMENTS).
+            // addView(google.picker.ViewId.PRESENTATIONS)).
+            //========Show Different Upload View in Picker Dialog box=======
+            //User can upload file in any folder (by select folder)
+            //var UploadView = new google.picker.DocsUploadView().setIncludeFolders(true);
+            //User can upload file in specific folder
+            //var UploadView = new google.picker.DocsUploadView().setParent('PUT YOUR FOLDER ID')
+            this.picker = new google.picker.PickerBuilder().
+            addView(DisplayView).
+            enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
+            setAppId(this.clientId).
+            //addView(UploadView).
+            setOAuthToken(accessToken).
+            setCallback(this.PickerResponse.bind(this)).
+            setTitle('Google Drive').
+            setLocale('ru').
+            build().
+            setVisible(true);
+        },
+        //====Called when a file has been selected in the Google Picker Dialog Box======
+        PickerResponse: function (data) {
+            if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+                var file = data[google.picker.Response.DOCUMENTS][0],
+                    id = file[google.picker.Document.ID],
+                    request = gapi.client.drive.files.get({ fileId: id });
+                //this.ShowPicker();
+                request.execute(this.GetFileDetails.bind(this));
+            }
+        },
+        //====Called when file details have been retrieved from Google Drive========
+        GetFileDetails: function (file) {
+            if (this.onClick) {
+                console.log(file);
+                insertPermission(file.id, '', 'anyone', 'reader');
+                addFileToList(file.title, file.selfLink, 'google-drive', 'fab fa-google-drive' );
+            }
+        },
+        //====Called when the Google Drive file picker API has finished loading.=======
+        PickerApiLoaded: function () {
+            this.buttonEl.disabled = false;
+        },
+        //========Called when the Google Drive API has finished loading.==========
+        DriveApiLoaded: function () {
+            this.DoAuth(true);
+        },
+        //========Authenticate with Google Drive via the Google Picker API.=====
+        DoAuth: function (immediate, callback) {
+            gapi.auth.authorize({
+                client_id: this.clientId,
+                scope: 'https://www.googleapis.com/auth/drive',
+                immediate: immediate
+            }, callback);
+        }
+    };
+    /**
+     * Insert a new permission.
+     *
+     * @param {String} fileId ID of the file to insert permission for.
+     * @param {String} value User or group e-mail address, domain name or
+     *                       {@code null} "default" type.
+     * @param {String} type The value "user", "group", "domain" or "default".
+     * @param {String} role The value "owner", "writer" or "reader".
+     */
+    function insertPermission(fileId, value, type, role) {
+        var body = {
+            'value': value,
+            'type': type,
+            'role': role,
+            'withLink': true
+        };
+        var request = gapi.client.drive.permissions.insert({
+            'fileId': fileId,
+            'resource': body
+        });
+        request.execute(function(resp) { });
+    }
+</script>
+
+<script src="https://www.google.com/jsapi?key=AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc"></script>
+<script src="https://apis.google.com/js/client.js?onload=SetPicker"></script>
+
 <script src="/assets/js/createtask.js"></script>
 <script>
     var yt = '';
@@ -197,10 +349,7 @@
 
     $('#addYandexFiles').on('click', function () {
         $('#yaDiskModal .bg-primary').each(function (i, fileToAdd) {
-            $(".file-name").show().append("<div class='filenames attached-ya-file' data-name='" + $(fileToAdd).data('file-name') + "' data-link='" + $(fileToAdd).data('link') + "'>" +
-                "<i class='fas fa-paperclip mr-1'></i> <i class='fab fa-yandex mr-1'></i>" + $(fileToAdd).data('file-name') +
-                "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
-                "</div>");
+            addFileToList($(fileToAdd).data('file-name'), $(fileToAdd).data('link'), 'yandex-disk', 'fab fa-yandex');
         });
         $('#yaDiskModal').modal('hide');
     });
@@ -256,5 +405,11 @@
                 }
             },
         });
+    }
+    function addFileToList(name, link, source, icon) {
+            $(".file-name").show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "'>" +
+                "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
+                "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                "</div>");
     }
 </script>
