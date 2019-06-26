@@ -95,3 +95,4 @@ $timeZones = [
 
 $userData = getUserData($id);
 $companyData = getCompanyData();
+$notifications = getNotificationSettings();

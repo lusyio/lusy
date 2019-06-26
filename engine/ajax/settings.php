@@ -73,3 +73,30 @@ if ($_POST['module'] == 'changeCompanyData' && $roleu == 'ceo') {
     setNewCompanyData($companyName, $companyFullName, $companySite, $companyDescription, $companyTimezone);
 }
 
+if ($_POST['module'] == 'updateNotifications') {
+    if (DBOnce('COUNT(*)', 'user_notifications', 'user_id=' . $id) == 0) {
+        $createNotificationRowQuery = $pdo->prepare('INSERT INTO user_notifications(user_id) VALUES (:userId)');
+        $createNotificationRowQuery->execute(array(':userId' => $id));
+    }
+    $unsafeNotifications = json_decode($_POST['notifications']);
+    $notifications = [];
+    foreach ($unsafeNotifications as $k => $v) {
+        $key = filter_var($k, FILTER_SANITIZE_STRING);
+        $notifications[$key] = (int) $v;
+    }
+
+    $updateNotificationSettingsQuery = $pdo->prepare("UPDATE user_notifications SET task_create = :taskCreate, task_overdue = :taskOverdue, comment = :comment, task_review = :taskReview, task_postpone = :taskPostpone, message = :message, achievement = :achievement WHERE user_id = :userId");
+    $queryData = [
+        ':userId' => $id,
+        ':taskCreate' => $notifications['taskCreate'],
+        ':taskOverdue' => $notifications['taskOverdue'],
+        ':comment' => $notifications['comment'],
+        ':taskReview' => $notifications['taskReview'],
+        ':taskPostpone' => $notifications['taskPostpone'],
+        ':message' => $notifications['message'],
+        ':achievement' => $notifications['achievement'],
+    ];
+    $updateNotificationSettingsQuery->execute($queryData);
+
+}
+

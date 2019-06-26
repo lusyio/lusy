@@ -280,7 +280,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="taskCreate">
+                            <input type="checkbox" id="taskCreate" <?= ($notifications['task_create']) ? 'checked' : ''; ?>>
                         </div>
                     </div>
                 </div>
@@ -300,7 +300,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="taskOverdue">
+                            <input type="checkbox" id="taskOverdue" <?= ($notifications['task_overdue']) ? 'checked' : ''; ?>>
                         </div>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="comment">
+                            <input type="checkbox" id="comment" <?= ($notifications['comment']) ? 'checked' : ''; ?>>
                         </div>
                     </div>
                 </div>
@@ -340,7 +340,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="taskReview">
+                            <input type="checkbox" id="taskReview" <?= ($notifications['task_review']) ? 'checked' : ''; ?>>
                         </div>
                     </div>
                 </div>
@@ -360,7 +360,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="taskPostpone">
+                            <input type="checkbox" id="taskPostpone" <?= ($notifications['task_postpone']) ? 'checked' : ''; ?>>
                         </div>
                     </div>
                 </div>
@@ -380,7 +380,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="newMessage">
+                            <input type="checkbox" id="message" <?= ($notifications['message']) ? 'checked' : ''; ?>>
                         </div>
                     </div>
                 </div>
@@ -400,7 +400,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="newAchievement">
+                            <input type="checkbox" id="achievement" <?= ($notifications['achievement']) ? 'checked' : ''; ?>>
                         </div>
                     </div>
                 </div>
@@ -422,7 +422,6 @@
             $('input[type=checkbox]').each(function(i, e) {
                 objCheck[$(this).attr('id')] = e.checked;
             });
-            console.log(JSON.stringify(objCheck));
             return objCheck;
         }
 
@@ -432,18 +431,19 @@
             fd.append('ajax', 'settings');
             fd.append('module', 'updateNotifications');
             fd.append('notifications', JSON.stringify(objCheck));
-            // $.ajax({
-            //     url: '/ajax.php',
-            //     type: 'POST',
-            //
-            //     cache: false,
-            //     processData: false,
-            //     contentType: false,
-            //     data: fd,
-            //     success: function () {
-            //
-            //     },
-            // });
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function () {
+                    // Уведомить о сохранении настроек
+                    console.log('Сохранено');
+                },
+            });
         });
 
         $("#deleteAvatar").on('click', function (e) {
