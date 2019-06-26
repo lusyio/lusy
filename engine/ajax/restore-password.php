@@ -29,6 +29,7 @@ if ($userId) {
     } catch (Exception $e) {
 
     }
+    echo '1';
 } else {
     echo '';
 }
