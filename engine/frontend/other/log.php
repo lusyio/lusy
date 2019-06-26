@@ -59,7 +59,7 @@
         console.log(num);
     }
 
-    function loadLogPage(){
+    function loadLogPage() {
         filterEvents();
         num += 10;
         var log = $(".event:visible").slice(0, num);
@@ -68,8 +68,8 @@
         console.log(num);
     }
 
-    function hideLoadLog(){
-        if ($(".event:visible").length < 10){
+    function hideLoadLog() {
+        if ($(".event:visible").length < 10) {
             $("#loadLog").hide();
         } else {
             $("#loadLog").show();

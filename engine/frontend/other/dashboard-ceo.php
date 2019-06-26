@@ -182,7 +182,7 @@ $borderColor = [
     <div class="card-body pb-0">
         <span class="font-weight-bold"><?= _('History') ?></span>
         <hr class="mb-0">
-        <div id="log">
+        <div id="logDashBoard">
             <ul class="timeline" style="bottom: 0px;">
                 <?php foreach ($events as $event): ?>
                     <?php renderEvent($event); ?>
