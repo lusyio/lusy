@@ -1,7 +1,7 @@
 <?php
 $badges = [
     'meeting' => 'fas fa-handshake',
-    'invitor' => 'fas fa-user',
+    'invitor' => 'fas fa-user-plus',
     'bugReport_1' => 'fab fa-accessible-icon',
     'message_1' => 'fas fa-broadcast-tower',
     'taskOverdue_1' => 'fas fa-meh',
@@ -22,7 +22,7 @@ $badges = [
     'taskCreate_500' => 'fas fa-atom',
     'comment_1000' => 'fas fa-comment',
     'taskOverduePerMonth_0' => 'fas fa-medal',
-    'taskDonePerMonth_leader' => 'fas fa-user-graduate',
+    'taskDonePerMonth_leader' => 'fas fa-greater-than',
     'taskInwork_20' => 'fas fa-user-graduate',
     'taskCreatePerDay_30' => 'fas fa-user-graduate',
 ];
