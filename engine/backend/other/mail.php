@@ -9,7 +9,7 @@ global $idc;
 global $cometHash;
 global $cometPdo;
 global $cometTrackChannelName;
-
+$lastChatMessage = lastChatMessage();
 $messages = DB('*','mail','sender = '.$id.' or recipient = '.$id. ' ORDER BY `datetime` DESC');
 $userList = DB('id, name, surname', 'users', 'idcompany = '. $idc . ' AND id !=' . $id);
 $onlineUsersQuery = $cometPdo->prepare('SELECT * FROM users_in_pipes WHERE name = :channelName');

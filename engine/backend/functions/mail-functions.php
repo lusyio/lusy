@@ -25,6 +25,15 @@ function lastmess($iduser) {
 
     return $result;
 }
+function lastChatMessage() {
+    global $pdo;
+    global $idc;
+    $sql = $pdo->prepare("SELECT c.message_id, c.text as mes, c.author_id as sender, c.datetime FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE u.idcompany = :companyId order by datetime DESC limit 1");
+    $sql->execute(array(':companyId' => $idc));
+    $result = $sql->fetch(PDO::FETCH_ASSOC);
+
+    return $result;
+}
 
 function numberOfNewMessages($idSender)
 {

@@ -1,5 +1,8 @@
 <div class="card">
     <div class="card-header">
+        <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
+                    class="fas fa-arrow-left icon-invite"></i></a>
+        <a href="/company/" class="mb-0 h5 ml-3">Чат компании</a>
     </div>
     <div class="card-body p-0" id="chatBox">
         <?php if ($messages): ?>
@@ -139,6 +142,14 @@
             sizeFile();
             $("#sendFiles").off('click');
 
+        });
+
+        $('#chatBox').on('click', '.not-my-message', function () {
+            var name = $(this).find('.sender-name').text();
+            var text = $('#mes').val();
+            if (text.indexOf(name) <0) {
+                $('#mes').val(name + ', ' + text);
+            }
         });
 
         var marker = true;
