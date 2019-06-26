@@ -261,6 +261,150 @@
                         </button>
                     </div>
                 </div>
+                <hr>
+                <div class="text-reg text-center mb-3 mt-3" style="font-weight: 300;">
+                    Уведомления на почту
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="rounded-circle text-center noty-icon-settings">
+                            <span class="text-white">
+                                <i class="fas fa-tasks noty-icon-size-settings"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="noty-padding-content-settings">
+                            <span>Вам назначена задача</span>
+                        </div>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <div class="noty-padding-content-settings">
+                            <input type="checkbox" id="newTask">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-1 hr-settings">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="rounded-circle text-center noty-icon-settings">
+                            <span class="text-white">
+                                <i class="fas fa-fire-alt noty-icon-size-settings"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="noty-padding-content-settings">
+                            <span>Ваша задача просрочена</span>
+                        </div>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <div class="noty-padding-content-settings">
+                            <input type="checkbox" id="overdueTask">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-1 hr-settings">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="rounded-circle text-center noty-icon-settings">
+                            <span class="text-white">
+                                <i class="far fa-comment noty-icon-size-settings"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="noty-padding-content-settings">
+                            <span>Вам оставлен комментарий</span>
+                        </div>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <div class="noty-padding-content-settings">
+                            <input type="checkbox" id="newCommnet">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-1 hr-settings">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="rounded-circle text-center noty-icon-settings">
+                            <span class="text-white">
+                                <i class="fas fa-file-import noty-icon-size-settings"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="noty-padding-content-settings">
+                            <span>Вам отправлена задача на рассмотрение</span>
+                        </div>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <div class="noty-padding-content-settings">
+                            <input type="checkbox" id="onReview">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-1 hr-settings">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="rounded-circle text-center noty-icon-settings">
+                            <span class="text-white">
+                                <i class="far fa-calendar-alt noty-icon-size-settings"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="noty-padding-content-settings">
+                            <span>Запрос на перенос срока</span>
+                        </div>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <div class="noty-padding-content-settings">
+                            <input type="checkbox" id="postpone">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-1 hr-settings">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="rounded-circle text-center noty-icon-settings">
+                            <span class="text-white">
+                                <i class="far fa-envelope noty-icon-size-settings"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="noty-padding-content-settings">
+                            <span>Вам оставили сообщение в диалоге</span>
+                        </div>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <div class="noty-padding-content-settings">
+                            <input type="checkbox" id="newMessage">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-1 hr-settings">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="rounded-circle text-center noty-icon-settings">
+                            <span class="text-white">
+                                <i class="fas fa-trophy noty-icon-size-settings"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="noty-padding-content-settings">
+                            <span>Получено новое достижение</span>
+                        </div>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <div class="noty-padding-content-settings">
+                            <input type="checkbox" id="newAchive">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-1 hr-settings">
             </div>
         </div>
     </div>
@@ -270,7 +414,22 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
+
     $(document).ready(function () {
+
+        var objCheck = {};
+        function checkInput(){
+            $('input[type=checkbox]').each(function(i, e) {
+                objCheck[$(this).attr('id')] = e.checked;
+            });
+            console.log(objCheck);
+        }
+
+        $('input[type=checkbox]').on('change', function () {
+            checkInput();
+        });
+
+
         $("#deleteAvatar").on('click', function (e) {
             e.preventDefault();
             var fd = new FormData();
@@ -332,10 +491,6 @@
             var surname = $("#settingsSurname").val();
             var email = $("#settingsEmail").val();
             var phoneNumber = $("#settingsPhoneNumber").val();
-            // var newPassword = $("#settingsNewPassword").val();
-            // var password = $("#password").val();
-            // var countryNumber = $("#countryNumber").val();
-            // console.log(countryNumber);
             social[socialVk] = vk;
             social[socialFacebook] = facebook;
             var fd = new FormData();
@@ -346,14 +501,10 @@
             fd.append('surname', surname);
             fd.append('email', email);
             fd.append('phone', phoneNumber);
-            // fd.append('newPassword', newPassword);
-            // fd.append('password', password);
             fd.append('about', description);
             fd.append('vk', vk);
             fd.append('facebook', facebook);
             fd.append('instagram', instagram);
-            console.log(password);
-            // if (password) {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -367,9 +518,6 @@
                     console.log('success')
                 },
             });
-            // } else {
-            //     $("#password").addClass('border-danger');
-            // }
         });
         $("#sendCompanyChanges").on('click', function () {
             var companyName = $('#companyName').val();
@@ -467,7 +615,7 @@
                 avatar.src = canvas.toDataURL('image/jpeg', 0.8);
                 $progress.show();
                 $alert.removeClass('alert-success alert-warning');
-                $alert.css({'position': 'absolute', 'z-index': '1'})
+                $alert.css({'position': 'absolute', 'z-index': '1'});
                 canvas.toBlob(function (blob) {
                     console.log(blob);
                     var fd = new FormData();

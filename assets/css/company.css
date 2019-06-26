@@ -1,0 +1,57 @@
+.icon-company {
+    transition: 200ms;
+    color: rgba(198, 199, 200, 0.69);
+}
+.icon-company:hover {
+    color: #5d95db;
+}
+.border-bottom-company:not(:last-of-type) {
+    border-bottom: 1px solid #dee2e6;
+    border-bottom-width: 1px ;
+    border-bottom-style: solid ;
+    border-bottom-color: rgb(222, 226, 230);
+}
+.border-bottom-company:hover .count-company-tasks{
+    color: black;
+}
+.border-bottom-company:hover .badge-company-dark{
+    background-color: #343a40;
+    color: white;
+}
+.border-bottom-company:hover .badge-company-primary{
+    background-color: #5d95db;
+    color: white;
+}
+.online-indicator-company{
+    top: -5px;
+    right: 0;
+    z-index: 3;
+    position: absolute;
+}
+.count-company-tasks{
+    color: #c6c9dc;
+}
+.company-tasks{
+    display: none;
+}
+.badge-company-dark{
+    background-color: #ebebeb;
+}
+
+.badge-company-primary{
+    background-color: #f2f2f2;
+}
+
+.company{
+    font-size: 13px;
+    color: #dcdcdc;
+}
+.company-profile-email{
+    margin-top: 5px;
+}
+.activity-company{
+    font-size: 14px;
+}
+.social-company{
+    font-size: 20px;
+}
