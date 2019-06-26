@@ -1,3 +1,5 @@
+@import "awards.css";
+@import "storage.css";
 #searchbody {
     background: #F8F9FA;
 }
@@ -98,11 +100,7 @@ body{
 .filter-select span.comma {
     border-bottom: none !important;
 }
-.file-list .fa-circle {
-    font-size: 5px;
-    vertical-align: middle;
-    line-height: 2;
-}
+
 
 .badge {
     font-weight: 600;
@@ -326,11 +324,7 @@ body{
     width: 85%;
 }
 
-.file-list {
-    padding: 0.8rem;
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-    border-bottom-color: rgba(0, 0, 0, 0.1);
-}
+
 
 
 .dialogs {
@@ -795,9 +789,7 @@ input:checked[type="checkbox"]::before {
     padding: 0;
 }
 
-.iconFiles {
-    top: 0.3rem;
-}
+
 
 .far.fa-eye.custom {
     font-size: 25px;
@@ -946,10 +938,6 @@ input:checked[type="checkbox"]::before {
     transition: 300ms;
 }
 
-.award hr {
-    width: 70px;
-}
-
 .avatar-new {
     line-height: 0.9 !important;
     width: 20px;
@@ -960,27 +948,6 @@ input:checked[type="checkbox"]::before {
     cursor: pointer;
     transition: 200ms;
 }
-
-.progress-awards{
-    background-color: #e4e4e4;
-}
-
-.complete-awards{
-    transition: 300ms;
-}
-
-.complete-awards:hover::after {
-    content: "";
-    background: url(/upload/bg-sprinkles.svg);
-    opacity: 0.15;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-}
-
 .avatar-added {
     vertical-align: middle;
     width: 20px;
@@ -1169,82 +1136,6 @@ input:checked[type="checkbox"]::before {
     border: 1px solid rgba(255, 0, 0, 0.38);
     border-radius: 8px;
     background-color: rgba(255, 0, 0, 0.02);
-}
-
-.award .badge-secondary {
-    background-color: #e5e5e5;
-    transition: 200ms;
-}
-
-.award .bg-secondary {
-    background-color: rgba(0, 0, 0, .3) !important;
-}
-
-.award-container{
-    width: 780px;
-    padding: 5px;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-
-.award-container::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-}
-
-.award{
-    margin-right: 15px;
-    border-radius: 5px;
-    display: block;
-    padding: 20px 10px;
-    min-width: 210px;
-    max-width: 210px;
-    background: white;
-    position: relative;
-    -webkit-transition: box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
-    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s;
-    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
-    box-shadow: 0 10px 15px rgba(14,21,47,.05);
-}
-
-.award:hover {
-    -webkit-transform: translateY(-5px);
-    transform: translateY(-5px);
-    z-index: 1;
-    box-shadow: 0 15px 20px rgba(14,21,47,.2);
-}
-
-.award:hover .badge-secondary {
-    background-color: rgba(0, 0, 0, .3);
-}
-
-.award-star{
-    color: white;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, .3);
-    line-height: 1.65;
-    text-align: center;
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
-    border-radius: 50%;
-    border: 1px solid white;
-    margin: auto;
-    position: relative;
-    margin-top: -60px;
-    margin-bottom: 40px;
-}
-
-.award-sm{
-    border-radius: 5px;
-    display: block;
-    padding: 20px 10px;
-    margin-right: 18px;
-    min-width: 190px;
-    max-width: 190px;
-}
-
-.award-sm:last-of-type{
-    margin-right: 0;
 }
 
 .members {
@@ -2441,12 +2332,6 @@ label.error {
 
 .text-muted-reg {
     color: #6c757da6 !important;
-}
-
-.text-award{
-    max-width: 190px;
-    word-wrap: break-word;
-    font-size: 80%
 }
 
 .text-award{
