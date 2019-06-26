@@ -1,5 +1,5 @@
 <div data-message-id="<?= $message['message_id'] ?>"
-     class="border-top rounded-0 message <?= ($message['owner']) ? 'my-message' : 'not-my-message'; ?> <?= ($message['view_status'] || $message['sender'] == $id) ? '' : 'alert-primary' ?>">
+     class="rounded-0 message <?= ($message['owner']) ? 'my-message' : 'not-my-message'; ?> <?= ($message['view_status'] || $message['sender'] == $id) ? '' : 'alert-primary' ?>">
     <div class="row">
         <div class="col-2 col-lg-1">
             <img src="/<?= getAvatarLink($message['sender']) ?>" class="avatar-conversation">

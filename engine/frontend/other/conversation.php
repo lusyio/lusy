@@ -1,12 +1,16 @@
 <div class="card">
-    <div class="card-header">
-        <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
-                    class="fas fa-arrow-left icon-invite"></i></a>
-        <a href="/profile/<?= $recipientId ?>/" class="mb-0 h5 ml-3"><?= fiomess($recipientId) ?>
-            <i class="fas fa-circle mr-1 ml-1 onlineIndicator <?= (in_array($recipientId, $onlineUsersList)) ? 'text-success' : '' ?>"></i>
-        </a>
+    <div class="card-header text-center" style="background-color: #fafafa">
+        <div class="position-absolute">
+            <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
+                        class="fas fa-arrow-left icon-invite"></i></a>
+        </div>
+        <div>
+            <a href="/profile/<?= $recipientId ?>/" class="mb-0 h5"><?= fiomess($recipientId) ?>
+                <i class="fas fa-circle mr-1 ml-1 onlineIndicator <?= (in_array($recipientId, $onlineUsersList)) ? 'text-success' : '' ?>"></i>
+            </a>
+        </div>
     </div>
-    <div class="card-body p-0" id="chatBox">
+    <div class="card-body p-0 border-bottom" id="chatBox">
         <?php if ($messages): ?>
             <?php foreach ($messages as $message): ?>
                 <?php include 'engine/frontend/other/message.php'; ?>
@@ -16,7 +20,7 @@
         <?php endif; ?>
     </div>
 </div>
-<div class="card mt-3">
+<div class="card border-top" style="background-color: #fafafa">
     <div class="card-body pb-0">
         <form>
             <div class="form-group w-100 mr-2 text-area">
@@ -28,7 +32,7 @@
                 <input type="button" class="btn btn-primary" id="sendBtn"
                        value="<?= $GLOBALS['_sendconversation'] ?>">
                 <span class="btn btn-light btn-file float-right" data-toggle="tooltip" data-placement="bottom"
-                      title="Прикрепить файлы">
+                      title="Прикрепить файлы" style="background-color: #fafafa; border: none">
                         <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
                 </span>
             </div>

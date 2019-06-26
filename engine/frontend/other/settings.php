@@ -429,7 +429,6 @@
             checkInput();
         });
 
-
         $("#deleteAvatar").on('click', function (e) {
             e.preventDefault();
             var fd = new FormData();

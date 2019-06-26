@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header dialogs p-0">
+            <div class="card-header border-bottom dialogs p-0">
                 <div class="row mb-1 p-3">
                     <div class="col"><h4 class="mb-0 mt-2"><?= $GLOBALS['_mailconversation'] ?></h4></div>
                     <div class="col-4 text-right">
@@ -16,7 +16,7 @@
                         $isOnline = in_array($user['id'], $onlineUsersList);
                      ?>
                         <a href="./<?= $user['id'] ?>/"
-                           class="list-group-item list-group-item-action rounded-0 border-left-0 border-right-0">
+                           class="list-group-item list-group-item-action new-dialog-list">
                             <div class="row">
                                 <div class="col-2 pl-2 col-lg-1">
                                     <div class="avatar-mail-list">
