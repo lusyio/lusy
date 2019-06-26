@@ -23,7 +23,6 @@ $menu = [
         'newTask',
         'company',
         'storage',
-        'chat',
     ],
     'ceo' => [
         'main',
@@ -31,7 +30,6 @@ $menu = [
         'newTask',
         'company',
         'storage',
-        'chat',
         'reports'
     ],
 ];

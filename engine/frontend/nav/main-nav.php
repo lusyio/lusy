@@ -49,10 +49,6 @@ if ($companyUsageSpacePercent > 90){
 				</a>
 			</li>
             <?php endif; ?>
-            <?php if (in_array('chat', $menu[$roleu])): ?>
-                <li class="nav-item"><a class="nav-link" href="/chat/"><i class="fas fa-comments mr-2 fa-fw"></i> Чат компании</a></li>
-                <hr class="w-100">
-            <?php endif; ?>
             <?php if ($idc == 1) : ?>
                 <hr class="w-100">
                 <li class="nav-item pb-2"><a class="nav-link" href="/godmode/"><i class="fas fa-rocket mr-2 fa-fw"></i> <?=_('GodMode') ?></a></li>
