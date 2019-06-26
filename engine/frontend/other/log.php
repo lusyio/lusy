@@ -49,21 +49,29 @@
 </div>
 <script>
     var pageName = 'log';
+    var num = 0;
+
+    function loadLog() {
+        num += 10;
+        var log = $(".event:visible").slice(0, num);
+        $('.event').hide();
+        log.show();
+        console.log(num);
+    }
+
+    function loadLogPage(){
+        filterEvents();
+        num += 10;
+        var log = $(".event:visible").slice(0, num);
+        $('.event').hide();
+        log.show();
+        console.log(num);
+    }
 
     $(document).ready(function () {
-
-        var num = 0;
-        function loadLog() {
-            num += 10;
-            var log = $(".event:visible").slice(0, num);
-            $('.event').hide();
-            log.show();
-            console.log(num);
-        }
-
         loadLog();
         $('#loadLog').on('click', function () {
-            loadLog();
+            loadLogPage();
         });
 
         var action = window.location.hash.substr(1);
