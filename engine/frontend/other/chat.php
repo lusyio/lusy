@@ -1,0 +1,220 @@
+<div class="card">
+    <div class="card-header">
+    </div>
+    <div class="card-body p-0" id="chatBox">
+        <?php if ($messages): ?>
+            <?php foreach ($messages as $message): ?>
+                <?php include 'engine/frontend/other/message.php'; ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="no-messages"><?= $GLOBALS['_emptyconversation'] ?></div>
+        <?php endif; ?>
+    </div>
+</div>
+<div class="card mt-3">
+    <div class="card-body pb-0">
+        <form>
+            <div class="form-group w-100 mr-2 text-area">
+                <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
+                          placeholder="<?= $GLOBALS['_enterconversation'] ?>"
+                          required></textarea>
+            </div>
+            <div class="mb-3">
+                <input type="button" class="btn btn-primary" id="sendBtn"
+                       value="<?= $GLOBALS['_sendconversation'] ?>">
+                <span class="btn btn-light btn-file float-right" data-toggle="tooltip" data-placement="bottom"
+                      title="Прикрепить файлы">
+                        <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
+                </span>
+            </div>
+        </form>
+        <div class="newmess"></div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+    (function (b) {
+        b.fn.autoResize = function (f) {
+            var a = b.extend({
+                onResize: function () {
+                }, animate: !0, animateDuration: 150, animateCallback: function () {
+                }, extraSpace: 20, limit: 1E3
+            }, f);
+            this.filter("textarea").each(function () {
+                var d = b(this).css({"overflow-y": "hidden", display: "block"}), f = d.height(), g = function () {
+                    var c = {};
+                    b.each(["height", "width", "lineHeight", "textDecoration", "letterSpacing"], function (b, a) {
+                        c[a] = d.css(a)
+                    });
+                    return d.clone().removeAttr("id").removeAttr("name").css({
+                        position: "absolute",
+                        top: 0,
+                        left: -9999
+                    }).css(c).attr("tabIndex", "-1").insertBefore(d)
+                }(), h = null, e = function () {
+                    g.height(0).val(b(this).val()).scrollTop(1E4);
+                    var c = Math.max(g.scrollTop(), f) + a.extraSpace, e = b(this).add(g);
+                    h !== c && (h = c, c >= a.limit ? b(this).css("overflow-y", "") : (a.onResize.call(this), a.animate && "block" === d.css("display") ? e.stop().animate({height: c}, a.animateDuration, a.animateCallback) : e.height(c)))
+                };
+                d.unbind(".dynSiz").bind("keyup.dynSiz", e).bind("keydown.dynSiz", e).bind("change.dynSiz", e)
+            });
+            return this
+        }
+    })(jQuery);
+
+    // инициализация
+    jQuery(function () {
+        jQuery('textarea').autoResize();
+    });
+
+    var $userId = <?=$id?>;
+    var pageName = 'conversation';
+    $(document).ready(function () {
+        cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
+        cometApi.subscription("<?=getCometTrackChannelName()?>", function (e) {
+            console.log(e.server_info.event);
+            if (e.server_info.event === 'newChat') {
+                var fd = new FormData();
+                fd.append('messageId', e.data.messageId);
+                fd.append('module', 'updateChat');
+                fd.append('ajax', 'messenger');
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function (response) {
+                        console.log(response);
+                        $('#chatBox').append(response).scrollTop($("#chatBox")[0].scrollHeight);
+                    },
+                });
+            }
+
+        });
+
+        var attachedFiles = [];
+        var attachedFile = [];
+
+        function sizeFile() {
+            $("#sendFiles").bind('change', function () {
+                for (var i = 0; i < this.files.length; i++) {
+                    var size = this.files[i].size;
+                    var names = this.files[i].name;
+                    if (size > 20 * 1024 * 1024) {
+                        $(".text-area").append("<span id='oversize'>Размер файла превышен</span>");
+                        $("#sendBtn").prop('disabled', true);
+                    } else {
+                        $(".text-area").append("<div class='filenames'>"
+                            + names +
+                            "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
+                            "</div>");
+                        $("#oversize").remove();
+                        $("#sendBtn").prop('disabled', false);
+
+                    }
+                    $(".cancelFile").on('click', function () {
+                        $(this).closest(".filenames").remove();
+                        removeFile();
+                    });
+                }
+            });
+        }
+
+        // function scrollSmoothToBottom (id) {
+        //     var div = document.getElementById(id);
+        //     $('#' + id).animate({
+        //         scrollTop: div.scrollHeight - div.clientHeight
+        //     }, 500);
+        // }
+        // scrollSmoothToBottom('chatBox');
+
+        $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
+
+        $("#sendFiles").on('click', function () {
+            sizeFile();
+            $("#sendFiles").off('click');
+
+        });
+
+        var marker = true;
+
+        function count() {
+            marker = false;
+        }
+
+        function attachFile() {
+            // attachedFile = $('input[type=file]')[0].files;
+            attachedFile = $('input[type=file]').prop('files')[0];
+            attachedFiles.push(attachedFile);
+            console.log(attachedFiles);
+
+        }
+
+        function removeFile(e) {
+            var file = $(this).data("file");
+            for (var i = 0; i < attachedFile.length; i++) {
+                if (attachedFile[i].name === file) {
+                    attachedFile.splice(i, 1);
+                    break;
+                }
+            }
+            $(this).parent().remove();
+            $("#sendFiles").val("");
+            console.log(attachedFile);
+        }
+
+
+        $('#sendBtn').on('click', function () {
+            var mes = $("#mes").val();
+            attachFile();
+            var fd = new FormData();
+            fd.append('module', 'sendMessageToChat');
+            fd.append('file', attachedFiles[0]);
+            fd.append('file1', attachedFiles[1]);
+            fd.append('file2', attachedFiles[2]);
+            fd.append('ajax', 'messenger');
+            fd.append('mes', mes);
+            if (mes) {
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function (data) {
+                        console.log(data);
+                        if ($('#chatBox').find($('.no-messages')).length) {
+                            $('.no-messages').remove();
+                        }
+                        $("#mes").val('');
+                        $(".filenames").html("");
+                        attachedFiles = [];
+                        $("#mes").val('');
+
+                    },
+                });
+                $("#mes").removeClass('border-danger');
+
+            } else {
+                $("#mes").addClass('border-danger');
+            }
+        });
+        $('#chatBox').on('mouseover', '.message', function () {
+            var el = $(this);
+            setTimeout(function () {
+                $(el).removeClass('alert-primary');
+            }, 500);
+        })
+    })
+</script>
+
+
+
+

@@ -45,6 +45,20 @@ function getMessages($userId, $interlocutorId)
     return $result;
 }
 
+function getChatMessages()
+{
+    global $pdo;
+    global $id;
+    global $idc;
+    $query = "SELECT c.message_id, c.text as mes, c.author_id AS sender, c.datetime FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE u.idcompany = :companyId ORDER BY `datetime`";
+    $dbh = $pdo->prepare($query);
+    $dbh->execute(array(':companyId' => $idc));
+    $result = $dbh->fetchAll(PDO::FETCH_ASSOC);
+
+    prepareChatMessages($result, $id);
+    return $result;
+}
+
 function prepareMessages(&$messages, $userId, $interlocutorId)
 {
     global $pdo;
@@ -82,4 +96,36 @@ function setMessagesViewStatus($userId, $interlocutorId)
     $query = "UPDATE mail SET view_status = 1 WHERE `sender` = :interlocutorId AND `recipient` = :userId AND `view_status` = 0";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':userId' => $userId, ':interlocutorId' => $interlocutorId));
+}
+
+function prepareChatMessages(&$messages, $userId)
+{
+    global $pdo;
+    foreach ($messages as &$message) {
+        $message['status'] = '';
+        $message['owner'] = false;
+
+        if ($message['sender'] == $userId) {
+            $message['owner'] = true;
+            $message['author'] = 'Вы';
+            $message['status'] = '';
+            $message['view_status'] = 1;
+        } else {
+
+            $message['status'] = '';
+            $message['view_status'] = 1;
+
+            $message['author'] = fiomess($message['sender']);
+        }
+        $commentType = 'chat';
+        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
+        $filesQuery->execute(array(':messageId' => $message['message_id'], ':commentType' => $commentType));
+        $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+        if (count($files) > 0) {
+            $message['files'] = $files;
+        } else {
+            $message['files'] = [];
+        }
+
+    }
 }

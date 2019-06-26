@@ -26,7 +26,7 @@ function uploadAttachedFiles($type, $eventId)
     }
 
     $maxFileSize = 20 * 1024 * 1024;
-    $types = ['task', 'comment', 'conversation'];
+    $types = ['task', 'comment', 'conversation', 'chat'];
     if (!in_array($type, $types)) {
         return;
     }
@@ -35,6 +35,8 @@ function uploadAttachedFiles($type, $eventId)
         global $idtask;
     } elseif ($type == 'conversation') {
         $idtask = 'm' . floor($eventId / 100);
+    } elseif ($type == 'chat') {
+        $idtask = 'c' . floor($eventId / 100);
     } else {
         $idtask = $eventId;
     }
