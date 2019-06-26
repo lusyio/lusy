@@ -29,8 +29,6 @@ if ($userId) {
     } catch (Exception $e) {
 
     }
-
-    echo $restoreCode;
 } else {
     echo '';
 }
