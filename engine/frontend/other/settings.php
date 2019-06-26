@@ -280,7 +280,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="newTask">
+                            <input type="checkbox" id="taskCreate">
                         </div>
                     </div>
                 </div>
@@ -300,7 +300,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="overdueTask">
+                            <input type="checkbox" id="taskOverdue">
                         </div>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="newCommnet">
+                            <input type="checkbox" id="comment">
                         </div>
                     </div>
                 </div>
@@ -340,7 +340,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="onReview">
+                            <input type="checkbox" id="taskReview">
                         </div>
                     </div>
                 </div>
@@ -360,7 +360,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="postpone">
+                            <input type="checkbox" id="taskPostpone">
                         </div>
                     </div>
                 </div>
@@ -400,7 +400,7 @@
                     </div>
                     <div class="col-3 col-lg-2">
                         <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="newAchive">
+                            <input type="checkbox" id="newAchievement">
                         </div>
                     </div>
                 </div>
@@ -417,16 +417,33 @@
 
     $(document).ready(function () {
 
-        var objCheck = {};
         function checkInput(){
+            var objCheck = {};
             $('input[type=checkbox]').each(function(i, e) {
                 objCheck[$(this).attr('id')] = e.checked;
             });
-            console.log(objCheck);
+            console.log(JSON.stringify(objCheck));
+            return objCheck;
         }
 
         $('input[type=checkbox]').on('change', function () {
-            checkInput();
+            var objCheck = checkInput();
+            var fd = new FormData();
+            fd.append('ajax', 'settings');
+            fd.append('module', 'updateNotifications');
+            fd.append('notifications', JSON.stringify(objCheck));
+            // $.ajax({
+            //     url: '/ajax.php',
+            //     type: 'POST',
+            //
+            //     cache: false,
+            //     processData: false,
+            //     contentType: false,
+            //     data: fd,
+            //     success: function () {
+            //
+            //     },
+            // });
         });
 
 
