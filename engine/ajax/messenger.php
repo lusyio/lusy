@@ -85,3 +85,10 @@ if ($_POST['module'] == 'markChatMessageAsRead') {
     $messageId = filter_var($_POST['messageId'], FILTER_SANITIZE_NUMBER_INT);
     markChatMessageAsRead($messageId);
 }
+
+if ($_POST['module'] == 'deleteMessage') {
+    if ($roleu == 'ceo') {
+        $messageId = filter_var($_POST['messageId'], FILTER_SANITIZE_NUMBER_INT);
+        deleteMessageFromChat($messageId);
+    }
+}

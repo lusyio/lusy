@@ -224,3 +224,21 @@ function markChatAsRead()
     $lastChatMessageId = lastChatMessage()['message_id'];
     markChatMessageAsRead($lastChatMessageId);
 }
+
+function deleteMessageFromChat($messageId)
+{
+    global $pdo;
+    $filesQuery =  $pdo->prepare("SELECT file_id, file_path FROM `uploads` WHERE comment_id = :messageId and comment_type = 'chat'");
+    $filesQuery->execute(array(':messageId' => $messageId));
+    $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+    if (count($files) > 0) {
+        $deleteQuery = 'DELETE FROM `uploads` WHERE file_id = :fileId';
+        $deleteDbh = $pdo->prepare($deleteQuery);
+        foreach ($files as $file) {
+            unlink($file['file_path']);
+            $deleteDbh->execute(array(':fileId' => $file['file_id']));
+        }
+    }
+    $deleteMessageQuery = $pdo->prepare("DELETE from chat where message_id = :messageId");
+    $deleteMessageQuery->execute(array(':messageId' => $messageId));
+}

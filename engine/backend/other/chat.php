@@ -4,8 +4,11 @@ global $idc;
 global $pdo;
 global $cometPdo;
 global $cometHash;
+global $roleu;
 
 require_once 'engine/backend/functions/mail-functions.php';
+
+$isCeoAndInChat = $roleu == 'ceo';
 
 $messages = getChatMessages();
 

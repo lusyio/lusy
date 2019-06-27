@@ -244,6 +244,26 @@
             setTimeout(function () {
                 $(el).removeClass('alert-primary');
             }, 500);
+        });
+
+        $('#chatBox').on('click', '.delete-message', function () {
+            var el = $(this).closest('.message');
+            var messageId = $(el).data('message-id');
+            var fd = new FormData();
+            fd.append('ajax', 'messenger');
+            fd.append('module', 'deleteMessage');
+            fd.append('messageId', messageId);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function () {
+                    $(el).remove();
+                },
+            });
         })
     })
 </script>

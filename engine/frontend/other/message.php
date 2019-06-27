@@ -6,7 +6,13 @@
         </div>
         <div class="col pl-2 message-width">
             <p class="m-0"><span class=" sender-name"><?= $message['author'] ?></span><span
-                        class="date mr-2"><?= date('d.m H:i', $message['datetime']) ?></span></p>
+                        class="date mr-2"><?= date('d.m H:i', $message['datetime']) ?>
+                    <?php if ($isCeoAndInChat): ?>
+                        <button type="button"
+                                class="btn btn-link text-danger delete-message">
+                    <i class="fas fa-times"></i>
+                </button>
+                    <?php endif; ?></span></p>
             <p class="m-0"><?= link_it(nl2br(htmlspecialchars($message['mes']))) ?></p>
             <?php if (count($message['files']) > 0): ?>
                 <?php foreach ($message['files'] as $file): ?>
