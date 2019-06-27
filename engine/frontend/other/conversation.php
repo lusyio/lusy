@@ -24,10 +24,10 @@
     <div class="card-body pb-0">
         <form>
             <div class="d-flex">
-            <div class="form-group w-100 mr-2">
+            <div class="form-group w-100 mr-2 text-area">
                 <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
                           placeholder="<?= $GLOBALS['_enterconversation'] ?>" autofocus
-                          required></textarea>
+                          ></textarea>
             </div>
                 <div><span class="btn btn-light btn-file mr-2" data-toggle="tooltip" data-placement="bottom"
                            title="Прикрепить файлы">

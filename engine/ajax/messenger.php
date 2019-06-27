@@ -5,6 +5,7 @@ global $cometPdo;
 global $datetime;
 global $id;
 global $idc;
+global $roleu;
 
 require_once 'engine/backend/functions/common-functions.php';
 require_once 'engine/backend/functions/mail-functions.php';
@@ -72,6 +73,7 @@ if ($_POST['module'] == 'updateMessages') {
 if ($_POST['module'] == 'updateChat') {
     $messageId = filter_var($_POST['messageId'], FILTER_SANITIZE_NUMBER_INT);
     $messages = getChatMessageById($messageId);
+    $isCeoAndInChat = $roleu == 'ceo';
     foreach ($messages as $message) {
         include 'engine/frontend/other/message.php';
     }

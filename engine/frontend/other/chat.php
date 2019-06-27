@@ -1,10 +1,16 @@
 <div class="card">
-    <div class="card-header">
-        <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
-                    class="fas fa-arrow-left icon-invite"></i></a>
-        <a href="/company/" class="mb-0 h5 ml-3">Чат компании</a>
+    <div class="card-header text-center bg-mail">
+        <div class="position-absolute">
+            <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
+                        class="fas fa-arrow-left icon-invite"></i></a>
+        </div>
+
+
+        <div>
+            <a href="/company/" class="mb-0 h5">Чат компании</a>
+        </div>
     </div>
-    <div class="card-body p-0" id="chatBox">
+    <div class="card-body p-0 border-bottom" id="chatBox">
         <?php if ($messages): ?>
             <?php foreach ($messages as $message): ?>
                 <?php include 'engine/frontend/other/message.php'; ?>
@@ -14,21 +20,22 @@
         <?php endif; ?>
     </div>
 </div>
-<div class="card mt-3">
+<div class="card border-top bg-mail">
     <div class="card-body pb-0">
         <form>
+            <div class="d-flex">
             <div class="form-group w-100 mr-2 text-area">
                 <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
                           placeholder="<?= $GLOBALS['_enterconversation'] ?>"
                           ></textarea>
             </div>
-            <div class="mb-3">
-                <input type="button" class="btn btn-primary" id="sendBtn"
-                       value="<?= $GLOBALS['_sendconversation'] ?>">
-                <span class="btn btn-light btn-file float-right" data-toggle="tooltip" data-placement="bottom"
-                      title="Прикрепить файлы">
+                <div><span class="btn btn-light btn-file mr-2" data-toggle="tooltip" data-placement="bottom"
+                           title="Прикрепить файлы">
                         <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
-                </span>
+                </span></div>
+                <div><input type="button" class="btn btn-primary" id="sendBtn"
+                            value="<?= $GLOBALS['_sendconversation'] ?>"></div>
+
             </div>
         </form>
         <div class="newmess"></div>
@@ -38,12 +45,17 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
+    $("#mes").keydown(function (e) {
+        if (e.ctrlKey && e.keyCode == 13) {
+            $("#sendBtn").click();
+        }
+    });
     (function (b) {
         b.fn.autoResize = function (f) {
             var a = b.extend({
                 onResize: function () {
                 }, animate: !0, animateDuration: 150, animateCallback: function () {
-                }, extraSpace: 20, limit: 1E3
+                }, extraSpace: 14, limit: 1E3
             }, f);
             this.filter("textarea").each(function () {
                 var d = b(this).css({"overflow-y": "hidden", display: "block"}), f = d.height(), g = function () {
@@ -72,6 +84,7 @@
         jQuery('textarea').autoResize();
     });
 
+
     var $userId = <?=$id?>;
     var pageName = 'chat';
     $(document).ready(function () {
@@ -93,7 +106,11 @@
                     data: fd,
                     success: function (response) {
                         console.log(response);
+                        if ($('#chatBox').find($('.no-messages')).length) {
+                            $('.no-messages').remove();
+                        }
                         $('#chatBox').append(response).scrollTop($("#chatBox")[0].scrollHeight);
+
                     },
                 });
             }
