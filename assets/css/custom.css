@@ -653,12 +653,12 @@ input:checked[type="checkbox"]::before {
 }
 
 .edit-settings{
-    right: 5px;
+    right: 0px;
     top: 7px;
 }
 
 .noty-padding-checkbox-settings{
-    padding-left: 10px;
+    float: right;
 }
 
 .edit-settings-saved{
@@ -2013,10 +2013,6 @@ span.date {
 
     .deadline-block-word{
         display: none;
-    }
-
-    .noty-padding-checkbox-settings{
-        padding-left: 0px;
     }
 
     .add-newtask-button{
