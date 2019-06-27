@@ -68,10 +68,13 @@ if ($isAuthorized) {
     if (!empty($_GET['task']) or !empty($_GET['tasks'])) {
         $title = 'Задача';
     }
+    if (!empty($_GET['folder']) && $_GET['folder'] == 'chat') {
+        $title = 'Чат компании';
+    }
     if (!empty($_GET['mail'])) {
         $recipientIdc = DBOnce('idcompany', 'users', 'id=' . $_GET['mail']);
         if ($idc == $recipientIdc || $id == $_GET['mail']) {
-            $title = 'Сообщения';
+            $title = 'Диалоги';
         } else {
             header('location: /mail/');
             die();

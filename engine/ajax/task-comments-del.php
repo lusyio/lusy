@@ -1,7 +1,7 @@
 <?php
 $idcom = str_replace("#", "", $_POST['ic']);
 
-$query = 'SELECT file_id, file_path FROM `uploads` WHERE comment_id = :commentId';
+$query = "SELECT file_id, file_path FROM `uploads` WHERE comment_id = :commentId and comment_type = 'comment'";
 $dbh = $pdo->prepare($query);
 $dbh->execute(array(':commentId' => $idcom));
 $files = $dbh->fetchAll(PDO::FETCH_ASSOC);
