@@ -85,6 +85,12 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status I
         } else {
             $isTaskRead = true;
         }
+        if (empty($n['countNewComments'])) {
+            $n['countNewComments'] = 0;
+        }
+        if (empty($n['countNewFiles'])) {
+            $n['countNewFiles'] = 0;
+        }
         include 'engine/frontend/other/task-card.php';
     endforeach;
 }
@@ -176,6 +182,12 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status =
         } else {
             $isTaskRead = true;
         }
+        if (empty($n['countNewComments'])) {
+            $n['countNewComments'] = 0;
+        }
+        if (empty($n['countNewFiles'])) {
+            $n['countNewFiles'] = 0;
+        }
         include 'engine/frontend/other/task-card.php';
     endforeach;
 }
@@ -266,6 +278,12 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status =
             $isTaskRead = false;
         } else {
             $isTaskRead = true;
+        }
+        if (empty($n['countNewComments'])) {
+            $n['countNewComments'] = 0;
+        }
+        if (empty($n['countNewFiles'])) {
+            $n['countNewFiles'] = 0;
         }
         include 'engine/frontend/other/task-card.php';
     endforeach;
