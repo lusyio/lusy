@@ -1038,6 +1038,7 @@ input:checked[type="checkbox"]::before {
 
 .new-menu-trigger{
     cursor: pointer;
+    border-radius: 50%;
 }
 
 .new-menu-trigger:hover {
@@ -1996,6 +1997,10 @@ span.date {
         width: 100%;
         border-top: 1px solid rgba(0,0,0,.1);
         padding: 10px 0px 5px;
+        justify-content: space-between;
+    }
+    .counters-topsidebar {
+        margin-left: -15px;
     }
     [data-trigger="dropdown"] {
     padding: 0;
