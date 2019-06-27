@@ -5,25 +5,22 @@
 
 <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-10">
-        <div class="card">
-            <div class="card-body p-4">
-                <div class="position-relative">
-                    <a data-toggle="tooltip" data-placement="bottom" title="Назад к профилю" class="position-absolute"
-                       style="top: 5px;"
-                       href="/profile/">
-                        <i class="fas fa-arrow-left icon-invite"></i>
-                    </a>
-                    <div class="text-reg mb-3 ml-4" style="font-weight: 300;">
-                        Настройки профиля
-                    </div>
-                    <span class="position-absolute edit-settings">
+        <div class="accordion" id="accordionSettings">
+            <div class="card">
+                <div class="card-header bg-mail">
+                    <div class="position-relative">
+                        <div class="text-reg" style="font-weight: 300;">
+                            Настройки профиля
+                        </div>
+                        <span class="position-absolute edit-settings">
                         <a data-toggle="collapse" href="#collapseProfile" role="button" aria-expanded="false"
                            aria-controls="collapseProfile" class="small text-muted">Изменить</a>
                     </span>
+                    </div>
                 </div>
-                <div class="accordion" id="accordionSettings">
-                    <div class="collapse show" id="collapseProfile" aria-labelledby="headingOne"
-                         data-parent="#accordionSettings">
+                <div class="collapse show" id="collapseProfile" aria-labelledby="headingOne"
+                     data-parent="#accordionSettings">
+                    <div class="card-body p-4">
                         <div class="row">
                             <div class="col-5 col-lg-5 text-center">
                                 <a class="float-right <?= (strpos(getAvatarLink($id), 'alter')) ? 'd-none' : ''; ?>"
@@ -82,7 +79,6 @@
                                 <?= $userData['name']; ?> <?= $userData['surname']; ?>
                             </div>
                         </div>
-
 
                         <div class="row pt-4">
                             <div class="col-6">
@@ -184,135 +180,153 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <?php if ($roleu == 'ceo'): ?>
-                        <hr>
+            <?php if ($roleu == 'ceo'): ?>
+                <div class="card">
+                    <div class="card-header border-top bg-mail">
                         <div class="position-relative">
-                            <div class="text-reg mb-3 mt-3" style="font-weight: 300;">
+                            <div class="text-reg" style="font-weight: 300;">
                                 <?= $GLOBALS['_companysettings'] ?>
                             </div>
                             <span class="position-absolute edit-settings">
                             <a data-toggle="collapse" href="#collapseCompany" role="button" aria-expanded="false"
                                aria-controls="collapseCompany" class="small text-muted">Изменить</a>
                         </span>
-                            <div class="collapse" id="collapseCompany" aria-labelledby="headingTwo"
-                                 data-parent="#accordionSettings">
-                                <div class="input-group">
-                                    <input id="companyName" name="companyName" type="text"
-                                           class="form-control input-settings company-name"
-                                           value="<?= $companyData['idcompany'] ?>">
-                                </div>
-                                <div>
-                                    <small class="text-muted text-muted-reg">
-                                        <?= $GLOBALS['_namecompanysettings'] ?>
-                                    </small>
-                                </div>
-                                <div class="input-group mt-3">
-                                    <input id="companyFullName" name="companyFullName" type="text"
-                                           class="form-control input-settings company-full-name"
-                                           value="<?= $companyData['full_company_name'] ?>">
-                                </div>
-                                <div>
-                                    <small class="text-muted text-muted-reg">
-                                        <?= $GLOBALS['_fullnamecompanysettings'] ?>
-                                    </small>
-                                </div>
-                                <div class="input-group mt-3">
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseCompany" aria-labelledby="headingTwo"
+                         data-parent="#accordionSettings">
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input id="companyName" name="companyName" type="text"
+                                       class="form-control input-settings company-name"
+                                       value="<?= $companyData['idcompany'] ?>">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_namecompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="input-group mt-3">
+                                <input id="companyFullName" name="companyFullName" type="text"
+                                       class="form-control input-settings company-full-name"
+                                       value="<?= $companyData['full_company_name'] ?>">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_fullnamecompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="input-group mt-3">
                             <textarea id="companyDescription" name="companyDescription" type="text"
                                       class="form-control input-settings  company-description"><?= $companyData['description'] ?></textarea>
-                                </div>
-                                <div>
-                                    <small class="text-muted text-muted-reg">
-                                        <?= $GLOBALS['_aboutcompanysettings'] ?>
-                                    </small>
-                                </div>
-                                <div class="input-group mt-3">
-                                    <input id="companySite" name="companySite" type="text"
-                                           class="form-control input-settings company-site"
-                                           value="<?= $companyData['site'] ?>">
-                                </div>
-                                <div>
-                                    <small class="text-muted text-muted-reg">
-                                        <?= $GLOBALS['_websitecompanysettings'] ?>
-                                    </small>
-                                </div>
-                                <div class="input-group mt-3">
-                                    <select id="companyTimezone" name="companyTimezone"
-                                            class="form-control input-settings company-timezone">
-                                        <option></option>
-                                        <?php foreach ($timeZones as $timeZone => $text): ?>
-                                            <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone) ? 'selected' : '' ?>><?= $text ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div>
-                                    <small class="text-muted text-muted-reg">
-                                        <?= $GLOBALS['_clockcompanysettings'] ?>
-                                    </small>
-                                </div>
-                                <div class="text-center mt-5 pb-4">
-                                    <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
-                                        <?= $GLOBALS['_savecompanysettings'] ?>
-                                    </button>
-                                </div>
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_aboutcompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="input-group mt-3">
+                                <input id="companySite" name="companySite" type="text"
+                                       class="form-control input-settings company-site"
+                                       value="<?= $companyData['site'] ?>">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_websitecompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="input-group mt-3">
+                                <select id="companyTimezone" name="companyTimezone"
+                                        class="form-control input-settings company-timezone">
+                                    <option></option>
+                                    <?php foreach ($timeZones as $timeZone => $text): ?>
+                                        <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone) ? 'selected' : '' ?>><?= $text ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_clockcompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="text-center mt-5 pb-4">
+                                <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
+                                    <?= $GLOBALS['_savecompanysettings'] ?>
+                                </button>
                             </div>
                         </div>
-                    <?php endif; ?>
-                    <hr>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <div class="card">
+                <div class="card-header border-top bg-mail">
                     <div class="position-relative">
-                        <div class="text-reg mb-3 mt-3" style="font-weight: 300;">
+                        <div class="text-reg" style="font-weight: 300;">
                             Смена пароля
                         </div>
                         <span class="position-absolute edit-settings">
                         <a data-toggle="collapse" href="#collapsePassword" role="button" aria-expanded="false"
                            aria-controls="collapsePassword" class="small text-muted">Изменить</a>
-                    </span>
-                        <div class="collapse" id="collapsePassword" aria-labelledby="headingThree"
-                             data-parent="#accordionSettings">
-                            <div class="row">
-                                <div class="col-12 col-lg-6">
-                                    <div class="input-group mt-3">
-                                        <input id="password" name="password" type="password"
-                                               class="form-control input-settings password"
-                                               required>
-                                    </div>
-                                    <small class="text-muted text-muted-reg">
-                                        <?= $GLOBALS['_passwordsettings'] ?>
-                                    </small>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="collapse" id="collapsePassword" aria-labelledby="headingThree"
+                     data-parent="#accordionSettings">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="input-group mt-3">
+                                    <input id="password" name="password" type="password"
+                                           class="form-control input-settings password"
+                                           required>
                                 </div>
-                                <div class="col-12 col-lg-6">
-                                    <div class="input-group mt-3">
-                                        <input id="settingsNewPassword" name="settingsNewPassword" type="password"
-                                               class="form-control input-settings new-password">
-                                    </div>
-                                    <small class="text-muted text-muted-reg">
-                                        <?= $GLOBALS['_newpasswordsettings'] ?>
-                                    </small>
-                                </div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_passwordsettings'] ?>
+                                </small>
                             </div>
-                            <div class="row mt-5 pb-4 text-center">
-                                <div class="col-12">
-                                    <button class="btn btn-outline-primary" id="sendPassword" type="submit">
-                                        Сохранить пароль
-                                    </button>
+                            <div class="col-12 col-lg-6">
+                                <div class="input-group mt-3">
+                                    <input id="settingsNewPassword" name="settingsNewPassword" type="password"
+                                           class="form-control input-settings new-password">
                                 </div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_newpasswordsettings'] ?>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="row mt-5 pb-4 text-center">
+                            <div class="col-12">
+                                <button class="btn btn-outline-primary" id="sendPassword" type="submit">
+                                    Сохранить пароль
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="position-relative">
-                        <div class="text-reg mb-3 mt-3" style="font-weight: 300;">
-                            Уведомления
+                </div>
+                <div class="card">
+                    <div class="card-header border-top bg-mail">
+                        <div class="position-relative">
+                            <div class="text-reg" style="font-weight: 300;">
+                                Уведомления
+                            </div>
+                            <span class="position-absolute edit-settings">
+                                <a data-toggle="collapse" href="#collapseNoty" role="button" aria-expanded="false"
+                                   aria-controls="collapseNoty" class="small text-muted">Изменить</a>
+                            </span>
+                            <span class="position-absolute edit-settings edit-settings-saved">
+                                <span class="text-muted small">Изменения сохранены</span>
+                            </span>
                         </div>
-                        <span class="position-absolute edit-settings">
-                        <a data-toggle="collapse" href="#collapseNoty" role="button" aria-expanded="false"
-                           aria-controls="collapseNoty" class="small text-muted">Изменить</a>
-                    </span>
-                        <span class="position-absolute edit-settings edit-settings-saved">
-                        <span class="text-muted small">Изменения сохранены</span>
-                    </span>
-                        <div class="collapse" id="collapseNoty" aria-labelledby="headingFour"
-                             data-parent="#accordionSettings">
+                    </div>
+
+                    <div class="collapse" id="collapseNoty" aria-labelledby="headingFour"
+                         data-parent="#accordionSettings">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-2">
                                     <div class="rounded-circle text-center noty-icon-settings">
@@ -455,12 +469,12 @@
                             </div>
                         </div>
                     </div>
-                    <hr class="mb-0">
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
     $(function () {

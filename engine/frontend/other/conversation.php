@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header text-center" style="background-color: #fafafa">
+    <div class="card-header text-center bg-mail">
         <div class="position-absolute">
             <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
                         class="fas fa-arrow-left icon-invite"></i></a>
@@ -20,7 +20,7 @@
         <?php endif; ?>
     </div>
 </div>
-<div class="card border-top" style="background-color: #fafafa">
+<div class="card border-top bg-mail">
     <div class="card-body pb-0">
         <form>
             <div class="form-group w-100 mr-2 text-area">

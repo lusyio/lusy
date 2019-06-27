@@ -25,6 +25,10 @@ body{
     background-color: white !important;
 }
 
+.bg-mail{
+    background-color: #fafafa;
+}
+
 .top-sidebar {
     background-color: rgb(255, 255, 255);
     box-shadow: rgba(13, 28, 60, 0.05) 0px 4px 15px 0px;
@@ -1392,7 +1396,6 @@ a {
 }
 .noty-padding-content-settings{
     padding-top: 10px;
-    padding-bottom: 10px;
 }
 .hr-settings{
     width: 90%;
@@ -1999,6 +2002,10 @@ span.date {
     }
     [data-trigger="dropdown"] {
     padding: 0;
+    }
+
+    .noty-padding-content-settings{
+        padding-top: 0px;
     }
 
     .badge-company-dark{
