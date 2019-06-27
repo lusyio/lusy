@@ -280,7 +280,7 @@
                 <hr>
                 <div class="position-relative">
                     <div class="text-reg mb-3 mt-3 ml-2" style="font-weight: 300;">
-                        Уведомления на почту
+                        Уведомления
                     </div>
                     <span class="position-absolute edit-settings">
                         <a data-toggle="collapse" href="#collapseNoty" role="button" aria-expanded="false"
