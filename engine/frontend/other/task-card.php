@@ -19,6 +19,7 @@
                                 </div>
                                 <div class="informer d-flex">
                                     <i class="fas fa-file"></i><span class="ml-1"><?=$n['countAttachedFiles']?></span>
+                                    <span class="ml-1 text-primary"><?=($n['countNewFiles'] > 0) ? '+' . $n['countNewFiles'] : ''?></span>
                                 </div>
                             </div>
                         </div>

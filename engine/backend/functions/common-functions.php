@@ -233,6 +233,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             ':companyId' => $idc,
             ':datetime' => time(),
             ':viewStatus' => 0,
+            ':comment' => $comment,
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -242,9 +243,10 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             ':companyId' => $idc,
             ':datetime' => time(),
             ':viewStatus' => 1,
+            ':comment' => $comment,
         ];
-        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, view_status) 
-      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :viewStatus)');
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, view_status, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :viewStatus, :comment)');
         $addEventQuery->execute($eventDataForWorker);
         $addEventQuery->execute($eventDataForManager);
         $managerEventId = $pdo->lastInsertId();
