@@ -6,3 +6,7 @@ create table chat
   author_id int null,
   datetime int null
 );
+
+
+alter table users
+  add last_viewed_chat_message int default 0 null;
