@@ -1,16 +1,10 @@
 <div class="card">
-    <div class="card-header text-center bg-mail">
-        <div class="position-absolute">
-            <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
-                        class="fas fa-arrow-left icon-invite"></i></a>
-        </div>
-        <div>
-            <a href="/profile/<?= $recipientId ?>/" class="mb-0 h5"><?= fiomess($recipientId) ?>
-                <i class="fas fa-circle mr-1 ml-1 onlineIndicator <?= (in_array($recipientId, $onlineUsersList)) ? 'text-success' : '' ?>"></i>
-            </a>
-        </div>
+    <div class="card-header">
+        <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
+                    class="fas fa-arrow-left icon-invite"></i></a>
+        <a href="/company/" class="mb-0 h5 ml-3">Чат компании</a>
     </div>
-    <div class="card-body p-0 border-bottom" id="chatBox">
+    <div class="card-body p-0" id="chatBox">
         <?php if ($messages): ?>
             <?php foreach ($messages as $message): ?>
                 <?php include 'engine/frontend/other/message.php'; ?>
@@ -20,19 +14,19 @@
         <?php endif; ?>
     </div>
 </div>
-<div class="card border-top bg-mail">
+<div class="card mt-3">
     <div class="card-body pb-0">
         <form>
             <div class="form-group w-100 mr-2 text-area">
                 <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
                           placeholder="<?= $GLOBALS['_enterconversation'] ?>"
-                          required></textarea>
+                          ></textarea>
             </div>
             <div class="mb-3">
                 <input type="button" class="btn btn-primary" id="sendBtn"
                        value="<?= $GLOBALS['_sendconversation'] ?>">
                 <span class="btn btn-light btn-file float-right" data-toggle="tooltip" data-placement="bottom"
-                      title="Прикрепить файлы" style="background-color: #fafafa; border: none">
+                      title="Прикрепить файлы">
                         <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
                 </span>
             </div>
@@ -78,17 +72,16 @@
         jQuery('textarea').autoResize();
     });
 
-    var $recipientId = <?= $recipientId ?>;
     var $userId = <?=$id?>;
-    var pageName = 'conversation';
+    var pageName = 'chat';
     $(document).ready(function () {
         cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
-        cometApi.subscription("msg.new", function (e) {
-            console.log(e);
-            if (e.data.senderId == $recipientId && e.data.recipientId == $userId || e.data.senderId == $userId && e.data.recipientId == $recipientId) {
+        cometApi.subscription("<?=getCometTrackChannelName()?>", function (e) {
+            console.log(e.server_info.event);
+            if (e.server_info.event === 'newChat') {
                 var fd = new FormData();
                 fd.append('messageId', e.data.messageId);
-                fd.append('module', 'updateMessages');
+                fd.append('module', 'updateChat');
                 fd.append('ajax', 'messenger');
                 $.ajax({
                     url: '/ajax.php',
@@ -100,20 +93,9 @@
                     data: fd,
                     success: function (response) {
                         console.log(response);
-                        if ($('#chatBox').find($('.no-messages')).length) {
-                            $('.no-messages').remove();
-                        }
-                        if (e.data.senderId == $userId) {
-                            $("#mes").val('');
-                        }
                         $('#chatBox').append(response).scrollTop($("#chatBox")[0].scrollHeight);
-                        getCounters(function (data) {
-                            updateCounters(data);
-                        });
                     },
                 });
-            } else if (e.data.senderId != $userId) {
-                updateMessagesCounter();
             }
 
         });
@@ -162,6 +144,14 @@
 
         });
 
+        $('#chatBox').on('click', '.not-my-message', function () {
+            var name = $(this).find('.sender-name').text();
+            var text = $('#mes').val();
+            if (text.indexOf(name) <0) {
+                $('#mes').val(name + ', ' + text);
+            }
+        });
+
         var marker = true;
 
         function count() {
@@ -194,12 +184,11 @@
             var mes = $("#mes").val();
             attachFile();
             var fd = new FormData();
-            fd.append('module', 'sendMessage');
+            fd.append('module', 'sendMessageToChat');
             fd.append('file', attachedFiles[0]);
             fd.append('file1', attachedFiles[1]);
             fd.append('file2', attachedFiles[2]);
             fd.append('ajax', 'messenger');
-            fd.append('recipientId', '<?=$recipientId;?>');
             fd.append('mes', mes);
             if (mes) {
                 $.ajax({
@@ -218,6 +207,7 @@
                         $("#mes").val('');
                         $(".filenames").html("");
                         attachedFiles = [];
+                        $("#mes").val('');
 
                     },
                 });
@@ -233,7 +223,7 @@
                 var messageId = $(el).data('message-id');
                 var fd = new FormData();
                 fd.append('ajax', 'messenger');
-                fd.append('module', 'markMessageAsRead');
+                fd.append('module', 'markChatMessageAsRead');
                 fd.append('messageId', messageId);
 
                 $.ajax({

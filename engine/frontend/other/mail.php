@@ -36,6 +36,20 @@
                 </div>
             </div>
             <div class="list-group dialog">
+                <div class="dialog-mail border-secondary p-3">
+                    <a class="text-decoration-none text-dark" href="/chat/">
+                        <div class="row">
+                            <div class="col-2 pl-2">
+<!--                                место для аватарки компании-->
+                            </div>
+                            <div class="col" style="max-width: 83%;">
+                                <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
+                                <span><?= ($lastChatMessage['sender'] == $id)? 'Вы: ' : fiomess($lastChatMessage['sender']) . ': ';?> <?= $lastChatMessage['mes'] ?></span>
+                                <span class="date mr-2"><?= date('d.m H:i', $lastChatMessage['datetime']); ?></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 <?php
                 foreach ($dialog as $n) {
                     $newMessages = numberOfNewMessages($n);
@@ -55,10 +69,6 @@
                                 </div>
                                 <div class="col" style="max-width: 83%;">
                                     <p class="mb-2 font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= fiomess($n) ?><?= ($newMessages) ? ' +' . $newMessages : ''; ?>
-                                        <!--                                        <span id="dialog--->
-                                        <? //= $n ?><!--"-->
-                                        <!--                                              class="badge badge-success -->
-                                        <? //= ($isOnline) ? '' : 'd-none' ?><!--">Online</span>-->
                                     </p>
                                     <span><?= ($lastMessage['sender'] == $id)? 'Вы: ' : '';?> <?= $lastMessage['mes'] ?></span>
                                     <span class="date mr-2"><?= date('d.m H:i', $lastMessage['datetime']); ?></span>

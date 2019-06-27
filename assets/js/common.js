@@ -91,6 +91,14 @@ function onlineStatusCheckIn(channelName) {
     cometApi.subscription(channelName, function(data){} )
 }
 
+function subscribeToChatNotification(channelName) {
+    cometApi.subscription(channelName, function (e) {
+        getCounters(function (data) {
+            updateCounters(data);
+        });
+    });
+}
+
 function subscribeToOnlineStatusNotification (channelName) {
     var justLeftUsers = new Set();
     CometServer().subscription(channelName + ".subscription", function(msg)
