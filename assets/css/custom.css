@@ -657,6 +657,10 @@ input:checked[type="checkbox"]::before {
     top: 7px;
 }
 
+.noty-padding-checkbox-settings{
+    padding-left: 10px;
+}
+
 .edit-settings-saved{
     display: none;
 }
@@ -1387,7 +1391,8 @@ a {
     font-size: 25px;
 }
 .noty-padding-content-settings{
-    padding: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .hr-settings{
     width: 90%;
@@ -2008,6 +2013,10 @@ span.date {
 
     .deadline-block-word{
         display: none;
+    }
+
+    .noty-padding-checkbox-settings{
+        padding-left: 0px;
     }
 
     .add-newtask-button{
