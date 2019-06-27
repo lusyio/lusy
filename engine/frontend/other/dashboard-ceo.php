@@ -86,72 +86,73 @@ $borderColor = [
 
             <div class="bottomGradient"></div>
         </div>
-        <div class="swiper-container">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide">
-                    <?php
-                    $i = 1;
-                    foreach ($tasks as $task):
-                        ?>
-                        <a href="/task/<?= $task['id'] ?>/" class="text-decoration-none cust">
-                            <div class="task-card">
-                                <div class="card mb-2 tasks">
-                                    <div class="card-body tasks-list">
-                                        <div class="d-block border-left-tasks <?= $borderColor[$task['status']] ?>">
-                                            <p class="font-weight-light text-ligther d-none"><?= _('Done') ?></p>
-                                            <div class="row">
-                                                <div class="col-9">
-                                                    <div>
-                                                        <span class="taskname"><?= $task['name'] ?></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-3 p-0">
-                                                    <span></span><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></span>
-                                                </div>
+
+    </div>
+</div>
+<div class="swiper-container" id="mainSwiper">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide">
+            <?php
+            $i = 1;
+            foreach ($tasks as $task):
+                ?>
+                <a href="/task/<?= $task['id'] ?>/" class="text-decoration-none cust">
+                    <div class="task-card">
+                        <div class="card mb-2 tasks">
+                            <div class="card-body tasks-list">
+                                <div class="d-block border-left-tasks <?= $borderColor[$task['status']] ?>">
+                                    <p class="font-weight-light text-ligther d-none"><?= _('Done') ?></p>
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <div>
+                                                <span class="taskname"><?= $task['name'] ?></span>
                                             </div>
+                                        </div>
+                                        <div class="col-3 p-0">
+                                            <span></span><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                        <?php
-                        $i++;
-                        if ($i == 3) {
-                            echo '</div> <div class="swiper-slide">';
-                        }
-                        ?>
-                    <?php endforeach; ?>
-                    <?php if ($countAllTasks > 20): ?>
-                        <a href="/tasks/" class="text-decoration-none cust">
-                            <div class="task-card">
-                                <div class="card mb-2 tasks  pending manager">
-                                    <div class="card-body tasks-list">
-                                        <div class="d-block">
-                                            <p class="font-weight-light text-ligther d-none"><?= _('Done') ?></p>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="text-center">
-                                                        <span class="taskname"><?= _('Show all tasks') ?></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    <?php endif; ?>
-                    <?php if ($countAllTasks == 0): ?>
-                        <div class="card search-empty">
-                            <div class="card-body">
-                                <span><?= _('You have no tasks yet, create the first task.') ?></span>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    </div>
+                </a>
+                <?php
+                $i++;
+                if (($i % 3) == 1) {
+                    echo '</div> <div class="swiper-slide">';
+                }
+                ?>
+            <?php endforeach; ?>
+            <?php if ($countAllTasks > 20): ?>
+                <a href="/tasks/" class="text-decoration-none cust">
+                    <div class="task-card">
+                        <div class="card mb-2 tasks  pending manager">
+                            <div class="card-body tasks-list">
+                                <div class="d-block">
+                                    <p class="font-weight-light text-ligther d-none"><?= _('Done') ?></p>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="text-center">
+                                                <span class="taskname"><?= _('Show all tasks') ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <?php endif; ?>
+            <?php if ($countAllTasks == 0): ?>
+                <div class="card search-empty">
+                    <div class="card-body">
+                        <span><?= _('You have no tasks yet, create the first task.') ?></span>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

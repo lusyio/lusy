@@ -40,7 +40,7 @@
                     <a class="text-decoration-none text-dark" href="/chat/">
                         <div class="row">
                             <div class="col-2 pl-2">
-<!--                                место для аватарки компании-->
+                                <span class="companyAvatar user-pic position-relative"><i class="far fa-comments fa-fw"></i></span>
                             </div>
                             <div class="col" style="max-width: 83%;">
                                 <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
