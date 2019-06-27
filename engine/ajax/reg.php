@@ -9,7 +9,8 @@ if ($_POST['module'] == 'joinUser') {
     $inviteeMail = filter_var(trim($_POST['inviteeMail']), FILTER_SANITIZE_STRING);
     $inviteeName = filter_var(trim($_POST['inviteeName']), FILTER_SANITIZE_STRING);
     $inviteeSurname = filter_var(trim($_POST['inviteeSurname']), FILTER_SANITIZE_STRING);
-    $inviteePassword = filter_var(trim($_POST['inviteePassword']), FILTER_SANITIZE_STRING);
+    $inviteePassword = trim($_POST['inviteePassword']);
+    $inviteePassword = filter_var($inviteePassword, FILTER_SANITIZE_STRING);
 
     $inviteData = readInviteByCode($inviteCode);
     if (!$inviteData || $inviteData['status']) {

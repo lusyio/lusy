@@ -23,18 +23,19 @@
 <div class="card border-top bg-mail">
     <div class="card-body pb-0">
         <form>
-            <div class="form-group w-100 mr-2 text-area">
+            <div class="d-flex">
+            <div class="form-group w-100 mr-2">
                 <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
-                          placeholder="<?= $GLOBALS['_enterconversation'] ?>"
+                          placeholder="<?= $GLOBALS['_enterconversation'] ?>" autofocus
                           required></textarea>
             </div>
-            <div class="mb-3">
-                <input type="button" class="btn btn-primary" id="sendBtn"
-                       value="<?= $GLOBALS['_sendconversation'] ?>">
-                <span class="btn btn-light btn-file float-right" data-toggle="tooltip" data-placement="bottom"
-                      title="Прикрепить файлы" style="background-color: #fafafa; border: none">
+                <div><span class="btn btn-light btn-file mr-2" data-toggle="tooltip" data-placement="bottom"
+                           title="Прикрепить файлы">
                         <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
-                </span>
+                </span></div>
+                <div><input type="button" class="btn btn-primary" id="sendBtn"
+                            value="<?= $GLOBALS['_sendconversation'] ?>"></div>
+
             </div>
         </form>
         <div class="newmess"></div>
@@ -44,12 +45,17 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
+    $("#mes").keydown(function (e) {
+        if (e.ctrlKey && e.keyCode == 13) {
+            $("#sendBtn").click();
+        }
+    });
     (function (b) {
         b.fn.autoResize = function (f) {
             var a = b.extend({
                 onResize: function () {
                 }, animate: !0, animateDuration: 150, animateCallback: function () {
-                }, extraSpace: 20, limit: 1E3
+                }, extraSpace: 14, limit: 1E3
             }, f);
             this.filter("textarea").each(function () {
                 var d = b(this).css({"overflow-y": "hidden", display: "block"}), f = d.height(), g = function () {

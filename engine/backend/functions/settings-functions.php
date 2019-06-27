@@ -36,6 +36,7 @@ function setNewPassword($newPassword)
 {
     global $id;
     global $pdo;
+    $newPassword = trim($newPassword);
     $hash = password_hash($newPassword, PASSWORD_DEFAULT);
     $setNewPasswordQuery = $pdo->prepare('UPDATE users SET password = :newPassword WHERE id = :userId');
     $setNewPasswordQuery->execute(array(':newPassword' => $hash,  ':userId' => $id));
