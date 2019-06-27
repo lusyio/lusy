@@ -1869,6 +1869,10 @@ span.date {
     letter-spacing: 2px;
 }
 
+.swiper-container {
+    width: 345px;
+    height: 213px;
+}
 
 @keyframes show {
     0% {
@@ -2032,6 +2036,10 @@ span.date {
 
     .noty-padding-content-settings{
         padding-top: 0px;
+    }
+
+    #taskListSlide{
+        display: none;
     }
 
     .chart-content{
