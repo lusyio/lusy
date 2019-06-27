@@ -106,7 +106,8 @@ $badges = [
             <?php
             foreach ($achievementProfile as $name => $values):?>
                 <?php if ($values['got']): ?>
-                    <div class="award award-sm mt-3" title="Заполнил профиль">
+                    <div class="award award-sm mt-3" data-toggle="tooltip" data-placement="bottom"
+                         title="<?= $GLOBALS['_' . $name . '_text'] ?>">
                         <div>
                             <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
                                  data-value="1.00"></div>
@@ -128,30 +129,15 @@ $badges = [
     </div>
 </div>
 
-<div class="d-none">
-    <div class="achievement-sm mr-2 mt-3" data-toggle="tooltip" data-placement="bottom" title="Новичок">
-        <div class="circle-sm" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}" data-value="1"></div>
-        <div class="award-star award-sm bg-primary">
-            <i class="fas fa-star" style="color: white;margin-right: 1px;"></i>
-        </div>
-    </div>
-    <div class="achievement-sm mr-2 mt-3" data-toggle="tooltip" data-placement="bottom" title="Начало карьеры">
-        <div class="circle-sm" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}" data-value="1"></div>
-        <div class="award-star award-sm bg-primary">
-            <i class="fas fa-thumbs-up" style="color: white;margin-right: 1px;"></i>
-        </div>
-    </div>
-</div>
-
 <script>
     $(document).ready(function () {
         $('.award-sm:lt(3)').show();
         $('.text-all-achieve').on('click', function () {
-            if ($(this).hasClass('active')){
+            if ($(this).hasClass('active')) {
                 $('.award-sm:not(:lt(3))').fadeOut(200);
                 console.log('asdasd');
                 $(this).removeClass('active');
-            } else{
+            } else {
                 $(this).addClass('active');
                 $('.award-sm').show();
             }
