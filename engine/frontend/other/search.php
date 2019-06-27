@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-body">
                 <div id="taskSearch" class="resultSet">
-                    <h5 class="text-search"><?= $GLOBALS['_taskssearchtopsidebar'] ?>(<?= count($result['task']); ?>)</h5>
+                    <h5 class="text-search"><?= $GLOBALS['_taskssearchtopsidebar'] ?> (<?= count($result['task']); ?>)</h5>
                     <hr>
                     <?php foreach ($result['task'] as $resultItem): ?>
                         <a class="search-row" href="../task/<?= $resultItem['id'] ?>/">
@@ -31,7 +31,7 @@
                     <?php endforeach; ?>
                 </div>
                 <div id="commentSearch" class="resultSet mt-2">
-                    <h5 class="text-search"><?= $GLOBALS['_commentssearchtopsidebar'] ?>(<?= count($result['comment']); ?>)</h5>
+                    <h5 class="text-search"><?= $GLOBALS['_commentssearchtopsidebar'] ?> (<?= count($result['comment']); ?>)</h5>
                     <hr>
                     <?php foreach ($result['comment'] as $resultItem): ?>
                         <a class="search-row" href="../task/<?= $resultItem['idtask'] ?>/#<?= $resultItem['id'] ?>">

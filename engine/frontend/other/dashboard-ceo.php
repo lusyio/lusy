@@ -16,8 +16,8 @@ $borderColor = [
 
 <div class="row">
     <div class="col-sm-4">
-        <div class="card overflow-hidden">
-            <div class="card-body pb-0">
+        <div class="card overflow-hidden chart-card">
+            <div class="card-body chart-content">
                 <div><span class="numberSlide"><?= $taskDoneCountOverall ?></span><i
                             class="iconSlide fas fa-check float-right"></i>
                 </div>

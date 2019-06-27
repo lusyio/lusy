@@ -21,6 +21,7 @@
     z-index: 3;
 }
 .all-achieve{
+    display: none;
     right: 15px;
     top: 3px;
 }

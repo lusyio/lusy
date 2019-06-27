@@ -1831,6 +1831,10 @@ span.date {
     box-shadow: none;
 }
 
+.chart-content{
+    padding-bottom: 0;
+}
+
 #search:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: rgba(255, 255, 255, 0.5);
 }
@@ -1853,6 +1857,7 @@ span.date {
 .navbar-brand {
     letter-spacing: 2px;
 }
+
 
 @keyframes show {
     0% {
@@ -1937,6 +1942,7 @@ span.date {
         width: 86%;
     }
 
+
     .navblock {
         padding-right: 0 !important;
     }
@@ -2009,13 +2015,25 @@ span.date {
     padding: 0;
     }
 
+    .chart-card{
+        margin-bottom: 15px;
+    }
+
     .noty-padding-content-settings{
         padding-top: 0px;
+    }
+
+    .chart-content{
+        padding-bottom: 1.25rem;
     }
 
     .badge-company-dark{
         background-color: #343a40 !important;
         color: white;
+    }
+
+    .chart-container{
+        display: none;
     }
 
     .badge-company-primary{
@@ -2127,6 +2145,7 @@ span.date {
         max-width: 162px;
         margin-right: 10px;
     }
+
 
     .award-sm:nth-child(3n){
         margin-right: 10px !important;

@@ -99,7 +99,7 @@ $badges = [
     </div>
 </div>
 
-<div class="row justify-content-center mt-3">
+<div class="row justify-content-center mt-3 d-none achievements-container">
     <div class="col-12 col-lg-10 col-md-10 col-xl-10">
         <h4 class="ml-2">Достижения</h4>
         <div class="d-flex flex-wrap text-center">
@@ -131,6 +131,12 @@ $badges = [
 
 <script>
     $(document).ready(function () {
+        if ($('.award-sm').length != 0) {
+            $('.achievements-container').removeClass('d-none');
+        }
+        if ($('.award-sm').length > 3) {
+            $('.all-achieve').show();
+        }
         $('.award-sm:lt(3)').show();
         $('.text-all-achieve').on('click', function () {
             if ($(this).hasClass('active')) {
