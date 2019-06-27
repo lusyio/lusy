@@ -5,7 +5,7 @@ $badges = [
     'bugReport_1' => 'fab fa-accessible-icon',
     'message_1' => 'fas fa-broadcast-tower',
     'taskOverdue_1' => 'fas fa-meh',
-    'taskPostpone_1' => 'fas fa-user-tie',
+    'taskPostpone_1' => 'fas fa-crown',
     'taskDoneWithCoworker_1' => 'fas fa-user-friends',
     'selfTask_1' => 'fas fa-user-tie',
     'taskDone_1' => 'fas fa-thumbs-up',
@@ -23,8 +23,8 @@ $badges = [
     'comment_1000' => 'fas fa-comment',
     'taskOverduePerMonth_0' => 'fas fa-medal',
     'taskDonePerMonth_leader' => 'fas fa-greater-than',
-    'taskInwork_20' => 'fas fa-user-graduate',
-    'taskCreatePerDay_30' => 'fas fa-user-graduate',
+    'taskInwork_20' => 'fas fa-brain',
+    'taskCreatePerDay_30' => 'fas fa-bolt',
 ];
 ?>
 <script src="/assets/js/circle-progress.min.js"></script>

@@ -136,7 +136,9 @@ $(document).ready(function () {
                 if (data) {
                     $('#taskBox').append(data);
                     countAll();
-                    $(".load-done").show();
+                    if ($('.done:visible').length === 20) {
+                        $(".load-done").show();
+                    }
                 } else {
                     $(".load-archive-page").hide()
                 }
@@ -168,9 +170,11 @@ $(document).ready(function () {
                 if (data) {
                     $('#taskBox').append(data);
                     countAll();
-                    $(".load-canceled").show()
+                    if ($('.canceled:visible').length === 20) {
+                        $(".load-canceled").show();
+                    }
                 } else {
-                    $(".load-archive-page").hide()
+                    $(".load-archive-page").hide();
                 }
             },
         });
@@ -221,7 +225,7 @@ $(document).ready(function () {
     });
 
     var rolesNames = {};
-    
+
     function pasteComma() {
         $('.comma').remove();
         $('.filter-select:visible:not(:empty):not(:last)').append('<span class="comma">, </span>')

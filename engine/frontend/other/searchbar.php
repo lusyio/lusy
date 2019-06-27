@@ -51,7 +51,7 @@
                     </div>
                 <?php endif; ?>
             </div>
-            <span class="status archive text-success"
+            <span class="status archive text-muted"
             <span class="status new-status"></span>
             <span class="status inwork-status"></span>
             <span class="status overdue-status"></span>

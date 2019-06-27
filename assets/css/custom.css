@@ -1213,9 +1213,9 @@ input:checked[type="checkbox"]::before {
 }
 
 .onlineIndicator{
-    font-size: 10px;
+    font-size: 13px;
     vertical-align: middle;
-    color: #898989;
+    color: #dcdcdc;
 }
 
 .mail{
