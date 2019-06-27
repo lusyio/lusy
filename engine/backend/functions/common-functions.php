@@ -576,6 +576,8 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         ];
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
+
+        sendAchievementEmailNotification($id, $comment);
     }
 }
 
@@ -1157,6 +1159,44 @@ function sendMessageEmailNotification($userId, $authorId)
             'authorName' => $authorName,
         ];
         $mail->setMessageContent('message', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendAchievementEmailNotification($userId, $achievementName)
+{
+    global $pdo;
+
+    $notifications = getNotificationSettings($userId);
+    if (!$notifications['achievement']) {
+        return;
+    }
+
+    $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM users u LEFT JOIN company c ON c.id = u.idcompany WHERE u.id = :userId");
+    $companyNameQuery->execute(array(':taskId' => $userId));
+    $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
+
+
+    $userMailQuery = $pdo->prepare("SELECT email FROM users WHERE id = :userId");
+    $userMailQuery->execute(array(':userId' => $userId));
+    $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
+
+    require_once 'engine/phpmailer/LusyMailer.php';
+    require_once 'engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($userMail);
+        $mail->isHTML();
+        $mail->Subject = "Вы получили новое достижение в Lusy.io";
+        $args = [
+            'companyName' => $companyName,
+            'achievementName' => gettext($achievementName),
+        ];
+        $mail->setMessageContent('achievement', $args);
         $mail->send();
     } catch (Exception $e) {
         return;
