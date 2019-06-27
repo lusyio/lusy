@@ -168,7 +168,7 @@
                 <?php if ($roleu == 'ceo'): ?>
                     <hr class="mt-4">
                     <div class="position-relative">
-                        <div class="text-reg ml-2 mb-3 mt-3" style="font-weight: 300;">
+                        <div class="text-reg mb-3 mt-3" style="font-weight: 300;">
                             <?= $GLOBALS['_companysettings'] ?>
                         </div>
                         <span class="position-absolute edit-settings">
@@ -239,7 +239,7 @@
                 <?php endif; ?>
                 <hr>
                 <div class="position-relative">
-                    <div class="text-reg mb-3 mt-3 ml-2" style="font-weight: 300;">
+                    <div class="text-reg mb-3 mt-3" style="font-weight: 300;">
                         Смена пароля
                     </div>
                     <span class="position-absolute edit-settings">
@@ -279,7 +279,7 @@
                 </div>
                 <hr>
                 <div class="position-relative">
-                    <div class="text-reg mb-3 mt-3 ml-2" style="font-weight: 300;">
+                    <div class="text-reg mb-3 mt-3" style="font-weight: 300;">
                         Уведомления
                     </div>
                     <span class="position-absolute edit-settings">
@@ -304,7 +304,7 @@
                                 </div>
                             </div>
                             <div class="col-3 col-lg-2">
-                                <div class="noty-padding-content-settings">
+                                <div class="noty-padding-content-settings noty-padding-checkbox-settings">
                                     <input type="checkbox"
                                            id="taskCreate" <?= ($notifications['task_create']) ? 'checked' : ''; ?>>
                                 </div>
@@ -325,7 +325,7 @@
                                 </div>
                             </div>
                             <div class="col-3 col-lg-2">
-                                <div class="noty-padding-content-settings">
+                                <div class="noty-padding-content-settings noty-padding-checkbox-settings">
                                     <input type="checkbox"
                                            id="taskOverdue" <?= ($notifications['task_overdue']) ? 'checked' : ''; ?>>
                                 </div>
@@ -346,7 +346,7 @@
                                 </div>
                             </div>
                             <div class="col-3 col-lg-2">
-                                <div class="noty-padding-content-settings">
+                                <div class="noty-padding-content-settings noty-padding-checkbox-settings">
                                     <input type="checkbox"
                                            id="comment" <?= ($notifications['comment']) ? 'checked' : ''; ?>>
                                 </div>
@@ -367,7 +367,7 @@
                                 </div>
                             </div>
                             <div class="col-3 col-lg-2">
-                                <div class="noty-padding-content-settings">
+                                <div class="noty-padding-content-settings noty-padding-checkbox-settings">
                                     <input type="checkbox"
                                            id="taskReview" <?= ($notifications['task_review']) ? 'checked' : ''; ?>>
                                 </div>
@@ -388,7 +388,7 @@
                                 </div>
                             </div>
                             <div class="col-3 col-lg-2">
-                                <div class="noty-padding-content-settings">
+                                <div class="noty-padding-content-settings noty-padding-checkbox-settings">
                                     <input type="checkbox"
                                            id="taskPostpone" <?= ($notifications['task_postpone']) ? 'checked' : ''; ?>>
                                 </div>
@@ -409,7 +409,7 @@
                                 </div>
                             </div>
                             <div class="col-3 col-lg-2">
-                                <div class="noty-padding-content-settings">
+                                <div class="noty-padding-content-settings noty-padding-checkbox-settings">
                                     <input type="checkbox"
                                            id="message" <?= ($notifications['message']) ? 'checked' : ''; ?>>
                                 </div>
@@ -430,7 +430,7 @@
                                 </div>
                             </div>
                             <div class="col-3 col-lg-2">
-                                <div class="noty-padding-content-settings">
+                                <div class="noty-padding-content-settings noty-padding-checkbox-settings">
                                     <input type="checkbox"
                                            id="achievement" <?= ($notifications['achievement']) ? 'checked' : ''; ?>>
                                 </div>
