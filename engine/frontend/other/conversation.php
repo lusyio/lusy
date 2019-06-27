@@ -240,6 +240,9 @@
                     contentType: false,
                     data: fd,
                     success: function () {
+                        getCounters(function (data) {
+                            updateCounters(data);
+                        });
                     },
                 });
             }

@@ -170,7 +170,6 @@ function prepareMessages(&$messages, $userId, $forChat = false)
             }
         } else {
             if ($forChat) {
-                echo '1';
                 if ($message['message_id'] > $lastViewedMessage) {
                     $message['view_status'] = 0;
                 } else {
