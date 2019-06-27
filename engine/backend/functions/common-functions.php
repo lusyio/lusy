@@ -258,7 +258,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $taskManager, ':type' => json_encode($pushData)));
 
-        sendTaskWorkerEmailNotification($taskId, 'review');
+        sendTaskManagerEmailNotification($taskId, 'review');
     }
 
     if ($action == 'workreturn') {
@@ -363,7 +363,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
 
-        sendTaskWorkerEmailNotification($taskId, 'postpone');
+        sendTaskManagerEmailNotification($taskId, 'postpone');
     }
 
     if ($action == 'confirmdate' || $action == 'canceldate') {
@@ -1093,7 +1093,7 @@ function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
     $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
 
     $authorNameQuery = $pdo->prepare("SELECT name, surname FROM users WHERE  id = :authorId");
-    $authorNameQuery->execute(array(':$authorId' => $authorId));
+    $authorNameQuery->execute(array(':authorId' => $authorId));
     $authorNameResult = $authorNameQuery->fetch(PDO::FETCH_ASSOC);
     $authorName = trim($authorNameResult['name'] . ' ' . $authorNameResult['surname']);
 
@@ -1135,11 +1135,11 @@ function sendMessageEmailNotification($userId, $authorId)
     }
 
     $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM users u LEFT JOIN company c ON c.id = u.idcompany WHERE u.id = :userId");
-    $companyNameQuery->execute(array(':taskId' => $userId));
+    $companyNameQuery->execute(array(':userId' => $userId));
     $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
 
     $authorNameQuery = $pdo->prepare("SELECT name, surname FROM users WHERE  id = :authorId");
-    $authorNameQuery->execute(array(':$authorId' => $authorId));
+    $authorNameQuery->execute(array(':authorId' => $authorId));
     $authorNameResult = $authorNameQuery->fetch(PDO::FETCH_ASSOC);
     $authorName = trim($authorNameResult['name'] . ' ' . $authorNameResult['surname']);
 
@@ -1177,7 +1177,7 @@ function sendAchievementEmailNotification($userId, $achievementName)
     }
 
     $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM users u LEFT JOIN company c ON c.id = u.idcompany WHERE u.id = :userId");
-    $companyNameQuery->execute(array(':taskId' => $userId));
+    $companyNameQuery->execute(array(':userId' => $userId));
     $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
 
 
