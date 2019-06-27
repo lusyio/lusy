@@ -39,7 +39,12 @@ function addUser($email, $password, $companyId, $position, $name = '', $surname 
         ':registerDate' => time(),
     ];
     $addUserQuery->execute($queryData);
-    return $pdo->lastInsertId();
+    $userId = $pdo->lastInsertId();
+
+    $createNotificationRowQuery = $pdo->prepare('INSERT INTO user_notifications(user_id) VALUES (:userId)');
+    $createNotificationRowQuery->execute(array(':userId' => $userId));
+
+    return $userId;
 }
 
 function addCompany($companyName, $companyLanguage, $companyTimeZone)
