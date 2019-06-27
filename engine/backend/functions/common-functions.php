@@ -993,6 +993,7 @@ function sendTaskWorkerEmailNotification($taskId, $action)
         return;
     }
 }
+
 function sendTaskManagerEmailNotification($taskId, $action)
 {
     global $pdo;
@@ -1114,6 +1115,48 @@ function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
     $mail->Subject = "Новый комментарий к задаче в Lusy.io";
     $mail->setMessageContent('comment', $args);
     try {
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendMessageEmailNotification($userId, $authorId)
+{
+    global $pdo;
+
+    $notifications = getNotificationSettings($userId);
+    if (!$notifications['message']) {
+        return;
+    }
+
+    $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM users u LEFT JOIN company c ON c.id = u.idcompany WHERE u.id = :userId");
+    $companyNameQuery->execute(array(':taskId' => $userId));
+    $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
+
+    $authorNameQuery = $pdo->prepare("SELECT name, surname FROM users WHERE  id = :authorId");
+    $authorNameQuery->execute(array(':$authorId' => $authorId));
+    $authorNameResult = $authorNameQuery->fetch(PDO::FETCH_ASSOC);
+    $authorName = trim($authorNameResult['name'] . ' ' . $authorNameResult['surname']);
+
+    $userMailQuery = $pdo->prepare("SELECT email FROM users WHERE id = :userId");
+    $userMailQuery->execute(array(':userId' => $userId));
+    $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
+
+    require_once 'engine/phpmailer/LusyMailer.php';
+    require_once 'engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($userMail);
+        $mail->isHTML();
+        $mail->Subject = "Вам отправили личное сообщение в Lusy.io";
+        $args = [
+            'companyName' => $companyName,
+            'authorName' => $authorName,
+        ];
+        $mail->setMessageContent('message', $args);
         $mail->send();
     } catch (Exception $e) {
         return;
