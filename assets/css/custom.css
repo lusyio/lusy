@@ -2093,6 +2093,14 @@ span.date {
         margin-right: 10px;
     }
 
+    .award-sm:nth-child(3n){
+        margin-right: 10px !important;
+    }
+
+    .award-sm:nth-child(2n){
+        margin-right: 0!important;
+    }
+
     .user-img {
         width: 35px;
     }
