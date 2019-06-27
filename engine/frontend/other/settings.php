@@ -167,244 +167,278 @@
                 </div>
                 <?php if ($roleu == 'ceo'): ?>
                     <hr class="mt-4">
-                    <div class="text-reg text-center mb-3 mt-3" style="font-weight: 300;">
-                        <?= $GLOBALS['_companysettings'] ?>
-                    </div>
-                    <div class="input-group">
-                        <input id="companyName" name="companyName" type="text"
-                               class="form-control input-settings company-name"
-                               value="<?= $companyData['idcompany'] ?>">
-                    </div>
-                    <div>
-                        <small class="text-muted text-muted-reg">
-                            <?= $GLOBALS['_namecompanysettings'] ?>
-                        </small>
-                    </div>
-                    <div class="input-group mt-3">
-                        <input id="companyFullName" name="companyFullName" type="text"
-                               class="form-control input-settings company-full-name"
-                               value="<?= $companyData['full_company_name'] ?>">
-                    </div>
-                    <div>
-                        <small class="text-muted text-muted-reg">
-                            <?= $GLOBALS['_fullnamecompanysettings'] ?>
-                        </small>
-                    </div>
-                    <div class="input-group mt-3">
+                    <div class="position-relative">
+                        <div class="text-reg ml-2 mb-3 mt-3" style="font-weight: 300;">
+                            <?= $GLOBALS['_companysettings'] ?>
+                        </div>
+                        <span class="position-absolute edit-settings">
+                            <a data-toggle="collapse" href="#collapseCompany" role="button" aria-expanded="false"
+                               aria-controls="collapseCompany" class="small text-muted">Изменить</a>
+                        </span>
+                        <div class="collapse" id="collapseCompany">
+                            <div class="input-group">
+                                <input id="companyName" name="companyName" type="text"
+                                       class="form-control input-settings company-name"
+                                       value="<?= $companyData['idcompany'] ?>">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_namecompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="input-group mt-3">
+                                <input id="companyFullName" name="companyFullName" type="text"
+                                       class="form-control input-settings company-full-name"
+                                       value="<?= $companyData['full_company_name'] ?>">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_fullnamecompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="input-group mt-3">
                             <textarea id="companyDescription" name="companyDescription" type="text"
                                       class="form-control input-settings  company-description"><?= $companyData['description'] ?></textarea>
-                    </div>
-                    <div>
-                        <small class="text-muted text-muted-reg">
-                            <?= $GLOBALS['_aboutcompanysettings'] ?>
-                        </small>
-                    </div>
-                    <div class="input-group mt-3">
-                        <input id="companySite" name="companySite" type="text"
-                               class="form-control input-settings company-site"
-                               value="<?= $companyData['site'] ?>">
-                    </div>
-                    <div>
-                        <small class="text-muted text-muted-reg">
-                            <?= $GLOBALS['_websitecompanysettings'] ?>
-                        </small>
-                    </div>
-                    <div class="input-group mt-3">
-                        <select id="companyTimezone" name="companyTimezone"
-                                class="form-control input-settings company-timezone">
-                            <option></option>
-                            <?php foreach ($timeZones as $timeZone => $text): ?>
-                                <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone) ? 'selected' : '' ?>><?= $text ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div>
-                        <small class="text-muted text-muted-reg">
-                            <?= $GLOBALS['_clockcompanysettings'] ?>
-                        </small>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
-                            <?= $GLOBALS['_savecompanysettings'] ?>
-                        </button>
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_aboutcompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="input-group mt-3">
+                                <input id="companySite" name="companySite" type="text"
+                                       class="form-control input-settings company-site"
+                                       value="<?= $companyData['site'] ?>">
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_websitecompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="input-group mt-3">
+                                <select id="companyTimezone" name="companyTimezone"
+                                        class="form-control input-settings company-timezone">
+                                    <option></option>
+                                    <?php foreach ($timeZones as $timeZone => $text): ?>
+                                        <option value="<?= $timeZone ?>" <?= ($companyData['timezone'] == $timeZone) ? 'selected' : '' ?>><?= $text ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_clockcompanysettings'] ?>
+                                </small>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
+                                    <?= $GLOBALS['_savecompanysettings'] ?>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 <?php endif; ?>
                 <hr>
-                <div class="text-reg text-center mb-3 mt-3" style="font-weight: 300;">
-                    Смена пароля
-                </div>
-                <div class="row">
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group mt-3">
-                            <input id="password" name="password" type="password"
-                                   class="form-control input-settings password"
-                                   required>
-                        </div>
-                        <small class="text-muted text-muted-reg">
-                            <?= $GLOBALS['_passwordsettings'] ?>
-                        </small>
+                <div class="position-relative">
+                    <div class="text-reg mb-3 mt-3 ml-2" style="font-weight: 300;">
+                        Смена пароля
                     </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group mt-3">
-                            <input id="settingsNewPassword" name="settingsNewPassword" type="password"
-                                   class="form-control input-settings new-password">
+                    <span class="position-absolute edit-settings">
+                        <a data-toggle="collapse" href="#collapsePassword" role="button" aria-expanded="false"
+                           aria-controls="collapsePassword" class="small text-muted">Изменить</a>
+                    </span>
+                    <div class="collapse" id="collapsePassword">
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="input-group mt-3">
+                                    <input id="password" name="password" type="password"
+                                           class="form-control input-settings password"
+                                           required>
+                                </div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_passwordsettings'] ?>
+                                </small>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="input-group mt-3">
+                                    <input id="settingsNewPassword" name="settingsNewPassword" type="password"
+                                           class="form-control input-settings new-password">
+                                </div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_newpasswordsettings'] ?>
+                                </small>
+                            </div>
                         </div>
-                        <small class="text-muted text-muted-reg">
-                            <?= $GLOBALS['_newpasswordsettings'] ?>
-                        </small>
-                    </div>
-                </div>
-                <div class="row mt-5 pb-4">
-                    <div class="col-12  text-center">
-                        <button class="btn btn-outline-primary" id="sendPassword" type="submit">
-                            Сохранить пароль
-                        </button>
+                        <div class="row mt-5 pb-4 text-center">
+                            <div class="col-12">
+                                <button class="btn btn-outline-primary" id="sendPassword" type="submit">
+                                    Сохранить пароль
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr>
-                <div class="text-reg text-center mb-3 mt-3" style="font-weight: 300;">
-                    Уведомления на почту
-                </div>
-                <div class="row">
-                    <div class="col-2">
-                        <div class="rounded-circle text-center noty-icon-settings">
+                <div class="position-relative">
+                    <div class="text-reg mb-3 mt-3 ml-2" style="font-weight: 300;">
+                        Уведомления на почту
+                    </div>
+                    <span class="position-absolute edit-settings">
+                        <a data-toggle="collapse" href="#collapseNoty" role="button" aria-expanded="false"
+                           aria-controls="collapseNoty" class="small text-muted">Изменить</a>
+                    </span>
+                    <span class="position-absolute edit-settings edit-settings-saved">
+                        <span class="text-muted small">Изменения сохранены</span>
+                    </span>
+                    <div class="collapse" id="collapseNoty">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
                                 <i class="fas fa-tasks noty-icon-size-settings"></i>
                             </span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="noty-padding-content-settings">
+                                    <span>Вам назначена задача</span>
+                                </div>
+                            </div>
+                            <div class="col-3 col-lg-2">
+                                <div class="noty-padding-content-settings">
+                                    <input type="checkbox"
+                                           id="taskCreate" <?= ($notifications['task_create']) ? 'checked' : ''; ?>>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="noty-padding-content-settings">
-                            <span>Вам назначена задача</span>
-                        </div>
-                    </div>
-                    <div class="col-3 col-lg-2">
-                        <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="taskCreate" <?= ($notifications['task_create']) ? 'checked' : ''; ?>>
-                        </div>
-                    </div>
-                </div>
-                <hr class="mt-1 hr-settings">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="rounded-circle text-center noty-icon-settings">
+                        <hr class="mt-1 hr-settings">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
                                 <i class="fas fa-fire-alt noty-icon-size-settings"></i>
                             </span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="noty-padding-content-settings">
+                                    <span>Ваша задача просрочена</span>
+                                </div>
+                            </div>
+                            <div class="col-3 col-lg-2">
+                                <div class="noty-padding-content-settings">
+                                    <input type="checkbox"
+                                           id="taskOverdue" <?= ($notifications['task_overdue']) ? 'checked' : ''; ?>>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="noty-padding-content-settings">
-                            <span>Ваша задача просрочена</span>
-                        </div>
-                    </div>
-                    <div class="col-3 col-lg-2">
-                        <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="taskOverdue" <?= ($notifications['task_overdue']) ? 'checked' : ''; ?>>
-                        </div>
-                    </div>
-                </div>
-                <hr class="mt-1 hr-settings">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="rounded-circle text-center noty-icon-settings">
+                        <hr class="mt-1 hr-settings">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
                                 <i class="far fa-comment noty-icon-size-settings"></i>
                             </span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="noty-padding-content-settings">
+                                    <span>Вам оставлен комментарий</span>
+                                </div>
+                            </div>
+                            <div class="col-3 col-lg-2">
+                                <div class="noty-padding-content-settings">
+                                    <input type="checkbox"
+                                           id="comment" <?= ($notifications['comment']) ? 'checked' : ''; ?>>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="noty-padding-content-settings">
-                            <span>Вам оставлен комментарий</span>
-                        </div>
-                    </div>
-                    <div class="col-3 col-lg-2">
-                        <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="comment" <?= ($notifications['comment']) ? 'checked' : ''; ?>>
-                        </div>
-                    </div>
-                </div>
-                <hr class="mt-1 hr-settings">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="rounded-circle text-center noty-icon-settings">
+                        <hr class="mt-1 hr-settings">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
                                 <i class="fas fa-file-import noty-icon-size-settings"></i>
                             </span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="noty-padding-content-settings">
+                                    <span>Вам отправлена задача на рассмотрение</span>
+                                </div>
+                            </div>
+                            <div class="col-3 col-lg-2">
+                                <div class="noty-padding-content-settings">
+                                    <input type="checkbox"
+                                           id="taskReview" <?= ($notifications['task_review']) ? 'checked' : ''; ?>>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="noty-padding-content-settings">
-                            <span>Вам отправлена задача на рассмотрение</span>
-                        </div>
-                    </div>
-                    <div class="col-3 col-lg-2">
-                        <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="taskReview" <?= ($notifications['task_review']) ? 'checked' : ''; ?>>
-                        </div>
-                    </div>
-                </div>
-                <hr class="mt-1 hr-settings">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="rounded-circle text-center noty-icon-settings">
+                        <hr class="mt-1 hr-settings">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
                                 <i class="far fa-calendar-alt noty-icon-size-settings"></i>
                             </span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="noty-padding-content-settings">
+                                    <span>Запрос на перенос срока</span>
+                                </div>
+                            </div>
+                            <div class="col-3 col-lg-2">
+                                <div class="noty-padding-content-settings">
+                                    <input type="checkbox"
+                                           id="taskPostpone" <?= ($notifications['task_postpone']) ? 'checked' : ''; ?>>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="noty-padding-content-settings">
-                            <span>Запрос на перенос срока</span>
-                        </div>
-                    </div>
-                    <div class="col-3 col-lg-2">
-                        <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="taskPostpone" <?= ($notifications['task_postpone']) ? 'checked' : ''; ?>>
-                        </div>
-                    </div>
-                </div>
-                <hr class="mt-1 hr-settings">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="rounded-circle text-center noty-icon-settings">
+                        <hr class="mt-1 hr-settings">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
                                 <i class="far fa-envelope noty-icon-size-settings"></i>
                             </span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="noty-padding-content-settings">
+                                    <span>Вам оставили сообщение в диалоге</span>
+                                </div>
+                            </div>
+                            <div class="col-3 col-lg-2">
+                                <div class="noty-padding-content-settings">
+                                    <input type="checkbox"
+                                           id="message" <?= ($notifications['message']) ? 'checked' : ''; ?>>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="noty-padding-content-settings">
-                            <span>Вам оставили сообщение в диалоге</span>
-                        </div>
-                    </div>
-                    <div class="col-3 col-lg-2">
-                        <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="message" <?= ($notifications['message']) ? 'checked' : ''; ?>>
-                        </div>
-                    </div>
-                </div>
-                <hr class="mt-1 hr-settings">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="rounded-circle text-center noty-icon-settings">
+                        <hr class="mt-1 hr-settings">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
                                 <i class="fas fa-trophy noty-icon-size-settings"></i>
                             </span>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="noty-padding-content-settings">
-                            <span>Получено новое достижение</span>
-                        </div>
-                    </div>
-                    <div class="col-3 col-lg-2">
-                        <div class="noty-padding-content-settings">
-                            <input type="checkbox" id="achievement" <?= ($notifications['achievement']) ? 'checked' : ''; ?>>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="noty-padding-content-settings">
+                                    <span>Получено новое достижение</span>
+                                </div>
+                            </div>
+                            <div class="col-3 col-lg-2">
+                                <div class="noty-padding-content-settings">
+                                    <input type="checkbox"
+                                           id="achievement" <?= ($notifications['achievement']) ? 'checked' : ''; ?>>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <hr class="mt-1 hr-settings">
+                <hr>
             </div>
         </div>
     </div>
@@ -417,9 +451,9 @@
 
     $(document).ready(function () {
 
-        function checkInput(){
+        function checkInput() {
             var objCheck = {};
-            $('input[type=checkbox]').each(function(i, e) {
+            $('input[type=checkbox]').each(function (i, e) {
                 objCheck[$(this).attr('id')] = e.checked;
             });
             return objCheck;
@@ -440,8 +474,11 @@
                 contentType: false,
                 data: fd,
                 success: function () {
-                    // Уведомить о сохранении настроек
-                    console.log('Сохранено');
+                    $('[href="#collapseNoty"]').hide();
+                    $('.edit-settings-saved').fadeIn(200);
+                    $.when($('.edit-settings-saved').fadeOut(800)).done(function () {
+                        $('[href="#collapseNoty"]').fadeIn(200);
+                    });
                 },
             });
         });
