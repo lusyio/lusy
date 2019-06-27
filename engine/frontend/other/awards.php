@@ -26,16 +26,18 @@ $badges = [
     'taskInwork_20' => 'fas fa-brain',
     'taskCreatePerDay_30' => 'fas fa-bolt',
 ];
+$percentAchieve = $countUserAchievements / count($badges) * 100;
 ?>
 <script src="/assets/js/circle-progress.min.js"></script>
 <div class="row mb-4">
     <div class="col">
         <span class="h3">Прогресс достижений</span>
         <div class="progress progress-awards col mt-3 mb-2 p-0 w">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 2%" aria-valuenow="1"
+            <div class="progress-bar bg-success" role="progressbar" style="width: <?= $percentAchieve ?>%"
+                 aria-valuenow="<?= $percentAchieve ?>"
                  aria-valuemin="0"
                  aria-valuemax="100" title="Достижения">
-                <div class="text-white ml-3">12/123</div>
+                <div class="text-white ml-3"><?= $countUserAchievements ?>/<?= count($badges) ?></div>
             </div>
         </div>
     </div>

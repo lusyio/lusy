@@ -2106,11 +2106,20 @@ span.date {
         word-wrap: break-word;
         font-size: 80%
     }
-
-    .award{
-        min-width: 160px;
-        max-width: 160px;
+    .award:nth-child(3n){
         margin-right: 12px;
+    }
+    .award:nth-child(2n){
+        margin-right: 0;
+    }
+    .award{
+        min-width: 166px;
+        max-width: 166px;
+        margin-right: 12px;
+    }
+
+    .award:last-of-type{
+        margin-right: 0 !important;
     }
 
     .award-sm{

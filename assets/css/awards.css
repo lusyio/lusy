@@ -36,18 +36,21 @@
     background: transparent;
 }
 .award{
-    margin-right: 15px;
     border-radius: 5px;
     display: block;
     padding: 20px 10px;
-    min-width: 210px;
-    max-width: 210px;
+    min-width: 215px;
+    max-width: 215px;
     background: white;
     position: relative;
+    margin-right: 15px;
     -webkit-transition: box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
     transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s;
     transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
     box-shadow: 0 10px 15px rgba(14,21,47,.05);
+}
+.award:nth-child(3n){
+    margin-right: 0;
 }
 .text-all-achieve:hover{
     text-decoration: underline;

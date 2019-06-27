@@ -9,6 +9,8 @@ require_once 'engine/backend/functions/achievement-functions.php';
 require_once 'engine/backend/functions/log-functions.php';
 
 
+$countUserAchievements = count(getUserAchievements($id));
+
 $completedTasksQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks WHERE worker = :workerId AND status = 'done'");
 $completedTasksQuery->execute(array(':workerId' => $id));
 $completedTasksCount = $completedTasksQuery->fetch(PDO::FETCH_COLUMN);
