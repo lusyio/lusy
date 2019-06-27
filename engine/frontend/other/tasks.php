@@ -83,7 +83,12 @@
         } else {
             $isTaskRead = true;
         }
-
+        if (empty($n['countNewComments'])) {
+            $n['countNewComments'] = 0;
+        }
+        if (empty($n['countNewFiles'])) {
+            $n['countNewFiles'] = 0;
+        }
         include 'engine/frontend/other/task-card.php';
     endforeach; ?>
 </div>
