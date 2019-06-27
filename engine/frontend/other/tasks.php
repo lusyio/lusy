@@ -83,7 +83,6 @@
         } else {
             $isTaskRead = true;
         }
-
         include 'engine/frontend/other/task-card.php';
     endforeach; ?>
 </div>
