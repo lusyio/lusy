@@ -72,27 +72,48 @@
 
 <div class="row justify-content-center mt-3">
     <div class="col-12 col-lg-10 col-md-10 col-xl-10">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="ml-4">Достижения</h4>
-                <hr class="m-0">
-                <div class="d-flex flex-wrap text-center">
-                    <div class="award award-sm  mt-3" data-toggle="tooltip" data-placement="bottom"
-                         title="Заполнил профиль">
-                        <div>
-                            <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
-                                 data-value="1.00"></div>
-                            <div class="award-star bg-primary">
-                                <i class="fas fa-user"></i>
-                            </div>
-                        </div>
-                        <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
-                        <hr>
-                        <span class="badge badge-primary">20.05.2019</span>
+        <h4 class="ml-2">Достижения</h4>
+        <div class="d-flex flex-wrap text-center">
+
+            <div class="award award-sm mt-3" data-toggle="tooltip" data-placement="bottom"
+                 title="Заполнил профиль">
+                <div>
+                    <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
+                         data-value="1.00"></div>
+                    <div class="award-star bg-primary">
+                        <i class="fas fa-user"></i>
                     </div>
                 </div>
+                <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
+                <hr>
+                <span class="badge badge-primary">20.05.2019</span>
+            </div>
+
+        </div>
+        <div class="collapse" id="collapseAchieve">
+            <hr>
+            <div class="d-flex flex-wrap text-center">
+
+                <div class="award award-sm mt-3" data-toggle="tooltip" data-placement="bottom"
+                     title="Заполнил профиль">
+                    <div>
+                        <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
+                             data-value="1.00"></div>
+                        <div class="award-star bg-primary">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
+                    <hr>
+                    <span class="badge badge-primary">20.05.2019</span>
+                </div>
+
             </div>
         </div>
+
+        <span class="position-absolute all-achieve">
+            <a class="small text-muted" data-toggle="collapse" href="#collapseAchieve" role="button" aria-expanded="false" aria-controls="collapseAchieve">Посмотреть все</a>
+        </span>
     </div>
 </div>
 
