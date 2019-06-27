@@ -53,7 +53,8 @@ if ($_POST['module'] == 'changeData') {
 }
 if ($_POST['module'] == 'changePassword') {
     if (isset($_POST['password'])) {
-        $password = trim(filter_var($_POST['password'], FILTER_SANITIZE_STRING));
+        $password = trim($_POST['password']);
+        $password = filter_var($password, FILTER_SANITIZE_STRING);
         $hash = DBOnce('password', 'users', 'id=' . $id);
         if (password_verify($password, $hash)) {
             if (isset($_POST['newPassword']) && trim($_POST['newPassword']) != '') {
