@@ -57,6 +57,7 @@
         });
         subscribeToMessagesNotification(userId);
         subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
+        subscribeToChatNotification('<?=$cometTrackChannelName?>');
         checkNotifications('onLoad');
         $('.push-messages-area').on('click', '.close-push-message', function (e) {
             e.preventDefault();

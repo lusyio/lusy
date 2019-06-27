@@ -7,6 +7,7 @@ global $id;
 global $idc;
 
 require_once 'engine/backend/functions/common-functions.php';
+require_once 'engine/backend/functions/mail-functions.php';
 
 if ($_POST['module'] == 'sendMessage') {
     $mes = link_it($_POST['mes']);
@@ -57,6 +58,7 @@ if ($_POST['module'] == 'sendMessageToChat') {
         ];
         $jsonMesData = json_encode($mesData);
         $cometSql->execute(array(':channelName' => getCometTrackChannelName(), ':jsonMesData' => $jsonMesData));
+        markChatMessageAsRead($messageId);
     }
 }
 
@@ -75,85 +77,11 @@ if ($_POST['module'] == 'updateChat') {
     }
 }
 
-function fiomess($iduser)
-{
-    global $pdo;
-    $fio = DBOnce('name', 'users', 'id=' . $iduser) . ' ' . DBOnce('surname', 'users', 'id=' . $iduser);
-    return $fio;
+if ($_POST['module'] == 'markMessageAsRead') {
+    $messageId = filter_var($_POST['messageId'], FILTER_SANITIZE_NUMBER_INT);
+    markMessageAsRead($messageId);
 }
-
-function getMessageById($messageId)
-{
-    global $pdo;
-    global $id;
-    $query = "SELECT message_id, mes, sender, recipient, datetime, view_status FROM `mail` WHERE (`sender` = :userId OR `recipient` = :userId) AND message_id=:messageId ORDER BY `datetime`";
-    $dbh = $pdo->prepare($query);
-    $dbh->execute(array(':userId' => $id,':messageId' => $messageId));
-    $result = $dbh->fetchAll(PDO::FETCH_ASSOC);
-
-    prepareMessages($result, $id);
-    return $result;
-}
-
-function getChatMessageById($messageId)
-{
-    global $pdo;
-    global $id;
-    global $idc;
-    $query = "SELECT c.message_id, c.text as mes, c.author_id AS sender, c.datetime FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE u.idcompany = :companyId AND message_id = :messageId ORDER BY `datetime`";
-    $dbh = $pdo->prepare($query);
-    $dbh->execute(array(':companyId' => $idc,':messageId' => $messageId));
-    $result = $dbh->fetchAll(PDO::FETCH_ASSOC);
-
-    prepareMessages($result, $id, true);
-    return $result;
-}
-
-function prepareMessages(&$messages, $userId, $forChat = false)
-{
-    global $pdo;
-    foreach ($messages as &$message) {
-        $message['status'] = '';
-        $message['owner'] = false;
-
-        if ($message['sender'] == $userId) {
-            $message['owner'] = true;
-            $message['author'] = 'Вы';
-            if ($forChat) {
-                $message['status'] = '';
-                $message['view_status'] = 1;
-            } else {
-                if ($message['view_status']) {
-                    $message['status'] = ' (прочитано)';
-                } else {
-                    $message['status'] = ' (не прочитано)';
-                }
-            }
-        } else {
-            if ($forChat) {
-                $message['status'] = '';
-                $message['view_status'] = 1;
-            }
-            $message['author'] = fiomess($message['sender']);
-        }
-        if ($forChat) {
-            $commentType = 'chat';
-        } else {
-            $commentType = 'conversation';
-        }
-        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
-        $filesQuery->execute(array(':messageId' => $message['message_id'], ':commentType' => $commentType));
-        $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
-        if (count($files) > 0) {
-            $message['files'] = $files;
-        } else {
-            $message['files'] = [];
-        }
-
-    }
-}
-
-function sendMessageToChat()
-{
-
+if ($_POST['module'] == 'markChatMessageAsRead') {
+    $messageId = filter_var($_POST['messageId'], FILTER_SANITIZE_NUMBER_INT);
+    markChatMessageAsRead($messageId);
 }

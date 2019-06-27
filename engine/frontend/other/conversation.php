@@ -225,6 +225,25 @@
         });
         $('#chatBox').on('mouseover', '.message', function () {
             var el = $(this);
+            if ($(el).hasClass('new-message')) {
+                var messageId = $(el).data('message-id');
+                var fd = new FormData();
+                fd.append('ajax', 'messenger');
+                fd.append('module', 'markMessageAsRead');
+                fd.append('messageId', messageId);
+
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function () {
+                    },
+                });
+            }
+            $(el).removeClass('new-message');
             setTimeout(function () {
                 $(el).removeClass('alert-primary');
             }, 500);

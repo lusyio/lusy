@@ -912,17 +912,20 @@ function get_timezone_offset($remote_tz, $origin_tz = null) {
 
 function countTopsidebar()
 {
+    require_once 'engine/backend/functions/mail-functions.php';
+
     global $id;
     $newTaskCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action NOT LIKE "comment"');
     $overdueCount = DBOnce('count(*)','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
     $newCommentCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action LIKE "comment"');
     $newMailCount = DBOnce('count(*)', 'mail', 'recipient='.$id.' AND view_status=0');
+    $newChatCount = numberOfNewChatMessages();
 
     $result = [
         'task' => $newTaskCount,
         'hot' => $overdueCount,
         'comment' => $newCommentCount,
-        'mail' => $newMailCount,
+        'mail' => $newMailCount + $newChatCount,
     ];
     return $result;
 }

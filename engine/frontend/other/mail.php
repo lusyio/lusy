@@ -43,7 +43,7 @@
 <!--                                место для аватарки компании-->
                             </div>
                             <div class="col" style="max-width: 83%;">
-                                <p class="mb-2 font-weight-bold ">Чат компании</p>
+                                <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
                                 <span><?= ($lastChatMessage['sender'] == $id)? 'Вы: ' : fiomess($lastChatMessage['sender']) . ': ';?> <?= $lastChatMessage['mes'] ?></span>
                                 <span class="date mr-2"><?= date('d.m H:i', $lastChatMessage['datetime']); ?></span>
                             </div>

@@ -73,7 +73,7 @@
     });
 
     var $userId = <?=$id?>;
-    var pageName = 'conversation';
+    var pageName = 'chat';
     $(document).ready(function () {
         cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
         cometApi.subscription("<?=getCometTrackChannelName()?>", function (e) {
@@ -219,6 +219,25 @@
         });
         $('#chatBox').on('mouseover', '.message', function () {
             var el = $(this);
+            if ($(el).hasClass('new-message')) {
+                var messageId = $(el).data('message-id');
+                var fd = new FormData();
+                fd.append('ajax', 'messenger');
+                fd.append('module', 'markChatMessageAsRead');
+                fd.append('messageId', messageId);
+
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function () {
+                    },
+                });
+            }
+            $(el).removeClass('new-message');
             setTimeout(function () {
                 $(el).removeClass('alert-primary');
             }, 500);
