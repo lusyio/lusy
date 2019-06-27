@@ -136,7 +136,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             ];
             $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
             $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
-            sendTaskEmailNotification($taskId, 'createtask');
+            sendTaskWorkerEmailNotification($taskId, 'createtask');
         }
 
     }
@@ -220,7 +220,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $addEventQuery->execute($eventDataForManager);
         if (!$isSelfTask) {
             $addEventQuery->execute($eventDataForWorker);
-            sendTaskEmailNotification($taskId, 'overdue');
+            sendTaskWorkerEmailNotification($taskId, 'overdue');
         }
     }
 
@@ -255,6 +255,8 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         ];
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $taskManager, ':type' => json_encode($pushData)));
+
+        sendTaskWorkerEmailNotification($taskId, 'review');
     }
 
     if ($action == 'workreturn') {
@@ -358,6 +360,8 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         ];
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
+
+        sendTaskWorkerEmailNotification($taskId, 'postpone');
     }
 
     if ($action == 'confirmdate' || $action == 'canceldate') {
@@ -572,6 +576,8 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         ];
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
+
+        sendAchievementEmailNotification($id, $comment);
     }
 }
 
@@ -875,6 +881,9 @@ function addCommentEvent($taskId, $commentId)
             $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
         }
     }
+
+    sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
+
 }
 
 function concatName($name, $surname)
@@ -927,7 +936,7 @@ function countTopsidebar()
     return $result;
 }
 
-function sendTaskEmailNotification($taskId, $action)
+function sendTaskWorkerEmailNotification($taskId, $action)
 {
     global $pdo;
 
@@ -981,6 +990,213 @@ function sendTaskEmailNotification($taskId, $action)
             $mail->setMessageContent('task-overdue', $args);
         }
 
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendTaskManagerEmailNotification($taskId, $action)
+{
+    global $pdo;
+
+    if ($action == 'review' || $action == 'postpone') {
+        $userId = DBOnce('manager', 'tasks', 'id = ' . $taskId);
+        $notifications = getNotificationSettings($userId);
+    } else {
+        return;
+    }
+
+    if (($action == 'review' && !$notifications['task_review']) || ($action == 'postpone' && !$notifications['task_postpone'])) {
+        return;
+    }
+
+    require_once 'engine/phpmailer/LusyMailer.php';
+    require_once 'engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+    $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM tasks t LEFT JOIN company c ON t.idcompany = c.id WHERE t.id = :taskId");
+    $companyNameQuery->execute(array(':taskId' => $taskId));
+    $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
+
+    $managerMailQuery = $pdo->prepare("SELECT u.email FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE t.id = :taskId");
+    $managerMailQuery->execute(array(':taskId' => $taskId));
+    $managerMail = $managerMailQuery->fetch(PDO::FETCH_COLUMN);
+
+    $workerNameQuery = $pdo->prepare("SELECT u.name, u.surname FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE t.id = :taskId");
+    $workerNameQuery->execute(array(':taskId' => $taskId));
+    $workerNameResult = $workerNameQuery->fetch(PDO::FETCH_ASSOC);
+    $workerName = trim($workerNameResult['name'] . ' ' . $workerNameResult['surname']);
+
+    $taskName = DBOnce('name', 'tasks', 'id=' . $taskId);
+
+    try {
+        $mail->addAddress($managerMail);
+        $mail->isHTML();
+
+        $args = [
+            'companyName' => $companyName,
+            'taskId' => $taskId,
+            'workerName' => $workerName,
+            'taskName' => $taskName,
+        ];
+
+        if ($action == 'review') {
+            $mail->Subject = "Вам отправлена на рассмотрение задача в Lusy.io";
+            $mail->setMessageContent('task-review', $args);
+
+        } elseif ($action == 'postpone') {
+            $mail->Subject = "У Вас запрашивают перенос срока задачи в Lusy.io";
+            $mail->setMessageContent('task-postpone', $args);
+        }
+
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
+{
+    global $pdo;
+
+    $usersToNotification = [];
+
+    foreach ($userIds as $user) {
+        $note = getNotificationSettings($user);
+        if ($note['comment'] == 1) {
+            $usersToNotification[] = $user;
+        }
+        unset($user);
+    }
+
+    if (count($usersToNotification) == 0) {
+        return;
+    }
+
+    $userMails = [];
+    $userMailQuery = $pdo->prepare("SELECT email FROM users WHERE id = :userId");
+    foreach ($usersToNotification as $user) {
+        $userMailQuery->execute(array(':userId' => $user));
+        $userMails[] = $userMailQuery->fetch(PDO::FETCH_COLUMN);
+    }
+
+    require_once 'engine/phpmailer/LusyMailer.php';
+    require_once 'engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM tasks t LEFT JOIN company c ON t.idcompany = c.id WHERE t.id = :taskId");
+    $companyNameQuery->execute(array(':taskId' => $taskId));
+    $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
+
+    $authorNameQuery = $pdo->prepare("SELECT name, surname FROM users WHERE  id = :authorId");
+    $authorNameQuery->execute(array(':$authorId' => $authorId));
+    $authorNameResult = $authorNameQuery->fetch(PDO::FETCH_ASSOC);
+    $authorName = trim($authorNameResult['name'] . ' ' . $authorNameResult['surname']);
+
+    $taskName = DBOnce('name', 'tasks', 'id=' . $taskId);
+
+    $args = [
+        'companyName' => $companyName,
+        'taskId' => $taskId,
+        'authorName' => $authorName,
+        'taskName' => $taskName,
+        'commentId' => $commentId,
+    ];
+
+    foreach ($userMails as $userMail) {
+        try {
+            $mail->addAddress($userMail);
+        } catch (Exception $e) {
+            continue;
+        }
+    }
+
+    $mail->isHTML();
+    $mail->Subject = "Новый комментарий к задаче в Lusy.io";
+    $mail->setMessageContent('comment', $args);
+    try {
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendMessageEmailNotification($userId, $authorId)
+{
+    global $pdo;
+
+    $notifications = getNotificationSettings($userId);
+    if (!$notifications['message']) {
+        return;
+    }
+
+    $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM users u LEFT JOIN company c ON c.id = u.idcompany WHERE u.id = :userId");
+    $companyNameQuery->execute(array(':taskId' => $userId));
+    $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
+
+    $authorNameQuery = $pdo->prepare("SELECT name, surname FROM users WHERE  id = :authorId");
+    $authorNameQuery->execute(array(':$authorId' => $authorId));
+    $authorNameResult = $authorNameQuery->fetch(PDO::FETCH_ASSOC);
+    $authorName = trim($authorNameResult['name'] . ' ' . $authorNameResult['surname']);
+
+    $userMailQuery = $pdo->prepare("SELECT email FROM users WHERE id = :userId");
+    $userMailQuery->execute(array(':userId' => $userId));
+    $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
+
+    require_once 'engine/phpmailer/LusyMailer.php';
+    require_once 'engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($userMail);
+        $mail->isHTML();
+        $mail->Subject = "Вам отправили личное сообщение в Lusy.io";
+        $args = [
+            'companyName' => $companyName,
+            'authorName' => $authorName,
+        ];
+        $mail->setMessageContent('message', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendAchievementEmailNotification($userId, $achievementName)
+{
+    global $pdo;
+
+    $notifications = getNotificationSettings($userId);
+    if (!$notifications['achievement']) {
+        return;
+    }
+
+    $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM users u LEFT JOIN company c ON c.id = u.idcompany WHERE u.id = :userId");
+    $companyNameQuery->execute(array(':taskId' => $userId));
+    $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
+
+
+    $userMailQuery = $pdo->prepare("SELECT email FROM users WHERE id = :userId");
+    $userMailQuery->execute(array(':userId' => $userId));
+    $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
+
+    require_once 'engine/phpmailer/LusyMailer.php';
+    require_once 'engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($userMail);
+        $mail->isHTML();
+        $mail->Subject = "Вы получили новое достижение в Lusy.io";
+        $args = [
+            'companyName' => $companyName,
+            'achievementName' => gettext($achievementName),
+        ];
+        $mail->setMessageContent('achievement', $args);
         $mail->send();
     } catch (Exception $e) {
         return;

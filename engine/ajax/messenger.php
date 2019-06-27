@@ -37,6 +37,8 @@ if ($_POST['module'] == 'sendMessage') {
         echo 'отправитель' . $id;
         echo 'направлено получателю' . $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
         echo 'направлено отправителю' . $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
+
+        @sendMessageEmailNotification($recipientId, $id);
     }
 }
 
