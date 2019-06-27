@@ -7,167 +7,186 @@
     <div class="col-12 col-lg-10 col-xl-10">
         <div class="card">
             <div class="card-body p-4">
-                <div class="row">
-                    <div class="col-5 col-lg-5 text-center">
-                        <a data-toggle="tooltip" data-placement="bottom" title="Назад к профилю" class="float-left"
-                           href="/profile/">
-                            <i class="fas fa-arrow-left icon-invite"></i>
-                        </a>
-                        <a class="float-right <?= (strpos(getAvatarLink($id), 'alter')) ? 'd-none' : ''; ?>"
-                           href="#" id="deleteAvatar" data-toggle="tooltip" data-placement="bottom"
-                           title="Удалить аватар">
-                            <i class="fas fa-times icon-invite"></i>
-                        </a>
-                        <label class="label" data-toggle="tooltip" title=""
-                               data-original-title="<?= $GLOBALS['_changeavatarsettings'] ?>">
-                            <img class="rounded-circle avatar-settings" id="avatar" src="/<?= getAvatarLink($id) ?>"
-                                 alt="avatar">
-                            <input type="file" class="sr-only" id="input" name="image" accept="image/*">
-                        </label>
-                        <div id="progress-settings" class="progress" style="display: none;">
-                            <div class="progress-bar-settings progress-bar-striped progress-bar-animated"
-                                 role="progressbar"
-                                 aria-valuenow="0"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 100%;">0%
-                            </div>
-                        </div>
-                        <div class="alert alert-success" role="alert" style="display: none;"></div>
-                        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-                             style="display: none;"
-                             aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title"
-                                            id="modalLabel"><?= $GLOBALS['_cutavatarsettings'] ?></h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
+                <div class="position-relative">
+                    <a data-toggle="tooltip" data-placement="bottom" title="Назад к профилю" class="position-absolute"
+                       style="top: 5px;"
+                       href="/profile/">
+                        <i class="fas fa-arrow-left icon-invite"></i>
+                    </a>
+                    <div class="text-reg mb-3 ml-4" style="font-weight: 300;">
+                        Настройки профиля
+                    </div>
+                    <span class="position-absolute edit-settings">
+                        <a data-toggle="collapse" href="#collapseProfile" role="button" aria-expanded="false"
+                           aria-controls="collapseProfile" class="small text-muted">Изменить</a>
+                    </span>
+                </div>
+                <div class="accordion" id="accordionSettings">
+                    <div class="collapse show" id="collapseProfile" aria-labelledby="headingOne"
+                         data-parent="#accordionSettings">
+                        <div class="row">
+                            <div class="col-5 col-lg-5 text-center">
+                                <a class="float-right <?= (strpos(getAvatarLink($id), 'alter')) ? 'd-none' : ''; ?>"
+                                   href="#" id="deleteAvatar" data-toggle="tooltip" data-placement="bottom"
+                                   title="Удалить аватар">
+                                    <i class="fas fa-times icon-invite"></i>
+                                </a>
+                                <label class="label" data-toggle="tooltip" title=""
+                                       data-original-title="<?= $GLOBALS['_changeavatarsettings'] ?>">
+                                    <img class="rounded-circle avatar-settings" id="avatar"
+                                         src="/<?= getAvatarLink($id) ?>"
+                                         alt="avatar">
+                                    <input type="file" class="sr-only" id="input" name="image" accept="image/*">
+                                </label>
+                                <div id="progress-settings" class="progress" style="display: none;">
+                                    <div class="progress-bar-settings progress-bar-striped progress-bar-animated"
+                                         role="progressbar"
+                                         aria-valuenow="0"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 100%;">0%
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="img-container">
-                                            <img id="image"
-                                                 src=""
-                                                 class="">
+                                </div>
+                                <div class="alert alert-success" role="alert" style="display: none;"></div>
+                                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                                     aria-labelledby="modalLabel"
+                                     style="display: none;"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title"
+                                                    id="modalLabel"><?= $GLOBALS['_cutavatarsettings'] ?></h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="img-container">
+                                                    <img id="image"
+                                                         src=""
+                                                         class="">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    <?= $GLOBALS['_backsettings'] ?>
+                                                </button>
+                                                <button type="button" class="btn btn-primary"
+                                                        id="crop"><?= $GLOBALS['_uploadsettings'] ?></button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            <?= $GLOBALS['_backsettings'] ?>
-                                        </button>
-                                        <button type="button" class="btn btn-primary"
-                                                id="crop"><?= $GLOBALS['_uploadsettings'] ?></button>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col text-center align-center fio-profile">
+                                <?= $userData['name']; ?> <?= $userData['surname']; ?>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col text-center align-center fio-profile">
-                        <?= $userData['name']; ?> <?= $userData['surname']; ?>
-                    </div>
-                </div>
 
-                <div class="row pt-4">
-                    <div class="col-6">
-                        <div class="input-group mt-3">
-                            <input id="settingsName" name="settingsName" type="text"
-                                   class="form-control input-settings name text-center"
-                                   value="<?= $userData['name']; ?>">
+
+                        <div class="row pt-4">
+                            <div class="col-6">
+                                <div class="input-group mt-3">
+                                    <input id="settingsName" name="settingsName" type="text"
+                                           class="form-control input-settings name text-center"
+                                           value="<?= $userData['name']; ?>">
+                                </div>
+                                <small class="text-muted text-muted-reg">
+                                    Имя
+                                </small>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mt-3">
+                                    <input id="settingsSurname" name="settingsSurname" type="text"
+                                           class="form-control input-settings surname text-center"
+                                           value="<?= $userData['surname']; ?>">
+                                </div>
+                                <small class="text-muted text-muted-reg">
+                                    Фамилия
+                                </small>
+                            </div>
                         </div>
-                        <small class="text-muted text-muted-reg">
-                            Имя
-                        </small>
-                    </div>
-                    <div class="col-6">
                         <div class="input-group mt-3">
-                            <input id="settingsSurname" name="settingsSurname" type="text"
-                                   class="form-control input-settings surname text-center"
-                                   value="<?= $userData['surname']; ?>">
-                        </div>
-                        <small class="text-muted text-muted-reg">
-                            Фамилия
-                        </small>
-                    </div>
-                </div>
-                <div class="input-group mt-3">
                     <textarea rows="3" id="settingsDescription" name="settingsDescription" type="text"
                               class="form-control input-settings  name"><?= $userData['about']; ?></textarea>
-                </div>
-                <small class="text-muted text-muted-reg">
-                    <?= $GLOBALS['_aboutsettings'] ?>
-                </small>
-                <div class="row">
-                    <div class="col-12 col-lg-4">
-                        <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                        </div>
+                        <small class="text-muted text-muted-reg">
+                            <?= $GLOBALS['_aboutsettings'] ?>
+                        </small>
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fab fa-vk"></i>
                             </span>
+                                    </div>
+                                    <input id="settingsVk" name="settingsVk" type="text"
+                                           class="form-control input-settings email"
+                                           value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : ''; ?>">
+                                </div>
                             </div>
-                            <input id="settingsVk" name="settingsVk" type="text"
-                                   class="form-control input-settings email"
-                                   value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : ''; ?>">
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-4">
-                        <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="col-12 col-lg-4">
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fab fa-facebook-square"></i>
                                 </span>
+                                    </div>
+                                    <input id="settingsFacebook" name="settingsFacebook" type="text"
+                                           class="form-control input-settings email"
+                                           value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : ''; ?>">
+                                </div>
                             </div>
-                            <input id="settingsFacebook" name="settingsFacebook" type="text"
-                                   class="form-control input-settings email"
-                                   value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : ''; ?>">
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-4">
-                        <div class="input-group mt-3">
-                            <div class="input-group-prepend">
+                            <div class="col-12 col-lg-4">
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fab fa-instagram"></i>
                                 </span>
+                                    </div>
+                                    <input id="settingsInstagram" name="settingsInstagram" type="text"
+                                           class="form-control input-settings email"
+                                           value="<?= (isset($userData['social']['instagram'])) ? $userData['social']['instagram'] : ''; ?>">
+                                </div>
                             </div>
-                            <input id="settingsInstagram" name="settingsInstagram" type="text"
-                                   class="form-control input-settings email"
-                                   value="<?= (isset($userData['social']['instagram'])) ? $userData['social']['instagram'] : ''; ?>">
                         </div>
-                    </div>
-                </div>
-                <small class="text-muted text-muted-reg">
-                    Социальные сети
-                </small>
+                        <small class="text-muted text-muted-reg">
+                            Социальные сети
+                        </small>
 
-                <div class="row">
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group mt-3">
-                            <input id="settingsEmail" name="settingsEmail" type="email"
-                                   class="form-control input-settings email" value="<?= $userData['email']; ?>">
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="input-group mt-3">
+                                    <input id="settingsEmail" name="settingsEmail" type="email"
+                                           class="form-control input-settings email" value="<?= $userData['email']; ?>">
+                                </div>
+                                <small class="text-muted text-muted-reg">
+                                    Электронная почта
+                                </small>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="input-group mt-3">
+                                    <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
+                                           class="form-control input-settings phone-number"
+                                           value="<?= $userData['phone']; ?>">
+                                </div>
+                                <small class="text-muted text-muted-reg">
+                                    <?= $GLOBALS['_phonesettings'] ?>
+                                </small>
+                            </div>
                         </div>
-                        <small class="text-muted text-muted-reg">
-                            Электронная почта
-                        </small>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="input-group mt-3">
-                            <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
-                                   class="form-control input-settings phone-number" value="<?= $userData['phone']; ?>">
+                        <div class="row mt-5 pb-4">
+                            <div class="col-12 text-center">
+                                <button class="btn btn-outline-primary" id="sendChanges" type="submit">
+                                    <?= $GLOBALS['_savesettings'] ?>
+                                </button>
+                            </div>
                         </div>
-                        <small class="text-muted text-muted-reg">
-                            <?= $GLOBALS['_phonesettings'] ?>
-                        </small>
                     </div>
-                </div>
-                <div class="row mt-5 pb-4">
-                    <div class="col-12  text-center">
-                        <button class="btn btn-outline-primary" id="sendChanges" type="submit">
-                            <?= $GLOBALS['_savesettings'] ?>
-                        </button>
-                    </div>
-                </div>
-                <div class="accordion" id="accordionSettings">
+
                     <?php if ($roleu == 'ceo'): ?>
-                        <hr class="mt-4">
+                        <hr>
                         <div class="position-relative">
                             <div class="text-reg mb-3 mt-3" style="font-weight: 300;">
                                 <?= $GLOBALS['_companysettings'] ?>
@@ -176,7 +195,7 @@
                             <a data-toggle="collapse" href="#collapseCompany" role="button" aria-expanded="false"
                                aria-controls="collapseCompany" class="small text-muted">Изменить</a>
                         </span>
-                            <div class="collapse" id="collapseCompany" aria-labelledby="headingOne"
+                            <div class="collapse" id="collapseCompany" aria-labelledby="headingTwo"
                                  data-parent="#accordionSettings">
                                 <div class="input-group">
                                     <input id="companyName" name="companyName" type="text"
@@ -231,7 +250,7 @@
                                         <?= $GLOBALS['_clockcompanysettings'] ?>
                                     </small>
                                 </div>
-                                <div class="text-center mt-3">
+                                <div class="text-center mt-5 pb-4">
                                     <button class="btn btn-outline-primary" id="sendCompanyChanges" type="submit">
                                         <?= $GLOBALS['_savecompanysettings'] ?>
                                     </button>
@@ -248,7 +267,7 @@
                         <a data-toggle="collapse" href="#collapsePassword" role="button" aria-expanded="false"
                            aria-controls="collapsePassword" class="small text-muted">Изменить</a>
                     </span>
-                        <div class="collapse" id="collapsePassword" aria-labelledby="headingTwo"
+                        <div class="collapse" id="collapsePassword" aria-labelledby="headingThree"
                              data-parent="#accordionSettings">
                             <div class="row">
                                 <div class="col-12 col-lg-6">
@@ -292,7 +311,7 @@
                         <span class="position-absolute edit-settings edit-settings-saved">
                         <span class="text-muted small">Изменения сохранены</span>
                     </span>
-                        <div class="collapse" id="collapseNoty" aria-labelledby="headingThree"
+                        <div class="collapse" id="collapseNoty" aria-labelledby="headingFour"
                              data-parent="#accordionSettings">
                             <div class="row">
                                 <div class="col-2">
@@ -314,8 +333,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="mt-1 hr-settings">
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-2">
                                     <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
@@ -335,8 +353,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="mt-1 hr-settings">
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-2">
                                     <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
@@ -356,8 +373,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="mt-1 hr-settings">
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-2">
                                     <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
@@ -377,8 +393,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="mt-1 hr-settings">
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-2">
                                     <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
@@ -398,8 +413,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="mt-1 hr-settings">
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-2">
                                     <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
@@ -419,8 +433,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr class="mt-1 hr-settings">
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-2">
                                     <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
@@ -442,7 +455,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="mb-0">
                 </div>
             </div>
         </div>
