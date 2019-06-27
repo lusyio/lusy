@@ -9,6 +9,8 @@ if (empty($_GET['profile'])) {
 $profileId = $_GET["profile"];
 $userData = getUserData($profileId);
 
+$achievementProfile = getUserNonMultipleAchievements($profileId);
+
 // Проверка на попытку просмотра профиля чужой компании
 if ($idc != $userData['idcompany']) {
     header("location:/");

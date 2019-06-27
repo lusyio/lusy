@@ -1,3 +1,32 @@
+<?php
+$badges = [
+    'meeting' => 'fas fa-handshake',
+    'invitor' => 'fas fa-user-plus',
+    'bugReport_1' => 'fab fa-accessible-icon',
+    'message_1' => 'fas fa-broadcast-tower',
+    'taskOverdue_1' => 'fas fa-meh',
+    'taskPostpone_1' => 'fas fa-crown',
+    'taskDoneWithCoworker_1' => 'fas fa-user-friends',
+    'selfTask_1' => 'fas fa-user-tie',
+    'taskDone_1' => 'fas fa-thumbs-up',
+    'taskDone_10' => 'fas fa-star',
+    'taskDone_50' => 'fas fa-star',
+    'taskDone_100' => 'fas fa-star',
+    'taskDone_200' => 'fas fa-star',
+    'taskDone_500' => 'fas fa-star',
+    'taskDonePerMonth_500' => 'fas fa-user-graduate',
+    'taskCreate_10' => 'fas fa-atom',
+    'taskCreate_50' => 'fas fa-atom',
+    'taskCreate_100' => 'fas fa-atom',
+    'taskCreate_200' => 'fas fa-atom',
+    'taskCreate_500' => 'fas fa-atom',
+    'comment_1000' => 'fas fa-comment',
+    'taskOverduePerMonth_0' => 'fas fa-medal',
+    'taskDonePerMonth_leader' => 'fas fa-greater-than',
+    'taskInwork_20' => 'fas fa-brain',
+    'taskCreatePerDay_30' => 'fas fa-bolt',
+];
+?>
 <script src="/assets/js/circle-progress.min.js"></script>
 <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-md-10 col-xl-10">
@@ -74,45 +103,27 @@
     <div class="col-12 col-lg-10 col-md-10 col-xl-10">
         <h4 class="ml-2">Достижения</h4>
         <div class="d-flex flex-wrap text-center">
-
-            <div class="award award-sm mt-3" data-toggle="tooltip" data-placement="bottom"
-                 title="Заполнил профиль">
-                <div>
-                    <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
-                         data-value="1.00"></div>
-                    <div class="award-star bg-primary">
-                        <i class="fas fa-user"></i>
-                    </div>
-                </div>
-                <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
-                <hr>
-                <span class="badge badge-primary">20.05.2019</span>
-            </div>
-
-        </div>
-        <div class="collapse" id="collapseAchieve">
-            <hr>
-            <div class="d-flex flex-wrap text-center">
-
-                <div class="award award-sm mt-3" data-toggle="tooltip" data-placement="bottom"
-                     title="Заполнил профиль">
-                    <div>
-                        <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
-                             data-value="1.00"></div>
-                        <div class="award-star bg-primary">
-                            <i class="fas fa-user"></i>
+            <?php
+            foreach ($achievementProfile as $name => $values):?>
+                <?php if ($values['got']): ?>
+                    <div class="award award-sm mt-3" title="Заполнил профиль">
+                        <div>
+                            <div class="circle" data-fill="{ &quot;color&quot;: &quot;rgba(0, 123, 255, 1)&quot;}"
+                                 data-value="1.00"></div>
+                            <div class="award-star bg-primary">
+                                <i class="fas <?= $badges[$name] ?>"></i>
+                            </div>
                         </div>
+                        <h6 class="text-uppercase font-weight-bold"><?= $GLOBALS['_' . $name] ?></h6>
+                        <hr>
+                        <span class="badge badge-primary"><?= date('d.m.Y', $values['datetime']) ?></span>
                     </div>
-                    <h6 class="text-uppercase font-weight-bold">Знакомство</h6>
-                    <hr>
-                    <span class="badge badge-primary">20.05.2019</span>
-                </div>
-
-            </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
 
         <span class="position-absolute all-achieve">
-            <a class="small text-muted" data-toggle="collapse" href="#collapseAchieve" role="button" aria-expanded="false" aria-controls="collapseAchieve">Посмотреть все</a>
+            <span class="small text-muted text-all-achieve">Посмотреть все</span>
         </span>
     </div>
 </div>
@@ -133,6 +144,19 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $('.award-sm:lt(3)').show();
+        $('.text-all-achieve').on('click', function () {
+            if ($(this).hasClass('active')){
+                $('.award-sm:not(:lt(3))').fadeOut(200);
+                console.log('asdasd');
+                $(this).removeClass('active');
+            } else{
+                $(this).addClass('active');
+                $('.award-sm').show();
+            }
+        })
+    });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
