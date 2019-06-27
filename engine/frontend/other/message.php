@@ -7,7 +7,7 @@
         <div class="col pl-2 message-width">
             <p class="m-0 mb-1"><span class="text-dark btn p-0 border-0 font-weight-bold sender-name"><?= $message['author'] ?></span><span
                         class="date mr-2"><?= date('d.m H:i', $message['datetime']) ?>
-                    <?php if ($isCeoAndInChat): ?>
+                    <?php if (!empty($isCeoAndInChat)): ?>
                         <button type="button"
                                 class="btn btn-link text-danger delete-message">
                     <i class="fas fa-times"></i>
