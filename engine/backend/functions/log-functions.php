@@ -150,9 +150,10 @@ function prepareEvents(&$events)
             $event['link'] = 'task/' . $event['task_id'] . '/';
             $event['taskname'] = DBOnce('name', 'tasks', 'id=' . $event['task_id']);
             $event['datedone'] = DBOnce('datedone', 'tasks', 'id=' . $event['task_id']);
-            $workerQuery = $pdo->prepare('SELECT u.name, u.surname FROM users u LEFT JOIN tasks t ON u.id = t.worker WHERE t.id = :taskId');
+            $workerQuery = $pdo->prepare('SELECT u.name, u.surname, u.id FROM users u LEFT JOIN tasks t ON u.id = t.worker WHERE t.id = :taskId');
             $workerQuery->execute(array(':taskId' => $event['task_id']));
             $worker = $workerQuery->fetch(PDO::FETCH_ASSOC);
+            $event['worker'] = $worker['id'];
             $event['workerName'] = $worker['name'];
             $event['workerSurname'] = $worker['surname'];
         }
