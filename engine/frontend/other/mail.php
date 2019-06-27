@@ -44,8 +44,12 @@
                             </div>
                             <div class="col" style="max-width: 83%;">
                                 <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
-                                <span><?= ($lastChatMessage['sender'] == $id)? 'Вы: ' : fiomess($lastChatMessage['sender']) . ': ';?> <?= $lastChatMessage['mes'] ?></span>
-                                <span class="date mr-2"><?= date('d.m H:i', $lastChatMessage['datetime']); ?></span>
+                                <?php if ($lastChatMessage): ?>
+                                    <span><?= ($lastChatMessage['sender'] == $id)? 'Вы: ' : fiomess($lastChatMessage['sender']) . ': ';?> <?= $lastChatMessage['mes'] ?></span>
+                                    <span class="date mr-2"><?= date('d.m H:i', $lastChatMessage['datetime']); ?></span>
+                                <?php else: ?>
+                                    <span class="text-muted">В чате нет сообщений</span>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </a>
