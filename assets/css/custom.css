@@ -1229,7 +1229,23 @@ input:checked[type="checkbox"]::before {
 .eventText a, .eventText span {
     color: #9e9e9e;
 }
-
+.loginPage {
+    background-image: url("https://lusy.io/public/images/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+.lead-text {
+    font-size: 52px;
+    line-height: 1.2;
+    font-weight: 900;
+}
+.lead-text-p {
+    font-size: 23px;
+    color: #e1e1e1;
+    line-height: 1.4;
+    margin-top: 20px;
+}
 #chatBox {
     position: relative;
     height: calc(100vh - 280px);
