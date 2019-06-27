@@ -777,7 +777,18 @@ input:checked[type="checkbox"]::before {
     overflow: hidden;
     top: 0;
 }
+.bg-mail .btn-file {
+    background-color: #eaeaea;
+    border: none;
+    height: 38px;
+}
 
+.message-width span.date {
+    color: #adadad;
+}
+.my-message:hover span.date {
+    color: #7b7b7b;
+}
 .count-all {
     font-size: 14px;
 }
@@ -1221,7 +1232,7 @@ input:checked[type="checkbox"]::before {
 
 #chatBox {
     position: relative;
-    height: calc(100vh - 310px);
+    height: calc(100vh - 280px);
     overflow: auto;
 }
 
