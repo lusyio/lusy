@@ -13,8 +13,9 @@
                         <div class="col-sm-1 pl-0">
 
                             <div class="d-flex fc">
-                                <div class="informer d-flex mr-3 <?= ($hasNewComments)?'text-primary':''; ?>"><i class="fas fa-comments">
+                                <div class="informer d-flex mr-3"><i class="fas fa-comments">
                                     </i><span class="ml-1"><?=$n['countcomments']?></span>
+                                    <span class="ml-1 text-primary"><?=($n['countNewComments'] > 0) ? '+' . $n['countNewComments'] : ''?></span>
                                 </div>
                                 <div class="informer d-flex">
                                     <i class="fas fa-file"></i><span class="ml-1"><?=$n['countAttachedFiles']?></span>
