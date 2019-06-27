@@ -879,6 +879,9 @@ function addCommentEvent($taskId, $commentId)
             $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
         }
     }
+
+    sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
+
 }
 
 function concatName($name, $surname)
@@ -1044,6 +1047,73 @@ function sendTaskManagerEmailNotification($taskId, $action)
             $mail->setMessageContent('task-postpone', $args);
         }
 
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
+{
+    global $pdo;
+
+    $usersToNotification = [];
+
+    foreach ($userIds as $user) {
+        $note = getNotificationSettings($user);
+        if ($note['comment'] == 1) {
+            $usersToNotification[] = $user;
+        }
+        unset($user);
+    }
+
+    if (count($usersToNotification) == 0) {
+        return;
+    }
+
+    $userMails = [];
+    $userMailQuery = $pdo->prepare("SELECT email FROM users WHERE id = :userId");
+    foreach ($usersToNotification as $user) {
+        $userMailQuery->execute(array(':userId' => $user));
+        $userMails[] = $userMailQuery->fetch(PDO::FETCH_COLUMN);
+    }
+
+    require_once 'engine/phpmailer/LusyMailer.php';
+    require_once 'engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM tasks t LEFT JOIN company c ON t.idcompany = c.id WHERE t.id = :taskId");
+    $companyNameQuery->execute(array(':taskId' => $taskId));
+    $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
+
+    $authorNameQuery = $pdo->prepare("SELECT name, surname FROM users WHERE  id = :authorId");
+    $authorNameQuery->execute(array(':$authorId' => $authorId));
+    $authorNameResult = $authorNameQuery->fetch(PDO::FETCH_ASSOC);
+    $authorName = trim($authorNameResult['name'] . ' ' . $authorNameResult['surname']);
+
+    $taskName = DBOnce('name', 'tasks', 'id=' . $taskId);
+
+    $args = [
+        'companyName' => $companyName,
+        'taskId' => $taskId,
+        'authorName' => $authorName,
+        'taskName' => $taskName,
+        'commentId' => $commentId,
+    ];
+
+    foreach ($userMails as $userMail) {
+        try {
+            $mail->addAddress($userMail);
+        } catch (Exception $e) {
+            continue;
+        }
+    }
+
+    $mail->isHTML();
+    $mail->Subject = "Новый комментарий к задаче в Lusy.io";
+    $mail->setMessageContent('comment', $args);
+    try {
         $mail->send();
     } catch (Exception $e) {
         return;
