@@ -35,7 +35,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Новые задачи"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="far fa-bell" id="notificationIcon" style="font-size: 18px"></i>
+                                    <i class="far fa-bell fa-fw" id="notificationIcon" style="font-size: 18px"></i>
                                     <span class="badge badge-primary badge-topsidebar" id="notificationBadge">
                                     <small class="text-white" id="notificationCount"></small>
                                     </span>
@@ -46,7 +46,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Просроченные"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="fas fa-fire-alt" id="overdueIcon" style="font-size: 18px"></i>
+                                    <i class="fas fa-fire-alt fa-fw" id="overdueIcon" style="font-size: 18px"></i>
                                     <span class="badge badge-danger badge-topsidebar" id="overdueBadge">
                                     <small class="text-white" id="overdueCount"></small>
                                 </span>
@@ -58,7 +58,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Новые комментарии"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="far fa-comment" id="commentIcon" style="font-size: 18px"></i>
+                                    <i class="far fa-comment fa-fw" id="commentIcon" style="font-size: 18px"></i>
                                     <span class="badge badge-warning badge-topsidebar" id="commentBadge">
                                     <small class="text-white" id="commentCount"></small>
                                 </span>
@@ -69,7 +69,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Новые сообщения"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="far fa-envelope" id="messagesIcon" style="font-size: 18px"></i>
+                                    <i class="far fa-envelope fa-fw" id="messagesIcon" style="font-size: 18px"></i>
                                     <span class="badge badge-success badge-topsidebar" id="messagesBadge">
                                     <small class="text-white" id="messagesCount"></small>
                                 </span>
@@ -77,16 +77,16 @@
                             </div>
                         </a>
                     </div>
-                    <div class="p-1 ml-3 new-menu-trigger" data-trigger="dropdown" style="border-radius: 50%;">
+                    <div class="p-1 ml-3 new-menu-trigger" data-trigger="dropdown">
                         <span>
                             <img class="user-img rounded-circle " src="/<?= getAvatarLink($id) ?>"/>
                         </span>
                     </div>
                     <div class="profile-submenu submenu">
-                        <a href="/profile/<?= $id ?>/"><i class="mr-2 fas fa-user-alt"></i><?= _('Profile') ?></a>
-                        <a href="/log/"><i class="mr-2 fas fa-bell"></i><?= _('History') ?></a>
-                        <a href="/settings/"><i class="mr-2 fas fa-cog"></i><?= _('Settings') ?></a>
-                        <a href="/logout/"><i class="mr-2 fas fa-sign-out-alt"></i><?= _('Log Out') ?></a>
+                        <a href="/profile/<?= $id ?>/"><i class="mr-2 fas fa-user-alt fa-fw"></i><?= _('Profile') ?></a>
+                        <a href="/log/"><i class="mr-2 fas fa-bell fa-fw"></i><?= _('History') ?></a>
+                        <a href="/settings/"><i class="mr-2 fas fa-cog fa-fw"></i><?= _('Settings') ?></a>
+                        <a href="/logout/"><i class="mr-2 fas fa-sign-out-alt fa-fw"></i><?= _('Log Out') ?></a>
                     </div>
                 </div>
             </div>
