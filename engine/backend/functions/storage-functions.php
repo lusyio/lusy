@@ -135,6 +135,7 @@ function prepareFileList(array &$fileList) {
             $file['attachedToLink'] = '';
         }
         if ($file['comment_type'] == 'chat') {
+            $file['uploadDate'] = DBOnce('datetime', 'chat', 'message_id = ' . $file['comment_id']);
             $file['comment_id'] = '';
             $file['attachedToLink'] = "/chat/";
         }
