@@ -56,8 +56,11 @@
     function insertPlug() {
         if ($('.event:visible').length === 0){
             $('#logPlug').show();
-        } else
+            $('#log').addClass('delete-before')
+        } else {
             $('#logPlug').hide();
+            $('#log').removeClass('delete-before')
+        }
     }
 
     var pageName = 'log';

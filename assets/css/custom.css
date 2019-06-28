@@ -131,6 +131,9 @@ body{
     background-color: rgba(212, 74, 95, 0.31);
 }
 
+.delete-before:before{
+    background: white!important;
+}
 
 .files-nav .progress {
     background-color: #dfe0e1;
