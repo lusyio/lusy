@@ -11,6 +11,7 @@ if (isset($_GET['activate']) && isset($_GET['code'])) {
         $removeActivationCodeQuery->execute(array(':companyId' => $companyId, ':code' => $activateCode));
         if ($result) {
             $companyMail = DBOnce('email', 'users', 'idcompany=' . $companyId . ' AND role=\'ceo\'');
+            $companyName = DBOnce('idcompany', 'company', 'id=' . $companyId);
             require_once 'engine/phpmailer/LusyMailer.php';
             require_once 'engine/phpmailer/Exception.php';
             $mail = new \PHPMailer\PHPMailer\LusyMailer();
@@ -18,7 +19,9 @@ if (isset($_GET['activate']) && isset($_GET['code'])) {
                 $mail->addAddress($companyMail);
                 $mail->isHTML();
                 $mail->Subject = "Добро пожаловать в Lusy.io";
-                $args = [];
+                $args = [
+                    'companyName' => $companyName
+                ];
                 $mail->setMessageContent('company-welcome', $args);
                 $mail->send();
             } catch (Exception $e) {
