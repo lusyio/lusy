@@ -214,3 +214,27 @@ function addOverdueComment($taskId)
     ];
     $sql->execute($commentData);
 }
+
+function checkSystemTask($taskId)
+{
+    global $id;
+    global $idc;
+    global $pdo;
+
+        setFinalStatus($taskId, 'done');
+        addFinalComments($taskId, 'done');
+        resetViewStatus($taskId);
+        //addEvent
+        $eventDataForWorker = [
+            ':action' => 'workdone',
+            ':taskId' => $taskId,
+            ':authorId' => 1,
+            ':recipientId' => $id,
+            ':companyId' => $idc,
+            ':datetime' => time(),
+            ':viewStatus' => 0,
+        ];
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, view_status) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :viewStatus)');
+        $addEventQuery->execute($eventDataForWorker);
+}

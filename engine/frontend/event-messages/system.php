@@ -1,10 +1,13 @@
+<?php
+require_once 'engine/backend/functions/mail-functions.php';
+?>
 <li data-event-id="<?= $event['event_id'] ?>"
     class="event <?= ($event['view_status']) ? '' : 'new-event' ?>  readable-here">
     <?php
     if ($event['action'] == 'newuser') { // новый пользователь
         $bg = 'bg-success';
         $icon = 'fas fa-user';
-        $action = $GLOBALS['_newUserRegistered'] . ' <a href="/../' . $event["comment"] . '">' . $event['name'] . ' ' . $event['surname'] . '</a>';
+        $action = $GLOBALS['_newUserRegistered'] . ' <a href="/profile/' . $event["comment"] . '/">' . fiomess($event["comment"]) . '</a>';
     }
     if ($event['action'] == 'newcompany') { // регистрация компании
         $bg = 'bg-success';
