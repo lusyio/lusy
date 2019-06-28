@@ -33,9 +33,22 @@
                             <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
                         </span>
                 </div>
-                <div>
+                <div class="position-relative">
                     <input type="button" class="btn btn-primary" id="sendBtn"
                            value="<?= $GLOBALS['_sendconversation'] ?>">
+                    <div class="send-mes-tooltip">
+                        <div class="card">
+                            <div class="send-mes-tooltip-body">
+                                <div style="font-size: 13px">
+                                    <b>Ctrl+Enter</b>
+                                    — Отправить сообщение
+                                    <br>
+                                    <b>Enter</b>
+                                    — Новая строка
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

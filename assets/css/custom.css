@@ -1573,7 +1573,24 @@ a {
     font-size: 14px;
 }
 
+.send-mes-tooltip{
+    position: absolute;
+    opacity: 1;
+    top: -90px;
+    left: -73px;
+    z-index: 10;
+    display: none;
+}
 
+#sendBtn:hover ~ .send-mes-tooltip{
+    display: block;
+}
+
+.send-mes-tooltip-body{
+    padding: 12px 14px 13px;
+    line-height: 17px;
+    width: 200px;
+}
 
 .slide-dashboard{
     font-size: 20px;
@@ -1902,6 +1919,7 @@ span.date {
     background-color: #f2f2f2 !important;
 }
 
+
 #searchButton:focus{
     outline: 0;
 }
@@ -2084,6 +2102,10 @@ span.date {
     }
     [data-trigger="dropdown"] {
     padding: 0;
+    }
+
+    .send-mes-tooltip{
+        display: none !important;
     }
 
     #sendBtn{
