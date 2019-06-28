@@ -2,6 +2,10 @@
 
 require_once 'engine/backend/functions/reg-functions.php';
 
+$email = '';
+if (!empty($_POST['email'])) {
+    $email = $_POST['email'];
+}
 global $pdo;
 $userLanguage = getUserLanguage();
 $regErrors = [];
