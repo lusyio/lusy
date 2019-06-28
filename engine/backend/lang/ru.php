@@ -85,6 +85,7 @@ $_fireoutcompany = 'Уволить сотрудника';
 $_attachto = 'прикрепил к';
 $_fileplaceholder = 'Введите название файла';
 $_conversation = 'диалогу';
+$_chat = 'чату компании';
 $_comment= 'комментарию к задаче';
 $_task= 'задаче';
 $_files = 'Файлы';

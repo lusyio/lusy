@@ -134,6 +134,10 @@ function prepareFileList(array &$fileList) {
             $fromTo = DB('sender, recipient', 'mail', 'message_id=' . $file['comment_id']);
             $file['attachedToLink'] = '';
         }
+        if ($file['comment_type'] == 'chat') {
+            $file['comment_id'] = '';
+            $file['attachedToLink'] = "/chat/";
+        }
         $normalizedFileSize = normalizeSize($file['file_size']);
         $fileSize = $file['file_size'];
         $file['file_size'] = $normalizedFileSize['size'];
