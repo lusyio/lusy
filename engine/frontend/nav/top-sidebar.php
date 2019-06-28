@@ -32,7 +32,7 @@
                 <div id="counters" class="alerts text-center">
                     <div class="d-flex counters-topsidebar">
                         <a href="/log/#tasks" class="text-decoration-none d-none topsidebar-noty-content">
-                            <div data-toggle="tooltip" data-placement="bottom" title="Новые задачи"
+                            <div data-toggle="tooltip" data-placement="bottom" title="Задачи"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
                                     <i class="far fa-bell fa-fw" id="notificationIcon" style="font-size: 18px"></i>
@@ -55,7 +55,7 @@
                         </a>
                         <a href="/log/#comments"
                            class="text-decoration-none d-none topsidebar-noty-content">
-                            <div data-toggle="tooltip" data-placement="bottom" title="Новые комментарии"
+                            <div data-toggle="tooltip" data-placement="bottom" title="Комментарии"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
                                     <i class="far fa-comment fa-fw" id="commentIcon" style="font-size: 18px"></i>
@@ -66,7 +66,7 @@
                             </div>
                         </a>
                         <a href="/mail/" class="text-decoration-none d-none topsidebar-noty-content">
-                            <div data-toggle="tooltip" data-placement="bottom" title="Новые сообщения"
+                            <div data-toggle="tooltip" data-placement="bottom" title="Сообщения"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
                                     <i class="far fa-envelope fa-fw" id="messagesIcon" style="font-size: 18px"></i>

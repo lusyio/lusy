@@ -695,7 +695,7 @@ input:checked[type="checkbox"]::before {
     margin-top: 5px;
     padding: 5px;
     transition: 200ms;
-    border-radius: 25%;
+    border-radius: 50%;
 }
 
 .custom-file {
@@ -716,7 +716,7 @@ input:checked[type="checkbox"]::before {
     margin-left: 13px;
     padding: 5px;
     transition: 200ms;
-    border-radius: 25%;
+    border-radius: 50%;
     width: 35px;
     text-align: center;
 }
@@ -1894,6 +1894,14 @@ span.date {
     background-color: #e4e4e4;
 }
 
+.comment.bg-primary{
+    background-color: #f2f2f2 !important;
+}
+
+.comment.bg-success{
+    background-color: #f2f2f2 !important;
+}
+
 #searchButton:focus{
     outline: 0;
 }
@@ -2078,8 +2086,20 @@ span.date {
     padding: 0;
     }
 
+    #sendBtn{
+        width: 100%;
+    }
+
     .chart-card{
         margin-bottom: 10px;
+    }
+
+    .bg-mail > .card-body{
+        padding-bottom: 1.25rem!important;
+    }
+
+    .send-mes-block{
+        display: block!important;
     }
 
     .noty-padding-content-settings{
