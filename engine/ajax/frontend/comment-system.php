@@ -63,10 +63,8 @@ if ($comment[0] == 'removecoworker') {
 }
 ?>
 
-<div class="mt-5 mb-5" id="<?= $c['id'] ?>">
-    <div class="text-center system text-secondary position-relative">
-	    <div class="system-text">
-	        <span><?= $text ?></span>
-	    </div>
+<div class="mt-5 mb-5 system text-center text-secondary position-relative" id="<?= $c['id'] ?>">
+    <div class="system-text">
+        <span><?= $text ?></span>
     </div>
 </div>
