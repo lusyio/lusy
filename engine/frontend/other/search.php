@@ -1,6 +1,6 @@
 <div class="search-container">
     <div id="searchResult">
-        <?php if (isset($request) && mb_strlen($request) > 0): ?>
+        <?php if (isset($request) && mb_strlen($request) > 0 && (count($result['task']) > 0 || count($result['file']) > 0 || count($result['comment']) > 0)): ?>
         <div class="text-center mt">
             <h5 class="pt-2">&#128270 <?= $GLOBALS['_resultsearchtopsidebar'] ?> "<?= $request ?>"</h5>
         </div>
