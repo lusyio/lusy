@@ -149,17 +149,9 @@ if ($id == $worker and $view == 0) {
                             <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
                             <span class=" text-secondary slash">|</span>
                             <img src="/<?= getAvatarLink($worker) ?>" class="avatar ml-1">
-                            <?php
-                            foreach ($coworkers as $coworker):
-                                if (!is_null($viewStatus) && isset($viewStatus[$coworker['worker_id']])) {
-                                    $viewStatusTitle = 'Просмотрено ' . $viewStatus[$coworker['worker_id']]['datetime'];
-                                } else {
-                                    $viewStatusTitle = 'Не просмотрено';
-                                }
-                                ?>
-                                <span class="mb-0" title="<?= $viewStatusTitle ?>"><img
-                                            src="/<?= getAvatarLink($coworker['worker_id']) ?>" alt="worker image"
-                                            class="avatar ml-1"></span>
+                            <?php foreach ($coworkers as $coworker): ?>
+                                <span class="mb-0"><img src="/<?= getAvatarLink($coworker['worker_id']) ?>"
+                                                        alt="worker image" class="avatar ml-1"></span>
                             <?php endforeach; ?>
                         </div>
                         <?php if ($role == 'manager') {

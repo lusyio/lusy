@@ -31,10 +31,8 @@
                         </div>
                         <div class="col-sm-2 col-4 avatars">
                             <div>
-                                <img src="/<?= getAvatarLink($n['idmanager']) ?>" title="<?= $viewStatusTitleManager ?>"
-                                     class="avatar"> |
-                                <img src="/<?= getAvatarLink($n['idworker']) ?>" title="<?= $viewStatusTitleManager ?>"
-                                     class="avatar">
+                                <img src="/<?= getAvatarLink($n['idmanager']) ?>" class="avatar"> |
+                                <img src="/<?= getAvatarLink($n['idworker']) ?>" class="avatar">
                             </div>
                         </div>
                     </div>
