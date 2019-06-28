@@ -17,8 +17,8 @@
                             <div class="lead-text-p text-center mb-3">
                                 Первым делом необходимо выбрать краткий идентификатор для вашей компании
                             </div>
-                            <input type="text" id="companyName" autocomplete="off" name="companyName" class="form-control required"
-                                   placeholder="Название компании">
+                            <input type="text" id="companyName" name="companyName" class="form-control required"
+                                   placeholder="Название компании" autocomplete="off">
                         </div>
 
                     </section>
@@ -149,7 +149,7 @@
                         <div class="form-group mb-0">
                             <div class="input-group">
                                 <input id="password" type="password" name="password"
-                                       class="form-control required" placeholder="Пароль не менее 8 символов">
+                                       class="form-control required" placeholder="Пароль не менее 8 символов" autocomplete="off">
                             </div>
                         </div>
                     </section>
