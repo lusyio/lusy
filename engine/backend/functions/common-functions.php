@@ -1030,7 +1030,7 @@ function sendTaskManagerEmailNotification($taskId, $action)
     $managerMailQuery->execute(array(':taskId' => $taskId));
     $managerMail = $managerMailQuery->fetch(PDO::FETCH_COLUMN);
 
-    $workerNameQuery = $pdo->prepare("SELECT u.name, u.surname FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE t.id = :taskId");
+    $workerNameQuery = $pdo->prepare("SELECT u.name, u.surname FROM tasks t LEFT JOIN users u ON t.worker = u.id WHERE t.id = :taskId");
     $workerNameQuery->execute(array(':taskId' => $taskId));
     $workerNameResult = $workerNameQuery->fetch(PDO::FETCH_ASSOC);
     $workerName = trim($workerNameResult['name'] . ' ' . $workerNameResult['surname']);
