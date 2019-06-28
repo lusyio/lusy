@@ -23,19 +23,33 @@
 <div class="card border-top bg-mail">
     <div class="card-body pb-0">
         <form>
-            <div class="d-flex">
-            <div class="form-group w-100 mr-2 text-area">
-                <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
-                          placeholder="<?= $GLOBALS['_enterconversation'] ?>"
-                          ></textarea>
-            </div>
-                <div><span class="btn btn-light btn-file mr-2" data-toggle="tooltip" data-placement="bottom"
-                           title="Прикрепить файлы">
-                        <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
-                </span></div>
-                <div><input type="button" class="btn btn-primary" id="sendBtn"
-                            value="<?= $GLOBALS['_sendconversation'] ?>"></div>
-
+            <div class="d-flex send-mes-block">
+                <div class="form-group w-100 mr-2 text-area d-flex">
+                    <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
+                              placeholder="<?= $GLOBALS['_enterconversation'] ?>">
+                    </textarea>
+                    <span class="btn btn-light btn-file ml-2" data-toggle="tooltip" data-placement="bottom"
+                          title="Прикрепить файлы">
+                            <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
+                        </span>
+                </div>
+                <div class="position-relative">
+                    <input type="button" class="btn btn-primary" id="sendBtn"
+                           value="<?= $GLOBALS['_sendconversation'] ?>">
+                    <div class="send-mes-tooltip">
+                        <div class="card">
+                            <div class="send-mes-tooltip-body">
+                                <div style="font-size: 13px">
+                                    <b>Ctrl+Enter</b>
+                                    — Отправить сообщение
+                                    <br>
+                                    <b>Enter</b>
+                                    — Новая строка
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
         <div class="newmess"></div>
@@ -48,6 +62,7 @@
     $("#mes").keydown(function (e) {
         if (e.ctrlKey && e.keyCode == 13) {
             $("#sendBtn").click();
+            $("#mes").val('');
         }
     });
     (function (b) {
@@ -164,7 +179,7 @@
         $('#chatBox').on('click', '.not-my-message', function () {
             var name = $(this).find('.sender-name').text();
             var text = $('#mes').val();
-            if (text.indexOf(name) <0) {
+            if (text.indexOf(name) < 0) {
                 $('#mes').val(name + ', ' + text);
             }
         });
@@ -262,6 +277,7 @@
                 $(el).removeClass('alert-primary');
             }, 500);
         });
+
 
         $('#chatBox').on('click', '.delete-message', function () {
             var el = $(this).closest('.message');

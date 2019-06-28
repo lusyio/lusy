@@ -23,32 +23,47 @@
 <div class="card border-top bg-mail">
     <div class="card-body pb-0">
         <form>
-            <div class="d-flex">
-            <div class="form-group w-100 mr-2 text-area">
-                <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
-                          placeholder="<?= $GLOBALS['_enterconversation'] ?>" autofocus
-                          ></textarea>
-            </div>
-                <div><span class="btn btn-light btn-file mr-2" data-toggle="tooltip" data-placement="bottom"
-                           title="Прикрепить файлы">
-                        <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
-                </span></div>
-                <div><input type="button" class="btn btn-primary" id="sendBtn"
-                            value="<?= $GLOBALS['_sendconversation'] ?>"></div>
-
+            <div class="d-flex send-mes-block">
+                <div class="form-group w-100 mr-2 text-area d-flex">
+                    <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
+                              placeholder="<?= $GLOBALS['_enterconversation'] ?>" autofocus>
+                    </textarea>
+                    <span class="btn btn-light btn-file ml-2" data-toggle="tooltip" data-placement="bottom"
+                          title="Прикрепить файлы">
+                            <i class="fas fa-file-upload custom-date"></i><input id="sendFiles" type="file" multiple>
+                        </span>
+                </div>
+                <div class="position-relative">
+                    <input type="button" class="btn btn-primary" id="sendBtn"
+                           value="<?= $GLOBALS['_sendconversation'] ?>">
+                    <div class="send-mes-tooltip">
+                        <div class="card">
+                            <div class="send-mes-tooltip-body">
+                                <div style="font-size: 13px">
+                                    <b>Ctrl+Enter</b>
+                                    — Отправить сообщение
+                                    <br>
+                                    <b>Enter</b>
+                                    — Новая строка
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
         <div class="newmess"></div>
     </div>
 </div>
 <script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
     $("#mes").keydown(function (e) {
         if (e.ctrlKey && e.keyCode == 13) {
             $("#sendBtn").click();
+            $("#mes").val('');
         }
+    });
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
     });
     (function (b) {
         b.fn.autoResize = function (f) {

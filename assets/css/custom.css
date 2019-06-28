@@ -111,6 +111,30 @@ body{
     font-weight: 600;
 }
 
+#logPlug{
+    display: none;
+}
+
+.delete-message{
+    color: #d64c5e !important;
+    margin-left: 13px;
+    padding: 5px;
+    transition: 200ms;
+    border-radius: 50%;
+    width: 35px;
+    text-align: center;
+}
+
+.delete-message:hover{
+    padding: 5px;
+    border-radius: 50%;
+    background-color: rgba(212, 74, 95, 0.31);
+}
+
+.delete-before:before{
+    background: white!important;
+}
+
 .files-nav .progress {
     background-color: #dfe0e1;
     height: 3px;
@@ -695,7 +719,7 @@ input:checked[type="checkbox"]::before {
     margin-top: 5px;
     padding: 5px;
     transition: 200ms;
-    border-radius: 25%;
+    border-radius: 50%;
 }
 
 .custom-file {
@@ -716,7 +740,7 @@ input:checked[type="checkbox"]::before {
     margin-left: 13px;
     padding: 5px;
     transition: 200ms;
-    border-radius: 25%;
+    border-radius: 50%;
     width: 35px;
     text-align: center;
 }
@@ -1353,8 +1377,11 @@ input:checked[type="checkbox"]::before {
     font-size: 20px;
     text-align: center;
     color: #65686c;
-    padding: 72px 10px;
+    top: 50%;
+    position: absolute;
     font-weight: 200;
+    padding: 0!important;
+    width: 100%;
 }
 
 .not-my-message {
@@ -1573,7 +1600,24 @@ a {
     font-size: 14px;
 }
 
+.send-mes-tooltip{
+    position: absolute;
+    opacity: 1;
+    top: -90px;
+    left: -73px;
+    z-index: 10;
+    display: none;
+}
 
+#sendBtn:hover ~ .send-mes-tooltip{
+    display: block;
+}
+
+.send-mes-tooltip-body{
+    padding: 12px 14px 13px;
+    line-height: 17px;
+    width: 200px;
+}
 
 .slide-dashboard{
     font-size: 20px;
@@ -1894,6 +1938,15 @@ span.date {
     background-color: #e4e4e4;
 }
 
+.comment.bg-primary{
+    background-color: #f2f2f2 !important;
+}
+
+.comment.bg-success{
+    background-color: #f2f2f2 !important;
+}
+
+
 #searchButton:focus{
     outline: 0;
 }
@@ -2078,8 +2131,24 @@ span.date {
     padding: 0;
     }
 
+    .send-mes-tooltip{
+        display: none !important;
+    }
+
+    #sendBtn{
+        width: 100%;
+    }
+
     .chart-card{
         margin-bottom: 10px;
+    }
+
+    .bg-mail > .card-body{
+        padding-bottom: 1.25rem!important;
+    }
+
+    .send-mes-block{
+        display: block!important;
     }
 
     .noty-padding-content-settings{

@@ -95,7 +95,7 @@ $_files = 'Файлы';
 $_edit = 'Изменить';
 $_titlecompanyusage = 'Файлы компании';
 $_titleuserusage = 'Файлы пользователя';
-$_emptyliststorage = 'Тут сейчас пусто';
+$_emptyliststorage = 'Тут пока что пусто';
 $_emptylistsnotystorage = 'Вы можете прикреплять файлы к задачам и сообщениям';
 
 //инвайты
