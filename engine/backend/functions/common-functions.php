@@ -1065,13 +1065,14 @@ function sendTaskManagerEmailNotification($taskId, $action)
 
 function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
 {
+    global $id;
     global $pdo;
 
     $usersToNotification = [];
 
     foreach ($userIds as $user) {
         $note = getNotificationSettings($user);
-        if ($note['comment'] == 1) {
+        if ($note['comment'] == 1 && $user != $id) {
             $usersToNotification[] = $user;
         }
         unset($user);
@@ -1201,7 +1202,7 @@ function sendAchievementEmailNotification($userId, $achievementName)
         $mail->Subject = "Вы получили новое достижение в Lusy.io";
         $args = [
             'companyName' => $companyName,
-            'achievementName' => gettext($achievementName),
+            'achievementName' => $GLOBALS['_' . $achievementName],
         ];
         $mail->setMessageContent('achievement', $args);
         $mail->send();

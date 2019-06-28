@@ -1,7 +1,9 @@
 <!doctype html>
-<?php if (empty($langc) or empty($title)) {
-    $langc = 'test';
-    $title = 'test';
+<?php if (empty($langc)){
+    $langc = 'ru';
+}
+if (empty($title)) {
+    $title = 'empty';
 } ?>
 <html lang="<?= $langc ?>">
 <head>

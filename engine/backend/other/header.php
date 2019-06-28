@@ -100,12 +100,18 @@ if ($isAuthorized) {
     }
 }
 
+//здесь определить язык пользователя по данным из браузера
+$langc = 'ru';
+include 'engine/backend/lang/'.$langc.'.php';
+
+
 if (!empty($_GET['restore']) && !empty($_GET['code'])) {
     $title = "Восстановление пароля"; //TODO Add locales
 }
 if (!empty($_GET['activate']) && !empty($_GET['code'])) {
     $title = "Активация аккаунта"; //TODO Add locales
 }
+
 if (empty($title)) {
     if (empty($url)) {
         $title = $GLOBALS["_main"];

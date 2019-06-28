@@ -47,7 +47,7 @@ $borderColor = [
                                             </div>
                                         </div>
                                         <div class="col-3 p-0">
-                                            <span></span><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></span>
+                                            <span class="<?= ($task['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($task['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $task['datedone']) == date("Y-m-d")) ? 'text-warning font-weight-bold' : ''; ?>"><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@ $borderColor = [
                                             </div>
                                         </div>
                                         <div class="col-3 p-0">
-                                            <span></span><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></span>
+                                            <span class="<?= ($task['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($task['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $task['datedone']) == date("Y-m-d")) ? 'text-warning font-weight-bold' : ''; ?>"><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></span>
                                         </div>
                                     </div>
                                 </div>

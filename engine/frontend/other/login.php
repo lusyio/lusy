@@ -3,12 +3,12 @@
         <div id="login">
             <!-- Heading -->
             <h1 class="lead-text text-white text-center mb-3 mt-5">
-                <?= $_authorization ?>
+                <?= $GLOBALS['_authorization'] ?>
             </h1>
 
             <!-- Subheading -->
             <p class="lead-text-p text-center">
-                <?= $_entertext ?>
+                <?= $GLOBALS['_entertext'] ?>
             </p>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-5 col-xl-4 mt-3">
@@ -21,7 +21,7 @@
                         <div class="form-group">
 
                             <!-- Input -->
-                            <input type="text" name="login" class="form-control" placeholder="<?= $_enteremail ?>"
+                            <input type="text" name="login" class="form-control" placeholder="<?= $GLOBALS['_enteremail'] ?>"
                                    value="">
 
                         </div>
@@ -34,7 +34,7 @@
 
                                 <!-- Input -->
                                 <input type="password" name="password" class="form-control form-control-appended"
-                                       placeholder="<?= $_enterpassword ?>" value="">
+                                       placeholder="<?= $GLOBALS['_enterpassword'] ?>" value="">
 
 
                             </div>
@@ -63,7 +63,7 @@
                         <!-- Link -->
                         <div class="text-center">
                             <p class="text-white text-center mb-0">
-                                <?= $_notregistrated ?>? <a href="/reg/" class="text-white"><?= $_registrationreg ?></a>
+                                <?= $GLOBALS['_notregistrated'] ?>? <a href="/reg/" class="text-white"><?= $GLOBALS['_registrationreg'] ?></a>
                             </p>
                         </div>
 
@@ -71,7 +71,7 @@
                     </form>
                     <div id="btn-show-restore" class="text-center">
                         <small class="text-muted text-center">
-                            <button class="btn" id="btn-show-restore-form"><?= $_forgotpassword ?>?</button>
+                            <button class="btn" id="btn-show-restore-form"><?= $GLOBALS['_forgotpassword'] ?>?</button>
                         </small>
                     </div>
                 </div>
@@ -79,12 +79,12 @@
         </div>
         <div id="restore-password" class="d-none">
             <h1 class="lead-text text-white text-center mb-3 mt-5">
-                <?= $_restorePass ?>
+                <?= $GLOBALS['_restorePass'] ?>
             </h1>
 
             <!-- Subheading -->
             <p class="lead-text-p text-center">
-                <?= $_enteremail ?>
+                <?= $GLOBALS['_enteremail'] ?>
             </p>
 
             <div class="row justify-content-center">
@@ -107,7 +107,7 @@
                         <!-- Submit -->
                         <button id="btn-restore" class="btn btn-lg btn-block btn-primary mb-3">
                         <span id="spinner-restore" class="spinner-border spinner-border-sm d-none" role="status"
-                              aria-hidden="true"></span> <?= $_restorepassword ?>
+                              aria-hidden="true"></span> <?= $GLOBALS['_restorepassword'] ?>
                         </button>
 
 
@@ -152,6 +152,7 @@
 <script>
     $(document).ready(function () {
         $('#btn-show-restore-form').on('click', function () {
+            document.title = '<?= $GLOBALS['_restore'] ?>';
             $('#login').empty();
             $(this).closest('div').addClass('d-none');
             $('#restore-password').removeClass('d-none');
