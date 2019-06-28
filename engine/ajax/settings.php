@@ -30,7 +30,7 @@ if ($_POST['module'] == 'changeData') {
     $facebook = filter_var($_POST['facebook'], FILTER_SANITIZE_URL);
     $facebook = preg_replace('~((http[s]?:\/\/)?(www.)?(m.)?facebook.com\/)?(\/)?~', '', $facebook);
     $instagram = filter_var($_POST['instagram'], FILTER_SANITIZE_URL);
-    $instagram = preg_replace('~((http[s]?:\/\/)?(www.)?(m.)?instagram.com\/)?(\/)?~', '', $facebook);
+    $instagram = preg_replace('~((http[s]?:\/\/)?(www.)?(m.)?instagram.com\/)?(\/)?~', '', $instagram);
     $socialNetworks = [];
     if ($vk != '') {
         $socialNetworks['vk'] = $vk;
