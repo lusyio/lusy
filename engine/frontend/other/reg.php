@@ -3,7 +3,6 @@
         crossorigin="anonymous"></script>
 <script src="/assets/js/jquery.steps.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-
 <div class="loginPage">
     <div class="container pt-5">
         <h1 class="lead-text text-white text-center mb-3 mt-5">
@@ -18,7 +17,7 @@
                             <div class="lead-text-p text-center mb-3">
                                 Первым делом необходимо выбрать краткий идентификатор для вашей компании
                             </div>
-                            <input type="text" id="companyName" name="companyName" class="form-control required"
+                            <input type="text" id="companyName" autocomplete="off" name="companyName" class="form-control required"
                                    placeholder="Название компании">
                         </div>
 
@@ -144,7 +143,7 @@
                             Отлично! Осталось создать аккаунт главы компании. Для этого введите Ваш email и укажите пароль
                         </div>
                         <div class="form-group">
-                            <input id="emailAdmin" type="text" name="email" class="form-control required email"
+                            <input id="emailAdmin" type="text" value="<?=$email?>" name="email" class="form-control required email"
                                    placeholder="E-mail">
                         </div>
                         <div class="form-group mb-0">
