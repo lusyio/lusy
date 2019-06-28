@@ -23,8 +23,8 @@
 </form>
 <hr>
 <div class="invite-container">
-    <?php if (count($invites)): ?>
-        <div class="d-sm task-box mb-1">
+
+        <div class="d-sm task-box mb-1 invites-header d-none">
             <div class="card-body pb-2  ">
                 <div class="row sort">
                     <div class="col-4">
@@ -39,15 +39,22 @@
                 </div>
             </div>
         </div>
-        <div id="invites-container">
-            <?php include 'engine/ajax/invite-card.php' ?>
-        </div>
-    <?php
-    endif;
-    ?>
+
+    <div id="invites-container">
+        <?php include 'engine/ajax/invite-card.php' ?>
+    </div>
+
 </div>
 <script>
     $(document).ready(function () {
+        updateHeader();
+        function updateHeader() {
+            if ($('.invite-card:visible').length != 0){
+                $('.invites-header').removeClass('d-none');
+            } else{
+                $('.invites-header').addClass('d-none');
+            }
+        }
 
         updateInvites();
 
@@ -90,7 +97,9 @@
                 contentType: false,
                 data: fd,
                 success: function (data) {
-                    el.parents('.invite-card').fadeOut(300);
+                    $.when(el.parents('.invite-card').fadeOut(300)).done(function () {
+                        updateHeader();
+                    });
                     console.log(data);
                 }
             });
@@ -130,6 +139,7 @@
                                 $(".text-muted-reg").removeClass('d-none');
                             } else {
                                 $(".text-muted-reg").addClass('d-none');
+                                $('.invites-header').removeClass('d-none');
                                 updateInvites();
                             }
                         } else {
