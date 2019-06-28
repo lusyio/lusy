@@ -59,5 +59,5 @@ $alerts = [
 }
 
 // подключаем внешние файлы обработчики
-include 'engine/backend/lang/'.$langc.'.php';
+include_once 'engine/backend/lang/'.$langc.'.php';
 include 'engine/backend/main/array.php';
