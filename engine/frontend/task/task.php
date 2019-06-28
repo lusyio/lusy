@@ -230,7 +230,7 @@ if ($id == $worker and $view == 0) {
             var a = b.extend({
                 onResize: function () {
                 }, animate: !0, animateDuration: 150, animateCallback: function () {
-                }, extraSpace: 20, limit: 1E3
+                }, extraSpace: 14, limit: 1E3
             }, f);
             this.filter("textarea").each(function () {
                 var d = b(this).css({"overflow-y": "hidden", display: "block"}), f = d.height(), g = function () {
