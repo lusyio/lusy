@@ -23,6 +23,15 @@
 
         }
     }
+    if ($event['action'] == 'createinittask') { // создание, назначение задачи
+        $bg = 'bg-primary';
+        $icon = 'fas fa-plus';
+        if ($event['author_id'] == '1') {
+
+            $eventText = $GLOBALS['_assignedYouTask'] . ' - ' . $taskLink;
+
+        }
+    }
 
     if ($event['action'] == 'viewtask') {
         $bg = 'bg-primary';

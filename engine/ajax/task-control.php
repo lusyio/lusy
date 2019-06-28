@@ -38,6 +38,9 @@ if($_POST['module'] == 'sendonreview' && $isWorker) {
 
     resetViewStatus($idtask);
 	addEvent('review', $idtask, $commentId);
+	if ($idTaskManager == 1) {
+	    checkSystemTask($idtask);
+    }
 }
 
 if($_POST['module'] == 'sendpostpone' && $isWorker) {
