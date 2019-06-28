@@ -140,7 +140,6 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
             sendTaskWorkerEmailNotification($taskId, 'createtask');
         }
-
     }
 
     if ($action == 'viewtask' && !$isSelfTask) {
@@ -1222,4 +1221,65 @@ function getNotificationSettings($userId = null)
     $notificationSettingsQuery->execute(array(':userId' => $userId));
     $result = $notificationSettingsQuery->fetch(PDO::FETCH_ASSOC);
     return $result;
+}
+
+function createInitTask($userId, $companyId)
+{
+    global $pdo;
+
+    require_once 'engine/backend/functions/task-functions.php';
+    require_once 'engine/backend/functions/mail-functions.php';
+
+    $managerId = 1;
+
+    $name = 'Заполнить профиль';
+    $description = '&#60;p class=&#34;ql-align-justify&#34;&#62;В настройках профиля&#38;nbsp;&#60;a href=&#34;https://s.lusy.io/settings/&#34; target=&#34;_blank&#34; style=&#34;color: rgb(32, 36, 41);&#34;&#62;https://s.lusy.io/settings/&#60;/a&#62;&#38;nbsp;Вы можете указать контактную информацию, рассказать о себе или добавить ссылки на Ваши социальные сети! А также, не забудьте загрузить свою фотографию.&#60;/p&#62;&#60;p class=&#34;ql-align-justify&#34;&#62;&#60;br&#62;&#60;/p&#62;&#60;p&#62;&#60;br&#62;&#60;/p&#62;';
+    $datedone = strtotime(date('Y-m-d'));
+    $worker = $userId;
+
+    $query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, 'new', :author, :manager, :worker, :companyId, :description, '0') ";
+    $sql = $pdo->prepare($query);
+    $sql->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => time(), ':author' => $managerId, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $companyId, ':datedone' => $datedone));
+    if ($sql) {
+        $taskId = $pdo->lastInsertId();
+        resetViewStatus($taskId);
+
+
+        //addTaskCreateComments($idtask, $worker, []);
+        $sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :commentText, `iduser` = :iduser, `idtask` = :idtask, `status` = :status, `view`=0, `datetime` = :datetime");
+
+        $commentData = [
+            ':status' => 'system',
+            ':commentText' => 'taskcreate',
+            ':iduser' => 1,
+            ':idtask' => $taskId,
+            ':datetime' => time(),
+        ];
+        $sql->execute($commentData);
+        $commentData[':commentText'] = 'newworker:' . $userId;
+        $sql->execute($commentData);
+
+
+        //addEvent('createtask', $idtask, $datedone, $worker);
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment, view_status) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment, :viewStatus)');
+        $eventDataForWorker = [
+            ':action' => 'createinittask',
+            ':taskId' => $taskId,
+            ':authorId' => 1,
+            ':recipientId' => $userId,
+            ':companyId' => $companyId,
+            ':datetime' => time(),
+            ':comment' => $taskId,
+            ':viewStatus' => 0,
+        ];
+        $addEventQuery->execute($eventDataForWorker);
+        //sendTaskWorkerEmailNotification($taskId, 'createtask');
+    }
+
+//    $mes = 'Зарегистрирован новый пользователь - ' . fiomess($userId) .'!';
+//    $messageTime = time();
+//        $dbh = "INSERT INTO chat (text, author_id, datetime) VALUES (:message, :authorId, :datetime) ";
+//        $sql = $pdo->prepare($dbh);
+//        $sql->execute(array(':message' => $mes, ':authorId' => 1, ':datetime' => $messageTime));
 }
