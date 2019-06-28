@@ -104,9 +104,9 @@ if ($userTotalFilesSize == 0): ?>
         });
         $('.files').hover(
             function () {
-                $(this).find('.deleteFile').stop().fadeIn();
+                $(this).find('.deleteFile').stop().show();
             }, function () {
-                $(this).find('.deleteFile').stop().fadeOut();
+                $(this).find('.deleteFile').stop().hide();
 
             });
 

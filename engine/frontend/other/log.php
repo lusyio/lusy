@@ -31,6 +31,11 @@
     </div>
     <div class="card mb-5">
         <div class="card-body pb-0 pt-0">
+            <div class="search-container" id="logPlug">
+                <div class="search-empty">
+                    <p>Тут пока что пусто</p>
+                </div>
+            </div>
             <div id="log">
                 <ul class="timeline" id="eventBox" style="bottom: 0px;">
                     <?php foreach ($events as $event): ?>
@@ -48,6 +53,13 @@
 
 </div>
 <script>
+    function insertPlug() {
+        if ($('.event:visible').length === 0){
+            $('#logPlug').show();
+        } else
+            $('#logPlug').hide();
+    }
+
     var pageName = 'log';
     var num = 0;
 
@@ -107,6 +119,7 @@
             num = 0;
             loadLog();
             hideLoadLog();
+            insertPlug();
         });
         $('.view-status-search').on('click', function () {
             var el = $(this);
@@ -116,6 +129,7 @@
             num = 0;
             loadLog();
             hideLoadLog();
+            insertPlug();
         });
         if (action === 'new-comments') {
             $('#commentSearch').trigger('click');
