@@ -1374,8 +1374,11 @@ input:checked[type="checkbox"]::before {
     font-size: 20px;
     text-align: center;
     color: #65686c;
-    padding: 72px 10px;
+    top: 50%;
+    position: absolute;
     font-weight: 200;
+    padding: 0!important;
+    width: 100%;
 }
 
 .not-my-message {
