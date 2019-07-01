@@ -32,6 +32,18 @@ if (empty($title)) {
         </div>
         <div class="col-sm-9">
             <div id="workzone" class="pb-3">
+                <?php if ($roleu == 'ceo' && !$isCompanyActivated): ?>
+                    <div class="alert alert-warning alert-dismissible fade show" id="activateAlert" role="alert">
+                        <span id="activateText"><strong>Подтвердите e-mail</strong> <a href="#" id="sendActivation"> Нажмите сюда</a>, чтобы еще раз отправить письмо c ссылкой активации</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <div id="activateSpinner" class="spinner-border spinner-border-sm text-warning m-1 d-none" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                <?php endif; ?>
                 <?php
                 inc('main', 'workzone');
                 ?>
@@ -86,8 +98,34 @@ if (empty($title)) {
                     },
                 });
             }
+        });
 
-        })
+        <?php if ($roleu == 'ceo' && !$isCompanyActivated): ?>
+        $('#sendActivation').on('click', function (e) {
+            e.preventDefault();
+            $('#activateSpinner').removeClass('d-none');
+            var fd = new FormData();
+            fd.append('module', 'sendActivation');
+            fd.append('ajax', 'company');
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function () {
+                    $('#activateSpinner').addClass('d-none');
+                    $('#activateText').html('<strong>Письмо отправлено</strong> Перейдите по ссылке в письме');
+                    $('#activateAlert').addClass('alert-success').removeClass('alert-warning');
+                    setTimeout(function () {
+                        $('#activateAlert').alert('close');
+                    }, 3000)
+                },
+            });
+        });
+        <?php endif; ?>
+
     })
 </script>
 <?php }

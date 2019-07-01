@@ -65,6 +65,8 @@ if ($isAuthorized) {
         }
     }
 
+    $isCompanyActivated = (boolean) DBOnce('activated', 'company', 'id=' . $idc);
+
     include 'engine/backend/main/main.php';
     $cometTrackChannelName = getCometTrackChannelName();
 
