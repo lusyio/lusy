@@ -60,14 +60,14 @@
                         <span class="text-muted-reg activity-company"><?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
                     <?php
                     else: ?>
-                        <p class="h5 company-profile-fio">
+                        <p class="h5 mb-0 company-profile-fio">
                             <a href="/profile/<?= $n["id"] ?>/">
                                 <?= $n['email'] ?>
                             </a>
-                            <span class="text-muted-reg">
-                                <?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?>
-                            </span>
                         </p>
+                        <span class="text-muted-reg activity-company">
+                            <?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?>
+                        </span>
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-sm-2 text-center">

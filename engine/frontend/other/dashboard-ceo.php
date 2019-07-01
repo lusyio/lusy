@@ -147,11 +147,13 @@ $borderColor = [
                 </a>
             <?php endif; ?>
             <?php if ($countAllTasks == 0): ?>
+                <a href="/task/new/" class="text-decoration-none">
                 <div class="card search-empty">
                     <div class="card-body">
                         <span><?= _('You have no tasks yet, create the first task.') ?></span>
                     </div>
                 </div>
+                </a>
             <?php endif; ?>
         </div>
     </div>
