@@ -2135,11 +2135,18 @@ span.date {
     .text-invite{
         display: none !important;
     }
+    .invite-card-content{
+        margin-bottom: 8px;
+    }
+    .invite-card-text{
+        color: #6c757d!important;
+    }
     .btn-invite{
         margin-top: 1rem;
+        margin-bottom: 1rem;
     }
     .search-container-awards {
-        width: 100% !important;;
+        width: 100% !important;
     }
     .alerts {
         width: 100%;

@@ -21,4 +21,7 @@
 .file-list:hover > .deleteFile{
     display: block;
 }
+.file-width-storage{
+    max-width:90% !important;
+}
 

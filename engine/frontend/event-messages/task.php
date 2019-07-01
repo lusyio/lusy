@@ -183,7 +183,7 @@
             $coworkerName = DBOnce('name', 'users', 'id=' . $event['comment']);
             $coworkerSurname = DBOnce('surname', 'users', 'id=' . $event['comment']);
             $eventText = $GLOBALS['_youAddCoworker'] . ' - ';
-            $eventText .= $taskLink;
+            $eventText .= $taskLink . '. ';
             $eventText .= $GLOBALS['_newCoworker'] . ' - ' . $coworkerName . ' ' . $coworkerSurname;
         } else {
             $eventText = $GLOBALS['_youAreNewCoworker'] . ' - ';

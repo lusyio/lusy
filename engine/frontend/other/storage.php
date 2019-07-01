@@ -58,7 +58,7 @@ if ($userTotalFilesSize == 0): ?>
                 <div class="col-2 col-lg-1 iconFiles">
                     <i class="far <?= key_exists($file['extension'], $fileIcon) ? $fileIcon[$file['extension']] : "fa-file" ?> custom-file"></i>
                 </div>
-                <div class="col pl-0" style="max-width:95% !important; ">
+                <div class="col pl-0 file-width-storage">
                     <a href="../<?= $file['file_path'] ?>"
                        class="h6 mb-3 file-name"><?= $file['file_name'] ?></a>
                     <span class="text-ligther ml-1"> <i

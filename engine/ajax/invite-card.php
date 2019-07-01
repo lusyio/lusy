@@ -13,23 +13,23 @@ $invites = $invitesQuery->fetchAll(PDO::FETCH_ASSOC);
                              title="<?= $GLOBALS['_copyinvite'] ?>"></i>
                     </span>
                 </div>
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 invite-card-content">
                     <?= $invite['email'] ?>
                 </div>
                 <div class="col-6 col-lg-4">
-                    <div class="invite-date">
+                    <div class="invite-date invite-card-text">
                         <?= date('d.m.Y', $invite['invite_date']) ?>
                     </div>
                 </div>
                 <?php if ($invite['status']): ?>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-6 col-lg-4 invite-card-text">
                         <a href="/../profile/<?= $invite['status']; ?>"><?= $GLOBALS['_registeredinvite'] ?></a>
                     </div>
                 <?php else: ?>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-6 col-lg-4 invite-card-text">
                         <span><?= $GLOBALS['_sentinvite'] ?></span>
                         <a data-toggle="tooltip" data-placement="bottom" title="Отменить приглашение" href="#"
-                           class="invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
+                           class="invite-card-text invite-cancel" data-invite-id="<?= $invite['invite_id'] ?>"><i
                                     class="far fa-times-circle invite-delete"></i></a>
                     </div>
                 <?php endif; ?>
