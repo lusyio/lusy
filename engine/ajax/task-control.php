@@ -20,6 +20,7 @@ if (isset($_POST['it'])) {
     if($id == $idTaskWorker || in_array($id, $coworkers)) {
         $isWorker = true;
     }
+    $taskStatus = DBOnce('status', 'tasks', 'id='.$idtask);
 }
 
 if ($roleu == 'ceo') {
@@ -35,11 +36,10 @@ if($_POST['module'] == 'sendonreview' && $isWorker) {
 	if (count($_FILES) > 0) {
 		uploadAttachedFiles('comment', $commentId);
     }
-
     resetViewStatus($idtask);
-	addEvent('review', $idtask, $commentId);
-	if ($idTaskManager == 1) {
-	    checkSystemTask($idtask);
+    addEvent('review', $idtask, $commentId);
+    if ($idTaskManager == 1) {
+        checkSystemTask($idtask);
     }
 }
 
@@ -62,7 +62,9 @@ if($_POST['module'] == 'workdone' && $isManager) {
     setFinalStatus($idtask, 'done');
     addFinalComments($idtask, 'done');
     resetViewStatus($idtask);
-    addEvent('workdone', $idtask, '');
+    if ($taskStatus != 'planned') {
+        addEvent('workdone', $idtask, '');
+    }
 
 }
 
@@ -72,7 +74,9 @@ if($_POST['module'] == 'cancelTask' && $isManager) {
     setFinalStatus($idtask, 'canceled');
     addFinalComments($idtask, 'canceled');
     resetViewStatus($idtask);
-    addEvent('canceltask', $idtask, '');
+    if ($taskStatus != 'planned') {
+        addEvent('canceltask', $idtask, '');
+    }
 
 }
 
@@ -121,9 +125,15 @@ if($_POST['module'] == 'createTask') {
 	$datedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
 	$worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
 
-	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, 'new', :author, :manager, :worker, :companyId, :description, '0') ";
+	$status = 'new';
+	$dateCreate = time();
+	if (!empty($_POST['planned'] && !empty($_POST['plannedDate']))) {
+	    $status = 'planned';
+	    $dateCreate = strtotime(filter_var($_POST['plannedDate'], FILTER_SANITIZE_SPECIAL_CHARS));
+    }
+	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0') ";
 	$sql = $pdo->prepare($query);
-	$sql->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => time(), ':author' => $id, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $idc, ':datedone' => $datedone));
+	$sql->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => $dateCreate, ':author' => $id, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $idc, ':datedone' => $datedone, ':status' => $status));
 	if ($sql) {
 		$idtask = $pdo->lastInsertId();
 		if (!empty($idtask)) {
@@ -138,9 +148,14 @@ if($_POST['module'] == 'createTask') {
     if (count($_FILES) > 0) {
         uploadAttachedFiles('task', $idtask);
     }
-    resetViewStatus($idtask);
-    addTaskCreateComments($idtask, $worker, $coworkers);
-    addEvent('createtask', $idtask, $datedone, $worker);
+    if ($status != 'planned') {
+        resetViewStatus($idtask);
+        addTaskCreateComments($idtask, $worker, $coworkers);
+        addEvent('createtask', $idtask, $datedone, $worker);
+    } else {
+        addEvent('createplantask', $idtask, $dateCreate, $worker);
+
+    }
 
 }
 
@@ -172,13 +187,23 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 
 if ($_POST['module'] == 'sendDate' && $isManager) {
 	$datepostpone = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS));
-	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork', datedone = :datepostpone, `view` = 0 WHERE id=".$idtask);
-	$sql->execute(array('datepostpone' => $datepostpone));
+	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datedone = :datepostpone, `view` = 0 WHERE id=".$idtask);
 
-    addChangeDateComments($idtask, 'senddate', $datepostpone);
-    resetViewStatus($idtask);
-    addEvent('senddate', $idtask, $datepostpone);
-
+    if ($taskStatus != 'planned') {
+        $sql->execute(array('datepostpone' => $datepostpone, ':status' => 'inwork'));
+        addChangeDateComments($idtask, 'senddate', $datepostpone);
+        resetViewStatus($idtask);
+        addEvent('senddate', $idtask, $datepostpone);
+    } else {
+        if (date('d-m-Y', $datepostpone) == date('d-m-Y')) {
+            $sql->execute(array('datepostpone' => $datepostpone, ':status' => 'new'));
+            resetViewStatus($idtask);
+            addTaskCreateComments($idtask, $worker, $coworkers);
+            addEvent('createtask', $idtask, $datedone, $worker);
+        }else {
+            $sql->execute(array('datepostpone' => $datepostpone, ':status' => 'planned'));
+        }
+    }
 }
 
 if ($_POST['module'] == 'addCoworker' && $isManager) {
@@ -191,16 +216,20 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
     foreach ($newCoworkers as $newCoworker) {
         if (!in_array($newCoworker, $coworkers)) { //добавляем соисполнителя, если его еще нет в таблице
             $addCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $newCoworker));
-            addChangeExecutorsComments($idtask, 'addcoworker', $newCoworker);
-            addEvent('addcoworker', $idtask, '', $newCoworker);
+            if ($taskStatus != 'planned') {
+                addChangeExecutorsComments($idtask, 'addcoworker', $newCoworker);
+                addEvent('addcoworker', $idtask, '', $newCoworker);
+            }
         }
     }
     $deleteCoworkerQuery = $pdo->prepare('DELETE FROM task_coworkers where task_id = :taskId AND worker_id = :coworkerId');
     foreach ($coworkers as $oldCoworker) {
         if (!in_array($oldCoworker, $newCoworkers)) { // удаляем соисполнителя, если его нет в новом списке соисполнителей
             $deleteCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $oldCoworker));
-            addChangeExecutorsComments($idtask, 'removecoworker', $oldCoworker);
-            addEvent('removecoworker', $idtask, '', $oldCoworker);
+            if ($taskStatus != 'planned') {
+                addChangeExecutorsComments($idtask, 'removecoworker', $oldCoworker);
+                addEvent('removecoworker', $idtask, '', $oldCoworker);
+            }
         }
     }
 
@@ -208,11 +237,14 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
     if ($newWorker != $idTaskWorker) {
         $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
         $changeWorkerQuery->execute(array(':taskId' => $idtask, ':newWorker' => $newWorker));
-        addChangeExecutorsComments($idtask, 'newworker', $newWorker);
-        addEvent('changeworker', $idtask, '', $idTaskWorker);
+        if ($taskStatus != 'planned') {
+            addChangeExecutorsComments($idtask, 'newworker', $newWorker);
+            addEvent('changeworker', $idtask, '', $idTaskWorker);
+        }
     }
-
-    resetViewStatus($idtask);
+    if ($taskStatus != 'planned') {
+        resetViewStatus($idtask);
+    }
 }
 
 

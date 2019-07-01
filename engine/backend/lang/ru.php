@@ -43,6 +43,7 @@ $_placeholdercoworkersnewtask = 'Нажмите, чтобы добавить';
 $_createnewtask = 'Создать задачу';
 $_cancelnewtask = 'Отменить создание задачи';
 $_selectlistcoworkerstasknew = 'Список пуст';
+$_changePlanDate = 'Перенести старт задачи';
 
 // задачи
 $_tasks = 'Задачи';
@@ -54,6 +55,7 @@ $_inreview = 'На проверке';
 $_overdue = 'Просрочено';
 $_new = 'В работе';
 $_pending = 'На рассмотрении';
+$_planned = 'Запланирована';
 $_deleteworker = 'Удалить';
 $_statustasks = 'Статус';
 $_deadlinetasks = 'Дедлайн';
@@ -79,6 +81,7 @@ $_pendinglist = 'Выполнено';
 $_canceledlist = 'Отменена';
 $_donelist = 'Завершена';
 $_deadlinelist = 'Дедлайн:';
+$_plannedlist = 'Запланирована';
 
 //Компания
 $_firedcompany = 'Уволенные сотрудники';
@@ -258,8 +261,10 @@ $_logWorkReturn = 'вернул задачу на доработку';
 
 $_youCreatedTask = 'Вы создали задачу';
 $_youCreatedSelfTask = 'Вы создали персональную задачу';
+$_youCreatedPlanTask = 'Вы запланировали задачу';
 $_responsible = 'Ответственный';
 $_periodOfExecutionUntil = 'Срок выполнения до';
+$_planDate = 'Дата старта задачи';
 $_assignedYouTask = 'Назначил Вам задачу';
 
 $_sawTheTask = 'Ознакомился с задачей';

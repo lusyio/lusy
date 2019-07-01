@@ -89,7 +89,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
     global $pdo;
     global $cometPdo;
 
-    $possibleActions = ['createtask', 'viewtask', 'comment', 'overdue', 'review', 'postpone', 'confirmdate', 'canceldate',
+    $possibleActions = ['createtask', 'createplantask', 'viewtask', 'comment', 'overdue', 'review', 'postpone', 'confirmdate', 'canceldate',
         'senddate', 'workreturn', 'workdone', 'canceltask', 'changeworker', 'addcoworker', 'removecoworker', 'newuser',
         'newcompany', 'newachievement'];
 
@@ -140,6 +140,21 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
             sendTaskWorkerEmailNotification($taskId, 'createtask');
         }
+    }
+    if ($action == 'createplantask') {
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment, view_status) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment, :viewStatus)');
+        $eventDataForAuthor = [
+            ':action' => $action,
+            ':taskId' => $taskId,
+            ':authorId' => 1,
+            ':recipientId' => $id,
+            ':companyId' => $idc,
+            ':datetime' => time(),
+            ':comment' => $comment,
+            ':viewStatus' => 1,
+        ];
+        $addEventQuery->execute($eventDataForAuthor);
     }
 
     if ($action == 'viewtask' && !$isSelfTask) {

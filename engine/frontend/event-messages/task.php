@@ -23,6 +23,18 @@
 
         }
     }
+    if ($event['action'] == 'createplantask') { // создание, назначение задачи
+        $bg = 'bg-warning';
+        $icon = 'fas fa-plus';
+        if ($event['author_id'] == '1') {
+            $eventText = $GLOBALS['_youCreatedPlanTask'] . ' ';
+            $eventText .= $taskLink . '. ';
+            $eventText .= $GLOBALS['_responsible'] . ' <span>' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>. ';
+            $eventText .= $GLOBALS['_planDate'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
+
+        }
+
+    }
     if ($event['action'] == 'createinittask') { // создание, назначение задачи
         $bg = 'bg-primary';
         $icon = 'fas fa-plus';
