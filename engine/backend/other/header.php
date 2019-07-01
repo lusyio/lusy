@@ -67,6 +67,12 @@ if ($isAuthorized) {
 
     $isCompanyActivated = (boolean) DBOnce('activated', 'company', 'id=' . $idc);
 
+    if (!$isCompanyActivated && isset($_COOKIE['activation'])){
+        $isCompanyActivated = true;
+    } else {
+        setcookie('activation', time(), time() + 60 * 60 * 24, '/');
+    }
+
     include 'engine/backend/main/main.php';
     $cometTrackChannelName = getCometTrackChannelName();
 
