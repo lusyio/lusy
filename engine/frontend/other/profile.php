@@ -41,7 +41,15 @@ $badges = [
                 </span>
                 </div>
                 <div class='header-profile'>
-                    <div class="fio-profile"><?= $userData['name'] ?> <?= $userData['surname'] ?></div>
+                    <?php
+                    if ($userData['name'] != 0 && $userData['surname'] != 0):
+                        ?>
+                        <div class="fio-profile"><?= $userData['name'] ?> <?= $userData['surname'] ?></div>
+                    <?php else: ?>
+                        <div class="fio-profile"><?= $userData['email'] ?></div>
+                    <?php
+                    endif;
+                    ?>
                     <span class="text-muted-reg"><?= ($userData['online']) ? $GLOBALS['_online'] : ((isset($userData['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $userData['activity']) : '') ?></span>
                     <?php if ($id === $profileId): ?>
                         <div class="icon-edit-profile">
