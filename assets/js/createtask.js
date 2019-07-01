@@ -140,6 +140,10 @@ $(document).ready(function () {
         $('.attached-google-drive-file').each(function (i, googleFileToSend) {
             attachedGoogleFiles[$(googleFileToSend).data('name')] = $(googleFileToSend).data('link');
         });
+        var attachedDropboxFiles = {};
+        $('.attached-dropbox-file').each(function (i, dropboxFileToSend) {
+            attachedDropboxFiles[$(dropboxFileToSend).data('name')] = $(dropboxFileToSend).data('link');
+        });
         var responsible = $('.add-responsible:visible').attr('val');
         var coworkers = [];
         $('.add-worker:visible').each(function () {
@@ -161,6 +165,7 @@ $(document).ready(function () {
         fd.append('coworkers', JSON.stringify(coworkers));
         fd.append('yaAttach', JSON.stringify(attachedYaFiles));
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
+        fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('ajax', 'task-control');
         fd.append('yaToken', yt);
         if (name != null && delta != null && datedone != null && responsible != null) {

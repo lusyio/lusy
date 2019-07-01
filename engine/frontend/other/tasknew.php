@@ -3,6 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="pjjm32k7twiooo2"></script>
 <div class="card new-task-container">
     <div class="card-body">
         <div class="row mb-2 md-5">
@@ -38,6 +39,8 @@
                     <span>Из Яндекс.Диска</span></a>
                 <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i class="custom-date mr-2 fab fa-google-drive"></i>
                     <span>Из Google Drive</span></a>
+                <a class="dropdown-item" id="openDropbox" href="#" data-toggle="modal"><i class="custom-date mr-2 fab fa-dropbox"></i>
+                    <span>Из Dropbox</span></a>
             </div>
         </div>
         <div class="row mt-2">
@@ -289,6 +292,8 @@
         });
         request.execute(function(resp) { });
     }
+
+
 </script>
 
 <script src="https://www.google.com/jsapi?key=AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc"></script>
@@ -300,6 +305,57 @@
     var yaLimit = 15;
     var yaPage = 1;
     $(document).ready(function () {
+
+        //=======================Dropbox==========================
+        options = {
+
+            // Required. Called when a user selects an item in the Chooser.
+            success: function(files) {
+                alert("Here's the file link: " + files[0].link);
+                $(files).each(function (i, file) {
+                    addFileToList(file.name, file.link, 'dropbox', 'fab fa-dropbox');
+                })
+            },
+
+            // Optional. Called when the user closes the dialog without selecting a file
+            // and does not include any parameters.
+            cancel: function() {
+
+            },
+
+            // Optional. "preview" (default) is a preview link to the document for sharing,
+            // "direct" is an expiring link to download the contents of the file. For more
+            // information about link types, see Link types below.
+            linkType: "preview", // or "direct"
+
+            // Optional. A value of false (default) limits selection to a single file, while
+            // true enables multiple file selection.
+            multiselect: true, // or true
+
+            // Optional. This is a list of file extensions. If specified, the user will
+            // only be able to select files with these extensions. You may also specify
+            // file types, such as "video" or "images" in the list. For more information,
+            // see File types below. By default, all extensions are allowed.
+            //extensions: ['.pdf', '.doc', '.docx'],
+
+            // Optional. A value of false (default) limits selection to files,
+            // while true allows the user to select both folders and files.
+            // You cannot specify `linkType: "direct"` when using `folderselect: true`.
+            folderselect: false, // or true
+
+            // Optional. A limit on the size of each file that may be selected, in bytes.
+            // If specified, the user will only be able to select files with size
+            // less than or equal to this limit.
+            // For the purposes of this option, folders have size zero.
+            //sizeLimit: 1024, // or any positive number
+        };
+        $('#openDropbox').on('click', function () {
+            Dropbox.choose(options);
+        });
+
+        //===================End of Dropbox=======================
+
+
         $("#name").on('input', function () {
             var nameText = $('#name').val();
             var header = $("#headerName");

@@ -122,6 +122,14 @@ if($_POST['module'] == 'createTask') {
             'path' => filter_var($v, FILTER_SANITIZE_STRING),
         ];
     }
+    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach']);
+    $dropboxFiles = [];
+    foreach ($unsafeDropboxFiles as $k => $v) {
+        $dropboxFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+        ];
+    }
     if (isset($_POST['manager'])) {
         $managerId = filter_var($_POST['manager'], FILTER_SANITIZE_NUMBER_INT);
     } else {
@@ -157,6 +165,9 @@ if($_POST['module'] == 'createTask') {
     }
     if (count($googleFiles) > 0) {
         addGoogleFiles('task', $idtask, $googleFiles);
+    }
+    if (count($dropboxFiles) > 0) {
+        addDropboxFiles('task', $idtask, $dropboxFiles);
     }
     resetViewStatus($idtask);
     addTaskCreateComments($idtask, $worker, $coworkers);
