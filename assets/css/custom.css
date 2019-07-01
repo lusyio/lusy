@@ -741,7 +741,7 @@ input:checked[type="checkbox"]::before {
     padding: 5px;
     transition: 200ms;
     border-radius: 50%;
-    width: 35px;
+    width: 22px;
     text-align: center;
 }
 

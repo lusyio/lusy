@@ -51,7 +51,7 @@
                 </div>
             </div>
         </form>
-        <div class="newmess"></div>
+        <div class="file-name container-files" style="display: none"></div>
     </div>
 </div>
 <script>
@@ -61,10 +61,9 @@
     $("#mes").keypress(function (e) {
         var str = $('#mes').val().trim();
         if (str !== '' && typeof str !== undefined) {
-            if(e.which == 13 && e.ctrlKey) {
+            if (e.which == 13 && e.ctrlKey) {
                 $('#mes').val($('#mes').val() + "\n");
-            }
-            else if (e.which == 13) {
+            } else if (e.which == 13) {
                 $("#sendBtn").click();
                 $("#mes").val('');
             }
@@ -137,49 +136,34 @@
 
         });
 
-        var attachedFiles = [];
-        var attachedFile = [];
+        $(".file-name").on('click', '.cancelFile', function () {
+            $(this).closest(".filenames").remove();
+            var num = parseInt($(this).closest(".filenames").attr('val'));
+            fileList.delete(num);
+            if (fileList.size === 0) {
+                $('.file-name').hide();
+            }
+        });
 
-        function sizeFile() {
-            $("#sendFiles").bind('change', function () {
-                for (var i = 0; i < this.files.length; i++) {
-                    var size = this.files[i].size;
-                    var names = this.files[i].name;
-                    if (size > 20 * 1024 * 1024) {
-                        $(".text-area").append("<span id='oversize'>Размер файла превышен</span>");
-                        $("#sendBtn").prop('disabled', true);
-                    } else {
-                        $(".text-area").append("<div class='filenames'>"
-                            + names +
-                            "<i class='fas fa-times custom-date cancel cancel-file ml-2 mr-3 cancelFile'></i>" +
-                            "</div>");
-                        $("#oversize").remove();
-                        $("#sendBtn").prop('disabled', false);
+        var fileList = new Map();
+        var names;
+        var sizes;
+        var n = 0;
 
-                    }
-                    $(".cancelFile").on('click', function () {
-                        $(this).closest(".filenames").remove();
-                        removeFile();
-                    });
-                }
+        $("#sendFiles").bind('change', function () {
+            $(this.files).each(function () {
+                names = this.name;
+                fileList.set(n, $(this)[0]);
+                $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
+                    "<i class='fas fa-paperclip mr-1'></i>" + names +
+                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                    "</div>");
+                n++;
             });
-        }
+        });
 
-        // function scrollSmoothToBottom (id) {
-        //     var div = document.getElementById(id);
-        //     $('#' + id).animate({
-        //         scrollTop: div.scrollHeight - div.clientHeight
-        //     }, 500);
-        // }
-        // scrollSmoothToBottom('chatBox');
 
         $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
-
-        $("#sendFiles").on('click', function () {
-            sizeFile();
-            $("#sendFiles").off('click');
-
-        });
 
         $('#chatBox').on('click', '.not-my-message', function () {
             var name = $(this).find('.sender-name').text();
@@ -195,39 +179,16 @@
             marker = false;
         }
 
-        function attachFile() {
-            // attachedFile = $('input[type=file]')[0].files;
-            attachedFile = $('input[type=file]').prop('files')[0];
-            attachedFiles.push(attachedFile);
-            console.log(attachedFiles);
-
-        }
-
-        function removeFile(e) {
-            var file = $(this).data("file");
-            for (var i = 0; i < attachedFile.length; i++) {
-                if (attachedFile[i].name === file) {
-                    attachedFile.splice(i, 1);
-                    break;
-                }
-            }
-            $(this).parent().remove();
-            $("#sendFiles").val("");
-            console.log(attachedFile);
-        }
-
-
         $('#sendBtn').on('click', function () {
             var mes = $("#mes").val();
-            attachFile();
             var fd = new FormData();
             fd.append('module', 'sendMessageToChat');
-            fd.append('file', attachedFiles[0]);
-            fd.append('file1', attachedFiles[1]);
-            fd.append('file2', attachedFiles[2]);
+            fileList.forEach(function (file, i) {
+                fd.append('file' + i, file);
+            });
             fd.append('ajax', 'messenger');
             fd.append('mes', mes);
-            if (mes) {
+            if (mes.trim() !== '' && typeof mes.trim() !== undefined) {
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -243,9 +204,7 @@
                         }
                         $("#mes").val('');
                         $(".filenames").html("");
-                        attachedFiles = [];
-                        $("#mes").val('');
-
+                        fileList = new Map();
                     },
                 });
                 $("#mes").removeClass('border-danger');
