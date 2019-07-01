@@ -20,7 +20,7 @@
                             <span><i class="far fa-comment mr-2"></i> <?= $_comments ?></span>
                             <span class="count"></span>
                         </div>
-                        <div id="systemSearch" data-type="system" class="btn btn-light type-search mb-2">
+                        <div id="systemSearch" data-type="system-event" class="btn btn-light type-search mb-2">
                             <span><i class="fas fa-info mr-2"></i>Системные</span>
                             <span class="count"></span>
                         </div>
