@@ -40,11 +40,11 @@
                      style="min-height: 38px">
                     <div class="text-muted placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                     <?php
-                    $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
+                    $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                     foreach ($users as $n) { ?>
                         <div val="<?php echo $n['id'] ?>" class="add-responsible d-none">
                             <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
-                            <span class="card-coworker"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                            <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                         </div>
                         <hr class="m-0">
                     <?php } ?>
@@ -63,11 +63,11 @@
                 <div class="container container-coworker d-flex flex-wrap align-content-sm-stretch">
                     <div class="text-muted placeholder-coworkers"><?= $GLOBALS['_placeholdercoworkersnewtask'] ?></div>
                     <?php
-                    $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
+                    $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                     foreach ($users as $n) { ?>
                         <div val="<?php echo $n['id'] ?>" class="add-worker d-none">
                             <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
-                            <span class="coworker-fio"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                            <span class="coworker-fio"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                             <i class="fas fa-times icon-newtask-delete-coworker"></i>
                         </div>
                     <?php } ?>

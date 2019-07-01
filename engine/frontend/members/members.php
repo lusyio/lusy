@@ -7,7 +7,12 @@
             <div class="text-justify owner">
                 <img src="/<?= getAvatarLink($manager) ?>"
                      class="avatar-added mr-1">
-                <a href="#"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
+                <?php
+                if ($task['managerName'] != null && $task['emai'] != null): ?>
+                    <a href="#"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
+                <?php else: ?>
+                    <a href="#"><?= $task['managerEmail'] ?></a>
+                <?php endif; ?>
             </div>
             <hr class="m-0">
             <div class="members-responsible">
