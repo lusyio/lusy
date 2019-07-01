@@ -182,6 +182,7 @@ $(document).ready(function () {
                         $('#comment').html('<i class="fas fa-paper-plane"></i>');
                         $("#comin").attr("disabled", false);
                     }, 500);
+                    fileList = new Map();
                 },
             });
             $("#comin").val("");
