@@ -2,7 +2,7 @@
 require_once 'engine/backend/functions/mail-functions.php';
 ?>
 <li data-event-id="<?= $event['event_id'] ?>"
-    class="event system <?= ($event['view_status']) ? '' : 'new-event' ?>  readable-here">
+    class="event system-event <?= ($event['view_status']) ? '' : 'new-event' ?>  readable-here">
     <?php
     if ($event['action'] == 'newuser') { // новый пользователь
         $bg = 'bg-success';
@@ -29,6 +29,3 @@ require_once 'engine/backend/functions/mail-functions.php';
     </div>
     <p class="eventText"><?= $action ?></p>
 </li>
-
-</li>
-
