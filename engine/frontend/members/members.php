@@ -89,7 +89,9 @@
                             <img src="/<?= getAvatarLink($n['id']) ?>"
                                  class="avatar-added mr-1">
                             <span class="coworker-fio"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
-                            <i class="fas fa-times icon-newtask-delete-coworker"></i>
+                            <?php if ($isCeo || $role == 'manager'): ?>
+                                <i class="fas fa-times icon-newtask-delete-coworker"></i>
+                            <?php endif; ?>
                         </div>
                     <?php } ?>
                 </div>
@@ -114,9 +116,11 @@
                     <?php } ?>
                     <hr class="mt-1 mb-1">
                 </div>
-                <div class="mt-3 text-center">
-                    <button class="btn btn-primary btn-sm" id="confirmMembers" type="button">Сохранить</button>
-                </div>
+                <?php if ($isCeo || $role == 'manager'): ?>
+                    <div class="mt-3 text-center">
+                        <button class="btn btn-primary btn-sm" id="confirmMembers" type="button">Сохранить</button>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -213,12 +217,14 @@
         });
 
         $('.add-worker').on('click', function () {
-            var id = $(this).attr('val');
-            $(this).addClass('d-none');
-            $('#coworkersList').find("[val = " + id + "]").removeClass('d-none');
-            updateResponsible();
-            checkContainerCoworkers();
-            coworkersListEmpty();
+            if ($('.add-worker').children('.icon-newtask-delete-coworker').length > 0) {
+                var id = $(this).attr('val');
+                $(this).addClass('d-none');
+                $('#coworkersList').find("[val = " + id + "]").removeClass('d-none');
+                updateResponsible();
+                checkContainerCoworkers();
+                coworkersListEmpty();
+            }
         });
 
         $("#confirmMembers").on('click', function () {
