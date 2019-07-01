@@ -50,6 +50,10 @@ if ($userTotalFilesSize == 0): ?>
 <?php foreach ($fileList as $file): ?>
     <div class="card files">
         <div class="card-body file-list">
+                <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
+                      class="text-ligther deleteFile float-right position-absolute" style="right: 5px; top: 0;">
+                    <i val="<?= $file['file_id'] ?>" class="fas fa-times-circle delete-file-icon"></i>
+                </span>
             <div class="row">
                 <div class="col-2 col-lg-1 iconFiles">
                     <i class="far <?= key_exists($file['extension'], $fileIcon) ? $fileIcon[$file['extension']] : "fa-file" ?> custom-file"></i>
@@ -61,10 +65,6 @@ if ($userTotalFilesSize == 0): ?>
                                 class="fas fa-circle mr-1 ml-1"></i> <?= $file['file_size'] ?> <?= $file['sizeSuffix'] ?></span>
                     <span class="text-ligther ml-1"> <i
                                 class="fas fa-circle mr-1 ml-1"></i> <?= $file['date'] ?></span>
-                    <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
-                          class="text-ligther deleteFile float-right position-absolute" style="right: 10px; top: 0;">
-                        <i val="<?= $file['file_id'] ?>" class="fas fa-times-circle delete-file-icon"></i>
-                    </span>
                     <?php if ($file['comment_type'] != 'conversation'): ?>
                         <a href="<?= $file['attachedToLink'] ?>"
                            class="text-ligther">
@@ -102,13 +102,6 @@ if ($userTotalFilesSize == 0): ?>
         $('.files').on('click', function () {
             $(this).find('.deleteFile').fadeIn();
         });
-        $('.files').hover(
-            function () {
-                $(this).find('.deleteFile').stop().show();
-            }, function () {
-                $(this).find('.deleteFile').stop().hide();
-
-            });
 
         $(".deleteFile").on('click', function () {
             var fileId = $(this).find('.delete-file-icon').attr('val');

@@ -3,11 +3,22 @@
     vertical-align: middle;
     line-height: 2;
 }
+
 .file-list {
     padding: 0.8rem;
     border-bottom: 1px solid rgba(0, 0, 0, .1);
     border-bottom-color: rgba(0, 0, 0, 0.1);
 }
+
 .iconFiles {
-     top: 0.3rem;
+    top: 0.3rem;
 }
+
+.deleteFile{
+    display: none;
+}
+
+.file-list:hover > .deleteFile{
+    display: block;
+}
+
