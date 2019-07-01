@@ -13,7 +13,7 @@
     </p>
     <div>
         <h5>Причина:</h5>
-        <?=nl2br(htmlspecialchars($request))?>
+        <?=htmlspecialchars_decode($request)?>
     </div>
 </div>
 
