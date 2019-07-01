@@ -10,13 +10,13 @@
                                required>
                     </div>
                     <small class="text-ligther"><?= $GLOBALS['_howtoinvite'] ?></small>
-                    <div class="text-muted-reg text-center mt-3 d-none"><?= $GLOBALS['_usedemailinvite'] ?></div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <button type="submit" class="btn btn-primary rounded w-100">
                         <span class="spinner-border spinner-border-sm d-none"></span>
                         <?= $GLOBALS['_createinvite'] ?></button>
                 </div>
+                <span class="position-absolute small text-muted-reg text-center mt-2" style="right: 14px; display: none; top: 57px;"><?= $GLOBALS['_usedemailinvite'] ?></span>
             </div>
         </div>
     </div>
@@ -136,7 +136,7 @@
                                 setTimeout(function () {
                                     $('#invitee-mail').css('border-color', "#ced4da");
                                 }, 1000);
-                                $(".text-muted-reg").removeClass('d-none');
+                                $.when($(".text-muted-reg").fadeIn(300)).done($(".text-muted-reg").fadeOut(1000));
                             } else {
                                 $(".text-muted-reg").addClass('d-none');
                                 $('.invites-header').removeClass('d-none');
