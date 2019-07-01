@@ -42,7 +42,7 @@ $badges = [
                 </div>
                 <div class='header-profile'>
                     <?php
-                    if ($userData['name'] != 0 && $userData['surname'] != 0):
+                    if ($userData['name'] != null && $userData['surname'] != null):
                         ?>
                         <div class="fio-profile"><?= $userData['name'] ?> <?= $userData['surname'] ?></div>
                     <?php else: ?>
