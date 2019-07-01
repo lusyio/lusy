@@ -21,4 +21,5 @@ if ($request != false) {
 		$note = 'Причина возврата:';
 	}
 }
+$request = nl2br($request);
 ?>
