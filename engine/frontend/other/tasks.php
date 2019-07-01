@@ -44,6 +44,7 @@
         'returned' => 'border-primary',
         'done' => 'border-success',
         'canceled' => 'border-secondary',
+        'planned' => 'border-info',
     ];
     $taskStatusText = [
         'manager' => [
@@ -55,6 +56,7 @@
             'returned' => $GLOBALS['_returnedlist'],
             'done' => $GLOBALS['_donelist'],
             'canceled' => $GLOBALS['_canceledlist'],
+            'planned' => $GLOBALS['_plannedlist'],
         ],
         'worker' => [
             'new' => $GLOBALS['_tasknewworker'],
@@ -65,6 +67,7 @@
             'returned' => $GLOBALS['_returnedlist'],
             'done' => $GLOBALS['_donelist'],
             'canceled' => $GLOBALS['_canceledlist'],
+            'planned' => $GLOBALS['_plannedlist'],
         ],
     ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
     foreach ($tasks as $n):

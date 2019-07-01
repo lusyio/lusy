@@ -80,6 +80,16 @@ $statusBar = [
         'ic2' => 'fas fa-eye',
         'ic3' => 'fas fa-times',
     ],
+    'planned' => [
+        'border' => 'border-info',
+        'bg' => 'badge-info',
+        'bg1' => 'bg-warning',
+        'bg2' => 'bg-custom-color',
+        'bg3' => 'bg-custom-color',
+        'ic1' => 'fas fa-bolt',
+        'ic2' => 'fas fa-eye',
+        'ic3' => 'fas fa-times',
+    ],
 ];
 if ($dayost < 0) {
     $statusBar['postpone']['border'] = 'border-danger';
