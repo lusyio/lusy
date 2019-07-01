@@ -46,18 +46,30 @@ if ($comment[0] == 'overdue') {
 if ($comment[0] == 'newworker') {
     $newWorkerId = $comment[1];
     $workername = DBOnce('name', 'users', 'id=' . $newWorkerId) . ' ' . DBOnce('surname', 'users', 'id=' . $newWorkerId);
+    if (trim($workername) == '') {
+        $workername = DBOnce('email', 'users', 'id=' . $newWorkerId);
+    }
     $workerLink = '<a href="/profile/' . $newWorkerId .'/">' . $workername . '</a>';
     $text = $_newWorker . ' - ' . $workerLink;
 }
 if ($comment[0] == 'addcoworker') {
     $newCoworkerId = $comment[1];
     $workername = DBOnce('name', 'users', 'id=' . $newCoworkerId) . ' ' . DBOnce('surname', 'users', 'id=' . $newCoworkerId);
+
+    if (trim($workername) == '') {
+        $workername = DBOnce('email', 'users', 'id=' . $newCoworkerId);
+    }
     $coworkerLink = '<a href="/profile/' . $newCoworkerId .'/">' . $workername . '</a>';
     $text = $_newCoworker . ' - ' . $coworkerLink;
 }
 if ($comment[0] == 'removecoworker') {
     $coworkerId = $comment[1];
     $workername = DBOnce('name', 'users', 'id=' . $coworkerId) . ' ' . DBOnce('surname', 'users', 'id=' . $coworkerId);
+
+    if (trim($workername) == '') {
+        $workername = DBOnce('email', 'users', 'id=' . $coworkerId);
+    }
+
     $coworkerLink = '<a href="/profile/' . $coworkerId .'/">' . $workername . '</a>';
     $text = $_coworkerWasRemoved . ' - ' . $coworkerLink;
 }
