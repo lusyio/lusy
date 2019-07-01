@@ -13,6 +13,6 @@
         <?php endif; ?>
     </div>
     <p class="mt-2 mb-2"><?= $GLOBALS['_logNewComment'] ?> <a href="/../<?= $event['link'] ?>" class="font-italic">"<?=$event['taskname']?>"</a></p>
-        <div class="commentText p-2 pl-3"><?= $event['commentText'] ?></div>
+        <div class="commentText p-2 pl-3"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : $event['commentText'] ?></div>
 
 </li>
