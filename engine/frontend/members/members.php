@@ -1,6 +1,6 @@
 <div id="avatarNew">
     <span class="position-absolute edit-members">
-        <i class="far fa-plus-square avatar-new"></i>
+        <i class="fas fa-plus avatar-new" style="font-size: 17px;"></i>
     </span>
     <div class="members">
         <div class="members-card position-relative">

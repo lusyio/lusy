@@ -159,14 +159,20 @@ if ($id == $worker and $view == 0) {
                             <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
                             <span class=" text-secondary slash">|</span>
                             <img src="/<?= getAvatarLink($worker) ?>" class="avatar ml-1">
-                            <?php foreach ($coworkers as $coworker): ?>
+                            <?php
+                            $i = 1;
+                            foreach ($coworkers as $coworker): ?>
                                 <span class="mb-0"><img src="/<?= getAvatarLink($coworker['worker_id']) ?>"
                                                         alt="worker image" class="avatar ml-1"></span>
-                            <?php endforeach; ?>
+                                <?php
+                                $i++;
+                                if ($i == 2) break;
+                            endforeach;
+
+                            ?>
                         </div>
                         <?php
-                            include 'engine/frontend/members/members.php';
-
+                        include 'engine/frontend/members/members.php';
                         ?>
                     </div>
                 </div>
