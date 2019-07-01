@@ -9,14 +9,14 @@
                                placeholder="<?= $GLOBALS['_placeholderinvite'] ?>"
                                required>
                     </div>
-                    <small class="text-ligther"><?= $GLOBALS['_howtoinvite'] ?></small>
+                    <small class="text-ligther text-invite"><?= $GLOBALS['_howtoinvite'] ?></small>
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6 btn-invite">
                     <button type="submit" class="btn btn-primary rounded w-100">
                         <span class="spinner-border spinner-border-sm d-none"></span>
                         <?= $GLOBALS['_createinvite'] ?></button>
                 </div>
-                <span class="position-absolute small text-muted-reg text-center mt-2" style="right: 14px; display: none; top: 57px;"><?= $GLOBALS['_usedemailinvite'] ?></span>
+                <span class="position-absolute small text-muted-reg text-center mt-2 noty-invite"><?= $GLOBALS['_usedemailinvite'] ?></span>
             </div>
         </div>
     </div>
