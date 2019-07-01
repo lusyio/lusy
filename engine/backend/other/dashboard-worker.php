@@ -88,6 +88,6 @@ while (count($taskDoneCount) < 8 && $t <= $endTime) {
 $taskCountString = implode(',', $taskDoneCount);
 $dates = [];
 for ($i = 0; $i < 7; $i++){
-    $dates[] = date('d.m', $startTime + 3600 * 24 * $i);
+    $dates[] = date('j.m', $startTime + 3600 * 24 * $i);
 }
 $datesString = implode(',', $dates);
