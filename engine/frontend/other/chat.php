@@ -68,7 +68,7 @@
                 $("#mes").val('');
                 setTimeout(function () {
                     $("#mes").css('height', '38px');
-                }, 250);
+                }, 300);
             }
         }
     });

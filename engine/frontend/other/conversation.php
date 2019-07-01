@@ -63,6 +63,9 @@
             } else if (e.which == 13) {
                 $("#sendBtn").click();
                 $("#mes").val('');
+                setTimeout(function () {
+                    $("#mes").css('height', '38px');
+                }, 300);
             }
         }
     });
