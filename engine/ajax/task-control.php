@@ -127,7 +127,7 @@ if($_POST['module'] == 'createTask') {
 
 	$status = 'new';
 	$dateCreate = time();
-	if (!empty($_POST['planned'] && !empty($_POST['plannedDate']))) {
+	if (isset($_POST['planned']) && isset($_POST['plannedDate'])) {
 	    $status = 'planned';
 	    $dateCreate = strtotime(filter_var($_POST['plannedDate'], FILTER_SANITIZE_SPECIAL_CHARS));
     }
