@@ -19,4 +19,5 @@ if ($request != false && $messageStatus == 'returned') {
 	$note = 'Причина возврата:';
 	$displayNote = '';
 }
+$request = nl2br($request);
 ?>
