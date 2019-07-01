@@ -29,7 +29,7 @@ $badges = [
 $percentAchieve = $countUserAchievements / count($badges) * 100;
 ?>
 <script src="/assets/js/circle-progress.min.js"></script>
-<div class="row mb-4">
+<div class="row">
     <div class="col">
         <span class="h3">Прогресс достижений</span>
         <div class="progress progress-awards col mt-3 mb-2 p-0 w">
@@ -43,14 +43,14 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
     </div>
 </div>
 
-<div class="d-flex text-center flex-wrap">
+<div class="d-flex text-center flex-wrap mb-5 mt-4">
     <?php foreach ($nonMultipleAchievements as $name => $values) {
         include 'engine/frontend/other/award-card.php';
     } ?>
 </div>
 
 <?php if (!key_exists('taskDone_500', $nonMultipleAchievements)): ?>
-    <div class="row mt-5 mb-1">
+    <div class="row mb-1">
         <div class="col">
             <h3>Путь Ответственного</h3>
         </div>

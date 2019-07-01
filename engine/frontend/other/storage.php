@@ -62,9 +62,9 @@ if ($userTotalFilesSize == 0): ?>
                     <span class="text-ligther ml-1"> <i
                                 class="fas fa-circle mr-1 ml-1"></i> <?= $file['date'] ?></span>
                     <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
-                          class="text-ligther deleteFile float-right"><i val="<?= $file['file_id'] ?>"
-                                                                         class="fas fa-times-circle delete-file-icon"></i></span>
-
+                          class="text-ligther deleteFile float-right position-absolute" style="right: 10px; top: 0;">
+                        <i val="<?= $file['file_id'] ?>" class="fas fa-times-circle delete-file-icon"></i>
+                    </span>
                     <?php if ($file['comment_type'] != 'conversation'): ?>
                         <a href="<?= $file['attachedToLink'] ?>"
                            class="text-ligther">
