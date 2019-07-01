@@ -120,8 +120,6 @@
     </div>
 </div> <!-- / .row -->
 <p class="text-center position-absolute" style="left: 0; right: 0; bottom: 0"><a href="https://lusy.io/">LUSY.IO</a></p>
-</div> <!-- / .container -->
-</div>
 <style>
     html, body {
         height: 100%;
