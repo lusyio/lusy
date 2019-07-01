@@ -1,5 +1,12 @@
 <div class="search-container">
     <div id="searchResult">
+        <?php if (isset($request) && mb_strlen($request) == 0 && (count($result['task']) == 0 && count($result['file']) == 0 && count($result['comment']) == 0)): ?>
+            <div class="card">
+                <div class="card-body search-empty">
+                    <p><?= $GLOBALS['_emptysearchtopsidebar'] ?></p>
+                </div>
+            </div>
+        <?php endif; ?>
         <?php if (isset($request) && mb_strlen($request) > 0 && (count($result['task']) > 0 || count($result['file']) > 0 || count($result['comment']) > 0)): ?>
         <div class="text-center mt">
             <h5 class="pt-2">&#128270 <?= $GLOBALS['_resultsearchtopsidebar'] ?> "<?= $request ?>"</h5>
@@ -9,7 +16,8 @@
         <div class="card">
             <div class="card-body">
                 <div id="taskSearch" class="resultSet">
-                    <h5 class="text-search"><?= $GLOBALS['_taskssearchtopsidebar'] ?> (<?= count($result['task']); ?>)</h5>
+                    <h5 class="text-search"><?= $GLOBALS['_taskssearchtopsidebar'] ?> (<?= count($result['task']); ?>
+                        )</h5>
                     <hr>
                     <?php foreach ($result['task'] as $resultItem): ?>
                         <a class="search-row" href="../task/<?= $resultItem['id'] ?>/">
@@ -20,7 +28,8 @@
                     <?php endforeach; ?>
                 </div>
                 <div id="fileSearch" class="resultSet mt-2">
-                    <h5 class="text-search"><?= $GLOBALS['_filessearchtopsidebar'] ?> (<?= count($result['file']); ?>)</h5>
+                    <h5 class="text-search"><?= $GLOBALS['_filessearchtopsidebar'] ?> (<?= count($result['file']); ?>
+                        )</h5>
                     <hr>
                     <?php foreach ($result['file'] as $resultItem): ?>
                         <a class="search-row" href="../<?= $resultItem['file_path'] ?>">
@@ -31,7 +40,8 @@
                     <?php endforeach; ?>
                 </div>
                 <div id="commentSearch" class="resultSet mt-2">
-                    <h5 class="text-search"><?= $GLOBALS['_commentssearchtopsidebar'] ?> (<?= count($result['comment']); ?>)</h5>
+                    <h5 class="text-search"><?= $GLOBALS['_commentssearchtopsidebar'] ?>
+                        (<?= count($result['comment']); ?>)</h5>
                     <hr>
                     <?php foreach ($result['comment'] as $resultItem): ?>
                         <a class="search-row" href="../task/<?= $resultItem['idtask'] ?>/#<?= $resultItem['id'] ?>">

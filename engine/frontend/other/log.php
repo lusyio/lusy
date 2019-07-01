@@ -176,7 +176,8 @@
             if (!el.hasClass(filter)) {
                 el.hide();
             }
-        })
+        });
+        hideLoadLog();
     }
 
 </script>
