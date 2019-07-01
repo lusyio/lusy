@@ -148,11 +148,11 @@ $borderColor = [
             <?php endif; ?>
             <?php if ($countAllTasks == 0): ?>
                 <a href="/task/new/" class="text-decoration-none">
-                <div class="card search-empty">
-                    <div class="card-body">
-                        <span><?= _('You have no tasks yet, create the first task.') ?></span>
+                    <div class="card search-empty">
+                        <div class="card-body">
+                            <span><?= _('You have no tasks yet, create the first task.') ?></span>
+                        </div>
                     </div>
-                </div>
                 </a>
             <?php endif; ?>
         </div>
@@ -277,6 +277,14 @@ $borderColor = [
 <script>
     var pageName = 'dashboard';
     $(document).ready(function () {
+        hideGradient();
+        function hideGradient() {
+            if ($('.task-card:visible').length < 4) {
+                $("#bottomGradient").hide();
+            } else {
+                $("#bottomGradient").show();
+            }
+        }
 
         $('.timeline').on('mouseover', '.new-event', function () {
             $(this).removeClass('new-event');
