@@ -1603,7 +1603,7 @@ a {
 .send-mes-tooltip{
     position: absolute;
     opacity: 1;
-    top: -90px;
+    top: -100px;
     left: -73px;
     z-index: 10;
     display: none;

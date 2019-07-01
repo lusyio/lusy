@@ -39,10 +39,10 @@
                         <div class="card">
                             <div class="send-mes-tooltip-body">
                                 <div style="font-size: 13px">
-                                    <b>Ctrl+Enter</b>
+                                    <b>Enter</b>
                                     — Отправить сообщение
                                     <br>
-                                    <b>Enter</b>
+                                    <b>Ctrl+Enter</b>
                                     — Новая строка
                                 </div>
                             </div>
@@ -55,10 +55,16 @@
     </div>
 </div>
 <script>
-    $("#mes").keydown(function (e) {
-        if (e.ctrlKey && e.keyCode == 13) {
-            $("#sendBtn").click();
-            $("#mes").val('');
+    $("#mes").keypress(function (e) {
+        var str = $('#mes').val().trim();
+        if (str !== '' && typeof str !== undefined) {
+            if(e.which == 13 && e.ctrlKey) {
+                $('#mes').val($('#mes').val() + "\n");
+            }
+            else if (e.which == 13) {
+                $("#sendBtn").click();
+                $("#mes").val('');
+            }
         }
     });
     $(function () {
