@@ -33,9 +33,20 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                 $fioEmail = DBOnce('email', 'users', 'id=' . $c['iduser']);
                 ?>
                 <p class="p-0 mb-1 comment-author"><a href="/profile/<?= $c['iduser'] ?>/"
-                                                      class="font-weight-bold"><?= (trim($nameuser . $surnameuser) == '')? $fioEmail : $nameuser . $surnameuser?></a>
+                                                      class="font-weight-bold"><?= (trim($nameuser . $surnameuser) == '') ? $fioEmail : $nameuser . ' ' . $surnameuser ?></a>
                 </p>
-                <p class="p-0 mb-2 comment-text"><?= link_it(nl2br(htmlspecialchars($c['comment']))) ?></p>
+                <p class="p-0 mb-2 comment-text">
+                    <?php
+                    if ($commentClass[$commentStatus] == 'report'):
+                        ?>
+                        <span class="text-muted">
+                            Отчет:
+                        </span>
+                    <?php
+                    endif;
+                    ?>
+                    <?= link_it(nl2br(htmlspecialchars($c['comment']))) ?>
+                </p>
                 <div class="text-right comment-viewers d-none">
                     <img src="/<?= getAvatarLink($c['manager']) ?>" class="avatar mr-3"
                          title="<?= $commentViewStatusTitleManager ?>">
