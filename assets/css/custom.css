@@ -303,11 +303,6 @@ body{
     padding-left: 5px;
 }
 
-
-.deleteFile {
-    display: none;
-}
-
 .delete-file-icon:hover {
     border-radius: 100%;
     color: #898989;
