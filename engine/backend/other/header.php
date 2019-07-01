@@ -26,7 +26,10 @@ if ($isAuthorized) {
             if ($fileName == '') {
                 die ('file not found in db');
             }
-            header('Content-Disposition: attachment; filename="' . $fileName . '"');
+            header('Content-Disposition: inline; filename="' . $fileName . '"');
+            if (mime_content_type($file)) {
+                header('Content-Type: ' . mime_content_type($file));
+            }
             readfile($file);
             exit();
         } else {
