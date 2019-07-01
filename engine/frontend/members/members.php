@@ -8,7 +8,7 @@
                 <img src="/<?= getAvatarLink($manager) ?>"
                      class="avatar-added mr-1">
                 <?php
-                if ($task['managerName'] != null && $task['emai'] != null): ?>
+                if ($task['managerName'] != null && $task['email'] != null): ?>
                     <a href="#"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
                 <?php else: ?>
                     <a href="#"><?= $task['managerEmail'] ?></a>
