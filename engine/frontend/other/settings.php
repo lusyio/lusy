@@ -137,9 +137,9 @@
                             <div class="col-12 col-lg-4">
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fab fa-instagram"></i>
-                                </span>
+                                        <span class="input-group-text">
+                                        <i class="fab fa-instagram"></i>
+                                        </span>
                                     </div>
                                     <input id="settingsInstagram" name="settingsInstagram" type="text"
                                            class="form-control input-settings email"
@@ -163,6 +163,9 @@
                             </div>
                             <div class="col-12 col-lg-6">
                                 <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">+</span>
+                                    </div>
                                     <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
                                            class="form-control input-settings phone-number"
                                            value="<?= $userData['phone']; ?>">
