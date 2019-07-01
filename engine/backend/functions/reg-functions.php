@@ -87,3 +87,11 @@ function createActivationCode($companyId)
     $addCode->execute(array(':companyId' => $companyId, ':activationCode' => $activationCode));
     return $activationCode;
 }
+function getActivationCode($companyId)
+{
+    global $pdo;
+    $codeQuery = $pdo->prepare('SELECT code FROM company_activation WHERE company_id = :companyId');
+    $codeQuery->execute(array(':companyId' => $companyId));
+    $code = $codeQuery->fetch(PDO::FETCH_COLUMN);
+    return $code;
+}
