@@ -19,8 +19,8 @@ $id = $GLOBALS["id"];
 
 setcookie($id_task, time(), time() + 60 * 60 * 24 * 30, '/');
 
-$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.report, t.view_status, u1.name AS managerName, u1.surname AS managerSurname, 
-       u2.name AS workerName, u2.surname AS workerSurname, u3.name AS authorName, u3.surname AS authorSurname FROM tasks t 
+$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.report, t.view_status, u1.name AS managerName, u1.surname AS managerSurname, u1.email AS managerEmail,
+       u2.name AS workerName, u2.surname AS workerSurname, u2.email AS workerEmail, u3.name AS authorName, u3.surname AS authorSurname, u3.email AS authorEmail FROM tasks t 
   LEFT JOIN users u1 ON t.manager = u1.id 
   LEFT JOIN users u2 ON t.worker = u2.id 
   LEFT JOIN users u3 ON t.author = u2.id 
@@ -34,7 +34,7 @@ $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, co
 $filesQuery->execute(array(':commentId' => $id_task, ':commentType' => 'task'));
 $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
 
-$coworkersQuery = $pdo->prepare("SELECT tc.worker_id, u.surname, u.name 
+$coworkersQuery = $pdo->prepare("SELECT tc.worker_id, u.surname, u.name, u.email 
   FROM task_coworkers tc 
   LEFT JOIN users u ON tc.worker_id = u.id 
 WHERE tc.task_id = :taskId");
@@ -47,15 +47,21 @@ $nametask = $task['name'];
 $status = $task['status'];
 $description = nl2br($task['description']);
 $description = htmlspecialchars_decode($description);
+
 $author = $task['author'];
 $authorname = $task['authorName'];
 $authorsurname = $task['authorSurname'];
+$authorEmail = $task['authorEmail'];
+
 $manager = $task['manager'];
 $managername = $task['managerName'];
 $managersurname = $task['managerSurname'];
+$managerEmail = $task['managerEmail'];
+
 $worker = $task['worker'];
 $workername = $task['workerName'];
 $workersurname = $task['workerSurname'];
+$workerEmail = $task['workerEmail'];
 
 $datecreate = date("d.m.Y", $task['datecreate']);
 $datedone = date("d.m", $task['datedone']);

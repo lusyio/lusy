@@ -25,7 +25,7 @@
                 <hr class="mt-0 mb-1">
                 <div class="container-members-responsible-selected">
                     <?php
-                    $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"]);
+                    $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                     foreach ($users as $n) { ?>
                         <div val="<?php echo $n['id'] ?>"
                              class="row members-responsible-selected <?= ($n['id'] == $worker) ? '' : 'd-none' ?>">
@@ -34,7 +34,7 @@
                                      class="avatar-added mr-1">
                             </div>
                             <div class="col text-left">
-                                <span><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                                <span><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                             </div>
                         </div>
                     <?php } ?>
@@ -49,7 +49,7 @@
                                 <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
                             </div>
                             <div class="col">
-                                <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                                <span class="add-coworker-text"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                             </div>
                             <div class="col-2 text-right">
                                 <i class="fas fa-exchange-alt icon-change-responsible"></i>
@@ -88,7 +88,7 @@
                              class="add-worker <?= (in_array($n['id'], $coworkersId)) ? '' : 'd-none' ?>">
                             <img src="/<?= getAvatarLink($n['id']) ?>"
                                  class="avatar-added mr-1">
-                            <span class="coworker-fio"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                            <span class="coworker-fio"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                             <?php if ($isCeo || $role == 'manager'): ?>
                                 <i class="fas fa-times icon-newtask-delete-coworker"></i>
                             <?php endif; ?>
@@ -107,7 +107,7 @@
                                 <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
                             </div>
                             <div class="col">
-                                <span class="add-coworker-text"><?php echo $n['name'] . ' ' . $n['surname'] ?></span>
+                                <span class="add-coworker-text"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                             </div>
                             <div class="col-2 text-right">
                                 <i class="fas fa-plus icon-add-coworker"></i>
