@@ -243,7 +243,9 @@ function setTaskCounter(count) {
     } else {
         counter.text(count);
         icon.addClass('text-primary');
-        link.attr('href', link.attr('href').replace('tasks', 'new-tasks'));
+        if (link.attr('href').indexOf('new-tasks') < 0) {
+            link.attr('href', link.attr('href').replace('tasks', 'new-tasks'));
+        }
         badge.removeClass('d-none');
     }
 
@@ -276,7 +278,9 @@ function setCommentCounter(count) {
     } else {
         counter.text(count);
         icon.addClass('text-warning');
-        link.attr('href', link.attr('href').replace('comments', 'new-comments'));
+        if (link.attr('href').indexOf('new-comments') < 0) {
+            link.attr('href', link.attr('href').replace('comments', 'new-comments'));
+        }
         badge.removeClass('d-none');
     }
 
