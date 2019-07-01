@@ -44,9 +44,23 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
 </div>
 
 <div class="d-flex text-center flex-wrap mb-5 mt-4">
-    <?php foreach ($nonMultipleAchievements as $name => $values) {
+    <?php
+    if ($countUserAchievements == 0):
+        ?>
+        <div class="search-container search-container-awards" style="width: 86%;">
+            <div class="card">
+                <div class="card-body search-empty">
+                    <p>Вы ещё не получили достижения</p>
+                </div>
+            </div>
+        </div>
+    <?php
+    else:
+        ?>
+        <?php foreach ($nonMultipleAchievements as $name => $values) {
         include 'engine/frontend/other/award-card.php';
     } ?>
+    <?php endif; ?>
 </div>
 
 <?php if (!key_exists('taskDone_500', $nonMultipleAchievements)): ?>
@@ -55,6 +69,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
             <h3>Путь Ответственного</h3>
         </div>
     </div>
+
 <?php endif; ?>
 
 <div class="d-flex text-center flex-wrap">

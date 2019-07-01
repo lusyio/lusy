@@ -2120,6 +2120,9 @@ span.date {
         margin-left: 15px;
         margin-right: 15px;
     }
+    .search-container-awards {
+        width: 100% !important;;
+    }
     .alerts {
         width: 100%;
         border-top: 1px solid rgba(0,0,0,.1);

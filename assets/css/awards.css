@@ -1,9 +1,11 @@
-.progress-awards{
+.progress-awards {
     background-color: #d4d4d4 !important;
 }
-.complete-awards{
+
+.complete-awards {
     transition: 300ms;
 }
+
 .complete-awards:hover::after {
     content: "";
     background: url(/upload/bg-sprinkles.svg);
@@ -15,27 +17,33 @@
     position: absolute;
     z-index: -1;
 }
+
 .award hr {
     width: 70px;
 }
+
 .award .badge-secondary {
     background-color: #e5e5e5;
     transition: 200ms;
 }
+
 .award .bg-secondary {
     background-color: rgba(0, 0, 0, .3) !important;
 }
-.award-container{
+
+.award-container {
     width: 780px;
     padding: 5px;
     overflow-x: auto;
     overflow-y: hidden;
 }
+
 .award-container::-webkit-scrollbar {
     width: 0;
     background: transparent;
 }
-.award{
+
+.award {
     border-radius: 5px;
     display: block;
     padding: 20px 10px;
@@ -44,28 +52,33 @@
     background: white;
     position: relative;
     margin-right: 15px;
-    -webkit-transition: box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
-    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s;
-    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
-    box-shadow: 0 10px 15px rgba(14,21,47,.05);
+    -webkit-transition: box-shadow .15s ease-out, opacity .15s ease-out, .15s margin-left .15s ease-out, .15s visibility .15s, -webkit-transform .15s ease-out;
+    transition: transform .15s ease-out, box-shadow .15s ease-out, opacity .15s ease-out, .15s margin-left .15s ease-out, .15s visibility .15s;
+    transition: transform .15s ease-out, box-shadow .15s ease-out, opacity .15s ease-out, .15s margin-left .15s ease-out, .15s visibility .15s, -webkit-transform .15s ease-out;
+    box-shadow: 0 10px 15px rgba(14, 21, 47, .05);
 }
-.award:nth-child(3n){
+
+.award:nth-child(3n) {
     margin-right: 0;
 }
-.text-all-achieve:hover{
+
+.text-all-achieve:hover {
     text-decoration: underline;
     cursor: pointer;
 }
+
 .award:hover {
     -webkit-transform: translateY(-5px);
     transform: translateY(-5px);
     z-index: 1;
-    box-shadow: 0 15px 20px rgba(14,21,47,.2);
+    box-shadow: 0 15px 20px rgba(14, 21, 47, .2);
 }
+
 .award:hover .badge-secondary {
     background-color: rgba(0, 0, 0, .3);
 }
-.award-star{
+
+.award-star {
     color: white;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .3);
     line-height: 1.65;
@@ -80,7 +93,8 @@
     margin-top: -60px;
     margin-bottom: 40px;
 }
-.award-sm{
+
+.award-sm {
     border-radius: 5px;
     display: none;
     padding: 20px 10px;
@@ -88,9 +102,15 @@
     min-width: 204px;
     max-width: 204px;
 }
-.award-sm:last-of-type{
+
+.award-sm:last-of-type {
     margin-right: 0;
 }
-.award-sm:nth-child(3n){
+
+.award-sm:nth-child(3n) {
     margin-right: 0;
+}
+
+.search-container-awards {
+    width: 86%;
 }

@@ -51,7 +51,7 @@ if ($userTotalFilesSize == 0): ?>
     <div class="card files">
         <div class="card-body file-list">
                 <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
-                      class="text-ligther deleteFile float-right position-absolute" style="right: 5px; top: 0;">
+                      class="text-ligther deleteFile float-right position-absolute" style="right: 5px; top: 0;z-index: 10;">
                     <i val="<?= $file['file_id'] ?>" class="fas fa-times-circle delete-file-icon"></i>
                 </span>
             <div class="row">
@@ -120,7 +120,7 @@ if ($userTotalFilesSize == 0): ?>
                     if (data) {
                         console.log(data);
                     } else {
-                        file.fadeOut(750);
+                        file.fadeOut(350);
                     }
                 }
             });
