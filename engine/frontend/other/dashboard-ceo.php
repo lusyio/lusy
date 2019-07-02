@@ -275,18 +275,10 @@ $borderColor = [
     });
 
     function drawChart() {
-
-        var jsonData = {
-            cols: [
-                [ <?= $datesString ?>]
-            ],
-            rows: [
-                [<?=$taskCountString?>]
-                ]
-        };
-
-        var data = google.visualization.arrayToDataTable(jsonData);
-
+        var data = google.visualization.arrayToDataTable([
+            ['Year', 'Задач'],
+            <?= $dataForChartString ?>
+            ]);
         var options = {
             series: {
                 0: {
