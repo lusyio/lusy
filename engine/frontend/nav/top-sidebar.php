@@ -83,6 +83,13 @@
                         </span>
                     </div>
                     <div class="profile-submenu submenu">
+                        <a href="/settings/" class="p-0">
+                            <div class="p-3 pt-1 pb-1">
+                                <p class="navbar-brand text-uppercase font-weight-bold mb-0 text-dark"><?= $namec ?></p>
+                                <small class="text-secondary"><?=$tariff?></small>
+                            </div>
+                        </a>
+                        <hr class="mt-0 mb-0">
                         <a href="/profile/<?= $id ?>/"><i class="mr-2 fas fa-user-alt fa-fw"></i><?= _('Profile') ?></a>
                         <a href="/log/"><i class="mr-2 fas fa-bell fa-fw"></i><?= _('History') ?></a>
                         <a href="/settings/"><i class="mr-2 fas fa-cog fa-fw"></i><?= _('Settings') ?></a>
