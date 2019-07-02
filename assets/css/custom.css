@@ -723,8 +723,6 @@ input:checked[type="checkbox"]::before {
 
 }
 
-
-
 .invateButton {
     font-size: 12px;
     margin-top: 4px;
@@ -1292,12 +1290,18 @@ input:checked[type="checkbox"]::before {
 #chatBox {
     position: relative;
     height: calc(100vh - 280px);
-    overflow: auto;
+
+    overflow: scroll;
+    overflow-x: hidden;
+
 }
 
 #chatBox::-webkit-scrollbar {
     width: 0;
-    background: transparent;
+    background: transparent;  /* Optional: just make scrollbar invisible */
+    display: none;  // Safari and Chrome
+    -ms-overflow-style: none;  // IE 10+
+    scrollbar-width: none;  // Firefox
 }
 
 .onlineIndicator{
@@ -1504,6 +1508,15 @@ a {
     overflow-x: hidden;
     padding: 0px 15px 0px 15px;
     margin: 0px -15px -15px -15px;
+
+
+}
+#taskListSlide::-webkit-scrollbar {
+    width: 0;
+    background: transparent;  /* Optional: just make scrollbar invisible */
+    display: none;  // Safari and Chrome
+    -ms-overflow-style: none;  // IE 10+
+    scrollbar-width: none;  // Firefox
 }
 
 .bottomGradient {
@@ -1520,10 +1533,7 @@ a {
     background: linear-gradient(to bottom,  rgba(255, 255, 255, 0) 0%,rgba(187, 187, 187, 0.15) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0089fff1', endColorstr='#bbbbbb1f',GradientType=0 ); /* IE6-9 */
 }
-#taskListSlide::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-}
+
 .event p:first-letter {
     text-transform: capitalize;
 }
@@ -1602,6 +1612,15 @@ a {
     font-size: 14px;
 }
 
+#logDashBoard .commentText {
+    background-color: #f2f2f4;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    font-style: italic;
+    font-weight: 100;
+    font-size: 14px;
+}
+
 .send-mes-tooltip{
     position: absolute;
     opacity: 1;
@@ -1638,20 +1657,26 @@ a {
 #logDashBoard {
     height: auto;
     max-height: 500px;
-    overflow-y: scroll;
     padding: 0 20px 0 0;
     margin-left: -30px;
+
+    overflow: scroll;
+    overflow-x: hidden;
+
+}
+
+#logDashBoard::-webkit-scrollbar {
+    width: 0;
+    background: transparent;  /* Optional: just make scrollbar invisible */
+    display: none;  // Safari and Chrome
+    -ms-overflow-style: none;  // IE 10+
+    scrollbar-width: none;  // Firefox
 }
 
 .noty-invite{
     right: 14px;
     display: none;
     top: 57px;
-}
-
-#logDashBoard::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
 }
 
 #logDashBoard:before {
@@ -2049,6 +2074,13 @@ span.date {
 
     .progress-awards{
         width: 86%;
+    }
+
+    #startDate{
+        padding-right: 5px !important;
+    }
+    #datedone{
+        padding-right: 5px !important;
     }
 
 

@@ -25,7 +25,16 @@
             <input id="sendFiles" type="file" multiple>
         </span>
         <div class="row mt-2">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-3">
+                <div class="form-group">
+                    <label>
+                        Дата начала
+                    </label>
+                    <input type="date" class="form-control" id="startDate" min="<?= $GLOBALS["now"] ?>"
+                           value="<?= $GLOBALS["now"] ?>" required>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
                 <div class="form-group">
                     <label>
                         <?= $GLOBALS['_deadlinenewtask'] ?>

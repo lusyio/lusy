@@ -135,6 +135,7 @@ $(document).ready(function () {
         var name = $("#name").val();
         var delta = quill.root.innerHTML;
         var datedone = $("#datedone").val();
+        var startdate = $("#startDate").val();
         var fd = new FormData();
         console.log(datedone);
         fileList.forEach(function (file, i) {
@@ -144,6 +145,7 @@ $(document).ready(function () {
         fd.append('name', name);
         fd.append('description', delta);
         fd.append('datedone', datedone);
+        fd.append('startdate', startdate);
         fd.append('worker', responsible);
         fd.append('coworkers', JSON.stringify(coworkers));
         fd.append('ajax', 'task-control');
