@@ -127,9 +127,11 @@ if($_POST['module'] == 'createTask') {
 
 	$status = 'new';
 	$dateCreate = time();
-	if (isset($_POST['planned']) && isset($_POST['plannedDate'])) {
-	    $status = 'planned';
-	    $dateCreate = strtotime(filter_var($_POST['plannedDate'], FILTER_SANITIZE_SPECIAL_CHARS));
+	if (isset($_POST['startdate'])) {
+	    $dateCreate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
+	    if (date('Y-m-d', $dateCreate) > date('Y-m-d') && date('Y-m-d', $dateCreate) <= date('Y-m-d', $datedone)) {
+            $status = 'planned';
+        }
     }
 	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0') ";
 	$sql = $pdo->prepare($query);
