@@ -23,7 +23,7 @@ $ACHIEVEMENTS = [
     'comment_1000',
     'taskOverduePerMonth_0',
     'taskDonePerMonth_leader',
-    'taskInwork_20' => 'fas fa-user-graduate',
+    'taskInwork_20',
 ];
 
 /**Возвращает массив с названиями достижений, имеющихся у пользователя
@@ -249,22 +249,28 @@ function checkPeriodicAchievements($userId)
     }
 }
 
-function getMonthlyDoneTaskInCompany($companyId, $firstDay)
+function getMonthlyDoneTaskInCompany($companyId, $firstDay, $lastDay = null)
 {
     global $pdo;
+    if (is_null($lastDay)) {
+        $lastDay = time();
+    }
 
-    $taskDonePerMonthLeaderQuery = $pdo->prepare("SELECT COUNT(*) AS count, worker AS userId FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE status = 'done' AND idcompany = :companyId AND e.action = 'workdone' AND e.datetime > :firstDay GROUP BY worker ORDER BY count DESC");
-    $taskDonePerMonthLeaderQuery->execute(array(':companyId' => $companyId, ':firstDay' => $firstDay));
+    $taskDonePerMonthLeaderQuery = $pdo->prepare("SELECT COUNT(*) AS count, worker AS userId FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE status = 'done' AND idcompany = :companyId AND e.action = 'workdone' AND e.datetime > :firstDay AND e.datetime < :lastDay GROUP BY worker ORDER BY count DESC");
+    $taskDonePerMonthLeaderQuery->execute(array(':companyId' => $companyId, ':firstDay' => $firstDay, ':lastDay' => $lastDay));
     $doneTasks = $taskDonePerMonthLeaderQuery->fetchAll(PDO::FETCH_ASSOC);
     return $doneTasks;
 }
 
-function getMonthlyOverdueWorkersInCompany($companyId, $firstDay)
+function getMonthlyOverdueWorkersInCompany($companyId, $firstDay, $lastDay = null)
 {
     global $pdo;
+    if (is_null($lastDay)) {
+        $lastDay = time();
+    }
 
-    $taskOverduePerMonthLeaderQuery = $pdo->prepare("SELECT COUNT(*) AS count, worker AS userId FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE idcompany = :companyId AND e.action = 'overdue' AND e.datetime > :firstDay GROUP BY worker ORDER BY count DESC");
-    $taskOverduePerMonthLeaderQuery->execute(array(':companyId' => $companyId, ':firstDay' => $firstDay));
+    $taskOverduePerMonthLeaderQuery = $pdo->prepare("SELECT COUNT(*) AS count, worker AS userId FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE idcompany = :companyId AND e.action = 'overdue' AND e.datetime > :firstDay AND e.datetime < :lastDay GROUP BY worker ORDER BY count DESC");
+    $taskOverduePerMonthLeaderQuery->execute(array(':companyId' => $companyId, ':firstDay' => $firstDay, ':lastDay' => $lastDay));
     $overdueTasks = $taskOverduePerMonthLeaderQuery->fetchAll(PDO::FETCH_ASSOC);
     $workers = [];
     foreach ($overdueTasks as $tasks) {
@@ -273,9 +279,12 @@ function getMonthlyOverdueWorkersInCompany($companyId, $firstDay)
     return $workers;
 }
 
-function checkTaskDoneLeaderAchievementsInCompany($companyId, $firstDay)
+function checkTaskDoneLeaderAchievementsInCompany($companyId, $firstDay, $lastDay = null)
 {
-    $taskLeaders = getMonthlyDoneTaskInCompany($companyId, $firstDay);
+    if (is_null($lastDay)) {
+        $lastDay = time();
+    }
+    $taskLeaders = getMonthlyDoneTaskInCompany($companyId, $firstDay, $lastDay);
     $hasMoreThanOneLeader = false;
     if (count($taskLeaders) > 1 && $taskLeaders[0]['count'] == $taskLeaders[1]['count']) {
         $hasMoreThanOneLeader = true;
@@ -283,14 +292,9 @@ function checkTaskDoneLeaderAchievementsInCompany($companyId, $firstDay)
     if (!$hasMoreThanOneLeader && count($taskLeaders) > 0 && $taskLeaders[0]['count'] > 0) {
         addAchievement('taskDonePerMonth_leader', $taskLeaders[0]['userId']);
     }
-    foreach ($taskLeaders as $tasks) {
-        if ($tasks['count'] >= 500) {
-            addAchievement('taskDonePerMonth_500', $taskLeaders[0]['userId']);
-        }
-    }
 }
 
-function checktaskDonePerMonthInCompany($companyId, $firstDay)
+function checkTaskDonePerMonthInCompany($companyId, $firstDay)
 {
     $TASK_GOAL = 500;
     $doneTasks = getMonthlyDoneTaskInCompany($companyId, $firstDay);
@@ -301,10 +305,13 @@ function checktaskDonePerMonthInCompany($companyId, $firstDay)
     }
 }
 
-function checkTaskOverduePerMonthInCompany($companyId, $firstDay)
+function checkTaskOverduePerMonthInCompany($companyId, $firstDay, $lastDay)
 {
-    $companyUsers = DBOnce('id', 'users', 'idcompany = ' . $companyId . ' AND is_fired = 0');
-    $overdueWorkers = getMonthlyOverdueWorkersInCompany($companyId, $firstDay);
+    global $pdo;
+    $companyUsersQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND is_fired = 0");
+    $companyUsersQuery->execute(array(':companyId' => $companyId));
+    $companyUsers = $companyUsersQuery->fetchAll(PDO::FETCH_COLUMN);
+    $overdueWorkers = getMonthlyOverdueWorkersInCompany($companyId, $firstDay, $lastDay);
     foreach ($companyUsers as $user) {
         if (!in_array($user, $overdueWorkers)) {
             addAchievement('taskOverduePerMonth_0', $user);
