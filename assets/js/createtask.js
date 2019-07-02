@@ -134,11 +134,17 @@ $(document).ready(function () {
     $("#createTask").click(function () {
         var attachedGoogleFiles = {};
         $('.attached-google-drive-file').each(function (i, googleFileToSend) {
-            attachedGoogleFiles[$(googleFileToSend).data('name')] = $(googleFileToSend).data('link');
+            attachedGoogleFiles[$(googleFileToSend).data('name')] = {
+                link: $(googleFileToSend).data('link'),
+                size: $(googleFileToSend).data('file-size'),
+            };
         });
         var attachedDropboxFiles = {};
         $('.attached-dropbox-file').each(function (i, dropboxFileToSend) {
-            attachedDropboxFiles[$(dropboxFileToSend).data('name')] = $(dropboxFileToSend).data('link');
+            attachedDropboxFiles[$(dropboxFileToSend).data('name')] = {
+                link: $(dropboxFileToSend).data('link'),
+                size: $(dropboxFileToSend).data('file-size')
+            };
         });
         var responsible = $('.add-responsible:visible').attr('val');
         var coworkers = [];
@@ -164,7 +170,6 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('ajax', 'task-control');
-        fd.append('yaToken', yt);
         if (name != null && delta != null && datedone != null && responsible != null) {
             $.ajax({
                 url: '/ajax.php',

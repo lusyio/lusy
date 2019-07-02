@@ -291,7 +291,7 @@ if ($id == $worker and $view == 0) {
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
                         console.log(file);
-                        addFileToList(file.name, file.url, 'google-drive', 'fab fa-google-drive' );
+                        addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive' );
                     });
                 }
             },
@@ -322,7 +322,7 @@ if ($id == $worker and $view == 0) {
         options = {
             success: function(files) {
                 files.forEach(function (file) {
-                    addFileToList(file.name, file.link, 'dropbox', 'fab fa-dropbox');
+                    addFileToList(file.name, file.link, file.bytes, 'dropbox', 'fab fa-dropbox');
                 })
             },
             linkType: "direct", // or "preview"

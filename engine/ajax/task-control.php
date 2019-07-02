@@ -112,29 +112,22 @@ if($_POST['module'] == 'createTask') {
     foreach ($unsafeCoworkers as $c) {
         $coworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
     }
-    $unsafeYandexFiles = json_decode($_POST['yaAttach']);
-    $yandexFiles = [];
-    foreach ($unsafeYandexFiles as $k => $v) {
-        $yandexFiles[] = [
-            'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v, FILTER_SANITIZE_STRING),
-            ];
-    }
-    $yaToken = filter_var($_POST['yaToken'], FILTER_SANITIZE_STRING);
-    $unsafeGoogleFiles = json_decode($_POST['googleAttach']);
+    $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $googleFiles = [];
     foreach ($unsafeGoogleFiles as $k => $v) {
         $googleFiles[] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
-    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach']);
+    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
     $dropboxFiles = [];
     foreach ($unsafeDropboxFiles as $k => $v) {
         $dropboxFiles[] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
     if (isset($_POST['manager'])) {
@@ -172,9 +165,6 @@ if($_POST['module'] == 'createTask') {
 	}
     if (count($_FILES) > 0) {
         uploadAttachedFiles('task', $idtask);
-    }
-    if (count($yandexFiles) > 0 && $yaToken != '') {
-        addYandexFiles('task', $idtask, $yandexFiles, $yaToken);
     }
     if (count($googleFiles) > 0) {
         addGoogleFiles('task', $idtask, $googleFiles);

@@ -149,7 +149,7 @@ function addGoogleFiles($type, $eventId, $fileList)
     foreach ($fileList as $file) {
         $sqlData = [
             ':fileName' => $file['name'],
-            ':fileSize' => 0,
+            ':fileSize' => $file['size'],
             ':filePath' => $file['path'],
             ':commentId' => $eventId,
             ':commentType' => $type,
@@ -188,7 +188,7 @@ function addDropboxFiles($type, $eventId, $fileList)
     foreach ($fileList as $file) {
         $sqlData = [
             ':fileName' => $file['name'],
-            ':fileSize' => 0,
+            ':fileSize' => $file['size'],
             ':filePath' => $file['path'],
             ':commentId' => $eventId,
             ':commentType' => $type,

@@ -121,7 +121,7 @@
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
                         console.log(file);
-                        addFileToList(file.name, file.url, 'google-drive', 'fab fa-google-drive' );
+                        addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive' );
                     });
                 }
             },
@@ -152,7 +152,7 @@
         options = {
             success: function(files) {
                 files.forEach(function (file) {
-                    addFileToList(file.name, file.link, 'dropbox', 'fab fa-dropbox');
+                    addFileToList(file.name, file.link, file.bytes, 'dropbox', 'fab fa-dropbox');
                 })
             },
             linkType: "direct", // or "preview"
@@ -316,11 +316,17 @@
             var fd = new FormData();
             var attachedGoogleFiles = {};
             $('.attached-google-drive-file').each(function (i, googleFileToSend) {
-                attachedGoogleFiles[$(googleFileToSend).data('name')] = $(googleFileToSend).data('link');
+                attachedGoogleFiles[$(googleFileToSend).data('name')] = {
+                    link: $(googleFileToSend).data('link'),
+                    size: $(googleFileToSend).data('file-size'),
+                };
             });
             var attachedDropboxFiles = {};
             $('.attached-dropbox-file').each(function (i, dropboxFileToSend) {
-                attachedDropboxFiles[$(dropboxFileToSend).data('name')] = $(dropboxFileToSend).data('link');
+                attachedDropboxFiles[$(dropboxFileToSend).data('name')] = {
+                    link: $(dropboxFileToSend).data('link'),
+                    size: $(dropboxFileToSend).data('file-size')
+                };
             });
             fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
             fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));

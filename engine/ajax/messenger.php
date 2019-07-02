@@ -20,7 +20,8 @@ if ($_POST['module'] == 'sendMessage') {
     foreach ($unsafeGoogleFiles as $k => $v) {
         $googleFiles[] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
     $unsafeDropboxFiles = json_decode($_POST['dropboxAttach']);
@@ -28,7 +29,8 @@ if ($_POST['module'] == 'sendMessage') {
     foreach ($unsafeDropboxFiles as $k => $v) {
         $dropboxFiles[] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
     if (!empty($mes)) {
@@ -70,7 +72,8 @@ if ($_POST['module'] == 'sendMessageToChat') {
     foreach ($unsafeGoogleFiles as $k => $v) {
         $googleFiles[] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
     $unsafeDropboxFiles = json_decode($_POST['dropboxAttach']);
@@ -78,7 +81,8 @@ if ($_POST['module'] == 'sendMessageToChat') {
     foreach ($unsafeDropboxFiles as $k => $v) {
         $dropboxFiles[] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
     if (!empty($mes)) {

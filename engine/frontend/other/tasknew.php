@@ -176,7 +176,7 @@
                 var gFiles = data[google.picker.Response.DOCUMENTS];
                 gFiles.forEach(function (file) {
                     console.log(file);
-                    addFileToList(file.name, file.url, 'google-drive', 'fab fa-google-drive' );
+                    addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive' );
                 });
             }
         },
@@ -207,7 +207,8 @@
     options = {
         success: function(files) {
             files.forEach(function (file) {
-                addFileToList(file.name, file.link, 'dropbox', 'fab fa-dropbox');
+                console.log(file);
+                addFileToList(file.name, file.link, file.bytes, 'dropbox', 'fab fa-dropbox');
             })
         },
         linkType: "direct", // or "preview"
@@ -218,8 +219,8 @@
         Dropbox.choose(options);
     });
     //===================End of Dropbox=======================
-    function addFileToList(name, link, source, icon) {
-        $(".file-name").show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "'>" +
+    function addFileToList(name, link, size, source, icon) {
+        $(".file-name").show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "' data-file-size='" + size + "'>" +
             "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
             "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
             "</div>");
