@@ -198,13 +198,26 @@ if ($_POST['module'] == 'sendDate' && $isManager) {
         addEvent('senddate', $idtask, $datepostpone);
     } else {
         if (date('d-m-Y', $datepostpone) == date('d-m-Y')) {
-            $sql->execute(array('datepostpone' => $datepostpone, ':status' => 'new'));
             resetViewStatus($idtask);
             addTaskCreateComments($idtask, $worker, $coworkers);
             addEvent('createtask', $idtask, $datedone, $worker);
         }else {
             $sql->execute(array('datepostpone' => $datepostpone, ':status' => 'planned'));
         }
+    }
+}
+
+if ($_POST['module'] == 'changeStartDate' && $isManager) {
+    $startDate = strtotime(filter_var($_POST['startDate'], FILTER_SANITIZE_SPECIAL_CHARS));
+    $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datecreate = :startDate, `view` = 0 WHERE id=".$idtask);
+
+    if ($startDate <= time()){
+        $sql->execute(array(':startDate' => $startDate, ':status' => 'new'));
+        resetViewStatus($idtask);
+        addTaskCreateComments($idtask, $idTaskWorker, $coworkers);
+        addEvent('createtask', $idtask, $datedone, $idTaskWorker);
+    } else {
+        $sql->execute(array(':startDate' => $startDate, ':status' => 'planned'));
     }
 }
 
