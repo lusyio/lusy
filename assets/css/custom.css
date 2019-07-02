@@ -2159,6 +2159,10 @@ span.date {
         margin-right: 15px;
     }
 
+    .change-plan-date{
+        width: 76% !important;;
+    }
+
     .noty-invite{
         top: 49px;
         left: 25px;

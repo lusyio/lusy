@@ -332,6 +332,22 @@ $(document).ready(function () {
         // }
     });
 
+    $("#changePlanDate").on('click', function () {
+       var datePlan = $("#inputChangePlanDate").val();
+       $.ajax({
+           url: '/ajax.php',
+           type: 'POST',
+
+           data:{
+               module: 'changeStartDate',
+               startDate: datePlan,
+               it: $it,
+               ajax: 'task-control'
+           },
+           success: controlUpdate,
+       })
+    });
+
 // Кнопка "принять" для worker'a (в статусе "на рассмотрении"")
 
     $("#workreturn").click(function () {
@@ -377,7 +393,6 @@ $(document).ready(function () {
         // } else {
         // 	$("#reportarea").addClass('border-danger');
     });
-
 
     //Отмена таска
     $("#cancelTask").click(function () {
