@@ -279,7 +279,6 @@ $borderColor = [
             ['Year', 'Задач'],
             <?= $dataForChartString ?>
             ]);
-
         var options = {
             series: {
                 0: {
@@ -342,90 +341,90 @@ $borderColor = [
             markAsRead(eventId);
         });
 
-        function createConfig(details, data) {
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-            var height = $('.chart-container').children().height();
+        //function createConfig(details, data) {
+        //    const canvas = document.getElementById('canvas');
+        //    const ctx = canvas.getContext('2d');
+        //    var height = $('.chart-container').children().height();
+        //
+        //    let gradient = ctx.createLinearGradient(0, 0, 0, height);
+        //    gradient.addColorStop(1, 'rgba(40, 167, 69, 0.1)');
+        //    gradient.addColorStop(1, 'white');
+        //    ctx.fillStyle = gradient;
+        //    ctx.fillRect(10, 10, 200, 100);
+        //    return {
+        //        type: 'line',
+        //        data: {
+        //            labels: [<?//= $datesString ?>//],
+        //            datasets: [{
+        //                steppedLine: details.steppedLine,
+        //                data: data,
+        //                fill: 'start',
+        //                backgroundColor: gradient,
+        //                borderColor: '#28a745'
+        //            }]
+        //        },
+        //        options: {
+        //            responsive: true,
+        //            layout: {
+        //                padding: {
+        //                    top: 10
+        //                }
+        //            },
+        //            title: {
+        //                display: false,
+        //                text: details.label,
+        //            },
+        //            label: {
+        //                display: false
+        //            },
+        //            legend: {
+        //                display: false
+        //            },
+        //            scales: {
+        //                xAxes: [{
+        //                    display: false
+        //                }],
+        //                yAxes: [{
+        //                    display: false,
+        //                    ticks: {
+        //                        suggestedMin: -2
+        //                    }
+        //                }]
+        //            },
+        //            elements: {
+        //                point: {
+        //                    radius: 0
+        //                }
+        //            }
+        //        }
+        //    };
+        //}
+        //
+        //
+        //window.onload = function () {
+        //
+        //    var container = document.querySelector('.chart');
 
-            let gradient = ctx.createLinearGradient(0, 0, 0, height);
-            gradient.addColorStop(1, 'rgba(40, 167, 69, 0.1)');
-            gradient.addColorStop(1, 'white');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(10, 10, 200, 100);
-            return {
-                type: 'line',
-                data: {
-                    labels: [<?= $datesString ?>],
-                    datasets: [{
-                        steppedLine: details.steppedLine,
-                        data: data,
-                        fill: 'start',
-                        backgroundColor: gradient,
-                        borderColor: '#28a745'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    layout: {
-                        padding: {
-                            top: 10
-                        }
-                    },
-                    title: {
-                        display: false,
-                        text: details.label,
-                    },
-                    label: {
-                        display: false
-                    },
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        xAxes: [{
-                            display: false
-                        }],
-                        yAxes: [{
-                            display: false,
-                            ticks: {
-                                suggestedMin: -2
-                            }
-                        }]
-                    },
-                    elements: {
-                        point: {
-                            radius: 0
-                        }
-                    }
-                }
-            };
-        }
-
-
-        window.onload = function () {
-
-            var container = document.querySelector('.chart');
-
-            var data = [<?=$taskCountString?>];
-
-            var steppedLineSettings = [{
-                color: window.chartColors.red
-            }];
-
-
-            steppedLineSettings.forEach(function (details) {
-                var div = document.createElement('div');
-                div.classList.add('chart-container');
-
-                var canvas = document.createElement('canvas');
-                div.appendChild(canvas);
-                container.appendChild(div);
-
-                var ctx = canvas.getContext('2d');
-                var config = createConfig(details, data);
-                new Chart(ctx, config);
-            });
-        };
+            //var data = [<?//=$taskCountString?>//];
+        //
+        //    var steppedLineSettings = [{
+        //        color: window.chartColors.red
+        //    }];
+        //
+        //
+        //    steppedLineSettings.forEach(function (details) {
+        //        var div = document.createElement('div');
+        //        div.classList.add('chart-container');
+        //
+        //        var canvas = document.createElement('canvas');
+        //        div.appendChild(canvas);
+        //        container.appendChild(div);
+        //
+        //        var ctx = canvas.getContext('2d');
+        //        var config = createConfig(details, data);
+        //        new Chart(ctx, config);
+        //    });
+        //};
 
     });
 </script>

@@ -54,7 +54,7 @@
 </div>
 <script>
     function insertPlug() {
-        if ($('.event:visible').length === 0){
+        if ($('.event:visible').length === 0) {
             $('#logPlug').show();
             $('#log').addClass('delete-before')
         } else {
@@ -71,7 +71,6 @@
         var log = $(".event:visible").slice(0, num);
         $('.event').hide();
         log.show();
-        console.log(num);
     }
 
     function loadLogPage() {
@@ -80,7 +79,23 @@
         var log = $(".event:visible").slice(0, num);
         $('.event').hide();
         log.show();
-        console.log(num);
+        console.log($('.event').length - $(".event:visible").length);
+        var type = $('[data-type].active').attr('id');
+        if (type === 'systemSearch') {
+            type = 'system-event';
+        }
+        if (type === 'commentSearch') {
+            type = 'comment';
+        }
+        if (type === 'taskSearch') {
+            type = 'task';
+        }
+        if (type === undefined) {
+            type = 'event';
+        }
+        if ($('.' + type + '').length - $('.' + type + ':visible').length <= 10) {
+            $("#loadLog").hide();
+        }
     }
 
     function hideLoadLog() {
