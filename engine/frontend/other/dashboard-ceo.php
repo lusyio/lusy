@@ -12,8 +12,8 @@ $borderColor = [
 ];
 ?>
 <link rel="stylesheet" href="/assets/css/swiper.min.css">
-<script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
-<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <div class="row">
     <div class="col-12 col-lg-4">
@@ -26,9 +26,7 @@ $borderColor = [
                     <small class="text-secondary"><?= _('Tasks done per month') ?></small>
                 </div>
             </div>
-            <canvas class="d-none" id="canvas"></canvas>
-            <div class="chart"></div>
-            <div class="slideChartFooter2"></div>
+            <div id="curve_chart"></div>
         </div>
     </div>
     <div class="col-12 col-lg-8">
@@ -269,6 +267,61 @@ $borderColor = [
     </div>
 </div>
 <script src="/assets/js/swiper.min.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    $(window).resize(function(){
+        drawChart();
+    });
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Year', 'Задач'],
+            ['2013',  1000],
+            ['2014',  1170],
+            ['2015',  660],
+            ['2016',  1030,]
+        ]);
+
+        var options = {
+            series: {
+                0: {
+                    color: '#2DA64D',
+                },
+            },
+            width: '100%',
+            height: 121,
+            curveType: 'function',
+            legend: {
+                position: 'none'
+            },
+            hAxis:{
+                viewWindowMode: 'maximized',
+                textPosition: 'none',
+                gridlines:{
+                    color: '#fff',
+                },
+                baselineColor: '#fff',
+            },
+            vAxis:{
+                textPosition: 'none',
+                gridlines:{
+                    color: '#fff',
+                },
+                minValue: 0,
+                baselineColor: '#bfe4ca',
+            },
+            chartArea:{
+                width: '100%',
+                height: '100%',
+            },
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+    }
+</script>
 <script>
     var swiper = new Swiper('.swiper-container', {
         loop: true,

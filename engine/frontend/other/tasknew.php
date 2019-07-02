@@ -37,7 +37,7 @@
             <div class="col-12 col-md-3">
                 <div class="form-group">
                     <label>
-                        <?= $GLOBALS['_deadlinenewtask'] ?>
+                        Дата окончания
                     </label>
                     <input type="date" class="form-control" id="datedone" min="<?= $GLOBALS["now"] ?>"
                            value="<?= $GLOBALS["now"] ?>" required>
@@ -113,6 +113,13 @@
 <script src="/assets/js/createtask.js"></script>
 <script>
     $(document).ready(function () {
+        $("#startDate").on('change', function () {
+           var val = $(this).val();
+           $('#datedone').attr('min', val);
+           if (val > $('#datedone').val()){
+               $('#datedone').val(val);
+           }
+        });
         $("#name").on('input', function () {
             var nameText = $('#name').val();
             var header = $("#headerName");
