@@ -1252,6 +1252,7 @@ function createInitTask($userId, $companyId, $forCeo = false)
 
     if ($forCeo) {
         $name = 'Пригласите сотрудника';
+        $datedone = strtotime(date('Y-m-d'));
         $description = '&#60;p&#62;Пригласите сотрудника, отправив ему приглашение на странице Компания - &#60;a href=&#34;https://s.lusy.io/invite/&#34; target=&#34;_blank&#34;&#62;Пригласить сотрудников&#60;/a&#62;&#60;/p&#62;';
         $addTaskQuery->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => time(), ':author' => $managerId, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $companyId, ':datedone' => $datedone));
 
