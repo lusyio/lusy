@@ -1,10 +1,15 @@
 $(document).ready(function () {
 
+    $('.attach-file').on('click', function (e) {
+        e.preventDefault();
+        $('#sendFiles').trigger('click');
+    });
+
     $(".file-name").on('click', '.cancelFile', function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
         fileList.delete(num);
-        if (fileList.size === 0) {
+        if ($('.filenames').length === 0) {
             $('.file-name').hide();
         }
     });
@@ -127,6 +132,14 @@ $(document).ready(function () {
 
 //создание новой задачи
     $("#createTask").click(function () {
+        var attachedGoogleFiles = {};
+        $('.attached-google-drive-file').each(function (i, googleFileToSend) {
+            attachedGoogleFiles[$(googleFileToSend).data('name')] = $(googleFileToSend).data('link');
+        });
+        var attachedDropboxFiles = {};
+        $('.attached-dropbox-file').each(function (i, dropboxFileToSend) {
+            attachedDropboxFiles[$(dropboxFileToSend).data('name')] = $(dropboxFileToSend).data('link');
+        });
         var responsible = $('.add-responsible:visible').attr('val');
         var coworkers = [];
         $('.add-worker:visible').each(function () {
@@ -148,7 +161,10 @@ $(document).ready(function () {
         fd.append('startdate', startdate);
         fd.append('worker', responsible);
         fd.append('coworkers', JSON.stringify(coworkers));
+        fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
+        fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('ajax', 'task-control');
+        fd.append('yaToken', yt);
         if (name != null && delta != null && datedone != null && responsible != null) {
             $.ajax({
                 url: '/ajax.php',

@@ -112,6 +112,31 @@ if($_POST['module'] == 'createTask') {
     foreach ($unsafeCoworkers as $c) {
         $coworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
     }
+    $unsafeYandexFiles = json_decode($_POST['yaAttach']);
+    $yandexFiles = [];
+    foreach ($unsafeYandexFiles as $k => $v) {
+        $yandexFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+            ];
+    }
+    $yaToken = filter_var($_POST['yaToken'], FILTER_SANITIZE_STRING);
+    $unsafeGoogleFiles = json_decode($_POST['googleAttach']);
+    $googleFiles = [];
+    foreach ($unsafeGoogleFiles as $k => $v) {
+        $googleFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+        ];
+    }
+    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach']);
+    $dropboxFiles = [];
+    foreach ($unsafeDropboxFiles as $k => $v) {
+        $dropboxFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v, FILTER_SANITIZE_STRING),
+        ];
+    }
     if (isset($_POST['manager'])) {
         $managerId = filter_var($_POST['manager'], FILTER_SANITIZE_NUMBER_INT);
     } else {
@@ -148,14 +173,23 @@ if($_POST['module'] == 'createTask') {
     if (count($_FILES) > 0) {
         uploadAttachedFiles('task', $idtask);
     }
+    if (count($yandexFiles) > 0 && $yaToken != '') {
+        addYandexFiles('task', $idtask, $yandexFiles, $yaToken);
+    }
+    if (count($googleFiles) > 0) {
+        addGoogleFiles('task', $idtask, $googleFiles);
+    }
+    if (count($dropboxFiles) > 0) {
+        addDropboxFiles('task', $idtask, $dropboxFiles);
+    }
     if ($status != 'planned') {
         resetViewStatus($idtask);
         addTaskCreateComments($idtask, $worker, $coworkers);
         addEvent('createtask', $idtask, $datedone, $worker);
     } else {
         addEvent('createplantask', $idtask, $dateCreate, $worker);
-
     }
+
 
 }
 
