@@ -277,11 +277,8 @@ $borderColor = [
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Year', 'Задач'],
-            ['2013',  1000],
-            ['2014',  1170],
-            ['2015',  660],
-            ['2016',  1030,]
-        ]);
+            <?= $dataForChartString ?>
+            ]);
 
         var options = {
             series: {
