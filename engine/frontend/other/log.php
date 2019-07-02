@@ -79,7 +79,6 @@
         var log = $(".event:visible").slice(0, num);
         $('.event').hide();
         log.show();
-        console.log($('.event').length - $(".event:visible").length);
         var type = $('[data-type].active').attr('id');
         if (type === 'systemSearch') {
             type = 'system-event';
