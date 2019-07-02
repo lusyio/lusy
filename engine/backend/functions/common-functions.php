@@ -131,7 +131,7 @@ function addGoogleFiles($type, $eventId, $fileList)
 
     require_once 'engine/backend/functions/storage-functions.php';
 
-    $types = ['task', 'comment', 'conversation'];
+    $types = ['task', 'comment', 'conversation', 'chat'];
     if (!in_array($type, $types)) {
         return;
     }
@@ -170,7 +170,7 @@ function addDropboxFiles($type, $eventId, $fileList)
 
     require_once 'engine/backend/functions/storage-functions.php';
 
-    $types = ['task', 'comment', 'conversation'];
+    $types = ['task', 'comment', 'conversation', 'chat'];
     if (!in_array($type, $types)) {
         return;
     }

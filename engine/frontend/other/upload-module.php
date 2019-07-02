@@ -4,8 +4,15 @@
             <input id="sendFiles" type="file" multiple>
         </span>
 <div class="dropdown">
-    <button class="btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Прикрепить файл</button>
+    <?php if ($uploadModule == 'chat'): ?>
+        <button class="btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-paperclip"></i>
+        </button>
+    <?php else: ?>
+        <button class="btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Прикрепить файл
+        </button>
+    <?php endif; ?>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" href="#"><i class="fas fa-file-upload custom-date mr-2"></i>
             <span class="attach-file">С компьютера</span></a>

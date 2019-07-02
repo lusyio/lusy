@@ -205,9 +205,8 @@ if ($id == $worker and $view == 0) {
                 <textarea class="form-control mr-3" id="comin" rows="1" name="comment" type="text" autocomplete="off"
                           placeholder="<?= $GLOBALS["_writecomment"] ?>..." required></textarea>
 
-                    <button data-toggle="tooltip" data-placement="bottom" title="Прикрепить файлы" type="submit"
-                            class="btn btn-light btn-file mr-3"><i class="fas fa-file-upload custom-date"></i><input
-                                id="sendFiles" type="file" multiple></button>
+                    <?php $uploadModule = 'chat'; ?>
+                    <?php include 'engine/frontend/other/upload-module.php'; ?>
 
                     <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>"><i
                                 class="fas fa-paper-plane"></i></button>
@@ -223,6 +222,129 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>
 </div>
+<?php if ($tariff == 1):?>
+    <script type="text/javascript">
+        //=======================Google Drive==========================
+        //=Create object of FilePicker Constructor function function & set Properties===
+        function SetPicker() {
+            var picker = new FilePicker(
+                {
+                    apiKey: 'AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc',
+                    clientId: '34979060720-4dmsjervh14tqqgqs81pd6f14ed04n3d.apps.googleusercontent.com',
+                    buttonEl: document.getElementById("openGoogleDrive"),
+                    onClick: function (file) {
+                    }
+                });
+        }
+        //====================Create POPUP function==============
+        function PopupCenter(url, title, w, h) {
+            var left = (screen.width / 2) - (w / 2);
+            var top = (screen.height / 2) - (h / 2);
+            return window.open(url, title, 'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+        }
+        //===============Create Constructor function==============
+        function FilePicker(User) {
+            //Configuration
+            this.apiKey = User.apiKey;
+            this.clientId = User.clientId;
+            //Button
+            this.buttonEl = User.buttonEl;
+            //Click Events
+            this.onClick = User.onClick;
+            this.buttonEl.addEventListener('click', this.open.bind(this));
+            //Disable the button until the API loads, as it won't work properly until then.
+            this.buttonEl.disabled = true;
+            //Load the drive API
+            gapi.client.setApiKey(this.apiKey);
+            gapi.client.load('drive', 'v2', this.DriveApiLoaded.bind(this));
+            gapi.load('picker', '1', { callback: this.PickerApiLoaded.bind(this) });
+        }
+        FilePicker.prototype = {
+            //==========Check Authentication & Call ShowPicker() function=======
+            open: function () {
+                var token = gapi.auth.getToken();
+                if (token) {
+                    this.ShowPicker();
+                } else {
+                    this.DoAuth(false, function ()
+                    { this.ShowPicker(); }.bind(this));
+                }
+            },
+            //========Show the file picker once authentication has been done.=========
+            ShowPicker: function () {
+                var accessToken = gapi.auth.getToken().access_token;
+                var DisplayView = new google.picker.DocsView().setIncludeFolders(true);
+                this.picker = new google.picker.PickerBuilder().
+                addView(DisplayView).
+                enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
+                setAppId(this.clientId).
+                setOAuthToken(accessToken).
+                setCallback(this.PickerResponse.bind(this)).
+                setTitle('Google Drive').
+                setLocale('ru').
+                build().
+                setVisible(true);
+            },
+            //====Called when a file has been selected in the Google Picker Dialog Box======
+            PickerResponse: function (data) {
+                if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+                    var gFiles = data[google.picker.Response.DOCUMENTS];
+                    gFiles.forEach(function (file) {
+                        console.log(file);
+                        addFileToList(file.name, file.url, 'google-drive', 'fab fa-google-drive' );
+                    });
+                }
+            },
+            //====Called when file details have been retrieved from Google Drive========
+            GetFileDetails: function (file) {
+                if (this.onClick) {
+                }
+            },
+            //====Called when the Google Drive file picker API has finished loading.=======
+            PickerApiLoaded: function () {
+                this.buttonEl.disabled = false;
+            },
+            //========Called when the Google Drive API has finished loading.==========
+            DriveApiLoaded: function () {
+                this.DoAuth(true);
+            },
+            //========Authenticate with Google Drive via the Google Picker API.=====
+            DoAuth: function (immediate, callback) {
+                gapi.auth.authorize({
+                    client_id: this.clientId,
+                    scope: 'https://www.googleapis.com/auth/drive',
+                    immediate: immediate
+                }, callback);
+            }
+        };
+
+        //=======================Dropbox==========================
+        options = {
+            success: function(files) {
+                files.forEach(function (file) {
+                    addFileToList(file.name, file.link, 'dropbox', 'fab fa-dropbox');
+                })
+            },
+            linkType: "direct", // or "preview"
+            multiselect: true, // or false
+            folderselect: false, // or true
+        };
+        $('#openDropbox').on('click', function () {
+            Dropbox.choose(options);
+        });
+        //===================End of Dropbox=======================
+        function addFileToList(name, link, source, icon) {
+            $(".file-name").show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "'>" +
+                "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
+                "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                "</div>");
+        }
+    </script>
+    <script src="https://www.google.com/jsapi?key=AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc"></script>
+    <script src="https://apis.google.com/js/client.js?onload=SetPicker"></script>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="pjjm32k7twiooo2"></script>
+<?php endif; ?>
+
 <script>
     var $it = '<?=$idtask?>';
 </script>
@@ -277,6 +399,10 @@ if ($id == $worker and $view == 0) {
                 dov.fadeOut(200); // скрываем его
             }
         });
+
+        <?php if ($tariff == 0):?>
+        //Код для заглушек о премиум-доступе
+        <?php endif; ?>
 
         // if (!$(e.target).closest(".tooltip-avatar").length) {
         //     $('.members').fadeOut(300);

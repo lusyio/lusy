@@ -3,7 +3,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="pjjm32k7twiooo2"></script>
 <div class="card new-task-container">
     <div class="card-body">
         <div class="row mb-2 md-5">
@@ -23,6 +22,7 @@
         <div style="display: none"
              class="bg-white file-name container-files">
         </div>
+        <?php $uploadModule = 'task'; ?>
         <?php include 'engine/frontend/other/upload-module.php'; ?>
         <div class="row mt-2">
             <div class="col-12 col-md-3">
@@ -225,8 +225,9 @@
             "</div>");
     }
 </script>
-<script src="https://www.google.com/jsapi?key=AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc"></script>
-<script src="https://apis.google.com/js/client.js?onload=SetPicker"></script>
+    <script src="https://www.google.com/jsapi?key=AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc"></script>
+    <script src="https://apis.google.com/js/client.js?onload=SetPicker"></script>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="pjjm32k7twiooo2"></script>
 <?php endif; ?>
 <script>
     $(document).ready(function () {

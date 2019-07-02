@@ -73,7 +73,7 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                                     (удален)</p>
                             <?php else: ?>
                                 <p class="mt-2 mb-2 text-secondary file">
-                                    <a class="text-secondary" href="../../<?= $file['file_path'] ?>">
+                                    <a class="text-secondary" href="<?= ($file['file_size'] == 0) ? $file['file_path'] : '../../' . $file['file_path']; ?>">
                                         <i class="fas fa-paperclip"></i> <?= $file['file_name'] ?>
                                     </a>
                                 </p>
