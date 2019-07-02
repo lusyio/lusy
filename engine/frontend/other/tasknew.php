@@ -238,19 +238,17 @@
         //====Called when a file has been selected in the Google Picker Dialog Box======
         PickerResponse: function (data) {
             if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
-                var file = data[google.picker.Response.DOCUMENTS][0],
-                    id = file[google.picker.Document.ID],
-                    request = gapi.client.drive.files.get({ fileId: id });
-                //this.ShowPicker();
-                request.execute(this.GetFileDetails.bind(this));
+                var gFiles = data[google.picker.Response.DOCUMENTS];
+                gFiles.forEach(function (file) {
+                    console.log(file);
+                    addFileToList(file.name, file.url, 'google-drive', 'fab fa-google-drive' );
+                });
             }
         },
         //====Called when file details have been retrieved from Google Drive========
         GetFileDetails: function (file) {
             if (this.onClick) {
-                console.log(file);
-                insertPermission(file.id, '', 'anyone', 'reader');
-                addFileToList(file.title, file.selfLink, 'google-drive', 'fab fa-google-drive' );
+
             }
         },
         //====Called when the Google Drive file picker API has finished loading.=======
@@ -270,32 +268,7 @@
             }, callback);
         }
     };
-    /**
-     * Insert a new permission.
-     *
-     * @param {String} fileId ID of the file to insert permission for.
-     * @param {String} value User or group e-mail address, domain name or
-     *                       {@code null} "default" type.
-     * @param {String} type The value "user", "group", "domain" or "default".
-     * @param {String} role The value "owner", "writer" or "reader".
-     */
-    function insertPermission(fileId, value, type, role) {
-        var body = {
-            'value': value,
-            'type': type,
-            'role': role,
-            'withLink': true
-        };
-        var request = gapi.client.drive.permissions.insert({
-            'fileId': fileId,
-            'resource': body
-        });
-        request.execute(function(resp) { });
-    }
-
-
 </script>
-
 <script src="https://www.google.com/jsapi?key=AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc"></script>
 <script src="https://apis.google.com/js/client.js?onload=SetPicker"></script>
 
@@ -311,8 +284,7 @@
 
             // Required. Called when a user selects an item in the Chooser.
             success: function(files) {
-                alert("Here's the file link: " + files[0].link);
-                $(files).each(function (i, file) {
+                files.forEach(function (file) {
                     addFileToList(file.name, file.link, 'dropbox', 'fab fa-dropbox');
                 })
             },
@@ -326,7 +298,7 @@
             // Optional. "preview" (default) is a preview link to the document for sharing,
             // "direct" is an expiring link to download the contents of the file. For more
             // information about link types, see Link types below.
-            linkType: "preview", // or "direct"
+            linkType: "direct", // or "direct"
 
             // Optional. A value of false (default) limits selection to a single file, while
             // true enables multiple file selection.
