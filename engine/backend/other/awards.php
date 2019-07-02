@@ -134,7 +134,11 @@ foreach ($otherAchievementsList as $a) {
     if ($a == 'taskDonePerMonth_leader') {
         $usersCount = DBOnce('COUNT(*)', 'users', 'idcompany = ' . $idc . ' AND is_fired = 0');
         $otherAchievements[$a]['count'] = $userProgress[$ruleName] . ' ' . $GLOBALS['_place'];
-        $otherAchievements[$a]['value'] = str_replace(',', '.',1 - (($userProgress[$ruleName] - 1) / ($usersCount - 1)));
+        if ($usersCount == 1) {
+            $otherAchievements[$a]['value'] = 1;
+        } else {
+            $otherAchievements[$a]['value'] = str_replace(',', '.',1 - (($userProgress[$ruleName] - 1) / ($usersCount - 1)));
+        }
     }
     if (in_array($a, $onceAchievements)) {
         $otherAchievements[$a]['count'] = $GLOBALS['_notAchieved'];
