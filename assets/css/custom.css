@@ -1693,6 +1693,28 @@ a {
     bottom: 0;
 }
 
+.icon-price-prem {
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 20px;
+    background: #5a93df28;
+    color: #5a93df;
+    position: relative;
+}
+
+.icon-price-free {
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 20px;
+    background: #e5e5e5;
+    color: #9fa5aa;
+    position: relative;
+}
+
+.price-card{
+    max-height: 260px;
+}
+
 #log:before {
     content: ' ';
     background: #d4d9df;
