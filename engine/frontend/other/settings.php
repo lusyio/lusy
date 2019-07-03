@@ -391,6 +391,37 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row mt-3">
+                                <div class="col-2">
+                                    <div class="rounded-circle text-center noty-icon-settings">
+                            <span class="text-white">
+                                <i class="far fa-bell-slash noty-icon-size-settings"></i>
+                            </span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="noty-padding-content-settings">
+                                        <span>Не беспокоить</span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="noty-padding-content-settings">
+                                        <select class="form-control-sm" id="startSleep">
+                                            <option hidden></option>
+                                            <option value="-1" <?=($notifications['silence_start'] == '-1') ? 'selected' : ''?> >Присылать всегда</option>
+                                            <?php for ($i = 0; $i < 24; $i++): ?>
+                                            <option value="<?= $i ?>" <?=($notifications['silence_start'] == $i) ? 'selected' : ''?>><?= $i ?>:00</option>
+                                            <?php endfor; ?>
+                                        </select> -
+                                        <select class="form-control-sm" id="endSleep">
+                                            <option hidden></option>
+                                            <?php for ($i = 0; $i < 24; $i++): ?>
+                                            <option value="<?= $i ?>" <?=($notifications['silence_end'] == $i) ? 'selected' : ''?>><?= $i ?>:00</option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -407,17 +438,32 @@
 
     $(document).ready(function () {
 
+        if ($('#startSleep').val() == '-1') {
+            $('#endSleep').attr('disabled', true);
+        }
+        $('#startSleep').change(function (e) {
+            if ($(this).val() == '-1') {
+                $('#endSleep').attr('disabled', true);
+            } else {
+                $('#endSleep').attr('disabled', false);
+            }
+        });
         function checkInput() {
             var objCheck = {};
             $('input[type=checkbox]').each(function (i, e) {
                 objCheck[$(this).attr('id')] = e.checked;
             });
+            $('select option:selected').each(function (i, e) {
+                objCheck[$(this).closest('select').attr('id')] = $(this).val();
+            });
             return objCheck;
         }
 
-        $('input[type=checkbox]').on('change', function () {
+        $('input[type=checkbox], select').on('change', function () {
+
             var objCheck = checkInput();
             var fd = new FormData();
+            console.log(objCheck);
             fd.append('ajax', 'settings');
             fd.append('module', 'updateNotifications');
             fd.append('notifications', JSON.stringify(objCheck));
