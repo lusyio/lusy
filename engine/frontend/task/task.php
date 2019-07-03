@@ -401,7 +401,7 @@ if ($id == $worker and $view == 0) {
         });
 
         <?php if ($tariff == 0):?>
-        //Код для заглушек о премиум-доступе
+        $('#openGoogleDrive, #openDropbox').attr('data-target', '#premModal');
         <?php endif; ?>
 
         // if (!$(e.target).closest(".tooltip-avatar").length) {

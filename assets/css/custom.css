@@ -810,6 +810,11 @@ input:checked[type="checkbox"]::before {
     top: 0;
 }
 
+#premModal{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .btn-file:focus{
     box-shadow: none !important;
 }
@@ -1619,7 +1624,13 @@ a {
     display: inline-block;
 }
 
-.comin button {
+.comin #dropdownMenuButton {
+    float: right;
+    width: 45px;
+    height: 38px;
+}
+
+.comin #comment {
     float: right;
     width: 45px;
     height: 38px;

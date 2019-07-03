@@ -7,6 +7,12 @@ global $cometHash;
 global $roleu;
 global $tariff;
 
+if ($roleu == 'ceo') {
+    $isCeo = true;
+} else {
+    $isCeo = false;
+}
+
 require_once 'engine/backend/functions/mail-functions.php';
 
 $isCeoAndInChat = $roleu == 'ceo';

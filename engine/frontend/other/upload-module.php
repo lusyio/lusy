@@ -18,21 +18,12 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" href="#"><i class="fas fa-file-upload custom-date mr-2"></i>
             <span class="attach-file">С компьютера</span></a>
-        <?php if ($tariff == 1): ?>
-            <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i
-                        class="custom-date mr-2 fab fa-google-drive"></i>
-                <span>Из Google Drive</span></a>
-            <a class="dropdown-item" id="openDropbox" href="#" data-toggle="modal"><i
-                        class="custom-date mr-2 fab fa-dropbox"></i>
-                <span>Из Dropbox</span></a>
-        <?php else: ?>
-            <a class="dropdown-item" id="openGoogleDrive" href="#" data-target="#premModal" data-toggle="modal"><i
-                        class="custom-date mr-2 fab fa-google-drive"></i>
-                <span>Из Google Drive</span></a>
-            <a class="dropdown-item" id="openDropbox" data-target="#premModal" href="#" data-toggle="modal"><i
-                        class="custom-date mr-2 fab fa-dropbox"></i>
-                <span>Из Dropbox</span></a>
-        <?php endif; ?>
+        <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i
+                    class="custom-date mr-2 fab fa-google-drive"></i>
+            <span>Из Google Drive</span></a>
+        <a class="dropdown-item" id="openDropbox" href="#" data-toggle="modal"><i
+                    class="custom-date mr-2 fab fa-dropbox"></i>
+            <span>Из Dropbox</span></a>
     </div>
 </div>
 
@@ -47,7 +38,9 @@
                 Извините, но функция загрузки файлов из облачных хранилищ доступна только в Premium версии 😞
             </div>
             <div class="modal-footer border-0">
-                <a href="/company-settings/" class="btn btn-primary">Перейти к тарифам</a>
+                <?php if ($isCeo): ?>
+                    <a href="/company-settings/" class="btn btn-primary">Перейти к тарифам</a>
+                <?php endif; ?>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
         </div>

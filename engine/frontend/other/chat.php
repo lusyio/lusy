@@ -261,7 +261,7 @@
         });
 
         <?php if ($tariff == 0):?>
-        //Код для заглушек о премиум-доступе
+        $('#openGoogleDrive, #openDropbox').attr('data-target', '#premModal');
         <?php endif; ?>
 
         $(".file-name").on('click', '.cancelFile', function () {

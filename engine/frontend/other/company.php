@@ -11,10 +11,12 @@
             <span class="badge badge-dark mt-3"><?=$_premium?></span>
             <?php endif; ?>
         </div>
+        <?php if ($isCeo): ?>
         <div class="icon-edit-profile">
             <a data-toggle="tooltip" data-placement="bottom" title="" href="/company-settings/"
                data-original-title="Настройки компании"><i id="editProfile" class="fas fa-cog edit-profile"></i></a>
         </div>
+        <?php endif; ?>
         <div class="info-company">
             <hr>
             <div class="row text-left">
