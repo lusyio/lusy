@@ -10,9 +10,12 @@ create table user_notifications
   message tinyint default 0 null,
   achievement tinyint default 0 null
 );
+
 #Время уведомлений
 alter table user_notifications
   add silence_start tinyint default 21 null;
 
 alter table user_notifications
+
   add silence_end tinyint default 9 null;
+

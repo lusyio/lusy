@@ -60,7 +60,8 @@ if ($_POST['module'] == 'sendMessage') {
         $jsonMesData = json_encode($mesData);
         $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
         $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
-        @sendMessageEmailNotification($recipientId, $id);
+        //@sendMessageEmailNotification($recipientId, $id);
+        addMailToQueue('sendMessageEmailNotification', [$recipientId, $id], $recipientId);
     }
 }
 if ($_POST['module'] == 'sendMessageToChat') {
