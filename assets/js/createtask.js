@@ -151,6 +151,7 @@ $(document).ready(function () {
         $('.add-worker:visible').each(function () {
             coworkers.push($(this).attr('val'));
         });
+        var checkDate = $('#datedone').attr('min');
         var name = $("#name").val();
         var delta = quill.root.innerHTML;
         var datedone = $("#datedone").val();
@@ -170,7 +171,7 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('ajax', 'task-control');
-        if (name != null && delta != null && datedone != null && responsible != null) {
+        if (name != null && delta != null && datedone != null && datedone >= checkDate  && responsible != null) {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -215,6 +216,15 @@ $(document).ready(function () {
                 });
                 setTimeout(function () {
                     $('#editor').css('border-color', "#ced4da");
+                }, 1000)
+            }
+            if (datedone <= checkDate) {
+                $('#datedone').css({
+                    'border-color': '#dc3545',
+                    'transition': '1000ms'
+                });
+                setTimeout(function () {
+                    $('#datedone').css('border-color', "#ced4da");
                 }, 1000)
             }
             if (datedone === '') {
