@@ -4,6 +4,9 @@ global $id;
 global $pdo;
 global $roleu;
 global $_buttonInvateNew;
+global $tariff;
+global $_free;
+global $_premium;
 
 if ($roleu == 'ceo') {
     $isCeo = true;

@@ -4,8 +4,12 @@
             Demo
         </h2>
         <div>
-            <span class="badge badge-secondary">Free</span>
-            <span class="badge badge-primary">Premium</span>
+            <?php if ($tariff == 0):?>
+            <span class="badge badge-primary mt-3"><?=$_free?></span>
+            <?php endif; ?>
+            <?php if ($tariff == 1):?>
+            <span class="badge badge-dark mt-3"><?=$_premium?></span>
+            <?php endif; ?>
         </div>
         <div class="icon-edit-profile">
             <a data-toggle="tooltip" data-placement="bottom" title="" href="/company-settings/"

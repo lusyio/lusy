@@ -39,9 +39,9 @@
                         </div>
                         <div class="card-body border text-center">
                             <h4 class="price-header">
-                                Бесплатный
+                                Стартовый
                             </h4>
-                            <span class="badge badge-secondary">Free</span>
+                            <span class="badge badge-secondary"><?=$_free?></span>
                             <hr>
                             <div class="price-content text-left">
                                 <li>
@@ -88,9 +88,9 @@
                         </div>
                         <div class="card-body border text-center">
                             <h4 class="price-header">
-                                Бесплатный
+                                Стартовый
                             </h4>
-                            <span class="badge badge-secondary">Free</span>
+                            <span class="badge badge-secondary"><?=$_free?></span>
                             <hr>
                             <div class="price-content text-left">
                                 <li>
@@ -112,7 +112,7 @@
                             <h4 class="price-header">
                                 Всё включено
                             </h4>
-                            <span class="badge badge-primary">Premium</span>
+                            <span class="badge badge-primary"><?=$_premium?></span>
                             <hr>
                             <div class="price-content text-left">
                                 <li>

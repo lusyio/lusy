@@ -4,6 +4,8 @@ global $id;
 global $pdo;
 global $roleu;
 global $tariff;
+global $_free;
+global $_premium;
 
 require_once 'engine/backend/functions/common-functions.php';
 require_once 'engine/backend/functions/settings-functions.php';
