@@ -113,3 +113,15 @@
     width: 30%;
     display: inline-block;
 }
+
+.comin .btn-file:hover{
+    background-color: #f2f2f2;
+}
+
+.comin .btn-file:active{
+    background-color: #e4e4e4;
+}
+
+.comin .btn-file {
+    background-color: #fff;
+}

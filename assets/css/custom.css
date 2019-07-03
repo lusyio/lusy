@@ -814,19 +814,6 @@ input:checked[type="checkbox"]::before {
     box-shadow: none !important;
 }
 
-.comin .btn-file:hover{
-    background-color: #f2f2f2;
-}
-
-.comin .btn-file:active{
-    background-color: #e4e4e4;
-}
-
-.comin .btn-file {
-    background-color: #fff;
-    border: none !important;
-}
-
 .bg-mail .btn-file:hover{
     background-color: #f2f2f2;
 }
