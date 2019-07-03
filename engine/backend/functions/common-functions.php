@@ -61,67 +61,6 @@ function uploadAttachedFiles($type, $eventId)
         move_uploaded_file($file['tmp_name'], $filePath);
     }
 }
-function addYandexFiles($type, $eventId, $fileList, $yaToken)
-{
-    global $pdo;
-    global $idc;
-    global $id;
-
-    require_once 'engine/backend/functions/storage-functions.php';
-
-    $types = ['task', 'comment', 'conversation'];
-    if (!in_array($type, $types)) {
-        return;
-    }
-
-    if ($type == 'comment') {
-        global $idtask;
-    } elseif ($type == 'conversation') {
-        $idtask = 'm' . floor($eventId / 100);
-    } else {
-        $idtask = $eventId;
-    }
-
-
-    $sql = $pdo->prepare('INSERT INTO `uploads` (file_name, file_size, file_path, comment_id, comment_type, company_id, is_deleted, author, cloud) VALUES (:fileName, :fileSize, :filePath, :commentId, :commentType, :companyId, :isDeleted, :author, :cloud)');
-    foreach ($fileList as $file) {
-        $token = $yaToken;
-
-// Файл или папка на Диске.
-        $path = $file['path'];
-        $ch = curl_init('https://cloud-api.yandex.net:443/v1/disk/resources/publish?path=' . urlencode($path));
-        curl_setopt($ch, CURLOPT_PUT, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: OAuth ' . $token));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        $res = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($res, true);
-        $ch = curl_init($response['href']);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: OAuth ' . $token));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        $fileInfoResponse = curl_exec($ch);
-        curl_close($ch);
-
-        $fileInfo = json_decode($fileInfoResponse, true);
-
-        $sqlData = [
-            ':fileName' => $file['name'],
-            ':fileSize' => 0,
-            ':filePath' => $fileInfo['public_url'],
-            ':commentId' => $eventId,
-            ':commentType' => $type,
-            ':companyId' => $idc,
-            ':isDeleted' => 0,
-            ':author' => $id,
-            ':cloud' => 1,
-            ];
-        $sql->execute($sqlData);
-    }
-}
 
 function addGoogleFiles($type, $eventId, $fileList)
 {
@@ -1435,4 +1374,45 @@ function createInitTask($userId, $companyId, $forCeo = false)
         ];
         $addEventQuery->execute($eventData);
     }
+}
+
+/**Подсчитывает оставшееся свообдное место для файлов
+ * и число задач,которые можно назначить в этом месяце
+ * (для платного тарифа всегда возвращает 10000)
+ *
+ * @return array Ассоциативный массив с ключами:
+ * 'space' - остаток свободного места
+ * 'tasks' - осташиеся задачи
+ */
+function getRemainingLimits()
+{
+    global $idc;
+    global $pdo;
+    $tariff = DBOnce('tariff', 'company','id='.$idc);
+
+    require_once 'engine/backend/functions/storage-functions.php';
+
+    $providedStorageSpace = getProvidedStorageSpace();
+    $companyTotalFilesSize = getCompanyFilesTotalSize();
+    $emptySpace = $providedStorageSpace - $companyTotalFilesSize;
+    if ($emptySpace < 0) {
+        $emptySpace = 0;
+    }
+    if ($tariff == 1) {
+        $tasksRemaining = 10000;
+    } else {
+        $tasksPerMonthLimit = 150;
+        $createdTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT task_id) FROM events WHERE company_id = :companyId AND action = 'createtask' AND datetime > :firstDay");
+        $createdTasksQuery->execute(array(':companyId' => $idc, ':firstDay' => strtotime(date('1.m.Y'))));
+        $createdTasks = $createdTasksQuery->fetch(PDO::FETCH_COLUMN);
+        $tasksRemaining = $tasksPerMonthLimit - $createdTasks;
+        if ($tasksRemaining < 0) {
+            $tasksRemaining = 0;
+        }
+    }
+    $result = [
+        'space' => $emptySpace,
+        'tasks' => $tasksRemaining
+    ];
+    return $result;
 }

@@ -70,7 +70,7 @@ if ($isAuthorized) {
     }
 
     $isCompanyActivated = (boolean) DBOnce('activated', 'company', 'id=' . $idc);
-
+    $remainingLimits = getRemainingLimits();
     if (!$isCompanyActivated && isset($_COOKIE['activation'])){
         $isCompanyActivated = true;
     } else {
