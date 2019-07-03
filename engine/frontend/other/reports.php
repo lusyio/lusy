@@ -42,11 +42,6 @@
         <h2 class="d-inline text-uppercase font-weight-bold">
             Demo
         </h2>
-    </div>
-</div>
-
-<div class="card mt-3">
-    <div class="card-body">
         <h5 class="text-center">
             Общая статистика
         </h5>
