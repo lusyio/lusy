@@ -35,7 +35,7 @@ $sql = DB('idcompany, tariff, lang','company','id='.$idc);
 foreach ($sql as $main) {
 	$namec = $main['idcompany']; // название компании
 	$langc = $main['lang']; // язык компании
-	$premium = $main['tariff']; // оплачен ли премиум доступ
+	$tariff = $main['tariff']; // оплачен ли премиум доступ
 }
 $proverka = ['email'=>$emailu,'name'=>$nameu,'surname'=>$surnameu];
 

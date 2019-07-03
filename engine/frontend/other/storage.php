@@ -59,12 +59,10 @@ if ($userTotalFilesSize == 0): ?>
                     <i class="far <?= key_exists($file['extension'], $fileIcon) ? $fileIcon[$file['extension']] : "fa-file" ?> custom-file"></i>
                 </div>
                 <div class="col pl-0 file-width-storage">
-                    <a href="../<?= $file['file_path'] ?>"
+                    <a href="<?= ($file['cloud']) ? $file['file_path'] : '../' .$file['file_path'] ?>"
                        class="h6 mb-3 file-name"><?= $file['file_name'] ?></a>
-                    <span class="text-ligther ml-1"> <i
-                                class="fas fa-circle mr-1 ml-1"></i> <?= $file['file_size'] ?> <?= $file['sizeSuffix'] ?></span>
-                    <span class="text-ligther ml-1"> <i
-                                class="fas fa-circle mr-1 ml-1"></i> <?= $file['date'] ?></span>
+                    <span class="text-ligther ml-1"> <?= ($file['cloud']) ? '<i class="fas fa-cloud mr-1 ml-1"></i>' : '<i class="fas fa-hdd mr-1 ml-1"></i>' ?> <?= $file['file_size'] ?> <?= $file['sizeSuffix'] ?></span>
+                    <span class="text-ligther ml-1"> <i class="fas fa-circle mr-1 ml-1"></i> <?= $file['date'] ?></span>
                     <?php if ($file['comment_type'] != 'conversation'): ?>
                         <a href="<?= $file['attachedToLink'] ?>"
                            class="text-ligther">

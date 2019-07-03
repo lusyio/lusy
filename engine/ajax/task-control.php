@@ -112,6 +112,24 @@ if($_POST['module'] == 'createTask') {
     foreach ($unsafeCoworkers as $c) {
         $coworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
     }
+    $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
+    $googleFiles = [];
+    foreach ($unsafeGoogleFiles as $k => $v) {
+        $googleFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
+        ];
+    }
+    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
+    $dropboxFiles = [];
+    foreach ($unsafeDropboxFiles as $k => $v) {
+        $dropboxFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
+        ];
+    }
     if (isset($_POST['manager'])) {
         $managerId = filter_var($_POST['manager'], FILTER_SANITIZE_NUMBER_INT);
     } else {
@@ -150,14 +168,20 @@ if($_POST['module'] == 'createTask') {
     if (count($_FILES) > 0) {
         uploadAttachedFiles('task', $idtask);
     }
+    if (count($googleFiles) > 0) {
+        addGoogleFiles('task', $idtask, $googleFiles);
+    }
+    if (count($dropboxFiles) > 0) {
+        addDropboxFiles('task', $idtask, $dropboxFiles);
+    }
     if ($status != 'planned') {
         resetViewStatus($idtask);
         addTaskCreateComments($idtask, $worker, $coworkers);
         addEvent('createtask', $idtask, $datedone, $worker);
     } else {
         addEvent('createplantask', $idtask, $dateCreate, $worker);
-
     }
+
 
 }
 

@@ -13,7 +13,7 @@ function getFileList()
     global $idc;
     global $pdo;
 
-    $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, 
+    $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, u.cloud,
        IF(c.idtask IS NULL AND u.comment_type='task', u.comment_id, c.idtask) AS idtask, 
        u.author, us.surname, us.name, t.name AS taskName, 
        IF(c.datetime IS NULL, IF(t.datecreate IS NULL, m.datetime, t.datecreate), c.datetime) AS uploadDate
@@ -41,7 +41,7 @@ function getCompanyFileList()
     global $idc;
     global $pdo;
 
-    $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, 
+    $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, u.cloud,
        IF(c.idtask IS NULL AND u.comment_type='task', u.comment_id, c.idtask) AS idtask, 
        u.author, us.surname, us.name, t.name AS taskName, 
        IF(c.datetime IS NULL, IF(t.datecreate IS NULL, m.datetime, t.datecreate), c.datetime) AS uploadDate
@@ -65,7 +65,7 @@ function getCompanyFilesTotalSize()
     global $idc;
     global $pdo;
 
-    $query = "SELECT SUM(file_size) AS 'totalSize' FROM `uploads` WHERE company_id = :companyId AND is_deleted = 0";
+    $query = "SELECT SUM(file_size) AS 'totalSize' FROM `uploads` WHERE company_id = :companyId AND cloud = 0 AND is_deleted = 0";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':companyId' => $idc));
     $result = $dbh->fetchColumn();
@@ -85,14 +85,14 @@ function getUserFilesTotalSize()
     global $idc;
     global $pdo;
 
-    $query = "SELECT SUM(file_size) AS 'totalSize' FROM `uploads` WHERE company_id = :companyId AND author = :userId AND is_deleted = 0";
+    $query = "SELECT SUM(file_size) AS 'totalSize' FROM `uploads` WHERE company_id = :companyId AND author = :userId AND cloud = 0 AND is_deleted = 0";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array('userId' => $id, ':companyId' => $idc));
     return $dbh->fetchColumn();
 }
 
 /**
- * Устанавливает в БД для файла статус is_deleted = 1 и удаляет файл с сервера
+ * Устанавливает в БД для файла статус is_deleted = 1 и удаляет файл с сервера, если он не прикреплен из облака
  * @param $fileId
  */
 function removeFile($fileId) {
@@ -104,11 +104,13 @@ function removeFile($fileId) {
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':companyId' => $idc, ':fileId' => $fileId));
     // удаляем файл из upload/files
-    $query = "SELECT file_path FROM `uploads` WHERE company_id = :companyId AND file_id = :fileId";
+    $query = "SELECT file_path, cloud FROM `uploads` WHERE company_id = :companyId AND file_id = :fileId";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':companyId' => $idc, ':fileId' => $fileId));
-    $filePath = $dbh->fetchColumn();
-    unlink($filePath);
+    $result = $dbh->fetch(PDO::FETCH_ASSOC);
+    if ($result['cloud'] == 0) {
+        unlink($result['file_path']);
+    }
 }
 
 /**

@@ -5,6 +5,7 @@ global $pdo;
 global $cometPdo;
 global $cometHash;
 global $roleu;
+global $tariff;
 
 require_once 'engine/backend/functions/mail-functions.php';
 
