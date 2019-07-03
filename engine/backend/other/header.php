@@ -133,7 +133,12 @@ if (empty($title)) {
     } else {
         $url = strtok($url, '?');
         if (empty($GLOBALS["_$url"])) {
-            $title = '';
+            $urlWithoutDash = str_replace('-', '', $url);
+            if (!empty($GLOBALS["_$urlWithoutDash"])) {
+                $title = $GLOBALS["_$urlWithoutDash"];
+            } else {
+                $title = '';
+            }
         } else {
             $title = $GLOBALS["_$url"];
         }
