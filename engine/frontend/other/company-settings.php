@@ -84,7 +84,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-6 prem-price" style="opacity: 0.7">
+                    <div class="col-6 prem-price">
                         <div class="card-header bg-primary">
                         </div>
                         <div class="card-body border text-center">
