@@ -170,15 +170,17 @@ $(document).ready(function () {
                 size: $(dropboxFileToSend).data('file-size')
             };
         });
-        fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
-        fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
+
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
         });
         fd.append('ajax', 'task-comments-new');
         fd.append('text', text);
         fd.append('it', $it);
+        fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
+        fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         if (text) {
+            console.log(fd.get('googleAttach'));
             $("#comin").attr("disabled", true);
             $('#comment').html('<i class="fas fa-spinner fa-spin"></i>');
             $('#comments').fadeOut();
