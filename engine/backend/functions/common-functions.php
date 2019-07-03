@@ -1434,13 +1434,11 @@ function addMailToQueue($function, $args, $id)
     echo 'before sql';
     $addToQueueQuery = $pdo->prepare("INSERT INTO mail_queue(function_name, args, user_id, start_time) VALUES (:functionName, :args, :userId, :startTime)");
     if (is_array($id)) {
-        echo 'id array';
         foreach ($id as $oneId) {
-            echo 'querystatus' . $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId, ':startTime' =>time()));
+            $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId, ':startTime' =>time()));
         }
     } else {
-        echo ' id not array';
-        echo 'querystatus' . $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $id, ':startTime' =>time()));
+        $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $id, ':startTime' =>time()));
     }
 }
 
