@@ -82,9 +82,6 @@
                          data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList">Нажмите,
                         чтобы добавить
                     </div>
-                    <div class="text-muted placeholder-coworkers">
-                        Список пуст
-                    </div>
                     <?php
                     foreach ($users as $n) { ?>
                         <div val="<?php echo $n['id'] ?>"
@@ -96,7 +93,7 @@
                         </div>
                     <?php } ?>
                     <?php else: ?>
-                    <div class="container-members-responsible-selected">
+                    <div class="container-members-responsible-selected <?= (in_array($n['id'], $coworkersId)) ? '' : 'd-none' ?>">
                         <div class="row" style="padding: 5px;">
                             <div class="col text-justify">
                                 <span class="text-muted">Соисполнители</span>
@@ -184,6 +181,10 @@
                     $('#responsibleList').find("[val = " + list + "]").removeClass('d-none');
                 });
             }
+
+            $('.placeholder-coworkers').on('click',function () {
+                updateCoworkers();
+            });
 
             $('.icon-members-change-coworker').on('click', function () {
                 setTimeout(function () {
