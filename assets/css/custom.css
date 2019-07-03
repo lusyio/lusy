@@ -815,6 +815,10 @@ input:checked[type="checkbox"]::before {
     overflow-y: auto;
 }
 
+.dropdown-item.active .custom-date, .dropdown-item:active .custom-date{
+    color: #fff;
+}
+
 .btn-file:focus{
     box-shadow: none !important;
 }

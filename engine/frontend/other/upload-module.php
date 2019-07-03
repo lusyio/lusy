@@ -16,8 +16,8 @@
         </button>
     <?php endif; ?>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#"><i class="fas fa-file-upload custom-date mr-2"></i>
-            <span class="attach-file">С компьютера</span></a>
+        <a class="dropdown-item attach-file" href="#"><i class="fas fa-file-upload custom-date mr-2" style="width: 25px;text-align: center;"></i>
+            <span>С компьютера</span></a>
         <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i
                     class="custom-date mr-2 fab fa-google-drive"></i>
             <span>Из Google Drive</span></a>
