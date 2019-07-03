@@ -3,6 +3,7 @@
 require_once 'engine/backend/functions/task-functions.php';
 
 global $roleu;
+global $tariff;
 
 $isManager = false;
 $isWorker = false;
@@ -145,7 +146,7 @@ if($_POST['module'] == 'createTask') {
 
 	$status = 'new';
 	$dateCreate = time();
-	if (isset($_POST['startdate'])) {
+	if (isset($_POST['startdate']) && $tariff == 1) {
 	    $dateCreate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
 	    if (date('Y-m-d', $dateCreate) > date('Y-m-d') && date('Y-m-d', $dateCreate) <= date('Y-m-d', $datedone)) {
             $status = 'planned';

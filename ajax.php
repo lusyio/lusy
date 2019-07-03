@@ -33,6 +33,9 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
             // определяем роль пользователя
             $roleu = DBOnce('role', 'users', 'id=' . $id);
 
+            // определяем тариф
+            $tariff = DBOnce('tariff', 'company', 'id=' . $idc);
+
             // подключаем языковой файл
             require_once(realpath('engine/backend/lang/' . $langc . '.php'));
 

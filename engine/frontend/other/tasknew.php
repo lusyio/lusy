@@ -22,8 +22,9 @@
         <div style="display: none"
              class="bg-white file-name container-files">
         </div>
-        <?php $uploadModule = 'task'; ?>
-        <?php include 'engine/frontend/other/upload-module.php'; ?>
+        <?php $uploadModule = 'task'; // Указываем тип дропдауна прикрепления файлов?>
+        <?php include 'engine/frontend/other/upload-module.php'; // Подключаем дропдаун прикрепления файлов?>
+        <?php if ($tariff == 1): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
         <div class="row mt-2">
             <div class="col-12 col-md-3">
                 <div class="form-group">
@@ -89,6 +90,64 @@
                 ?>
             </div>
         </div>
+        <?php else: // БЛОК ДЛЯ БЕСПЛАТНОГО ТАРИФА?>
+            <div class="row mt-2">
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label>
+                            Дата окончания
+                        </label>
+                        <input type="date" class="form-control" id="datedone" min="<?= $GLOBALS["now"] ?>"
+                               value="<?= $GLOBALS["now"] ?>" required>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8 coworkers-newtask">
+                    <label><?= $GLOBALS['_responsiblenewtask'] ?></label>
+                    <div class="container container-responsible d-flex flex-wrap align-content-sm-stretch"
+                         style="min-height: 38px">
+                        <div class="text-muted placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
+                        <?php
+                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
+                        foreach ($users as $n) { ?>
+                            <div val="<?php echo $n['id'] ?>" class="add-responsible d-none">
+                                <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
+                                <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+                            </div>
+                            <hr class="m-0">
+                        <?php } ?>
+                        <div class="position-absolute icon-newtask icon-newtask-change-responsible">
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <?php
+                    include 'engine/frontend/members/responsible.php';
+                    ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col coworkers-toggle">
+                    <label><?= $GLOBALS['_coworkersnewtask'] ?></label>
+                    <div class="container container-coworker d-flex flex-wrap align-content-sm-stretch">
+                        <div class="text-muted placeholder-coworkers"><?= $GLOBALS['_placeholdercoworkersnewtask'] ?></div>
+                        <?php
+                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
+                        foreach ($users as $n) { ?>
+                            <div val="<?php echo $n['id'] ?>" class="add-worker d-none">
+                                <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
+                                <span class="coworker-fio"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+                                <i class="fas fa-times icon-newtask-delete-coworker"></i>
+                            </div>
+                        <?php } ?>
+                        <div class="position-absolute icon-newtask icon-newtask-add-coworker">
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <?php
+                    include 'engine/frontend/members/coworkers.php';
+                    ?>
+                </div>
+            </div>
+        <?php endif; ?>
         <!-- Divider -->
         <hr class="mt-4 mb-4">
         <!-- Buttons -->
