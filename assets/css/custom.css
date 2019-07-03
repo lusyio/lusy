@@ -1091,7 +1091,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .new-menu-trigger:hover {
-    background-color: rgba(95, 99, 104, 0.24);
+    background-color: rgba(95, 99, 104, 0.24) !important;
 }
 
 .login-error{

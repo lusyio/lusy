@@ -13,24 +13,86 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6">
-                        <div class="card-body border">
-                            <div class="price-header text-center">
-                                Тариф бесплатный
+                    <div class="col-6 free-price" style="opacity: 0.5">
+                        <div class="card-header bg-secondary">
+                        </div>
+                        <div class="card-body border text-center">
+                            <h4 class="price-header">
+                                Бесплатный
+                            </h4>
+                            <span class="badge badge-secondary">Free</span>
+                            <hr>
+                            <div class="price-content text-left">
+                                <li>
+                                    100 мб хранилища
+                                </li>
+                                <li>
+                                    200 задач
+                                </li>
                             </div>
-                            <br>
-                            <br>
-                            <br>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="card-body border">
-                            <div class="price-header text-center">
-                                Тариф платный
+                    <div class="col-6 prem-price">
+                        <div class="card-header bg-primary">
+                        </div>
+                        <div class="card-body border text-center">
+                            <h4 class="price-header">
+                                Всё включено
+                            </h4>
+                            <span class="badge badge-primary">до 10.07</span>
+                            <hr>
+                            <div class="price-content text-left">
+                                <li>
+                                    1000 мб хранилища
+                                </li>
+                                <li>
+                                    Безлимитные задачи
+                                </li>
                             </div>
-                            <br>
-                            <br>
-                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 free-price">
+                        <div class="card-header bg-secondary">
+                        </div>
+                        <div class="card-body border text-center">
+                            <h4 class="price-header">
+                                Бесплатный
+                            </h4>
+                            <span class="badge badge-secondary">Free</span>
+                            <hr>
+                            <div class="price-content text-left">
+                                <li>
+                                    100 мб хранилища
+                                </li>
+                                <li>
+                                    200 задач
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 prem-price" style="opacity: 0.8">
+                        <div class="card-header bg-primary">
+                        </div>
+                        <div class="card-body border text-center">
+                            <h4 class="price-header">
+                                Всё включено
+                            </h4>
+<!--                            <span class="badge badge-primary">до 10.07</span>-->
+                            <span class="badge badge-primary">Premium</span>
+                            <hr>
+                            <div class="price-content text-left">
+                                <li>
+                                    1000 мб хранилища
+                                </li>
+                                <li>
+                                    Безлимитные задачи
+                                </li>
+                            </div>
                         </div>
                     </div>
                 </div>

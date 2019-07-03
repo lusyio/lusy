@@ -68,7 +68,7 @@
 </div>
 
 <div class="mt-3">
-    <div class="card ">
+    <div class="card">
         <div class="d-flex flex-wrap">
             <div class="card-body w-50 border-bottom border-right">
                 <img src="/upload/avatar/2/2-alter.jpg" class="avatar">
@@ -83,7 +83,7 @@
                             <div>События</div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3 col-lg-2">
                         <div class="text-success">50</div>
                         <div>24</div>
                         <div>23</div>
