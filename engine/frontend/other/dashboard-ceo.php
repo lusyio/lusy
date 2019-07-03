@@ -30,7 +30,7 @@ $borderColor = [
         </div>
     </div>
     <div class="col-12 col-lg-8">
-        <div id="taskListSlide">
+        <div id="taskListSlide" class="position-relative">
             <?php foreach ($tasks as $task): ?>
                 <a href="/task/<?= $task['id'] ?>/" class="text-decoration-none cust">
                     <div class="task-card">
