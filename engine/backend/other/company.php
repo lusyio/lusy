@@ -12,7 +12,7 @@ if ($roleu == 'ceo') {
 }
 $firstDay = strtotime(date('Y-m-01'));
 
-$taskDoneManagerQuery = $pdo->prepare("SELECT COUNT(distinct t.id) AS count, t.manager FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE e.company_id = :companyId AND e.action='workdone' AND t.worker <> t.manager AND datetime > :firstDay GROUP BY t.manager");
+$taskDoneManagerQuery = $pdo->prepare("SELECT COUNT(distinct t.id) AS count, t.manager FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE e.company_id = :companyId AND e.action='workdone' AND datetime > :firstDay GROUP BY t.manager");
 $taskDoneManagerQuery->execute(array(':companyId' => $idc, ':firstDay' => $firstDay));
 $taskDoneManager = $taskDoneManagerQuery->fetchAll(PDO::FETCH_ASSOC);
 
