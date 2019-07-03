@@ -13,7 +13,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6 free-price" style="opacity: 0.5">
+                    <div class="col-6 price-card" style="opacity: 0.5">
                         <div class="card-header bg-secondary">
                         </div>
                         <div class="card-body border text-center">
@@ -35,7 +35,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-6 prem-price">
+                    <div class="col-6 price-card">
                         <div class="card-header bg-primary">
                         </div>
                         <div class="card-body border text-center">
@@ -52,9 +52,9 @@
                                     Безлимитные задачи
                                 </li>
                             </div>
-                            <button class="btn btn-primary mt-3" disabled>
-                                Перейти
-                            </button>
+                            <div class="mt-3">
+                                <i class="icon-price-prem fas fa-check"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6 free-price">
+                    <div class="col-6 price-card">
                         <div class="card-header bg-secondary">
                         </div>
                         <div class="card-body border text-center">
@@ -79,12 +79,12 @@
                                     200 задач
                                 </li>
                             </div>
-                            <button class="btn btn-secondary mt-3" disabled>
-                                Перейти
-                            </button>
+                            <div class="mt-3">
+                                <i class="icon-price-free fas fa-check"></i>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6 prem-price">
+                    <div class="col-6 price-card">
                         <div class="card-header bg-primary">
                         </div>
                         <div class="card-body border text-center">
