@@ -24,3 +24,6 @@ $onlineUsersQuery->execute(array(':channelName' => getCometTrackChannelName()));
 $onlineUsers = $onlineUsersQuery ->fetchAll(PDO::FETCH_ASSOC);
 $onlineUsersList = array_column($onlineUsers, 'user_id');
 markChatAsRead();
+
+$remainingLimits = getRemainingLimits();
+$emptySpace = $remainingLimits['space'];

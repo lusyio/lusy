@@ -165,7 +165,7 @@
         </div>
     </div>
 </div>
-<script src="/assets/js/createtask.js"></script>
+<script src="/assets/js/createtask.js?ver=1"></script>
 <?php if ($tariff == 1):?>
 <script type="text/javascript">
     //=======================Google Drive==========================

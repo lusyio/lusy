@@ -140,3 +140,6 @@ $enableComments = true;
 if ($status == 'done' || $status == 'canceled') {
     $enableComments = false;
 }
+
+$remainingLimits = getRemainingLimits();
+$emptySpace = $remainingLimits['space'];
