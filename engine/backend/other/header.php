@@ -14,7 +14,7 @@ if ($isAuthorized) {
         exit;
     }
     // Устанавливаем часовой пояс компании
-    $companyTimeZone = DBOnce('timezone', 'company', 'id=' . $idc);
+    $companyTimeZone = DBOnce('timezone', 'company', 'id=' . $GLOBALS['idc']);
     date_default_timezone_set($companyTimeZone);
     // обновляем время последнего посещения
     setLastVisit();
@@ -43,10 +43,10 @@ if ($isAuthorized) {
     }
     // загрузка аватарки
     if (isset($_GET['avatar']) && !empty($_GET['name'])) {
-        if (empty($_SESSION['idc'])) {
+        if (empty($GLOBALS['idc'])) {
             $_SESSION['idc'] = DBOnce('idcompany', 'users', 'id="' . $_SESSION['id'] . '"');
         }
-        if ($_GET['avatar'] == '0' || $_GET['avatar'] == $_SESSION['idc']) {
+        if ($_GET['avatar'] == '0' || $_GET['avatar'] == $GLOBALS['idc']) {
             $file = 'upload/avatar/' . $_GET['avatar'] . '/' . $_GET['name'] . '.jpg';
             $last_modified_time = filemtime($file);
             $etag = md5_file($file);
