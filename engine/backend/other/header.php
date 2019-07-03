@@ -37,6 +37,10 @@ if ($isAuthorized) {
             exit();
         }
     }
+    if(!empty($_GET['folder']) && $_GET['folder'] == 'ya-auth') {
+        inc('other', 'ya-auth');
+        exit;
+    }
     // загрузка аватарки
     if (isset($_GET['avatar']) && !empty($_GET['name'])) {
         if (empty($_SESSION['idc'])) {

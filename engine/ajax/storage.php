@@ -14,3 +14,8 @@ if ($_POST['module'] == 'deleteFile') {
         removeFile($fileId);
     }
 }
+
+if ($_POST['module'] == 'GetYandexToken') {
+    $token = DBOnce('yandex_token', 'users', 'id=' . $id);
+    echo $token;
+}

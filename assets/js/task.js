@@ -109,6 +109,11 @@ $(document).ready(function () {
         }
     });
 
+    $('.attach-file').on('click', function (e) {
+        e.preventDefault();
+        $('#sendFiles').trigger('click');
+    });
+
     var fileList = new Map();
     var names;
     var sizes;
@@ -151,6 +156,22 @@ $(document).ready(function () {
         var text = $("#comin").val();
         console.log(attachedFile);
         var fd = new FormData();
+        var attachedGoogleFiles = {};
+        $('.attached-google-drive-file').each(function (i, googleFileToSend) {
+            attachedGoogleFiles[$(googleFileToSend).data('name')] = {
+                link: $(googleFileToSend).data('link'),
+                size: $(googleFileToSend).data('file-size'),
+            };
+        });
+        var attachedDropboxFiles = {};
+        $('.attached-dropbox-file').each(function (i, dropboxFileToSend) {
+            attachedDropboxFiles[$(dropboxFileToSend).data('name')] = {
+                link: $(dropboxFileToSend).data('link'),
+                size: $(dropboxFileToSend).data('file-size')
+            };
+        });
+        fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
+        fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
         });

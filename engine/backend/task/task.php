@@ -5,6 +5,7 @@ global $datetime;
 global $cometHash;
 global $cometTrackChannelName;
 global $_months;
+global $tariff;
 
 require_once 'engine/backend/functions/log-functions.php';
 require_once 'engine/backend/functions/tasks-functions.php';
