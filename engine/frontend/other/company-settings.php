@@ -30,6 +30,9 @@
                                     200 задач
                                 </li>
                             </div>
+                            <button class="btn btn-secondary mt-3">
+                                Перейти
+                            </button>
                         </div>
                     </div>
                     <div class="col-6 prem-price">
@@ -49,6 +52,9 @@
                                     Безлимитные задачи
                                 </li>
                             </div>
+                            <button class="btn btn-primary mt-3" disabled>
+                                Перейти
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -73,16 +79,18 @@
                                     200 задач
                                 </li>
                             </div>
+                            <button class="btn btn-secondary mt-3" disabled>
+                                Перейти
+                            </button>
                         </div>
                     </div>
-                    <div class="col-6 prem-price" style="opacity: 0.8">
+                    <div class="col-6 prem-price" style="opacity: 0.7">
                         <div class="card-header bg-primary">
                         </div>
                         <div class="card-body border text-center">
                             <h4 class="price-header">
                                 Всё включено
                             </h4>
-<!--                            <span class="badge badge-primary">до 10.07</span>-->
                             <span class="badge badge-primary">Premium</span>
                             <hr>
                             <div class="price-content text-left">
@@ -93,6 +101,9 @@
                                     Безлимитные задачи
                                 </li>
                             </div>
+                            <button class="btn btn-primary mt-3">
+                                Перейти
+                            </button>
                         </div>
                     </div>
                 </div>
