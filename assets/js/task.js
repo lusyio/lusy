@@ -258,8 +258,9 @@ $(document).ready(function () {
     // Перенос срока
     $("#sendpostpone").click(function () {
         var datepostpone = $("#deadlineInput").val();
+        var checkDate = $("#deadlineInput").attr('min');
         var text = $("#reportarea1").val();
-        if (text) {
+        if (text !== '' && datepostpone >= checkDate) {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -275,14 +276,32 @@ $(document).ready(function () {
             });
 
         } else {
-            $("#reportarea1").addClass('border-danger');
+            if (text === '') {
+                $('#reportarea1').css({
+                    'border-color': '#dc3545',
+                    'transition': '1000ms'
+                });
+                setTimeout(function () {
+                    $('#reportarea1').css('border-color', "#ced4da");
+                }, 1000)
+            }
+            if (datepostpone <= checkDate) {
+                $('#deadlineInput').css({
+                    'border-color': '#dc3545',
+                    'transition': '1000ms'
+                });
+                setTimeout(function () {
+                    $('#deadlineInput').css('border-color', "#ced4da");
+                }, 1000)
+            }
         }
     });
 
     // Манагер ставит дату
     $("#sendDate").click(function () {
         var sendDate = $("#deadlineInput").val();
-        if (sendDate) {
+        var checkDate = $("#deadlineInput").attr('min');
+        if (sendDate >= checkDate) {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -297,7 +316,15 @@ $(document).ready(function () {
             });
 
         } else {
-            $("#example-date-input").addClass('border-danger');
+            if (sendDate <= checkDate) {
+                $('#deadlineInput').css({
+                    'border-color': '#dc3545',
+                    'transition': '1000ms'
+                });
+                setTimeout(function () {
+                    $('#deadlineInput').css('border-color', "#ced4da");
+                }, 1000)
+            }
         }
     });
 
@@ -354,19 +381,19 @@ $(document).ready(function () {
     });
 
     $("#changePlanDate").on('click', function () {
-       var datePlan = $("#inputChangePlanDate").val();
-       $.ajax({
-           url: '/ajax.php',
-           type: 'POST',
+        var datePlan = $("#inputChangePlanDate").val();
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
 
-           data:{
-               module: 'changeStartDate',
-               startDate: datePlan,
-               it: $it,
-               ajax: 'task-control'
-           },
-           success: controlUpdate,
-       })
+            data: {
+                module: 'changeStartDate',
+                startDate: datePlan,
+                it: $it,
+                ajax: 'task-control'
+            },
+            success: controlUpdate,
+        })
     });
 
 // Кнопка "принять" для worker'a (в статусе "на рассмотрении"")

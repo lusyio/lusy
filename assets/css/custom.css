@@ -737,10 +737,15 @@ input:checked[type="checkbox"]::before {
     text-align: center;
 }
 
+.placeholder-coworkers{
+    width: 100%;
+}
+
 .fas.fa-check.custom-date.accept:hover {
     padding: 5px;
     border-radius: 50%;
     background-color: rgba(147, 193, 98, 0.31);
+    cursor: pointer;
     /*text-shadow: 1px 1px 2px black, 0 0 1em #93c162;*/
 }
 
@@ -753,6 +758,7 @@ input:checked[type="checkbox"]::before {
     padding: 5px;
     border-radius: 50%;
     background-color: rgba(212, 74, 95, 0.31);
+    cursor: pointer;
     /*text-shadow: 1px 1px 2px black, 0 0 1em #d24f5e;*/
 }
 
