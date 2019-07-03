@@ -1,6 +1,26 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.bundle.min.js"></script>
 
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Платная подписка</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Функция платной подписки находится в разработке :(
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-10">
         <div class="card">
@@ -102,7 +122,7 @@
                                     Безлимитные задачи
                                 </li>
                             </div>
-                            <button class="btn btn-primary mt-3">
+                            <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
                                 Перейти
                             </button>
                         </div>
