@@ -7,6 +7,13 @@ global $tariff;
 global $_free;
 global $_premium;
 
+// TODO Раскомментировать проверку на СЕО
+//if ($roleu != 'ceo') {
+//    header('location:/company/');
+//    ob_flush();
+//    die;
+//}
+
 require_once 'engine/backend/functions/common-functions.php';
 require_once 'engine/backend/functions/settings-functions.php';
 
