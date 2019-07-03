@@ -23,7 +23,7 @@ $invites = $invitesQuery->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <?php if ($invite['status']): ?>
                     <div class="col-6 col-lg-4 invite-card-text">
-                        <a href="/../profile/<?= $invite['status']; ?>"><?= $GLOBALS['_registeredinvite'] ?></a>
+                        <a href="/../profile/<?= $invite['status']; ?>/"><?= $GLOBALS['_registeredinvite'] ?></a>
                     </div>
                 <?php else: ?>
                     <div class="col-6 col-lg-4 invite-card-text">
