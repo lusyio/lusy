@@ -299,7 +299,7 @@
            }
         });
         <?php if ($tariff == 0):?>
-        //Код для заглушек о премиум-доступе
+        $('#openGoogleDrive, #openDropbox').attr('data-target', '#premModal');
         <?php endif; ?>
 
         $("#name").on('input', function () {

@@ -5,6 +5,13 @@ global $pdo;
 global $cometPdo;
 global $cometHash;
 global $tariff;
+global $roleu;
+
+if ($roleu == 'ceo') {
+    $isCeo = true;
+} else {
+    $isCeo = false;
+}
 
 require_once 'engine/backend/functions/mail-functions.php';
 
