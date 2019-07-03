@@ -11,6 +11,7 @@
                     </div>
                 </div>
             </div>
+            <?php if ($tariff == 1):?>
             <div class="card-body">
                 <div class="row">
                     <div class="col-6 price-card" style="opacity: 0.5">
@@ -59,7 +60,7 @@
                     </div>
                 </div>
             </div>
-
+            <?php else:?>
             <div class="card-body">
                 <div class="row">
                     <div class="col-6 price-card">
@@ -108,6 +109,7 @@
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
         <div class="card">
             <div class="card-header border-top bg-mail">
