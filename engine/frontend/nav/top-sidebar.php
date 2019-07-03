@@ -83,7 +83,7 @@
                         </span>
                     </div>
                     <div class="profile-submenu submenu">
-                        <a href="/settings/" class="p-0">
+                        <a href="/company/" class="p-0">
                             <div class="p-3 pt-1 pb-1">
                                 <p class="navbar-brand text-uppercase font-weight-bold mb-0 text-dark"><?= $namec ?></p>
                                 <small class="text-secondary"><?=$tariff?></small>

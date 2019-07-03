@@ -1,3 +1,41 @@
+<div class="card">
+    <div class="card-body text-center">
+        <h2 class="d-inline text-uppercase font-weight-bold">
+            Demo
+        </h2>
+        <div>
+            <span class="badge badge-secondary">Free</span>
+            <span class="badge badge-primary">Premium</span>
+        </div>
+        <div class="icon-edit-profile">
+            <a data-toggle="tooltip" data-placement="bottom" title="" href="/company-settings/" data-original-title="Настройки компании"><i id="editProfile" class="fas fa-cog edit-profile"></i></a>
+        </div>
+        <div class="info-company">
+            <hr>
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <div class="name-company">
+                        <div>Полное наименование:</div>
+                        <div style="color: #c6c9dc;">Отсутствует</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="about-company">
+                        <div>Описание:</div>
+                        <div style="color: #c6c9dc;">Отсутствует</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="site-company">
+                        <div>Сайт:</div>
+                        <div style="color: #c6c9dc;">https://</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div style="padding: 0.8rem;" class="d-sm task-box">
     <div style="padding-left: 7px;">
         <div class="row sort">

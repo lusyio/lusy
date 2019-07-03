@@ -2165,6 +2165,10 @@ span.date {
         width: 76% !important;;
     }
 
+    .info-company{
+        display: none;
+    }
+
     .noty-invite{
         top: 49px;
         left: 25px;
