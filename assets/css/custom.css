@@ -1293,15 +1293,17 @@ input:checked[type="checkbox"]::before {
 
     overflow: scroll;
     overflow-x: hidden;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
 
 }
 
 #chatBox::-webkit-scrollbar {
-    width: 0;
-    background: transparent;  /* Optional: just make scrollbar invisible */
-    display: none;  // Safari and Chrome
-    -ms-overflow-style: none;  // IE 10+
-    scrollbar-width: none;  // Firefox
+    width: 0 !important;
+    background: transparent !important;
+    display: none !important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
 }
 
 .onlineIndicator{
@@ -1508,15 +1510,15 @@ a {
     overflow-x: hidden;
     padding: 0px 15px 0px 15px;
     margin: 0px -15px -15px -15px;
-
-
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
 }
 #taskListSlide::-webkit-scrollbar {
-    width: 0;
-    background: transparent;  /* Optional: just make scrollbar invisible */
-    display: none;  // Safari and Chrome
-    -ms-overflow-style: none;  // IE 10+
-    scrollbar-width: none;  // Firefox
+    width: 0 !important;
+    background: transparent !important;
+    display: none !important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
 }
 
 .bottomGradient {
@@ -1659,17 +1661,18 @@ a {
     max-height: 500px;
     padding: 0 20px 0 0;
     margin-left: -30px;
-
     overflow: scroll;
     overflow-x: hidden;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
 }
 
 #logDashBoard::-webkit-scrollbar {
-    width: 0;
-    background: transparent;  /* Optional: just make scrollbar invisible */
-    display: none;  // Safari and Chrome
-    -ms-overflow-style: none;  // IE 10+
-    scrollbar-width: none;  // Firefox
+    width: 0 !important;
+    background: transparent !important;
+    display: none !important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
 }
 
 .noty-invite{
