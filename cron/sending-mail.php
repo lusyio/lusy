@@ -6,16 +6,17 @@ include __DIR__ . '/../conf.php'; // подключаем базу данных
 require_once __DIR__ . '/../engine/backend/functions/common-functions.php';
 require_once __DIR__ . '/../engine/backend/functions/task-functions.php';
 
-$mailQueueQuery = $pdo->prepare("SELECT queue_id, function_name, args, start_time FROM mail_queue");
+$mailQueueQuery = $pdo->prepare("SELECT mq.queue_id, mq.function_name, mq.args, mq.start_time, mq.user_id, c.timezone FROM mail_queue mq LEFT JOIN users u ON mq.user_id = u.id LEFT JOIN company c ON u.idcompany = c.id");
 $mailQueueQuery->execute();
 $mailQueue = $mailQueueQuery->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($mailQueue as $mail) {
+    date_default_timezone_set($mail['timezone']);
     $notifications = getNotificationSettings($mail['user_id']);
     if ($notifications['silence_start'] != -1) {
         $currentHour = date('G');
-        $isSilenceOverMidnight = $notifications['silence_start'] > $notifications['silence_end'];
         $isCurrentHourBetween = $currentHour >= $notifications['silence_start'] && $currentHour < $notifications['silence_end'];
+        $isSilenceOverMidnight = $notifications['silence_start'] > $notifications['silence_end'];
         $isNowSilence = ($isSilenceOverMidnight && !$isCurrentHourBetween) || (!$isSilenceOverMidnight && $isCurrentHourBetween);
         if ($isNowSilence) {
             continue;
