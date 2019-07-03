@@ -1060,8 +1060,8 @@ function sendTaskWorkerEmailNotification($taskId, $action)
         return;
     }
 
-    require_once 'engine/phpmailer/LusyMailer.php';
-    require_once 'engine/phpmailer/Exception.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
     $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM tasks t LEFT JOIN company c ON t.idcompany = c.id WHERE t.id = :taskId");
@@ -1120,8 +1120,8 @@ function sendTaskManagerEmailNotification($taskId, $action)
         return;
     }
 
-    require_once 'engine/phpmailer/LusyMailer.php';
-    require_once 'engine/phpmailer/Exception.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
     $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM tasks t LEFT JOIN company c ON t.idcompany = c.id WHERE t.id = :taskId");
@@ -1191,8 +1191,8 @@ function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
         $userMails[] = $userMailQuery->fetch(PDO::FETCH_COLUMN);
     }
 
-    require_once 'engine/phpmailer/LusyMailer.php';
-    require_once 'engine/phpmailer/Exception.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
 
@@ -1255,8 +1255,8 @@ function sendMessageEmailNotification($userId, $authorId)
     $userMailQuery->execute(array(':userId' => $userId));
     $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
 
-    require_once 'engine/phpmailer/LusyMailer.php';
-    require_once 'engine/phpmailer/Exception.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
 
@@ -1293,8 +1293,8 @@ function sendAchievementEmailNotification($userId, $achievementName)
     $userMailQuery->execute(array(':userId' => $userId));
     $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
 
-    require_once 'engine/phpmailer/LusyMailer.php';
-    require_once 'engine/phpmailer/Exception.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
+    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
 
