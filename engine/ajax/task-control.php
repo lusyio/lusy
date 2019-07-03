@@ -108,6 +108,16 @@ if($_POST['module'] == 'inwork') {
 // создание новой задачи
 
 if($_POST['module'] == 'createTask') {
+    $result = [
+        'taskId' => '',
+        'error' => '',
+    ];
+    $remainingLimits = getRemainingLimits();
+    if ($remainingLimits['tasks'] <= 0) {
+        $result['error'] = 'taskLimit';
+        echo json_encode($result);
+        exit;
+    }
     $unsafeCoworkers = json_decode($_POST['coworkers']);
     $coworkers = [];
     foreach ($unsafeCoworkers as $c) {
@@ -158,7 +168,8 @@ if($_POST['module'] == 'createTask') {
 	if ($sql) {
 		$idtask = $pdo->lastInsertId();
 		if (!empty($idtask)) {
-			echo $idtask;
+		    $result['taskId'] = $idtask;
+		    echo json_encode($result);
 			$coworkersQuery = "INSERT INTO task_coworkers(task_id, worker_id) VALUES (:taskId, :workerId)";
             $sql = $pdo->prepare($coworkersQuery);
             foreach ($coworkers as $workerId) {

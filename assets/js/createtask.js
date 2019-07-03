@@ -178,9 +178,15 @@ $(document).ready(function () {
                 cache: false,
                 processData: false,
                 contentType: false,
+                dataType: 'json',
                 data: fd,
                 success: function (data) {
-                    location.href = '/task/' + data + '/';
+                    console.log(data);
+                    if (data.error === 'taskLimit') {
+                        console.log('Task Limit')
+                    }else if (data.taskId !== '') {
+                        location.href = '/task/' + data.taskId + '/';
+                    }
                 },
             });
         } else {
