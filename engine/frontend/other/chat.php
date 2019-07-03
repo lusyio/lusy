@@ -21,7 +21,7 @@
     </div>
 </div>
 <div class="card border-top bg-mail">
-    <div class="card-body pb-0">
+    <div class="card-body pb-0 pl-2 pr-2">
         <form>
             <div class="d-flex send-mes-block">
                 <div class="form-group w-100 text-area d-flex">

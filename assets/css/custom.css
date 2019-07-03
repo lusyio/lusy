@@ -710,7 +710,6 @@ input:checked[type="checkbox"]::before {
 
 .fas.fa-check.custom-date.accept {
     color: #93c259 !important;
-    margin-left: 5px;
     margin-top: 5px;
     padding: 5px;
     transition: 200ms;
@@ -1148,7 +1147,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .members-card {
-    padding: 15px;
+    padding: 1.5rem;
 }
 
 .members-responsible-selected {
