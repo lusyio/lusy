@@ -182,8 +182,12 @@
                 });
             }
 
-            $('.placeholder-coworkers').on('click',function () {
-                updateCoworkers();
+            $('.placeholder-coworkers').on('click', function () {
+                setTimeout(function () {
+                    updateCoworkers();
+                    checkContainerCoworkers();
+                    coworkersListEmpty();
+                }, 100);
             });
 
             $('.icon-members-change-coworker').on('click', function () {

@@ -737,6 +737,10 @@ input:checked[type="checkbox"]::before {
     text-align: center;
 }
 
+.placeholder-coworkers{
+    width: 100%;
+}
+
 .fas.fa-check.custom-date.accept:hover {
     padding: 5px;
     border-radius: 50%;
