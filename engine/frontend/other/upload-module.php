@@ -5,11 +5,11 @@
         </span>
 <div class="dropdown">
     <?php if ($uploadModule == 'chat'): ?>
-        <button class="btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-paperclip"></i>
+        <button class="text-muted mr-2 btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-paperclip" style="font-size: 20px;vertical-align: middle;"></i>
         </button>
     <?php else: ?>
-        <button class="btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"
+        <button class="text-muted btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Прикрепить файл
         </button>
     <?php endif; ?>

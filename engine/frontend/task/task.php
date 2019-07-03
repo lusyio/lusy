@@ -202,7 +202,7 @@ if ($id == $worker and $view == 0) {
         <div class="card mt-3">
             <div class="card-body">
                 <div class="d-flex comin">
-                <textarea class="form-control mr-3" id="comin" rows="1" name="comment" type="text" autocomplete="off"
+                <textarea class="form-control mr-2" id="comin" rows="1" name="comment" type="text" autocomplete="off"
                           placeholder="<?= $GLOBALS["_writecomment"] ?>..." required></textarea>
 
                     <?php $uploadModule = 'chat'; ?>

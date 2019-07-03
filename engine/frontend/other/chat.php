@@ -24,7 +24,7 @@
     <div class="card-body pb-0">
         <form>
             <div class="d-flex send-mes-block">
-                <div class="form-group w-100 mr-2 text-area d-flex">
+                <div class="form-group w-100 text-area d-flex">
                     <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
                               placeholder="<?= $GLOBALS['_enterconversation'] ?>"></textarea>
                     <?php $uploadModule = 'chat'; ?>
