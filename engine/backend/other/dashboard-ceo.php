@@ -50,7 +50,7 @@ $completetask2 = DB('*','tasks','view="0" and status = "done" and worker='.$id);
 
 $firstDayOfMonth = strtotime(date('1.m.Y'));
 
-$taskDoneCountOverallQuery = $pdo->prepare("SELECT COUNT(DISTINCT e.task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE company_id = :companyId AND datetime > :firstDay AND action = 'workdone' AND t.manager <> t.worker");
+$taskDoneCountOverallQuery = $pdo->prepare("SELECT COUNT(DISTINCT e.task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE company_id = :companyId AND datetime > :firstDay AND action = 'workdone'");
 $taskDoneCountOverallQuery->bindValue(':firstDay', (int) $firstDayOfMonth, PDO::PARAM_INT);
 $taskDoneCountOverallQuery->bindValue(':companyId', (int) $idc, PDO::PARAM_INT);
 $taskDoneCountOverallQuery->execute();
