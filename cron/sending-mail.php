@@ -17,7 +17,11 @@ foreach ($mailQueue as $mail) {
         $currentHour = date('G');
         $isCurrentHourBetween = $currentHour >= $notifications['silence_start'] && $currentHour < $notifications['silence_end'];
         $isSilenceOverMidnight = $notifications['silence_start'] > $notifications['silence_end'];
-        $isNowSilence = ($isSilenceOverMidnight && !$isCurrentHourBetween) || (!$isSilenceOverMidnight && $isCurrentHourBetween);
+        if ($isSilenceOverMidnight) {
+            $isNowSilence = $currentHour >= $notifications['silence_start'] || $currentHour < $notifications['silence_end'];
+        } else {
+            $isNowSilence = $currentHour >= $notifications['silence_start'] && $currentHour < $notifications['silence_end'];
+        }
         if ($isNowSilence) {
             continue;
         }
