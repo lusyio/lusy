@@ -9,6 +9,7 @@ $borderColor = [
     'returned' => 'border-primary',
     'done' => 'border-success',
     'canceled' => 'border-secondary',
+    'planned' => 'border-info',
 ];
 ?>
 <link rel="stylesheet" href="/assets/css/swiper.min.css">
