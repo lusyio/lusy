@@ -1431,13 +1431,13 @@ function addMailToQueue($function, $args, $id)
 {
     global $pdo;
     $argsJson = json_encode($args);
-    $addToQueueQuery = $pdo->prepare("INSERT INTO mail_queue(function_name, args, user_id) VALUES (:functionName, :args, :userId); ");
+    $addToQueueQuery = $pdo->prepare("INSERT INTO mail_queue(function_name, args, user_id, start_time) VALUES (:functionName, :args, :userId, :startTime)");
     if (is_array($id)) {
         foreach ($id as $oneId) {
-            $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId));
+            $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId, ':startTime' =>time()));
         }
     } else {
-        $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $id));
+        $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $id, ':startTime' =>time()));
     }
 }
 
