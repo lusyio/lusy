@@ -29,7 +29,7 @@ if (empty($title)) {
             ?>
         </div>
         <div class="col-sm-9">
-            <div id="workzone" class="pb-3">
+            <div id="workzone" class="pb-3 pr-0">
                 <?php if ($roleu == 'ceo' && !$isCompanyActivated): ?>
                     <div class="alert alert-warning alert-dismissible fade show" id="activateAlert" role="alert">
                         <span id="activateText"><strong>Подтвердите e-mail</strong> <a href="#" id="sendActivation"> Нажмите сюда</a>, чтобы еще раз отправить письмо c ссылкой активации</span>
