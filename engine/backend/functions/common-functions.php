@@ -138,7 +138,8 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             ];
             $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
             $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
-            sendTaskWorkerEmailNotification($taskId, 'createtask');
+            //sendTaskWorkerEmailNotification($taskId, 'createtask');
+            addMailToQueue('sendTaskWorkerEmailNotification', [$taskId, 'createtask'], $recipientId);
         }
     }
     if ($action == 'createplantask') {
@@ -236,7 +237,9 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $addEventQuery->execute($eventDataForManager);
         if (!$isSelfTask) {
             $addEventQuery->execute($eventDataForWorker);
-            sendTaskWorkerEmailNotification($taskId, 'overdue');
+            //sendTaskWorkerEmailNotification($taskId, 'overdue');
+            addMailToQueue('sendTaskWorkerEmailNotification', [$taskId, 'overdue'], $taskWorker);
+
         }
     }
 
@@ -274,7 +277,8 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $taskManager, ':type' => json_encode($pushData)));
 
-        sendTaskManagerEmailNotification($taskId, 'review');
+        //sendTaskManagerEmailNotification($taskId, 'review');
+        addMailToQueue('sendTaskManagerEmailNotification', [$taskId, 'review'], $taskManager);
     }
 
     if ($action == 'workreturn') {
@@ -379,7 +383,8 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
 
-        sendTaskManagerEmailNotification($taskId, 'postpone');
+        //sendTaskManagerEmailNotification($taskId, 'postpone');
+        addMailToQueue('sendTaskManagerEmailNotification', [$taskId, 'postpone'], $recipientId);
     }
 
     if ($action == 'confirmdate' || $action == 'canceldate') {
@@ -595,7 +600,8 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
 
-        sendAchievementEmailNotification($id, $comment);
+        //sendAchievementEmailNotification($id, $comment);
+        addMailToQueue('sendAchievementEmailNotification', [$id, $comment], $id);
     }
 }
 
@@ -874,6 +880,10 @@ function addCommentEvent($taskId, $commentId)
     $recipients[] = $executors['manager'];
     $recipients[] = $executors['worker'];
     array_unique($recipients);
+    if (($key = array_search($id, $recipients)) !== false) {
+     unset($recipients[$key]);
+    }
+
 
     $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
@@ -900,8 +910,8 @@ function addCommentEvent($taskId, $commentId)
         }
     }
 
-    sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
-
+    //sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
+    addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipients, $commentId], $recipients);
 }
 
 function concatName($name, $surname)
@@ -943,7 +953,7 @@ function countTopsidebar()
 
     global $id;
     $newTaskCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action NOT LIKE "comment"');
-    $overdueCount = DBOnce('count(*)','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
+    $overdueCount = DBOnce('count(*)', 'tasks', '(worker='.$id.' or manager='.$id.') and status="overdue"');
     $newCommentCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action LIKE "comment"');
     $newMailCount = DBOnce('count(*)', 'mail', 'recipient='.$id.' AND view_status=0');
     $newChatCount = numberOfNewChatMessages();
@@ -1232,7 +1242,7 @@ function getNotificationSettings($userId = null)
         $userId = $id;
     }
     global $pdo;
-    $notificationSettingsQuery = $pdo->prepare('SELECT user_id, task_create, task_overdue, comment, task_review, task_postpone, message, achievement FROM user_notifications WHERE user_id = :userId');
+    $notificationSettingsQuery = $pdo->prepare('SELECT user_id, task_create, task_overdue, comment, task_review, task_postpone, message, achievement, silence_start, silence_end FROM user_notifications WHERE user_id = :userId');
     $notificationSettingsQuery->execute(array(':userId' => $userId));
     $result = $notificationSettingsQuery->fetch(PDO::FETCH_ASSOC);
     return $result;
@@ -1296,4 +1306,25 @@ function createInitTask($userId, $companyId, $forCeo = false)
         ];
         $addEventQuery->execute($eventData);
     }
+}
+
+function addMailToQueue($function, $args, $id)
+{
+    global $pdo;
+    $argsJson = json_encode($args);
+    $addToQueueQuery = $pdo->prepare("INSERT INTO mail_queue(function_name, args, user_id) VALUES (:functionName, :args, :userId); ");
+    if (is_array($id)) {
+        foreach ($id as $oneId) {
+            $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId));
+        }
+    } else {
+        $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $id));
+    }
+}
+
+function removeMailFromQueue($queueId)
+{
+    global $pdo;
+    $removeFromQueueQuery = $pdo->prepare("DELETE FROM mail_queue WHERE queue_id = :queueId");
+    $removeFromQueueQuery->execute(array(':queueId' => $queueId));
 }
