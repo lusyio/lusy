@@ -36,7 +36,6 @@
 <!---->
 <!---->
 <!--</div>-->
-
 <div class="card">
     <div class="card-body text-center">
         <h2 class="d-inline text-uppercase font-weight-bold">
@@ -157,5 +156,3 @@
         </div>
     </div>
 </div>
-
-

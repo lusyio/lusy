@@ -2183,6 +2183,10 @@ span.date {
         margin-right: 15px;
     }
 
+    .price-card:last-of-type{
+        margin-top: 15px;
+    }
+
     .change-plan-date{
         width: 76% !important;;
     }

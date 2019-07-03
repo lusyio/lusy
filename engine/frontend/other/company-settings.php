@@ -34,7 +34,7 @@
             <?php if ($tariff == 1):?>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6 price-card" style="opacity: 0.5">
+                    <div class="col-12 col-lg-6 price-card" style="opacity: 0.5">
                         <div class="card-header bg-secondary">
                         </div>
                         <div class="card-body border text-center">
@@ -56,7 +56,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-6 price-card">
+                    <div class="col-12 col-lg-6 price-card">
                         <div class="card-header bg-primary">
                         </div>
                         <div class="card-body border text-center">
@@ -83,7 +83,7 @@
             <?php else:?>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6 price-card">
+                    <div class="col-12 col-lg-6 price-card">
                         <div class="card-header bg-secondary">
                         </div>
                         <div class="card-body border text-center">
@@ -105,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 price-card">
+                    <div class="col-12 col-lg-6 price-card">
                         <div class="card-header bg-primary">
                         </div>
                         <div class="card-body border text-center">
