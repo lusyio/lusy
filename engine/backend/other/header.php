@@ -1,6 +1,15 @@
 <?php
 require_once __ROOT__ . '/engine/backend/functions/login-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
+
+//=============БЛОК ДЛЯ НОТИФИКАЦИЙ ОНЛАЙН ОПЛАТЫ=============
+if(!empty($_GET['folder'] && $_GET['paymentnotification'])) {
+    ob_clean();
+    inc('other', 'paymentnotification');
+    exit;
+}
+//=============КОНЕЦ БЛОКА ДЛЯ НОТИФИКАЦИЙ ОПЛАТЫ=============
+
 $url = $_SERVER['REQUEST_URI'];
 $urlFirstPart = preg_split('~/~',trim($url, '/'))[0];
 $url = str_replace('/', '', $url);
