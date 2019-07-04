@@ -2,12 +2,7 @@
 require_once __ROOT__ . '/engine/backend/functions/login-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 
-//=============БЛОК ДЛЯ НОТИФИКАЦИЙ ОНЛАЙН ОПЛАТЫ=============
-if(isset($_GET['folder']) && !empty($_GET['folder'] && !empty($_GET['paymentnotification']))) {
-    inc('other', 'paymentnotification');
-    exit;
-}
-//=============КОНЕЦ БЛОКА ДЛЯ НОТИФИКАЦИЙ ОПЛАТЫ=============
+
 
 $url = $_SERVER['REQUEST_URI'];
 $urlFirstPart = preg_split('~/~',trim($url, '/'))[0];

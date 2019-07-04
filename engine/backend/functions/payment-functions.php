@@ -40,7 +40,7 @@ function updateOrderOnNotification($notification)
     $calculatedToken = hash('sha256', $token);
 
     if($calculatedToken != $receivedToken) {
-        addToPaymentsErrorLog('Токены не совпадают. Токен банка: ' . $receivedToken . ' рассчитанный токен' . $calculatedToken);
+        addToPaymentsErrorLog('Токены не совпадают. Токен банка: ' . $receivedToken . ' рассчитанный токен ' . $calculatedToken);
         exit;
     }
     //======Конец сверки токенов======

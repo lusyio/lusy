@@ -12,6 +12,13 @@ bind_textdomain_codeset($locale, 'UTF-8');
 textdomain($locale);
 include __ROOT__ . '/conf.php';
 
+//=============БЛОК ДЛЯ НОТИФИКАЦИЙ ОНЛАЙН ОПЛАТЫ=============
+if (isset($_GET['folder']) && $_GET['folder'] == 'paymentnotification') {
+    inc('other', 'paymentnotification');
+    exit;
+}
+//=============КОНЕЦ БЛОКА ДЛЯ НОТИФИКАЦИЙ ОПЛАТЫ=============
+
 //addTimeZoneToCompany();
 //makeTimeStampInComments();
 //makeTimeStampInCompany();
