@@ -1431,7 +1431,6 @@ function addMailToQueue($function, $args, $id)
 {
     global $pdo;
     $argsJson = json_encode($args);
-    echo 'before sql';
     $addToQueueQuery = $pdo->prepare("INSERT INTO mail_queue(function_name, args, user_id, start_time) VALUES (:functionName, :args, :userId, :startTime)");
     if (is_array($id)) {
         foreach ($id as $oneId) {
