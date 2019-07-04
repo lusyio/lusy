@@ -3,7 +3,7 @@ require_once __ROOT__ . '/engine/backend/functions/login-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 
 //=============БЛОК ДЛЯ НОТИФИКАЦИЙ ОНЛАЙН ОПЛАТЫ=============
-if(!empty($_GET['folder'] && $_GET['paymentnotification'])) {
+if(!empty($_GET['folder'] && !empty($_GET['paymentnotification']))) {
     ob_clean();
     inc('other', 'paymentnotification');
     exit;
