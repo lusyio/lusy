@@ -29,10 +29,10 @@ function updateOrderOnNotification($notification)
     $receivedToken = $notification['Token'];
     unset($notification['Token']);
     $token = '';
-    $receivedToken['Password'] = TTKEY;
-    ksort($args);
+    $notification['Password'] = TSKEY;
+    ksort($notification);
 
-    foreach ($args as $arg) {
+    foreach ($notification as $arg) {
         if (!is_array($arg)) {
             $token .= $arg;
         }
