@@ -34,7 +34,11 @@ function updateOrderOnNotification($notification)
 
     foreach ($notification as $arg) {
         if (!is_array($arg)) {
-            $token .= $arg;
+            if (is_bool($arg)) {
+                $token .= ($arg) ? 'true' : 'false';
+            }else {
+                $token .= $arg;
+            }
         }
     }
     $calculatedToken = hash('sha256', $token);
