@@ -8,6 +8,8 @@ addToPaymentsErrorLog( 'Нотификация от банка' . $postData);
 $notification = json_decode($postData, true);
 
 updateOrderOnNotification($notification);
+$output = ob_get_clean();
+addToPaymentsErrorLog($output);
 
 echo 'OK';
 
