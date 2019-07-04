@@ -57,11 +57,11 @@ function updateOrderOnNotification($notification)
 
 function addToPaymentsErrorLog($text)
 {
-    $file = __ROOT__ . 'payments.log';
+    $file = __ROOT__ . '/payments.log';
     $current = file_get_contents($file);
     $current .= date('d.m.Y H:i:s');
-    $current .= '/n';
+    $current .= "\n";
     $current .= $text;
-    $current .= '/n';
+    $current .= "\n";
     file_put_contents($file, $current);
 }
