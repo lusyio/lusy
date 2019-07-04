@@ -11,11 +11,11 @@ global $idc;
 global $namec;
 global $_free;
 global $_premium;
+global $tariff;
 
-$tariff = DBOnce('tariff', 'company','id='.$idc);
 if ($tariff == 1) {
-    $tariff = $_premium;
+    $tariffName= $_premium;
 } else {
-    $tariff = $_free;
+    $tariffName = $_free;
 }
 $GLOBALS['cometHash'] = authorizeComet($id);

@@ -13,6 +13,7 @@ global $_storage;
 global $idc;
 global $pdo;
 global $roleu;
+global $tariff;
 
 
 // пункты меню для ролей
