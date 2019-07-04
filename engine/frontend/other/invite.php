@@ -41,7 +41,7 @@
         </div>
 
     <div id="invites-container">
-        <?php include 'engine/ajax/invite-card.php' ?>
+        <?php include __ROOT__ . '/engine/ajax/invite-card.php' ?>
     </div>
 
 </div>

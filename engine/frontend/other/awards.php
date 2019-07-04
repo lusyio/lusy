@@ -58,7 +58,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
     else:
         ?>
         <?php foreach ($nonMultipleAchievements as $name => $values) {
-        include 'engine/frontend/other/award-card.php';
+        include __ROOT__ . '/engine/frontend/other/award-card.php';
     } ?>
     <?php endif; ?>
 </div>
@@ -77,7 +77,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
         if ($values['got']) {
             continue;
         } else {
-            include 'engine/frontend/other/award-card.php';
+            include __ROOT__ . '/engine/frontend/other/award-card.php';
         }
     } ?>
 </div>
@@ -95,7 +95,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
         if ($values['got']) {
             continue;
         } else {
-            include 'engine/frontend/other/award-card.php';
+            include __ROOT__ . '/engine/frontend/other/award-card.php';
         }
     } ?>
 </div>
@@ -111,7 +111,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
         if ($values['got'] || $values['hidden']) {
             continue;
         } else {
-            include 'engine/frontend/other/award-card.php';
+            include __ROOT__ . '/engine/frontend/other/award-card.php';
         }
     } ?>
 </div>

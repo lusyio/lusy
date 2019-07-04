@@ -5,10 +5,10 @@ if($_POST['module'] == 'checkNew') {
     $title = 'test title 1';
     $messageText = 'some text for testing 1';
     $response = [];
-    $response[] = include 'engine/frontend/other/push-message.php';
+    $response[] = include __ROOT__ . '/engine/frontend/other/push-message.php';
     $title = 'test title 2';
     $messageText = 'some text for testing 2';
-    $response[] = include 'engine/frontend/other/push-message.php';
+    $response[] = include __ROOT__ . '/engine/frontend/other/push-message.php';
     echo json_encode($response);
 }
 if($_POST['module'] == 'newMessage' && isset($_POST['messageId'])) {
@@ -24,7 +24,7 @@ if($_POST['module'] == 'newMessage' && isset($_POST['messageId'])) {
     $title = $message['name'] . ' ' . $message['surname'];
     $messageText = $message['mes'];
     $response = [];
-    $response[] = include 'engine/frontend/other/push-message.php';
+    $response[] = include __ROOT__ . '/engine/frontend/other/push-message.php';
     echo json_encode($response);
 }
 if($_POST['module'] == 'newTask' && isset($_POST['taskId'])) {
@@ -32,6 +32,6 @@ if($_POST['module'] == 'newTask' && isset($_POST['taskId'])) {
     $title = 'Новая задача';
     $messageText = '<a href="/../task/' . $taskId . '/">Перейти к задаче</a>';
     $response = [];
-    $response[] = include 'engine/frontend/other/push-message.php';
+    $response[] = include __ROOT__ . '/engine/frontend/other/push-message.php';
     echo json_encode($response);
 }

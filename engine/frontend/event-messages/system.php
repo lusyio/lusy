@@ -1,5 +1,5 @@
 <?php
-require_once 'engine/backend/functions/mail-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 ?>
 <li data-event-id="<?= $event['event_id'] ?>"
     class="event system-event <?= ($event['view_status']) ? '' : 'new-event' ?>  readable-here">

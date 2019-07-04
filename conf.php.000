@@ -44,8 +44,8 @@
 	
 	// функция подключения backend и frontend
 	function inc($module,$component) {
-		$backend = 'engine/backend/'.$module.'/'.$component.'.php';
-		$frontend = 'engine/frontend/'.$module.'/'.$component.'.php';
+		$backend = __ROOT__ . '/engine/backend/'.$module.'/'.$component.'.php';
+		$frontend = __ROOT__ . '/engine/frontend/'.$module.'/'.$component.'.php';
 		
 		if (file_exists($backend)) {
 			include $backend;

@@ -9,7 +9,7 @@ $countcomments = DBOnce('COUNT(*) as count', 'comments', 'idtask=' . $idtask);
 
 
 if ($countcomments > 0) {
-    include 'engine/ajax/frontend/comments-header.php';
+    include __ROOT__ . '/engine/ajax/frontend/comments-header.php';
     $comments = $pdo->prepare('SELECT c.id, c.iduser, c.comment, c.status, c.datetime, c.view_status, t.manager 
 FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask ORDER BY datetime DESC, c.id DESC');
     $comments->execute(array(':idtask' => $idtask));
@@ -57,11 +57,11 @@ FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask OR
             $isNew = false;
         }
         if ($c['status'] == 'system') {
-            include 'engine/ajax/frontend/comment-system.php';
+            include __ROOT__ . '/engine/ajax/frontend/comment-system.php';
         } else {
-            include 'engine/ajax/frontend/comment.php';
+            include __ROOT__ . '/engine/ajax/frontend/comment.php';
         }
     }
 } else {
-    include 'engine/ajax/frontend/no-comments.php';
+    include __ROOT__ . '/engine/ajax/frontend/no-comments.php';
 }

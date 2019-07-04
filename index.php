@@ -6,10 +6,11 @@ setlocale(LC_ALL, 'ru_RU');
 $locale = 'ru_RU';
 putenv("LC_MESSAGES=" . $locale);
 setlocale(5, $locale, $locale);
-bindtextdomain($locale, realpath(__DIR__ . '/engine/backend/lang/'));
+define('__ROOT__', __DIR__);
+bindtextdomain($locale, realpath(__ROOT__ . '/engine/backend/lang/'));
 bind_textdomain_codeset($locale, 'UTF-8');
 textdomain($locale);
-include 'conf.php';
+include __ROOT__ . '/conf.php';
 
 //addTimeZoneToCompany();
 //makeTimeStampInComments();
@@ -21,8 +22,8 @@ include 'conf.php';
 //makeTimeStampInActivityUsers();
 //makeTimeStampInTasks();
 
-include 'engine/backend/other/header.php'; 
-include 'engine/frontend/other/header.php';
+include __ROOT__ . '/engine/backend/other/header.php';
+include __ROOT__ . '/engine/frontend/other/header.php';
 
 // проверка на страницы логина и подобные
 if (!empty($_GET['folder'])) {
@@ -280,5 +281,5 @@ function makeTimeStampInTasks()
 }
 
 
-include 'engine/backend/other/footer.php';
-include 'engine/frontend/other/footer.php';
+include __ROOT__ . '/engine/backend/other/footer.php';
+include __ROOT__ . '/engine/frontend/other/footer.php';

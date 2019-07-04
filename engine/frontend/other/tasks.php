@@ -1,7 +1,7 @@
 <script type="text/javascript" src="/assets/js/tasks.js"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<?php include 'engine/frontend/other/searchbar.php' ?>
+<?php include __ROOT__ . '/engine/frontend/other/searchbar.php' ?>
 <div id="taskBox">
     <a href="/task/new/" class="text-decoration-none cust add-newtask-button">
         <div class="card mb-2 add-newtask-tasks">
@@ -86,7 +86,7 @@
         } else {
             $isTaskRead = true;
         }
-        include 'engine/frontend/other/task-card.php';
+        include __ROOT__ . '/engine/frontend/other/task-card.php';
     endforeach; ?>
 </div>
 <script>

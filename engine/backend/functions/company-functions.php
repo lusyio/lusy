@@ -1,5 +1,5 @@
 <?php
-require_once 'engine/backend/functions/login-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/login-functions.php';
 
 function fireUser($userId)
 {

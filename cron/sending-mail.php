@@ -2,9 +2,12 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-include __DIR__ . '/../conf.php'; // подключаем базу данных
-require_once __DIR__ . '/../engine/backend/functions/common-functions.php';
-require_once __DIR__ . '/../engine/backend/functions/task-functions.php';
+
+define('__ROOT__', __DIR__ . '/../');
+
+include __ROOT__ . '/conf.php'; // подключаем базу данных
+require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/task-functions.php';
 
 $mailQueueQuery = $pdo->prepare("SELECT mq.queue_id, mq.function_name, mq.args, mq.start_time, mq.user_id, c.timezone FROM mail_queue mq LEFT JOIN users u ON mq.user_id = u.id LEFT JOIN company c ON u.idcompany = c.id");
 $mailQueueQuery->execute();

@@ -2,8 +2,8 @@
 global $pdo;
 global $id;
 
-require_once 'engine/backend/functions/log-functions.php';
-require_once 'engine/backend/functions/common-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 
 
 if ($_POST['module'] == 'markAsRead') {

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'engine/backend/functions/tasks-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 
 global $id;
 global $idc;
@@ -91,7 +91,7 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status I
         if (empty($n['countNewFiles'])) {
             $n['countNewFiles'] = 0;
         }
-        include 'engine/frontend/other/task-card.php';
+        include __ROOT__ . '/engine/frontend/other/task-card.php';
     endforeach;
 }
 
@@ -188,7 +188,7 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status =
         if (empty($n['countNewFiles'])) {
             $n['countNewFiles'] = 0;
         }
-        include 'engine/frontend/other/task-card.php';
+        include __ROOT__ . '/engine/frontend/other/task-card.php';
     endforeach;
 }
 
@@ -285,6 +285,6 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status =
         if (empty($n['countNewFiles'])) {
             $n['countNewFiles'] = 0;
         }
-        include 'engine/frontend/other/task-card.php';
+        include __ROOT__ . '/engine/frontend/other/task-card.php';
     endforeach;
 }

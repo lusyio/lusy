@@ -14,8 +14,8 @@ if ($userId) {
     }
     $addCode = $pdo->prepare('INSERT INTO password_restore(user_id, code) VALUES (:userId,:restoreCode)');
     $addCode->execute(array(':userId' => $userId, ':restoreCode' => $restoreCode));
-    require_once 'engine/phpmailer/LusyMailer.php';
-    require_once 'engine/phpmailer/Exception.php';
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
     try {
         $mail = new \PHPMailer\PHPMailer\LusyMailer();
         $mail->addAddress($requestEmail);

@@ -5,7 +5,7 @@ global $cometHash;
 global $cometTrackChannelName;
 global $roleu;
 
-require_once 'engine/backend/functions/storage-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/storage-functions.php';
 
 $companyTotalFilesSize = getCompanyFilesTotalSize();
 $normalizedCompanyFilesSize = normalizeSize($companyTotalFilesSize);

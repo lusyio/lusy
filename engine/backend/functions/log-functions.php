@@ -170,9 +170,9 @@ function renderEvent($event)
     ];
 
     if ($event['action'] == 'comment') {
-        include 'engine/frontend/event-messages/comment.php';
+        include __ROOT__ . '/engine/frontend/event-messages/comment.php';
     } else if (in_array($event['action'], $systemEvents)) {
-        include 'engine/frontend/event-messages/system.php';
+        include __ROOT__ . '/engine/frontend/event-messages/system.php';
     } else {
         $executorsQuery = $pdo->prepare('SELECT worker, manager FROM tasks WHERE id = :taskId');
         $executorsQuery->execute(array(':taskId' => $event['task_id']));
@@ -180,7 +180,7 @@ function renderEvent($event)
         $taskManager = $executors['manager'];
         $taskWorker = $executors['worker'];
         $isSelfTask = ($taskManager == $taskWorker);
-        include 'engine/frontend/event-messages/task.php';
+        include __ROOT__ . '/engine/frontend/event-messages/task.php';
     }
 }
 

@@ -7,8 +7,8 @@
 //$inviteeMail = 'mr-kelevras@yandex.ru';
 //$template = 'company-welcome';
 //
-//require_once 'engine/phpmailer/LusyMailer.php';
-//require_once 'engine/phpmailer/Exception.php';
+//require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+//require_once __ROOT__ . '/engine/phpmailer/Exception.php';
 //$mail = new \PHPMailer\PHPMailer\LusyMailer();
 //try {
 //    $mail->addAddress($inviteeMail);
@@ -29,9 +29,9 @@
 //    echo 'отправлено';
 //}
 //
-//include 'engine/phpmailer/templates/ru/content-header.php';
-//include 'engine/phpmailer/templates/ru/'.$template.'.php';
-//include 'engine/phpmailer/templates/ru/content-footer.php';
+//include __ROOT__ . '/engine/phpmailer/templates/ru/content-header.php';
+//include __ROOT__ . '/engine/phpmailer/templates/ru/'.$template.'.php';
+//include __ROOT__ . '/engine/phpmailer/templates/ru/content-footer.php';
 //?>
 <!---->
 <!---->

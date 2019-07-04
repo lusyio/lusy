@@ -5,8 +5,8 @@ global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
 
-require_once 'engine/backend/functions/achievement-functions.php';
-require_once 'engine/backend/functions/log-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/achievement-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 
 
 $countUserAchievements = count(getUserAchievements($id));

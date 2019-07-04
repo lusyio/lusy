@@ -5,7 +5,7 @@ global $id;
 global $idc;
 global $roleu;
 
-require_once 'engine/backend/functions/storage-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/storage-functions.php';
 
 if ($_POST['module'] == 'deleteFile') {
     $fileId = filter_var($_POST['fileId'], FILTER_SANITIZE_NUMBER_INT);

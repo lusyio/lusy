@@ -21,8 +21,8 @@ $postpone = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id
 $overdue = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
 
 
-require_once 'engine/backend/functions/log-functions.php';
-require_once 'engine/backend/functions/tasks-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 
 
 $events = getEventsForUser();

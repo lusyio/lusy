@@ -32,7 +32,7 @@ if ($companyUsageSpacePercent > 90) {
 </div>
 <?php
 if ($normalizedCompanyFilesSize['size'] > 0) {
-    include 'engine/frontend/other/searchbarfile.php';
+    include __ROOT__ . '/engine/frontend/other/searchbarfile.php';
 }
 if ($userTotalFilesSize == 0): ?>
     <hr>

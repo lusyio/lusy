@@ -12,7 +12,7 @@ function uploadAttachedFiles($type, $eventId)
     global $idc;
     global $id;
 
-    require_once 'engine/backend/functions/storage-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/storage-functions.php';
 
     $providedStorageSpace = getProvidedStorageSpace();
     $companyTotalFilesSize = getCompanyFilesTotalSize();
@@ -68,7 +68,7 @@ function addGoogleFiles($type, $eventId, $fileList)
     global $idc;
     global $id;
 
-    require_once 'engine/backend/functions/storage-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/storage-functions.php';
 
     $types = ['task', 'comment', 'conversation', 'chat'];
     if (!in_array($type, $types)) {
@@ -107,7 +107,7 @@ function addDropboxFiles($type, $eventId, $fileList)
     global $idc;
     global $id;
 
-    require_once 'engine/backend/functions/storage-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/storage-functions.php';
 
     $types = ['task', 'comment', 'conversation', 'chat'];
     if (!in_array($type, $types)) {
@@ -823,7 +823,7 @@ function createAlterAvatar($userId)
     $imageHeight = 190;
     $imageWidth = 190;
     $textSize = 64;
-    $fontFile = realpath('engine/backend/fonts/Roboto-Regular.ttf');
+    $fontFile = realpath(__ROOT__ . 'engine/backend/fonts/Roboto-Regular.ttf');
 
     // Создаем изображение со сглаживанием
     $im = @imagecreatetruecolor($imageWidth, $imageHeight);
@@ -1027,7 +1027,7 @@ function get_timezone_offset($remote_tz, $origin_tz = null) {
 
 function countTopsidebar()
 {
-    require_once 'engine/backend/functions/mail-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 
     global $id;
     $newTaskCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action NOT LIKE "comment"');
@@ -1060,8 +1060,8 @@ function sendTaskWorkerEmailNotification($taskId, $action)
         return;
     }
 
-    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
-    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
     $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM tasks t LEFT JOIN company c ON t.idcompany = c.id WHERE t.id = :taskId");
@@ -1120,8 +1120,8 @@ function sendTaskManagerEmailNotification($taskId, $action)
         return;
     }
 
-    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
-    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
     $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM tasks t LEFT JOIN company c ON t.idcompany = c.id WHERE t.id = :taskId");
@@ -1191,8 +1191,8 @@ function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
         $userMails[] = $userMailQuery->fetch(PDO::FETCH_COLUMN);
     }
 
-    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
-    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
 
@@ -1255,8 +1255,8 @@ function sendMessageEmailNotification($userId, $authorId)
     $userMailQuery->execute(array(':userId' => $userId));
     $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
 
-    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
-    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
 
@@ -1293,8 +1293,8 @@ function sendAchievementEmailNotification($userId, $achievementName)
     $userMailQuery->execute(array(':userId' => $userId));
     $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
 
-    require_once __DIR__ . '/../../../engine/phpmailer/LusyMailer.php';
-    require_once __DIR__ . '/../../../engine/phpmailer/Exception.php';
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
 
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
 
@@ -1330,8 +1330,8 @@ function createInitTask($userId, $companyId, $forCeo = false)
 {
     global $pdo;
 
-    require_once 'engine/backend/functions/task-functions.php';
-    require_once 'engine/backend/functions/mail-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/task-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 
     $managerId = 1;
     $addTaskQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, 'new', :author, :manager, :worker, :companyId, :description, '0') ");
@@ -1400,7 +1400,7 @@ function getRemainingLimits()
     global $pdo;
     $tariff = DBOnce('tariff', 'company', 'id=' . $idc);
 
-    require_once 'engine/backend/functions/storage-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/storage-functions.php';
 
     $providedStorageSpace = getProvidedStorageSpace();
     $companyTotalFilesSize = getCompanyFilesTotalSize();

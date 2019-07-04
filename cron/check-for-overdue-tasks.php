@@ -2,9 +2,12 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-include __DIR__ . '/../conf.php'; // подключаем базу данных
-require_once __DIR__ . '/../engine/backend/functions/common-functions.php';
-require_once __DIR__ . '/../engine/backend/functions/task-functions.php';
+
+define('__ROOT__', __DIR__ . '/../');
+
+include __ROOT__ . '/conf.php'; // подключаем базу данных
+require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/task-functions.php';
 
 
 $overdueTasksQuery = $pdo->prepare('SELECT id FROM tasks WHERE status = :oldStatus AND datedone < :nowTime');

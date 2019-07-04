@@ -1,6 +1,6 @@
 <?php
 
-require_once 'engine/backend/functions/reg-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/reg-functions.php';
 
 $email = '';
 if (!empty($_POST['email'])) {
@@ -42,8 +42,8 @@ if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['pass
             addEvent('newcompany', '' , '$companyId' , $ceoId);
 
             $activationCode = createActivationCode($companyId);
-            require_once 'engine/phpmailer/LusyMailer.php';
-            require_once 'engine/phpmailer/Exception.php';
+            require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+            require_once __ROOT__ . '/engine/phpmailer/Exception.php';
             $mail = new \PHPMailer\PHPMailer\LusyMailer();
             try {
                 $mail->addAddress($login);

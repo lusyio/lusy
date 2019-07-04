@@ -5,8 +5,8 @@ global $id;
 global $idc;
 global $roleu;
 
-require_once 'engine/backend/functions/settings-functions.php';
-require_once 'engine/backend/functions/common-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/settings-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 
 if ($_POST['module'] == 'changeAvatar') {
     if (isset($_FILES['avatar'])) {

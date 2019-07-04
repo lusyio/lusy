@@ -5,8 +5,8 @@ global $id;
 global $idc;
 global $roleu;
 
-require_once 'engine/backend/functions/invite-functions.php';
-require_once 'engine/backend/functions/reg-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/invite-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/reg-functions.php';
 
 if ($_POST['module'] == 'deleteInvite') {
     $inviteId = filter_var($_POST['inviteId'], FILTER_SANITIZE_NUMBER_INT);
@@ -22,8 +22,8 @@ if ($_POST['module'] == 'createInvite' && isset($_POST['invitee-mail'])  && $rol
     $inviteId = createInvite($inviteeMail, $inviteePosition);
     $invite = readInvite($inviteId);
 
-    require_once 'engine/phpmailer/LusyMailer.php';
-    require_once 'engine/phpmailer/Exception.php';
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
     try {
         $mail->addAddress($inviteeMail);

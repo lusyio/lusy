@@ -1,8 +1,8 @@
 <?php
 
-require_once 'engine/backend/functions/common-functions.php';
-require_once 'engine/backend/functions/reg-functions.php';
-require_once 'engine/backend/functions/invite-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/reg-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/invite-functions.php';
 
 if ($_POST['module'] == 'joinUser') {
     $inviteCode = filter_var(trim($_POST['inviteCode']), FILTER_SANITIZE_STRING);
@@ -29,8 +29,8 @@ if ($_POST['module'] == 'joinUser') {
     addEvent('newuser', '', $newUserId);
     createInitTask($newUserId, $idc);
 
-    require_once 'engine/phpmailer/LusyMailer.php';
-    require_once 'engine/phpmailer/Exception.php';
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
     try {
         $mail->addAddress($inviteeMail);

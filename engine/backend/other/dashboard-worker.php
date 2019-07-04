@@ -13,8 +13,8 @@ global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
 
-require_once 'engine/backend/functions/log-functions.php';
-require_once 'engine/backend/functions/tasks-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 
 $all = DBOnce('COUNT(*)','tasks','(status!="done" and status!="canceled") and (worker='.$id.' or manager='.$id.')');
 $inwork = DBOnce('COUNT(*) as count','tasks','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.')');

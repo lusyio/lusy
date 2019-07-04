@@ -1,11 +1,13 @@
 <?php
+define('__ROOT__', __DIR__);
+
 if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
     setlocale(LC_ALL, 'ru_RU');
     // подключаем pdo
     require_once(realpath('conf.php'));
 
-    require_once 'engine/backend/functions/common-functions.php';
-    require_once 'engine/backend/functions/login-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/login-functions.php';
 
 
     if ($_POST['ajax'] == 'restore-password' || $_POST['ajax'] == 'reg') {
@@ -37,7 +39,7 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
             $tariff = DBOnce('tariff', 'company', 'id=' . $idc);
 
             // подключаем языковой файл
-            require_once(realpath('engine/backend/lang/' . $langc . '.php'));
+            require_once(realpath(__ROOT__ . '/engine/backend/lang/' . $langc . '.php'));
 
             // обновляем время последнего посещения
             setLastVisit();
@@ -50,7 +52,7 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
     // кладем запрос в переменную
     $zapros = filter_var($_POST['ajax'], FILTER_SANITIZE_STRING);
     // подключаем файл php
-    require_once(realpath('engine/ajax/' . $zapros . '.php'));
+    require_once(realpath(__ROOT__ . '/engine/ajax/' . $zapros . '.php'));
 } else {
     header("location:/");
 }

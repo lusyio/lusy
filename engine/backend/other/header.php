@@ -1,6 +1,6 @@
 <?php
-require_once 'engine/backend/functions/login-functions.php';
-require_once 'engine/backend/functions/common-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/login-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 $url = $_SERVER['REQUEST_URI'];
 $urlFirstPart = preg_split('~/~',trim($url, '/'))[0];
 $url = str_replace('/', '', $url);
@@ -77,7 +77,7 @@ if ($isAuthorized) {
         setcookie('activation', time(), time() + 60 * 60 * 24, '/');
     }
 
-    include 'engine/backend/main/main.php';
+    include __ROOT__ . '/engine/backend/main/main.php';
     $cometTrackChannelName = getCometTrackChannelName();
 
     if (!empty($_GET['task']) or !empty($_GET['tasks'])) {
@@ -98,7 +98,7 @@ if ($isAuthorized) {
     if (!empty($_GET['profile'])) {
         $title = DBOnce('name', 'users', 'id=' . $_GET["profile"]) . ' ' . DBOnce('surname', 'users', 'id=' . $_GET["profile"]);
     }
-    require_once 'engine/backend/functions/achievement-functions.php';
+    require_once __ROOT__ . '/engine/backend/functions/achievement-functions.php';
     checkAchievements($id);
 } else {
     $publicPages = ['reg', 'login', 'restore', 'activate', 'join'];
@@ -117,7 +117,7 @@ if ($isAuthorized) {
 
 //здесь определить язык пользователя по данным из браузера
 $langc = 'ru';
-include 'engine/backend/lang/'.$langc.'.php';
+include __ROOT__ . '/engine/backend/lang/'.$langc.'.php';
 
 
 if (!empty($_GET['restore']) && !empty($_GET['code'])) {

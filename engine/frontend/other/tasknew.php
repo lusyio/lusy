@@ -23,7 +23,7 @@
              class="bg-white file-name container-files">
         </div>
         <?php $uploadModule = 'task'; // Указываем тип дропдауна прикрепления файлов?>
-        <?php include 'engine/frontend/other/upload-module.php'; // Подключаем дропдаун прикрепления файлов?>
+        <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; // Подключаем дропдаун прикрепления файлов?>
         <?php if ($tariff == 1): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
         <div class="row mt-2">
             <div class="col-12 col-md-3">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <?php
-                include 'engine/frontend/members/responsible.php';
+                include __ROOT__ . '/engine/frontend/members/responsible.php';
                 ?>
             </div>
         </div>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <?php
-                include 'engine/frontend/members/coworkers.php';
+                include __ROOT__ . '/engine/frontend/members/coworkers.php';
                 ?>
             </div>
         </div>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <?php
-                    include 'engine/frontend/members/responsible.php';
+                    include __ROOT__ . '/engine/frontend/members/responsible.php';
                     ?>
                 </div>
             </div>
@@ -143,7 +143,7 @@
                         </div>
                     </div>
                     <?php
-                    include 'engine/frontend/members/coworkers.php';
+                    include __ROOT__ . '/engine/frontend/members/coworkers.php';
                     ?>
                 </div>
             </div>

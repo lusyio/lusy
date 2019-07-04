@@ -13,7 +13,7 @@
     <div class="card-body p-0 border-bottom" id="chatBox">
         <?php if ($messages): ?>
             <?php foreach ($messages as $message): ?>
-                <?php include 'engine/frontend/other/message.php'; ?>
+                <?php include __ROOT__ . '/engine/frontend/other/message.php'; ?>
             <?php endforeach; ?>
         <?php else: ?>
             <div class="no-messages"><?= $GLOBALS['_emptyconversation'] ?></div>
@@ -26,7 +26,7 @@
             <div class="d-flex send-mes-block">
                 <div class="form-group w-100 text-area d-flex">
                     <?php $uploadModule = 'chat'; ?>
-                    <?php include 'engine/frontend/other/upload-module.php'; ?>
+                    <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
                     <textarea style="overflow:hidden;" class="form-control mr-2" id="mes" name="mes" rows="1"
                               placeholder="<?= $GLOBALS['_enterconversation'] ?>"></textarea>
                 </div>

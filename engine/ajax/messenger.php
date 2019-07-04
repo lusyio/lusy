@@ -7,8 +7,8 @@ global $id;
 global $idc;
 global $roleu;
 
-require_once 'engine/backend/functions/common-functions.php';
-require_once 'engine/backend/functions/mail-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 
 if ($_POST['module'] == 'sendMessage') {
     $mes = link_it($_POST['mes']);
@@ -117,7 +117,7 @@ if ($_POST['module'] == 'updateMessages') {
     $messageId = filter_var($_POST['messageId'], FILTER_SANITIZE_NUMBER_INT);
     $messages = getMessageById($messageId);
     foreach ($messages as $message) {
-        include 'engine/frontend/other/message.php';
+        include __ROOT__ . '/engine/frontend/other/message.php';
     }
 }
 if ($_POST['module'] == 'updateChat') {
@@ -125,7 +125,7 @@ if ($_POST['module'] == 'updateChat') {
     $messages = getChatMessageById($messageId);
     $isCeoAndInChat = $roleu == 'ceo';
     foreach ($messages as $message) {
-        include 'engine/frontend/other/message.php';
+        include __ROOT__ . '/engine/frontend/other/message.php';
     }
 }
 

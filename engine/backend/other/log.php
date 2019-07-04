@@ -8,7 +8,7 @@ global $_buttonLogShowNew;
 global $_tasks;
 global $_comments;
 
-require_once 'engine/backend/functions/log-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 
 $events = getEventsForUser();
 prepareEvents($events);

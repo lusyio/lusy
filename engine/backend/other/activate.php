@@ -12,8 +12,8 @@ if (isset($_GET['activate']) && isset($_GET['code'])) {
         if ($result) {
             $companyMail = DBOnce('email', 'users', 'idcompany=' . $companyId . ' AND role=\'ceo\'');
             $companyName = DBOnce('idcompany', 'company', 'id=' . $companyId);
-            require_once 'engine/phpmailer/LusyMailer.php';
-            require_once 'engine/phpmailer/Exception.php';
+            require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+            require_once __ROOT__ . '/engine/phpmailer/Exception.php';
             $mail = new \PHPMailer\PHPMailer\LusyMailer();
             try {
                 $mail->addAddress($companyMail);

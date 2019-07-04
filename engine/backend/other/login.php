@@ -1,7 +1,7 @@
 <?php
 $lang = 'ru';
-require_once 'engine/backend/functions/login-functions.php';
-require_once 'engine/backend/lang/' . $lang . '.php';
+require_once __ROOT__ . '/engine/backend/functions/login-functions.php';
+require_once __ROOT__ . '/engine/backend/lang/' . $lang . '.php';
 $loginError = false;
 if (!empty($_POST['login']) and !empty($_POST['password'])) {
     $login = trim($_POST['login']);

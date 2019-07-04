@@ -1,6 +1,6 @@
 <?php
 
-require_once 'engine/backend/functions/task-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/task-functions.php';
 
 global $roleu;
 global $tariff;

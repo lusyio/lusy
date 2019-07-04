@@ -1,6 +1,6 @@
 <?php
 
-require_once 'engine/backend/functions/mail-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 
 global $pdo;
 global $datetime;

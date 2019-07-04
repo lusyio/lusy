@@ -172,7 +172,7 @@ if ($id == $worker and $view == 0) {
                             ?>
                         </div>
                         <?php
-                        include 'engine/frontend/members/members.php';
+                        include __ROOT__ . '/engine/frontend/members/members.php';
                         ?>
                     </div>
                 </div>
@@ -192,8 +192,8 @@ if ($id == $worker and $view == 0) {
 
             <div id="control">
                 <?php
-                include 'engine/backend/task/task/control/' . $role . '/' . $status . '.php';
-                include 'engine/frontend/task/control/' . $role . '/' . $status . '.php';
+                include __ROOT__ . '/engine/backend/task/task/control/' . $role . '/' . $status . '.php';
+                include __ROOT__ . '/engine/frontend/task/control/' . $role . '/' . $status . '.php';
                 ?>
             </div>
         </div>
@@ -206,7 +206,7 @@ if ($id == $worker and $view == 0) {
                           placeholder="<?= $GLOBALS["_writecomment"] ?>..." required></textarea>
 
                     <?php $uploadModule = 'chat'; ?>
-                    <?php include 'engine/frontend/other/upload-module.php'; ?>
+                    <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
 
                     <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>"><i
                                 class="fas fa-paper-plane"></i></button>
@@ -218,7 +218,7 @@ if ($id == $worker and $view == 0) {
     <?php endif; ?>
     <div class="card mt-3">
         <div class="card-body">
-            <?php include 'engine/frontend/task/notyfeed.php' ?>
+            <?php include __ROOT__ . '/engine/frontend/task/notyfeed.php' ?>
         </div>
     </div>
 </div>

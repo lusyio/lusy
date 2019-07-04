@@ -1,5 +1,5 @@
 <?php
-require_once 'engine/backend/functions/storage-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/storage-functions.php';
 
 // глобальные переменные
 

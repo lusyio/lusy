@@ -30,8 +30,8 @@
 // var_dump($worker);
 
 // // раскидываем по статусам
-// include 'engine/frontend/task/control/'.$role.'/'.$status.'.php';
-// include 'engine/backend/task/task/control/'.$role.'/'.$status.'.php';
+// include __ROOT__ . '/engine/frontend/task/control/'.$role.'/'.$status.'.php';
+// include __ROOT__ . '/engine/backend/task/task/control/'.$role.'/'.$status.'.php';
 
 	
 // }

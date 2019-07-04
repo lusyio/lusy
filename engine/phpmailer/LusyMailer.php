@@ -1,8 +1,8 @@
 <?php
 
 namespace PHPMailer\PHPMailer;
-require_once 'engine/phpmailer/PHPMailer.php';
-require_once 'engine/phpmailer/SMTP.php';
+require_once __ROOT__ . '/engine/phpmailer/PHPMailer.php';
+require_once __ROOT__ . '/engine/phpmailer/SMTP.php';
 
 
 class LusyMailer extends PHPMailer
@@ -27,11 +27,11 @@ class LusyMailer extends PHPMailer
         $language = 'ru';
 
         ob_start();
-        include 'engine/phpmailer/templates/' . $language . '/content-header.php';
+        include __ROOT__ . '/engine/phpmailer/templates/' . $language . '/content-header.php';
         $contentHeader = ob_get_clean();
 
         ob_start();
-        include 'engine/phpmailer/templates/' . $language . '/' . $template . '.php';
+        include __ROOT__ . '/engine/phpmailer/templates/' . $language . '/' . $template . '.php';
         $content = ob_get_clean();
 
         foreach ($args as $key => $value) {
@@ -42,7 +42,7 @@ class LusyMailer extends PHPMailer
         }
 
         ob_start();
-        include 'engine/phpmailer/templates/' . $language . '/content-footer.php';
+        include __ROOT__ . '/engine/phpmailer/templates/' . $language . '/content-footer.php';
         $contentFooter = ob_get_clean();
 
         $this->Body = $contentHeader . $content . $contentFooter;

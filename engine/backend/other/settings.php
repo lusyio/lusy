@@ -5,8 +5,8 @@ global $idc;
 global $pdo;
 global $roleu;
 
-require_once 'engine/backend/functions/common-functions.php';
-require_once 'engine/backend/functions/settings-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/settings-functions.php';
 
 $timeZones = [
     "Etc/GMT+12" => "(GMT-12:00) International Date Line West",
