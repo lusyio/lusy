@@ -1515,6 +1515,15 @@ a {
 .hr-settings{
     width: 90%;
 }
+.paymentIcon {
+    padding: 10px;
+    background: #f7f7f8;
+    border-radius: 50%;
+    margin-top: -5px;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+}
 
 .event {
     -webkit-transition: all 1s ease-out; /** Chrome & Safari **/

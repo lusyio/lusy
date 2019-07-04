@@ -44,7 +44,7 @@ if ($companyUsageSpacePercent > 90) {
             <?php endif; ?>
             <li class="nav-item pb-2"><a class="nav-link" href="/awards/"><i
                             class="fas fa-trophy mr-2 fa-fw"></i> <?= _('Awards') ?></a></li>
-            <?php if (in_array('reports', $menu[$roleu])): ?>
+            <?php if (in_array('reports', $menu[$roleu])  && $tariff == 1): ?>
                 <li class="nav-item pb-2">
                     <a class="nav-link" href="/reports/"><i class="fas fa-chart-pie mr-2 fa-fw"></i>
                         <?= $GLOBALS['_reports'] ?></a></li>
