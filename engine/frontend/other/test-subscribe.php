@@ -49,18 +49,12 @@
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
-
                 cache: false,
                 processData: false,
                 contentType: false,
                 data: fd,
                 success: function (response) {
-                    console.log(response);
-                    if ($('#chatBox').find($('.no-messages')).length) {
-                        $('.no-messages').remove();
-                    }
-                    $('#chatBox').append(response).scrollTop($("#chatBox")[0].scrollHeight);
-
+                    window.open(response);
                 },
             });
         })
