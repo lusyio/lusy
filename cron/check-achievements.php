@@ -6,6 +6,10 @@ ini_set('display_startup_errors', 1);
 define('__ROOT__', __DIR__ . '/../');
 
 include __ROOT__ . '/conf.php'; // подключаем базу данных
+
+$langc = 'ru';
+include __ROOT__ . '/engine/backend/lang/'.$langc.'.php';
+
 require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/achievement-functions.php';
 
