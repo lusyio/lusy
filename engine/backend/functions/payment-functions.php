@@ -69,3 +69,25 @@ function addToPaymentsErrorLog($text)
     $current .= "\n";
     file_put_contents($file, $current);
 }
+
+function getOrdersList()
+{
+    global $pdo;
+    $ordersQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id FROM orders");
+    $ordersQuery->execute();
+    $orders = $ordersQuery->fetchAll(PDO::FETCH_ASSOC);
+    return $orders;
+}
+
+function getPaymentId($orderId)
+{
+    global $pdo;
+    $paymentIdQuery = $pdo->prepare("SELECT payment_id FROM orders WHERE order_id = :orderId");
+    $paymentIdQuery->execute([':orderId' => $orderId]);
+    $paymentId = $paymentIdQuery->fetch(PDO::FETCH_COLUMN);
+    if ($paymentId) {
+        return $paymentId;
+    } else {
+        return false;
+    }
+}
