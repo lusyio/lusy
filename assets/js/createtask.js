@@ -184,7 +184,7 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log(data);
                     if (data.error === 'taskLimit') {
-                        console.log('Task Limit')
+                        $("#taskLimitModal").modal('show');
                     }else if (data.taskId !== '') {
                         location.href = '/task/' + data.taskId + '/';
                     }

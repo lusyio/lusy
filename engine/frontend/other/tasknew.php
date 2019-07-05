@@ -165,6 +165,25 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="taskLimitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center d-block">
+                <h5 class="modal-title" id="exampleModalLabel">Лимит задач</h5>
+            </div>
+            <div class="modal-body text-center">
+                Извините, у вас ичерпан лимит задач в этом месяце. Безлимитное число задач доступно в Premium версии.
+            </div>
+            <div class="modal-footer border-0">
+                <?php if ($isCeo): ?>
+                    <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
+                <?php endif; ?>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/assets/js/createtask.js?1"></script>
 <?php if ($tariff == 1):?>
 <script type="text/javascript">
