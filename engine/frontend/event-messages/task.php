@@ -131,7 +131,7 @@
             $eventText .= $GLOBALS['_taskNewDeadline'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         } else {
             $eventText = $GLOBALS['_confirmYourPostponeAsk'] . ' - ';
-            $eventText .= $taskLink;
+            $eventText .= $taskLink . '. ';
             $eventText .= $GLOBALS['_taskNewDeadline'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         }
     }
@@ -171,7 +171,7 @@
             $eventText .= $GLOBALS['_taskNewDeadline'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         } else {
             $eventText = $GLOBALS['_newDateInYourTask'] . ' - ';
-            $eventText .= $taskLink;
+            $eventText .= $taskLink . '. ';
             $eventText .= $GLOBALS['_taskNewDeadline'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
         }
     }
