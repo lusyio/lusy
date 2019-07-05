@@ -2,7 +2,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.bundle.min.js"></script>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -25,114 +26,6 @@
     <div class="col-12 col-lg-10 col-xl-10">
         <div class="card">
             <div class="card-header bg-mail">
-                <div class="position-relative">
-                    <div class="text-reg" style="font-weight: 300;">
-                        Тариф
-                    </div>
-                </div>
-            </div>
-            <?php if ($tariff == 1):?>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-lg-6 price-card" style="opacity: 0.5">
-                        <div class="card-header bg-secondary">
-                        </div>
-                        <div class="card-body border text-center">
-                            <h4 class="price-header">
-                                Стартовый
-                            </h4>
-                            <span class="badge badge-secondary"><?=$_free?></span>
-                            <hr>
-                            <div class="price-content text-left">
-                                <li>
-                                    100 мб хранилища
-                                </li>
-                                <li>
-                                    200 задач
-                                </li>
-                            </div>
-                            <button class="btn btn-secondary mt-3">
-                                Перейти
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6 price-card">
-                        <div class="card-header bg-primary">
-                        </div>
-                        <div class="card-body border text-center">
-                            <h4 class="price-header">
-                                Всё включено
-                            </h4>
-                            <span class="badge badge-primary">до 10.07</span>
-                            <hr>
-                            <div class="price-content text-left">
-                                <li>
-                                    1000 мб хранилища
-                                </li>
-                                <li>
-                                    Безлимитные задачи
-                                </li>
-                            </div>
-                            <div class="mt-3">
-                                <i class="icon-price-prem fas fa-check"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php else:?>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-lg-6 price-card">
-                        <div class="card-header bg-secondary">
-                        </div>
-                        <div class="card-body border text-center">
-                            <h4 class="price-header">
-                                Стартовый
-                            </h4>
-                            <span class="badge badge-secondary"><?=$_free?></span>
-                            <hr>
-                            <div class="price-content text-left">
-                                <li>
-                                    100 мб хранилища
-                                </li>
-                                <li>
-                                    200 задач
-                                </li>
-                            </div>
-                            <div class="mt-3">
-                                <i class="icon-price-free fas fa-check"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6 price-card">
-                        <div class="card-header bg-primary">
-                        </div>
-                        <div class="card-body border text-center">
-                            <h4 class="price-header">
-                                Всё включено
-                            </h4>
-                            <span class="badge badge-primary"><?=$_premium?></span>
-                            <hr>
-                            <div class="price-content text-left">
-                                <li>
-                                    1000 мб хранилища
-                                </li>
-                                <li>
-                                    Безлимитные задачи
-                                </li>
-                            </div>
-                            <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal">
-                                Перейти
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php endif; ?>
-        </div>
-        <div class="card">
-            <div class="card-header border-top bg-mail">
                 <div class="position-relative">
                     <div class="text-reg" style="font-weight: 300;">
                         <?= $GLOBALS['_companysettings'] ?>
