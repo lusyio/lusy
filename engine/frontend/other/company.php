@@ -23,13 +23,13 @@
                 <div class="col-12 col-lg-9">
                     <div class="about-company">
                         <div class="mb-1">Описание:</div>
-                        <div style="color: #c6c9dc;">Отсутствует</div>
+                        <div style="color: #c6c9dc;"><?= ($companyData['description'] == '')? 'Отсутствует' : $companyData['description'] ?></div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-3">
                     <div class="site-company">
                         <div class="mb-1">Сайт:</div>
-                        <div style="color: #c6c9dc;">https://</div>
+                        <div style="color: #c6c9dc;"><?= ($companyData['site'] == '')? 'Https://' : $companyData['site'] ?></div>
                     </div>
                 </div>
             </div>

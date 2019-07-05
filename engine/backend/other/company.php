@@ -14,6 +14,8 @@ if ($roleu == 'ceo') {
     $isCeo = false;
 }
 $firstDay = strtotime(date('Y-m-01'));
+require_once __ROOT__ . '/engine/backend/functions/settings-functions.php';
+$companyData = getCompanyData();
 
 $taskDoneManagerQuery = $pdo->prepare("SELECT COUNT(distinct t.id) AS count, t.manager FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE e.company_id = :companyId AND e.action='workdone' AND datetime > :firstDay GROUP BY t.manager");
 $taskDoneManagerQuery->execute(array(':companyId' => $idc, ':firstDay' => $firstDay));
