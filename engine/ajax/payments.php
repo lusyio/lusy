@@ -40,14 +40,22 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
     try {
         $api->init($paymentArgs);
     } catch (Exception $e) {
+        ob_start();
+        echo "Счёт не сформирован\n";
         var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
     if ($response['Success']) {
         updateOrderOnSuccess($response);
         echo $response['PaymentURL'];
     } else {
-        //запись в лог
+        ob_start();
+        echo "Ошибка при создании счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
 }
 if($_POST['module'] == 'chargeSubscribe') {
@@ -67,7 +75,11 @@ if($_POST['module'] == 'chargeSubscribe') {
     try {
         $api->init($paymentArgs);
     } catch (Exception $e) {
+        ob_start();
+        echo "Счёт не сформирован\n";
         var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
     if ($response['Success']) {
@@ -84,16 +96,31 @@ if($_POST['module'] == 'chargeSubscribe') {
         try {
             $api->charge($paymentArgs);
         } catch (Exception $e) {
+            ob_start();
+            echo "Ошибка при проведении рекуррентного платежа\n";
+
             var_dump($e->getTrace());
+            $error = ob_get_clean();
+            addToPaymentsErrorLog($error);
         }
         $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
         if ($response['Success']) {
             updateOrderOnSuccess($response);
             echo 'Рекуррентный платёж проведен успешно';
             exit;
+        } else {
+            ob_start();
+            echo "Рекуррентный платёж не проведен\n";
+            var_dump($response);
+            $error = ob_get_clean();
+            addToPaymentsErrorLog($error);
         }
     } else {
-        //запись в лог
+        ob_start();
+        echo "Ошибка при создании счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
 }
 
@@ -120,14 +147,21 @@ if($_POST['module'] == 'cancelPayment' && !empty($_POST['orderId'])) {
     try {
         $api->cancel($paymentArgs);
     } catch (Exception $e) {
+        ob_start();
+        echo "Ошибка при отменне счета/платежа\n";
         var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
     if ($response['Success']) {
         updateOrderOnSuccess($response);
         echo 'Отмена проведена успешно' ;
     } else {
-        //запись в лог
-        echo 'Отмена не проведена';
+        ob_start();
+        echo "Ошибка при отмене счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
 }
