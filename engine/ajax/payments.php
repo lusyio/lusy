@@ -70,7 +70,7 @@ if($_POST['module'] == 'chargeSubscribe') {
         'Amount' => $amount,
         'OrderId' => $orderId,
         'CustomerKey' => $id,
-        'Description' => 'Продление подписки. Количество месяцев: '. $tariffForBuy,
+        'Description' => 'Продление подписки',
     ];
     try {
         $api->init($paymentArgs);

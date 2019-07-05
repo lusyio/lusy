@@ -50,10 +50,15 @@ function updateOrderOnNotification($notification)
     //======Конец сверки токенов======
 
     $updateOrderQuery = $pdo->prepare("UPDATE orders SET error_code = :errorCode, status = :status, rebill_id = :rebillId where order_id = :orderId");
+    if (isset($notification['RebillId'])) {
+        $rebillId = $notification['RebillId'];
+    } else {
+        $rebillId = null;
+    }
     $updateOrderData = [
         ':errorCode' => $notification['ErrorCode'],
         ':status' => $notification['Status'],
-        ':rebillId' => 0, //$notification['RebillId'],
+        ':rebillId' => $rebillId,
         ':orderId' => $notification['OrderId'],
     ];
     $updateOrderQuery->execute($updateOrderData);
