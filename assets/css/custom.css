@@ -1525,11 +1525,23 @@ a {
     text-align: center;
 }
 
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        height: 0;
+    }
+    100% {
+        opacity: 1;
+        height: 68px;
+    }
+}
+
 .event {
     -webkit-transition: all 1s ease-out; /** Chrome & Safari **/
     -moz-transition: all 1s ease-out; /** Firefox **/
     -o-transition: all 1s ease-out; /** Opera **/
     transition: all 1s ease-out;
+    animation: fade-in .4s ease;
 }
 .new-event {
     background-color: rgba(242, 242, 244, 0.4);
