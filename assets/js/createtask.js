@@ -18,6 +18,10 @@ $(document).ready(function () {
     var names;
     var size;
     var n = 0;
+    // window.addEventListener("beforeunload", function (event) {
+    //     event.preventDefault();
+    //     event.returnValue = 'фыв';
+    // });
 
 
     $("#sendFiles").bind('change', function () {

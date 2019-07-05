@@ -74,7 +74,7 @@ $monthDone = $_months[date('n', $actualDeadline) - 1];
 $nowdate = date("d.m.Y");
 $dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 
-$dateProgress = getDateProgress($task['datedone'], $actualDeadline);
+$dateProgress = getDateProgress($task['datedone'], $task['datecreate']);
 
 
 $view = $task['view'];

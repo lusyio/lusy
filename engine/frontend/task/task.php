@@ -145,7 +145,7 @@ if ($id == $worker and $view == 0) {
                                 <?php endif; ?>
                                 <input class="form-control form-control-sm mb-2" value="" type="date"
                                        id="deadlineInput"
-                                       min="">
+                                       min="" required>
                                 <button type="submit"
                                         id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
                                         class="btn btn-primary btn-sm float-left mb-3"><?= $GLOBALS["_change"] ?></button>
