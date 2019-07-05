@@ -91,3 +91,16 @@ function getPaymentId($orderId)
         return false;
     }
 }
+
+function getLastRebillId($userId)
+{
+    global $pdo;
+    $lastRebillIdQuery = $pdo->prepare("SELECT rebill_id FROM orders WHERE customer_key = :userId AND status = 'CONFIRMED' AND rebill_id IS NOT NULL ORDER BY create_date DESC LIMIT 1");
+    $lastRebillIdQuery->execute([':userId' => $userId]);
+    $lastRebillId = $lastRebillIdQuery->fetch(PDO::FETCH_COLUMN);
+    if ($lastRebillId) {
+        return $lastRebillId;
+    } else {
+        return false;
+    }
+}
