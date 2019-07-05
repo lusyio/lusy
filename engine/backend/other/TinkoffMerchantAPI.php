@@ -73,6 +73,11 @@ class TinkoffMerchantAPI
         return $this->buildQuery('Charge', $args);
     }
 
+    public function cancel($args)
+    {
+        return $this->buildQuery('Cancel', $args);
+    }
+
     public function addCustomer($args)
     {
         return $this->buildQuery('AddCustomer', $args);
