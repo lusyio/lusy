@@ -50,10 +50,15 @@ function updateOrderOnNotification($notification)
     //======Конец сверки токенов======
 
     $updateOrderQuery = $pdo->prepare("UPDATE orders SET error_code = :errorCode, status = :status, rebill_id = :rebillId where order_id = :orderId");
+    if (isset($notification['RebillId'])) {
+        $rebillId = $notification['RebillId'];
+    } else {
+        $rebillId = null;
+    }
     $updateOrderData = [
         ':errorCode' => $notification['ErrorCode'],
         ':status' => $notification['Status'],
-        ':rebillId' => 0, //$notification['RebillId'],
+        ':rebillId' => $rebillId,
         ':orderId' => $notification['OrderId'],
     ];
     $updateOrderQuery->execute($updateOrderData);
@@ -87,6 +92,19 @@ function getPaymentId($orderId)
     $paymentId = $paymentIdQuery->fetch(PDO::FETCH_COLUMN);
     if ($paymentId) {
         return $paymentId;
+    } else {
+        return false;
+    }
+}
+
+function getLastRebillId($userId)
+{
+    global $pdo;
+    $lastRebillIdQuery = $pdo->prepare("SELECT rebill_id FROM orders WHERE customer_key = :userId AND status = 'CONFIRMED' AND rebill_id IS NOT NULL ORDER BY create_date DESC LIMIT 1");
+    $lastRebillIdQuery->execute([':userId' => $userId]);
+    $lastRebillId = $lastRebillIdQuery->fetch(PDO::FETCH_COLUMN);
+    if ($lastRebillId) {
+        return $lastRebillId;
     } else {
         return false;
     }

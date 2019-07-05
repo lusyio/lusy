@@ -16,6 +16,7 @@ $tariffPrices = [
 ];
 
 if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
+    $subscribe = filter_var($_POST['subscribe'], FILTER_SANITIZE_NUMBER_INT);
     $tariffForBuy = filter_var($_POST['tariff'], FILTER_SANITIZE_NUMBER_INT);
     if (!key_exists($tariffForBuy, $tariffPrices)) {
         exit;
@@ -32,17 +33,94 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         'OrderId' => $orderId,
         'Description' => 'Оплата подписки. Количество месяцев: '. $tariffForBuy,
     ];
+    if ($subscribe) {
+        $paymentArgs['Recurrent'] = 'Y';
+        $paymentArgs['CustomerKey'] = $id;
+    }
     try {
         $api->init($paymentArgs);
     } catch (Exception $e) {
+        ob_start();
+        echo "Счёт не сформирован\n";
         var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
     if ($response['Success']) {
         updateOrderOnSuccess($response);
         echo $response['PaymentURL'];
     } else {
-        //запись в лог
+        ob_start();
+        echo "Ошибка при создании счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+    }
+}
+if($_POST['module'] == 'chargeSubscribe') {
+    $api = new TinkoffMerchantAPI(
+        TTKEY,  //Ваш Terminal_Key
+        TSKEY   //Ваш Secret_Key
+    );
+    $amount = 299 * 100; // цена услуги в копейках
+    $orderId = createOrder($id, $amount);
+
+    $paymentArgs = [
+        'Amount' => $amount,
+        'OrderId' => $orderId,
+        'CustomerKey' => $id,
+        'Description' => 'Продление подписки',
+    ];
+    try {
+        $api->init($paymentArgs);
+    } catch (Exception $e) {
+        ob_start();
+        echo "Счёт не сформирован\n";
+        var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+    }
+    $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
+    if ($response['Success']) {
+        updateOrderOnSuccess($response);
+        $rebillId = getLastRebillId($id);
+        if (!$rebillId) {
+            echo 'В базе нет такого rebill ID';
+            exit;
+        }
+        $paymentArgs = [
+            'PaymentId' => $response['PaymentId'],
+            'RebillId' => $rebillId,
+        ];
+        try {
+            $api->charge($paymentArgs);
+        } catch (Exception $e) {
+            ob_start();
+            echo "Ошибка при проведении рекуррентного платежа\n";
+
+            var_dump($e->getTrace());
+            $error = ob_get_clean();
+            addToPaymentsErrorLog($error);
+        }
+        $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
+        if ($response['Success']) {
+            updateOrderOnSuccess($response);
+            echo 'Рекуррентный платёж проведен успешно';
+            exit;
+        } else {
+            ob_start();
+            echo "Рекуррентный платёж не проведен\n";
+            var_dump($response);
+            $error = ob_get_clean();
+            addToPaymentsErrorLog($error);
+        }
+    } else {
+        ob_start();
+        echo "Ошибка при создании счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
 }
 
@@ -69,14 +147,21 @@ if($_POST['module'] == 'cancelPayment' && !empty($_POST['orderId'])) {
     try {
         $api->cancel($paymentArgs);
     } catch (Exception $e) {
+        ob_start();
+        echo "Ошибка при отменне счета/платежа\n";
         var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
     if ($response['Success']) {
         updateOrderOnSuccess($response);
         echo 'Отмена проведена успешно' ;
     } else {
-        //запись в лог
-        echo 'Отмена не проведена';
+        ob_start();
+        echo "Ошибка при отмене счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
     }
 }

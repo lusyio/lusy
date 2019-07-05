@@ -36,14 +36,34 @@
             </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="text-center">1 месяц</h5>
+            </div>
+            <div class="card-body">
+                <p>Подписка</p>
+                <p>299 Р</p>
+                <button data-tariff="2" class="buy-premium form-control btn btn-primary">Купить</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<button class="charge-subscribe form-control btn btn-primary">Продлить</button>
 
 <script>
     $(document).ready(function () {
         $('.buy-premium').on('click', function () {
             var tariff = $(this).data('tariff');
+            var subscribe = '0';
+            if (tariff == 2) {
+                tariff = 1;
+                subscribe = '1';
+            }
             var fd = new FormData();
             fd.append('tariff', tariff);
+            fd.append('subscribe', subscribe);
             fd.append('module', 'getPaymentLink');
             fd.append('ajax', 'payments');
             $.ajax({
@@ -55,6 +75,23 @@
                 data: fd,
                 success: function (response) {
                     window.open(response);
+                },
+            });
+        });
+
+        $('.charge-subscribe').on('click', function () {
+            var fd = new FormData();
+            fd.append('module', 'chargeSubscribe');
+            fd.append('ajax', 'payments');
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (response) {
+                    //window.open(response);
                 },
             });
         })
