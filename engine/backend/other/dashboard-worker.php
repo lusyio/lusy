@@ -22,7 +22,7 @@ $pending = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.
 $postpone = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="postpone"');
 $overdue = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
 
-$events = getEventsForUser();
+$events = getEventsForUser(21);
 prepareEvents($events);
 
 $newtask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "new" and worker='.$id);

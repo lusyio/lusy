@@ -260,9 +260,16 @@ $borderColor = [
         <hr class="mb-0">
         <div id="logDashBoard">
             <ul class="timeline" style="bottom: 0px;">
+                <?php $eventNumber = 1; ?>
                 <?php foreach ($events as $event): ?>
-                    <?php renderEvent($event); ?>
+                    <?php if($eventNumber < 21) {
+                        renderEvent($event);
+                        $eventNumber++;
+                    } ?>
                 <?php endforeach; ?>
+                <?php if (count($events) > 20): ?>
+                
+                <?php endif; ?>
             </ul>
         </div>
     </div>

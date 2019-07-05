@@ -25,7 +25,7 @@ require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 
 
-$events = getEventsForUser();
+$events = getEventsForUser(21);
 prepareEvents($events);
 
 $newtask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "new" and worker='.$id);

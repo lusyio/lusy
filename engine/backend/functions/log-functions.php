@@ -81,18 +81,22 @@ function getAchievements($userId)
     return $userAchievements;
 }
 
-function getEventsForUser()
+function getEventsForUser($limit = 0)
 {
     global $id;
     global $idc;
     global $pdo;
 
+    $limitQuery = '';
+    if ($limit > 0) {
+        $limitQuery = ' LIMIT ' . $limit;
+    }
     $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS comment, c.comment AS commentText, e.datetime, e.view_status, t.worker FROM events e
   LEFT JOIN tasks t ON t.id = e.task_id
   LEFT JOIN users u on u.id = e.author_id
   LEFT JOIN comments c on c.id = e.comment                                                                              
   WHERE e.recipient_id = :userId OR (e.recipient_id = 0 AND e.company_id = :companyId)
-  ORDER BY e.datetime DESC');
+  ORDER BY e.datetime DESC' . $limitQuery);
 
     $eventsQuery->execute(array(':userId' => $id, ':companyId' => $idc));
     $events = $eventsQuery->fetchAll(PDO::FETCH_ASSOC);
