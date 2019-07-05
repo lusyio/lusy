@@ -58,6 +58,7 @@
             var tariff = $(this).data('tariff');
             var subscribe = '0';
             if (tariff == 2) {
+                tariff = 1;
                 subscribe = '1';
             }
             var fd = new FormData();
