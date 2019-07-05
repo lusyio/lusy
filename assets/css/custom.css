@@ -1525,6 +1525,10 @@ a {
     text-align: center;
 }
 
+.sleep-container{
+    opacity: 0.5;
+}
+
 @keyframes fade-in {
     0% {
         opacity: 0;
