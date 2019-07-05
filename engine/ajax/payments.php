@@ -91,6 +91,7 @@ if($_POST['module'] == 'chargeSubscribe') {
             updateOrderOnSuccess($response);
             echo 'Рекуррентный платёж проведен успешно';
             exit;
+        }
     } else {
         //запись в лог
     }
