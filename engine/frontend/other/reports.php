@@ -66,93 +66,100 @@
     </div>
 </div>
 
-<div class="mt-3">
-    <div class="card">
-        <div class="d-flex flex-wrap">
-            <div class="card-body w-50 border-bottom border-right">
-                <img src="/upload/avatar/2/2-alter.jpg" class="avatar">
-                <div class="d-inline ml-2"><span>Иван петрович</span></div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <div class="text-muted">
-                            <div class="text-success">Выполнено</div>
-                            <div>Просрочено</div>
-                            <div>Комментарии</div>
-                            <div>События</div>
-                        </div>
-                    </div>
-                    <div class="col-3 col-lg-2">
-                        <div class="text-success">50</div>
-                        <div>24</div>
-                        <div>23</div>
-                        <div>12</div>
-                    </div>
-                </div>
+<div class="card mt-3">
+    <div class="card-body">
+        <h5>
+            Настройка интервала построения отчета
+        </h5>
+        <div class="row">
+            <div class="col">
+                <label>
+                    Дата начала:
+                </label>
+                <input type="date" class="form-control form-control-sm" value="<?= $GLOBALS["now"] ?>"
+                       id="startReportDate">
             </div>
-            <div class="card-body w-50 border-bottom ">
-                <img src="/upload/avatar/2/2-alter.jpg" class="avatar">
-                <div class="d-inline ml-2">Иван петрович</div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <div class="text-muted">
-                            <div>Выполнено</div>
-                            <div class="text-danger">Просрочено</div>
-                            <div>Комментарии</div>
-                            <div>События</div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div>12</div>
-                        <div class="text-danger">50</div>
-                        <div>23</div>
-                        <div>12</div>
-                    </div>
-                </div>
+            <div class="col">
+                <label>
+                    Дата конца:
+                </label>
+                <input type="date" class="form-control form-control-sm" value="<?= $GLOBALS["now"] ?>"
+                       id="startReportDate">
             </div>
-            <div class="card-body w-50 border-bottom border-right">
-                <img src="/upload/avatar/2/2-alter.jpg" class="avatar">
-                <div class="d-inline ml-2">Иван петрович</div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <div class="text-muted">
-                            <div>Выполнено</div>
-                            <div>Просрочено</div>
-                            <div class="text-warning">Комментарии</div>
-                            <div>События</div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div>12</div>
-                        <div>24</div>
-                        <div class="text-warning">50</div>
-                        <div>12</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body w-50 border-bottom">
-                <img src="/upload/avatar/2/2-alter.jpg" class="avatar">
-                <div class="d-inline ml-2">Иван петрович</div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <div class="text-muted">
-                            <div>Выполнено</div>
-                            <div>Просрочено</div>
-                            <div>Комментарии</div>
-                            <div class="text-primary">События</div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div>12</div>
-                        <div>24</div>
-                        <div>23</div>
-                        <div class="text-primary">50</div>
-                    </div>
-                </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col text-center">
+                <button class="btn btn-primary">Построить отчет</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="card mt-3">
+    <div class="d-flex flex-wrap report-container">
+        <?php
+        require_once __ROOT__ . '/engine/backend/other/company.php';
+        foreach ($sql as $n):
+            $overdue = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="overdue"');
+            $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')'); ?>
+
+            <div class="card-body border-bottom border-right report-card-worker">
+                <a href="/profile/<?= $n['id'] ?>/" class="text-decoration-none">
+                    <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar">
+                </a>
+                <a href="/profile/<?= $n['id'] ?>/">
+                    <div class="d-inline ml-2"><span><?= $n["name"] ?> <?= $n["surname"] ?></span></div>
+                </a>
+                <span class="float-right icon-full-info-reports" style="color: #dadbdc; cursor: pointer;" data-toggle="tooltip"
+                      data-placement="bottom" title="Полная информация">
+                <i class="fas fa-ellipsis-h" style="font-size: 20px"></i>
+                </span>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <div class="text-muted">
+                            <div>Выполнено</div>
+                            <div>Просрочено</div>
+                            <div>В работе</div>
+                        </div>
+                    </div>
+                    <div class="col-3 col-lg-3 text-center">
+                        <div class="count-company-tasks">
+                            <span class="badge badge-company-primary"><?= $n['doneAsManager'] ?></span>
+                            <span class="badge badge-company-dark"><?= $n['doneAsWorker'] ?></span>
+                        </div>
+                        <div><?= $overdue ?></div>
+                        <div><?= $inwork ?></div>
+                    </div>
+                </div>
+                <div class="row more-info-reports">
+                    <div class="col">
+                        <h6>
+                            Подбробная информация о сотруднике:
+                        </h6>
+                        <span class="text-muted">
+                            Последние задачи
+                        </span>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var i = 1;
+        $('.icon-full-info-reports').on('click', function () {
+            i++;
+            if (i % 2 === 0) {
+                $('.report-card-worker').hide();
+                $(this).parents('.report-card-worker').show();
+                $('.report-card-worker:visible').find('.more-info-reports').show();
+            } else{
+                $('.more-info-reports').hide();
+                $('.report-card-worker').show();
+            }
+        })
+    });
+</script>

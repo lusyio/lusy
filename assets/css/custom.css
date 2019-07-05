@@ -1637,6 +1637,22 @@ a {
     border: none !important;
 }
 
+.report-card-worker{
+    width: 50%;
+}
+
+.report-card-worker:nth-child(2){
+    border-right: none !important;
+}
+
+.more-info-reports{
+    display: none;
+}
+
+.report-card-worker:last-of-type{
+    border-right: none !important;
+}
+
 .comin input {
     width: calc(100% - 76px);
     display: inline-block;
