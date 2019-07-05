@@ -52,7 +52,7 @@
         <div class="file-name container-files" style="display: none"></div>
     </div>
 </div>
-<?php if ($tariff == 1):?>
+<?php if ($tariff == 1): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================
         //=Create object of FilePicker Constructor function function & set Properties===
@@ -66,12 +66,14 @@
                     }
                 });
         }
+
         //====================Create POPUP function==============
         function PopupCenter(url, title, w, h) {
             var left = (screen.width / 2) - (w / 2);
             var top = (screen.height / 2) - (h / 2);
             return window.open(url, title, 'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
         }
+
         //===============Create Constructor function==============
         function FilePicker(User) {
             //Configuration
@@ -87,8 +89,9 @@
             //Load the drive API
             gapi.client.setApiKey(this.apiKey);
             gapi.client.load('drive', 'v2', this.DriveApiLoaded.bind(this));
-            gapi.load('picker', '1', { callback: this.PickerApiLoaded.bind(this) });
+            gapi.load('picker', '1', {callback: this.PickerApiLoaded.bind(this)});
         }
+
         FilePicker.prototype = {
             //==========Check Authentication & Call ShowPicker() function=======
             open: function () {
@@ -96,24 +99,16 @@
                 if (token) {
                     this.ShowPicker();
                 } else {
-                    this.DoAuth(false, function ()
-                    { this.ShowPicker(); }.bind(this));
+                    this.DoAuth(false, function () {
+                        this.ShowPicker();
+                    }.bind(this));
                 }
             },
             //========Show the file picker once authentication has been done.=========
             ShowPicker: function () {
                 var accessToken = gapi.auth.getToken().access_token;
                 var DisplayView = new google.picker.DocsView().setIncludeFolders(true);
-                this.picker = new google.picker.PickerBuilder().
-                addView(DisplayView).
-                enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
-                setAppId(this.clientId).
-                setOAuthToken(accessToken).
-                setCallback(this.PickerResponse.bind(this)).
-                setTitle('Google Drive').
-                setLocale('ru').
-                build().
-                setVisible(true);
+                this.picker = new google.picker.PickerBuilder().addView(DisplayView).enableFeature(google.picker.Feature.MULTISELECT_ENABLED).setAppId(this.clientId).setOAuthToken(accessToken).setCallback(this.PickerResponse.bind(this)).setTitle('Google Drive').setLocale('ru').build().setVisible(true);
             },
             //====Called when a file has been selected in the Google Picker Dialog Box======
             PickerResponse: function (data) {
@@ -121,7 +116,7 @@
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
                         console.log(file);
-                        addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive' );
+                        addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive');
                     });
                 }
             },
@@ -150,7 +145,7 @@
 
         //=======================Dropbox==========================
         options = {
-            success: function(files) {
+            success: function (files) {
                 files.forEach(function (file) {
                     addFileToList(file.name, file.link, file.bytes, 'dropbox', 'fab fa-dropbox');
                 })
@@ -162,6 +157,7 @@
         $('#openDropbox').on('click', function () {
             Dropbox.choose(options);
         });
+
         //===================End of Dropbox=======================
         function addFileToList(name, link, source, icon) {
             $(".file-name").show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "'>" +
@@ -172,7 +168,8 @@
     </script>
     <script src="https://www.google.com/jsapi?key=AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc"></script>
     <script src="https://apis.google.com/js/client.js?onload=SetPicker"></script>
-    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="pjjm32k7twiooo2"></script>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs"
+            data-app-key="pjjm32k7twiooo2"></script>
 <?php endif; ?>
 
 <script>
@@ -280,18 +277,24 @@
 
         var fileList = new Map();
         var names;
-        var sizes;
         var n = 0;
+        var size;
 
         $("#sendFiles").bind('change', function () {
             $(this.files).each(function () {
                 names = this.name;
-                fileList.set(n, $(this)[0]);
-                $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
-                    "<i class='fas fa-paperclip mr-1'></i>" + names +
-                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
-                    "</div>");
-                n++;
+                size = this.size;
+                var sizeLimit = $('.dropdown').attr('empty-space');
+                if (size <= sizeLimit) {
+                    fileList.set(n, $(this)[0]);
+                    $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
+                        "<i class='fas fa-paperclip mr-1'></i>" + names +
+                        "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                        "</div>");
+                    n++;
+                } else {
+                    $("#fileSizeLimitModal").modal('show');
+                }
             });
         });
 

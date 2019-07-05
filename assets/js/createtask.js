@@ -16,18 +16,25 @@ $(document).ready(function () {
 
     var fileList = new Map();
     var names;
-    var sizes;
+    var size;
     var n = 0;
+
 
     $("#sendFiles").bind('change', function () {
         $(this.files).each(function () {
             names = this.name;
-            fileList.set(n, $(this)[0]);
-            $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
-                "<i class='fas fa-paperclip mr-1'></i>" + names +
-                "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
-                "</div>");
-            n++;
+            size = this.size;
+            var sizeLimit = $('.dropdown').attr('empty-space');
+            if (size <= sizeLimit) {
+                fileList.set(n, $(this)[0]);
+                $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
+                    "<i class='fas fa-paperclip mr-1'></i>" + names +
+                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                    "</div>");
+                n++;
+            } else {
+                $("#fileSizeLimitModal").modal('show');
+            }
         });
     });
 
@@ -171,7 +178,7 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('ajax', 'task-control');
-        if (name != null && delta != null && datedone != null && datedone >= checkDate  && responsible != null) {
+        if (name != null && delta != null && datedone != null && datedone >= checkDate && responsible != null) {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -185,7 +192,7 @@ $(document).ready(function () {
                     console.log(data);
                     if (data.error === 'taskLimit') {
                         $("#taskLimitModal").modal('show');
-                    }else if (data.taskId !== '') {
+                    } else if (data.taskId !== '') {
                         location.href = '/task/' + data.taskId + '/';
                     }
                 },

@@ -92,7 +92,7 @@
         </div>
         <?php else: // БЛОК ДЛЯ БЕСПЛАТНОГО ТАРИФА?>
             <div class="row mt-2">
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-5">
                     <div class="form-group">
                         <label>
                             Дата окончания
@@ -101,7 +101,7 @@
                                value="<?= $GLOBALS["now"] ?>" required>
                     </div>
                 </div>
-                <div class="col-12 col-md-8 coworkers-newtask">
+                <div class="col-12 col-md-7 coworkers-newtask">
                     <label><?= $GLOBALS['_responsiblenewtask'] ?></label>
                     <div class="container container-responsible d-flex flex-wrap align-content-sm-stretch"
                          style="min-height: 38px">

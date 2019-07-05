@@ -116,8 +116,8 @@ $(document).ready(function () {
 
     var fileList = new Map();
     var names;
-    var sizes;
     var n = 0;
+    var size
 
     $(".file-name-review").on('click', '.cancelFile', function () {
         $(this).closest(".filenames").remove();
@@ -131,24 +131,36 @@ $(document).ready(function () {
     $('#sendFilesReview').bind('change', function () {
         $(this.files).each(function () {
             names = this.name;
-            fileList.set(n, $(this)[0]);
-            $(".file-name-review").show().append("<div val='" + n + "' class='filenames mt-1'>" +
-                "<i class='fas fa-paperclip mr-1'></i>" + names +
-                "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
-                "</div>");
-            n++;
+            size = this.size;
+            var sizeLimit = $('.dropdown').attr('empty-space');
+            if (size <= sizeLimit) {
+                fileList.set(n, $(this)[0]);
+                $(".file-name-review").show().append("<div val='" + n + "' class='filenames mt-1'>" +
+                    "<i class='fas fa-paperclip mr-1'></i>" + names +
+                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                    "</div>");
+                n++;
+            } else {
+                $("#fileSizeLimitModal").modal('show');
+            }
         });
     });
 
     $("#sendFiles").bind('change', function () {
         $(this.files).each(function () {
             names = this.name;
-            fileList.set(n, $(this)[0]);
-            $(".file-name").show().append("<div val='" + n + "' class='filenames mt-1'>" +
-                "<i class='fas fa-paperclip mr-1'></i>" + names +
-                "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
-                "</div>");
-            n++;
+            var size = this.size;
+            var sizeLimit = $('.dropdown').attr('empty-space');
+            if (size <= sizeLimit) {
+                fileList.set(n, $(this)[0]);
+                $(".file-name").show().append("<div val='" + n + "' class='filenames mt-1'>" +
+                    "<i class='fas fa-paperclip mr-1'></i>" + names +
+                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                    "</div>");
+                n++;
+            } else {
+                $("#fileSizeLimitModal").modal('show');
+            }
         });
     });
 
