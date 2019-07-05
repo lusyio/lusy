@@ -404,8 +404,7 @@
                                          style="justify-content: space-between;">
                                         <span>Не беспокоить</span>
                                         <div class="d-flex">
-                                            <select class="form-control form-control-sm" id="startSleep"
-                                                    style="width: 50%">
+                                            <select class="form-control form-control-sm" id="startSleep">
                                                 <option hidden></option>
                                                 <option value="-1" <?= ($notifications['silence_start'] == '-1') ? 'selected' : '' ?> >
                                                     Присылать всегда
@@ -416,8 +415,7 @@
                                                     </option>
                                                 <?php endfor; ?>
                                             </select>–
-                                            <select class="form-control form-control-sm" id="endSleep"
-                                                    style="width: 50%">
+                                            <select class="form-control form-control-sm" id="endSleep">
                                                 <option hidden></option>
                                                 <?php for ($i = 0; $i < 24; $i++): ?>
                                                     <option value="<?= $i ?>" <?= ($notifications['silence_end'] == $i) ? 'selected' : '' ?>><?= $i ?>
