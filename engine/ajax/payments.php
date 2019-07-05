@@ -36,6 +36,7 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
     if ($subscribe) {
         $paymentArgs['Recurrent'] = 'Y';
         $paymentArgs['CustomerKey'] = $id;
+        $paymentArgs['PayType'] = 'T';
     }
     try {
         $api->init($paymentArgs);
