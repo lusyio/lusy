@@ -2276,6 +2276,10 @@ span.date {
         margin-top: 15px;
     }
 
+    .noty-padding-content-settings-sleep{
+        display: block !important;
+    }
+
     .change-plan-date{
         width: 76% !important;;
     }

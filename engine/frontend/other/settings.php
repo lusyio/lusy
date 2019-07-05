@@ -400,7 +400,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="noty-padding-content-settings d-flex"
+                                    <div class="noty-padding-content-settings d-flex noty-padding-content-settings-sleep"
                                          style="justify-content: space-between;">
                                         <span>Не беспокоить</span>
                                         <div class="d-flex sleep-container">
