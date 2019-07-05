@@ -1645,7 +1645,10 @@ a {
 .comin #dropdownMenuButton {
     float: right;
     width: 45px;
-    height: 38px;
+    height: 36px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
 }
 
 .comin #comment {
