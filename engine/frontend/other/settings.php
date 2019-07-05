@@ -400,15 +400,15 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="noty-padding-content-settings d-flex"
+                                    <div class="noty-padding-content-settings d-flex noty-padding-content-settings-sleep"
                                          style="justify-content: space-between;">
                                         <span>Не беспокоить</span>
-                                        <div class="d-flex">
+                                        <div class="d-flex sleep-container">
                                             <select class="form-control form-control-sm" id="startSleep">
                                                 <option hidden></option>
-                                                <option value="-1" <?= ($notifications['silence_start'] == '-1') ? 'selected' : '' ?> >
-                                                    Присылать всегда
-                                                </option>
+<!--                                                <option value="-1" --><?//= ($notifications['silence_start'] == '-1') ? 'selected' : '' ?><!-- >-->
+<!--                                                    Присылать всегда-->
+<!--                                                </option>-->
                                                 <?php for ($i = 0; $i < 24; $i++): ?>
                                                     <option value="<?= $i ?>" <?= ($notifications['silence_start'] == $i) ? 'selected' : '' ?>><?= $i ?>
                                                         :00
@@ -424,6 +424,12 @@
                                                 <?php endfor; ?>
                                             </select>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 col-lg-2">
+                                    <div class="noty-padding-content-settings noty-padding-checkbox-settings">
+                                        <input type="checkbox"
+                                               id="sleepTime" <?= ($notifications['silence_start'] == '-1') ? '' : 'checked' ?>>
                                     </div>
                                 </div>
                             </div>
@@ -443,16 +449,30 @@
 
     $(document).ready(function () {
 
-        if ($('#startSleep').val() == '-1') {
-            $('#endSleep').attr('disabled', true);
-        }
-        $('#startSleep').change(function (e) {
-            if ($(this).val() == '-1') {
-                $('#endSleep').attr('disabled', true);
-            } else {
+        $('#sleepTime').on('change', function () {
+            if ($(this).is(':checked')){
+                console.log('asd');
+                $('.sleep-container').css('opacity', '1');
                 $('#endSleep').attr('disabled', false);
+                $('#startSleep').attr('disabled', false);
+            } else {
+                $('.sleep-container').css('opacity', '0.5');
+                $('#endSleep').attr('disabled', true);
+                $('#startSleep').attr('disabled', true);
             }
         });
+
+        if ($('#sleepTime').is(':checked')){
+            console.log('asd');
+            $('.sleep-container').css('opacity', '1');
+            $('#endSleep').attr('disabled', false);
+            $('#startSleep').attr('disabled', false);
+        } else {
+            $('.sleep-container').css('opacity', '0.5');
+            $('#endSleep').attr('disabled', true);
+            $('#startSleep').attr('disabled', true);
+        }
+
 
         function checkInput() {
             var objCheck = {};

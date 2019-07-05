@@ -28,6 +28,7 @@ $(document).ready(function () {
         $(this.files).each(function () {
             names = this.name;
             size = this.size;
+
             var sizeLimit = $('.dropdown').attr('empty-space');
             if (size <= sizeLimit) {
                 fileList.set(n, $(this)[0]);

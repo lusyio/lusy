@@ -1525,6 +1525,10 @@ a {
     text-align: center;
 }
 
+.sleep-container{
+    opacity: 0.5;
+}
+
 @keyframes fade-in {
     0% {
         opacity: 0;
@@ -2270,6 +2274,10 @@ span.date {
 
     .price-card:last-of-type{
         margin-top: 15px;
+    }
+
+    .noty-padding-content-settings-sleep{
+        display: block !important;
     }
 
     .change-plan-date{
