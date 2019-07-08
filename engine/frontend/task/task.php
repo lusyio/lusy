@@ -136,6 +136,7 @@ if ($id == $worker and $view == 0) {
                                 </div>
                             </medium>
                         </div>
+                        <?php if (!$isCeo && !$isCoworker): ?>
                         <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
                         <div id="change-date">
                             <div class="form-group mb-0 p-3">
@@ -151,6 +152,7 @@ if ($id == $worker and $view == 0) {
                                         class="btn btn-primary btn-sm float-left mb-3"><?= $GLOBALS["_change"] ?></button>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-6 col-lg-8 ">
@@ -189,13 +191,14 @@ if ($id == $worker and $view == 0) {
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
-
+            <?php if (!$isCeo && !$isCoworker): ?>
             <div id="control">
                 <?php
                 include __ROOT__ . '/engine/backend/task/task/control/' . $role . '/' . $status . '.php';
                 include __ROOT__ . '/engine/frontend/task/control/' . $role . '/' . $status . '.php';
                 ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
     <?php if ($enableComments): ?>
