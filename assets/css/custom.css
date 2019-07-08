@@ -1572,12 +1572,47 @@ a {
     }
 }
 
+@-webkit-keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
 .event {
     -webkit-transition: all 1s ease-out; /** Chrome & Safari **/
     -moz-transition: all 1s ease-out; /** Firefox **/
     -o-transition: all 1s ease-out; /** Opera **/
     transition: all 1s ease-out;
-    animation: fade-in .6s ease-in-out;
+    animation: fadeInUp 0.5s ease-in-out;
 }
 .new-event {
     background-color: rgba(242, 242, 244, 0.4);
