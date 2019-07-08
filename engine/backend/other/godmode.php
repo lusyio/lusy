@@ -2,9 +2,9 @@
 global $idc;
 global $pdo;
 
-//if ($idc != 1) {
-//    header('Location: /');
-//}
+if ($idc != 1) {
+    header('Location: /');
+}
 
 $countCompanies = DBOnce('count(*)','company','');
 $countUsers = DBOnce('count(*)','users','');
