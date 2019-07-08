@@ -136,7 +136,7 @@ if ($id == $worker and $view == 0) {
                                 </div>
                             </medium>
                         </div>
-                        <?php if (!$isCeo && !$isCoworker): ?>
+                        <?php if (!$isCeo || !$isCoworker): ?>
                         <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
                         <div id="change-date">
                             <div class="form-group mb-0 p-3">
