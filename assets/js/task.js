@@ -117,7 +117,7 @@ $(document).ready(function () {
     var fileList = new Map();
     var names;
     var n = 0;
-    var size
+    var size;
 
     $(".file-name-review").on('click', '.cancelFile', function () {
         $(this).closest(".filenames").remove();
@@ -217,6 +217,7 @@ $(document).ready(function () {
                         $('#comment').html('<i class="fas fa-paper-plane"></i>');
                         $("#comin").attr("disabled", false);
                     }, 500);
+                    $('.file-name').hide();
                     fileList = new Map();
                 },
             });

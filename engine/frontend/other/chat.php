@@ -341,6 +341,7 @@
                         $("#mes").val('');
                         $(".filenames").html("");
                         fileList = new Map();
+                        $('.file-name').hide();
                     },
                 });
                 $("#mes").removeClass('border-danger');
