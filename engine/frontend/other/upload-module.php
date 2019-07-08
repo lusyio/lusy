@@ -1,13 +1,14 @@
 <span class="btn btn-light btn-file border d-none">
             <i class="fas fa-file-upload custom-date mr-2"></i>
             <span class="attach-file text-muted"><?= $GLOBALS['_choosefilenewtask'] ?></span>
-            <input id="sendFiles" type="file" multiple>
+            <input id="sendFiles" type="file" onchange='openFile(event)' multiple>
         </span>
 <div class="dropdown" empty-space="<?= $emptySpace ?>">
     <?php if ($uploadModule == 'chat'): ?>
         <button class="text-muted mr-2 btn btn-light btn-file border dropdown-toggle" type="button"
                 id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-paperclip fas fa-paperclip"></i>
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                    class="icon-paperclip fas fa-paperclip"></i>
         </button>
     <?php else: ?>
         <button class="text-muted btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -15,7 +16,8 @@
         </button>
     <?php endif; ?>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item attach-file" href="#"><i class="fas fa-file-upload custom-date mr-2" style="width: 25px;text-align: center;"></i>
+        <a class="dropdown-item attach-file" href="#"><i class="fas fa-file-upload custom-date mr-2"
+                                                         style="width: 25px;text-align: center;"></i>
             <span>С компьютера</span></a>
         <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i
                     class="custom-date mr-2 fab fa-google-drive"></i>
@@ -65,3 +67,39 @@
         </div>
     </div>
 </div>
+
+<script>
+    var stateNames = {};
+    stateNames[FileReader.EMPTY] = 'EMPTY';
+    stateNames[FileReader.LOADING] = 'LOADING';
+    stateNames[FileReader.DONE] = 'Загрузка завершена';
+
+    var openFile = function (event) {
+        var input = event.target;
+        var reader = new FileReader();
+
+        reader.readAsDataURL(input.files[0]);
+        reader.onloadstart = function () {
+            $(window).bind('beforeunload', function () {
+                event.preventDefault();
+                event.returnValue = 'as';
+            });
+            $('.filenames').append('<div class="spinner-border spinner-border-sm text-secondary" role="status">\n' +
+                '  <span class="sr-only">Loading...</span>\n' +
+                '</div>');
+        };
+        reader.onloadend = function () {
+            $.when($('.spinner-border-sm').fadeOut(300)).done(function () {
+                $('.filenames').append('<i class="iconSlide-loading fas fa-check"></i>');
+                setTimeout(function () {
+                    $('.iconSlide-loading').fadeOut(300);
+                }, 1000);
+                console.log('After load: ' + stateNames[reader.readyState]);
+            });
+            $(window).unbind('beforeunload');
+        };
+
+        console.log('After read: ' + stateNames[reader.readyState]);
+
+    };
+</script>
