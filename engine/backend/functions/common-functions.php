@@ -998,7 +998,10 @@ function addCommentEvent($taskId, $commentId)
     }
 
     //sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
-    addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipients, $commentId], $recipients, $eventIds);
+    foreach ($recipients as $key => $recipient) {
+        addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipient, $commentId], $recipient, $eventIds[$recipient]);
+
+    }
 }
 
 function concatName($name, $surname)
