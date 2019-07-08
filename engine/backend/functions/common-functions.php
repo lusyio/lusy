@@ -1181,7 +1181,9 @@ function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
 {
     global $id;
     global $pdo;
-
+    if (!is_array($userIds)) {
+        $userIds = [$userIds];
+    }
     $usersToNotification = [];
 
     foreach ($userIds as $user) {
