@@ -850,6 +850,21 @@ input:checked[type="checkbox"]::before {
     background-color: #f2f2f2;
 }
 
+.btn-light#loadLog:hover{
+    background-color: #f2f2f2;
+    border-color: #f2f2f2;
+}
+
+.btn-light#loadArchiveCanceled:hover{
+    background-color: #f2f2f2;
+    border-color: #f2f2f2;
+}
+
+.btn-light#loadArchiveDone:hover{
+    background-color: #f2f2f2;
+    border-color: #f2f2f2;
+}
+
 .show>.btn-file.btn-light.dropdown-toggle {
     color: #212529;
     background-color: #f2f2f2;
