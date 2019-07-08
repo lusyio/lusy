@@ -203,7 +203,7 @@ if ($id == $worker and $view == 0) {
             <div class="card-body">
                 <div class="d-flex comin">
                 <textarea class="form-control mr-2" id="comin" rows="1" name="comment" type="text" autocomplete="off"
-                          placeholder="<?= $GLOBALS["_writecomment"] ?>..." required style="padding-right: 45px;"></textarea>
+                          placeholder="<?= $GLOBALS["_writecomment"] ?>..." style="padding-right: 45px;"></textarea>
 
                     <?php $uploadModule = 'chat'; ?>
                     <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
