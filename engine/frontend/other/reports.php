@@ -68,7 +68,7 @@
     </div>
 </div>
 
-<form id="create-report" method="post" action="">
+<form id="create-report" method="post">
     <div class="card mt-3">
         <div class="card-body">
             <h5>
@@ -152,7 +152,7 @@
     </div>
 </div>
 
-<div class="card mt-3 report-container">
+<div class="card mt-3 report-container" style="display: none;">
     <div class="card-body">
         <div class="d-flex flex-wrap report-container">
             <?php
@@ -224,7 +224,7 @@
         });
         $('.dataTables_length').addClass('bs-select');
 
-        $('.create-report').on('click', function (e) {
+        $('.create-report').on('submit', function (e) {
             e.preventDefault();
             var startDate = $('#startReportDate').val();
             var endDate = $('#endReportDate').val();
