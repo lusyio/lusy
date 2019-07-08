@@ -58,9 +58,6 @@
                 Извините, но функция загрузки файлов из облачных хранилищ доступна только в Premium версии
             </div>
             <div class="modal-footer border-0">
-                <?php if ($isCeo): ?>
-                    <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
-                <?php endif; ?>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
