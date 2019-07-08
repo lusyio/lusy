@@ -99,7 +99,7 @@
                         <?php
                         require_once __ROOT__ . '/engine/backend/other/company.php';
                         foreach ($sql as $n):?>
-                            <option val="<?= $n['id'] ?>"><span><?= $n["name"] ?> <?= $n["surname"] ?></option>
+                            <option value="<?= $n['id'] ?>"><span><?= $n["name"] ?> <?= $n["surname"] ?></option>
                             <?php
                             ?>
                         <?php endforeach; ?>
@@ -241,7 +241,7 @@
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
-
+                dataType: 'json',
                 cache: false,
                 processData: false,
                 contentType: false,
