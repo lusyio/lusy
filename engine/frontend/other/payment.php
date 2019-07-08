@@ -14,7 +14,7 @@
             <div class="card-body">
                 <h3 class="font-weight-bold">Уверенный</h3>
                 <p><span class="text-secondary">Периодичность оплаты<br>3 месяца</span> - 249 руб./мес.</p>
-                <button class="btn btn-secondary">Выбрать тариф</button>
+                <button class="btn btn-secondary" id="regPrice">Выбрать тариф</button>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
             <div class="card-body">
                 <h3 class="font-weight-bold">Босс</h3>
                 <p><span class="text-secondary">Периодичность оплаты<br>12 месяцев</span> - 199 руб./мес.</p>
-                <button class="btn btn-secondary">Выбрать тариф</button>
+                <button class="btn btn-secondary" id="bossPrice">Выбрать тариф</button>
             </div>
         </div>
     </div>
@@ -46,3 +46,31 @@
         <div class="text-danger" style="width: 150px">- 299 руб.</div>
     </div>
 </div>
+
+<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center d-block">
+                <h5 class="modal-title" id="exampleModalLabel">Тарифный план</h5>
+            </div>
+            <div class="modal-body text-center">
+                Извините, но функция загрузки файлов из облачных хранилищ доступна только в Premium версии
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#regPrice").on('click', function () {
+            $('#payModal').modal('show');
+        });
+        $("#bossPrice").on('click', function () {
+            $('#payModal').modal('show');
+        })
+    });
+</script>
