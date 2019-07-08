@@ -36,6 +36,8 @@
 <!---->
 <!---->
 <!--</div>-->
+<link href="/assets/css/datatables.min.css" rel="stylesheet">
+<script type="text/javascript" src="/assets/js/datatables.min.js"></script>
 <div class="card">
     <div class="card-body text-center">
         <h2 class="d-inline text-uppercase font-weight-bold">
@@ -66,36 +68,95 @@
     </div>
 </div>
 
-<div class="card mt-3">
-    <div class="card-body">
-        <h5>
-            Настройка интервала построения отчета
-        </h5>
-        <div class="row">
-            <div class="col">
-                <label>
-                    Дата начала:
-                </label>
-                <input type="date" class="form-control form-control-sm" value="<?= $GLOBALS["now"] ?>"
-                       id="startReportDate">
+<form id="create-report" method="post" action="">
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5>
+                Построение отчета
+            </h5>
+            <div class="row">
+                <div class="col">
+                    <label>
+                        Дата начала:
+                    </label>
+                    <input type="date" class="form-control form-control-sm" value="<?= $GLOBALS["now"] ?>"
+                           id="startReportDate">
+                </div>
+                <div class="col">
+                    <label>
+                        Дата конца:
+                    </label>
+                    <input type="date" class="form-control form-control-sm" value="<?= $GLOBALS["now"] ?>"
+                           id="endReportDate">
+                </div>
             </div>
-            <div class="col">
-                <label>
-                    Дата конца:
-                </label>
-                <input type="date" class="form-control form-control-sm" value="<?= $GLOBALS["now"] ?>"
-                       id="startReportDate">
+            <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <label>
+                        Выберите сотрудника
+                    </label>
+                    <select class="custom-select custom-select-sm" id="workerReport">
+                        <?php
+                        require_once __ROOT__ . '/engine/backend/other/company.php';
+                        foreach ($sql as $n):?>
+                            <option val="<?= $n['id'] ?>"><span><?= $n["name"] ?> <?= $n["surname"] ?></option>
+                            <?php
+                            ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col text-center">
-                <button class="btn btn-primary">Построить отчет</button>
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <button class="btn btn-primary create-report">Построить отчет</button>
+                </div>
             </div>
         </div>
     </div>
+</form>
+
+<div class="card mt-3 total-report">
+    <div class="card-body">
+        <table id="dtOrderExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+            <tr class="text-center text-muted">
+                <th class="th-sm">ФИО</th>
+                <th class="th-sm">В работе</th>
+                <th class="th-sm">Просрочено</th>
+                <th class="th-sm">Выполнено</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <?php
+            require_once __ROOT__ . '/engine/backend/other/company.php';
+            foreach ($sql
+
+            as $n):
+            $overdue = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="overdue"');
+            $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')'); ?>
+            <tr>
+                <td><span><?= $n["name"] ?> <?= $n["surname"] ?></td>
+                <td class="text-center"><?= $inwork ?></td>
+                <td class="text-center"><?= $overdue ?></td>
+                <td class="text-center">
+                    <span class="badge badge-primary"><?= $n['doneAsManager'] ?></span>
+                    <span class="badge badge-dark"><?= $n['doneAsWorker'] ?></span>
+                </td>
+                <?php
+                endforeach;
+                ?>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div class="card mt-3">
+<div class="report-container" style="display: none;">
+    <?php include __ROOT__ . '/engine/ajax/report.php' ?>
+</div>
+
+<div class="card mt-3 d-none">
     <div class="d-flex flex-wrap report-container">
         <?php
         require_once __ROOT__ . '/engine/backend/other/company.php';
@@ -110,7 +171,8 @@
                 <a href="/profile/<?= $n['id'] ?>/">
                     <div class="d-inline ml-2"><span><?= $n["name"] ?> <?= $n["surname"] ?></span></div>
                 </a>
-                <span class="float-right icon-full-info-reports" style="color: #dadbdc; cursor: pointer;" data-toggle="tooltip"
+                <span class="float-right icon-full-info-reports" style="color: #dadbdc; cursor: pointer;"
+                      data-toggle="tooltip"
                       data-placement="bottom" title="Полная информация">
                 <i class="fas fa-ellipsis-h" style="font-size: 20px"></i>
                 </span>
@@ -146,20 +208,60 @@
         <?php endforeach; ?>
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
-        var i = 1;
-        $('.icon-full-info-reports').on('click', function () {
-            i++;
-            if (i % 2 === 0) {
-                $('.report-card-worker').hide();
-                $(this).parents('.report-card-worker').show();
-                $('.report-card-worker:visible').find('.more-info-reports').show();
-            } else{
-                $('.more-info-reports').hide();
-                $('.report-card-worker').show();
+        $('#dtOrderExample').DataTable({
+            "order": [[3, "desc"]]
+        });
+        $('.dataTables_length').addClass('bs-select');
+
+        function loadReport() {
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+
+                data: {
+                    ajax: 'report-card'
+                },
+                success: onSuccess,
+            });
+
+            function onSuccess(data) {
+                $('.report-container').show().html(data).fadeIn();
             }
-        })
+
+        }
+
+        $('.create-report').on('click', function (e) {
+            e.preventDefault();
+            var startDate = $('#startReportDate').val();
+            var endDate = $('#endReportDate').val();
+            var workerId = $('#workerReport').val();
+            console.log(startDate);
+            console.log(endDate);
+            console.log(workerId);
+            var fd = new FormData();
+            fd.append('ajax', 'report');
+            fd.append('module', '');
+            fd.append('workerId', workerId);
+            fd.append('startDate', startDate);
+            fd.append('endDate', endDate);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (data) {
+                    $.when($('.total-report').fadeOut(300)).done(function () {
+                        loadReport();
+                    });
+                    console.log(data);
+                }
+            });
+        });
+
     });
 </script>
