@@ -1562,6 +1562,10 @@ a {
         opacity: 0;
         height: 0;
     }
+    50% {
+        opacity: 0.5;
+        height: 34px;
+    }
     100% {
         opacity: 1;
         height: 68px;
@@ -1573,7 +1577,7 @@ a {
     -moz-transition: all 1s ease-out; /** Firefox **/
     -o-transition: all 1s ease-out; /** Opera **/
     transition: all 1s ease-out;
-    animation: fade-in .4s ease;
+    animation: fade-in .6s ease-in-out;
 }
 .new-event {
     background-color: rgba(242, 242, 244, 0.4);
