@@ -410,7 +410,7 @@
 <!--                                                    Присылать всегда-->
 <!--                                                </option>-->
                                                 <?php for ($i = 0; $i < 24; $i++): ?>
-                                                    <option value="<?= $i ?>" <?= ($notifications['silence_start'] == $i) ? 'selected' : '' ?>><?= $i ?>
+                                                    <option value="<?= $i ?>" <?= ($notifications['silence_start'] == $i || ($notifications['silence_start'] == -1 && $i == 21)) ? 'selected' : '' ?>><?= $i ?>
                                                         :00
                                                     </option>
                                                 <?php endfor; ?>
@@ -418,7 +418,7 @@
                                             <select class="form-control form-control-sm" id="endSleep">
                                                 <option hidden></option>
                                                 <?php for ($i = 0; $i < 24; $i++): ?>
-                                                    <option value="<?= $i ?>" <?= ($notifications['silence_end'] == $i) ? 'selected' : '' ?>><?= $i ?>
+                                                    <option value="<?= $i ?>" <?= ($notifications['silence_end'] == $i || ($notifications['silence_start'] == -1 && $i == 9)) ? 'selected' : '' ?>><?= $i ?>
                                                         :00
                                                     </option>
                                                 <?php endfor; ?>
