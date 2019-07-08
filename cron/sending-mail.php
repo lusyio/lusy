@@ -19,7 +19,7 @@ $mailQueue = $mailQueueQuery->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($mailQueue as $mail) {
     $isMessage = $mail['function_name'] == 'sendMessageEmailNotification';
-    $isRead = checkViewStatus($mail['eventId'], $isMessage);
+    $isRead = checkViewStatus($mail['event_id'], $isMessage);
     if ($isRead) {
         removeMailFromQueue($mail['queue_id']);
         continue;
