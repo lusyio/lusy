@@ -13,11 +13,18 @@ include __ROOT__ . '/engine/backend/lang/'.$langc.'.php';
 require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/task-functions.php';
 
-$mailQueueQuery = $pdo->prepare("SELECT mq.queue_id, mq.function_name, mq.args, mq.start_time, mq.user_id, c.timezone FROM mail_queue mq LEFT JOIN users u ON mq.user_id = u.id LEFT JOIN company c ON u.idcompany = c.id");
+$mailQueueQuery = $pdo->prepare("SELECT mq.queue_id, mq.function_name, mq.args, mq.start_time, mq.user_id, c.timezone, mq.event_id FROM mail_queue mq LEFT JOIN users u ON mq.user_id = u.id LEFT JOIN company c ON u.idcompany = c.id");
 $mailQueueQuery->execute();
 $mailQueue = $mailQueueQuery->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($mailQueue as $mail) {
+    $isMessage = $mail['function_name'] == 'sendMessageEmailNotification';
+    $isRead = checkViewStatus($mail['eventId'], $isMessage);
+    if ($isRead) {
+        removeMailFromQueue($mail['queue_id']);
+        continue;
+    }
+
     date_default_timezone_set($mail['timezone']);
     $notifications = getNotificationSettings($mail['user_id']);
     if ($notifications['silence_start'] != -1) {

@@ -7,3 +7,7 @@ create table mail_queue
   constraint mail_queue_pk
     primary key (queue_id)
 );
+
+
+alter table mail_queue
+  add event_id int null;

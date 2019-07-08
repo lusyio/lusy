@@ -217,7 +217,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
             $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
             //sendTaskWorkerEmailNotification($taskId, 'createtask');
-            addMailToQueue('sendTaskWorkerEmailNotification', [$taskId, 'createtask'], $recipientId);
+            addMailToQueue('sendTaskWorkerEmailNotification', [$taskId, 'createtask'], $recipientId, $workerEventId);
         }
     }
     if ($action == 'createplantask') {
@@ -315,8 +315,9 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $addEventQuery->execute($eventDataForManager);
         if (!$isSelfTask) {
             $addEventQuery->execute($eventDataForWorker);
+            $workerEventId = $pdo->lastInsertId();
             //sendTaskWorkerEmailNotification($taskId, 'overdue');
-            addMailToQueue('sendTaskWorkerEmailNotification', [$taskId, 'overdue'], $taskWorker);
+            addMailToQueue('sendTaskWorkerEmailNotification', [$taskId, 'overdue'], $taskWorker, $workerEventId);
 
         }
     }
@@ -356,7 +357,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery->execute(array(':id' => $taskManager, ':type' => json_encode($pushData)));
 
         //sendTaskManagerEmailNotification($taskId, 'review');
-        addMailToQueue('sendTaskManagerEmailNotification', [$taskId, 'review'], $taskManager);
+        addMailToQueue('sendTaskManagerEmailNotification', [$taskId, 'review'], $taskManager, $managerEventId);
     }
 
     if ($action == 'workreturn') {
@@ -462,7 +463,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
 
         //sendTaskManagerEmailNotification($taskId, 'postpone');
-        addMailToQueue('sendTaskManagerEmailNotification', [$taskId, 'postpone'], $recipientId);
+        addMailToQueue('sendTaskManagerEmailNotification', [$taskId, 'postpone'], $recipientId, $managerEventId);
     }
 
     if ($action == 'confirmdate' || $action == 'canceldate') {
@@ -679,7 +680,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
 
         //sendAchievementEmailNotification($id, $comment);
-        addMailToQueue('sendAchievementEmailNotification', [$id, $comment], $id);
+        addMailToQueue('sendAchievementEmailNotification', [$id, $comment], $id, $eventId, $eventId);
     }
 }
 
@@ -973,6 +974,7 @@ function addCommentEvent($taskId, $commentId)
     $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
     $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
+    $eventIds = [];
     foreach ($recipients as $recipient) {
         if ($recipient != $id) {
             $eventData = [
@@ -986,7 +988,7 @@ function addCommentEvent($taskId, $commentId)
             ];
             $addEventQuery->execute($eventData);
             $eventId = $pdo->lastInsertId();
-
+            $eventIds[] = $eventId;
             $pushData = [
                 'type' => 'comment',
                 'eventId' => $eventId,
@@ -996,7 +998,7 @@ function addCommentEvent($taskId, $commentId)
     }
 
     //sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
-    addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipients, $commentId], $recipients);
+    addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipients, $commentId], $recipients, $eventIds);
 }
 
 function concatName($name, $surname)
@@ -1434,17 +1436,17 @@ function getRemainingLimits()
     return $result;
 }
 
-function addMailToQueue($function, $args, $id)
+function addMailToQueue($function, $args, $id, $eventId)
 {
     global $pdo;
     $argsJson = json_encode($args);
-    $addToQueueQuery = $pdo->prepare("INSERT INTO mail_queue(function_name, args, user_id, start_time) VALUES (:functionName, :args, :userId, :startTime)");
+    $addToQueueQuery = $pdo->prepare("INSERT INTO mail_queue(function_name, args, user_id, start_time, event_id) VALUES (:functionName, :args, :userId, :startTime, :eventId)");
     if (is_array($id)) {
-        foreach ($id as $oneId) {
-            $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId, ':startTime' =>time()));
+        foreach ($id as $key => $oneId) {
+            $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId, ':startTime' =>time(), ':eventId' => $eventId[$key]));
         }
     } else {
-        $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $id, ':startTime' =>time()));
+        $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $id, ':startTime' =>time(), ':eventId' => $eventId));
     }
 }
 
@@ -1453,4 +1455,17 @@ function removeMailFromQueue($queueId)
     global $pdo;
     $removeFromQueueQuery = $pdo->prepare("DELETE FROM mail_queue WHERE queue_id = :queueId");
     $removeFromQueueQuery->execute(array(':queueId' => $queueId));
+}
+
+function checkViewStatus($eventId, $isMessage = false)
+{
+    global $pdo;
+    if ($isMessage) {
+        $viewStatusQuery = $pdo->prepare("SELECT view_status FROM mail WHERE message_id = :id");
+    } else {
+        $viewStatusQuery = $pdo->prepare("SELECT view_status FROM events WHERE event_id = :id");
+    }
+    $viewStatusQuery->execute([':id' => $eventId]);
+    $result = $viewStatusQuery->fetch(PDO::FETCH_COLUMN);
+    return (boolean) $result;
 }
