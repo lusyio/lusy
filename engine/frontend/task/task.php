@@ -136,7 +136,7 @@ if ($id == $worker and $view == 0) {
                                 </div>
                             </medium>
                         </div>
-                        <?php if (!$isCeo && !$isCoworker): ?>
+                        <?php if (!$isCeo || !$isCoworker): ?>
                         <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
                         <div id="change-date">
                             <div class="form-group mb-0 p-3">
@@ -191,7 +191,7 @@ if ($id == $worker and $view == 0) {
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <?php if (!$isCeo && !$isCoworker): ?>
+            <?php if (!$isCeo || !$isCoworker): ?>
             <div id="control">
                 <?php
                 include __ROOT__ . '/engine/backend/task/task/control/' . $role . '/' . $status . '.php';
