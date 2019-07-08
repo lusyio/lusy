@@ -16,6 +16,7 @@ if ($_POST['module'] == 'personalStat') {
     $startDate = strtotime($startDateInput);
     $endDate = strtotime($endDateInput) + 3600 *24;
     $stats = getPersonalStats($workerId, $startDate, $endDate);
+    echo json_encode($stats);
 }
 
 function getPersonalStats($userId, $startDate, $endDate)
@@ -36,13 +37,17 @@ function getPersonalStats($userId, $startDate, $endDate)
     $doneOutcomeQuery->execute();
     $doneOutcome = $doneOutcomeQuery->fetch(PDO::FETCH_COLUMN);
 
-    $tasksQuery = $pdo->prepare("SELECT t.id, t.name, t.description, t.status FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE (t.manager = :userId OR t.worker = :userId) AND t.datecreate >= :startDate AND t.datecreate < :endDate AND ");
-
+    $tasksQuery = $pdo->prepare("SELECT t.id, t.name, t.description, t.status FROM tasks t LEFT JOIN events e ON t.id = e.task_id WHERE (t.manager = :userId OR t.worker = :userId) AND ((e.action IN ('workdone', 'canceltask') AND e.datetime >=:startDate AND t.datecreate < :endDate) OR (e.action IN ('new', 'inwork', 'overdue', 'postpone', 'pending', 'returned') AND t.datecreate < :endDate))");
+    $tasksQuery->bindValue(':userId', (int) $userId, PDO::PARAM_INT);
+    $tasksQuery->bindValue(':startDate', (int) $startDate, PDO::PARAM_INT);
+    $tasksQuery->bindValue(':endDate', (int) $endDate, PDO::PARAM_INT);
+    $tasksQuery->execute();
+    $tasks = $tasksQuery->fetchAll(PDO::FETCH_ASSOC);
 
     $result = [
         'doneIncome' => $doneIncome,
         'doneOutcome' => $doneOutcome,
-        'tasks' => []
+        'tasks' => $tasks
     ];
     return $result;
 }
