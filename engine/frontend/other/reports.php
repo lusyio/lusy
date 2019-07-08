@@ -152,68 +152,37 @@
     </div>
 </div>
 
-<div class="card mt-3 report-container" style="display: none;">
+<div class="card mt-3 report-container" style="display: none">
     <div class="card-body">
-        <div class="d-flex flex-wrap report-container">
-            <?php
-            require_once __ROOT__ . '/engine/backend/other/company.php';
-            foreach ($sql as $n):
-                $overdue = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="overdue"');
-                $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')'); ?>
+        <div class="row text-muted text-center">
+            <div class="col">
+                <span>Выполнено</span>
+            </div>
+            <div class="col">
+                <span>Выполнено</span>
+            </div>
+            <div class="col">
+                <span>Просрочено</span>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col">
+                <span class="done-income"></span>
+            </div>
+            <div class="col">
+                <span class="done-outcome"></span>
+            </div>
+            <div class="col">
+                <span class="overdue"></span>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <span class="text-muted">Задачи за выбранный период:</span>
+                <div class="tasks-list-report">
 
-                <div class="card-body border-bottom border-right report-card-worker">
-                    <a href="/profile/<?= $n['id'] ?>/" class="text-decoration-none">
-                        <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar">
-                    </a>
-                    <a href="/profile/<?= $n['id'] ?>/">
-                        <div class="d-inline ml-2"><span><?= $n["name"] ?> <?= $n["surname"] ?></span></div>
-                    </a>
-                    <hr>
-                    <div class="row">
-                        <div class="col">
-                            <div class="text-muted">
-                                <div>Выполнено</div>
-                                <div>Просрочено</div>
-                                <div>В работе</div>
-                            </div>
-                        </div>
-                        <div class="col-3 col-lg-3 text-center">
-                            <div class="count-company-tasks">
-                                <span class="badge badge-company-primary"><?= $n['doneAsManager'] ?></span>
-                                <span class="badge badge-company-dark"><?= $n['doneAsWorker'] ?></span>
-                            </div>
-                            <div><?= $overdue ?></div>
-                            <div><?= $inwork ?></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <span class="text-muted">Задачи за выбранный период:</span>
-                            <div class="task-list-report">
-                                <a href="#">
-                                    <div class="task-card">
-                                        <div class="card mb-2 tasks">
-                                            <div class="card-body tasks-list">
-                                                <div class="d-block border-left-tasks border-warning">
-                                                    <p class="font-weight-light text-ligther d-none">Завершено</p>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div>
-                                                                <span class="taskname">Написать программу вебинара</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            <?php
-            endforeach; ?>
+            </div>
         </div>
     </div>
 </div>
@@ -248,7 +217,13 @@
                 data: fd,
                 success: function (data) {
                     $.when($('.total-report').fadeOut(300)).done(function () {
-                        $('.report-container').show().html(data).fadeIn();
+                        $('.report-container').show();
+                        $('.done-income').html(data.doneIncome);
+                        $('.done-outcome').html(data.doneOutcome);
+                        $('.overdue').html(data.overdue);
+                        data.tasks.forEach(function (e, i) {
+                            $('.tasks-list-report').append(e.name);
+                        });
                     });
                     console.log(data);
                 }
