@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header border-bottom dialogs p-0">
-                <div class="row mb-1 p-3">
-                    <div class="col"><h4 class="mb-0 mt-2"><?= $GLOBALS['_mailconversation'] ?></h4></div>
-                    <div class="col-4 text-right">
+                <div class="mb-1 p-3 text-center">
+                    <div class="d-inline-block"><h4 class="mb-0 mt-2"><?= $GLOBALS['_mailconversation'] ?></h4></div>
+                    <div class="d-inline-block position-absolute" style="right: 16px">
                         <button class="google-icon-btn min ripple" data-toggle="collapse" data-target="#collapseUsers"
                                 aria-expanded="false" aria-controls="collapseExample">+
                         </button>
@@ -12,9 +12,9 @@
                 </div>
                 <div class="collapse list-group" id="collapseUsers">
                     <?php
-                    foreach ($userList as $user){
+                    foreach ($userList as $user) {
                         $isOnline = in_array($user['id'], $onlineUsersList);
-                     ?>
+                        ?>
                         <a href="./<?= $user['id'] ?>/"
                            class="list-group-item list-group-item-action new-dialog-list">
                             <div class="row">
@@ -40,12 +40,14 @@
                     <a class="text-decoration-none text-dark" href="/chat/">
                         <div class="row">
                             <div class="col-2 pl-2">
-                                <span class="companyAvatar user-pic position-relative"><i class="far fa-comments fa-fw"></i></span>
+                                <span class="companyAvatar user-pic position-relative"><i
+                                            class="far fa-comments fa-fw"></i></span>
                             </div>
                             <div class="col" style="max-width: 83%;">
-                                <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
+                                <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат
+                                    компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
                                 <?php if ($lastChatMessage): ?>
-                                    <span><?= ($lastChatMessage['sender'] == $id)? 'Вы: ' : fiomess($lastChatMessage['sender']) . ': ';?> <?= $lastChatMessage['mes'] ?></span>
+                                    <span><?= ($lastChatMessage['sender'] == $id) ? 'Вы: ' : fiomess($lastChatMessage['sender']) . ': '; ?> <?= $lastChatMessage['mes'] ?></span>
                                     <span class="date mr-2"><?= date('d.m H:i', $lastChatMessage['datetime']); ?></span>
                                 <?php else: ?>
                                     <span class="text-muted">В чате нет сообщений</span>
@@ -74,7 +76,7 @@
                                 <div class="col" style="max-width: 83%;">
                                     <p class="mb-2 font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= fiomess($n) ?><?= ($newMessages) ? ' +' . $newMessages : ''; ?>
                                     </p>
-                                    <span><?= ($lastMessage['sender'] == $id)? 'Вы: ' : '';?> <?= $lastMessage['mes'] ?></span>
+                                    <span><?= ($lastMessage['sender'] == $id) ? 'Вы: ' : ''; ?> <?= $lastMessage['mes'] ?></span>
                                     <span class="date mr-2"><?= date('d.m H:i', $lastMessage['datetime']); ?></span>
                                 </div>
                             </div>

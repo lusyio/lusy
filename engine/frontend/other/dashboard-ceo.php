@@ -82,10 +82,8 @@ $borderColor = [
                     </div>
                 </div>
             <?php endif; ?>
-
-            <div class="bottomGradient"></div>
         </div>
-
+        <div class="bottomGradient"></div>
     </div>
 </div>
 <div class="swiper-container" id="mainSwiper">
@@ -262,14 +260,14 @@ $borderColor = [
             <ul class="timeline" style="bottom: 0px;">
                 <?php $eventNumber = 1; ?>
                 <?php foreach ($events as $event): ?>
-                    <?php if($eventNumber < 21) {
+                    <?php if ($eventNumber < 21) {
                         renderEvent($event);
                         $eventNumber++;
                     } ?>
                 <?php endforeach; ?>
                 <?php if (count($events) > 20): ?>
                     <div class="load-log-dashboard">
-                        <div id="loadLog" class="rounded-circle btn btn-light">
+                        <div id="loadLogDashboard" class="rounded-circle btn btn-light">
                             <i class="fas fa-chevron-down"></i>
                         </div>
                     </div>
@@ -280,9 +278,9 @@ $borderColor = [
 </div>
 <script src="/assets/js/swiper.min.js"></script>
 <script type="text/javascript">
-    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {'packages': ['corechart']});
     google.charts.setOnLoadCallback(drawChart);
-    $(window).resize(function(){
+    $(window).resize(function () {
         drawChart();
     });
 
@@ -290,7 +288,7 @@ $borderColor = [
         var data = google.visualization.arrayToDataTable([
             ['Year', 'Задач'],
             <?= $dataForChartString ?>
-            ]);
+        ]);
         var options = {
             series: {
                 0: {
@@ -303,23 +301,23 @@ $borderColor = [
             legend: {
                 position: 'none'
             },
-            hAxis:{
+            hAxis: {
                 viewWindowMode: 'maximized',
                 textPosition: 'none',
-                gridlines:{
+                gridlines: {
                     color: '#fff',
                 },
                 baselineColor: '#fff',
             },
-            vAxis:{
+            vAxis: {
                 textPosition: 'none',
-                gridlines:{
+                gridlines: {
                     color: '#fff',
                 },
                 baselineColor: '#bfe4ca',
                 minValue: 0,
             },
-            chartArea:{
+            chartArea: {
                 width: '100%',
                 height: '100%',
             },
@@ -338,7 +336,12 @@ $borderColor = [
 <script>
     var pageName = 'dashboard';
     $(document).ready(function () {
+        $('#loadLogDashboard').on('click', function () {
+
+        });
+
         hideGradient();
+
         function hideGradient() {
             if ($('.task-card:visible').length < 4) {
                 $("#bottomGradient").hide();
