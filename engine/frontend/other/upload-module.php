@@ -7,8 +7,7 @@
     <?php if ($uploadModule == 'chat'): ?>
         <button class="text-muted mr-2 btn btn-light btn-file border dropdown-toggle" type="button"
                 id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-paperclip"
-                                                                                     style="font-size: 20px;vertical-align: middle;"></i>
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-paperclip fas fa-paperclip"></i>
         </button>
     <?php else: ?>
         <button class="text-muted btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"

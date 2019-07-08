@@ -268,7 +268,11 @@ $borderColor = [
                     } ?>
                 <?php endforeach; ?>
                 <?php if (count($events) > 20): ?>
-                
+                    <div class="load-log-dashboard">
+                        <div id="loadLog" class="rounded-circle btn btn-light">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
                 <?php endif; ?>
             </ul>
         </div>
