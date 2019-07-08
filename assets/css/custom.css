@@ -435,6 +435,16 @@ list-group:hover {
     z-index: 3;
 }
 
+.load-log-dashboard{
+    text-align: center;
+}
+
+.icon-paperclip{
+    font-size: 20px;
+    color: #d4d6e4;
+    vertical-align: middle;
+}
+
 .load-archive-page {
     display: none;
     bottom: 0;
@@ -833,19 +843,22 @@ input:checked[type="checkbox"]::before {
 }
 
 .btn-file.btn-light:not(:disabled):not(.disabled):active{
-    background-color: #e4e4e4;
+    background-color: #f2f2f2;
+}
+
+.btn-file.btn-light:hover {
+    background-color: #f2f2f2;
 }
 
 .show>.btn-file.btn-light.dropdown-toggle {
     color: #212529;
-    background-color: #e4e4e4;
+    background-color: #f2f2f2;
 }
 
 .bg-mail .btn-file:active{
-    background-color: #e4e4e4;
+    background-color: #f2f2f2;
 }
 .bg-mail .btn-file {
-    background-color: #fafafa;
     border: none !important;
     height: 38px;
 }
@@ -2059,6 +2072,15 @@ span.date {
     border-top-right-radius: 0;
     font-size: 12px;
     padding-left: 20px;
+}
+
+.send-mes-block #dropdownMenuButton{
+    float: right;
+    width: 45px;
+    height: 36px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
 }
 
 #search:focus{

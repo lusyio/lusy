@@ -24,11 +24,11 @@
     <div class="card-body pb-0 pl-2 pr-2">
         <form>
             <div class="d-flex send-mes-block">
-                <div class="form-group w-100 mr-2 text-area d-flex">
+                <div class="form-group w-100 text-area d-flex">
+                    <textarea style="overflow:hidden; padding-right: 45px;" class="form-control mr-2" id="mes" name="mes" rows="1"
+                              placeholder="<?= $GLOBALS['_enterconversation'] ?>" autofocus></textarea>
                     <?php $uploadModule = 'chat'; ?>
                     <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
-                    <textarea style="overflow:hidden;" class="form-control" id="mes" name="mes" rows="1"
-                              placeholder="<?= $GLOBALS['_enterconversation'] ?>" autofocus></textarea>
                 </div>
                 <div class="position-relative">
                     <input type="button" class="btn btn-primary" id="sendBtn"
