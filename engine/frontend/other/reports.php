@@ -224,7 +224,7 @@
         });
         $('.dataTables_length').addClass('bs-select');
 
-        $('.create-report').on('submit', function (e) {
+        $('.create-report').on('click', function (e) {
             e.preventDefault();
             var startDate = $('#startReportDate').val();
             var endDate = $('#endReportDate').val();
