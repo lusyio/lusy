@@ -1,1 +1,2 @@
-<?php $pdo = NULL;?>
+<?php $pdo = NULL;
+global $id;

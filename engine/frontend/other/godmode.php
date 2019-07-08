@@ -67,6 +67,10 @@
             aria-controls="emails" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
                 class="fas fa-envelope h3 mb-0 mt-2"></i>
         <p class="mb-0">Письма</p></button>
+    <button type="button" data-toggle="collapse" href="#feedback" role="button" aria-expanded="false"
+            aria-controls="feedback" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
+                class="fas fa-lightbulb h3 mb-0 mt-2"></i>
+        <p class="mb-0">Обратная связь</p></button>
 </div>
 <div class="card mt-3 collapse" id="articles">
     <div class="card-body">
@@ -161,6 +165,24 @@
                           rows="6"><?php include $emailTemplatesDir . 'content-footer.php'; ?></textarea>
                 <button class="form-control btn btn-outline-warning">Сохранить</button>
             </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-3 collapse" id="feedback">
+    <div class="card-body">
+        <h5 class="text-center mb-3">Шаблоны e-mail</h5>
+        <div class="mail-templates-list">
+            <?php foreach ($feedback as $message): ?>
+                <div class="mail-template mt-3">
+                    <h4><?= $message['message_id'] ?>. <?= $message['message_title'] ?></h4>
+                    <h5><?= $message['cause'] ?></h5>
+                    <h6><?= $message['name'] ?> <?= $message['surname'] ?> (id <?= $message['user_id'] ?>) из компании <?= $message['idcompany'] ?> (id <?= $message['company_id'] ?>)</h6>
+                    <p><?= date('d.m.Y H:i', $message['datetime']) ?></p>
+                    <p><?= $message['page_link'] ?></p>
+                    <p><?= nl2br($message['message_text']) ?></p>
+                    <hr>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
