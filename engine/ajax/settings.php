@@ -85,7 +85,9 @@ if ($_POST['module'] == 'updateNotifications') {
         $key = filter_var($k, FILTER_SANITIZE_STRING);
         $notifications[$key] = (int) $v;
     }
-
+    if (!$notifications['sleepTime']) {
+        $notifications['startSleep'] = -1;
+    }
     $updateNotificationSettingsQuery = $pdo->prepare("UPDATE user_notifications SET task_create = :taskCreate, task_overdue = :taskOverdue, comment = :comment, task_review = :taskReview, task_postpone = :taskPostpone, message = :message, achievement = :achievement, silence_start = :startSleep, silence_end = :endSleep WHERE user_id = :userId");
     $queryData = [
         ':userId' => $id,
@@ -99,6 +101,7 @@ if ($_POST['module'] == 'updateNotifications') {
         ':startSleep' => $notifications['startSleep'],
         ':endSleep' => $notifications['endSleep'],
     ];
+
     $updateNotificationSettingsQuery->execute($queryData);
 
 }
