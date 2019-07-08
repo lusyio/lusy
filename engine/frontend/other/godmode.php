@@ -170,7 +170,7 @@
 </div>
 <div class="card mt-3 collapse" id="feedback">
     <div class="card-body">
-        <h5 class="text-center mb-3">Шаблоны e-mail</h5>
+        <h5 class="text-center mb-3">Сообщения обратной связи</h5>
         <div class="mail-templates-list">
             <?php foreach ($feedback as $message): ?>
                 <div class="mail-template mt-3">
