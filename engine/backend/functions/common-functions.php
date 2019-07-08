@@ -25,7 +25,7 @@ function uploadAttachedFiles($type, $eventId)
         return;
     }
 
-    $maxFileSize = 20 * 1024 * 1024;
+    $maxFileSize = 500 * 1024 * 1024;
     $types = ['task', 'comment', 'conversation', 'chat'];
     if (!in_array($type, $types)) {
         return;
@@ -1181,7 +1181,9 @@ function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
 {
     global $id;
     global $pdo;
-
+    if (!is_array($userIds)) {
+        $userIds = [$userIds];
+    }
     $usersToNotification = [];
 
     foreach ($userIds as $user) {
