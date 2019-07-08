@@ -2,9 +2,9 @@
 global $idc;
 global $pdo;
 
-if ($idc != 1) {
-    header('Location: /');
-}
+//if ($idc != 1) {
+//    header('Location: /');
+//}
 
 $countCompanies = DBOnce('count(*)','company','');
 $countUsers = DBOnce('count(*)','users','');
@@ -45,3 +45,7 @@ $articlesQuery->execute();
 $articlesList = $articlesQuery->fetchAll(PDO::FETCH_ASSOC);
 $emailTemplatesDir = __ROOT__ . '/engine/phpmailer/templates/ru/';
 $emailTemplates = scandir($emailTemplatesDir);
+
+$feedbackQuery = $pdo->prepare("SELECT f.message_id, f.user_id, f.message_title, f.message_text, f.page_link, f.datetime, f.cause, u.name, u.surname, c.idcompany, c.id AS company_id FROM feedback f LEFT JOIN users u ON f.user_id = u.id LEFT JOIN company c ON u.idcompany = c.id");
+$feedbackQuery->execute();
+$feedback = $feedbackQuery->fetchAll(PDO::FETCH_ASSOC);

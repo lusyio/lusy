@@ -116,6 +116,8 @@ if ($id == $manager || $isCeo) {
     exit();
 }
 
+$isCoworker = in_array($id,$coworkersId);
+
 $viewer = $pdo->prepare('UPDATE `comments` SET view = "1" where idtask="' . $id_task . '" and iduser!=' . $id);
 $viewer->execute();
 

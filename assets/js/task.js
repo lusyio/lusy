@@ -43,6 +43,8 @@ $(document).ready(function () {
             console.log(commentIdToScroll);
             if (commentIdToScroll > 0) {
                 $('#' + commentIdToScroll).addClass('bg-primary');
+                location.hash = '';
+
                 console.log(true);
                 $('html, body').animate({
                     scrollTop: $('#' + commentIdToScroll).offset().top - 20

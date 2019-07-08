@@ -988,7 +988,7 @@ function addCommentEvent($taskId, $commentId)
             ];
             $addEventQuery->execute($eventData);
             $eventId = $pdo->lastInsertId();
-            $eventIds[] = $eventId;
+            $eventIds[$recipient] = $eventId;
             $pushData = [
                 'type' => 'comment',
                 'eventId' => $eventId,
@@ -1443,7 +1443,7 @@ function addMailToQueue($function, $args, $id, $eventId)
     $addToQueueQuery = $pdo->prepare("INSERT INTO mail_queue(function_name, args, user_id, start_time, event_id) VALUES (:functionName, :args, :userId, :startTime, :eventId)");
     if (is_array($id)) {
         foreach ($id as $key => $oneId) {
-            $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId, ':startTime' =>time(), ':eventId' => $eventId[$key]));
+            $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId, ':startTime' =>time(), ':eventId' => $eventId[$oneId]));
         }
     } else {
         $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $id, ':startTime' =>time(), ':eventId' => $eventId));
