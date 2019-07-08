@@ -234,7 +234,7 @@
             console.log(workerId);
             var fd = new FormData();
             fd.append('ajax', 'report');
-            fd.append('module', '');
+            fd.append('module', 'personalStat');
             fd.append('workerId', workerId);
             fd.append('startDate', startDate);
             fd.append('endDate', endDate);
