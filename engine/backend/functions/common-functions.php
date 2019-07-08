@@ -947,6 +947,13 @@ function addCommentEvent($taskId, $commentId)
     global $pdo;
     global $cometPdo;
 
+    $taskStatusQuery = $pdo->prepare("SELECT status FROM tasks WHERE id=:taskId");
+    $taskStatusQuery->execute(array(':taskId' => $taskId));
+    $taskStatus = $taskStatusQuery->fetch(PDO::FETCH_COLUMN);
+    if ($taskStatus == 'planned') {
+        return;
+    }
+    echo $taskStatus;
     $executorsQuery = $pdo->prepare('SELECT worker, manager FROM tasks WHERE id = :taskId');
     $executorsQuery->execute(array(':taskId' => $taskId));
     $executors = $executorsQuery->fetch(PDO::FETCH_ASSOC);
