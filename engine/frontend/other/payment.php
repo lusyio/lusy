@@ -2,7 +2,7 @@
     <div class="col">
         <div class="card">
             <div class="row">
-                <div class="col-12 col-lg-5 pr-0">
+                <div class="col-12 col-lg-5 card-tariff-left">
                     <div class="card-body">
                         <span class="small text-muted">Ваш тарифный план</span>
                         <h2>Уверенный</h2>
@@ -10,33 +10,33 @@
                             <span class="small text-muted">Оплачено до 29.09</span>
                         </p>
                         <div class="d-flex">
-                            <input class="form-control text-muted" placeholder="Введите промокод" type="text"
-                                   style="border-bottom-right-radius: 0; border-top-right-radius: 0">
-                            <button class="btn btn-primary"
-                                    style="border-bottom-left-radius: 0; border-top-left-radius: 0">
+                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
+                                   type="text">
+                            <button class="btn btn-primary" id="promoBtn">
                                 Применить
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-7 col-12 pl-0">
+                <div class="col-lg-7 col-12 card-tariff-right">
                     <div class="card-body">
                         <div class="d-flex" style="justify-content: space-between">
                             <span class="small text-muted mt-1">Ваша банковская карта</span>
-                            <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal" data-target="#deleteCardModal" style="z-index: 2">
+                            <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                    data-target="#deleteCardModal">
                                 Отвязать карту
                             </button>
                         </div>
                         <div style="z-index: 2">
                             <span class="text-muted">
-                            <i class="far fa-credit-card" style="font-size: 20px; opacity: 0.7"></i>
+                            <i class="far fa-credit-card icon-credit-card"></i>
                             </span>
                             <span>29.09 Будет списание с карты 9999 ●●●● ●●●● 9991</span>
                         </div>
                     </div>
                 </div>
-                <span class="d-block text-muted position-absolute" style="right: 20px; bottom: 20px; z-index: 1">
-                <i class="fas fa-ruble-sign" style="font-size: 100px; opacity: 0.05;"></i>
+                <span class="d-block text-muted bg-icon-ruble">
+                <i class="fas fa-ruble-sign icon-ruble"></i>
                 </span>
             </div>
         </div>
@@ -145,10 +145,9 @@
 
 <div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog d-flex" role="document" style="max-width: 1000px; justify-content: space-between">
+    <div class="modal-dialog d-flex modal-dialog-tariff" role="document">
         <div>
-            <div class="modal-content border-0 left-modal text-white pt-4 pb-4"
-                 style="border-top-right-radius: 0; border-bottom-right-radius: 0; max-width: 600px;height: 460px">
+            <div class="modal-content border-0 left-modal text-white pt-4 pb-4">
                 <div class="modal-header border-0 text-center d-block">
                     <h4 class="modal-title" id="exampleModalLabel">Новые возможности для ващего бизнесса</h4>
                 </div>
@@ -156,16 +155,18 @@
                     <h5 class="mt-1 mb-3">Платный тариф - 299 рублей/месяц</h5>
                     <p><i class="fas fa-check"></i> Всё, что есть в бесплатном тарифе</p>
                     <p><i class="fas fa-check"></i> Неограниченное количество задач</p>
-                    <p><i class="fas fa-check"></i> Бесшовная интеграция с Google Drive и DropBox + 1гб на нашем сервере</p>
-                    <p><i class="fas fa-check"></i> Подробная отчетность о деятельности компании и отдельных сотрудниках</p>
-                    <p><i class="fas fa-check"></i> Интеграции с сторонними сервисами, н-р AmoCRM, Яндекс.Метрика и т.д.</p>
+                    <p><i class="fas fa-check"></i> Бесшовная интеграция с Google Drive и DropBox + 1гб на нашем сервере
+                    </p>
+                    <p><i class="fas fa-check"></i> Подробная отчетность о деятельности компании и отдельных сотрудниках
+                    </p>
+                    <p><i class="fas fa-check"></i> Интеграции с сторонними сервисами, н-р AmoCRM, Яндекс.Метрика и т.д.
+                    </p>
                 </div>
             </div>
         </div>
 
         <div>
-            <div class="modal-content right-modal border-0 pt-4"
-                 style="border-top-left-radius: 0; border-bottom-left-radius: 0; max-width: 400px;height: 460px">
+            <div class="modal-content right-modal border-0 pt-4">
                 <div class="modal-header border-0 text-center d-block">
                     <h5 class="modal-title" id="exampleModalLabel">Тарифный план "Уверенный"</h5>
                 </div>
@@ -194,8 +195,9 @@
                     <hr>
                     <button class="btn btn-secondary w-100" id="pay" disabled>Оплатить подписку</button>
                 </div>
-                <span class="position-absolute" style="right: -10px; top: -10px;">
-                    <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i class="fas fa-times text-muted"></i></button>
+                <span class="icon-close-modal">
+                    <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                                class="fas fa-times text-muted"></i></button>
                 </span>
             </div>
         </div>
@@ -246,8 +248,9 @@
                      25.07.2019 18:08:12
                 </span>
             </div>
-            <span class="position-absolute" style="right: -10px; top: -10px;">
-            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i class="fas fa-times text-muted"></i></button>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
         </span>
         </div>
     </div>
