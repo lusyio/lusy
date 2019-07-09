@@ -177,7 +177,7 @@
         </div>
         <div class="row mt-3">
             <div class="col">
-                <span class="text-muted">Задачи за выбранный период:</span>
+                <div class="text-muted mb-2">Задачи за выбранный период:</div>
                 <div class="tasks-list-report-empty">
                 </div>
                 <div class="tasks-list-report">
@@ -233,9 +233,9 @@
                             $('.tasks-list-report-empty').html('<div class="task-card">\n' +
                                 '    <div class="card">\n' +
                                 '        <div class="card-body tasks-list">\n' +
-                                '            <div class="row">\n' +
+                                '            <div class="row text-center">\n' +
                                 '                <div class="col">\n' +
-                                '                    <span class="taskname">\n' +
+                                '                    <span class="taskname text-muted">\n' +
                                 '                        Задач за выбранный период не найдено\n' +
                                 '                    </span>\n' +
                                 '                </div>\n' +
