@@ -215,3 +215,101 @@ function changeTariff($companyId, $newTariff)
     }
     return $updateCompanyTariffResult;
 }
+
+function chargePayment($companyId)
+{
+    $result = [
+        'url' => '',
+        'error' => '',
+        'status' => '',
+    ];
+
+    $companyTariff = getCompanyTariff($companyId);
+    if ($companyTariff['tariff'] == 0) {
+        // Бесплатный тариф - оплата не требуется
+        $result['error'] = 'Can not charge for free tariff';
+        return $result;
+    }
+    if (!$companyTariff['is_card_binded']) {
+        //карта не привязана, делаем запись в лог
+        $error = 'Не привязана карта, компания - ' . $companyId;
+        addToPaymentsErrorLog($error);
+        //TODO Отправить письмо об отсутствии карты
+        //TODO Добавить событие о невозможности оплаты
+        $result['error'] = 'Card not found';
+        return $result;
+    }
+
+    $tariffInfo = getTariffInfo($companyTariff['tariff']);
+
+    $api = new TinkoffMerchantAPI(TTKEY, TSKEY);
+
+    $amount = $tariffInfo['price'];
+    $orderId = createOrder($companyId, $companyTariff['tariff']);
+
+    $paymentArgs = [
+        'Amount' => $amount,
+        'OrderId' => $orderId,
+        'CustomerKey' => $companyId,
+        'Description' => 'Продление подписки на тариф ' . $tariffInfo['tariff_name'] . '. Количество месяцев: '. $tariffInfo['period_in_months'],
+    ];
+    try {
+        $api->init($paymentArgs);
+    } catch (Exception $e) {
+        //При ошибке создания счета записываем стектрейс в лог
+        ob_start();
+        echo "Счёт не сформирован (cron)\n";
+        var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+        $result['error'] = 'Order not created';
+        return $result;
+    }
+
+    // Получаем json ответ от АПИ банка, преобразуем его в массив
+    $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
+
+    // При успешном статусе обновляем внутренний заказ полученными от АПИ банка данными и выполняем
+    // рекуррентный платёж, при неудаче - делаем запись в лог и выдаем код ошибки АПИ банка
+    if ($response['Success']) {
+        updateOrderOnSuccess($response);
+        $rebillId = $companyTariff['rebill_id'];
+
+        $paymentArgs = [
+            'PaymentId' => $response['PaymentId'],
+            'RebillId' => $rebillId,
+        ];
+        try {
+            $api->charge($paymentArgs);
+        } catch (Exception $e) {
+            ob_start();
+            echo "Ошибка при проведении рекуррентного платежа\n";
+            var_dump($e->getTrace());
+            $error = ob_get_clean();
+            addToPaymentsErrorLog($error);
+            $result['error'] = 'Recurrent payment error';
+            return $result;
+        }
+        $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
+        if ($response['Success']) {
+            updateOrderOnSuccess($response);
+            exit;
+        } else {
+            ob_start();
+            echo "Рекуррентный платёж не проведен\n";
+            var_dump($response);
+            $error = ob_get_clean();
+            addToPaymentsErrorLog($error);
+            $result['error'] = $response['ErrorCode'];
+            return $result;
+        }
+    } else {
+        ob_start();
+        echo "Ошибка при создании счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+        $result['error'] = 'Order not created';
+        return $result;
+    }
+}
