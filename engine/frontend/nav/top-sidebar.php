@@ -96,10 +96,10 @@
                                                  src="/assets/svg/credit-card.svg"><?= _('Payment') ?></a>
                         <hr class="mt-0 mb-0">
                         <a href="/profile/<?= $id ?>/"><img class="svg-icon mr-3"
-                                                            src="/assets/svg/protect.svg"><?= _('Profile') ?></a>
+                                                            src="/assets/svg/user.svg"><?= _('Profile') ?></a>
                         <a href="/log/"><img class="svg-icon mr-3" src="/assets/svg/book.svg"><?= _('History') ?></a>
                         <a href="/settings/"><img class="svg-icon mr-3"
-                                                  src="/assets/svg/slider-tool.svg"><?= _('Settings') ?></a>
+                                                  src="/assets/svg/controls.svg"><?= _('Settings') ?></a>
                         <a href="/logout/"><img class="svg-icon mr-3" src="/assets/svg/logout.svg"><?= _('Log Out') ?>
                         </a>
                     </div>

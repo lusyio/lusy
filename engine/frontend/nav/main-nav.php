@@ -14,13 +14,13 @@ if ($companyUsageSpacePercent > 90) {
         <ul class="navbar-nav w-100">
             <?php if (in_array('main', $menu[$roleu])): ?>
                 <li class="nav-item active pb-2"><a class="nav-link" href="/">
-                        <img class="svg-icon mr-3" src="/assets/svg/menu.svg">
+                        <img class="svg-icon mr-3" src="/assets/svg/home.svg">
                         <?= _('Dashboard') ?></a></li>
             <?php endif; ?>
             <?php if (in_array('tasks', $menu[$roleu])): ?>
                 <li class="nav-item pb-2">
                     <a class="nav-link" href="/tasks/">
-                        <img class="svg-icon mr-3" src="/assets/svg/checklist.svg">
+                        <img class="svg-icon mr-3" src="/assets/svg/check-list.svg">
                         <?= _('Tasks') ?>
                         <div class="float-right">
                             <span class="badge badge-primary float-left"
@@ -43,16 +43,16 @@ if ($companyUsageSpacePercent > 90) {
             <?php endif; ?>
             <?php if (in_array('company', $menu[$roleu])): ?>
                 <li class="nav-item pb-2"><a class="nav-link" href="/company/">
-                        <img class="svg-icon mr-3" src="/assets/svg/user.svg">
+                        <img class="svg-icon mr-3" src="/assets/svg/users.svg">
                         <?= _('Company') ?></a></li>
             <?php endif; ?>
             <li class="nav-item pb-2"><a class="nav-link" href="/awards/">
-                    <img class="svg-icon mr-3" src="/assets/svg/startup.svg">
+                    <img class="svg-icon mr-3" src="/assets/svg/cup.svg">
                     <?= _('Awards') ?></a></li>
             <?php if (in_array('reports', $menu[$roleu])  && $tariff == 1): ?>
                 <li class="nav-item pb-2">
                     <a class="nav-link" href="/reports/">
-                        <img class="svg-icon mr-3" src="/assets/svg/chart.svg">
+                        <img class="svg-icon mr-3" src="/assets/svg/pie-chart.svg">
                         <?= $GLOBALS['_reports'] ?></a></li>
             <?php endif; ?>
             <?php if (in_array('storage', $menu[$roleu])): ?>
