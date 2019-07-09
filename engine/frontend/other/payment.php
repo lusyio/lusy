@@ -87,16 +87,16 @@
 
 <h5 class="font-weight-bold mb-4">Тарифный план</h5>
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-4 mb-3">
         <div class="card">
             <div class="card-body">
-                <h4 class="font-weight-bold">Стартовый</h4>
+                <h3 class="font-weight-bold">Стартовый</h3>
                 <p><span class="text-secondary">Периодичность оплаты<br>1 месяц</span> - 299 руб./мес.</p>
                 <button class="btn btn-secondary">Выбрать тариф</button>
             </div>
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4 mb-3">
         <div class="card">
             <div class="card-body">
                 <h3 class="font-weight-bold">Уверенный</h3>
@@ -115,7 +115,7 @@
         </div>
     </div>
 </div>
-<p class="mt-3"><strong>Внимание!</strong> Оплата тарифного плана происходит путем автоплатежа - автоматического
+<p><strong>Внимание!</strong> Оплата тарифного плана происходит путем автоплатежа - автоматического
     списания
     суммы средств с периодичностью,
     соответствующей выбранному тарифу. Подписку можно отменить в любой момент.</p>
