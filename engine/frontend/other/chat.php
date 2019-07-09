@@ -25,7 +25,8 @@
         <form>
             <div class="d-flex send-mes-block">
                 <div class="form-group w-100 text-area d-flex">
-                    <textarea style="overflow:hidden; padding-right: 45px;" class="form-control mr-2" id="mes" name="mes" rows="1"
+                    <textarea style="overflow:hidden; padding-right: 45px;" class="form-control mr-2" id="mes"
+                              name="mes" rows="1"
                               placeholder="<?= $GLOBALS['_enterconversation'] ?>"></textarea>
                     <?php $uploadModule = 'chat'; ?>
                     <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
@@ -333,6 +334,22 @@
                     processData: false,
                     contentType: false,
                     data: fd,
+
+                    xhr: function () {
+                        var xhr = new XMLHttpRequest();
+
+                        xhr.upload.onprogress = function (e) {
+                            $(window).bind('beforeunload', function () {
+                                event.preventDefault();
+                                event.returnValue = 'as';
+                            });
+                            $('.filenames').append('<div class="spinner-border spinner-border-sm text-secondary" role="status">\n' +
+                                '  <span class="sr-only">Loading...</span>\n' +
+                                '</div>');
+                        };
+                        return xhr;
+                    },
+
                     success: function (data) {
                         console.log(data);
                         if ($('#chatBox').find($('.no-messages')).length) {
@@ -342,6 +359,13 @@
                         $(".filenames").html("");
                         fileList = new Map();
                         $('.file-name').hide();
+                    },
+
+                    complete: function () {
+                        $('.spinner-border-sm').hide();
+                        $('.filenames').append('<i class="iconSlide-loading fas fa-check"></i>');
+                        $('.iconSlide-loading').fadeOut(300);
+                        $(window).unbind('beforeunload');
                     },
                 });
                 $("#mes").removeClass('border-danger');

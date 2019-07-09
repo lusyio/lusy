@@ -77,7 +77,7 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         var_dump($e->getTrace());
         $error = ob_get_clean();
         addToPaymentsErrorLog($error);
-        $result['error'] = 'Account not created';
+        $result['error'] = 'Order not created';
         echo json_encode($result);
         exit;
     }
@@ -102,36 +102,59 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
 
 
 if($_POST['module'] == 'chargeSubscribe') {
-    $api = new TinkoffMerchantAPI(
-        TTKEY,  //Ваш Terminal_Key
-        TSKEY   //Ваш Secret_Key
-    );
-    $amount = 299 * 100; // цена услуги в копейках
-    $orderId = createOrder($id, $amount);
+
+    $result = [
+        'url' => '',
+        'error' => '',
+        'status' => '',
+    ];
+
+    $companyTariff = getCompanyTariff($idc);
+    if ($companyTariff['tariff'] == 0) {
+        // Бесплатный тариф - оплата не требуется
+        exit;
+    }
+    if (!$companyTariff['is_card_binded']) {
+        //карта не привязана
+        exit;
+    }
+
+    $tariffInfo = getTariffInfo($companyTariff['tariff']);
+
+    $api = new TinkoffMerchantAPI(TTKEY, TSKEY);
+
+    $amount = $tariffInfo['price'];
+    $orderId = createOrder($idc, $companyTariff['tariff']);
 
     $paymentArgs = [
         'Amount' => $amount,
         'OrderId' => $orderId,
-        'CustomerKey' => $id,
-        'Description' => 'Продление подписки',
+        'CustomerKey' => $idc,
+        'Description' => 'Продление подписки на тариф ' . $tariffInfo['tariff_name'] . '. Количество месяцев: '. $tariffInfo['period_in_months'],
     ];
     try {
         $api->init($paymentArgs);
     } catch (Exception $e) {
+        //При ошибке создания счета записываем стектрейс в лог и выдаем ошибку
         ob_start();
         echo "Счёт не сформирован\n";
         var_dump($e->getTrace());
         $error = ob_get_clean();
         addToPaymentsErrorLog($error);
+        $result['error'] = 'Order not created';
+        echo json_encode($result);
+        exit;
     }
+
+    // Получаем json ответ от АПИ банка, преобразуем его в массив
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
+
+    // При успешном статусе обновляем внутренний заказ полученными от АПИ банка данными и выполняем
+    // рекуррентный платёж, при неудаче - делаем запись в лог и выдаем код ошибки АПИ банка
     if ($response['Success']) {
         updateOrderOnSuccess($response);
-        $rebillId = getLastRebillId($id);
-        if (!$rebillId) {
-            echo 'В базе нет такого rebill ID';
-            exit;
-        }
+        $rebillId = $companyTariff['rebill_id'];
+
         $paymentArgs = [
             'PaymentId' => $response['PaymentId'],
             'RebillId' => $rebillId,
@@ -141,15 +164,16 @@ if($_POST['module'] == 'chargeSubscribe') {
         } catch (Exception $e) {
             ob_start();
             echo "Ошибка при проведении рекуррентного платежа\n";
-
             var_dump($e->getTrace());
             $error = ob_get_clean();
             addToPaymentsErrorLog($error);
+            $result['error'] = 'Recurrent payment error';
+            echo json_encode($result);
+            exit;
         }
         $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
         if ($response['Success']) {
             updateOrderOnSuccess($response);
-            echo 'Рекуррентный платёж проведен успешно';
             exit;
         } else {
             ob_start();
@@ -157,6 +181,9 @@ if($_POST['module'] == 'chargeSubscribe') {
             var_dump($response);
             $error = ob_get_clean();
             addToPaymentsErrorLog($error);
+            $result['error'] = $response['ErrorCode'];
+            echo json_encode($result);
+            exit;
         }
     } else {
         ob_start();
@@ -164,6 +191,9 @@ if($_POST['module'] == 'chargeSubscribe') {
         var_dump($response);
         $error = ob_get_clean();
         addToPaymentsErrorLog($error);
+        $result['error'] = 'Order not created';
+        echo json_encode($result);
+        exit;
     }
 }
 
