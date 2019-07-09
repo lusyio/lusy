@@ -37,7 +37,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Задачи"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <img class="svg-icon" src="/assets/svg/notification.svg">
+                                    <img class="svg-icon" src="/assets/svg/alarm.svg">
                                     <span class="badge badge-primary badge-topsidebar" id="notificationBadge">
                                     <small class="text-white" id="notificationCount"></small>
                                     </span>
@@ -60,7 +60,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Комментарии"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <img class="svg-icon" src="/assets/svg/chat.svg">
+                                    <img class="svg-icon" src="/assets/svg/feedback.svg">
                                     <span class="badge badge-warning badge-topsidebar" id="commentBadge">
                                     <small class="text-white" id="commentCount"></small>
                                 </span>
