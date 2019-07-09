@@ -10,7 +10,7 @@ function createOrder($customerId, $tariff, $userId = 0)
     $amount = $tariffInfo['price']; // цена услуги в копейках
 
     $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff, user_id) VALUES (:amount, :customerKey, :createDate, :tariff, :userId)");
-    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff, '::userId' => $userId]);
+    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff, ':userId' => $userId]);
     $orderId = $pdo->lastInsertId();
     return $orderId;
 }
