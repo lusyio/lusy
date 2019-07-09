@@ -143,8 +143,8 @@ function checkTokens($notification)
 function updateCompanyTariff($notification)
 {
     global $pdo;
-    $companyTariff = getCompanyTariff($notification['CustomerKey']);
     $orderInfo = getOrderInfo($notification['OrderId']);
+    $companyTariff = getCompanyTariff($orderInfo['customer_key']);
     $newTariff = getTariffInfo($orderInfo['tariff']);
 
     if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
@@ -168,7 +168,7 @@ function updateCompanyTariff($notification)
         if ($updateCompanyResult) {
             markOrderAsProcessed($notification['OrderId']);
             if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
-                addFinanceEvent($notification['CustomerKey'], 'prolongation');
+                addFinanceEvent($orderInfo['customer_key'], 'prolongation');
             }
         }
     }
