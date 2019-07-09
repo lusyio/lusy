@@ -13,6 +13,7 @@
 body{
     background-color: #fcfcfc;
     -webkit-font-smoothing: subpixel-antialiased;
+    color: #27406a;
 }
 
 .navbar-nav a {
@@ -72,7 +73,7 @@ body{
     padding: 10px 0;
     border-radius: 50%;
     border: 1px solid transparent;
-    min-width: 46px;
+    min-width: 50px;
     cursor: pointer;
 }
 
@@ -832,13 +833,16 @@ input:checked[type="checkbox"]::before {
     position: relative;
     top: -1px;
 }
+.svg-icon path {
+    fill: #27406a;
+}
 #navbarNav hr {
     width: 80%;
 }
-#navbarNav .svg-icon path {
+#navbarNav .svg-icon path, .submenu .svg-icon path {
     fill: #979cad;
 }
-#navbarNav .navbar-nav a:hover > .svg-icon path {
+#navbarNav .navbar-nav a:hover > .svg-icon path, .submenu a:hover > .svg-icon path {
     fill: #27406a;
 }
 .active path {
@@ -1144,6 +1148,7 @@ input:checked[type="checkbox"]::before {
     text-decoration: none;
     padding: 15px 20px;
     display: block;
+    color: #979cad;
 }
 
 .submenu a:first-child {
@@ -1157,9 +1162,11 @@ input:checked[type="checkbox"]::before {
 }
 
 .submenu a:hover {
-    background: #eee;
+    color: #27406a;
 }
-
+.text-secondary {
+    color: #979cac!important;
+}
 .coworkers {
     display: none;
     width: calc(100% - 30px);
