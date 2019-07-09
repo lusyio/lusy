@@ -12,6 +12,7 @@ global $namec;
 global $_free;
 global $_premium;
 global $tariff;
+global $title;
 
 if ($tariff == 1) {
     $tariffName= $_premium;

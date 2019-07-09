@@ -1,10 +1,16 @@
 <?php
 
-function createOrder($customerId, $amount, $tariff)
+function createOrder($customerId, $tariff, $userId = 0)
 {
     global $pdo;
-    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff) VALUES (:amount, :customerKey, :createDate, :tariff)");
-    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff]);
+    $tariffInfo = getTariffInfo($tariff);
+    if (!$tariffInfo) {
+        return false;
+    }
+    $amount = $tariffInfo['price']; // цена услуги в копейках
+
+    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff, user_id) VALUES (:amount, :customerKey, :createDate, :tariff, :userId)");
+    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff, ':userId' => $userId]);
     $orderId = $pdo->lastInsertId();
     return $orderId;
 }
@@ -192,4 +198,20 @@ function markOrderAsProcessed($orderId)
 function addFinanceEvent($companyId, $event)
 {
 
+}
+
+function changeTariff($companyId, $newTariff)
+{
+    global $pdo;
+
+    $updateCompanyTariffQuery = $pdo->prepare('UPDATE company_tariff SET tariff = :newTariff WHERE company_id = :companyId');
+    $queryData = [
+        ':companyId' => $companyId,
+        ':newTariff' => $newTariff,
+    ];
+    $updateCompanyTariffResult = $updateCompanyTariffQuery->execute($queryData);
+    if ($updateCompanyTariffResult) {
+        addFinanceEvent($companyId, 'tariffChange');
+    }
+    return $updateCompanyTariffResult;
 }

@@ -13,13 +13,15 @@ if ($companyUsageSpacePercent > 90) {
     <div class="collapse navbar-collapse navbarNav" id="navbarNav">
         <ul class="navbar-nav w-100">
             <?php if (in_array('main', $menu[$roleu])): ?>
-                <li class="nav-item pb-2"><a class="nav-link" href="/"><i
-                                class="fas fa-home mr-2 fa-fw"></i> <?= _('Dashboard') ?></a></li>
+                <li class="nav-item active pb-2"><a class="nav-link" href="/">
+                        <img class="svg-icon mr-3" src="/assets/svg/menu.svg">
+                        <?= _('Dashboard') ?></a></li>
             <?php endif; ?>
             <?php if (in_array('tasks', $menu[$roleu])): ?>
                 <li class="nav-item pb-2">
                     <a class="nav-link" href="/tasks/">
-                        <i class="fas fa-tasks mr-2 fa-fw"></i> <?= _('Tasks') ?>
+                        <img class="svg-icon mr-3" src="/assets/svg/checklist.svg">
+                        <?= _('Tasks') ?>
                         <div class="float-right">
                             <span class="badge badge-primary float-left"
                                   style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;"
@@ -34,25 +36,29 @@ if ($companyUsageSpacePercent > 90) {
                 </li>
             <?php endif; ?>
             <?php if (in_array('newTask', $menu[$roleu])): ?>
-                <li class="nav-item"><a class="nav-link" href="/task/new/"><i
-                                class="fas fa-plus mr-2 fa-fw"></i> <?= _('Create task') ?></a></li>
-                <hr class="w-100">
+                <li class="nav-item"><a class="nav-link" href="/task/new/">
+                        <img class="svg-icon mr-3" src="/assets/svg/add-button.svg">
+                        <?= _('Create task') ?></a></li>
+                <hr>
             <?php endif; ?>
             <?php if (in_array('company', $menu[$roleu])): ?>
-                <li class="nav-item pb-2"><a class="nav-link" href="/company/"><i
-                                class="fas fa-users mr-2 fa-fw"></i> <?= _('Company') ?></a></li>
+                <li class="nav-item pb-2"><a class="nav-link" href="/company/">
+                        <img class="svg-icon mr-3" src="/assets/svg/user.svg">
+                        <?= _('Company') ?></a></li>
             <?php endif; ?>
-            <li class="nav-item pb-2"><a class="nav-link" href="/awards/"><i
-                            class="fas fa-trophy mr-2 fa-fw"></i> <?= _('Awards') ?></a></li>
+            <li class="nav-item pb-2"><a class="nav-link" href="/awards/">
+                    <img class="svg-icon mr-3" src="/assets/svg/startup.svg">
+                    <?= _('Awards') ?></a></li>
             <?php if (in_array('reports', $menu[$roleu])  && $tariff == 1): ?>
                 <li class="nav-item pb-2">
-                    <a class="nav-link" href="/reports/"><i class="fas fa-chart-pie mr-2 fa-fw"></i>
+                    <a class="nav-link" href="/reports/">
+                        <img class="svg-icon mr-3" src="/assets/svg/chart.svg">
                         <?= $GLOBALS['_reports'] ?></a></li>
             <?php endif; ?>
             <?php if (in_array('storage', $menu[$roleu])): ?>
                 <li class="nav-item pb-2 files-nav">
                     <a class="nav-link" href="/storage/">
-                        <i class="fas fa-hdd mr-2 fa-fw"></i>
+                        <img class="svg-icon mr-3" src="/assets/svg/upload.svg">
                         <?= _('Storage') ?>
                         <div class="progress mt-2">
                             <div class="progress-bar <?= $bguser ?>" role="progressbar"
@@ -69,9 +75,10 @@ if ($companyUsageSpacePercent > 90) {
                 </li>
             <?php endif; ?>
             <?php if ($idc == 1) : ?>
-                <hr class="w-100">
-                <li class="nav-item pb-2"><a class="nav-link" href="/godmode/"><i
-                                class="fas fa-rocket mr-2 fa-fw"></i> <?= _('GodMode') ?></a></li>
+                <hr>
+                <li class="nav-item pb-2"><a class="nav-link" href="/godmode/">
+                        <img class="svg-icon mr-3" src="/assets/svg/settings.svg">
+                        <?= _('GodMode') ?></a></li>
             <?php endif; ?>
         </ul>
     </div>
