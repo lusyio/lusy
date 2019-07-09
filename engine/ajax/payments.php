@@ -119,7 +119,7 @@ if($_POST['module'] == 'chargeSubscribe') {
         exit;
     }
 
-    $tariffInfo = getTariffInfo($companyTariff);
+    $tariffInfo = getTariffInfo($companyTariff['tariff']);
 
     $api = new TinkoffMerchantAPI(TTKEY, TSKEY);
 
@@ -145,7 +145,7 @@ if($_POST['module'] == 'chargeSubscribe') {
         echo json_encode($result);
         exit;
     }
-    
+
     // Получаем json ответ от АПИ банка, преобразуем его в массив
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
 
