@@ -223,13 +223,32 @@
                         $('.done-income').html(data.doneIncome);
                         $('.done-outcome').html(data.doneOutcome);
                         $('.overdue').html(data.overdue);
+                        var color;
+                        var status;
                         data.tasks.forEach(function (e, i) {
-
+                            if (e.status === 'done') {
+                                color = 'border-success';
+                                status = 'Завершена'
+                            } else {
+                                if (e.status === 'postpone' || e.status === 'pending') {
+                                    color = 'border-warning';
+                                    status = 'Перенос срока'
+                                } else {
+                                    if (e.status === 'inwork') {
+                                        color = 'border-primary';
+                                        status = 'В работе'
+                                    } else {
+                                        if (e.status === 'pending') {
+                                            status = 'На рассмотрении'
+                                        }
+                                    }
+                                }
+                            }
                             $('.tasks-list-report').append('<a class="text-decoration-none cust" href=\' /task/' + e.id + '/ \'>\n' +
                                 '    <div class="task-card">\n' +
                                 '       <div class="card mb-2 tasks">\n' +
                                 '           <div class="card-body tasks-list">\n' +
-                                '               <div class=\'d-block border-left-tasks ' + e.status + ' \'>\n' +
+                                '               <div class=\'d-block border-left-tasks ' + color + ' ' + e.status + ' \'>\n' +
                                 '                   <div class="row">\n' +
                                 '                       <div class="col-9">\n' +
                                 '                           <div>\n' +
@@ -237,7 +256,7 @@
                                 '                           </div>\n' +
                                 '                       </div>\n' +
                                 '                           <div class="col-3 p-0">\n' +
-                                '                               <span> ' + e.name + ' </span>\n' +
+                                '                               <span> ' + status + ' </span>\n' +
                                 '                           </div>\n' +
                                 '                   </div>\n' +
                                 '               </div>\n' +
