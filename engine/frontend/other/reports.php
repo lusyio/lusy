@@ -244,13 +244,15 @@
                                 '    </div>\n' +
                                 '</div>')
                         } else {
+                            $('.tasks-list-report-empty').html('');
+                            $('.tasks-list-report').html('');
                             data.tasks.forEach(function (e, i) {
 
                                 if (e.status === 'done') {
                                     color = 'border-success';
                                     status = 'Завершена'
                                 } else {
-                                    if (e.status === 'postpone' || e.status === 'pending') {
+                                    if (e.status === 'postpone') {
                                         color = 'border-warning';
                                         status = 'Перенос срока'
                                     } else {
@@ -259,12 +261,12 @@
                                             status = 'В работе'
                                         } else {
                                             if (e.status === 'pending') {
+                                                color = 'border-warning';
                                                 status = 'На рассмотрении'
                                             }
                                         }
                                     }
                                 }
-                                $('.tasks-list-report-empty').html('');
                                 $('.tasks-list-report').append('<a class="text-decoration-none cust" href=\' /task/' + e.id + '/ \'>\n' +
                                     '    <div class="task-card">\n' +
                                     '       <div class="card mb-2 tasks">\n' +
@@ -276,7 +278,7 @@
                                     '                               <span class="taskname"> ' + e.name + ' </span>\n' +
                                     '                           </div>\n' +
                                     '                       </div>\n' +
-                                    '                           <div class="col-3 p-0">\n' +
+                                    '                           <div class="col-3 p-0 text-center">\n' +
                                     '                               <span> ' + status + ' </span>\n' +
                                     '                           </div>\n' +
                                     '                   </div>\n' +

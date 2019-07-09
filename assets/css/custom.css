@@ -1783,20 +1783,6 @@ a {
     animation-name: fadeInDown;
 }
 
-@-webkit-keyframes fadeInDownBig {
-    from {
-        opacity: 0;
-        -webkit-transform: translate3d(0, -2000px, 0);
-        transform: translate3d(0, -2000px, 0);
-    }
-
-    to {
-        opacity: 1;
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-    }
-}
-
 .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -1809,7 +1795,7 @@ a {
     -moz-transition: all 1s ease-out; /** Firefox **/
     -o-transition: all 1s ease-out; /** Opera **/
     transition: all 1s ease-out;
-    animation: fadeInDown 0.5s ease-in-out;
+    animation: fade-in 0.5s ease-in-out;
 }
 .new-event {
     background-color: rgba(242, 242, 244, 0.4);
