@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <a class="navbar-brand text-uppercase font-weight-bold visible-lg mt-1" href="/"><?= $namec ?></a>
+                <a class="navbar-brand visible-lg" href="/"><?= $namec ?></a>
                 <button class="navbar-toggler float-right position-relative" type="button" data-toggle="collapse"
                         data-target=".navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><i
@@ -35,7 +35,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Задачи"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="far fa-bell fa-fw" id="notificationIcon" style="font-size: 18px"></i>
+                                    <img class="svg-icon" src="/assets/svg/notification.svg">
                                     <span class="badge badge-primary badge-topsidebar" id="notificationBadge">
                                     <small class="text-white" id="notificationCount"></small>
                                     </span>
@@ -46,7 +46,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Просроченные"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="fas fa-fire-alt fa-fw" id="overdueIcon" style="font-size: 18px"></i>
+                                    <img class="svg-icon" src="/assets/svg/fire.svg">
                                     <span class="badge badge-danger badge-topsidebar" id="overdueBadge">
                                     <small class="text-white" id="overdueCount"></small>
                                 </span>
@@ -58,7 +58,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Комментарии"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="far fa-comment fa-fw" id="commentIcon" style="font-size: 18px"></i>
+                                    <img class="svg-icon" src="/assets/svg/chat.svg">
                                     <span class="badge badge-warning badge-topsidebar" id="commentBadge">
                                     <small class="text-white" id="commentCount"></small>
                                 </span>
@@ -69,7 +69,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Сообщения"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="far fa-envelope fa-fw" id="messagesIcon" style="font-size: 18px"></i>
+                                    <img class="svg-icon" src="/assets/svg/paper-plane.svg">
                                     <span class="badge badge-success badge-topsidebar" id="messagesBadge">
                                     <small class="text-white" id="messagesCount"></small>
                                 </span>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="p-1 ml-3 new-menu-trigger" data-trigger="dropdown">
                         <span>
-                            <img class="user-img rounded-circle " src="/<?= getAvatarLink($id) ?>"/>
+                            <img class="user-img" src="/<?= getAvatarLink($id) ?>"/>
                         </span>
                     </div>
                     <div class="profile-submenu submenu">
