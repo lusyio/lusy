@@ -25,7 +25,7 @@ function updateOrderOnSuccess($response)
 function updateOrderOnNotification($notification)
 {
     global $pdo;
-    $updateOrderQuery = $pdo->prepare("UPDATE orders SET error_code = :errorCode, status = :status, rebill_id = :rebillId where order_id = :orderId");
+    $updateOrderQuery = $pdo->prepare("UPDATE orders SET error_code = :errorCode, status = :status, rebill_id = :rebillId, pan = :pan where order_id = :orderId");
     if (isset($notification['RebillId'])) {
         $rebillId = $notification['RebillId'];
     } else {
@@ -36,6 +36,7 @@ function updateOrderOnNotification($notification)
         ':status' => $notification['Status'],
         ':rebillId' => $rebillId,
         ':orderId' => $notification['OrderId'],
+        ':pan' => $notification['Pan'],
     ];
     $updateOrderQuery->execute($updateOrderData);
 }
@@ -158,9 +159,9 @@ function updateCompanyTariff($notification)
         }
         $tariffPeriod = $newTariff['period_in_months'];
         if (date('d', $companyTariff['payday']) > 28) {
-            $newPayDay = strtotime('first day of next month +' . $tariffPeriod . ' month', $companyTariff['payday']);
+            $newPayDay = strtotime('first day of next month +' . $tariffPeriod . ' month', $lastDay);
         } else {
-            $newPayDay = strtotime('+' . $tariffPeriod . ' month', $companyTariff['payday']);
+            $newPayDay = strtotime('+' . $tariffPeriod . ' month', $lastDay);
         }
 
         $queryData = [
