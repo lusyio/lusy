@@ -14,13 +14,6 @@ if ($companyUsageSpacePercent > 90) {
         <ul class="navbar-nav w-100">
             <?php if (in_array('main', $menu[$roleu])): ?>
                 <li class="nav-item active pb-2"><a class="nav-link" href="/">
-                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                             width="120" height="55" viewBox="0 0 120 55" >
-                            <defs>
-                        <symbol id="facebook"> .... </symbol>
-                            </defs>
-                        </svg>
-                        <use  xlink:href="/assets/svg/menu.svg#facebook"></use>
                         <img class="svg-icon mr-3" src="/assets/svg/menu.svg">
                         <?= _('Dashboard') ?></a></li>
             <?php endif; ?>
@@ -46,7 +39,7 @@ if ($companyUsageSpacePercent > 90) {
                 <li class="nav-item"><a class="nav-link" href="/task/new/">
                         <img class="svg-icon mr-3" src="/assets/svg/add-button.svg">
                         <?= _('Create task') ?></a></li>
-                <hr class="w-100">
+                <hr>
             <?php endif; ?>
             <?php if (in_array('company', $menu[$roleu])): ?>
                 <li class="nav-item pb-2"><a class="nav-link" href="/company/">
@@ -82,7 +75,7 @@ if ($companyUsageSpacePercent > 90) {
                 </li>
             <?php endif; ?>
             <?php if ($idc == 1) : ?>
-                <hr class="w-100">
+                <hr>
                 <li class="nav-item pb-2"><a class="nav-link" href="/godmode/">
                         <img class="svg-icon mr-3" src="/assets/svg/settings.svg">
                         <?= _('GodMode') ?></a></li>

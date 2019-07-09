@@ -17,8 +17,7 @@ body{
 
 .navbar-nav a {
     color: #979cad;
-    transition: 0.1s all;
-    font-weight: 500;
+    font-weight: 400;
 }
 .navbar-nav li.active a {
     color: #27406a;
@@ -32,7 +31,7 @@ body{
 }
 
 .top-sidebar {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .top-sidebar-indicator{
@@ -46,7 +45,6 @@ body{
 
 .navbar-nav a:hover {
     color: #27406a;
-    transition: 0.1s all;
 }
 
 .navbar-nav .badge {
@@ -114,7 +112,13 @@ body{
 #logPlug{
     display: none;
 }
-
+.top-sidebar h2 {
+    color: #27406a;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
 .delete-message{
     color: #d64c5e !important;
     margin-left: 13px;
@@ -137,10 +141,13 @@ body{
 
 .files-nav .progress {
     background-color: #f4f8ff;
-    height: 3px;
+    height: 4px;
     margin-left: 46px;
+    border-radius: 0px;
 }
-
+.icon:hover {
+    fill: #DA4567;
+}
 #main {
     max-width: 1400px;
     margin: auto;
@@ -222,7 +229,9 @@ body{
 .progress {
     background-color: #f7f7f7;
 }
-
+.progress .bg-dark {
+    background-color: #74a6f8 !important;
+}
 .text-ligther-custom {
     color: #728096;
 }
@@ -414,7 +423,22 @@ list-group:hover {
 #searchInput:focus {
     box-shadow: none;
 }
-
+#searchForm {
+    position: absolute;
+    left: -246px;
+    width: 280px;
+    z-index: 1;
+    top: 3px;
+}
+#searchBtn {
+     position: absolute;
+    top: 15px;
+    left: 0px;
+    z-index: 2;
+ }
+#searchBtn:hover {
+    cursor: pointer;
+}
 .icon-reset-searchbar {
     padding-right: 1.25rem;
 }
@@ -805,6 +829,20 @@ input:checked[type="checkbox"]::before {
 .svg-icon {
     height: 25px;
     width: 25px;
+    position: relative;
+    top: -1px;
+}
+#navbarNav hr {
+    width: 80%;
+}
+#navbarNav .svg-icon path {
+    fill: #979cad;
+}
+#navbarNav .navbar-nav a:hover > .svg-icon path {
+    fill: #27406a;
+}
+.active path {
+    fill: #27406a !important;
 }
 .custom {
     font-size: 12px;
@@ -1089,8 +1127,7 @@ input:checked[type="checkbox"]::before {
     padding: 0;
     background: #fff;
     margin-top: 9px;
-    box-shadow: 0 2px 12px -4px rgba(0, 0, 0, 0.65);
-    width: 150px;
+    box-shadow: rgba(197, 197, 201, 0.15) 0px 14px 15px 2px;
     position: absolute;
     right: 10px;
     top: 45px;
@@ -1105,7 +1142,7 @@ input:checked[type="checkbox"]::before {
 
 .submenu a {
     text-decoration: none;
-    padding: 10px 10px;
+    padding: 15px 20px;
     display: block;
 }
 
@@ -1153,11 +1190,11 @@ input:checked[type="checkbox"]::before {
 
 .new-menu-trigger{
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 12px;
 }
 
 .new-menu-trigger:hover {
-    background-color: rgba(95, 99, 104, 0.24) !important;
+    background-color: rgba(95, 99, 104, 0.1) !important;
 }
 
 .login-error{
@@ -2130,10 +2167,6 @@ span.date {
    color: #5a93df !important;
 }
 
-.form-control:focus {
-    background-color: #fefefe;
-    box-shadow: none !important;
-}
 
 #f1 {
     display: flex !important;
@@ -2179,11 +2212,10 @@ span.date {
 }
 
 #search {
-    background-color: #f6f6f6;
+    background-color: #ffffff;
+    box-shadow: rgba(197, 197, 201, 0.15) 0px 14px 15px 2px;
     border: none !important;
     color: #6c757d;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
     font-size: 12px;
     padding-left: 20px;
 }
@@ -2197,9 +2229,6 @@ span.date {
     top: 1px;
 }
 
-#search:focus{
-    box-shadow: none;
-}
 
 .chart-content{
     padding-bottom: 0;
@@ -2237,6 +2266,8 @@ span.date {
     font-size: 16px;
     text-transform: capitalize;
     font-weight: 700;
+    margin-bottom: 0px;
+    margin-top: 10px;
 }
 
 .swiper-container {
@@ -2274,7 +2305,7 @@ span.date {
     animation: none;
 }
 #workzone {
-    margin-top: 40px;
+    margin-top: 30px;
 }
 @-webkit-keyframes pulse {
     0% {
@@ -2340,7 +2371,7 @@ span.date {
     }
 
     #navbarNav {
-        padding-top: 100px;
+        padding-top: 70px;
     }
 
     .navbar-vertical.navbar-expand-md > [class*=container] {
@@ -2372,9 +2403,6 @@ span.date {
         align-items: stretch;
     }
 
-    #workzone {
-        padding: 0 20px;
-    }
 }
 
 @media (min-width: 992px) {
