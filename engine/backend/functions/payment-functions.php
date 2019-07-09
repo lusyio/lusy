@@ -25,7 +25,7 @@ function updateOrderOnSuccess($response)
 function updateOrderOnNotification($notification)
 {
     global $pdo;
-    $updateOrderQuery = $pdo->prepare("UPDATE orders SET error_code = :errorCode, status = :status, rebill_id = :rebillId where order_id = :orderId");
+    $updateOrderQuery = $pdo->prepare("UPDATE orders SET error_code = :errorCode, status = :status, rebill_id = :rebillId, pan = :pan where order_id = :orderId");
     if (isset($notification['RebillId'])) {
         $rebillId = $notification['RebillId'];
     } else {
@@ -36,6 +36,7 @@ function updateOrderOnNotification($notification)
         ':status' => $notification['Status'],
         ':rebillId' => $rebillId,
         ':orderId' => $notification['OrderId'],
+        ':pan' => $notification['Pan'],
     ];
     $updateOrderQuery->execute($updateOrderData);
 }
@@ -147,17 +148,24 @@ function updateCompanyTariff($notification)
     $companyTariff = getCompanyTariff($orderInfo['customer_key']);
     $newTariff = getTariffInfo($orderInfo['tariff']);
 
-    if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
-        $updateCompanyTariffQuery = $pdo->prepare('UPDATE company_tariff SET tariff = :newTariff, payday = :newPayday, rebill_id = :rebillId, is_card_binded = 1, pan = :pan');
 
+    if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
+        $updateCompanyTariffQuery = $pdo->prepare('UPDATE company_tariff SET tariff = :newTariff, payday = :newPayday, rebill_id = :rebillId, is_card_binded = 1, pan = :pan WHERE company_id = :companyId');
+
+        if ($companyTariff['tariff'] == 0) {
+            $lastDay = strtotime('midnight');
+        } else {
+            $lastDay = $companyTariff['payday'];
+        }
         $tariffPeriod = $newTariff['period_in_months'];
         if (date('d', $companyTariff['payday']) > 28) {
-            $newPayDay = strtotime('first day of next month +' . $tariffPeriod . ' month', $companyTariff['payday']);
+            $newPayDay = strtotime('first day of next month +' . $tariffPeriod . ' month', $lastDay);
         } else {
-            $newPayDay = strtotime('+' . $tariffPeriod . ' month', $companyTariff['payday']);
+            $newPayDay = strtotime('+' . $tariffPeriod . ' month', $lastDay);
         }
 
         $queryData = [
+            ':companyId' => $orderInfo['customer_key'],
             ':newTariff' => $orderInfo['tariff'],
             ':newPayday' => $newPayDay,
             ':rebillId' => $orderInfo['rebill_id'],
