@@ -354,7 +354,7 @@
                     xhr: function () {
                         var xhr = new XMLHttpRequest();
 
-                        xhr.upload.onprogress = function (e) {
+                        xhr.upload.onprogress = function () {
                             $(window).bind('beforeunload', function () {
                                 event.preventDefault();
                                 event.returnValue = 'as';

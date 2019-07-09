@@ -343,7 +343,7 @@
                                 event.preventDefault();
                                 event.returnValue = 'as';
                             });
-                            $('.filenames').append('<div class="spinner-border spinner-border-sm text-secondary" role="status">\n' +
+                            $('#sendBtn').append('<div class="spinner-border spinner-border-sm text-secondary" role="status">\n' +
                                 '  <span class="sr-only">Loading...</span>\n' +
                                 '</div>');
                         };

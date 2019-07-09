@@ -738,10 +738,10 @@ input:checked[type="checkbox"]::before {
     display: none;
 }
 
-/*.form-control:focus{*/
-/*    box-shadow: none!important;*/
-/*    background-color: #fefefe;*/
-/*}*/
+.form-control:focus{
+    box-shadow: none!important;
+    background-color: #fefefe;
+}
 
 .input-settings:focus{
     background-color: #fefefe;
@@ -2570,6 +2570,17 @@ span.date {
     .noty-padding-content-settings-sleep{
         display: block !important;
     }
+
+    .left-modal{
+        display: none;
+    }
+
+    .right-modal{
+        height: 575px;
+        border-top-left-radius: .3rem;;
+        border-bottom-left-radius: .3rem;;
+    }
+
 
     .change-plan-date{
         width: 76% !important;;
