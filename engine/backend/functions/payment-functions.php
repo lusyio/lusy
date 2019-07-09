@@ -159,7 +159,7 @@ function updateCompanyTariff($notification)
 
         $queryData = [
             ':newTariff' => $orderInfo['tariff'],
-            ':payDay' => $newPayDay,
+            ':newPayday' => $newPayDay,
             ':rebillId' => $orderInfo['rebill_id'],
             ':pan' => $orderInfo['pan'],
         ];
