@@ -155,22 +155,21 @@
 <div class="card mt-3 report-container" style="display: none">
     <div class="card-body">
         <div class="row text-muted text-center">
-            <div class="col">
-                <span>Выполнено</span>
+            <div class="col-8">
+                <span class="small">Выполнено</span>
             </div>
-            <div class="col">
-                <span>Выполнено</span>
-            </div>
-            <div class="col">
-                <span>Просрочено</span>
+            <div class="col-4">
+                <span class="small">Просрочено</span>
             </div>
         </div>
         <div class="row text-center">
             <div class="col">
-                <span class="done-income"></span>
+                <span class="badge badge-primary done-outcome" data-toggle="tooltip" data-placement="bottom"
+                      title="<?= $GLOBALS['_outbox'] ?>"></span>
             </div>
             <div class="col">
-                <span class="done-outcome"></span>
+                <span class="badge badge-dark done-income" data-toggle="tooltip" data-placement="bottom"
+                      title="<?= $GLOBALS['_inbox'] ?>">></span>
             </div>
             <div class="col">
                 <span class="overdue"></span>
@@ -179,6 +178,8 @@
         <div class="row mt-3">
             <div class="col">
                 <span class="text-muted">Задачи за выбранный период:</span>
+                <div class="tasks-list-report-empty">
+                </div>
                 <div class="tasks-list-report">
 
                 </div>
@@ -225,46 +226,68 @@
                         $('.overdue').html(data.overdue);
                         var color;
                         var status;
-                        data.tasks.forEach(function (e, i) {
-                            if (e.status === 'done') {
-                                color = 'border-success';
-                                status = 'Завершена'
-                            } else {
-                                if (e.status === 'postpone' || e.status === 'pending') {
-                                    color = 'border-warning';
-                                    status = 'Перенос срока'
+
+                        console.log(data.tasks);
+                        if (data.tasks.length === 0) {
+                            $('.tasks-list-report').html('');
+                            $('.tasks-list-report-empty').html('<div class="task-card">\n' +
+                                '    <div class="card">\n' +
+                                '        <div class="card-body tasks-list">\n' +
+                                '            <div class="row">\n' +
+                                '                <div class="col">\n' +
+                                '                    <span class="taskname">\n' +
+                                '                        Задач за выбранный период не найдено\n' +
+                                '                    </span>\n' +
+                                '                </div>\n' +
+                                '            </div>\n' +
+                                '        </div>\n' +
+                                '    </div>\n' +
+                                '</div>')
+                        } else {
+                            data.tasks.forEach(function (e, i) {
+
+                                if (e.status === 'done') {
+                                    color = 'border-success';
+                                    status = 'Завершена'
                                 } else {
-                                    if (e.status === 'inwork') {
-                                        color = 'border-primary';
-                                        status = 'В работе'
+                                    if (e.status === 'postpone' || e.status === 'pending') {
+                                        color = 'border-warning';
+                                        status = 'Перенос срока'
                                     } else {
-                                        if (e.status === 'pending') {
-                                            status = 'На рассмотрении'
+                                        if (e.status === 'inwork') {
+                                            color = 'border-primary';
+                                            status = 'В работе'
+                                        } else {
+                                            if (e.status === 'pending') {
+                                                status = 'На рассмотрении'
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            $('.tasks-list-report').append('<a class="text-decoration-none cust" href=\' /task/' + e.id + '/ \'>\n' +
-                                '    <div class="task-card">\n' +
-                                '       <div class="card mb-2 tasks">\n' +
-                                '           <div class="card-body tasks-list">\n' +
-                                '               <div class=\'d-block border-left-tasks ' + color + ' ' + e.status + ' \'>\n' +
-                                '                   <div class="row">\n' +
-                                '                       <div class="col-9">\n' +
-                                '                           <div>\n' +
-                                '                               <span class="taskname"> ' + e.name + ' </span>\n' +
-                                '                           </div>\n' +
-                                '                       </div>\n' +
-                                '                           <div class="col-3 p-0">\n' +
-                                '                               <span> ' + status + ' </span>\n' +
-                                '                           </div>\n' +
-                                '                   </div>\n' +
-                                '               </div>\n' +
-                                '           </div>\n' +
-                                '        </div>\n' +
-                                '    </div>\n' +
-                                '</a>');
-                        });
+                                $('.tasks-list-report-empty').html('');
+                                $('.tasks-list-report').append('<a class="text-decoration-none cust" href=\' /task/' + e.id + '/ \'>\n' +
+                                    '    <div class="task-card">\n' +
+                                    '       <div class="card mb-2 tasks">\n' +
+                                    '           <div class="card-body tasks-list">\n' +
+                                    '               <div class=\'d-block border-left-tasks ' + color + ' ' + e.status + ' \'>\n' +
+                                    '                   <div class="row">\n' +
+                                    '                       <div class="col-9">\n' +
+                                    '                           <div>\n' +
+                                    '                               <span class="taskname"> ' + e.name + ' </span>\n' +
+                                    '                           </div>\n' +
+                                    '                       </div>\n' +
+                                    '                           <div class="col-3 p-0">\n' +
+                                    '                               <span> ' + status + ' </span>\n' +
+                                    '                           </div>\n' +
+                                    '                   </div>\n' +
+                                    '               </div>\n' +
+                                    '           </div>\n' +
+                                    '        </div>\n' +
+                                    '    </div>\n' +
+                                    '</a>');
+
+                            });
+                        }
                     });
                     console.log(data);
                 }
