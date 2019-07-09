@@ -1483,7 +1483,24 @@ input:checked[type="checkbox"]::before {
 
 }
 
+.icon-close-modal{
+    right: -10px;
+    top: -10px;
+    position: absolute;
+}
+
+.right-modal{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    max-width: 400px;
+    height: 460px;
+}
+
 .left-modal{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    max-width: 600px;
+    height: 460px;
     background: #56CCF2;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -1507,6 +1524,42 @@ a {
 .payment-card{
     transition: 300ms;
     cursor: pointer;
+}
+
+.bg-icon-ruble{
+    right: 20px;
+    bottom: 20px;
+    z-index: 1;
+    position: absolute;
+}
+
+.modal-dialog-tariff{
+    max-width: 1000px;
+    justify-content: space-between;
+}
+
+.icon-ruble{
+    font-size: 100px;
+    opacity: 0.05;
+}
+
+.icon-credit-card{
+    font-size: 20px;
+    opacity: 0.7;
+}
+
+#deleteCard{
+    z-index: 2;
+}
+
+#promoInput{
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+#promoBtn{
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
 }
 
 .payment-card:hover{
@@ -2390,6 +2443,13 @@ span.date {
         padding-right: 5px !important;
     }
 
+    .card-tariff-left{
+        padding-right: 0 !important;
+    }
+
+    .card-tariff-right{
+        padding-left: 0 !important;
+    }
 
     .navblock {
         padding-right: 0 !important;
@@ -2468,6 +2528,10 @@ span.date {
 
     .price-card:last-of-type{
         margin-top: 15px;
+    }
+
+    .bg-icon-ruble{
+        top: 20px;
     }
 
     .noty-padding-content-settings-sleep{
