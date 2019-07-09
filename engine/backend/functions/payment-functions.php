@@ -147,9 +147,15 @@ function updateCompanyTariff($notification)
     $companyTariff = getCompanyTariff($orderInfo['customer_key']);
     $newTariff = getTariffInfo($orderInfo['tariff']);
 
-    if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
-        $updateCompanyTariffQuery = $pdo->prepare('UPDATE company_tariff SET tariff = :newTariff, payday = :newPayday, rebill_id = :rebillId, is_card_binded = 1, pan = :pan');
 
+    if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
+        $updateCompanyTariffQuery = $pdo->prepare('UPDATE company_tariff SET tariff = :newTariff, payday = :newPayday, rebill_id = :rebillId, is_card_binded = 1, pan = :pan WHERE company_id = :companyId');
+
+        if ($companyTariff['tariff'] == 0) {
+            $lastDay = strtotime('midnight');
+        } else {
+            $lastDay = $companyTariff['payday'];
+        }
         $tariffPeriod = $newTariff['period_in_months'];
         if (date('d', $companyTariff['payday']) > 28) {
             $newPayDay = strtotime('first day of next month +' . $tariffPeriod . ' month', $companyTariff['payday']);
@@ -158,6 +164,7 @@ function updateCompanyTariff($notification)
         }
 
         $queryData = [
+            ':companyId' => $orderInfo['customer_key'],
             ':newTariff' => $orderInfo['tariff'],
             ':newPayday' => $newPayDay,
             ':rebillId' => $orderInfo['rebill_id'],
