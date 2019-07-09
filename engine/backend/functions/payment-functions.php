@@ -63,7 +63,7 @@ function getOrdersList()
 function getOrderInfo($orderId)
 {
     global $pdo;
-    $orderInfoQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, processed FROM orders WHERE order_id = :orderId");
+    $orderInfoQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, tariff, pan, processed FROM orders WHERE order_id = :orderId");
     $orderInfoQuery->execute([':orderId' => $orderId]);
     $orderInfo = $orderInfoQuery->fetch(PDO::FETCH_ASSOC);
     return $orderInfo;
@@ -143,8 +143,8 @@ function checkTokens($notification)
 function updateCompanyTariff($notification)
 {
     global $pdo;
-    $companyTariff = getCompanyTariff($notification['CustomerKey']);
     $orderInfo = getOrderInfo($notification['OrderId']);
+    $companyTariff = getCompanyTariff($orderInfo['customer_key']);
     $newTariff = getTariffInfo($orderInfo['tariff']);
 
     if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
@@ -158,17 +158,17 @@ function updateCompanyTariff($notification)
         }
 
         $queryData = [
-            'newTariff' => $orderInfo['tariff'],
-            'payDay' => $newPayDay,
-            'rebillId' => $orderInfo['rebill_id'],
-            'pan' => $orderInfo['pan'],
+            ':newTariff' => $orderInfo['tariff'],
+            ':newPayday' => $newPayDay,
+            ':rebillId' => $orderInfo['rebill_id'],
+            ':pan' => $orderInfo['pan'],
         ];
         $updateCompanyResult = $updateCompanyTariffQuery->execute($queryData);
 
         if ($updateCompanyResult) {
             markOrderAsProcessed($notification['OrderId']);
             if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
-                addFinanceEvent($notification['CustomerKey'], 'prolongation');
+                addFinanceEvent($orderInfo['customer_key'], 'prolongation');
             }
         }
     }
