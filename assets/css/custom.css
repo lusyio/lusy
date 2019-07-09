@@ -1483,6 +1483,12 @@ input:checked[type="checkbox"]::before {
 
 }
 
+.left-modal{
+    background: #56CCF2;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 .navbar-vertical {
     background: rgb(238, 240, 249);
     background: -moz-linear-gradient(-45deg, rgb(238, 240, 249) 0%, rgb(252, 252, 252) 100%);
@@ -1496,6 +1502,63 @@ ul.navbar-nav {
 
 a {
     color: #202429;
+}
+
+.payment-card{
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.payment-card:hover{
+    -webkit-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
+}
+
+.cancel-delete-card{
+    color: #dedede !important;
+    margin-left: 13px;
+    padding: 5px;
+    transition: 200ms;
+    border-radius: 50%;
+    width: 35px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.cancel-delete-card:hover{
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.cancel-delete-card:active{
+    box-shadow: 0 0 3px #f2f2f2;
+    border-radius: 50%;
+}
+
+.delete-card{
+    color: #d64c5e !important;
+    margin-left: 13px;
+    padding: 5px;
+    transition: 200ms;
+    border-radius: 50%;
+    width: 35px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.delete-card:hover{
+    padding: 5px;
+    border-radius: 50%;
+    background-color: rgba(212, 74, 95, 0.31);
+    cursor: pointer;
+}
+
+.delete-card:active{
+    box-shadow: 0 0 3px #d44a5f;
+    border-radius: 50%;
 }
 
 .user-pic .avatar-img {
