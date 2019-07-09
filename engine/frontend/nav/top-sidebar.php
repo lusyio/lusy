@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <a class="navbar-brand text-uppercase font-weight-bold visible-lg mt-1" href="/"><?= $namec ?></a>
+                <a class="navbar-brand visible-lg" href="/"><?= $namec ?></a>
                 <button class="navbar-toggler float-right position-relative" type="button" data-toggle="collapse"
                         data-target=".navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><i
@@ -13,29 +13,31 @@
                 </button>
             </div>
             <div class="col-sm-5 d-none d-md-block">
-                <form method="get" id="searchForm" action="/../search/">
-                    <div class="form-group mb-0 mt-1">
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input class="form-control" id="search" type="text" name="request" autocomplete="off"
-                                       placeholder="<?= _('Search on tasks, comments and files') ?>...">
-                            </div>
-                            <div class="input-group-append">
-                                <button class="input-group-text" id="searchButton"><i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                <h2 style=" color: #27406a; font-size: 26px; font-weight: 700; "><?= $title ?></h2>
             </div>
             <div class="col-sm-4 navbarNav collapse navbar-collapse">
+                <div class="position-relative" style=" margin-left: 10px; ">
+                    <div id="searchBtn">
+                        <img class="svg-icon" src="/assets/svg/search.svg">
+                    </div>
+                    <form method="get" class="d-none" id="searchForm" action="/../search/">
+                        <div class="form-group mb-0 mt-1">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input class="form-control" id="search" type="text" name="request" autocomplete="off"
+                                           placeholder="<?= _('Search on tasks, comments and files') ?>...">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div id="counters" class="alerts text-center">
                     <div class="d-flex counters-topsidebar">
                         <a href="/log/#tasks" class="text-decoration-none d-none topsidebar-noty-content">
                             <div data-toggle="tooltip" data-placement="bottom" title="Задачи"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="far fa-bell fa-fw" id="notificationIcon" style="font-size: 18px"></i>
+                                    <img class="svg-icon" src="/assets/svg/notification.svg">
                                     <span class="badge badge-primary badge-topsidebar" id="notificationBadge">
                                     <small class="text-white" id="notificationCount"></small>
                                     </span>
@@ -46,7 +48,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Просроченные"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="fas fa-fire-alt fa-fw" id="overdueIcon" style="font-size: 18px"></i>
+                                    <img class="svg-icon" src="/assets/svg/fire.svg">
                                     <span class="badge badge-danger badge-topsidebar" id="overdueBadge">
                                     <small class="text-white" id="overdueCount"></small>
                                 </span>
@@ -58,7 +60,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Комментарии"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="far fa-comment fa-fw" id="commentIcon" style="font-size: 18px"></i>
+                                    <img class="svg-icon" src="/assets/svg/chat.svg">
                                     <span class="badge badge-warning badge-topsidebar" id="commentBadge">
                                     <small class="text-white" id="commentCount"></small>
                                 </span>
@@ -69,7 +71,7 @@
                             <div data-toggle="tooltip" data-placement="bottom" title="Сообщения"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
-                                    <i class="far fa-envelope fa-fw" id="messagesIcon" style="font-size: 18px"></i>
+                                    <img class="svg-icon" src="/assets/svg/paper-plane.svg">
                                     <span class="badge badge-success badge-topsidebar" id="messagesBadge">
                                     <small class="text-white" id="messagesCount"></small>
                                 </span>
@@ -79,23 +81,27 @@
                     </div>
                     <div class="p-1 ml-3 new-menu-trigger" data-trigger="dropdown">
                         <span>
-                            <img class="user-img rounded-circle " src="/<?= getAvatarLink($id) ?>"/>
+                            <img class="user-img" src="/<?= getAvatarLink($id) ?>"/>
                         </span>
                     </div>
                     <div class="profile-submenu submenu">
                         <a href="/company/" class="p-0">
                             <div class="p-3 pt-1 pb-1">
                                 <p class="navbar-brand text-uppercase font-weight-bold mb-0 text-dark"><?= $namec ?></p>
-                                <small class="text-secondary"><?=$tariffName?></small>
+                                <small class="text-secondary"><?= $tariffName ?></small>
                             </div>
                         </a>
                         <hr class="mt-0 mb-0">
-                        <a href="/payment/"><i class="mr-2 fas fa-coins fa-fw"></i><?= _('Payment') ?></a>
+                        <a href="/payment/"><img class="svg-icon mr-3"
+                                                 src="/assets/svg/credit-card.svg"><?= _('Payment') ?></a>
                         <hr class="mt-0 mb-0">
-                        <a href="/profile/<?= $id ?>/"><i class="mr-2 fas fa-user-alt fa-fw"></i><?= _('Profile') ?></a>
-                        <a href="/log/"><i class="mr-2 fas fa-bell fa-fw"></i><?= _('History') ?></a>
-                        <a href="/settings/"><i class="mr-2 fas fa-cog fa-fw"></i><?= _('Settings') ?></a>
-                        <a href="/logout/"><i class="mr-2 fas fa-sign-out-alt fa-fw"></i><?= _('Log Out') ?></a>
+                        <a href="/profile/<?= $id ?>/"><img class="svg-icon mr-3"
+                                                            src="/assets/svg/protect.svg"><?= _('Profile') ?></a>
+                        <a href="/log/"><img class="svg-icon mr-3" src="/assets/svg/book.svg"><?= _('History') ?></a>
+                        <a href="/settings/"><img class="svg-icon mr-3"
+                                                  src="/assets/svg/slider-tool.svg"><?= _('Settings') ?></a>
+                        <a href="/logout/"><img class="svg-icon mr-3" src="/assets/svg/logout.svg"><?= _('Log Out') ?>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -115,7 +121,7 @@
             var submenu = $(this).parent().find('.submenu');
             submenu.fadeToggle(300);
             i++;
-            i % 2 === 0 ? $('.new-menu-trigger').css('background-color', 'white') : $('.new-menu-trigger').css('background-color', 'rgba(95, 99, 104, 0.24)');
+            i % 2 === 0 ? $('.new-menu-trigger').css('background-color', 'white') : $('.new-menu-trigger').css('background-color', 'rgba(95, 99, 104, 0.1)');
         });
         $(document).on('click', function (e) {
             if (!$(e.target).closest(".new-menu-trigger").length) {
