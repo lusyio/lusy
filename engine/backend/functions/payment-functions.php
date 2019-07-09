@@ -63,7 +63,7 @@ function getOrdersList()
 function getOrderInfo($orderId)
 {
     global $pdo;
-    $orderInfoQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, processed FROM orders WHERE order_id = :orderId");
+    $orderInfoQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, tariff, processed FROM orders WHERE order_id = :orderId");
     $orderInfoQuery->execute([':orderId' => $orderId]);
     $orderInfo = $orderInfoQuery->fetch(PDO::FETCH_ASSOC);
     return $orderInfo;
