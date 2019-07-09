@@ -186,12 +186,14 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         $('#dtOrderExample').DataTable({
             "order": [[3, "desc"]]
         });
         $('.dataTables_length').addClass('bs-select');
+
 
         $('.create-report').on('click', function (e) {
             e.preventDefault();
@@ -222,7 +224,27 @@
                         $('.done-outcome').html(data.doneOutcome);
                         $('.overdue').html(data.overdue);
                         data.tasks.forEach(function (e, i) {
-                            $('.tasks-list-report').append(e.name);
+
+                            $('.tasks-list-report').append('<a class="text-decoration-none cust" href=\' /task/' + e.id + '/ \'>\n' +
+                                '    <div class="task-card">\n' +
+                                '       <div class="card mb-2 tasks">\n' +
+                                '           <div class="card-body tasks-list">\n' +
+                                '               <div class=\'d-block border-left-tasks ' + e.status + ' \'>\n' +
+                                '                   <div class="row">\n' +
+                                '                       <div class="col-9">\n' +
+                                '                           <div>\n' +
+                                '                               <span class="taskname"> ' + e.name + ' </span>\n' +
+                                '                           </div>\n' +
+                                '                       </div>\n' +
+                                '                           <div class="col-3 p-0">\n' +
+                                '                               <span> ' + e.name + ' </span>\n' +
+                                '                           </div>\n' +
+                                '                   </div>\n' +
+                                '               </div>\n' +
+                                '           </div>\n' +
+                                '        </div>\n' +
+                                '    </div>\n' +
+                                '</a>');
                         });
                     });
                     console.log(data);
