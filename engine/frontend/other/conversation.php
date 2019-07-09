@@ -373,19 +373,14 @@
                             $('.no-messages').remove();
                         }
                         $("#mes").val('');
-                        $(".filenames").html("");
+                        $(".filenames").remove();
                         fileList = new Map();
                         $('.file-name').hide();
 
                     },
 
                     complete: function () {
-                        $.when($('.spinner-border-sm').fadeOut(300)).done(function () {
-                            $('.filenames').append('<i class="iconSlide-loading fas fa-check"></i>');
-                            setTimeout(function () {
-                                $('.iconSlide-loading').fadeOut(300);
-                            }, 1000);
-                        });
+                        $('.spinner-border-sm').hide();
                         $(window).unbind('beforeunload');
                     },
                 });

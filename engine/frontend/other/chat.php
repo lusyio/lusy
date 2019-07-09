@@ -356,15 +356,13 @@
                             $('.no-messages').remove();
                         }
                         $("#mes").val('');
-                        $(".filenames").html("");
+                        $(".filenames").remove();
                         fileList = new Map();
                         $('.file-name').hide();
                     },
 
                     complete: function () {
                         $('.spinner-border-sm').hide();
-                        $('.filenames').append('<i class="iconSlide-loading fas fa-check"></i>');
-                        $('.iconSlide-loading').fadeOut(300);
                         $(window).unbind('beforeunload');
                     },
                 });
