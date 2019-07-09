@@ -391,6 +391,30 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            if ($isCeo):
+                            ?>
+                            <div class="row mt-3">
+                                <div class="col-2">
+                                    <div class="rounded-circle text-center noty-icon-settings">
+                            <span class="text-white">
+                                <i class="fas fa-coins fa-fw noty-icon-size-settings"></i>
+                            </span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="noty-padding-content-settings">
+                                        <span>Уведомления об оплате</span>
+                                    </div>
+                                </div>
+                                <div class="col-3 col-lg-2">
+                                    <div class="noty-padding-content-settings noty-padding-checkbox-settings">
+                                        <input type="checkbox"
+                                               id="achievement" <?= ($notifications['orders']) ? 'checked' : ''; ?>>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endif; ?>
                             <div class="row mt-3">
                                 <div class="col-2">
                                     <div class="rounded-circle text-center noty-icon-settings">
