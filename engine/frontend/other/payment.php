@@ -70,7 +70,7 @@
                         <br>
                         <span><i class="fas fa-times text-muted"></i> В хранилище файлов свободно 50/100 мб</span>
                         <br>
-                        <span><i class="fas fa-times text-muted"></i> Лимит задач 100/200 задач</span>
+                        <span><i class="fas fa-times text-muted"></i> Осталось 100/200 задач</span>
                         <br>
                         <span><i class="fas fa-times text-muted"></i> Отсутствие отчетов</span>
                         <br>
