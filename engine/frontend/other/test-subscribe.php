@@ -75,7 +75,15 @@
                 contentType: false,
                 data: fd,
                 success: function (response) {
-                    window.open(response.url);
+                    if (response.error === ''){
+                        if (response.url !== '') {
+                            window.open(response.url);
+                        } else {
+                            console.log(response.status);
+                        }
+                    } else {
+                        console.log(response.error);
+                    }
                 },
             });
         });

@@ -20,44 +20,72 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
     $result = [
         'url' => '',
         'error' => '',
+        'status' => '',
     ];
 
     $subscribe = filter_var($_POST['subscribe'], FILTER_SANITIZE_NUMBER_INT);
     $selectedTariff = filter_var($_POST['tariff'], FILTER_SANITIZE_NUMBER_INT);
 
+    // Выдаем ошибку при попытке смены текущего тарифа на этот же тариф
     $companyTariff = getCompanyTariff($idc);
     if ($selectedTariff == $companyTariff['tariff']) {
         $result['error'] = 'It is your current tariff';
         echo json_encode($result);
         exit;
     }
+    // Если уже есть платный тариф и карта привязана то оплату не производим, просто меняем тариф
+    if ($companyTariff['tariff'] != 0 && $companyTariff['is_card_binded']) {
+        if (changeTariff($idc, $selectedTariff)) {
+            $result['status'] = 'Tariff has been changed';
+        } else {
+            $result['error'] = 'Tariff has not been changed';
+        }
+        echo json_encode($result);
+        exit;
+    }
 
+    // Подключаем Класс Тинькофф АПИ
     $api = new TinkoffMerchantAPI(TTKEY,  TSKEY);
 
-    $tariffForBuy = getTariffInfo($selectedTariff);
-    $amount = $tariffForBuy['price']; // цена услуги в копейках
-    $orderId = createOrder($idc, $amount, $selectedTariff);
+    // Создаем внутренний заказ, выдаем ошибку если тариф не найден
+    $orderId = createOrder($idc, $selectedTariff, $id);
+    if (!$orderId) {
+        $result['error'] = 'Tariff not found';
+        echo json_encode($result);
+        exit;
+    }
 
+    $tariffInfo = getTariffInfo($selectedTariff);
+    $amount = $tariffInfo['price'];
+    
+    // Формируем массив данных для создания ссылки на оплату - стоимость в копейках, номер внутреннего заказа,
+    // флаг рекуррентного платежа, ИД компании, Описание платежа, отображаемое на банковской странице оплаты
     $paymentArgs = [
         'Amount' => $amount,
         'OrderId' => $orderId,
         'Recurrent' => 'Y',
         'CustomerKey' => $idc,
-        'Description' => 'Оплата подписки по тарифу ' . $tariffForBuy['tariff_name'] . '. Количество месяцев: '. $tariffForBuy['period_in_months'],
+        'Description' => 'Оплата подписки по тарифу ' . $tariffInfo['tariff_name'] . '. Количество месяцев: '. $tariffInfo['period_in_months'],
     ];
 
     try {
         $api->init($paymentArgs);
     } catch (Exception $e) {
+        //При ошибке создания счета записываем стектрейс в лог и выдаем ошибку
         ob_start();
         echo "Счёт не сформирован\n";
         var_dump($e->getTrace());
         $error = ob_get_clean();
         addToPaymentsErrorLog($error);
+        $result['error'] = 'Account not created';
+        echo json_encode($result);
+        exit;
     }
+    // Получаем json ответ от АПИ банка, преобразуем его в массив
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
 
-
+    // При успешном статусе записываем ссылку на страницу оплаты, обновляем внутренний заказ полученными от
+    // АПИ банка данными, при неудаче - делаем запись в лог и выдаем код ошибки АПИ банка
     if ($response['Success']) {
         updateOrderOnSuccess($response);
         $result['url'] = $response['PaymentURL'];
@@ -69,7 +97,6 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         addToPaymentsErrorLog($error);
         $result['error'] = $response['ErrorCode'];
     }
-
     echo json_encode($result);
 }
 
