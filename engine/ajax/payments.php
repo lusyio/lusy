@@ -16,27 +16,36 @@ $tariffPrices = [
 ];
 
 if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
+
+    $result = [
+        'url' => '',
+        'error' => '',
+    ];
+
     $subscribe = filter_var($_POST['subscribe'], FILTER_SANITIZE_NUMBER_INT);
-    $tariffForBuy = filter_var($_POST['tariff'], FILTER_SANITIZE_NUMBER_INT);
-    if (!key_exists($tariffForBuy, $tariffPrices)) {
+    $selectedTariff = filter_var($_POST['tariff'], FILTER_SANITIZE_NUMBER_INT);
+
+    $companyTariff = getCompanyTariff($idc);
+    if ($selectedTariff == $companyTariff['tariff']) {
+        $result['error'] = 'It is your current tariff';
+        echo json_encode($result);
         exit;
     }
-    $api = new TinkoffMerchantAPI(
-        TTKEY,  //Ваш Terminal_Key
-        TSKEY   //Ваш Secret_Key
-    );
-    $amount = $tariffPrices[$tariffForBuy] * 100; // цена услуги в копейках
-    $orderId = createOrder($id, $amount);
+
+    $api = new TinkoffMerchantAPI(TTKEY,  TSKEY);
+
+    $tariffForBuy = getTariffInfo($selectedTariff);
+    $amount = $tariffForBuy['price']; // цена услуги в копейках
+    $orderId = createOrder($idc, $amount, $selectedTariff);
 
     $paymentArgs = [
         'Amount' => $amount,
         'OrderId' => $orderId,
-        'Description' => 'Оплата подписки. Количество месяцев: '. $tariffForBuy,
+        'Recurrent' => 'Y',
+        'CustomerKey' => $idc,
+        'Description' => 'Оплата подписки по тарифу ' . $tariffForBuy['tariff_name'] . '. Количество месяцев: '. $tariffForBuy['period_in_months'],
     ];
-    if ($subscribe) {
-        $paymentArgs['Recurrent'] = 'Y';
-        $paymentArgs['CustomerKey'] = $id;
-    }
+
     try {
         $api->init($paymentArgs);
     } catch (Exception $e) {
@@ -47,17 +56,24 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         addToPaymentsErrorLog($error);
     }
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
+
+
     if ($response['Success']) {
         updateOrderOnSuccess($response);
-        echo $response['PaymentURL'];
+        $result['url'] = $response['PaymentURL'];
     } else {
         ob_start();
         echo "Ошибка при создании счета\n";
         var_dump($response);
         $error = ob_get_clean();
         addToPaymentsErrorLog($error);
+        $result['error'] = $response['ErrorCode'];
     }
+
+    echo json_encode($result);
 }
+
+
 if($_POST['module'] == 'chargeSubscribe') {
     $api = new TinkoffMerchantAPI(
         TTKEY,  //Ваш Terminal_Key

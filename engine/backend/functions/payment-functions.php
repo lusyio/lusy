@@ -1,10 +1,10 @@
 <?php
 
-function createOrder($customerId, $amount)
+function createOrder($customerId, $amount, $tariff)
 {
     global $pdo;
-    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date) VALUES (:amount, :customerKey, :createDate)");
-    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time()]);
+    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff) VALUES (:amount, :customerKey, :createDate, :tariff)");
+    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff]);
     $orderId = $pdo->lastInsertId();
     return $orderId;
 }
@@ -25,30 +25,6 @@ function updateOrderOnSuccess($response)
 function updateOrderOnNotification($notification)
 {
     global $pdo;
-    //=========Сверка токенов=========
-    $receivedToken = $notification['Token'];
-    unset($notification['Token']);
-    $token = '';
-    $notification['Password'] = TSKEY;
-    ksort($notification);
-
-    foreach ($notification as $arg) {
-        if (!is_array($arg)) {
-            if (is_bool($arg)) {
-                $token .= ($arg) ? 'true' : 'false';
-            }else {
-                $token .= $arg;
-            }
-        }
-    }
-    $calculatedToken = hash('sha256', $token);
-
-    if($calculatedToken != $receivedToken) {
-        addToPaymentsErrorLog('Токены не совпадают. Токен банка: ' . $receivedToken . ' рассчитанный токен ' . $calculatedToken);
-        exit;
-    }
-    //======Конец сверки токенов======
-
     $updateOrderQuery = $pdo->prepare("UPDATE orders SET error_code = :errorCode, status = :status, rebill_id = :rebillId where order_id = :orderId");
     if (isset($notification['RebillId'])) {
         $rebillId = $notification['RebillId'];
@@ -78,10 +54,19 @@ function addToPaymentsErrorLog($text)
 function getOrdersList()
 {
     global $pdo;
-    $ordersQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id FROM orders");
+    $ordersQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, processed FROM orders");
     $ordersQuery->execute();
     $orders = $ordersQuery->fetchAll(PDO::FETCH_ASSOC);
     return $orders;
+}
+
+function getOrderInfo($orderId)
+{
+    global $pdo;
+    $orderInfoQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, processed FROM orders WHERE order_id = :orderId");
+    $orderInfoQuery->execute([':orderId' => $orderId]);
+    $orderInfo = $orderInfoQuery->fetch(PDO::FETCH_ASSOC);
+    return $orderInfo;
 }
 
 function getPaymentId($orderId)
@@ -108,4 +93,95 @@ function getLastRebillId($userId)
     } else {
         return false;
     }
+}
+
+function getTariffInfo($tariffId)
+{
+    global $pdo;
+    $tariffInfoQuery = $pdo->prepare("SELECT tariff_id, tariff_name, price, period_in_months FROM tariffs WHERE tariff_id = :tariffId");
+    $tariffInfoQuery->execute([':tariffId' => $tariffId]);
+    $tariffInfo = $tariffInfoQuery->fetch(PDO::FETCH_ASSOC);
+    return $tariffInfo;
+}
+
+function getCompanyTariff($companyId)
+{
+    global $pdo;
+    $companyTariffQuery = $pdo->prepare("SELECT company_id, tariff, payday, is_card_binded, rebill_id, pan FROM company_tariff WHERE company_id = :companyId");
+    $companyTariffQuery->execute([':companyId' => $companyId]);
+    $companyTariff = $companyTariffQuery->fetch(PDO::FETCH_ASSOC);
+    return $companyTariff;
+}
+
+function checkTokens($notification)
+{
+    $receivedToken = $notification['Token'];
+    unset($notification['Token']);
+    $token = '';
+    $notification['Password'] = TSKEY;
+    ksort($notification);
+
+    foreach ($notification as $arg) {
+        if (!is_array($arg)) {
+            if (is_bool($arg)) {
+                $token .= ($arg) ? 'true' : 'false';
+            }else {
+                $token .= $arg;
+            }
+        }
+    }
+    $calculatedToken = hash('sha256', $token);
+
+    if($calculatedToken == $receivedToken) {
+        return true;
+    } else {
+        addToPaymentsErrorLog('Токены не совпадают. Токен банка: ' . $receivedToken . ' рассчитанный токен ' . $calculatedToken);
+        return false;
+    }
+}
+
+function updateCompanyTariff($notification)
+{
+    global $pdo;
+    $companyTariff = getCompanyTariff($notification['CustomerKey']);
+    $orderInfo = getOrderInfo($notification['OrderId']);
+    $newTariff = getTariffInfo($orderInfo['tariff']);
+
+    if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
+        $updateCompanyTariffQuery = $pdo->prepare('UPDATE company_tariff SET tariff = :newTariff, payday = :newPayday, rebill_id = :rebillId, is_card_binded = 1, pan = :pan');
+
+        $tariffPeriod = $newTariff['period_in_months'];
+        if (date('d', $companyTariff['payday']) > 28) {
+            $newPayDay = strtotime('first day of next month +' . $tariffPeriod . ' month', $companyTariff['payday']);
+        } else {
+            $newPayDay = strtotime('+' . $tariffPeriod . ' month', $companyTariff['payday']);
+        }
+
+        $queryData = [
+            'newTariff' => $orderInfo['tariff'],
+            'payDay' => $newPayDay,
+            'rebillId' => $orderInfo['rebill_id'],
+            'pan' => $orderInfo['pan'],
+        ];
+        $updateCompanyResult = $updateCompanyTariffQuery->execute($queryData);
+
+        if ($updateCompanyResult) {
+            markOrderAsProcessed($notification['OrderId']);
+            if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
+                addFinanceEvent($notification['CustomerKey'], 'prolongation');
+            }
+        }
+    }
+}
+
+function markOrderAsProcessed($orderId)
+{
+    global $pdo;
+    $updateOrderQuery = $pdo->prepare("UPDATE orders SET processed = 1 where order_id = :orderId");
+    $updateOrderQuery->execute([':orderId' => $orderId]);
+}
+
+function addFinanceEvent($companyId, $event)
+{
+
 }

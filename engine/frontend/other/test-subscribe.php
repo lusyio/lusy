@@ -69,12 +69,13 @@
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
+                dataType: 'json',
                 cache: false,
                 processData: false,
                 contentType: false,
                 data: fd,
                 success: function (response) {
-                    window.open(response);
+                    window.open(response.url);
                 },
             });
         });
