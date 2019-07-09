@@ -14,12 +14,12 @@ require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/task-functions.php';
 
 
-$overdueTasksQuery = $pdo->prepare('SELECT id FROM tasks WHERE status = :oldStatus AND datedone < :nowTime');
-$overdueTasksQuery->execute(array(':oldStatus' => 'inwork','nowTime' => time()-86400));
+$overdueTasksQuery = $pdo->prepare("SELECT id FROM tasks WHERE status IN ('new', 'inwork', 'returned') AND datedone < :nowTime");
+$overdueTasksQuery->execute(array('nowTime' => time()-86400));
 $overdueTasks = $overdueTasksQuery->fetchAll(PDO::FETCH_COLUMN);
 
-$makeOverdueTasksQuery = $pdo->prepare('UPDATE tasks SET status = :newStatus WHERE status = :oldStatus AND datedone < :nowTime');
-$makeOverdueTasksQuery->execute(array(':newStatus' => 'overdue',':oldStatus' => 'inwork','nowTime' => time()-86400));
+$makeOverdueTasksQuery = $pdo->prepare("UPDATE tasks SET status = :newStatus WHERE status IN ('new', 'inwork', 'returned') AND datedone < :nowTime");
+$makeOverdueTasksQuery->execute(array(':newStatus' => 'overdue', 'nowTime' => time()-86400));
 
 foreach ($overdueTasks as $task) {
     addEvent('overdue', $task, '');
