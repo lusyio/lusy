@@ -164,6 +164,9 @@
         <div style="width: 80px"><i class="fas fa-times text-danger paymentIcon"></i></div>
         <div class="w-100">Неудачная попытка списать средства</div>
         <div class="text-danger" style="width: 150px">- 299 руб.</div>
+        <span class="position-absolute bg-danger delete-operation" data-toggle="modal" data-target="#paymentInfo">
+            <i class="fas fa-times text-white" style="font-size: 20px"></i>
+        </span>
     </div>
 </div>
 
@@ -295,7 +298,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content pb-3">
             <div class="modal-header border-0 text-center d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Подробности операции</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Вы уверены что хотите отменить операцию?</h5>
             </div>
             <div class="modal-body">
                 <p class="small text-muted text-uppercase">Сумма списания</p>
@@ -315,11 +318,18 @@
                    <i class="far fa-clock text-muted paymentIcon"></i>
                      25.07.2019 18:08:12
                 </span>
+                <hr>
+                <span class="text-muted small">Деньги будут возвращены на вашу карту в течении нескольких суток.</span>
+            </div>
+            <div class="modal-footer border-0" style="justify-content: center">
+                <button type="button" class="btn btn-danger">
+                    Отменить
+                </button>
             </div>
             <span class="icon-close-modal">
             <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
                         class="fas fa-times text-muted"></i></button>
-        </span>
+            </span>
         </div>
     </div>
 </div>

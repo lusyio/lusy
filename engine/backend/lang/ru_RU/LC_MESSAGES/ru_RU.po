@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-07-10 10:42+0300\n"
-"PO-Revision-Date: 2019-07-10 10:42+0300\n"
+"POT-Creation-Date: 2019-07-10 17:20+0300\n"
+"PO-Revision-Date: 2019-07-10 17:25+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -14,6 +14,221 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: engine/frontend/event-messages/task.php:13
+#: engine/frontend/event-messages/task.php:16
+msgid "You create the task"
+msgstr "Вы создали задачу"
+
+#: engine/frontend/event-messages/task.php:14
+msgid "for yourself"
+msgstr "для себя"
+
+#: engine/frontend/event-messages/task.php:17
+msgid "for"
+msgstr "для"
+
+#: engine/frontend/event-messages/task.php:23
+#: engine/frontend/event-messages/task.php:44
+msgid "You have a task assigned"
+msgstr "Вам назначили задачу"
+
+#: engine/frontend/event-messages/task.php:24
+#: engine/frontend/event-messages/task.php:45
+msgid "Deadline to"
+msgstr "Выполните до"
+
+#: engine/frontend/event-messages/task.php:34
+msgid "You have scheduled a task"
+msgstr "Вы запланировали задачу"
+
+#: engine/frontend/event-messages/task.php:35
+msgid "Task will start"
+msgstr "Задача начнется"
+
+#: engine/frontend/event-messages/task.php:52
+msgid "Saw the task"
+msgstr "Ознакомился с задачей"
+
+#: engine/frontend/event-messages/task.php:59
+msgid "You canceled the task"
+msgstr "Вы отменили задачу"
+
+#: engine/frontend/event-messages/task.php:61
+msgid "Task canceled"
+msgstr "Задача отменена"
+
+#: engine/frontend/event-messages/task.php:68
+msgid "Task overdue"
+msgstr "Задача просрочена"
+
+#: engine/frontend/event-messages/task.php:69
+msgid "Take action"
+msgstr "Примите меры"
+
+#: engine/frontend/event-messages/task.php:76
+#: engine/frontend/event-messages/task.php:79
+msgid "Task completed"
+msgstr "Задача выполнена"
+
+#: engine/frontend/event-messages/task.php:77
+msgid "Expect approval"
+msgstr "Ожидайте одобрения"
+
+#: engine/frontend/event-messages/task.php:80
+msgid "Read the report"
+msgstr "Ознакомьтесь с отчетом"
+
+#: engine/frontend/event-messages/task.php:88
+msgid "You returned task"
+msgstr "Вы вернули задачу"
+
+#: engine/frontend/event-messages/task.php:89
+#: engine/frontend/event-messages/task.php:94
+#: engine/frontend/event-messages/task.php:163
+msgid "New deadline"
+msgstr "Новый срок выполнения"
+
+#: engine/frontend/event-messages/task.php:89
+#: engine/frontend/event-messages/task.php:94
+#: engine/frontend/event-messages/task.php:160
+#: engine/frontend/event-messages/task.php:164
+msgid "To the"
+msgstr "До"
+
+#: engine/frontend/event-messages/task.php:93
+msgid "Task returned to you"
+msgstr "Вам возвращена задача"
+
+#: engine/frontend/event-messages/task.php:102
+#: engine/frontend/event-messages/task.php:104
+msgid "Task done"
+msgstr "Задача завершена"
+
+#: engine/frontend/event-messages/task.php:112
+msgid "You requested a postponement"
+msgstr "Вы запросили перенос срока"
+
+#: engine/frontend/event-messages/task.php:113
+#: engine/frontend/event-messages/task.php:116
+#: engine/frontend/event-messages/task.php:125
+#: engine/frontend/event-messages/task.php:128
+msgid "to"
+msgstr "на"
+
+#: engine/frontend/event-messages/task.php:115
+msgid "Request for postponement"
+msgstr "Запрос переноса срока"
+
+#: engine/frontend/event-messages/task.php:124
+msgid "You confirm postpone"
+msgstr "Вы одобрили перенос"
+
+#: engine/frontend/event-messages/task.php:127
+msgid "You have approved postpone"
+msgstr "Вам одобрили перенос"
+
+#: engine/frontend/event-messages/task.php:136
+msgid "You decline postpone"
+msgstr "Вы отменили перенос срока"
+
+#: engine/frontend/event-messages/task.php:137
+#: engine/frontend/event-messages/task.php:140
+msgid "Current deadline"
+msgstr "Текущий срок"
+
+#: engine/frontend/event-messages/task.php:139
+msgid "Decline your postpone"
+msgstr "Перенос срока отклонен"
+
+#: engine/frontend/event-messages/task.php:148
+msgid "You changed worker"
+msgstr "Вы сменили ответственного"
+
+#: engine/frontend/event-messages/task.php:149
+msgid "New worker is"
+msgstr "Назначен"
+
+#: engine/frontend/event-messages/task.php:151
+#: engine/frontend/event-messages/task.php:191
+msgid "Task reassigned"
+msgstr "Задача переназначена"
+
+#: engine/frontend/event-messages/task.php:159
+msgid "You edit deadline"
+msgstr "Вы изменили срок выполнения"
+
+#: engine/frontend/event-messages/task.php:175
+msgid "You add coworker"
+msgstr "Вы добавили соисполнителя"
+
+#: engine/frontend/event-messages/task.php:176
+msgid "New coworker is"
+msgstr "Назначен"
+
+#: engine/frontend/event-messages/task.php:178
+msgid "You are new coworker"
+msgstr "Вас назначили соисполнителем"
+
+#: engine/frontend/event-messages/task.php:188
+msgid "You remove coworker"
+msgstr "Вы удалили соисполнителя"
+
+#: engine/frontend/event-messages/task.php:189
+msgid "It was"
+msgstr "Это был"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "January"
+msgstr "Января"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "February"
+msgstr "Февраля"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "March"
+msgstr "Марта"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "April"
+msgstr "Апреля"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "May"
+msgstr "Мая"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "June"
+msgstr "Июня"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "July"
+msgstr "Июля"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "August"
+msgstr "Августа"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "September"
+msgstr "Сентября"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "October"
+msgstr "Октября"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "November"
+msgstr "Ноября"
+
+#: engine/frontend/event-messages/task.php:194
+msgid "December"
+msgstr "Декабря"
+
+#: engine/frontend/event-messages/task.php:215
+msgid "System message"
+msgstr "Системное сообщение"
 
 #: engine/frontend/nav/main-nav.php:18
 msgid "Dashboard"
@@ -41,30 +256,30 @@ msgstr "Файлы"
 
 #: engine/frontend/nav/main-nav.php:81
 msgid "GodMode"
-msgstr ""
+msgstr "GodMode"
 
-#: engine/frontend/nav/top-sidebar.php:28
+#: engine/frontend/nav/top-sidebar.php:33
 msgid "Search on tasks, comments and files"
 msgstr "Поиск"
 
-#: engine/frontend/nav/top-sidebar.php:96
+#: engine/frontend/nav/top-sidebar.php:101
 msgid "Payment"
 msgstr "Оплата"
 
-#: engine/frontend/nav/top-sidebar.php:99
+#: engine/frontend/nav/top-sidebar.php:104
 msgid "Profile"
 msgstr "Профиль"
 
-#: engine/frontend/nav/top-sidebar.php:100
+#: engine/frontend/nav/top-sidebar.php:105
 #: engine/frontend/other/dashboard-ceo.php:257
 msgid "History"
 msgstr "Журнал"
 
-#: engine/frontend/nav/top-sidebar.php:102
+#: engine/frontend/nav/top-sidebar.php:107
 msgid "Settings"
 msgstr "Настройки"
 
-#: engine/frontend/nav/top-sidebar.php:103
+#: engine/frontend/nav/top-sidebar.php:108
 msgid "Log Out"
 msgstr "Выход"
 
@@ -72,55 +287,55 @@ msgstr "Выход"
 msgid "Tasks done per month"
 msgstr "Завершено задач за месяц"
 
-#: engine/frontend/other/dashboard-ceo.php:41
-#: engine/frontend/other/dashboard-ceo.php:64
-#: engine/frontend/other/dashboard-ceo.php:103
-#: engine/frontend/other/dashboard-ceo.php:132
+#: engine/frontend/other/dashboard-ceo.php:42
+#: engine/frontend/other/dashboard-ceo.php:65
+#: engine/frontend/other/dashboard-ceo.php:104
+#: engine/frontend/other/dashboard-ceo.php:133
 msgid "Done"
 msgstr "Завершено"
 
-#: engine/frontend/other/dashboard-ceo.php:68
-#: engine/frontend/other/dashboard-ceo.php:136
+#: engine/frontend/other/dashboard-ceo.php:69
+#: engine/frontend/other/dashboard-ceo.php:137
 msgid "Show all tasks"
 msgstr "Показать все задачи"
 
-#: engine/frontend/other/dashboard-ceo.php:81
-#: engine/frontend/other/dashboard-ceo.php:150
+#: engine/frontend/other/dashboard-ceo.php:82
+#: engine/frontend/other/dashboard-ceo.php:151
 msgid "You have no tasks yet, create the first task."
 msgstr "У вас пока нет задач, создайте первую задачу."
 
-#: engine/frontend/other/dashboard-ceo.php:164
+#: engine/frontend/other/dashboard-ceo.php:165
 msgid "Completed tasks"
 msgstr "Завершено задач"
 
-#: engine/frontend/other/dashboard-ceo.php:169
+#: engine/frontend/other/dashboard-ceo.php:170
 msgid "Was overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:174
+#: engine/frontend/other/dashboard-ceo.php:175
 msgid "Postpone requested"
 msgstr "Запрошен перенос срока"
 
-#: engine/frontend/other/dashboard-ceo.php:192
+#: engine/frontend/other/dashboard-ceo.php:193
 msgid "task"
 msgid_plural "tasks"
 msgstr[0] "задача"
 msgstr[1] "задачи"
 msgstr[2] "задач"
 
-#: engine/frontend/other/dashboard-ceo.php:205
+#: engine/frontend/other/dashboard-ceo.php:206
 msgid "In work"
 msgstr "В работе"
 
-#: engine/frontend/other/dashboard-ceo.php:219
+#: engine/frontend/other/dashboard-ceo.php:220
 msgid "Overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:233
+#: engine/frontend/other/dashboard-ceo.php:234
 msgid "Pending"
 msgstr "На рассмотрении"
 
-#: engine/frontend/other/dashboard-ceo.php:247
+#: engine/frontend/other/dashboard-ceo.php:248
 msgid "Postponement"
 msgstr "Перенос срока"
 
@@ -130,6 +345,9 @@ msgid_plural "months"
 msgstr[0] "месяц"
 msgstr[1] "месяца"
 msgstr[2] "месяцев"
+
+#~ msgid "postPoneLog"
+#~ msgstr "перенос срока"
 
 #~ msgid "totalTask"
 #~ msgid_plural "totalTasks"

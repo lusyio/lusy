@@ -266,10 +266,8 @@ $borderColor = [
     </div>
 </div>
 
-<div class="card mt-1">
-    <div class="card-body pb-0">
-        <span class="font-weight-bold"><?= _('History') ?></span>
-        <hr class="mb-0">
+<div class="mt-1 pb-0">
+        <span class="font-weight-bold d-none"><?= _('History') ?></span>
         <div id="logDashBoard">
             <ul class="timeline" style="bottom: 0px;">
                 <?php $eventNumber = 1; ?>
@@ -290,7 +288,6 @@ $borderColor = [
                 <?php endif; ?>
             </ul>
         </div>
-    </div>
 </div>
 <script src="/assets/js/swiper.min.js"></script>
 <script type="text/javascript">
