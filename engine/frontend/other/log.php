@@ -29,8 +29,8 @@
             </div>
         </div>
     </div>
-    <div class="card mb-5">
-        <div class="card-body pb-0 pt-0">
+    <div class="mb-5">
+        <div class="pb-0 pt-0">
             <div class="search-container" id="logPlug">
                 <div class="search-empty">
                     <p>Тут пока что пусто</p>
