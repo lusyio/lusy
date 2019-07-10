@@ -47,8 +47,8 @@
     border-radius: 5px;
     display: block;
     padding: 20px 10px;
-    min-width: 215px;
-    max-width: 215px;
+    min-width: 226px;
+    max-width: 226px;
     background: white;
     position: relative;
     margin-right: 15px;
@@ -99,8 +99,8 @@
     display: none;
     padding: 20px 10px;
     margin-right: 18px;
-    min-width: 204px;
-    max-width: 204px;
+    min-width: 215px;
+    max-width: 215px;
 }
 
 .award-sm:last-of-type {
