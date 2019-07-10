@@ -1,126 +1,526 @@
-04.07.2019 17:47:31
+04.07.2019 17:41:44
 Нотификация от банка
-04.07.2019 17:47:31
-Токены не совпадают. Токен банка: Array рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-04.07.2019 17:47:34
-Нотификация от банка
-04.07.2019 17:47:34
-Токены не совпадают. Токен банка: Array рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-04.07.2019 17:48:26
-Нотификация от банка
-04.07.2019 17:48:26
+04.07.2019 17:41:44
+Токены не совпадают. Токен банка: Array рассчитанный токенe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 17:52:17
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"8","Success":true,"Status":"AUTHORIZED","PaymentId":92281376,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"268e2b7a21177f2142f786cf02cbd1915b6a16dd6a59bedb2aa595b0b1f7d428"}
+04.07.2019 17:52:17
+Токены не совпадают. Токен банка: 168e2b7a21177f2142f786cf02cbd1915b6a16dd6a59bedb2aa595b0b1f7d428 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 17:52:17
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"8","Success":true,"Status":"CONFIRMED","PaymentId":92281376,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"1bc09ad90f821fbc7c85669c5739bb2b5476801968572aa2233b1ded2bf49cd9"}
+04.07.2019 17:52:17
+Токены не совпадают. Токен банка: 1bc09ad90f821fbc7c85669c5739bb2b5476801968572aa2233b1ded2bf49cd9 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 18:00:46
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"7","Success":true,"Status":"CONFIRMED","PaymentId":92277340,"ErrorCode":"0","Amount":238800,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"6cab9f6f06ab6906476bc9b328f79b7f1e16679b5668aa61b16caff4e233e4bf"}
+04.07.2019 18:00:46
+Токены не совпадают. Токен банка: 1cab9f6f06ab6906476bc9b328f79b7f1e16679b5668aa61b16caff4e233e4bf рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 18:00:56
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"4","Success":true,"Status":"CONFIRMED","PaymentId":92273825,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"3b4ecef47a9d0a92e967871dd53ab6730082dd550187fc541443e392fdda6e17"}
+04.07.2019 18:00:56
+Токены не совпадают. Токен банка: 1b4ecef47a9d0a92e967871dd53ab6730082dd550187fc541443e392fdda6e17 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 18:00:57
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"0","Success":true,"Status":"CONFIRMED","PaymentId":92273246,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"b682a50205615a30e2a4525d0610895589fce3cf971e9dd20e6111c7866a9224"}
+04.07.2019 18:00:57
+Токены не совпадают. Токен банка: 1682a50205615a30e2a4525d0610895589fce3cf971e9dd20e6111c7866a9224 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 18:00:58
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"6","Success":true,"Status":"CONFIRMED","PaymentId":92276319,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"1340d98bc5692ef7ddd98094e5f96041b5a8db2158a281a70192401bc0423dd0"}
+04.07.2019 18:00:58
+Токены не совпадают. Токен банка: 1340d98bc5692ef7ddd98094e5f96041b5a8db2158a281a70192401bc0423dd0 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 18:01:02
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"8","Success":true,"Status":"CONFIRMED","PaymentId":92281376,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"1bc09ad90f821fbc7c85669c5739bb2b5476801968572aa2233b1ded2bf49cd9"}
+04.07.2019 18:01:02
+Токены не совпадают. Токен банка: 1bc09ad90f821fbc7c85669c5739bb2b5476801968572aa2233b1ded2bf49cd9 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 19:01:01
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"7","Success":true,"Status":"CONFIRMED","PaymentId":92277340,"ErrorCode":"0","Amount":238800,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"6cab9f6f06ab6906476bc9b328f79b7f1e16679b5668aa61b16caff4e233e4bf"}
+04.07.2019 19:01:01
+Токены не совпадают. Токен банка: 1cab9f6f06ab6906476bc9b328f79b7f1e16679b5668aa61b16caff4e233e4bf рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 19:01:08
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"0","Success":true,"Status":"CONFIRMED","PaymentId":92273246,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"b682a50205615a30e2a4525d0610895589fce3cf971e9dd20e6111c7866a9224"}
+04.07.2019 19:01:08
+Токены не совпадают. Токен банка: 1682a50205615a30e2a4525d0610895589fce3cf971e9dd20e6111c7866a9224 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 19:01:09
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"4","Success":true,"Status":"CONFIRMED","PaymentId":92273825,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"3b4ecef47a9d0a92e967871dd53ab6730082dd550187fc541443e392fdda6e17"}
+04.07.2019 19:01:09
+Токены не совпадают. Токен банка: 1b4ecef47a9d0a92e967871dd53ab6730082dd550187fc541443e392fdda6e17 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 19:01:10
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"6","Success":true,"Status":"CONFIRMED","PaymentId":92276319,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"1340d98bc5692ef7ddd98094e5f96041b5a8db2158a281a70192401bc0423dd0"}
+04.07.2019 19:01:10
+Токены не совпадают. Токен банка: 1340d98bc5692ef7ddd98094e5f96041b5a8db2158a281a70192401bc0423dd0 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 19:01:14
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"8","Success":true,"Status":"CONFIRMED","PaymentId":92281376,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"1bc09ad90f821fbc7c85669c5739bb2b5476801968572aa2233b1ded2bf49cd9"}
+04.07.2019 19:01:14
+Токены не совпадают. Токен банка: 1bc09ad90f821fbc7c85669c5739bb2b5476801968572aa2233b1ded2bf49cd9 рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 20:01:09
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"7","Success":true,"Status":"CONFIRMED","PaymentId":92277340,"ErrorCode":"0","Amount":238800,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"6cab9f6f06ab6906476bc9b328f79b7f1e16679b5668aa61b16caff4e233e4bf"}
+04.07.2019 20:01:09
+Токены не совпадают. Токен банка: 6cab9f6f06ab6906476bc9b328f79b7f1e16679b5668aa61b16caff4e233e4bf рассчитанный токен 7c95c67d17f9b8b758b747dc081d487ea7ca85b6a0a29b66f4333e509d0a34ea
+04.07.2019 20:01:17
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"0","Success":true,"Status":"CONFIRMED","PaymentId":92273246,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"b682a50205615a30e2a4525d0610895589fce3cf971e9dd20e6111c7866a9224"}
+04.07.2019 20:01:17
+Токены не совпадают. Токен банка: b682a50205615a30e2a4525d0610895589fce3cf971e9dd20e6111c7866a9224 рассчитанный токен 67ce69fd6302508c28020fee5ae88b3d95bd85acc6091c6a23057fdaffda8c02
+04.07.2019 20:01:17
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"4","Success":true,"Status":"CONFIRMED","PaymentId":92273825,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"3b4ecef47a9d0a92e967871dd53ab6730082dd550187fc541443e392fdda6e17"}
+04.07.2019 20:01:17
+Токены не совпадают. Токен банка: 3b4ecef47a9d0a92e967871dd53ab6730082dd550187fc541443e392fdda6e17 рассчитанный токен 0704e4e9e9385d11bb93641ba823b31c9d2614b40c65a1cd17cace24422d532a
+04.07.2019 20:01:19
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"6","Success":true,"Status":"CONFIRMED","PaymentId":92276319,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"1340d98bc5692ef7ddd98094e5f96041b5a8db2158a281a70192401bc0423dd0"}
+04.07.2019 20:01:19
+Токены не совпадают. Токен банка: 1340d98bc5692ef7ddd98094e5f96041b5a8db2158a281a70192401bc0423dd0 рассчитанный токен 1931fa61764c7b5b2c12f5600dc7cd31ad230dd8715490b48b929a13e5fcc7ad
+04.07.2019 20:01:23
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"8","Success":true,"Status":"CONFIRMED","PaymentId":92281376,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"1bc09ad90f821fbc7c85669c5739bb2b5476801968572aa2233b1ded2bf49cd9"}
+04.07.2019 20:01:23
+Токены не совпадают. Токен банка: 1bc09ad90f821fbc7c85669c5739bb2b5476801968572aa2233b1ded2bf49cd9 рассчитанный токен f689e1d80dfea84bdd30d185191bbcb722aa55728da3203b6b83b8c8ea644fee
+04.07.2019 21:00:26
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"4","Success":true,"Status":"CONFIRMED","PaymentId":92273825,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"3b4ecef47a9d0a92e967871dd53ab6730082dd550187fc541443e392fdda6e17"}
+04.07.2019 21:00:26
 
-04.07.2019 17:51:57
-Нотификация от банка
-04.07.2019 17:51:57
-Токены не совпадают. Токен банка: Array рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-09.07.2019 11:57:47
+04.07.2019 21:00:28
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"0","Success":true,"Status":"CONFIRMED","PaymentId":92273246,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"b682a50205615a30e2a4525d0610895589fce3cf971e9dd20e6111c7866a9224"}
+04.07.2019 21:00:28
+
+04.07.2019 21:00:30
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"6","Success":true,"Status":"CONFIRMED","PaymentId":92276319,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"1340d98bc5692ef7ddd98094e5f96041b5a8db2158a281a70192401bc0423dd0"}
+04.07.2019 21:00:31
+
+04.07.2019 21:00:38
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"8","Success":true,"Status":"CONFIRMED","PaymentId":92281376,"ErrorCode":"0","Amount":74700,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"1bc09ad90f821fbc7c85669c5739bb2b5476801968572aa2233b1ded2bf49cd9"}
+04.07.2019 21:00:38
+
+04.07.2019 21:01:17
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"7","Success":true,"Status":"CONFIRMED","PaymentId":92277340,"ErrorCode":"0","Amount":238800,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"6cab9f6f06ab6906476bc9b328f79b7f1e16679b5668aa61b16caff4e233e4bf"}
+04.07.2019 21:01:17
+
+05.07.2019 10:26:51
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"7","Success":true,"Status":"REFUNDED","PaymentId":92277340,"ErrorCode":"0","Amount":238800,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"4c374d234454b15eb7ba9185b33b94a1a68971ab08a0c855cb4d501150583f1c"}
+05.07.2019 10:26:51
+
+05.07.2019 11:50:25
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"9","Success":true,"Status":"AUTHORIZED","PaymentId":92412790,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"4bdc34596132c36ab82697254892a24a1251e74d1729599fcd285e756787b457"}
+05.07.2019 11:50:25
+
+05.07.2019 11:50:25
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"9","Success":true,"Status":"CONFIRMED","PaymentId":92412790,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"619acc84f9989edf63319e487cdcab27f881949983da472fad77340827e26661"}
+05.07.2019 11:50:25
+
+05.07.2019 11:55:09
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"11","Success":true,"Status":"AUTHORIZED","PaymentId":92413963,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"66f694e5373fd2f0f2f86faed2f7fdc1a04cce9b35e29b78dd1b1869d6a9122d"}
+05.07.2019 11:55:09
+
+05.07.2019 11:55:09
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"11","Success":true,"Status":"CONFIRMED","PaymentId":92413963,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"6b49e95de3c98b585dab864d43ace7cab1df6b81403381753c3f1ebc6b2ae5c9"}
+05.07.2019 11:55:09
+
+05.07.2019 11:57:54
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"12","Success":true,"Status":"AUTHORIZED","PaymentId":92414646,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"39b4694bd3913a9cbca84d8adbd96b052fc890b90f4f2b1da157cc380958d2ea"}
+05.07.2019 11:57:54
+
+05.07.2019 11:57:55
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"12","Success":true,"Status":"CONFIRMED","PaymentId":92414646,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"6ab7ba8b5050d242656af03e32e80862dfeeab49b66fa427132e6a97344da8cc"}
+05.07.2019 11:57:55
+
+05.07.2019 11:58:54
+Рекуррентный платёж не проведен
+array(3) {
+  ["Success"]=>
+  bool(false)
+  ["ErrorCode"]=>
+  string(2) "10"
+  ["Message"]=>
+  string(84) "Метод Charge заблокирован для данного терминала."
+}
+
+05.07.2019 12:00:27
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"14","Success":true,"Status":"AUTHORIZED","PaymentId":92415229,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"5ee19b2b20c9ffbad8489da6766b9f2ebc05214bd8486fb57b87104d57241504"}
+05.07.2019 12:00:27
+
+05.07.2019 12:00:27
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"14","Success":true,"Status":"CONFIRMED","PaymentId":92415229,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"521075e5f525a3e88002f0065ef5087496e6c2af32ba1954cebf12e570d6be32"}
+05.07.2019 12:00:27
+
+05.07.2019 12:00:46
+Рекуррентный платёж не проведен
+array(3) {
+  ["Success"]=>
+  bool(false)
+  ["ErrorCode"]=>
+  string(2) "10"
+  ["Message"]=>
+  string(84) "Метод Charge заблокирован для данного терминала."
+}
+
+05.07.2019 12:24:01
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"17","Success":true,"Status":"AUTHORIZED","PaymentId":92422613,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","RebillId":1562318640829,"Token":"7c992e8e2f739479d3538ae032cff178b1a683ac01ecdb42c861d96c6303a1ed"}
+05.07.2019 12:24:01
+
+05.07.2019 12:24:01
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"17","Success":true,"Status":"CONFIRMED","PaymentId":92422613,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","RebillId":1562318640829,"Token":"c4690c4a9e3b74afe7daa056820e6296dc129205f7f7fd83971847d8f9e1c31b"}
+05.07.2019 12:24:01
+
+05.07.2019 12:25:12
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"17","Success":true,"Status":"REFUNDED","PaymentId":92422613,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"fc569118993391b9ad0d550797c988f2bc99188a0c468b44dae7d28d38133ef1"}
+05.07.2019 12:25:12
+
+05.07.2019 12:25:54
+Рекуррентный платёж не проведен
+array(3) {
+  ["Success"]=>
+  bool(false)
+  ["ErrorCode"]=>
+  string(2) "10"
+  ["Message"]=>
+  string(84) "Метод Charge заблокирован для данного терминала."
+}
+
+05.07.2019 12:28:12
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"19","Success":true,"Status":"AUTHORIZED","PaymentId":92423909,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","RebillId":1562318640829,"Token":"29f44ec3b1dc3a9315e0284b8827838b6b575940788c8d933b2f897bd22b4eb1"}
+05.07.2019 12:28:12
+
+05.07.2019 12:28:12
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"19","Success":true,"Status":"CONFIRMED","PaymentId":92423909,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","RebillId":1562318640829,"Token":"f6402a935aaa24f1aed376ca7d1e86f6342e25416ffa7859af41d3d8d8c8bac8"}
+05.07.2019 12:28:12
+
+05.07.2019 12:29:21
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"20","Success":true,"Status":"AUTHORIZED","PaymentId":92424239,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"df0f695785cbb89fc02cc9b6f9c8047d29a1fc74d1bb0773be097663bf44d567"}
+05.07.2019 12:29:21
+
+05.07.2019 12:29:21
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"20","Success":true,"Status":"CONFIRMED","PaymentId":92424239,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"5286e01b41459d962a17a55cf309cb88a87531a5a5f7d237342ab451ffafa499"}
+05.07.2019 12:29:21
+
+05.07.2019 12:30:27
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"21","Success":true,"Status":"AUTHORIZED","PaymentId":92424642,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","RebillId":1562318640829,"Token":"4c59f533f7c427256ecc287da13cf8a2bfdd87a3866e57ba6be4f18a1c3dbb17"}
+05.07.2019 12:30:27
+
+05.07.2019 12:30:28
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"21","Success":true,"Status":"CONFIRMED","PaymentId":92424642,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","RebillId":1562318640829,"Token":"6d50d16453ddd74c3e9629dc7d22d0f1259da4466ba83158f542e52841f14653"}
+05.07.2019 12:30:28
+
+05.07.2019 12:30:44
+Рекуррентный платёж не проведен
+array(3) {
+  ["Success"]=>
+  bool(false)
+  ["ErrorCode"]=>
+  string(2) "10"
+  ["Message"]=>
+  string(84) "Метод Charge заблокирован для данного терминала."
+}
+
+05.07.2019 12:41:12
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"23","Success":true,"Status":"AUTHORIZED","PaymentId":92428011,"ErrorCode":"0","Amount":29900,"CardId":18718318,"Pan":"500000******0116","ExpDate":"1122","RebillId":1562319672189,"Token":"a39f60a80aa998e32aeefa2863b92e71724b539be2d3e8c575881d491d723d90"}
+05.07.2019 12:41:12
+
+05.07.2019 12:41:12
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"23","Success":true,"Status":"CONFIRMED","PaymentId":92428011,"ErrorCode":"0","Amount":29900,"CardId":18718318,"Pan":"500000******0116","ExpDate":"1122","RebillId":1562319672189,"Token":"476e225f7237e29c7b526632207fd37669814d0a362631cccaae6058964e762a"}
+05.07.2019 12:41:12
+
+05.07.2019 16:31:55
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"21","Success":true,"Status":"REFUNDED","PaymentId":92424642,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"74407d10f025e6188c9639bbe37a3a62d0956c9bac4f4ff42f878ed200a1cd2d"}
+05.07.2019 16:31:55
+
+08.07.2019 15:52:57
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"24","Success":true,"Status":"AUTHORIZED","PaymentId":93482657,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"3e499ec8bbe9f82c892db4585380eb9d7585f11b796ba99e74cfd226250bb532"}
+08.07.2019 15:52:57
+
+08.07.2019 15:52:57
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"24","Success":true,"Status":"CONFIRMED","PaymentId":93482657,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"0cc72dfe6f28e4a1b6e5d06218e8223abcab3baeec9bc842571d3cfcf4abc597"}
+08.07.2019 15:52:57
+
+08.07.2019 15:53:06
+Рекуррентный платёж не проведен
+array(3) {
+  ["Success"]=>
+  bool(false)
+  ["ErrorCode"]=>
+  string(2) "10"
+  ["Message"]=>
+  string(84) "Метод Charge заблокирован для данного терминала."
+}
+
+09.07.2019 11:19:54
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"26","Success":true,"Status":"AUTHORIZED","PaymentId":93642215,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"935ab2d39d2e5d2b786f37fcb535a4f012398335959eacf0bb741418dab14612"}
+09.07.2019 11:19:54
+
+09.07.2019 11:19:55
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"26","Success":true,"Status":"CONFIRMED","PaymentId":93642215,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"ef3dd68fa5961a54d741cd9efad6be93c65c847e469794b86c6c8503601e9c97"}
+09.07.2019 11:19:55
+
+09.07.2019 11:19:59
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"27","Success":true,"Status":"AUTHORIZED","PaymentId":93642400,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"f61f5a7214428f4e3157d2e329d5bc65e65d706429ba131b54d66d40e3ecac4b"}
+09.07.2019 11:19:59
+
+09.07.2019 11:20:00
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"27","Success":true,"Status":"CONFIRMED","PaymentId":93642400,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"322c344099fdd6cf883501fef2e4f3a3cdd5b5289b1d4d31e2b3b1ec20ae82ef"}
+09.07.2019 11:20:00
+
+09.07.2019 11:21:11
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"28","Success":true,"Status":"AUTHORIZED","PaymentId":93642714,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"abe3858c2ed378974df3be3a4c2d3cf2a1913f3b155802700bb0bf40394cd200"}
+09.07.2019 11:21:12
+
+09.07.2019 11:21:12
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"28","Success":true,"Status":"CONFIRMED","PaymentId":93642714,"ErrorCode":"0","Amount":29900,"CardId":18683867,"Pan":"430000******0777","ExpDate":"1122","Token":"ef6a2f137dd941a148a828ddc53b6063df4e6a925c198f3805b54215a08fa135"}
+09.07.2019 11:21:12
+
+09.07.2019 11:21:35
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"29","Success":false,"Status":"REJECTED","PaymentId":93642861,"ErrorCode":"1051","Amount":29900,"CardId":18684049,"Pan":"500000******0009","ExpDate":"1122","Token":"835148c50942719b8a87a719fec1ec842494e239cc8c87d76e3045c3e652fdb3"}
+09.07.2019 11:21:35
+
+09.07.2019 11:22:06
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"30","Success":true,"Status":"AUTHORIZED","PaymentId":93643040,"ErrorCode":"0","Amount":29900,"CardId":18884155,"Pan":"400000******0119","ExpDate":"1122","Token":"1461bf8ac73795c0ee283eb6f1d1afbb77a1704f67c1be8f47a0762f776d886e"}
+09.07.2019 11:22:06
+
+09.07.2019 11:22:07
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"30","Success":true,"Status":"CONFIRMED","PaymentId":93643040,"ErrorCode":"0","Amount":29900,"CardId":18884155,"Pan":"400000******0119","ExpDate":"1122","Token":"2641dec579b789b36bd890f654e399f510db944b10c0fa52c9ebab3f5a0823ff"}
+09.07.2019 11:22:07
+
+09.07.2019 11:23:40
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"30","Success":true,"Status":"REFUNDED","PaymentId":93643040,"ErrorCode":"0","Amount":29900,"CardId":18884155,"Pan":"400000******0119","ExpDate":"1122","Token":"17a5e22e66ccc760c3f2845cc6f40c28bec50ec05822c6ce43925ba95dfc5c85"}
+09.07.2019 11:23:40
+
+09.07.2019 13:38:07
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"37","Success":true,"Status":"AUTHORIZED","PaymentId":93677694,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"e1dab2104d50a7cc3fbf5964445c5ad7ddb91cf6350cec897a05fbc8601b2e30"}
+09.07.2019 13:38:07
+<br />
+<b>Notice</b>:  Undefined index: CustomerKey in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>146</b><br />
+<br />
+<b>Notice</b>:  Undefined index: tariff in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>148</b><br />
+
+09.07.2019 13:38:08
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"37","Success":true,"Status":"CONFIRMED","PaymentId":93677694,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"482c973edcc28624f9f61f8a26dc3db2efdb53ef6379d0edc2ad5bae5e8686d4"}
+09.07.2019 13:38:08
+<br />
+<b>Notice</b>:  Undefined index: CustomerKey in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>146</b><br />
+<br />
+<b>Notice</b>:  Undefined index: tariff in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>148</b><br />
+<br />
+<b>Notice</b>:  Undefined index: tariff in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>161</b><br />
+<br />
+<b>Notice</b>:  Undefined index: pan in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>164</b><br />
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>166</b><br />
+
+09.07.2019 14:35:02
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"38","Success":true,"Status":"AUTHORIZED","PaymentId":93689969,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"230431bb58aed472a91e1a05aa97feb99bb66c35549d940bcd7dc9eeed61f11b"}
+09.07.2019 14:35:02
+<br />
+<b>Notice</b>:  Undefined index: tariff in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>148</b><br />
+
+09.07.2019 14:35:03
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"38","Success":true,"Status":"CONFIRMED","PaymentId":93689969,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"3f44637a71a8db822e9e2727f966396e572bfd09c725f2c5ad29c5928dfdb6d9"}
+09.07.2019 14:35:03
+<br />
+<b>Notice</b>:  Undefined index: tariff in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>148</b><br />
+<br />
+<b>Notice</b>:  Undefined index: tariff in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>161</b><br />
+<br />
+<b>Notice</b>:  Undefined index: pan in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>164</b><br />
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>166</b><br />
+
+09.07.2019 14:36:30
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"39","Success":true,"Status":"AUTHORIZED","PaymentId":93690374,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"574170343f0b1362fb67b9fa22fb5e371ad0dff4dc057bf823ccf801d9a78b0d"}
+09.07.2019 14:36:30
+
+09.07.2019 14:36:31
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"39","Success":true,"Status":"CONFIRMED","PaymentId":93690374,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"f6cbbcebe2d7606d6de23173b3b3020a9825a96681a018a82f7302f06e8f342a"}
+09.07.2019 14:36:31
+<br />
+<b>Notice</b>:  Undefined index: pan in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>164</b><br />
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>166</b><br />
+
+09.07.2019 14:38:42
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"40","Success":true,"Status":"AUTHORIZED","PaymentId":93690852,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"c7565b9cc49f0daab6868491a833985a645aa8cf31b5099ff0e674ae97dab91e"}
+09.07.2019 14:38:42
+
+09.07.2019 14:38:42
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"40","Success":true,"Status":"CONFIRMED","PaymentId":93690852,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"ffa200fade0250e16f84ce949e54432e63208de9ec1937bd15333dea2941c807"}
+09.07.2019 14:38:42
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>166</b><br />
+
+09.07.2019 14:40:24
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"41","Success":true,"Status":"AUTHORIZED","PaymentId":93691252,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"a1f4d180a486325424cefda130776af39ddad66f91ec172f305f85a848589837"}
+09.07.2019 14:40:24
+
+09.07.2019 14:40:24
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"41","Success":true,"Status":"CONFIRMED","PaymentId":93691252,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"cd14b241f853a8e43940b09be45cf2549ff82d7a30dede3e7a6884eaca0fbaf5"}
+09.07.2019 14:40:24
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>166</b><br />
+
+09.07.2019 14:41:57
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"42","Success":true,"Status":"AUTHORIZED","PaymentId":93691600,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"c2eaae3a49c32b8a15fa1fcfd2fdbda80a383f5f765b44998502a089cb0edcd5"}
+09.07.2019 14:41:57
+
+09.07.2019 14:41:57
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"42","Success":true,"Status":"CONFIRMED","PaymentId":93691600,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"5ee035db6b3ac8788d5450ba0c4c0834b2e49570239a9a6bc269bf4296988ac6"}
+09.07.2019 14:41:57
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: parameter was not defined in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>166</b><br />
+
+09.07.2019 14:42:31
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"43","Success":true,"Status":"AUTHORIZED","PaymentId":93691801,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"51d8b6c8c916aede3b91c528e4348f7fa958bf931a69e3f3d2d30c1a79cb7018"}
+09.07.2019 14:42:31
+
+09.07.2019 14:42:32
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"43","Success":true,"Status":"CONFIRMED","PaymentId":93691801,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"c1c1f8ee2f918f8f91560c6488c9972c849e850ae0c402669e776e58c87680b6"}
+09.07.2019 14:42:32
+
+09.07.2019 15:00:14
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"44","Success":true,"Status":"AUTHORIZED","PaymentId":93696701,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"351979b13d649591f6c4804f7a710f0d9196de3c4ece7d0cee4c57ccc4633009"}
+09.07.2019 15:00:14
+
+09.07.2019 15:00:17
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"44","Success":true,"Status":"CONFIRMED","PaymentId":93696701,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"1a533150a92e347a3faabf1d7390b90d7e4b00f4fa84d897e5ca61ae85deae98"}
+09.07.2019 15:00:17
+
+09.07.2019 15:08:06
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"45","Success":true,"Status":"AUTHORIZED","PaymentId":93698629,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"2e3bec60d64111e852c69351c237edf038373cc2e8a4bd73205c7268f746cb9b"}
+09.07.2019 15:08:06
+
+09.07.2019 15:08:07
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"45","Success":true,"Status":"CONFIRMED","PaymentId":93698629,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"7cbce1d3c318215feeb3c05913595cc58b6eb586244c65704ef468b1dade9929"}
+09.07.2019 15:08:07
+
+09.07.2019 16:04:10
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"46","Success":true,"Status":"AUTHORIZED","PaymentId":93711877,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"1106f09fc156e297cf23bde01c5ebc70dd28f76e3b979183d127c17778773850"}
+09.07.2019 16:04:10
+
+09.07.2019 16:04:11
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"46","Success":true,"Status":"CONFIRMED","PaymentId":93711877,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"111fe27b479eca2993dda739edb25fbaf7eed2136fbfe1b62a2dd88301cf5fe9"}
+09.07.2019 16:04:11
+
+09.07.2019 16:43:38
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"47","Success":true,"Status":"AUTHORIZED","PaymentId":93721977,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"85877d05f4b6737e1df8a47b2e6b2b3de33cff3706ac6686c4d51c3d13354864"}
+09.07.2019 16:43:38
+
+09.07.2019 16:43:40
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"47","Success":true,"Status":"CONFIRMED","PaymentId":93721977,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"c823bdfe66c173f19a8a64f7ca64ebaa71a5f651b05c3d5d1798bedda2ea2ac6"}
+09.07.2019 16:43:40
+
+09.07.2019 16:44:07
 Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:57:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'9999'</font> <i>(length=4)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверные параметры.'</font> <i>(length=36)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Поле Amount не должно быть пустым.'</font> <i>(length=56)</i>
-</pre>
-09.07.2019 11:58:16
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:57:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'9999'</font> <i>(length=4)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверные параметры.'</font> <i>(length=36)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Поле Amount не должно быть пустым.'</font> <i>(length=56)</i>
-</pre>
-09.07.2019 11:59:06
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:57:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'9999'</font> <i>(length=4)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверные параметры.'</font> <i>(length=36)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Поле Amount не должно быть пустым.'</font> <i>(length=56)</i>
-</pre>
-10.07.2019 12:34:30
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:95:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 19 был оплачен.'</font> <i>(length=36)</i>
-</pre>
-10.07.2019 12:35:47
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 20 был оплачен.'</font> <i>(length=36)</i>
-</pre>
-10.07.2019 12:39:10
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 23 был оплачен.'</font> <i>(length=36)</i>
-</pre>
-10.07.2019 12:39:18
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 24 был оплачен.'</font> <i>(length=36)</i>
-</pre>
-10.07.2019 12:45:24
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 26 был оплачен.'</font> <i>(length=36)</i>
-</pre>
-10.07.2019 12:45:28
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 27 был оплачен.'</font> <i>(length=36)</i>
-</pre>
-10.07.2019 12:45:35
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 28 был оплачен.'</font> <i>(length=36)</i>
-</pre>
-10.07.2019 14:39:38
-Ошибка при создании счета
-<pre class='xdebug-var-dump' dir='ltr'>
-<small>C:\projects\lusy\engine\ajax\payments.php:137:</small>
-<b>array</b> <i>(size=4)</i>
-  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
-  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
-  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
-  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 37 был оплачен.'</font> <i>(length=36)</i>
-</pre>
+array(4) {
+  ["Success"]=>
+  bool(false)
+  ["ErrorCode"]=>
+  string(4) "9999"
+  ["Message"]=>
+  string(36) "Неверные параметры."
+  ["Details"]=>
+  string(110) "Неверная сумма. Сумма должна быть больше или равна 100 копеек."
+}
+
+09.07.2019 16:49:18
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"49","Success":true,"Status":"AUTHORIZED","PaymentId":93723403,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"14505e1eb014ada2d809a971e29efe81e879d62d6d1c987a32cea2b0620b472e"}
+09.07.2019 16:49:18
+
+09.07.2019 16:49:18
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"49","Success":true,"Status":"CONFIRMED","PaymentId":93723403,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"54b9ba4b117dc2756f45e9835ec0f0ad729b118b120b887b7fd642c4bd02c2ee"}
+09.07.2019 16:49:18
+
+09.07.2019 16:50:21
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"50","Success":true,"Status":"AUTHORIZED","PaymentId":93723707,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"4ad7be09a2562fd5e4a7c786396079b8e008567f4cc89661378193fb65f7076a"}
+09.07.2019 16:50:21
+
+09.07.2019 16:50:21
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"50","Success":true,"Status":"CONFIRMED","PaymentId":93723707,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"1d0110f45be35462a93eeaed493f5505e38028aad4a6988e2af03d487543f112"}
+09.07.2019 16:50:21
+
+10.07.2019 09:47:03
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"51","Success":true,"Status":"AUTHORIZED","PaymentId":93843116,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"74159ce9dba918f6e1c17283d39f61ebdec8c38592e630e97e57f6eebb6b951c"}
+10.07.2019 09:47:03
+
+10.07.2019 09:47:03
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"51","Success":true,"Status":"CONFIRMED","PaymentId":93843116,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"2183e154edb6bbb2deef7e667f70249b295a97efafcab28fa8a59d26dce61d9c"}
+10.07.2019 09:47:03
+
+10.07.2019 12:37:44
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"21","Success":true,"Status":"AUTHORIZED","PaymentId":93892358,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"e7bbc4fe4275da9c9f721477071a45a2909424756bea500d28cacded07234d6b"}
+10.07.2019 12:37:44
+
+10.07.2019 12:37:44
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"21","Success":true,"Status":"CONFIRMED","PaymentId":93892358,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562316624678,"Token":"41697d453a571d7fb11a00b2eae4f536db0c15c351464d92b37bc34ab1fb8093"}
+10.07.2019 12:37:44
+
+10.07.2019 13:01:42
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"52","Success":true,"Status":"AUTHORIZED","PaymentId":93899790,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"7cee9304bd1cea2c1f8359cb8711c99479630f9b435ccaa30cc39a6419500782"}
+10.07.2019 13:01:42
+
+10.07.2019 13:01:42
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"52","Success":true,"Status":"CONFIRMED","PaymentId":93899790,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"a491e5611eb5a9ea38ca595373b5497c9177c1ef0f2b1089db509d09e1ea3483"}
+10.07.2019 13:01:42
+
+10.07.2019 15:27:15
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"53","Success":true,"Status":"AUTHORIZED","PaymentId":93947004,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"282de7b0897da05c50e507aa26047f6240ea84716bd2ce5da574dcd50126b3ef"}
+10.07.2019 15:27:15
+
+10.07.2019 15:27:16
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"53","Success":true,"Status":"CONFIRMED","PaymentId":93947004,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"b9e542b2cb3b805c4c90ba8b1de4cbd17252d759e2459eaccca582d9f49b1fb5"}
+10.07.2019 15:27:16
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>229</b><br />
+
+10.07.2019 15:31:18
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"55","Success":true,"Status":"AUTHORIZED","PaymentId":93948714,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"1e93eef86e17739969c6f0d14a5d1244e43f38247a09088b6009320cd2400b37"}
+10.07.2019 15:31:18
+
+10.07.2019 15:31:18
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"55","Success":true,"Status":"CONFIRMED","PaymentId":93948714,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"d686e9b8f8650710b1637948b68b025098900d84b46c8cf371e8ef91d211e2c9"}
+10.07.2019 15:31:18
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>229</b><br />
+
+10.07.2019 15:35:50
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"56","Success":true,"Status":"AUTHORIZED","PaymentId":93950441,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"4011e75ca0d5f2b050403c873ba79a17285cb7165f304d98a8632a0324b68670"}
+10.07.2019 15:35:50
+
+10.07.2019 15:35:51
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"56","Success":true,"Status":"CONFIRMED","PaymentId":93950441,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"28a95f6228950d224b89b21d21a153b271c63c9bf56108b92f62e65e946d16ce"}
+10.07.2019 15:35:51
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>229</b><br />
+
+10.07.2019 15:40:09
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"57","Success":true,"Status":"AUTHORIZED","PaymentId":93952204,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"7f438354a4367b6c3e2f80540f5bde1424208838d97c49ebadbe386f2bd60865"}
+10.07.2019 15:40:09
+
+10.07.2019 15:40:09
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"57","Success":true,"Status":"CONFIRMED","PaymentId":93952204,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"009eb8eef1f4e5b1fcecdafa767311f731a8ef84784604b6e75fe115970a58a8"}
+10.07.2019 15:40:09
+
+10.07.2019 15:56:02
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"59","Success":true,"Status":"AUTHORIZED","PaymentId":93958179,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"969177fce440340488433b4bf9d485779a8227bcff949c78707d8397e1a7656b"}
+10.07.2019 15:56:02
+
+10.07.2019 15:56:02
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"59","Success":true,"Status":"CONFIRMED","PaymentId":93958179,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"b798ae9402701b66e6b3a1133aa8d0ddf18b080805e3476d7813c1663d51b1d8"}
+10.07.2019 15:56:02
+<br />
+<b>Warning</b>:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in <b>/home/lusyio12/s.lusy.io/engine/backend/functions/payment-functions.php</b> on line <b>396</b><br />
+
+10.07.2019 15:59:03
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"60","Success":true,"Status":"AUTHORIZED","PaymentId":93959169,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"3377cf10373258e6c354584c5699f718d35df668bd163f45b34b8a8aacc390f2"}
+10.07.2019 15:59:03
+
+10.07.2019 15:59:04
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"60","Success":true,"Status":"CONFIRMED","PaymentId":93959169,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"4496e2e71cdb9e75783df1fe80c358423c06b6a7a99c9fa7b9cb68445eac7e92"}
+10.07.2019 15:59:04
+
+10.07.2019 16:02:02
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"61","Success":true,"Status":"AUTHORIZED","PaymentId":93960422,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"5e906f8798132b0605b6a3b70e6a7315a3615648fea747080c0636860b7f8e2d"}
+10.07.2019 16:02:02
+
+10.07.2019 16:02:03
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"61","Success":true,"Status":"CONFIRMED","PaymentId":93960422,"ErrorCode":"0","Amount":74700,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"d982e4e553484210706051e5e4d9ca5233f46355afa28d3e6e2ba5bd90aa6e34"}
+10.07.2019 16:02:03
+
+10.07.2019 16:11:03
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"62","Success":true,"Status":"AUTHORIZED","PaymentId":93963497,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"52484dcc8ef1fb3d40081e1e908ee6864077a9c7d6bec16632b1a9a9843af0f5"}
+10.07.2019 16:11:03
+
+10.07.2019 16:11:04
+Нотификация от банка{"TerminalKey":"1562075043948DEMO","OrderId":"62","Success":true,"Status":"CONFIRMED","PaymentId":93963497,"ErrorCode":"0","Amount":29900,"CardId":18715412,"Pan":"400000******0333","ExpDate":"1122","RebillId":1562668687698,"Token":"eb5516835ed4beb0a8958bf4591c432f0fccaae14bc8d0377b233f1487c9f62b"}
+10.07.2019 16:11:04
+
