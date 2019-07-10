@@ -432,11 +432,12 @@ list-group:hover {
     top: 3px;
 }
 #searchBtn {
-     position: absolute;
-    top: 15px;
-    left: 0px;
+    position: absolute;
+    top: 3px;
     z-index: 2;
- }
+    text-align: center;
+    left: -15px;
+}
 #searchBtn:hover {
     cursor: pointer;
 }
@@ -1802,15 +1803,38 @@ a {
     animation-fill-mode: both;
 }
 
-.event {
-    -webkit-transition: all 1s ease-out; /** Chrome & Safari **/
-    -moz-transition: all 1s ease-out; /** Firefox **/
-    -o-transition: all 1s ease-out; /** Opera **/
-    transition: all 1s ease-out;
-    animation: fade-in 0.5s ease-in-out;
-}
+
 .new-event {
     background-color: rgba(242, 242, 244, 0.4);
+    -webkit-transition: all 0.5s ease-out; /** Chrome & Safari **/
+    -moz-transition: all 0.5s ease-out; /** Firefox **/
+    -o-transition: all 0.5s ease-out; /** Opera **/
+    transition: all 0.5s ease-out;
+    animation: fade-in 0.3s ease-in-out;
+}
+.statusText:first-letter {
+    text-transform: uppercase;
+}
+.eventDiv {
+    box-shadow: rgba(197, 197, 201, 0.15) 0px 4px 5px 2px;
+    background: white;
+    border: none !important;
+    border-radius: 7px;
+    padding: 1rem;
+    transition: all 0.5s;
+    text-decoration: none !important;
+}
+.eventDiv:hover {
+    transition: all 0.1s;
+    cursor: pointer;
+    box-shadow: rgba(197, 197, 201, 0.3) 0px 6px 8px 3px;
+}
+.new-event .eventDiv {
+    /* Задержка перед началом */
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    -o-animation-delay: 1s;
+    animation-delay: 1s;
 }
 
 table.dataTable thead .sorting:after,
@@ -2021,19 +2045,10 @@ table.dataTable thead .sorting_desc_disabled:before {
 
 #log {
     height: auto;
-    padding: 0 20px 0 0;
-    margin-left: -30px;
 }
 
 #logDashBoard {
-    height: auto;
-    max-height: 500px;
-    padding: 0 20px 0 0;
-    margin-left: -30px;
-    overflow: scroll;
-    overflow-x: hidden;
-    -ms-overflow-style: none !important;
-    scrollbar-width: none !important;
+
 }
 
 #logDashBoard::-webkit-scrollbar {
@@ -2050,17 +2065,6 @@ table.dataTable thead .sorting_desc_disabled:before {
     top: 57px;
 }
 
-#logDashBoard:before {
-    content: ' ';
-    background: #d4d9df;
-    display: inline-block;
-    position: absolute;
-    left: -1px;
-    width: 2px;
-    height: 77%;
-    z-index: 300;
-    bottom: 0;
-}
 
 .icon-price-prem {
     padding: 8px;
@@ -2084,38 +2088,16 @@ table.dataTable thead .sorting_desc_disabled:before {
     max-height: 260px;
 }
 
-#log:before {
-    content: ' ';
-    background: #d4d9df;
-    display: inline-block;
-    position: absolute;
-    left: -1px;
-    width: 2px;
-    height: 77%;
-    z-index: 300;
-    bottom: 0;
-}
 
 ul.timeline {
     list-style-type: none;
     position: relative;
-    margin-left: -20px;
+    padding-left: 0px;
 }
 
-ul.timeline:before {
-    content: ' ';
-    background: #d4d9df;
-    display: inline-block;
-    position: absolute;
-    left: 29px;
-    width: 2px;
-    height: 100%;
-    z-index: 300;
-}
 
 ul.timeline > li {
-    margin: 25px 0;
-    padding-left: 20px;
+
 }
 
 ul.timeline > li span.before {
@@ -2131,7 +2113,22 @@ ul.timeline > li span.before {
     padding-top: 2px;
     text-align: center;
 }
-
+.logIcon {
+    border-radius: 50%;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    top: 5px;
+    line-height: 2.4;
+    position: relative;
+}
+.eventDiv i {
+    height: 16px;
+    color: white;
+}
+.eventDiv .col-5 {
+    padding-left: 0px;
+}
 span.date {
     position: absolute;
     z-index: 2;
@@ -2427,6 +2424,7 @@ span.date {
 }
 #workzone {
     margin-top: 30px;
+    color: #353b41;
 }
 @-webkit-keyframes pulse {
     0% {
