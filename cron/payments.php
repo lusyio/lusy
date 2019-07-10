@@ -13,9 +13,9 @@ include __ROOT__ . '/engine/backend/lang/'.$langc.'.php';
 require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
 
-$paidSubscribersQuery = $pdo->prepare("SELECT company_id, tariff, payday, is_card_binded, rebill_id, pan FROM company_tariff WHERE tariff > 0 AND payday < :checkTime");
-$checkTime = strtotime('midnight next day');
-$paidSubscribersQuery->execute([':checkTime' => $checkTime]);
+$paidSubscribersQuery = $pdo->prepare("SELECT company_id, tariff, payday, is_card_binded, rebill_id, pan FROM company_tariff WHERE tariff > 0 AND payday <= :checkTime");
+//$checkTime = strtotime('midnight');
+$paidSubscribersQuery->execute([':checkTime' => time()]);
 $paidSubscribers = $paidSubscribersQuery->fetchAll(PDO::FETCH_ASSOC);
 $timeToFree = strtotime('midnight -7 days');
 $overdueTime = strtotime('midnight -1 day');

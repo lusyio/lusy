@@ -75,7 +75,7 @@
                             <span class="text-muted">
                             <i class="far fa-credit-card icon-credit-card"></i>
                             </span>
-                            <span><?= date('d.m', strtotime('-1 day',$companyTariff['payday'])); ?> будет списание с карты <?= $companyTariff['pan']; ?></span>
+                            <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?></span>
                         </div>
                         <?php else: // Если не привязана карта ?>
 
@@ -102,7 +102,7 @@
                 <?php if ($tariff['tariff_id'] == $companyTariff['tariff']): ?>
                 <span class="text-primary">Ваш текущий тариф</span>
                 <?php else: ?>
-                <button class="btn btn-secondary choose-tariff" data-price="<?= $tariff['price'] / 100; ?>" data-price-per-month="<?= $tariff['price'] / (100 * $tariff['period_in_months']); ?>" data-period="<?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?>" data-tariff-name="<?= $tariff['tariff_name']; ?>" data-tariff-id="<?= $tariff['tariff_id']; ?>">Выбрать тариф</button>
+                <button class="btn btn-secondary choose-tariff" data-price="<?= $tariff['price'] / 100; ?>" data-price-per-month="<?= $tariff['price'] / (100 * $tariff['period_in_months']); ?>" data-period="<?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?>" data-tariff-name="<?= $tariff['tariff_name']; ?>" data-tariff-id="<?= $tariff['tariff_id']; ?>">Подробнее</button>
                 <?php endif; ?>
 
             </div>
