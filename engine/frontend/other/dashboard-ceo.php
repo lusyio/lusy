@@ -34,7 +34,7 @@ $borderColor = [
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
-            <div class="chart" style="display: none; z-index: 2">
+            <div class="chart" style="z-index: 2">
                 <span class="percent-chart">
                     + 18%
                 </span>
@@ -435,7 +435,7 @@ $borderColor = [
     var pageName = 'dashboard';
     $(document).ready(function () {
         hideGradient();
-        $('.chart').show();
+        $('.percent-chart').show();
         function hideGradient() {
             if ($('.task-card:visible').length < 4) {
                 $("#bottomGradient").hide();
