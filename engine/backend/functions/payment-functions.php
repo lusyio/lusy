@@ -110,6 +110,14 @@ function getTariffInfo($tariffId)
     $tariffInfo = $tariffInfoQuery->fetch(PDO::FETCH_ASSOC);
     return $tariffInfo;
 }
+function getTariffList()
+{
+    global $pdo;
+    $tariffInfoQuery = $pdo->prepare("SELECT tariff_id, tariff_name, price, period_in_months FROM tariffs ORDER BY tariff_id");
+    $tariffInfoQuery->execute();
+    $tariffList = $tariffInfoQuery->fetchAll(PDO::FETCH_ASSOC);
+    return $tariffList;
+}
 
 function getCompanyTariff($companyId)
 {
