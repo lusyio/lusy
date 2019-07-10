@@ -1849,6 +1849,13 @@ table.dataTable thead .sorting_desc_disabled:before {
     font-weight: bold;
     line-height: 41px;
 }
+
+.bg-icon-achieve{
+    position: absolute;
+    top: 25%;
+    left: 17%;
+}
+
 #taskListSlide {
     height: 219px;
     overflow-y: scroll;
@@ -2360,6 +2367,13 @@ span.date {
     color: rgba(255, 255, 255, 0.5);
 }
 
+.percent-chart{
+    right: 20px;
+    bottom: 40px;
+    color: #5d9bf4;
+    position: absolute;
+}
+
 #searchButton {
     background: #f6f6f6;
     color: #808080;
@@ -2571,6 +2585,10 @@ span.date {
         margin-right: 15px;
     }
 
+    .bg-icon-achieve{
+        left: 25%;
+    }
+
     .price-card:last-of-type{
         margin-top: 15px;
     }
@@ -2669,9 +2687,6 @@ span.date {
         color: white;
     }
 
-    .chart-container{
-        display: none;
-    }
 
     .badge-company-primary{
         background-color: #5d95db !important;
