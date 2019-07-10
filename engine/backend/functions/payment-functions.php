@@ -164,7 +164,12 @@ function updateCompanyTariff($notification)
 
 
     if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
-        $updateCompanyTariffQuery = $pdo->prepare('UPDATE company_tariff SET tariff = :newTariff, payday = :newPayday, rebill_id = :rebillId, is_card_binded = 1, pan = :pan WHERE company_id = :companyId');
+
+        if ($companyTariff['tariff'] != $newTariff['tariff_id']) {
+            changeTariff($orderInfo['customer_key'], $newTariff['tariff_id']);
+        }
+
+        $updateCompanyTariffQuery = $pdo->prepare('UPDATE company_tariff SET payday = :newPayday, rebill_id = :rebillId, is_card_binded = 1, pan = :pan WHERE company_id = :companyId');
 
         if ($companyTariff['tariff'] == 0) {
             $lastDay = strtotime('midnight');
@@ -180,7 +185,6 @@ function updateCompanyTariff($notification)
 
         $queryData = [
             ':companyId' => $orderInfo['customer_key'],
-            ':newTariff' => $orderInfo['tariff'],
             ':newPayday' => $newPayDay,
             ':rebillId' => $orderInfo['rebill_id'],
             ':pan' => $orderInfo['pan'],
@@ -189,6 +193,7 @@ function updateCompanyTariff($notification)
 
         if ($updateCompanyResult) {
             markOrderAsProcessed($notification['OrderId']);
+            addWithdrawalEvent($orderInfo['customer_key'], $notification['OrderId'], $orderInfo['amount'], $newTariff['tariff_id']);
             if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
                 addFinanceEvent($orderInfo['customer_key'], 'prolongation');
             }
@@ -206,6 +211,22 @@ function markOrderAsProcessed($orderId)
 function addFinanceEvent($companyId, $event)
 {
 
+}
+
+function addWithdrawalEvent($companyId, $orderId, $amount, $comment)
+{
+    global $pdo;
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, orderId, amount, comment) VALUES 
+(:event, ':datetime', ':companyId', ':orderId', ':', ':comment')");
+    $queryData = [
+        ':event' => 'withdrawal',
+        ':datetime' => 'time',
+        ':companyId' => $companyId,
+        ':orderId' => $orderId,
+        ':amount' => $amount,
+        ':comment' => $comment,
+    ];
+    $addEventQuery->execute($queryData);
 }
 
 function changeTariff($companyId, $newTariff)
