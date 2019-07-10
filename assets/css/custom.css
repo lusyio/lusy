@@ -1583,6 +1583,7 @@ a {
 
 .payment-card{
     transition: 300ms;
+    
 }
 
 .payment-card:hover .delete-operation{
@@ -1636,11 +1637,11 @@ a {
     border-top-left-radius: 0;
 }
 
-.payment-card:hover{
-    -webkit-transform: scale(1.02);
-    -ms-transform: scale(1.02);
-    transform: scale(1.02);
-}
+/*.payment-card:hover{*/
+/*    -webkit-transform: scale(1.02);*/
+/*    -ms-transform: scale(1.02);*/
+/*    transform: scale(1.02);*/
+/*}*/
 
 .cancel-delete-card{
     color: #dedede !important;
@@ -2387,6 +2388,7 @@ span.date {
     color: #5d9bf4;
     position: absolute;
     display: none;
+    cursor: default;
 }
 
 #searchButton {

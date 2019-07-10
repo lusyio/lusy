@@ -172,7 +172,7 @@
         <div style="width: 80px"><i class="fas fa-times text-danger paymentIcon"></i></div>
         <div class="w-100">Неудачная попытка списать средства</div>
         <div class="text-danger" style="width: 150px">- 299 руб.</div>
-        <span class="position-absolute bg-danger delete-operation" data-toggle="modal" data-target="#paymentInfo">
+        <span class="position-absolute bg-danger delete-operation" data-toggle="tooltip" data-placement="left" title="Отменить операцию">
             <i class="fas fa-times text-white" style="font-size: 20px"></i>
         </span>
     </div>
@@ -330,7 +330,7 @@
                 <span class="text-muted small">Деньги будут возвращены на вашу карту в течении нескольких суток.</span>
             </div>
             <div class="modal-footer border-0" style="justify-content: center">
-                <button type="button" class="btn btn-danger">
+                <button type="button" class="btn bg-danger text-white">
                     Отменить
                 </button>
             </div>
@@ -361,6 +361,10 @@
 
 <script>
     $(document).ready(function () {
+        $('.delete-operation').on('click', function () {
+            $('#paymentInfo').modal('show');
+        });
+
         $(".choose-tariff").on('click', function () {
             var currentTariff = $('#currentTariff').val();
             var period = $(this).data('period');
