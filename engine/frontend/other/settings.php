@@ -1,6 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/cropper.js"></script>
+<script src="/assets/js/jquery.mask.min.js"></script>
 <link href="/assets/css/cropper.css" rel="stylesheet">
 
 <div class="row justify-content-center">
@@ -152,7 +153,15 @@
                         </small>
 
                         <div class="row">
-                            <div class="col-12 col-lg-6">
+                            <div class="col-lg-3 col-12">
+                                <div class="input-group mt-3">
+                                    <input type="text" id="bDayDate" class="form-control input-settings" value="">
+                                </div>
+                                <small class="text-muted text-muted-reg">
+                                    Дата рождения
+                                </small>
+                            </div>
+                            <div class="col-12 col-lg-4">
                                 <div class="input-group mt-3">
                                     <input id="settingsEmail" name="settingsEmail" type="email"
                                            class="form-control input-settings email" value="<?= $userData['email']; ?>">
@@ -161,12 +170,12 @@
                                     Электронная почта
                                 </small>
                             </div>
-                            <div class="col-12 col-lg-6">
+                            <div class="col-12 col-lg-5">
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">+</span>
                                     </div>
-                                    <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="tel"
+                                    <input id="settingsPhoneNumber" name="settingsPhoneNumber" type="text"
                                            class="form-control input-settings phone-number"
                                            value="<?= $userData['phone']; ?>">
                                 </div>
@@ -393,27 +402,27 @@
                             </div>
                             <?php
                             if ($isCeo):
-                            ?>
-                            <div class="row mt-3">
-                                <div class="col-2">
-                                    <div class="rounded-circle text-center noty-icon-settings">
+                                ?>
+                                <div class="row mt-3">
+                                    <div class="col-2">
+                                        <div class="rounded-circle text-center noty-icon-settings">
                             <span class="text-white">
                                 <i class="fas fa-coins fa-fw noty-icon-size-settings"></i>
                             </span>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="noty-padding-content-settings">
+                                            <span>Уведомления об оплате</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 col-lg-2">
+                                        <div class="noty-padding-content-settings noty-padding-checkbox-settings">
+                                            <input type="checkbox"
+                                                   id="achievement" <?= ($notifications['orders']) ? 'checked' : ''; ?>>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="noty-padding-content-settings">
-                                        <span>Уведомления об оплате</span>
-                                    </div>
-                                </div>
-                                <div class="col-3 col-lg-2">
-                                    <div class="noty-padding-content-settings noty-padding-checkbox-settings">
-                                        <input type="checkbox"
-                                               id="achievement" <?= ($notifications['orders']) ? 'checked' : ''; ?>>
-                                    </div>
-                                </div>
-                            </div>
                             <?php endif; ?>
                             <div class="row mt-3">
                                 <div class="col-2">
@@ -430,9 +439,10 @@
                                         <div class="d-flex sleep-container">
                                             <select class="form-control form-control-sm" id="startSleep">
                                                 <option hidden></option>
-<!--                                                <option value="-1" --><?//= ($notifications['silence_start'] == '-1') ? 'selected' : '' ?><!-- >-->
-<!--                                                    Присылать всегда-->
-<!--                                                </option>-->
+                                                <!--                                                <option value="-1" -->
+                                                <? //= ($notifications['silence_start'] == '-1') ? 'selected' : '' ?><!-- >-->
+                                                <!--                                                    Присылать всегда-->
+                                                <!--                                                </option>-->
                                                 <?php for ($i = 0; $i < 24; $i++): ?>
                                                     <option value="<?= $i ?>" <?= ($notifications['silence_start'] == $i || ($notifications['silence_start'] == -1 && $i == 21)) ? 'selected' : '' ?>><?= $i ?>
                                                         :00
@@ -473,8 +483,11 @@
 
     $(document).ready(function () {
 
+        $('#bDayDate').mask('00/00/0000');
+        $('#settingsPhoneNumber').mask('0 (000) 000-00-00');
+
         $('#sleepTime').on('change', function () {
-            if ($(this).is(':checked')){
+            if ($(this).is(':checked')) {
                 console.log('asd');
                 $('.sleep-container').css('opacity', '1');
                 $('#endSleep').attr('disabled', false);
@@ -486,7 +499,7 @@
             }
         });
 
-        if ($('#sleepTime').is(':checked')){
+        if ($('#sleepTime').is(':checked')) {
             console.log('asd');
             $('.sleep-container').css('opacity', '1');
             $('#endSleep').attr('disabled', false);
@@ -596,6 +609,9 @@
             var surname = $("#settingsSurname").val();
             var email = $("#settingsEmail").val();
             var phoneNumber = $("#settingsPhoneNumber").val();
+            var bDayDate = $("#bDayDate").val();
+
+            console.log(bDayDate);
             social[socialVk] = vk;
             social[socialFacebook] = facebook;
             var fd = new FormData();
@@ -610,6 +626,7 @@
             fd.append('vk', vk);
             fd.append('facebook', facebook);
             fd.append('instagram', instagram);
+            fd.append('birthday', bDayDate);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
