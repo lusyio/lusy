@@ -2387,6 +2387,7 @@ span.date {
     color: #5d9bf4;
     position: absolute;
     display: none;
+    cursor: default;
 }
 
 #searchButton {
