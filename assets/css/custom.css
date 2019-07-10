@@ -1411,7 +1411,7 @@ input:checked[type="checkbox"]::before {
 }
 #chatBox {
     position: relative;
-    height: calc(100vh - 280px);
+    height: calc(100vh - 345px);
 
     overflow: scroll;
     overflow-x: hidden;
@@ -2599,6 +2599,10 @@ span.date {
 
     .noty-padding-content-settings-sleep{
         display: block !important;
+    }
+
+    .text-area{
+        margin: 0px;
     }
 
     .left-modal{
