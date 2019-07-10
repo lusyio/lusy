@@ -35,7 +35,7 @@ $borderColor = [
             </div>
             <canvas class="d-none" id="canvas"></canvas>
             <div class="chart"></div>
-            <span class="position-absolute" style="top: 25%;left: 17%;">
+            <span class="bg-icon-achieve">
                 <i class="fas fa-trophy" style="font-size: 150px; opacity: 0.05"></i>
             </span>
         </div>
