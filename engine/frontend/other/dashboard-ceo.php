@@ -13,8 +13,8 @@ $borderColor = [
 ];
 ?>
 <link rel="stylesheet" href="/assets/css/swiper.min.css">
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
 <div class="row">
     <div class="col-12 col-lg-4">
@@ -27,7 +27,8 @@ $borderColor = [
                     <small class="text-secondary"><?= _('Tasks done per month') ?></small>
                 </div>
             </div>
-            <div id="curve_chart"></div>
+            <canvas class="d-none" id="canvas"></canvas>
+            <div class="chart"></div>
         </div>
     </div>
     <div class="col-12 col-lg-8">
@@ -280,55 +281,88 @@ $borderColor = [
 </div>
 <script src="/assets/js/swiper.min.js"></script>
 <script type="text/javascript">
-    google.charts.load('current', {'packages': ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-    $(window).resize(function () {
-        drawChart();
-    });
+    function createConfig(details, data) {
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        var height = $('.chart-container').children().height();
 
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Year', 'Задач'],
-            <?= $dataForChartString ?>
-        ]);
-        var options = {
-            series: {
-                0: {
-                    color: '#2DA64D',
+        let gradient = ctx.createLinearGradient(0, 0, 0, height);
+        gradient.addColorStop(1, 'rgba(40, 167, 69, 0.1)');
+        gradient.addColorStop(1, 'white');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(10, 10, 200, 100);
+        return {
+            type: 'line',
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                datasets: [{
+                    steppedLine: details.steppedLine,
+                    data: data,
+                    fill: 'start',
+                    backgroundColor: gradient,
+                    borderColor: '#28a745'
+                }]
+            },
+            options: {
+                responsive: true,
+                layout: {
+                    padding: {
+                        top: 10
+                    }
                 },
-            },
-            width: '100%',
-            height: 121,
-            curveType: 'function',
-            legend: {
-                position: 'none'
-            },
-            hAxis: {
-                viewWindowMode: 'maximized',
-                textPosition: 'none',
-                gridlines: {
-                    color: '#fff',
+                title: {
+                    display: false,
+                    text: details.label,
                 },
-                baselineColor: '#fff',
-            },
-            vAxis: {
-                textPosition: 'none',
-                gridlines: {
-                    color: '#fff',
+                label: {
+                    display: false
                 },
-                baselineColor: '#bfe4ca',
-                minValue: 0,
-            },
-            chartArea: {
-                width: '100%',
-                height: '100%',
-            },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        display: false
+                    }],
+                    yAxes: [{
+                        display: false,
+                        ticks: {
+                            suggestedMin: -2
+                        }
+                    }]
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                }
+            }
         };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
     }
+    window.onload = function () {
+
+        var container = document.querySelector('.chart');
+
+        var data = [<?=$taskCountString?>];
+
+        var steppedLineSettings = [{
+            color: window.chartColors.red
+        }];
+
+
+        steppedLineSettings.forEach(function (details) {
+            var div = document.createElement('div');
+            div.classList.add('chart-container');
+
+            var canvas = document.createElement('canvas');
+            div.appendChild(canvas);
+            container.appendChild(div);
+
+            var ctx = canvas.getContext('2d');
+            var config = createConfig(details, data);
+            new Chart(ctx, config);
+        });
+    };
 </script>
 <script>
     var swiper = new Swiper('.swiper-container', {

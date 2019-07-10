@@ -20,6 +20,7 @@
         <?php endif; ?>
     </div>
 </div>
+
 <div class="card border-top bg-mail">
     <div class="card-body pb-0 pl-2 pr-2">
         <form>
@@ -30,25 +31,34 @@
                               placeholder="<?= $GLOBALS['_enterconversation'] ?>"></textarea>
                     <?php $uploadModule = 'chat'; ?>
                     <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
-                </div>
-                <div class="position-relative">
-                    <input type="button" class="btn btn-primary" id="sendBtn"
-                           value="<?= $GLOBALS['_sendconversation'] ?>">
-                    <div class="send-mes-tooltip">
-                        <div class="card">
-                            <div class="send-mes-tooltip-body">
-                                <div style="font-size: 13px">
-                                    <b>Enter</b>
-                                    — Отправить сообщение
-                                    <br>
-                                    <b>Ctrl+Enter</b>
-                                    — Новая строка
+
+                    <div class="position-relative">
+                        <button type="button" class="btn btn-primary" id="sendBtn">
+                            <span id="sendMesName"><i class="fas fa-paper-plane"></i></span>
+                            <div class="spinner-border spinner-border-sm text-white" role="status"
+                                 style="display: none;">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
+                        <div class="send-mes-tooltip">
+                            <div class="card">
+                                <div class="send-mes-tooltip-body">
+                                    <div style="font-size: 13px">
+                                        <b>Enter</b>
+                                        — Отправить сообщение
+                                        <br>
+                                        <b>Ctrl+Enter</b>
+                                        — Новая строка
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
+
         </form>
         <div class="file-name container-files" style="display: none"></div>
     </div>
@@ -343,9 +353,8 @@
                                 event.preventDefault();
                                 event.returnValue = 'as';
                             });
-                            $('#sendBtn').append('<div class="spinner-border spinner-border-sm text-secondary" role="status">\n' +
-                                '  <span class="sr-only">Loading...</span>\n' +
-                                '</div>');
+                            $('#sendMesName').hide();
+                            $('.spinner-border-sm').show();
                         };
                         return xhr;
                     },
@@ -362,6 +371,7 @@
                     },
 
                     complete: function () {
+                        $('#sendMesName').show();
                         $('.spinner-border-sm').hide();
                         $(window).unbind('beforeunload');
                     },
