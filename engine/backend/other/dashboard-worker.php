@@ -88,6 +88,6 @@ while (count($taskDoneCount) < 8 && $t <= $endTime) {
 $taskCountString = implode(',', $taskDoneCount);
 $dataForChart = [];
 for ($i = 0; $i < 7; $i++){
-    $dataForChart[] = '[\'' . date('d.m', $startTime + 3600 * 24 * $i) . '\', ' . $taskDoneCount[$i] . ']';
+    $dataForChart[] = '[\'' . date('d.m', $startTime + 3600 * 24 * $i) . '\' ' . ']';
 }
 $dataForChartString = implode(',', $dataForChart);
