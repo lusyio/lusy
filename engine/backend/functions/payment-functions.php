@@ -369,8 +369,8 @@ function addWithdrawalEvent($companyId, $orderId, $amount, $comment)
 function addTariffChangeEvent($companyId, $newTariff, $orderId = 0)
 {
     global $pdo;
-    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, comment) VALUES 
-(:event, :datetime, :companyId, :orderId, :amount, :comment)");
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, orderId, comment) VALUES 
+(:event, :datetime, :companyId, :orderId, :comment)");
     $queryData = [
         ':event' => 'tariffChange',
         ':datetime' => time(),
@@ -384,8 +384,8 @@ function addTariffChangeEvent($companyId, $newTariff, $orderId = 0)
 function addTariffProlongationEvent($companyId, $newTariff, $orderId = 0)
 {
     global $pdo;
-    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, comment) VALUES 
-(:event, :datetime, :companyId, :orderId, :amount, :comment)");
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, orderId, comment) VALUES 
+(:event, :datetime, :companyId, :orderId, :comment)");
     $queryData = [
         ':event' => 'tariffProlongation',
         ':datetime' => time(),
