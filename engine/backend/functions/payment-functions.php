@@ -240,6 +240,8 @@ function chargePayment($companyId)
         return $result;
     }
 
+    require_once __ROOT__ . '/engine/backend/other/TinkoffMerchantAPI.php';
+
     $tariffInfo = getTariffInfo($companyTariff['tariff']);
 
     $api = new TinkoffMerchantAPI(TTKEY, TSKEY);
