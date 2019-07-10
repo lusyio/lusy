@@ -189,7 +189,13 @@
                                 href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
                                 class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
                     <hr>
-                    <button class="btn btn-secondary w-100" id="pay" disabled>Оплатить подписку</button>
+                    <button class="btn btn-secondary w-100" id="pay" disabled>
+                        Оплатить подписку
+                        <div class="spinner-border spinner-border-sm text-white" role="status"
+                             style="display: none">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </button>
                 </div>
                 <span class="icon-close-modal">
                     <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
@@ -221,7 +227,13 @@
                                     href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
                                     class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
                         <hr>
-                        <button class="btn btn-secondary w-100" id="changeTariff" disabled>Сменить тариф</button>
+                        <button class="btn btn-secondary w-100" id="changeTariff" disabled>
+                            Сменить тариф
+                            <div class="spinner-border spinner-border-sm text-white" role="status"
+                                 style="display: none">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
                     </div>
                     <span class="icon-close-modal">
                     <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
@@ -337,6 +349,14 @@
                     processData: false,
                     contentType: false,
                     data: fd,
+                    xhr: function(){
+                        var xhr = new XMLHttpRequest();
+
+                        xhr.upload.onprogress = function (e) {
+                            $('.spinner-border-sm').show();
+                        };
+                        return xhr;
+                    },
                     success: function (response) {
                         if (response.error === ''){
                             if (response.url !== '') {
@@ -349,6 +369,9 @@
                         } else {
                             console.log(response.error);
                         }
+                    },
+                    complete: function () {
+                        $('.spinner-border-sm').hide();
                     },
                 });
             });
@@ -366,12 +389,23 @@
                     processData: false,
                     contentType: false,
                     data: fd,
+                    xhr: function(){
+                        var xhr = new XMLHttpRequest();
+
+                        xhr.upload.onprogress = function (e) {
+                            $('.spinner-border-sm').show();
+                        };
+                        return xhr;
+                    },
                     success: function (response) {
                         if (response.error === ''){
                             location.reload();
                         } else {
                             console.log(response.error);
                         }
+                    },
+                    complete: function () {
+                        $('.spinner-border-sm').hide();
                     },
                 });
             });
