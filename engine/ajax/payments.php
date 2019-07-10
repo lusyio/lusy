@@ -15,15 +15,44 @@ $tariffPrices = [
     '12' => 199 * 12,
 ];
 
+if($_POST['module'] == 'changeTariff' && !empty($_POST['tariff'])) {
+    $result = [
+        'url' => '',
+        'error' => '',
+        'status' => '',
+        'errorText' => '',
+    ];
+
+    $selectedTariff = filter_var($_POST['tariff'], FILTER_SANITIZE_NUMBER_INT);
+
+    // Выдаем ошибку при попытке смены текущего тарифа на этот же тариф
+    $companyTariff = getCompanyTariff($idc);
+    if ($selectedTariff == $companyTariff['tariff']) {
+        $result['error'] = 'It is your current tariff';
+        echo json_encode($result);
+        exit;
+    }
+    // Если уже есть платный тариф и карта привязана то оплату не производим, просто меняем тариф
+    if ($companyTariff['tariff'] != 0 && $companyTariff['is_card_binded']) {
+        if (changeTariff($idc, $selectedTariff)) {
+            $result['status'] = 'Tariff has been changed';
+        } else {
+            $result['error'] = 'Tariff has not been changed';
+        }
+        echo json_encode($result);
+        exit;
+    }
+}
+
 if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
 
     $result = [
         'url' => '',
         'error' => '',
         'status' => '',
+        'errorText' => '',
     ];
 
-    $subscribe = filter_var($_POST['subscribe'], FILTER_SANITIZE_NUMBER_INT);
     $selectedTariff = filter_var($_POST['tariff'], FILTER_SANITIZE_NUMBER_INT);
 
     // Выдаем ошибку при попытке смены текущего тарифа на этот же тариф
@@ -57,7 +86,7 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
 
     $tariffInfo = getTariffInfo($selectedTariff);
     $amount = $tariffInfo['price'];
-    
+
     // Формируем массив данных для создания ссылки на оплату - стоимость в копейках, номер внутреннего заказа,
     // флаг рекуррентного платежа, ИД компании, Описание платежа, отображаемое на банковской странице оплаты
     $paymentArgs = [
@@ -65,7 +94,8 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         'OrderId' => $orderId,
         'Recurrent' => 'Y',
         'CustomerKey' => $idc,
-        'Description' => 'Оплата подписки по тарифу ' . $tariffInfo['tariff_name'] . '. Количество месяцев: '. $tariffInfo['period_in_months'],
+        'SuccessURL' => 'https://s.lusy.io/payment/',
+        'Description' => 'Оплата подписки по тарифу "' . $tariffInfo['tariff_name'] . '" (' . $tariffInfo['period_in_months'] . ' ' . ngettext('month', 'months', $tariffInfo['period_in_months']) . ')',
     ];
 
     try {
@@ -96,6 +126,7 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         $error = ob_get_clean();
         addToPaymentsErrorLog($error);
         $result['error'] = $response['ErrorCode'];
+        $result['errorText'] = $response['Details'];
     }
     echo json_encode($result);
 }
