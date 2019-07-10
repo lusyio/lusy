@@ -1854,6 +1854,7 @@ table.dataTable thead .sorting_desc_disabled:before {
     position: absolute;
     top: 25%;
     left: 17%;
+    z-index: 1;
 }
 
 #taskListSlide {
@@ -2369,7 +2370,7 @@ span.date {
 
 .percent-chart{
     right: 20px;
-    bottom: 40px;
+    bottom: 35px;
     color: #5d9bf4;
     position: absolute;
 }

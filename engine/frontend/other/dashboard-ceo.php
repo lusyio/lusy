@@ -34,7 +34,7 @@ $borderColor = [
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
-            <div class="chart" style="display: none">
+            <div class="chart" style="display: none; z-index: 2">
                 <span class="percent-chart">
                     + 18%
                 </span>
@@ -394,7 +394,8 @@ $borderColor = [
                 },
                 elements: {
                     point: {
-                        radius: 0
+                        radius: 0,
+                        hitRadius: 10,
                     }
                 }
             }
