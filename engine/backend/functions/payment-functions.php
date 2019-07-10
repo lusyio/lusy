@@ -115,7 +115,11 @@ function getTariffList()
     global $pdo;
     $tariffInfoQuery = $pdo->prepare("SELECT tariff_id, tariff_name, price, period_in_months FROM tariffs ORDER BY tariff_id");
     $tariffInfoQuery->execute();
-    $tariffList = $tariffInfoQuery->fetchAll(PDO::FETCH_ASSOC);
+    $tariffInfoResult = $tariffInfoQuery->fetchAll(PDO::FETCH_ASSOC);
+    $tariffList = [];
+    foreach ($tariffInfoResult as $tariff) {
+        $tariffList[$tariff['tariff_id']] = $tariff;
+    }
     return $tariffList;
 }
 
@@ -353,7 +357,7 @@ function setTariffInCompany($companyId, $tariff)
 function addWithdrawalEvent($companyId, $orderId, $amount, $comment)
 {
     global $pdo;
-    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, orderId, amount, comment) VALUES 
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, order_id, amount, comment) VALUES 
 (:event, :datetime, :companyId, :orderId, :amount, :comment)");
     $queryData = [
         ':event' => 'withdrawal',
@@ -369,7 +373,7 @@ function addWithdrawalEvent($companyId, $orderId, $amount, $comment)
 function addTariffChangeEvent($companyId, $newTariff, $orderId = 0)
 {
     global $pdo;
-    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, orderId, comment) VALUES 
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, order_id, comment) VALUES 
 (:event, :datetime, :companyId, :orderId, :comment)");
     $queryData = [
         ':event' => 'tariffChange',
@@ -384,7 +388,7 @@ function addTariffChangeEvent($companyId, $newTariff, $orderId = 0)
 function addTariffProlongationEvent($companyId, $newTariff, $orderId = 0)
 {
     global $pdo;
-    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, orderId, comment) VALUES 
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, order_id, comment) VALUES 
 (:event, :datetime, :companyId, :orderId, :comment)");
     $queryData = [
         ':event' => 'tariffProlongation',
@@ -394,4 +398,14 @@ function addTariffProlongationEvent($companyId, $newTariff, $orderId = 0)
         ':comment' => $newTariff,
     ];
     $addEventQuery->execute($queryData);
+}
+
+function getFinanceEvents($companyId)
+{
+    global $pdo;
+
+    $financeEventsQuery = $pdo->prepare("SELECT fin_event_id, event, event_datetime, company_id, order_id, amount, comment FROM finance_events WHERE company_id = :companyId ORDER BY fin_event_id DESC");
+    $financeEventsQuery->execute([':companyId' => $companyId]);
+    $financeEvents = $financeEventsQuery->fetchAll(PDO::FETCH_ASSOC);
+    return $financeEvents;
 }

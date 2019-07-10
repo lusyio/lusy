@@ -10,3 +10,5 @@ create table finance_events
   comment text null
 );
 
+### Изменение 1
+alter table finance_events change orderId order_id int null;

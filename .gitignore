@@ -154,3 +154,4 @@ upload/avatar/
 # PhpStorm directory
 .idea
 
+payments.log
