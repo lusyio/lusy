@@ -18,7 +18,12 @@
             <div class="col-sm-4 navbarNav collapse navbar-collapse">
                 <div class="position-relative searchDiv">
                     <div id="searchBtn">
+                        <div data-toggle="tooltip" data-placement="bottom" title="Поиск"
+                             class="topsidebar-noty">
+                            <div class="position-relative">
                         <img class="svg-icon" src="/assets/svg/search.svg">
+                            </div>
+                        </div>
                     </div>
                     <form method="get" class="d-none" id="searchForm" action="/../search/">
                         <div class="form-group mb-0 mt-1">
