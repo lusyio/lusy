@@ -18,17 +18,26 @@ $borderColor = [
 
 <div class="row">
     <div class="col-12 col-lg-4">
-        <div class="card overflow-hidden chart-card">
+        <div class="card overflow-hidden chart-card" style="height: 219px">
             <div class="card-body chart-content">
-                <div><span class="numberSlide"><?= $taskDoneCountOverall ?></span><i
-                            class="iconSlide fas fa-check float-right"></i>
-                </div>
-                <div>
-                    <small class="text-secondary"><?= _('Tasks done per month') ?></small>
+                <div class="d-flex" style="justify-content: space-between">
+                    <span class="numberSlide">
+                        <?= $taskDoneCountOverall ?>
+                    </span>
+                    <div>
+                        <b>Завершено</b>
+                        <div class="small text-muted">в этом месяце</div>
+                        <!--                        <small class="text-secondary">-->
+                        <? //= _('Tasks done per month') ?><!--</small>-->
+                    </div>
+                    <!--                    <i class="iconSlide fas fa-check float-right"></i>-->
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
             <div class="chart"></div>
+            <span class="position-absolute" style="top: 25%;left: 17%;">
+                <i class="fas fa-trophy" style="font-size: 150px; opacity: 0.05"></i>
+            </span>
         </div>
     </div>
     <div class="col-12 col-lg-8">
@@ -281,33 +290,80 @@ $borderColor = [
 </div>
 <script src="/assets/js/swiper.min.js"></script>
 <script type="text/javascript">
+
+    Chart.defaults.multicolorLine = Chart.defaults.line;
+    Chart.controllers.multicolorLine = Chart.controllers.line.extend({
+        draw: function(ease) {
+            var
+                startIndex = 0,
+                meta = this.getMeta(),
+                points = meta.data || [],
+                colors = this.getDataset().colors,
+                area = this.chart.chartArea,
+                originalDatasets = meta.dataset._children
+                    .filter(function(data) {
+                        return !isNaN(data._view.y);
+                    });
+
+            function _setColor(newColor, meta) {
+                meta.dataset._view.borderColor = newColor;
+            }
+
+            if (!colors) {
+                Chart.controllers.line.prototype.draw.call(this, ease);
+                return;
+            }
+
+            for (var i = 2; i <= colors.length; i++) {
+                if (colors[i-1] !== colors[i]) {
+                    _setColor(colors[i-1], meta);
+                    meta.dataset._children = originalDatasets.slice(startIndex, i);
+                    meta.dataset.draw();
+                    startIndex = i - 1;
+                }
+            }
+
+            meta.dataset._children = originalDatasets.slice(startIndex);
+            meta.dataset.draw();
+            meta.dataset._children = originalDatasets;
+
+            points.forEach(function(point) {
+                point.draw(area);
+            });
+        }
+    });
+
+
     function createConfig(details, data) {
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         var height = $('.chart-container').children().height();
 
         let gradient = ctx.createLinearGradient(0, 0, 0, height);
-        gradient.addColorStop(1, 'rgba(40, 167, 69, 0.1)');
+        gradient.addColorStop(1, 'white');
         gradient.addColorStop(1, 'white');
         ctx.fillStyle = gradient;
         ctx.fillRect(10, 10, 200, 100);
         return {
-            type: 'line',
+            type: 'multicolorLine',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: [<?= $dataForChartString ?>],
                 datasets: [{
                     steppedLine: details.steppedLine,
                     data: data,
                     fill: 'start',
                     backgroundColor: gradient,
-                    borderColor: '#28a745'
+                    borderColor: '#61a0f4',
+                    colors: ['', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#e4e4e4' ]
                 }]
             },
             options: {
                 responsive: true,
                 layout: {
                     padding: {
-                        top: 10
+                        top: 10,
+                        left: 20,
+                        right: 20
                     }
                 },
                 title: {
@@ -339,30 +395,30 @@ $borderColor = [
             }
         };
     }
-    window.onload = function () {
-
-        var container = document.querySelector('.chart');
-
-        var data = [<?=$taskCountString?>];
-
-        var steppedLineSettings = [{
-            color: window.chartColors.red
-        }];
 
 
-        steppedLineSettings.forEach(function (details) {
-            var div = document.createElement('div');
-            div.classList.add('chart-container');
+    var container = document.querySelector('.chart');
 
-            var canvas = document.createElement('canvas');
-            div.appendChild(canvas);
-            container.appendChild(div);
+    var data = [<?=$taskCountString?>];
 
-            var ctx = canvas.getContext('2d');
-            var config = createConfig(details, data);
-            new Chart(ctx, config);
-        });
-    };
+    var steppedLineSettings = [{
+        color: window.chartColors.red
+    }];
+
+
+    steppedLineSettings.forEach(function (details) {
+        var div = document.createElement('div');
+        div.classList.add('chart-container');
+
+        var canvas = document.createElement('canvas');
+        div.appendChild(canvas);
+        container.appendChild(div);
+
+        var ctx = canvas.getContext('2d');
+        var config = createConfig(details, data);
+        new Chart(ctx, config);
+
+    });
 </script>
 <script>
     var swiper = new Swiper('.swiper-container', {

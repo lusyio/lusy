@@ -1845,11 +1845,12 @@ table.dataTable thead .sorting_desc_disabled:before {
     position: relative;
 }
 .numberSlide {
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: bold;
+    line-height: 41px;
 }
 #taskListSlide {
-    height: 213px;
+    height: 219px;
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 0px 15px 0px 15px;
@@ -1867,7 +1868,7 @@ table.dataTable thead .sorting_desc_disabled:before {
 
 .bottomGradient {
     height: 15px;
-    width: 94.6%;
+    width: 94.75%;
     position: absolute;
     bottom: 0px;
     z-index: 10;
