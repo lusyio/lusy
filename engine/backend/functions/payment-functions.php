@@ -323,3 +323,12 @@ function chargePayment($companyId)
         return $result;
     }
 }
+
+function unbindCard($companyId)
+{
+    global $pdo;
+
+    $unbindCardQuery = $pdo->prepare('UPDATE company_tariff SET is_card_binded = NULL, rebill_id = NULL, pan = NULL WHERE company_id = :companyId');
+    $unbindCardResult = $unbindCardQuery->execute([':companyId' => $companyId]);
+    return $unbindCardResult;
+}
