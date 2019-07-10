@@ -103,6 +103,9 @@ if ($companyUsageSpacePercent > 90) {
     if (pathname.indexOf('reports') > -1) {
         $('.nav-item').removeClass('active').has('[href="/reports/"]').addClass('active');
     }
+    if (pathname.indexOf('godmode') > -1) {
+        $('.nav-item').removeClass('active').has('[href="/godmode/"]').addClass('active');
+    }
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
