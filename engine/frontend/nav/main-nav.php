@@ -49,7 +49,7 @@ if ($companyUsageSpacePercent > 90) {
             <li class="nav-item pb-2"><a class="nav-link" href="/awards/">
                     <img class="svg-icon mr-3" src="/assets/svg/cup.svg">
                     <?= _('Awards') ?></a></li>
-            <?php if (in_array('reports', $menu[$roleu])  && $tariff == 1): ?>
+            <?php if (in_array('reports', $menu[$roleu]) && $tariff == 1): ?>
                 <li class="nav-item pb-2">
                     <a class="nav-link" href="/reports/">
                         <img class="svg-icon mr-3" src="/assets/svg/pie-chart.svg">
@@ -84,6 +84,23 @@ if ($companyUsageSpacePercent > 90) {
     </div>
 </nav>
 <script>
+    var pathname = window.location.pathname;
+    if (pathname.indexOf('tasks') > -1 || pathname.indexOf('task') > -1) {
+        $('.nav-item').removeClass('active').has('[href="/tasks/"]').addClass('active');
+    }
+    if (pathname.indexOf('new') > -1) {
+        $('.nav-item').removeClass('active').has('[href="/task/new/"]').addClass('active');
+    }
+    if (pathname.indexOf('company') > -1 || pathname.indexOf('profile') > -1 || pathname.indexOf('payment') > -1 || pathname.indexOf('settings') > -1 || pathname.indexOf('mail') > -1 || pathname.indexOf('chat') > -1 || pathname.indexOf('company-settings') > -1 || pathname.indexOf('invite') > -1) {
+        $('.nav-item').removeClass('active').has('[href="/company/"]').addClass('active');
+    }
+    if (pathname.indexOf('awards') > -1) {
+        $('.nav-item').removeClass('active').has('[href="/awards/"]').addClass('active');
+    }
+    if (pathname.indexOf('storage') > -1) {
+        $('.nav-item').removeClass('active').has('[href="/storage/"]').addClass('active');
+    }
+    console.log(pathname);
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
