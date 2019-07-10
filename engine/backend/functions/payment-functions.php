@@ -195,7 +195,9 @@ function updateCompanyTariff($notification)
             markOrderAsProcessed($notification['OrderId']);
             addWithdrawalEvent($orderInfo['customer_key'], $notification['OrderId'], $orderInfo['amount'], $newTariff['tariff_id']);
             if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
-                addFinanceEvent($orderInfo['customer_key'], 'prolongation');
+                addTariffProlongationEvent($orderInfo['customer_key'], 'tariffChange', $notification['OrderId']);
+            } else {
+                addTariffChangeEvent($orderInfo['customer_key'], 'tariffChange', $notification['OrderId']);
             }
         }
     }
@@ -206,27 +208,6 @@ function markOrderAsProcessed($orderId)
     global $pdo;
     $updateOrderQuery = $pdo->prepare("UPDATE orders SET processed = 1 where order_id = :orderId");
     $updateOrderQuery->execute([':orderId' => $orderId]);
-}
-
-function addFinanceEvent($companyId, $event)
-{
-
-}
-
-function addWithdrawalEvent($companyId, $orderId, $amount, $comment)
-{
-    global $pdo;
-    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, orderId, amount, comment) VALUES 
-(:event, :datetime, :companyId, :orderId, :amount, :comment)");
-    $queryData = [
-        ':event' => 'withdrawal',
-        ':datetime' => time(),
-        ':companyId' => $companyId,
-        ':orderId' => $orderId,
-        ':amount' => $amount,
-        ':comment' => $comment,
-    ];
-    $addEventQuery->execute($queryData);
 }
 
 function changeTariff($companyId, $newTariff)
@@ -242,12 +223,12 @@ function changeTariff($companyId, $newTariff)
 
     if ($newTariff == 0) {
         setTariffInCompany($companyId, 0);
+        addTariffChangeEvent($companyId, 0);
     } else {
         setTariffInCompany($companyId, 1);
     }
 
     if ($updateCompanyTariffResult) {
-        addFinanceEvent($companyId, 'tariffChange');
     }
     return $updateCompanyTariffResult;
 }
@@ -366,4 +347,51 @@ function setTariffInCompany($companyId, $tariff)
     global $pdo;
     $setPremiumInCompanyQuery = $pdo->prepare('UPDATE company SET tariff = :newTariff WHERE id = :companyId');
     $setPremiumInCompanyQuery->execute([':companyId' => $companyId,':newTariff' => $tariff]);
+}
+
+
+function addWithdrawalEvent($companyId, $orderId, $amount, $comment)
+{
+    global $pdo;
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, orderId, amount, comment) VALUES 
+(:event, :datetime, :companyId, :orderId, :amount, :comment)");
+    $queryData = [
+        ':event' => 'withdrawal',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+        ':orderId' => $orderId,
+        ':amount' => $amount,
+        ':comment' => $comment,
+    ];
+    $addEventQuery->execute($queryData);
+}
+
+function addTariffChangeEvent($companyId, $newTariff, $orderId = 0)
+{
+    global $pdo;
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, comment) VALUES 
+(:event, :datetime, :companyId, :orderId, :amount, :comment)");
+    $queryData = [
+        ':event' => 'tariffChange',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+        ':orderId' => $orderId,
+        ':comment' => $newTariff,
+    ];
+    $addEventQuery->execute($queryData);
+}
+
+function addTariffProlongationEvent($companyId, $newTariff, $orderId = 0)
+{
+    global $pdo;
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, comment) VALUES 
+(:event, :datetime, :companyId, :orderId, :amount, :comment)");
+    $queryData = [
+        ':event' => 'tariffProlongation',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+        ':orderId' => $orderId,
+        ':comment' => $newTariff,
+    ];
+    $addEventQuery->execute($queryData);
 }
