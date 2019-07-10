@@ -14,5 +14,7 @@ $tariffList = getTariffList();
 
 $remainingLimits = getRemainingLimits();
 
+$financeEvents = getFinanceEvents($idc);
+
 
 

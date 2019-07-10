@@ -1,0 +1,126 @@
+04.07.2019 17:47:31
+Нотификация от банка
+04.07.2019 17:47:31
+Токены не совпадают. Токен банка: Array рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 17:47:34
+Нотификация от банка
+04.07.2019 17:47:34
+Токены не совпадают. Токен банка: Array рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+04.07.2019 17:48:26
+Нотификация от банка
+04.07.2019 17:48:26
+
+04.07.2019 17:51:57
+Нотификация от банка
+04.07.2019 17:51:57
+Токены не совпадают. Токен банка: Array рассчитанный токен e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+09.07.2019 11:57:47
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:57:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'9999'</font> <i>(length=4)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверные параметры.'</font> <i>(length=36)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Поле Amount не должно быть пустым.'</font> <i>(length=56)</i>
+</pre>
+09.07.2019 11:58:16
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:57:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'9999'</font> <i>(length=4)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверные параметры.'</font> <i>(length=36)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Поле Amount не должно быть пустым.'</font> <i>(length=56)</i>
+</pre>
+09.07.2019 11:59:06
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:57:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'9999'</font> <i>(length=4)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверные параметры.'</font> <i>(length=36)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Поле Amount не должно быть пустым.'</font> <i>(length=56)</i>
+</pre>
+10.07.2019 12:34:30
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:95:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 19 был оплачен.'</font> <i>(length=36)</i>
+</pre>
+10.07.2019 12:35:47
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 20 был оплачен.'</font> <i>(length=36)</i>
+</pre>
+10.07.2019 12:39:10
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 23 был оплачен.'</font> <i>(length=36)</i>
+</pre>
+10.07.2019 12:39:18
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 24 был оплачен.'</font> <i>(length=36)</i>
+</pre>
+10.07.2019 12:45:24
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 26 был оплачен.'</font> <i>(length=36)</i>
+</pre>
+10.07.2019 12:45:28
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 27 был оплачен.'</font> <i>(length=36)</i>
+</pre>
+10.07.2019 12:45:35
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:96:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 28 был оплачен.'</font> <i>(length=36)</i>
+</pre>
+10.07.2019 14:39:38
+Ошибка при создании счета
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>C:\projects\lusy\engine\ajax\payments.php:137:</small>
+<b>array</b> <i>(size=4)</i>
+  'Success' <font color='#888a85'>=&gt;</font> <small>boolean</small> <font color='#75507b'>false</font>
+  'ErrorCode' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'8'</font> <i>(length=1)</i>
+  'Message' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Неверный статус транзакции.'</font> <i>(length=51)</i>
+  'Details' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'Заказ 37 был оплачен.'</font> <i>(length=36)</i>
+</pre>
