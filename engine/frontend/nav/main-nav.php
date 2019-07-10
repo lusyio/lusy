@@ -49,7 +49,7 @@ if ($companyUsageSpacePercent > 90) {
             <li class="nav-item pb-2"><a class="nav-link" href="/awards/">
                     <img class="svg-icon mr-3" src="/assets/svg/cup.svg">
                     <?= _('Awards') ?></a></li>
-            <?php if (in_array('reports', $menu[$roleu]) && $tariff == 1): ?>
+            <?php if (in_array('reports', $menu[$roleu])): ?>
                 <li class="nav-item pb-2">
                     <a class="nav-link" href="/reports/">
                         <img class="svg-icon mr-3" src="/assets/svg/pie-chart.svg">
@@ -100,7 +100,12 @@ if ($companyUsageSpacePercent > 90) {
     if (pathname.indexOf('storage') > -1) {
         $('.nav-item').removeClass('active').has('[href="/storage/"]').addClass('active');
     }
-    console.log(pathname);
+    if (pathname.indexOf('reports') > -1) {
+        $('.nav-item').removeClass('active').has('[href="/reports/"]').addClass('active');
+    }
+    if (pathname.indexOf('godmode') > -1) {
+        $('.nav-item').removeClass('active').has('[href="/godmode/"]').addClass('active');
+    }
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
