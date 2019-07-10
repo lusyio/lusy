@@ -2617,6 +2617,9 @@ span.date {
         border-bottom-left-radius: .3rem;;
     }
 
+    .card-tasks-dash:last-of-type{
+        margin-bottom: 0!important;
+    }
 
     .change-plan-date{
         width: 76% !important;;
