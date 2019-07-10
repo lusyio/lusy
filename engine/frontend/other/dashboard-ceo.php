@@ -368,7 +368,8 @@ $borderColor = [
                     padding: {
                         top: 10,
                         left: 20,
-                        right: 20
+                        right: 20,
+                        bottom: 20
                     }
                 },
                 title: {
