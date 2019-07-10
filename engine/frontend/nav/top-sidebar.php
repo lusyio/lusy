@@ -16,7 +16,7 @@
                 <h2 style=" color: #27406a; font-size: 26px; font-weight: 700; "><?= $title ?></h2>
             </div>
             <div class="col-sm-4 navbarNav collapse navbar-collapse">
-                <div class="position-relative" style=" margin-left: 10px; ">
+                <div class="position-relative searchDiv">
                     <div id="searchBtn">
                         <img class="svg-icon" src="/assets/svg/search.svg">
                     </div>

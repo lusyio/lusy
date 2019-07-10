@@ -828,6 +828,9 @@ input:checked[type="checkbox"]::before {
     top: 5px;
     line-height: 30px;
 }
+.searchDiv {
+    margin-left: 10px;
+}
 
 .icon-title-status-bar {
 
@@ -2543,6 +2546,10 @@ span.date {
     .count-company-tasks{
         color: black !important;
     }
+    .searchDiv {
+        display: none;
+    }
+
     .lead-text {
         font-size: 38px;
     }
