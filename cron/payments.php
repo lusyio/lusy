@@ -17,15 +17,18 @@ $paidSubscribersQuery = $pdo->prepare("SELECT company_id, tariff, payday, is_car
 $checkTime = strtotime('midnight next day');
 $paidSubscribersQuery->execute([':checkTime' => $checkTime]);
 $paidSubscribers = $paidSubscribersQuery->fetchAll(PDO::FETCH_ASSOC);
-
-//foreach ($paidSubscribers as $company) {
-//    if ($company['payday'] > time()) {
-//        chargePayment($company['company_id']);
-//    } elseif ($company['payday'] < strtotime('midnight +7 days')) {
-//        chargeOverduePayment();
-//    } else {
-//        changeTariff($company['company_id'], 0);
-//    }
-//}
+$timeToFree = strtotime('midnight -7 days');
+$overdueTime = strtotime('midnight -1 day');
+foreach ($paidSubscribers as $company) {
+    if ($company['payday'] <= $timeToFree) {
+        changeTariff($company['company_id'], 0);
+        // TODO отправить письмо о смене тарифа из-за неоплаты
+    } elseif ($company['payday'] <= $overdueTime) {
+        chargePayment($company['company_id']);
+        // TODO отправить письмо о 7 днях на оплату
+    } else {
+        chargePayment($company['company_id']);
+    }
+}
 
 
