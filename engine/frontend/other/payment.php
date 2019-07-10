@@ -342,11 +342,35 @@
                     },
                 });
             });
+
+            $('#changeTariff').on('click', function () {
+                var fd = new FormData();
+                fd.append('tariff', tariff);
+                fd.append('module', 'changeTariff');
+                fd.append('ajax', 'payments');
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function (response) {
+                        if (response.error === ''){
+                            location.reload();
+                        } else {
+                            console.log(response.error);
+                        }
+                    },
+                });
+            });
         });
 
         $('#payModal').on('hide.bs.modal', function () {
             $('#oferta').prop("checked", false);
             $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
+            $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
         });
 
         $('#refreshModal').on('hide.bs.modal', function () {
@@ -356,8 +380,10 @@
         $('#oferta').on('change', function () {
             if ($(this).is(':checked')) {
                 $('#pay').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
+                $('#changeTariff').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
             } else {
                 $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
+                $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
             }
         });
 
