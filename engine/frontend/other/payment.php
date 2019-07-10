@@ -75,10 +75,16 @@
                             <span class="text-muted">
                             <i class="far fa-credit-card icon-credit-card"></i>
                             </span>
-                            <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?></span>
+                            <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?> в размере <?= $tariffInfo['price'] / 100; ?> руб.</span>
                         </div>
                         <?php else: // Если не привязана карта ?>
-
+                            <div style="z-index: 2">
+                            <span class="text-muted fa-stack fa-1x">
+                                <i class="far fa-credit-card fa-stack-1x icon-credit-card"></i>
+                                <i class="fas fa-slash fa-stack-2x "></i>
+                            </span>
+                                <span><?= date('d.m', strtotime('+1 day', $companyTariff['payday'])); ?> ваш тарифный план изменится на Бесплатный</span>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -99,7 +105,7 @@
             <div class="card-body">
                 <h3 class="font-weight-bold"><?= $tariff['tariff_name']; ?></h3>
                 <p><span class="text-secondary">Периодичность оплаты<br><?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?> </span> - <?= $tariff['price'] / (100 * $tariff['period_in_months']); ?> руб./мес.</p>
-                <?php if ($tariff['tariff_id'] == $companyTariff['tariff']): ?>
+                <?php if ($tariff['tariff_id'] == $companyTariff['tariff'] && $companyTariff['is_card_binded']): ?>
                 <span class="text-primary">Ваш текущий тариф</span>
                 <?php else: ?>
                 <button class="btn btn-secondary choose-tariff" data-price="<?= $tariff['price'] / 100; ?>" data-price-per-month="<?= $tariff['price'] / (100 * $tariff['period_in_months']); ?>" data-period="<?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?>" data-tariff-name="<?= $tariff['tariff_name']; ?>" data-tariff-id="<?= $tariff['tariff_id']; ?>">Подробнее</button>
@@ -165,7 +171,7 @@
                 <div class="modal-header border-0 text-center d-block">
                     <h5 class="modal-title" id="exampleModalLabel">Тарифный план "<span id="tariffName"></span>"</h5>
                 </div>
-                <?php if ($companyTariff['tariff'] == 0): ?>
+                <?php if ($companyTariff['tariff'] == 0 || !$companyTariff['is_card_binded']): ?>
                 <div class="modal-body text-left">
                     <p>Вы собираетесь оформить платную подписку:</p>
                     <table class="table w-100 border">
@@ -364,6 +370,28 @@
                         }
                     },
                 });
+            });
+        });
+
+        $('#deleteCardBtn').on('click', function () {
+            var fd = new FormData();
+            fd.append('module', 'unbindCard');
+            fd.append('ajax', 'payments');
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (response) {
+                    if (response.status) {
+                        location.reload();
+                    }else {
+                        console.log('Error');
+                    }
+                },
             });
         });
 

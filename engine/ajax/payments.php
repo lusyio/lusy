@@ -15,6 +15,18 @@ $tariffPrices = [
     '12' => 199 * 12,
 ];
 
+if($_POST['module'] == 'unbindCard') {
+    $result = [
+        'url' => '',
+        'error' => '',
+        'status' => '',
+        'errorText' => '',
+    ];
+    $result['status'] = unbindCard($idc);
+    echo json_encode($result);
+    exit;
+}
+
 if($_POST['module'] == 'changeTariff' && !empty($_POST['tariff'])) {
     $result = [
         'url' => '',
