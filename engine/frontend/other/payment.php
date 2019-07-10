@@ -24,9 +24,9 @@
                     <div class="card-body">
                         <span class="small text-muted"> Ограничения по тарифу</span>
                         <br>
-                        <span><i class="fas fa-times text-muted"></i> В хранилище файлов свободно 50/100 мб</span>
+                        <span><i class="fas fa-times text-muted"></i> В хранилище файлов свободно <?= normalizeSize($remainingLimits['space'])['size'] ?> <?= normalizeSize($remainingLimits['space'])['suffix'] ?> из 100 МБ</span>
                         <br>
-                        <span><i class="fas fa-times text-muted"></i> Осталось 100/200 задач</span>
+                        <span><i class="fas fa-times text-muted"></i> Осталось <?= $remainingLimits['tasks'] ?> из 150 задач в этом месяце</span>
                         <br>
                         <span><i class="fas fa-times text-muted"></i> Отсутствие отчетов</span>
                         <br>
@@ -98,11 +98,11 @@
         <div class="card">
             <div class="card-body">
                 <h3 class="font-weight-bold"><?= $tariff['tariff_name']; ?></h3>
-                <p><span class="text-secondary">Периодичность оплаты<br><?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?> </span> - <?= $tariff['price'] / 100 ; ?> руб./мес.</p>
+                <p><span class="text-secondary">Периодичность оплаты<br><?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?> </span> - <?= $tariff['price'] / (100 * $tariff['period_in_months']); ?> руб./мес.</p>
                 <?php if ($tariff['tariff_id'] == $companyTariff['tariff']): ?>
                 <span class="text-primary">Ваш текущий тариф</span>
                 <?php else: ?>
-                <button class="btn btn-secondary">Выбрать тариф</button>
+                <button class="btn btn-secondary choose-tariff" data-price="<?= $tariff['price'] / 100; ?>" data-price-per-month="<?= $tariff['price'] / (100 * $tariff['period_in_months']); ?>" data-period="<?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?>" data-tariff-name="<?= $tariff['tariff_name']; ?>" data-tariff-id="<?= $tariff['tariff_id']; ?>">Выбрать тариф</button>
                 <?php endif; ?>
 
             </div>
@@ -138,7 +138,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="payModalLabel"
      aria-hidden="true">
     <div class="modal-dialog d-flex modal-dialog-tariff" role="document">
         <div>
@@ -147,7 +147,7 @@
                     <h4 class="modal-title" id="exampleModalLabel">Новые возможности для ващего бизнесса</h4>
                 </div>
                 <div class="modal-body text-left">
-                    <h5 class="mt-1 mb-3">Платный тариф - 299 рублей/месяц</h5>
+                    <h5 class="mt-1 mb-3">Платный тариф - <span id="descriptionPrice"></span> рублей/месяц</h5>
                     <p><i class="fas fa-check"></i> Всё, что есть в бесплатном тарифе</p>
                     <p><i class="fas fa-check"></i> Неограниченное количество задач</p>
                     <p><i class="fas fa-check"></i> Бесшовная интеграция с Google Drive и DropBox + 1гб на нашем сервере
@@ -163,25 +163,25 @@
         <div>
             <div class="modal-content right-modal border-0 pt-4">
                 <div class="modal-header border-0 text-center d-block">
-                    <h5 class="modal-title" id="exampleModalLabel">Тарифный план "Уверенный"</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Тарифный план <span id="tariffName">"Уверенный"</span></h5>
                 </div>
                 <div class="modal-body text-left">
                     <p>Вы собираетесь оформить платную подписку:</p>
                     <table class="table w-100 border">
                         <tr>
                             <td>Период списания средств</td>
-                            <td>3 месяца</td>
+                            <td id="payPeriod"></td>
                         </tr>
                         <tr>
                             <td>Стоимость в месяц</td>
-                            <td>249 рублей</td>
+                            <td><span id="payPerMonth"></span> руб.</td>
                         </tr>
                         <tr>
                             <td>Итого платеж</td>
-                            <td class="font-weight-bold">747 рублей</td>
+                            <td class="font-weight-bold"><span id="payFullPrice"></span> руб.</td>
                         </tr>
                     </table>
-                    <p><input type="checkbox" id="offerta" style=" position: relative; top: 7px; margin-right: 10px; ">Я
+                    <p><input type="checkbox" id="oferta" style=" position: relative; top: 7px; margin-right: 10px; ">Я
                         согласен с <a
                                 href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
                                 class="btn-link" target="_blank">Офертой
@@ -253,18 +253,24 @@
 
 <script>
     $(document).ready(function () {
-        $("#regPrice").on('click', function () {
+        $(".choose-tariff").on('click', function () {
+            var period = $(this).data('period');
+            var pricePerMonth = $(this).data('price-per-month');
+            var fullPrice = $(this).data('price');
+            var tariffName = $(this).data('tariff-name');
+            $('#payPeriod').text(period);
+            $('#payPerMonth').text(pricePerMonth);
+            $('#descriptionPrice').text(pricePerMonth);
+            $('#payFullPrice').text(fullPrice);
+            $('#tariffName').text(tariffName);
             $('#payModal').modal('show');
         });
-        $('#offerta').on('change', function () {
+        $('#oferta').on('change', function () {
             if ($(this).is(':checked')) {
                 $('#pay').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
             } else {
                 $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
             }
         });
-        $("#bossPrice").on('click', function () {
-            $('#payModal').modal('show');
-        })
     });
 </script>
