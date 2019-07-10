@@ -218,6 +218,13 @@ function changeTariff($companyId, $newTariff)
         ':newTariff' => $newTariff,
     ];
     $updateCompanyTariffResult = $updateCompanyTariffQuery->execute($queryData);
+
+    if ($newTariff == 0) {
+        setTariffInCompany($companyId, 0);
+    } else {
+        setTariffInCompany($companyId, 1);
+    }
+
     if ($updateCompanyTariffResult) {
         addFinanceEvent($companyId, 'tariffChange');
     }
@@ -331,4 +338,11 @@ function unbindCard($companyId)
     $unbindCardQuery = $pdo->prepare('UPDATE company_tariff SET is_card_binded = NULL, rebill_id = NULL, pan = NULL WHERE company_id = :companyId');
     $unbindCardResult = $unbindCardQuery->execute([':companyId' => $companyId]);
     return $unbindCardResult;
+}
+
+function setTariffInCompany($companyId, $tariff)
+{
+    global $pdo;
+    $setPremiumInCompanyQuery = $pdo->prepare('UPDATE company SET tariff = :newTariff WHERE id = :companyId');
+    $setPremiumInCompanyQuery->execute([':companyId' => $companyId,':newTariff' => $tariff]);
 }
