@@ -283,6 +283,23 @@
     </div>
 </div>
 
+<div class="modal fade" id="refreshModal" tabindex="-1" role="dialog" aria-labelledby="refreshModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 390px">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center d-block">
+                <h5 class="modal-title" id="refreshModalLabel">Вы были перенаправлены на сайт Банка для совершения платежа</h5>
+            </div>
+            <div class="modal-body text-center">
+                Для продолжения работы с Lusy.io необходимо обновить страницу
+            </div>
+            <div class="modal-footer border-0" style="justify-content: space-between">
+                <button type="button" class="form-control btn btn-primary" data-dismiss="modal">Обновить страницу</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $(".choose-tariff").on('click', function () {
@@ -290,13 +307,52 @@
             var pricePerMonth = $(this).data('price-per-month');
             var fullPrice = $(this).data('price');
             var tariffName = $(this).data('tariff-name');
+            var tariff = $(this).data('tariff-id');
             $('#payPeriod').text(period);
             $('#payPerMonth').text(pricePerMonth);
             $('#descriptionPrice').text(pricePerMonth);
             $('#payFullPrice').text(fullPrice);
             $('#tariffName').text(tariffName);
             $('#payModal').modal('show');
+            $('#pay').on('click', function () {
+                var fd = new FormData();
+                fd.append('tariff', tariff);
+                fd.append('module', 'getPaymentLink');
+                fd.append('ajax', 'payments');
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function (response) {
+                        if (response.error === ''){
+                            if (response.url !== '') {
+                                window.open(response.url);
+                                $('#payModal').modal('hide');
+                                $('#refreshModal').modal('show');
+                            } else {
+                                console.log(response.status);
+                            }
+                        } else {
+                            console.log(response.error);
+                        }
+                    },
+                });
+            });
         });
+
+        $('#payModal').on('hide.bs.modal', function () {
+            $('#oferta').prop("checked", false);
+            $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
+        });
+
+        $('#refreshModal').on('hide.bs.modal', function () {
+            location.reload();
+        });
+
         $('#oferta').on('change', function () {
             if ($(this).is(':checked')) {
                 $('#pay').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
@@ -304,5 +360,7 @@
                 $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
             }
         });
+
+
     });
 </script>

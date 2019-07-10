@@ -21,9 +21,9 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         'url' => '',
         'error' => '',
         'status' => '',
+        'errorText' => '',
     ];
 
-    $subscribe = filter_var($_POST['subscribe'], FILTER_SANITIZE_NUMBER_INT);
     $selectedTariff = filter_var($_POST['tariff'], FILTER_SANITIZE_NUMBER_INT);
 
     // Выдаем ошибку при попытке смены текущего тарифа на этот же тариф
@@ -65,7 +65,8 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         'OrderId' => $orderId,
         'Recurrent' => 'Y',
         'CustomerKey' => $idc,
-        'Description' => 'Оплата подписки по тарифу ' . $tariffInfo['tariff_name'] . '. Количество месяцев: '. $tariffInfo['period_in_months'],
+        'SuccessURL' => 'https://s.lusy.io/payment/',
+        'Description' => 'Оплата подписки по тарифу "' . $tariffInfo['tariff_name'] . '" (' . $tariffInfo['period_in_months'] . ' ' . ngettext('month', 'months', $tariffInfo['period_in_months']) . ')',
     ];
 
     try {
@@ -96,6 +97,7 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         $error = ob_get_clean();
         addToPaymentsErrorLog($error);
         $result['error'] = $response['ErrorCode'];
+        $result['errorText'] = $response['Details'];
     }
     echo json_encode($result);
 }
