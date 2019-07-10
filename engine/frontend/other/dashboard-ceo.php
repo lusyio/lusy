@@ -355,7 +355,7 @@ $borderColor = [
                 datasets: [{
                     steppedLine: details.steppedLine,
                     data: data,
-                    fill: 'start',
+                    fill: false,
                     backgroundColor: gradient,
                     borderColor: '#61a0f4',
                     colors: ['', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#e4e4e4'],
