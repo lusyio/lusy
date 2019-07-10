@@ -166,6 +166,9 @@ function updateCompanyTariff($notification)
     $companyTariff = getCompanyTariff($orderInfo['customer_key']);
     $newTariff = getTariffInfo($orderInfo['tariff']);
 
+    if ($orderInfo['status'] == 'REJECTED' && !$orderInfo['processed']) {
+        addWithdrawalFailedEvent($orderInfo['customer_key'], $notification['OrderId'], $orderInfo['amount'], $newTariff['tariff_id']);
+    }
 
     if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
 
@@ -357,6 +360,7 @@ function setTariffInCompany($companyId, $tariff)
 function addWithdrawalEvent($companyId, $orderId, $amount, $comment)
 {
     global $pdo;
+
     $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, order_id, amount, comment) VALUES 
 (:event, :datetime, :companyId, :orderId, :amount, :comment)");
     $queryData = [
@@ -408,4 +412,21 @@ function getFinanceEvents($companyId)
     $financeEventsQuery->execute([':companyId' => $companyId]);
     $financeEvents = $financeEventsQuery->fetchAll(PDO::FETCH_ASSOC);
     return $financeEvents;
+}
+
+function addWithdrawalFailedEvent($companyId, $orderId, $amount, $comment)
+{
+    global $pdo;
+
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, order_id, amount, comment) VALUES 
+(:event, :datetime, :companyId, :orderId, :amount, :comment)");
+    $queryData = [
+        ':event' => 'withdrawalFailed',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+        ':orderId' => $orderId,
+        ':amount' => $amount,
+        ':comment' => $comment,
+    ];
+    $addEventQuery->execute($queryData);
 }

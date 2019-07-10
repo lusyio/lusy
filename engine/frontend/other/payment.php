@@ -137,6 +137,7 @@
     <div class="card-body d-flex" style="justify-content: space-between">
         <div style="width: 80px"><i class="fas fa-check text-success paymentIcon"></i></div>
         <div class="w-100">Тарифный план "<?= $tariffList[$event['comment']]['tariff_name']; ?>" продлен</div>
+        <div class="text-danger" style="width: 150px"></div>
     </div>
 </div>
 <?php elseif ($event['event'] == 'tariffChange'): ?>
@@ -144,6 +145,15 @@
     <div class="card-body d-flex" style="justify-content: space-between">
         <div style="width: 80px"><i class="fas fa-check text-success paymentIcon"></i></div>
         <div class="w-100">Тарифный план изменен на "<?= $tariffList[$event['comment']]['tariff_name']; ?>"</div>
+        <div class="text-danger" style="width: 150px"></div>
+    </div>
+</div>
+    <?php elseif ($event['event'] == 'withdrawalFailed'): ?>
+<div class="card mb-1 payment-card">
+    <div class="card-body d-flex" style="justify-content: space-between">
+        <div style="width: 80px"><i class="fas fa-times text-danger paymentIcon"></i></div>
+        <div class="w-100">Неудачная попытка списания средств по тарифному плану "<?= $tariffList[$event['comment']]['tariff_name']; ?>"</div>
+        <div class="text-danger" style="width: 150px"><?= $event['amount'] / 100; ?> руб.</div>
     </div>
 </div>
 <?php endif; ?>
