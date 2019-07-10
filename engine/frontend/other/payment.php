@@ -49,6 +49,7 @@
                     <div class="card-body">
                         <span class="small text-muted">Ваш тарифный план</span>
                         <h2><?= $tariffInfo['tariff_name'] ?></h2>
+                        <input type="hidden" id="currentTariff" value="<?= $companyTariff['tariff'] ?>">
                         <p>
                             <span class="small text-muted">Оплачено до <?= date('d.m', $companyTariff['payday']); ?></span>
                         </p>
@@ -105,12 +106,7 @@
             <div class="card-body">
                 <h3 class="font-weight-bold"><?= $tariff['tariff_name']; ?></h3>
                 <p><span class="text-secondary">Периодичность оплаты<br><?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?> </span> - <?= $tariff['price'] / (100 * $tariff['period_in_months']); ?> руб./мес.</p>
-                <?php if ($tariff['tariff_id'] == $companyTariff['tariff'] && $companyTariff['is_card_binded']): ?>
-                <span class="text-primary">Ваш текущий тариф</span>
-                <?php else: ?>
                 <button class="btn btn-secondary choose-tariff" data-price="<?= $tariff['price'] / 100; ?>" data-price-per-month="<?= $tariff['price'] / (100 * $tariff['period_in_months']); ?>" data-period="<?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?>" data-tariff-name="<?= $tariff['tariff_name']; ?>" data-tariff-id="<?= $tariff['tariff_id']; ?>">Подробнее</button>
-                <?php endif; ?>
-
             </div>
         </div>
     </div>
@@ -309,17 +305,25 @@
 <script>
     $(document).ready(function () {
         $(".choose-tariff").on('click', function () {
+            var currentTariff = $('#currentTariff').val();
             var period = $(this).data('period');
             var pricePerMonth = $(this).data('price-per-month');
             var fullPrice = $(this).data('price');
             var tariffName = $(this).data('tariff-name');
             var tariff = $(this).data('tariff-id');
+
+            if (tariff == currentTariff) {
+                $('#oferta').attr('disabled', true);
+                $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Это ваш текущий тариф');
+                $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Это ваш текущий тариф');
+            }
             $('#payPeriod').text(period);
             $('#payPerMonth').text(pricePerMonth);
             $('#descriptionPrice').text(pricePerMonth);
             $('#payFullPrice').text(fullPrice);
             $('#tariffName').text(tariffName);
             $('#payModal').modal('show');
+
             $('#pay').on('click', function () {
                 var fd = new FormData();
                 fd.append('tariff', tariff);
@@ -397,8 +401,9 @@
 
         $('#payModal').on('hide.bs.modal', function () {
             $('#oferta').prop("checked", false);
-            $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
-            $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
+            $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Оплатить подписку');
+            $('#changeTariff').attr('disabled', true).addClass('btn-secondary').text('Сменить тариф');
+            $('#oferta').attr('disabled', false);
         });
 
         $('#refreshModal').on('hide.bs.modal', function () {
