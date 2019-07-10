@@ -125,8 +125,7 @@
 <h5 class="font-weight-bold mb-3 mt-3">Операции</h5>
 <?php foreach ($financeEvents as $event): ?>
 <?php if ($event['event'] == 'withdrawal'): ?>
-<div class="card mb-1 payment-card" data-event-type="withdrawal" data-event-date="<?= date('d.m.Y H:i', $event['event_datetime']) ?>"
-     data-fin-event-id="<?= $event['fin_event_id']; ?>" data-order-id="<?= $event['order_id'] ?>" data-toggle="modal" data-target="#paymentInfo">
+<div class="card mb-1 payment-card" data-event-type="withdrawal" data-toggle="modal" data-target="#paymentInfo">
     <div class="card-body d-flex" style="justify-content: space-between">
         <div style="width: 80px"><i class="far fa-credit-card text-success paymentIcon"></i></div>
         <div class="w-100">Списание средств по тарифному плану "<?= $tariffList[$event['comment']]['tariff_name']; ?>"</div>
