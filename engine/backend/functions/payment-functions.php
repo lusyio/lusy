@@ -195,9 +195,9 @@ function updateCompanyTariff($notification)
             markOrderAsProcessed($notification['OrderId']);
             addWithdrawalEvent($orderInfo['customer_key'], $notification['OrderId'], $orderInfo['amount'], $newTariff['tariff_id']);
             if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
-                addTariffProlongationEvent($orderInfo['customer_key'], 'tariffChange', $notification['OrderId']);
+                addTariffProlongationEvent($orderInfo['customer_key'], $newTariff['tariff_id'], $notification['OrderId']);
             } else {
-                addTariffChangeEvent($orderInfo['customer_key'], 'tariffChange', $notification['OrderId']);
+                addTariffChangeEvent($orderInfo['customer_key'], $newTariff['tariff_id'], $notification['OrderId']);
             }
         }
     }
