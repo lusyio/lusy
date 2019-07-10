@@ -23,6 +23,9 @@ if($_POST['module'] == 'unbindCard') {
         'errorText' => '',
     ];
     $result['status'] = unbindCard($idc);
+    if ($result['status']) {
+        addUnbindCardEvent($idc);
+    }
     echo json_encode($result);
     exit;
 }

@@ -148,12 +148,20 @@
         <div class="text-danger" style="width: 150px"></div>
     </div>
 </div>
-    <?php elseif ($event['event'] == 'withdrawalFailed'): ?>
+<?php elseif ($event['event'] == 'withdrawalFailed'): ?>
 <div class="card mb-1 payment-card">
     <div class="card-body d-flex" style="justify-content: space-between">
         <div style="width: 80px"><i class="fas fa-times text-danger paymentIcon"></i></div>
         <div class="w-100">Неудачная попытка списания средств по тарифному плану "<?= $tariffList[$event['comment']]['tariff_name']; ?>"</div>
         <div class="text-danger" style="width: 150px"><?= $event['amount'] / 100; ?> руб.</div>
+    </div>
+</div>
+<?php elseif ($event['event'] == 'unbindCard'): ?>
+<div class="card mb-1 payment-card">
+    <div class="card-body d-flex" style="justify-content: space-between">
+        <div style="width: 80px"><i class="far fa-credit-card text-secondary paymentIcon"></i></div>
+        <div class="w-100">Карта успешно отвязана</div>
+        <div class="text-danger" style="width: 150px"></div>
     </div>
 </div>
 <?php endif; ?>

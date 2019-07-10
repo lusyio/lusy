@@ -430,3 +430,17 @@ function addWithdrawalFailedEvent($companyId, $orderId, $amount, $comment)
     ];
     $addEventQuery->execute($queryData);
 }
+
+function addUnbindCardEvent($companyId)
+{
+    global $pdo;
+
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id) VALUES 
+(:event, :datetime, :companyId)");
+    $queryData = [
+        ':event' => 'unbindCard',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+    ];
+    $addEventQuery->execute($queryData);
+}
