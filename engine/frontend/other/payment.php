@@ -144,7 +144,7 @@
         <div>
             <div class="modal-content border-0 left-modal text-white pt-4 pb-4">
                 <div class="modal-header border-0 text-center d-block">
-                    <h4 class="modal-title" id="exampleModalLabel">Новые возможности для ващего бизнесса</h4>
+                    <h4 class="modal-title" id="exampleModalLabel">Новые возможности для вашего бизнеса</h4>
                 </div>
                 <div class="modal-body text-left">
                     <h5 class="mt-1 mb-3">Платный тариф - <span id="descriptionPrice"></span> рублей/месяц</h5>
@@ -163,8 +163,9 @@
         <div>
             <div class="modal-content right-modal border-0 pt-4">
                 <div class="modal-header border-0 text-center d-block">
-                    <h5 class="modal-title" id="exampleModalLabel">Тарифный план <span id="tariffName">"Уверенный"</span></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Тарифный план "<span id="tariffName"></span>"</h5>
                 </div>
+                <?php if ($companyTariff['tariff'] == 0): ?>
                 <div class="modal-body text-left">
                     <p>Вы собираетесь оформить платную подписку:</p>
                     <table class="table w-100 border">
@@ -184,9 +185,7 @@
                     <p><input type="checkbox" id="oferta" style=" position: relative; top: 7px; margin-right: 10px; ">Я
                         согласен с <a
                                 href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
-                                class="btn-link" target="_blank">Офертой
-                            рекуррентных
-                            платежей</a>.</p>
+                                class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
                     <hr>
                     <button class="btn btn-secondary w-100" id="pay" disabled>Оплатить подписку</button>
                 </div>
@@ -194,6 +193,39 @@
                     <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
                                 class="fas fa-times text-muted"></i></button>
                 </span>
+                <?php else: ?>
+                    <div class="modal-body text-left">
+                        <p>Вы собираетесь сменить тариф</p>
+                        <table class="table w-100 border">
+                            <tr>
+                                <td>Период списания средств</td>
+                                <td id="payPeriod"></td>
+                            </tr>
+                            <tr>
+                                <td>Стоимость в месяц</td>
+                                <td><span id="payPerMonth"></span> руб.</td>
+                            </tr>
+                            <tr>
+                                <td>Дата следующего платежа</td>
+                                <td class="font-weight-bold"><?= date('d.m.Y', $companyTariff['payday']); ?></td>
+                            </tr>
+                            <tr>
+                                <td>Итого платеж</td>
+                                <td class="font-weight-bold"><span id="payFullPrice"></span> руб.</td>
+                            </tr>
+                        </table>
+                        <p><input type="checkbox" id="oferta" style=" position: relative; top: 7px; margin-right: 10px; ">Я
+                            согласен с <a
+                                    href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
+                                    class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
+                        <hr>
+                        <button class="btn btn-secondary w-100" id="changeTariff" disabled>Сменить тариф</button>
+                    </div>
+                    <span class="icon-close-modal">
+                    <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                                class="fas fa-times text-muted"></i></button>
+                </span>
+                <?php endif; ?>
             </div>
         </div>
     </div>
