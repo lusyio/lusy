@@ -266,11 +266,13 @@ $borderColor = [
                     } ?>
                 <?php endforeach; ?>
                 <?php if (count($events) > 20): ?>
-                    <div class="load-log-dashboard">
-                        <div id="loadLogDashboard" class="rounded-circle btn btn-light">
-                            <i class="fas fa-chevron-down"></i>
+                    <a href="/log/">
+                        <div class="load-log-dashboard">
+                            <div id="loadLogDashboard" class="rounded-circle btn btn-light">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 <?php endif; ?>
             </ul>
         </div>
@@ -336,10 +338,6 @@ $borderColor = [
 <script>
     var pageName = 'dashboard';
     $(document).ready(function () {
-        $('#loadLogDashboard').on('click', function () {
-
-        });
-
         hideGradient();
 
         function hideGradient() {
