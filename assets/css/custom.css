@@ -1996,7 +1996,7 @@ table.dataTable thead .sorting_desc_disabled:before {
     position: absolute;
     opacity: 1;
     top: -100px;
-    left: -73px;
+    left: -150px;
     z-index: 10;
     display: none;
 }
@@ -2637,10 +2637,6 @@ span.date {
 
     .send-mes-tooltip{
         display: none !important;
-    }
-
-    #sendBtn{
-        width: 100%;
     }
 
     .chart-card{
