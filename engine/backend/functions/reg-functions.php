@@ -60,7 +60,11 @@ function addCompany($companyName, $companyLanguage, $companyTimeZone)
         ':companyTimeZone' => $companyTimeZone,
     ];
     $addCompanyQuery->execute($queryData);
-    return $pdo->lastInsertId();
+    $companyId = $pdo->lastInsertId();
+
+    $addTariffQuery = $pdo->prepare("INSERT INTO company_tariff (company_id, tariff) VALUES (:companyId, 0)");
+    $addTariffQuery->execute([':companyId' => $companyId]);
+    return $companyId;
 }
 
 function isLoginExist($login)
