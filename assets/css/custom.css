@@ -2367,6 +2367,13 @@ span.date {
     color: rgba(255, 255, 255, 0.5);
 }
 
+.percent-chart{
+    right: 20px;
+    bottom: 40px;
+    color: #5d9bf4;
+    position: absolute;
+}
+
 #searchButton {
     background: #f6f6f6;
     color: #808080;

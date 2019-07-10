@@ -34,9 +34,13 @@ $borderColor = [
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
-            <div class="chart"></div>
+            <div class="chart">
+                <span class="percent-chart">
+                    + 18%
+                </span>
+            </div>
             <span class="bg-icon-achieve">
-                <i class="fas fa-trophy" style="font-size: 150px; opacity: 0.05"></i>
+                <i class="fas fa-trophy" style="font-size: 150px; color: #003effcc; opacity: 0.05"></i>
             </span>
         </div>
     </div>
@@ -293,7 +297,7 @@ $borderColor = [
 
     Chart.defaults.multicolorLine = Chart.defaults.line;
     Chart.controllers.multicolorLine = Chart.controllers.line.extend({
-        draw: function(ease) {
+        draw: function (ease) {
             var
                 startIndex = 0,
                 meta = this.getMeta(),
@@ -301,7 +305,7 @@ $borderColor = [
                 colors = this.getDataset().colors,
                 area = this.chart.chartArea,
                 originalDatasets = meta.dataset._children
-                    .filter(function(data) {
+                    .filter(function (data) {
                         return !isNaN(data._view.y);
                     });
 
@@ -315,8 +319,8 @@ $borderColor = [
             }
 
             for (var i = 2; i <= colors.length; i++) {
-                if (colors[i-1] !== colors[i]) {
-                    _setColor(colors[i-1], meta);
+                if (colors[i - 1] !== colors[i]) {
+                    _setColor(colors[i - 1], meta);
                     meta.dataset._children = originalDatasets.slice(startIndex, i);
                     meta.dataset.draw();
                     startIndex = i - 1;
@@ -327,7 +331,7 @@ $borderColor = [
             meta.dataset.draw();
             meta.dataset._children = originalDatasets;
 
-            points.forEach(function(point) {
+            points.forEach(function (point) {
                 point.draw(area);
             });
         }
@@ -354,7 +358,8 @@ $borderColor = [
                     fill: 'start',
                     backgroundColor: gradient,
                     borderColor: '#61a0f4',
-                    colors: ['', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#e4e4e4' ]
+                    colors: ['', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#e4e4e4'],
+                    borderWidth: 5
                 }]
             },
             options: {
