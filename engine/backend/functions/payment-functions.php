@@ -217,10 +217,10 @@ function addWithdrawalEvent($companyId, $orderId, $amount, $comment)
 {
     global $pdo;
     $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, orderId, amount, comment) VALUES 
-(:event, ':datetime', ':companyId', ':orderId', ':', ':comment')");
+(:event, ':datetime', ':companyId', ':orderId', ':amount', ':comment')");
     $queryData = [
         ':event' => 'withdrawal',
-        ':datetime' => 'time',
+        ':datetime' => time(),
         ':companyId' => $companyId,
         ':orderId' => $orderId,
         ':amount' => $amount,
