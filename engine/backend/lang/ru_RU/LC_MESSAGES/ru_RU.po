@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-07-04 16:20+0300\n"
-"PO-Revision-Date: 2019-07-09 15:49+0300\n"
+"POT-Creation-Date: 2019-07-10 10:42+0300\n"
+"PO-Revision-Date: 2019-07-10 10:42+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -15,56 +15,56 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: engine/frontend/nav/main-nav.php:17
+#: engine/frontend/nav/main-nav.php:18
 msgid "Dashboard"
 msgstr "Рабочий стол"
 
-#: engine/frontend/nav/main-nav.php:22
+#: engine/frontend/nav/main-nav.php:24
 msgid "Tasks"
 msgstr "Задачи"
 
-#: engine/frontend/nav/main-nav.php:38
+#: engine/frontend/nav/main-nav.php:41
 msgid "Create task"
 msgstr "Новая задача"
 
-#: engine/frontend/nav/main-nav.php:43
+#: engine/frontend/nav/main-nav.php:47
 msgid "Company"
 msgstr "Компания"
 
-#: engine/frontend/nav/main-nav.php:46
+#: engine/frontend/nav/main-nav.php:51
 msgid "Awards"
 msgstr "Достижения"
 
-#: engine/frontend/nav/main-nav.php:56
+#: engine/frontend/nav/main-nav.php:62
 msgid "Storage"
 msgstr "Файлы"
 
-#: engine/frontend/nav/main-nav.php:74
+#: engine/frontend/nav/main-nav.php:81
 msgid "GodMode"
 msgstr ""
 
-#: engine/frontend/nav/top-sidebar.php:21
+#: engine/frontend/nav/top-sidebar.php:28
 msgid "Search on tasks, comments and files"
 msgstr "Поиск"
 
-#: engine/frontend/nav/top-sidebar.php:94
+#: engine/frontend/nav/top-sidebar.php:96
 msgid "Payment"
 msgstr "Оплата"
 
-#: engine/frontend/nav/top-sidebar.php:97
+#: engine/frontend/nav/top-sidebar.php:99
 msgid "Profile"
 msgstr "Профиль"
 
-#: engine/frontend/nav/top-sidebar.php:98
-#: engine/frontend/other/dashboard-ceo.php:259
+#: engine/frontend/nav/top-sidebar.php:100
+#: engine/frontend/other/dashboard-ceo.php:257
 msgid "History"
 msgstr "Журнал"
 
-#: engine/frontend/nav/top-sidebar.php:99
+#: engine/frontend/nav/top-sidebar.php:102
 msgid "Settings"
 msgstr "Настройки"
 
-#: engine/frontend/nav/top-sidebar.php:100
+#: engine/frontend/nav/top-sidebar.php:103
 msgid "Log Out"
 msgstr "Выход"
 
@@ -74,55 +74,62 @@ msgstr "Завершено задач за месяц"
 
 #: engine/frontend/other/dashboard-ceo.php:41
 #: engine/frontend/other/dashboard-ceo.php:64
-#: engine/frontend/other/dashboard-ceo.php:105
-#: engine/frontend/other/dashboard-ceo.php:134
+#: engine/frontend/other/dashboard-ceo.php:103
+#: engine/frontend/other/dashboard-ceo.php:132
 msgid "Done"
 msgstr "Завершено"
 
 #: engine/frontend/other/dashboard-ceo.php:68
-#: engine/frontend/other/dashboard-ceo.php:138
+#: engine/frontend/other/dashboard-ceo.php:136
 msgid "Show all tasks"
 msgstr "Показать все задачи"
 
 #: engine/frontend/other/dashboard-ceo.php:81
-#: engine/frontend/other/dashboard-ceo.php:152
+#: engine/frontend/other/dashboard-ceo.php:150
 msgid "You have no tasks yet, create the first task."
 msgstr "У вас пока нет задач, создайте первую задачу."
 
-#: engine/frontend/other/dashboard-ceo.php:166
+#: engine/frontend/other/dashboard-ceo.php:164
 msgid "Completed tasks"
 msgstr "Завершено задач"
 
-#: engine/frontend/other/dashboard-ceo.php:171
+#: engine/frontend/other/dashboard-ceo.php:169
 msgid "Was overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:176
+#: engine/frontend/other/dashboard-ceo.php:174
 msgid "Postpone requested"
 msgstr "Запрошен перенос срока"
 
-#: engine/frontend/other/dashboard-ceo.php:194
+#: engine/frontend/other/dashboard-ceo.php:192
 msgid "task"
 msgid_plural "tasks"
 msgstr[0] "задача"
 msgstr[1] "задачи"
 msgstr[2] "задач"
 
-#: engine/frontend/other/dashboard-ceo.php:207
+#: engine/frontend/other/dashboard-ceo.php:205
 msgid "In work"
 msgstr "В работе"
 
-#: engine/frontend/other/dashboard-ceo.php:221
+#: engine/frontend/other/dashboard-ceo.php:219
 msgid "Overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:235
+#: engine/frontend/other/dashboard-ceo.php:233
 msgid "Pending"
 msgstr "На рассмотрении"
 
-#: engine/frontend/other/dashboard-ceo.php:249
+#: engine/frontend/other/dashboard-ceo.php:247
 msgid "Postponement"
 msgstr "Перенос срока"
+
+#: engine/frontend/other/payment.php:101
+msgid "month"
+msgid_plural "months"
+msgstr[0] "месяц"
+msgstr[1] "месяца"
+msgstr[2] "месяцев"
 
 #~ msgid "totalTask"
 #~ msgid_plural "totalTasks"

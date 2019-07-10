@@ -1,48 +1,4 @@
-<div class="row mb-3">
-    <div class="col">
-        <div class="card">
-            <div class="row">
-                <div class="col-12 col-lg-5 card-tariff-left">
-                    <div class="card-body">
-                        <span class="small text-muted">Ваш тарифный план</span>
-                        <h2>Уверенный</h2>
-                        <p>
-                            <span class="small text-muted">Оплачено до 29.09</span>
-                        </p>
-                        <div class="d-flex">
-                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
-                                   type="text">
-                            <button class="btn btn-primary" id="promoBtn">
-                                Применить
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-12 card-tariff-right">
-                    <div class="card-body">
-                        <div class="d-flex" style="justify-content: space-between">
-                            <span class="small text-muted mt-1">Ваша банковская карта</span>
-                            <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                    data-target="#deleteCardModal">
-                                Отвязать карту
-                            </button>
-                        </div>
-                        <div style="z-index: 2">
-                            <span class="text-muted">
-                            <i class="far fa-credit-card icon-credit-card"></i>
-                            </span>
-                            <span>29.09 Будет списание с карты 9999 ●●●● ●●●● 9991</span>
-                        </div>
-                    </div>
-                </div>
-                <span class="d-block text-muted bg-icon-ruble">
-                <i class="fas fa-ruble-sign icon-ruble"></i>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
+<?php if ($companyTariff['tariff'] == 0): ?>
 <div class="row mb-3">
     <div class="col">
         <div class="card">
@@ -84,36 +40,75 @@
         </div>
     </div>
 </div>
+<?php else: ?>
+<div class="row mb-3">
+    <div class="col">
+        <div class="card">
+            <div class="row">
+                <div class="col-12 col-lg-5 card-tariff-left">
+                    <div class="card-body">
+                        <span class="small text-muted">Ваш тарифный план</span>
+                        <h2><?= $tariffInfo['tariff_name'] ?></h2>
+                        <p>
+                            <span class="small text-muted">Оплачено до <?= date('d.m', $companyTariff['payday']); ?></span>
+                        </p>
+                        <div class="d-flex">
+                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
+                                   type="text">
+                            <button class="btn btn-primary" id="promoBtn">
+                                Применить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-12 card-tariff-right">
+                    <div class="card-body">
+                        <?php if ($companyTariff['is_card_binded']): // Если привязана карта?>
+                        <div class="d-flex" style="justify-content: space-between">
+                            <span class="small text-muted mt-1">Ваша банковская карта</span>
+                            <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                    data-target="#deleteCardModal">
+                                Отвязать карту
+                            </button>
+                        </div>
+                        <div style="z-index: 2">
+                            <span class="text-muted">
+                            <i class="far fa-credit-card icon-credit-card"></i>
+                            </span>
+                            <span><?= date('d.m', strtotime('-1 day',$companyTariff['payday'])); ?> будет списание с карты <?= $companyTariff['pan']; ?></span>
+                        </div>
+                        <?php else: // Если не привязана карта ?>
 
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <span class="d-block text-muted bg-icon-ruble">
+                <i class="fas fa-ruble-sign icon-ruble"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 <h5 class="font-weight-bold mb-4">Тарифный план</h5>
 <div class="row">
+    <?php foreach ($tariffList as $tariff): ?>
+    <?php if ($tariff['tariff_id'] == 0) continue; ?>
     <div class="col-sm-4 mb-3">
         <div class="card">
             <div class="card-body">
-                <h3 class="font-weight-bold">Стартовый</h3>
-                <p><span class="text-secondary">Периодичность оплаты<br>1 месяц</span> - 299 руб./мес.</p>
+                <h3 class="font-weight-bold"><?= $tariff['tariff_name']; ?></h3>
+                <p><span class="text-secondary">Периодичность оплаты<br><?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?> </span> - <?= $tariff['price'] / 100 ; ?> руб./мес.</p>
+                <?php if ($tariff['tariff_id'] == $companyTariff['tariff']): ?>
+                <span class="text-primary">Ваш текущий тариф</span>
+                <?php else: ?>
                 <button class="btn btn-secondary">Выбрать тариф</button>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>
-    <div class="col-sm-4 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="font-weight-bold">Уверенный</h3>
-                <p><span class="text-secondary">Периодичность оплаты<br>3 месяца</span> - 249 руб./мес.</p>
-                <button class="btn btn-secondary" id="regPrice">Выбрать тариф</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="font-weight-bold">Босс</h3>
-                <p><span class="text-secondary">Периодичность оплаты<br>12 месяцев</span> - 199 руб./мес.</p>
-                <button class="btn btn-secondary" id="bossPrice">Выбрать тариф</button>
-            </div>
-        </div>
-    </div>
+    <?php endforeach; ?>
 </div>
 <p><strong>Внимание!</strong> Оплата тарифного плана происходит путем автоплатежа - автоматического
     списания
@@ -159,7 +154,7 @@
                     </p>
                     <p><i class="fas fa-check"></i> Подробная отчетность о деятельности компании и отдельных сотрудниках
                     </p>
-                    <p><i class="fas fa-check"></i> Интеграции с сторонними сервисами, н-р AmoCRM, Яндекс.Метрика и т.д.
+                    <p><i class="fas fa-check"></i> Интеграции со сторонними сервисами, н-р AmoCRM, Яндекс.Метрика и т.д.
                     </p>
                 </div>
             </div>
