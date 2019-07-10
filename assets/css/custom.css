@@ -1582,13 +1582,27 @@ a {
 
 .payment-card{
     transition: 300ms;
+}
+
+.payment-card:hover .delete-operation{
+    right: 0;
+    display: block;
+    transition: 0.3s;
+}
+
+.delete-operation{
+    display: none;
+    padding: 10px;
+    right: -35px;
+    top: 13px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
     cursor: pointer;
 }
 
 .bg-icon-ruble{
     right: 20px;
     bottom: 20px;
-    z-index: 1;
     position: absolute;
 }
 
@@ -2336,6 +2350,8 @@ span.date {
 #task .nav-tabs {
     border-bottom: none;
 }
+
+
 
 #task .nav-tabs .nav-link {
     border: none;
