@@ -50,6 +50,7 @@
                         <span class="small text-muted">Ваш тарифный план</span>
                         <h2><?= $tariffInfo['tariff_name'] ?></h2>
                         <input type="hidden" id="currentTariff" value="<?= $companyTariff['tariff'] ?>">
+                        <input type="hidden" id="isCardBinded" value="<?= $companyTariff['is_card_binded'] ?>">
                         <p>
                             <span class="small text-muted">Оплачено до <?= date('d.m', $companyTariff['payday']); ?></span>
                         </p>
@@ -171,6 +172,7 @@ endforeach; ?>
                         </tr>
                     </table>
                     <?php if ($wasUsedFreePeriod): ?>
+                        <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
                     <?php else: ?>
                     <p>Вы еще не использовали платный тариф - дарим вам 14 дней бесплатно</p>
                     <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
@@ -366,6 +368,7 @@ endforeach; ?>
 
         $(".choose-tariff").on('click', function () {
             var currentTariff = $('#currentTariff').val();
+            var isCardBinded = $('#isCardBinded').val();
             var period = $(this).data('period');
             var pricePerMonth = $(this).data('price-per-month');
             var fullPrice = $(this).data('price');
@@ -375,7 +378,16 @@ endforeach; ?>
             if (tariff == currentTariff) {
                 $('#oferta').attr('disabled', true);
                 $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Это ваш текущий тариф');
-                $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Это ваш текущий тариф');
+                $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
+                if (isCardBinded) {
+                    $('#pay').text('Это ваш текущий тариф');
+                    $('#changeTariff').text('Это ваш текущий тариф');
+                    $('#oferta').attr('disabled', true);
+                } else {
+                    $('#pay').text('Привязать карту для оплаты');
+                    $('#oferta').attr('disabled', false);
+                    $('#changeTariff').text('Привязать карту для оплаты');
+                }
             }
             $('#payPeriod').text(period);
             $('#payPerMonth').text(pricePerMonth);
