@@ -15,13 +15,13 @@ function createOrder($customerId, $tariff, $userId = 0)
     return $orderId;
 }
 
-function createMinimumOrder($customerId, $userId)
+function createMinimumOrder($customerId, $tariff, $userId = 0)
 {
     global $pdo;
     $amount = 100; // цена услуги в копейках
 
-    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, user_id) VALUES (:amount, :customerKey, :createDate, :userId)");
-    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':userId' => $userId]);
+    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff, user_id) VALUES (:amount, :customerKey, :createDate, :tariff, :userId)");
+    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff, ':userId' => $userId]);
     $orderId = $pdo->lastInsertId();
     return $orderId;
 }
@@ -202,11 +202,15 @@ function updateCompanyTariff($notification)
 
         if ($companyTariff['tariff'] == 0) {
             $lastDay = strtotime('midnight');
+
         } else {
             $lastDay = $companyTariff['payday'];
         }
         $tariffPeriod = $newTariff['period_in_months'];
-        if (date('d', $companyTariff['payday']) > 28) {
+
+        if ($orderInfo['amount'] == 100) {
+            $newPayDay = strtotime('+14 days midnight');
+        }elseif (date('d', $companyTariff['payday']) > 28) {
             $newPayDay = strtotime('first day of next month +' . $tariffPeriod . ' month', $lastDay);
         } else {
             $newPayDay = strtotime('+' . $tariffPeriod . ' month', $lastDay);

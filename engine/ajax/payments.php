@@ -103,7 +103,7 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
 
     if (!$wasUsedFreePeriod) {
         //Создаем платеж в 1 рубль
-        $orderId = createMinimumOrder($idc, $id);
+        $orderId = createMinimumOrder($idc, $selectedTariff, $id);
         $amount = 100;
         $ForRefund = 1;
     } else {
