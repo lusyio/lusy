@@ -29,7 +29,7 @@ if ($event['event'] == 'withdrawalFailed') {
 }
 if ($event['event'] == 'unbindCard') {
     $icon = 'far fa-credit-card text-secondary';
-    $text = 'Карта успешно отвязана';
+    $text = 'Карта ' . $event['comment'] . ' успешно отвязана';
 }
 ?>
 <div class="card mb-1 payment-card" data-fin-event-id="<?= $event['fin_event_id']; ?>">

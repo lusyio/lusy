@@ -446,12 +446,17 @@ function addUnbindCardEvent($companyId)
 {
     global $pdo;
 
-    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id) VALUES 
-(:event, :datetime, :companyId)");
+    $panQuery = $pdo->prepare("SELECT pan FROM orders WHERE customer_key = :companyId AND pan IS NOT NULL ORDER BY create_date DESC LIMIT 1");
+    $panQuery->execute([':companyId' => $companyId]);
+    $pan = $panQuery->fetch(PDO::FETCH_COLUMN);
+
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, comment) VALUES 
+(:event, :datetime, :companyId, :pan)");
     $queryData = [
         ':event' => 'unbindCard',
         ':datetime' => time(),
         ':companyId' => $companyId,
+        ':pan' => $pan,
     ];
     $addEventQuery->execute($queryData);
 }
