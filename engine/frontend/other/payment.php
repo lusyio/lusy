@@ -273,8 +273,8 @@ endforeach; ?>
                 <span class="text-muted small">Деньги обычно возвращаются на карту держателя в тот же день, но иногда (зависит от эмитента) могут идти до 3-х дней.</span>
             </div>
             <div class="modal-footer border-0" style="justify-content: center">
-                Отменить операцию
-                <button type="button" class="btn bg-danger text-white" id="refund">
+                <button class="btn bg-danger text-white w-100" id="refund">
+                    Отменить операцию
                     <div class="spinner-border spinner-border-sm text-white" role="status"
                          style="display: none">
                         <span class="sr-only">Loading...</span>
