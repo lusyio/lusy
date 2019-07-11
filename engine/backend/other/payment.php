@@ -16,5 +16,7 @@ $remainingLimits = getRemainingLimits();
 
 $financeEvents = getFinanceEvents($idc);
 
+$orders = getOrdersListForCompany($idc);
+
 
 
