@@ -123,54 +123,9 @@
         платежей</a>.</p>
 <hr>
 <h5 class="font-weight-bold mb-3 mt-3">Операции</h5>
-<?php foreach ($financeEvents as $event): ?>
-<?php if ($event['event'] == 'withdrawal'): ?>
-<div class="card mb-1 payment-card" data-event-type="withdrawal" data-toggle="modal" data-target="#paymentInfo">
-    <div class="card-body d-flex" style="justify-content: space-between">
-        <div style="width: 80px"><i class="far fa-credit-card text-success paymentIcon"></i></div>
-        <div class="w-100">Списание средств по тарифному плану "<?= $tariffList[$event['comment']]['tariff_name']; ?>"</div>
-        <div class="text-success" style="width: 150px"><?= $event['amount'] / 100; ?> руб.</div>
-<?php if (time() - $event['event_datetime'] < 24 * 60 * 60 && $orders[$event['order_id']]['status'] == 'CONFIRMED'): ?>
-        <span class="position-absolute bg-danger delete-operation" data-order-id="<?= $event['order_id']; ?>" data-toggle="tooltip" data-placement="left" title="Отменить операцию">
-            <i class="fas fa-times text-white" style="font-size: 20px"></i>
-        </span>
-<?php endif; ?>
-    </div>
-</div>
-<?php elseif ($event['event'] == 'tariffProlongation'): ?>
-<div class="card mb-1 payment-card" data-fin-event-id="<?= $event['fin_event_id']; ?>" data-toggle="modal" data-target="#paymentInfo">
-    <div class="card-body d-flex" style="justify-content: space-between">
-        <div style="width: 80px"><i class="fas fa-check text-success paymentIcon"></i></div>
-        <div class="w-100">Тарифный план "<?= $tariffList[$event['comment']]['tariff_name']; ?>" продлен</div>
-        <div class="text-danger" style="width: 150px"></div>
-    </div>
-</div>
-<?php elseif ($event['event'] == 'tariffChange'): ?>
-<div class="card mb-1 payment-card" data-fin-event-id="<?= $event['fin_event_id']; ?>" data-toggle="modal" data-target="#paymentInfo">
-    <div class="card-body d-flex" style="justify-content: space-between">
-        <div style="width: 80px"><i class="fas fa-check text-success paymentIcon"></i></div>
-        <div class="w-100">Тарифный план изменен на "<?= $tariffList[$event['comment']]['tariff_name']; ?>"</div>
-        <div class="text-danger" style="width: 150px"></div>
-    </div>
-</div>
-<?php elseif ($event['event'] == 'withdrawalFailed'): ?>
-<div class="card mb-1 payment-card">
-    <div class="card-body d-flex" style="justify-content: space-between">
-        <div style="width: 80px"><i class="fas fa-times text-danger paymentIcon"></i></div>
-        <div class="w-100">Неудачная попытка списания средств по тарифному плану "<?= $tariffList[$event['comment']]['tariff_name']; ?>"</div>
-        <div class="text-danger" style="width: 150px"><?= $event['amount'] / 100; ?> руб.</div>
-    </div>
-</div>
-<?php elseif ($event['event'] == 'unbindCard'): ?>
-<div class="card mb-1 payment-card">
-    <div class="card-body d-flex" style="justify-content: space-between">
-        <div style="width: 80px"><i class="far fa-credit-card text-secondary paymentIcon"></i></div>
-        <div class="w-100">Карта успешно отвязана</div>
-        <div class="text-danger" style="width: 150px"></div>
-    </div>
-</div>
-<?php endif; ?>
-<?php endforeach; ?>
+<?php foreach ($financeEvents as $event):
+    require_once __ROOT__ . '/engine/frontend/other/payment-event.php';
+endforeach; ?>
 
 <div class="card mb-1 payment-card">
     <div class="card-body d-flex" style="justify-content: space-between">
