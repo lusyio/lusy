@@ -11,15 +11,15 @@ $isTokenValid = checkTokens($notification);
 if ($isTokenValid) {
     updateOrderOnNotification($notification);
     updateCompanyTariff($notification);
+
+    $output = ob_get_clean();
+    addToPaymentsErrorLog($output);
+
+    echo 'OK';
     if ($notification['Amount'] == 100 && $notification['Status'] == 'CONFIRMED') {
-        sleep(2);
         refundPayment($notification['OrderId']);
     }
+    exit;
 }
 
-$output = ob_get_clean();
-addToPaymentsErrorLog($output);
 
-echo 'OK';
-
-exit;
