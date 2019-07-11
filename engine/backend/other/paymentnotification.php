@@ -12,6 +12,7 @@ if ($isTokenValid) {
     updateOrderOnNotification($notification);
     updateCompanyTariff($notification);
     if ($notification['Amount'] == 100 && $notification['Status'] == 'CONFIRMED') {
+        sleep(2);
         refundPayment($notification['OrderId']);
     }
 }
