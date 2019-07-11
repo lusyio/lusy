@@ -124,7 +124,7 @@
 <hr>
 <h5 class="font-weight-bold mb-3 mt-3">Операции</h5>
 <?php foreach ($financeEvents as $event):
-    require_once __ROOT__ . '/engine/frontend/other/payment-event.php';
+    include __ROOT__ . '/engine/frontend/other/payment-event.php';
 endforeach; ?>
 
 <div class="card mb-1 payment-card">

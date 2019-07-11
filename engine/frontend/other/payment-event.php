@@ -38,9 +38,9 @@ if ($event['event'] == 'unbindCard') {
             <div class="row m-0">
                 <?= $text; ?>
             </div>
-        </div>
-        <div class="row m-0 text-secondary">
-            <?= date('d.m.Y H:i', $event['event_datetime']) ?>
+            <div class="row m-0 text-secondary">
+                <?= date('d.m.Y H:i', $event['event_datetime']) ?>
+            </div>
         </div>
         <div class="text-success" style="width: 150px"><?= $amount; ?></div>
         <?php if ($canRefunded): ?>
