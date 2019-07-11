@@ -27,7 +27,11 @@ foreach ($paidSubscribers as $company) {
         chargePayment($company['company_id']);
         // TODO отправить письмо о 7 днях на оплату
     } else {
-        chargePayment($company['company_id']);
+        if ($company['is_card_binded']) {
+            chargePayment($company['company_id']);
+        } else {
+            changeTariff($company['company_id'], 0);
+        }
     }
 }
 
