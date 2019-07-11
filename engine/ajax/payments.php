@@ -220,7 +220,7 @@ if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
         TTKEY,  //Ваш Terminal_Key
         TSKEY   //Ваш Secret_Key
     );
-    $amount = $tariffPrices[$tariffForBuy] * 100; // цена услуги в копейках
+    $amount = $order['amount']; // цена услуги в копейках
     $paymentId = $order['payment_id'];
     if (!$paymentId) {
         $result['error'] = 'Payment ID not found for this order';
@@ -230,6 +230,7 @@ if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
 
     $paymentArgs = [
         'PaymentId' => $paymentId,
+        'Amount' => $amount,
     ];
     try {
         $api->cancel($paymentArgs);
