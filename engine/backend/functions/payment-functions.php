@@ -72,7 +72,9 @@ function getOrdersListForCompany($companyId)
     global $pdo;
     $ordersQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, processed FROM orders WHERE customer_key = :companyId");
     $ordersQuery->execute([':companyId' => $companyId]);
-    $orders = $ordersQuery->fetchAll(PDO::FETCH_ASSOC);
+    $ordersResult = $ordersQuery->fetchAll(PDO::FETCH_ASSOC);
+    $ordersKeys = array_column($ordersResult, 'order_id');
+    $orders = array_combine($ordersKeys, $ordersResult);
     return $orders;
 }
 
