@@ -464,3 +464,19 @@ function setTomorrowAsPayday($companyId)
     $setTomorrowAsPaydayResult = $setTomorrowAsPaydayQuery->execute([':newDate' => $newDate, ':companyId' => $companyId]);
     return $setTomorrowAsPaydayResult;
 }
+
+function addRefundEvent($companyId, $orderId, $amount)
+{
+    global $pdo;
+
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, order_id, amount) VALUES 
+(:event, :datetime, :companyId, :orderId, :amount)");
+    $queryData = [
+        ':event' => 'refund',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+        ':orderId' => $orderId,
+        ':amount' => $amount,
+    ];
+    $addEventQuery->execute($queryData);
+}

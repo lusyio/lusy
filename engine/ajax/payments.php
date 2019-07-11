@@ -221,7 +221,7 @@ if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
         TSKEY   //Ваш Secret_Key
     );
     $amount = $tariffPrices[$tariffForBuy] * 100; // цена услуги в копейках
-    $paymentId = $orderId['payment_id'];
+    $paymentId = $order['payment_id'];
     if (!$paymentId) {
         $result['error'] = 'Payment ID not found for this order';
         echo json_encode($result);
@@ -247,7 +247,11 @@ if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
     $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
     if ($response['Success']) {
         updateOrderOnSuccess($response);
-        unbindCard($idc);
+        $unbindResult = unbindCard($idc);
+        if ($unbindResult) {
+            addUnbindCardEvent($idc);
+        }
+        addRefundEvent($idc, $orderId, $order['amount']);
         setTomorrowAsPayday($idc);
         $result['status'] = 'Successfully refunded';
     } else {
