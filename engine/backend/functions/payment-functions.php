@@ -210,7 +210,9 @@ function updateCompanyTariff($notification)
 
         if ($orderInfo['first_pay']) {
             $newPayDay = strtotime('+14 days midnight');
-        }elseif (date('d', $companyTariff['payday']) > 28) {
+        }elseif ($orderInfo['amount'] == 100) {
+            $newPayDay = $companyTariff['payday'];
+        } elseif (date('d', $companyTariff['payday']) > 28) {
             $newPayDay = strtotime('first day of next month +' . $tariffPeriod . ' month', $lastDay);
         } else {
             $newPayDay = strtotime('+' . $tariffPeriod . ' month', $lastDay);
