@@ -1853,7 +1853,12 @@ a {
     -o-animation-delay: 1s;
     animation-delay: 1s;
 }
-
+.badge-godmode {
+    opacity: 0.3;
+}
+.navbar-nav a:hover .badge-godmode, .navbar-nav li.active a .badge-godmode {
+    opacity: 1;
+}
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting:before,
 table.dataTable thead .sorting_asc:after,

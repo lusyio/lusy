@@ -62,3 +62,12 @@ $userUsageSpacePercent = round($userTotalFilesSize * 100 / $providedSpace);
 if ($userUsageSpacePercent == 0 && $userTotalFilesSize > 0) {
     $userUsageSpacePercent = 1;
 }
+if ($idc == 1) {
+    $currentDatetime = time();
+    $activeCompaniesQuery = $pdo->prepare('SELECT COUNT(*) FROM (SELECT count(*) AS eventsCount FROM events WHERE datetime > :datetime group by company_id) as e WHERE eventsCount > :eventsToBeActive');
+    $activeCompaniesQuery->bindValue(':datetime', $currentDatetime - (3600 * 24 * 30), PDO::PARAM_INT);
+    $activeCompaniesQuery->bindValue(':eventsToBeActive', 5, PDO::PARAM_INT);
+    $activeCompaniesQuery->execute();
+    $activeCompanies = $activeCompaniesQuery->fetch(PDO::FETCH_COLUMN);
+    $countUsers = DBOnce('count(*)','users','');
+}

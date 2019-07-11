@@ -78,7 +78,19 @@ if ($companyUsageSpacePercent > 90) {
                 <hr>
                 <li class="nav-item pb-2"><a class="nav-link" href="/godmode/">
                         <img class="svg-icon mr-3" src="/assets/svg/settings.svg">
-                        <?= _('GodMode') ?></a></li>
+                        <?= _('GodMode') ?>
+
+                        <div class="float-right badge-godmode">
+                            <span class="badge badge-danger float-left"
+                                  style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;" data-toggle="tooltip" data-placement="bottom"
+                                  title="Кол-во активных компаний"><?= $activeCompanies ?></span>
+                            <span class="badge badge-dark float-right"
+                                  style=" border-top-left-radius: 0px; border-bottom-left-radius: 0px; "
+                                  data-toggle="tooltip" data-placement="bottom"
+                                  title="Кол-во пользователей"><?= $countUsers ?></span>
+                        </div>
+                    </a>
+                </li>
             <?php endif; ?>
         </ul>
     </div>
