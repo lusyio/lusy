@@ -17,3 +17,6 @@ create table orders
 
 ###Изменение 1
 alter table orders add cron tinyint null;
+
+###Изменение 1
+alter table orders change cron first_pay tinyint default 0 null;

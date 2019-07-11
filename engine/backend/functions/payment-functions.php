@@ -20,7 +20,7 @@ function createMinimumOrder($customerId, $tariff, $userId = 0)
     global $pdo;
     $amount = 100; // цена услуги в копейках
 
-    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff, user_id, cron) VALUES (:amount, :customerKey, :createDate, :tariff, :userId, 1)");
+    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff, user_id, first_pay) VALUES (:amount, :customerKey, :createDate, :tariff, :userId, 1)");
     $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff, ':userId' => $userId]);
     $orderId = $pdo->lastInsertId();
     return $orderId;
