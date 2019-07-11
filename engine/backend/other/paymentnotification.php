@@ -9,6 +9,7 @@ $notification = json_decode($postData, true);
 
 $isTokenValid = checkTokens($notification);
 if ($isTokenValid) {
+    ob_start();
     updateOrderOnNotification($notification);
     updateCompanyTariff($notification);
 
