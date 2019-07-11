@@ -223,7 +223,7 @@ if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
     }
     $result = refundPayment($orderId);
     if ($result['error'] == '') {
-        setTomorrowAsPayday($idc);
+        //setTomorrowAsPayday($idc);
         $unbindResult = unbindCard($idc);
         if ($unbindResult) {
             addUnbindCardEvent($idc);
