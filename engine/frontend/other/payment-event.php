@@ -6,7 +6,7 @@ if ($event['event'] == 'withdrawal') {
     $icon = 'far fa-credit-card text-success';
     $text = 'Списание средств по тарифному плану "' . $tariffList[$event['comment']]['tariff_name'] . '"';
     $amount = $event['amount'] / 100 . ' руб.';
-    $canRefunded = time() - $event['event_datetime'] < 24 * 60 * 60 && $orders[$event['order_id']]['status'] == 'CONFIRMED';
+    $canRefunded = $event['amount'] > 100 && time() - $event['event_datetime'] < 24 * 60 * 60 && $orders[$event['order_id']]['status'] == 'CONFIRMED';
 }
 if ($event['event'] == 'refund') {
     $icon = 'far fa-credit-card text-success';

@@ -16,9 +16,6 @@ if ($isTokenValid) {
     addToPaymentsErrorLog($output);
 
     echo 'OK';
-    if ($notification['Amount'] == 100 && $notification['Status'] == 'CONFIRMED') {
-        refundPayment($notification['OrderId']);
-    }
     exit;
 }
 

@@ -14,3 +14,6 @@ create table orders
   tariff int null,
   processed tinyint default 0 null
 );
+
+###Изменение 1
+alter table orders add cron tinyint null;

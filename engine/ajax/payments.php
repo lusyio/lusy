@@ -215,6 +215,12 @@ if($_POST['module'] == 'cancelPayment' && !empty($_POST['orderId'])) {
 
 if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
     $orderId = filter_var($_POST['orderId'], FILTER_SANITIZE_NUMBER_INT);
+    $order = getOrderInfo($orderId);
+    if ($order['amount'] == 100) {
+        $result['error'] = 'Cant refund initial recurrent payment';
+        echo json_encode($result);
+        exit;
+    }
     $result = refundPayment($orderId);
     if ($result['error'] == '') {
         setTomorrowAsPayday($idc);
