@@ -14,7 +14,7 @@ require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
 require_once __ROOT__ . '/engine/backend/other/TinkoffMerchantAPI.php';
 
-$ordersToRefundQuery = $pdo->prepare("SELECT order_id FROM orders WHERE status = 'CONFIRMED' AND first_pay = 1");
+$ordersToRefundQuery = $pdo->prepare("SELECT order_id FROM orders WHERE status = 'CONFIRMED' AND amount = 100");
 $ordersToRefundQuery->execute();
 $ordersToRefund = $ordersToRefundQuery->fetchAll(PDO::FETCH_COLUMN);
 foreach ($ordersToRefund as $order) {

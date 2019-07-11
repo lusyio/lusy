@@ -72,7 +72,7 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
 
     // Выдаем ошибку при попытке смены текущего тарифа на этот же тариф
     $companyTariff = getCompanyTariff($idc);
-    if ($selectedTariff == $companyTariff['tariff']) {
+    if ($selectedTariff == $companyTariff['tariff'] && $companyTariff['is_card_binded']) {
         $result['error'] = 'It is your current tariff';
         echo json_encode($result);
         exit;
@@ -88,7 +88,9 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         exit;
     }
 
-    // Подключаем Класс Тинькофф АПИ
+
+
+        // Подключаем Класс Тинькофф АПИ
     $api = new TinkoffMerchantAPI(TTKEY,  TSKEY);
 
     $financeEvents = getFinanceEvents($idc);
@@ -101,13 +103,26 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
     }
     $tariffInfo = getTariffInfo($selectedTariff);
 
-    if (!$wasUsedFreePeriod) {
-        //Создаем платеж в 1 рубль
-        $orderId = createMinimumOrder($idc, $selectedTariff, $id);
+    // Если уже есть платный тариф, но карта не привязана и срок платежа не истек, то создаем минимальный платёж
+    if ($companyTariff['tariff'] != 0 && !$companyTariff['is_card_binded']) {
+        $orderId = createMinimumOrder($idc, $selectedTariff, $id, false);
+        if (!$orderId) {
+            $result['error'] = 'Tariff not found';
+            echo json_encode($result);
+            exit;
+        }
         $amount = 100;
-        $ForRefund = 1;
+    } elseif ($companyTariff['tariff'] == 0 && !$wasUsedFreePeriod) {
+        //Создаем платеж в 1 рубль
+        $orderId = createMinimumOrder($idc, $selectedTariff, $id, true);
+        if (!$orderId) {
+            $result['error'] = 'Tariff not found';
+            echo json_encode($result);
+            exit;
+        }
+        $amount = 100;
     } else {
-        // Создаем внутренний заказ, выдаем ошибку если тариф не найден
+        // Создаем внутренний платёж, выдаем ошибку если тариф не найден
         $orderId = createOrder($idc, $selectedTariff, $id);
         if (!$orderId) {
             $result['error'] = 'Tariff not found';
@@ -115,7 +130,6 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
             exit;
         }
         $amount = $tariffInfo['price'];
-        $ForRefund = 0;
     }
 
     // Формируем массив данных для создания ссылки на оплату - стоимость в копейках, номер внутреннего заказа,
@@ -127,9 +141,6 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         'CustomerKey' => $idc,
         'SuccessURL' => 'https://s.lusy.io/payment/',
         'Description' => 'Оплата подписки по тарифу "' . $tariffInfo['tariff_name'] . '" (' . $tariffInfo['period_in_months'] . ' ' . ngettext('month', 'months', $tariffInfo['period_in_months']) . ')',
-        'DATA' => [
-            'ForRefund' => $ForRefund,
-        ],
     ];
 
     try {

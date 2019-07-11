@@ -15,13 +15,13 @@ function createOrder($customerId, $tariff, $userId = 0)
     return $orderId;
 }
 
-function createMinimumOrder($customerId, $tariff, $userId = 0)
+function createMinimumOrder($customerId, $tariff, $userId, $firstPay = false)
 {
     global $pdo;
     $amount = 100; // цена услуги в копейках
 
-    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff, user_id, first_pay) VALUES (:amount, :customerKey, :createDate, :tariff, :userId, 1)");
-    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff, ':userId' => $userId]);
+    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff, user_id, first_pay) VALUES (:amount, :customerKey, :createDate, :tariff, :userId, :firstPay)");
+    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff, ':userId' => $userId, ':firstPay' => (int) $firstPay]);
     $orderId = $pdo->lastInsertId();
     return $orderId;
 }
@@ -92,7 +92,7 @@ function getOrdersListForCompany($companyId)
 function getOrderInfo($orderId)
 {
     global $pdo;
-    $orderInfoQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, tariff, pan, processed FROM orders WHERE order_id = :orderId");
+    $orderInfoQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, tariff, pan, processed, first_pay FROM orders WHERE order_id = :orderId");
     $orderInfoQuery->execute([':orderId' => $orderId]);
     $orderInfo = $orderInfoQuery->fetch(PDO::FETCH_ASSOC);
     return $orderInfo;
@@ -208,7 +208,7 @@ function updateCompanyTariff($notification)
         }
         $tariffPeriod = $newTariff['period_in_months'];
 
-        if ($orderInfo['amount'] == 100) {
+        if ($orderInfo['first_pay']) {
             $newPayDay = strtotime('+14 days midnight');
         }elseif (date('d', $companyTariff['payday']) > 28) {
             $newPayDay = strtotime('first day of next month +' . $tariffPeriod . ' month', $lastDay);
