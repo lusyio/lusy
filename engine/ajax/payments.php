@@ -193,3 +193,72 @@ if($_POST['module'] == 'cancelPayment' && !empty($_POST['orderId'])) {
         addToPaymentsErrorLog($error);
     }
 }
+
+if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
+    $orderId = filter_var($_POST['orderId'], FILTER_SANITIZE_NUMBER_INT);
+
+    $result = [
+        'error' => '',
+        'status' => '',
+        'errorText' => '',
+    ];
+
+    $order = getOrderInfo($orderId);
+    if ($order['customer_key'] != $idc) {
+        $result['error'] = 'Another company order';
+        echo json_encode($result);
+        exit;
+    }
+    if ($order['status'] == 'REFUNDED') {
+        $result['error'] = 'This order has already been refunded';
+        echo json_encode($result);
+        exit;
+    }
+
+
+    $api = new TinkoffMerchantAPI(
+        TTKEY,  //Ваш Terminal_Key
+        TSKEY   //Ваш Secret_Key
+    );
+    $amount = $tariffPrices[$tariffForBuy] * 100; // цена услуги в копейках
+    $paymentId = $orderId['payment_id'];
+    if (!$paymentId) {
+        $result['error'] = 'Payment ID not found for this order';
+        echo json_encode($result);
+        exit;
+    }
+
+    $paymentArgs = [
+        'PaymentId' => $paymentId,
+    ];
+    try {
+        $api->cancel($paymentArgs);
+    } catch (Exception $e) {
+        //При ошибке отмены платежа записываем стектрейс в лог и выдаем ошибку
+        ob_start();
+        echo "Ошибка при отмене счета/платежа\n";
+        var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+        $result['error'] = 'Refund error';
+        echo json_encode($result);
+        exit;
+    }
+    $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
+    if ($response['Success']) {
+        updateOrderOnSuccess($response);
+        unbindCard($idc);
+        setTomorrowAsPayday($idc);
+        $result['status'] = 'Successfully refunded';
+    } else {
+        ob_start();
+        echo "Ошибка при отмене счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+        $result['error'] = $response['ErrorCode'];
+        $result['errorText'] = $response['Details'];
+    }
+    echo json_encode($result);
+    exit;
+}

@@ -126,18 +126,6 @@
 <?php foreach ($financeEvents as $event):
     include __ROOT__ . '/engine/frontend/other/payment-event.php';
 endforeach; ?>
-
-<div class="card mb-1 payment-card">
-    <div class="card-body d-flex" style="justify-content: space-between">
-        <div style="width: 80px"><i class="fas fa-times text-danger paymentIcon"></i></div>
-        <div class="w-100">Неудачная попытка списать средства</div>
-        <div class="text-danger" style="width: 150px">- 299 руб.</div>
-        <span class="position-absolute bg-danger delete-operation" data-toggle="tooltip" data-placement="left" title="Отменить операцию">
-            <i class="fas fa-times text-white" style="font-size: 20px"></i>
-        </span>
-    </div>
-</div>
-
 <div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="payModalLabel"
      aria-hidden="true">
     <div class="modal-dialog d-flex modal-dialog-tariff" role="document">
@@ -269,29 +257,28 @@ endforeach; ?>
                 <h5 class="modal-title" id="exampleModalLabel">Вы уверены что хотите отменить операцию?</h5>
             </div>
             <div class="modal-body">
-                <p class="small text-muted text-uppercase">Сумма списания</p>
+                <p class="small text-muted text-uppercase">Сумма к возврату</p>
                 <span>
                    <i class="fas fa-coins text-muted paymentIcon"></i>
-                     299 руб
+                    <span id="refundAmount"></span> руб.
                 </span>
                 <hr>
-                <p class="small text-muted text-uppercase">Наименование</p>
-                <span>
-                   <i class="fas fa-coins text-muted paymentIcon"></i>
-                     Lusy
-                </span>
-                <hr>
-                <p class="small text-muted text-uppercase">Дата и время соверщения операции</p>
+                <p class="small text-muted text-uppercase">Дата и время создания платежа</p>
                 <span>
                    <i class="far fa-clock text-muted paymentIcon"></i>
-                     25.07.2019 18:08:12
+                    <span id="orderDate"></span>
                 </span>
                 <hr>
-                <span class="text-muted small">Деньги будут возвращены на вашу карту в течении нескольких суток.</span>
+                <span class="">При отмене платежа мы прекращаем выполнять автоматические платежи с вашей карты и на следующий день изменим ваш тариф на "Бесплатный"</span>
+                <span class="text-muted small">Деньги обычно возвращаются на карту держателя в тот же день, но иногда (зависит от эмитента) могут идти до 3-х дней.</span>
             </div>
             <div class="modal-footer border-0" style="justify-content: center">
-                <button type="button" class="btn bg-danger text-white">
-                    Отменить
+                Отменить операцию
+                <button type="button" class="btn bg-danger text-white" id="refund">
+                    <div class="spinner-border spinner-border-sm text-white" role="status"
+                         style="display: none">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </button>
             </div>
             <span class="icon-close-modal">
@@ -307,7 +294,7 @@ endforeach; ?>
     <div class="modal-dialog" role="document" style="max-width: 390px">
         <div class="modal-content">
             <div class="modal-header border-0 text-center d-block">
-                <h5 class="modal-title" id="refreshModalLabel">Вы были перенаправлены на сайт Банка для совершения платежа</h5>
+                <h5 class="modal-title" id="refreshModalLabel"></h5>
             </div>
             <div class="modal-body text-center">
                 Для продолжения работы с Lusy.io необходимо обновить страницу
@@ -322,8 +309,55 @@ endforeach; ?>
 <script>
     $(document).ready(function () {
         $('.delete-operation').on('click', function () {
+            var orderId = $(this).data('order-id');
+            var refundAmount = $(this).data('refund-amount');
+            var orderDate = $(this).data('order-date');
+            $('#refundAmount').text(refundAmount);
+            $('#orderDate').text(orderDate);
             $('#paymentInfo').modal('show');
+            $('#refund').on('click', function () {
+                $(this).attr('disabled', true);
+                var fd = new FormData();
+                fd.append('orderId', orderId);
+                fd.append('module', 'refund');
+                fd.append('ajax', 'payments');
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    xhr: function(){
+                        var xhr = new XMLHttpRequest();
+                        xhr.upload.onprogress = function (e) {
+                            $('.spinner-border-sm').show();
+                        };
+                        return xhr;
+                    },
+                    success: function (response) {
+                        if (response.error === ''){
+                            $('#paymentInfo').modal('hide');
+                            $('#refreshModalLabel').text('Платёж был успешно отменен');
+                            $('#refreshModal').modal('show');
+                        } else {
+                            console.log(response.error);
+                        }
+                    },
+                    complete: function () {
+                        $('.spinner-border-sm').hide();
+                    },
+                });
+            })
         });
+
+        $('#paymentInfo').on('hide.bs.modal', function () {
+            $(this).attr('disabled', false);
+            $('#refundAmount').text('');
+            $('#orderDate').text('');
+        });
+
 
         $(".choose-tariff").on('click', function () {
             var currentTariff = $('#currentTariff').val();
@@ -371,6 +405,7 @@ endforeach; ?>
                             if (response.url !== '') {
                                 window.open(response.url);
                                 $('#payModal').modal('hide');
+                                $('#refreshModalLabel').text('Вы были перенаправлены на сайт Банка для совершения платежа');
                                 $('#refreshModal').modal('show');
                             } else {
                                 console.log(response.status);

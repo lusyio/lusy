@@ -455,3 +455,12 @@ function addUnbindCardEvent($companyId)
     ];
     $addEventQuery->execute($queryData);
 }
+
+function setTomorrowAsPayday($companyId)
+{
+    global $pdo;
+    $newDate = strtotime('+1 day');
+    $setTomorrowAsPaydayQuery = $pdo->prepare('UPDATE company_tariff SET payday = :newDate WHERE company_id = :companyId');
+    $setTomorrowAsPaydayResult = $setTomorrowAsPaydayQuery->execute([':newDate' => $newDate, ':companyId' => $companyId]);
+    return $setTomorrowAsPaydayResult;
+}
