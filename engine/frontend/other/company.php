@@ -1,14 +1,14 @@
 <div class="card mb-3">
     <div class="card-body text-center">
         <h2 class="d-inline text-uppercase font-weight-bold">
-            Demo
+            <?=$namec?>
         </h2>
         <div>
             <?php if ($tariff == 0):?>
             <span class="badge badge-primary mt-3"><?=$_free?></span>
             <?php endif; ?>
             <?php if ($tariff == 1):?>
-            <span class="badge badge-dark mt-3"><?=$_premium?></span>
+            <span class="badge badge-dark text-gold mt-3"><?=$_premium?></span>
             <?php endif; ?>
         </div>
         <?php if ($isCeo): ?>

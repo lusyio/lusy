@@ -1,57 +1,56 @@
-<div class="container-fluid">
-    <div class="mb-3">
-        <div class="pb-2">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="d-inline-block">
-                        <div id="allSearch" class="btn btn-light view-status-search active mb-2">
-                            <span><i class="fas fa-align-justify mr-2"></i> <?= $_buttonLogShowAll ?></span>
-                            <span class="count"></span>
-                        </div>
-                        <div id="newSearch" class="btn btn-light view-status-search mb-2">
-                            <span><i class="fas fa-plus mr-2"></i> <?= $_buttonLogShowNew ?></span>
-                            <span class="count"></span>
-                        </div>
-                        <div id="taskSearch" data-type="task" class="btn btn-light type-search mb-2">
-                            <span><i class="far fa-clipboard mr-2"></i> <?= $_tasks ?></span>
-                            <span class="count"></span>
-                        </div>
-                        <div id="commentSearch" data-type="comment" class="btn btn-light type-search mb-2">
-                            <span><i class="far fa-comment mr-2"></i> <?= $_comments ?></span>
-                            <span class="count"></span>
-                        </div>
-                        <div id="systemSearch" data-type="system-event" class="btn btn-light type-search mb-2">
-                            <span><i class="fas fa-info mr-2"></i>Системные</span>
-                            <span class="count"></span>
-                        </div>
+<div class="mb-3">
+    <div class="pb-2">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="d-inline-block">
+                    <div id="allSearch" class="btn btn-light view-status-search active mb-2">
+                        <span><i class="fas fa-align-justify mr-2"></i> <?= $_buttonLogShowAll ?></span>
+                        <span class="count"></span>
+                    </div>
+                    <div id="newSearch" class="btn btn-light view-status-search mb-2">
+                        <span><i class="fas fa-plus mr-2"></i> <?= $_buttonLogShowNew ?></span>
+                        <span class="count"></span>
+                    </div>
+                    <div id="taskSearch" data-type="task" class="btn btn-light type-search mb-2">
+                        <span><i class="far fa-clipboard mr-2"></i> <?= $_tasks ?></span>
+                        <span class="count"></span>
+                    </div>
+                    <div id="commentSearch" data-type="comment" class="btn btn-light type-search mb-2">
+                        <span><i class="far fa-comment mr-2"></i> <?= $_comments ?></span>
+                        <span class="count"></span>
+                    </div>
+                    <div id="systemSearch" data-type="system-event" class="btn btn-light type-search mb-2">
+                        <span><i class="fas fa-info mr-2"></i>Системные</span>
+                        <span class="count"></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="mb-5">
-        <div class="pb-0 pt-0">
-            <div class="search-container" id="logPlug">
-                <div class="search-empty">
-                    <p>Тут пока что пусто</p>
-                </div>
-            </div>
-            <div id="log">
-                <ul class="timeline" id="eventBox" style="bottom: 0px;">
-                    <?php foreach ($events as $event): ?>
-                        <?php renderEvent($event); ?>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="load-log position-absolute">
-        <div id="loadLog" class="rounded-circle btn btn-light">
-            <i class="fas fa-chevron-down"></i>
-        </div>
-    </div>
-
 </div>
+<div class="mb-5">
+    <div class="pb-0 pt-0">
+        <div class="search-container" id="logPlug">
+            <div class="search-empty">
+                <p>Тут пока что пусто</p>
+            </div>
+        </div>
+        <div id="log">
+            <ul class="timeline" id="eventBox" style="bottom: 0px;">
+                <?php foreach ($events as $event): ?>
+                    <?php renderEvent($event); ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="load-log position-absolute">
+    <div id="loadLog" class="rounded-circle btn btn-light">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</div>
+
+
 <script>
     function insertPlug() {
         if ($('.event:visible').length === 0) {

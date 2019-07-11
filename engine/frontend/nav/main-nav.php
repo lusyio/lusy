@@ -81,11 +81,11 @@ if ($companyUsageSpacePercent > 90) {
                         <?= _('GodMode') ?>
 
                         <div class="float-right badge-godmode">
-                            <span class="badge badge-danger float-left"
+                            <span class="badge badge-primary float-left"
                                   style="border-top-right-radius: 0px; border-bottom-right-radius: 0px;" data-toggle="tooltip" data-placement="bottom"
                                   title="Кол-во активных компаний"><?= $activeCompanies ?></span>
-                            <span class="badge badge-dark float-right"
-                                  style=" border-top-left-radius: 0px; border-bottom-left-radius: 0px; "
+                            <span class="badge float-right"
+                                  style="color: white;border-top-left-radius: 0px;border-bottom-left-radius: 0px;background-color: #185cb9;"
                                   data-toggle="tooltip" data-placement="bottom"
                                   title="Кол-во пользователей"><?= $countUsers ?></span>
                         </div>
