@@ -260,7 +260,7 @@ endforeach; ?>
                 <p class="small text-muted text-uppercase">Сумма к возврату</p>
                 <span>
                    <i class="fas fa-coins text-muted paymentIcon"></i>
-                    <span id="refundAmount"></span> руб.
+                    <span id="refundAmount"></span>
                 </span>
                 <hr>
                 <p class="small text-muted text-uppercase">Дата и время создания платежа</p>
