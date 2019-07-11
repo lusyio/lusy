@@ -503,8 +503,16 @@ function addRefundEvent($companyId, $orderId, $amount)
 
 function refundPayment($orderId)
 {
+    $result = [
+        'error' => '',
+        'status' => '',
+        'errorText' => '',
+    ];
     $order = getOrderInfo($orderId);
-
+    if ($order['status'] != 'CONFIRMED') {
+        $result['error'] = 'Payment was not confirmed';
+        return $result;
+    }
     $api = new TinkoffMerchantAPI(
         TTKEY,  //Ваш Terminal_Key
         TSKEY   //Ваш Secret_Key
