@@ -2883,6 +2883,40 @@ span.date {
     .fc {
         display: none !important;
     }
+    .eventDiv .col-1 {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+        padding-left: 30px;
+        padding-right: 0px;
+    }
+    .eventDiv .col-4 {
+        -ms-flex: 0 0 60%;
+        flex: 0 0 60%;
+        max-width: 60%;
+    }
+    .eventDiv .col-2 {
+        -ms-flex: auto;
+        flex: auto;
+        max-width: none;
+        position: absolute;
+        right: 0px;
+    }
+    .eventDiv .col-5 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-top: 10px;
+        padding-left: 30px !important;
+    }
+    .eventDiv .col-5 div {
+        float: left !important;
+        text-align: left !important;
+        border-top: 1px solid #f5f5f6;
+        width: 100%;
+        padding-top: 10px;
+        margin-top: 5px;
+    }
 }
 @media (max-width: 400px) {
     .task-card .avatar {
