@@ -20,6 +20,10 @@ $ordersToRefund = $ordersToRefundQuery->fetchAll(PDO::FETCH_COLUMN);
 $removeCronFromOrderQuery = $pdo->prepare("UPDATE orders SET cron = NULL WHERE order_id = :orderId");
 foreach ($ordersToRefund as $order) {
     $refundResult = refundPayment($order);
+    ob_start();
+    var_dump($refundResult);
+    $error = ob_get_clean();
+    addToPaymentsErrorLog($error);
     if ($refundResult['error'] = '') {
         $removeCronFromOrderQuery->execute([':orderId' => $order]);
     }
