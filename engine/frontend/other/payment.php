@@ -150,7 +150,7 @@ endforeach; ?>
                 <div class="modal-header border-0 text-center d-block">
                     <h5 class="modal-title" id="exampleModalLabel">Тарифный план "<span id="tariffName"></span>"</h5>
                 </div>
-                <?php if ($companyTariff['tariff'] == 0 || !$companyTariff['is_card_binded']): ?>
+                <?php if ($companyTariff['tariff'] == 0): ?>
                 <div class="modal-body text-left">
                     <p>Вы собираетесь оформить платную подписку:</p>
                     <table class="table w-100 border">
@@ -211,6 +211,9 @@ endforeach; ?>
                                 <td class="font-weight-bold"><span id="payFullPrice"></span> руб.</td>
                             </tr>
                         </table>
+                        <?php if ($companyTariff['tariff'] == 0 || !$companyTariff['is_card_binded']): ?>
+                            <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
+                        <?php endif; ?>
                         <p><input type="checkbox" id="oferta" style=" position: relative; top: 7px; margin-right: 10px; ">Я
                             согласен с <a
                                     href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
