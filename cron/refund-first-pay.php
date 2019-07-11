@@ -25,6 +25,6 @@ foreach ($ordersToRefund as $order) {
     $error = ob_get_clean();
     addToPaymentsErrorLog($error);
     if ($refundResult['error'] = '') {
-        $removeCronFromOrderQuery->execute([':orderId' => $order]);
+        addToPaymentsErrorLog($removeCronFromOrderQuery->execute([':orderId' => $order]));
     }
 }
