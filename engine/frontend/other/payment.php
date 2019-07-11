@@ -170,6 +170,11 @@ endforeach; ?>
                             <td class="font-weight-bold"><span id="payFullPrice"></span> руб.</td>
                         </tr>
                     </table>
+                    <?php if ($wasUsedFreePeriod): ?>
+                    <?php else: ?>
+                    <p>Вы еще не использовали платный тариф - дарим вам 14 дней бесплатно</p>
+                    <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
+                    <?php endif; ?>
                     <p><input type="checkbox" id="oferta" style=" position: relative; top: 7px; margin-right: 10px; ">Я
                         согласен с <a
                                 href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"

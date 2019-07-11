@@ -18,5 +18,12 @@ $financeEvents = getFinanceEvents($idc);
 
 $orders = getOrdersListForCompany($idc);
 
+$wasUsedFreePeriod = false;
 
+foreach ($financeEvents as $event){
+    if ($event['event'] == 'tariffChange' && $event['comment'] > 0){
+        $wasUsedFreePeriod = true;
+        break;
+    }
+}
 

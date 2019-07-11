@@ -11,7 +11,9 @@ $isTokenValid = checkTokens($notification);
 if ($isTokenValid) {
     updateOrderOnNotification($notification);
     updateCompanyTariff($notification);
-
+    if (isset($notification['DATA']) && isset($notification['DATA']['ForRefund']) && $notification['DATA']['ForRefund'] == 1) {
+        refundPayment($notification['OrderId']);
+    }
 }
 
 $output = ob_get_clean();

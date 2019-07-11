@@ -91,16 +91,32 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
     // Подключаем Класс Тинькофф АПИ
     $api = new TinkoffMerchantAPI(TTKEY,  TSKEY);
 
-    // Создаем внутренний заказ, выдаем ошибку если тариф не найден
-    $orderId = createOrder($idc, $selectedTariff, $id);
-    if (!$orderId) {
-        $result['error'] = 'Tariff not found';
-        echo json_encode($result);
-        exit;
+    $financeEvents = getFinanceEvents($idc);
+    $wasUsedFreePeriod = false;
+    foreach ($financeEvents as $event){
+        if ($event['event'] == 'tariffChange' && $event['comment'] > 0){
+            $wasUsedFreePeriod = true;
+            break;
+        }
     }
-
     $tariffInfo = getTariffInfo($selectedTariff);
-    $amount = $tariffInfo['price'];
+
+    if (!$wasUsedFreePeriod) {
+        //Создаем платеж в 1 рубль
+        $orderId = createMinimumOrder($idc, $id);
+        $amount = 100;
+        $ForRefund = 1;
+    } else {
+        // Создаем внутренний заказ, выдаем ошибку если тариф не найден
+        $orderId = createOrder($idc, $selectedTariff, $id);
+        if (!$orderId) {
+            $result['error'] = 'Tariff not found';
+            echo json_encode($result);
+            exit;
+        }
+        $amount = $tariffInfo['price'];
+        $ForRefund = 0;
+    }
 
     // Формируем массив данных для создания ссылки на оплату - стоимость в копейках, номер внутреннего заказа,
     // флаг рекуррентного платежа, ИД компании, Описание платежа, отображаемое на банковской странице оплаты
@@ -111,6 +127,9 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         'CustomerKey' => $idc,
         'SuccessURL' => 'https://s.lusy.io/payment/',
         'Description' => 'Оплата подписки по тарифу "' . $tariffInfo['tariff_name'] . '" (' . $tariffInfo['period_in_months'] . ' ' . ngettext('month', 'months', $tariffInfo['period_in_months']) . ')',
+        'DATA' => [
+            'ForRefund' => $ForRefund,
+        ],
     ];
 
     try {
@@ -196,73 +215,13 @@ if($_POST['module'] == 'cancelPayment' && !empty($_POST['orderId'])) {
 
 if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
     $orderId = filter_var($_POST['orderId'], FILTER_SANITIZE_NUMBER_INT);
-
-    $result = [
-        'error' => '',
-        'status' => '',
-        'errorText' => '',
-    ];
-
-    $order = getOrderInfo($orderId);
-    if ($order['customer_key'] != $idc) {
-        $result['error'] = 'Another company order';
-        echo json_encode($result);
-        exit;
-    }
-    if ($order['status'] == 'REFUNDED') {
-        $result['error'] = 'This order has already been refunded';
-        echo json_encode($result);
-        exit;
-    }
-
-
-    $api = new TinkoffMerchantAPI(
-        TTKEY,  //Ваш Terminal_Key
-        TSKEY   //Ваш Secret_Key
-    );
-    $amount = $order['amount']; // цена услуги в копейках
-    $paymentId = $order['payment_id'];
-    if (!$paymentId) {
-        $result['error'] = 'Payment ID not found for this order';
-        echo json_encode($result);
-        exit;
-    }
-
-    $paymentArgs = [
-        'PaymentId' => $paymentId,
-        'Amount' => $amount,
-    ];
-    try {
-        $api->cancel($paymentArgs);
-    } catch (Exception $e) {
-        //При ошибке отмены платежа записываем стектрейс в лог и выдаем ошибку
-        ob_start();
-        echo "Ошибка при отмене счета/платежа\n";
-        var_dump($e->getTrace());
-        $error = ob_get_clean();
-        addToPaymentsErrorLog($error);
-        $result['error'] = 'Refund error';
-        echo json_encode($result);
-        exit;
-    }
-    $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
-    if ($response['Success']) {
-        updateOrderOnSuccess($response);
+    $result = refundPayment($orderId);
+    if ($result['error'] == '') {
+        setTomorrowAsPayday($idc);
         $unbindResult = unbindCard($idc);
         if ($unbindResult) {
             addUnbindCardEvent($idc);
         }
-        addRefundEvent($idc, $orderId, $order['amount']);
-        setTomorrowAsPayday($idc);
-        $result['status'] = 'Successfully refunded';
-    } else {
-        ob_start();
-        echo "Ошибка при отмене счета\n";
-        var_dump($response);
-        $error = ob_get_clean();
-        addToPaymentsErrorLog($error);
-        $result['error'] = $response['ErrorCode'];
-        $result['errorText'] = $response['Details'];
     }
     echo json_encode($result);
     exit;

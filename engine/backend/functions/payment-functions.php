@@ -15,6 +15,17 @@ function createOrder($customerId, $tariff, $userId = 0)
     return $orderId;
 }
 
+function createMinimumOrder($customerId, $userId)
+{
+    global $pdo;
+    $amount = 100; // цена услуги в копейках
+
+    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, user_id) VALUES (:amount, :customerKey, :createDate, :userId)");
+    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':userId' => $userId]);
+    $orderId = $pdo->lastInsertId();
+    return $orderId;
+}
+
 function updateOrderOnSuccess($response)
 {
     global $pdo;
@@ -484,4 +495,52 @@ function addRefundEvent($companyId, $orderId, $amount)
         ':amount' => $amount,
     ];
     $addEventQuery->execute($queryData);
+}
+
+function refundPayment($orderId)
+{
+    $order = getOrderInfo($orderId);
+
+    $api = new TinkoffMerchantAPI(
+        TTKEY,  //Ваш Terminal_Key
+        TSKEY   //Ваш Secret_Key
+    );
+    $amount = $order['amount']; // цена услуги в копейках
+    $paymentId = $order['payment_id'];
+    if (!$paymentId) {
+        $result['error'] = 'Payment ID not found for this order';
+        return $result;
+    }
+
+    $paymentArgs = [
+        'PaymentId' => $paymentId,
+        'Amount' => $amount,
+    ];
+    try {
+        $api->cancel($paymentArgs);
+    } catch (Exception $e) {
+        //При ошибке отмены платежа записываем стектрейс в лог и выдаем ошибку
+        ob_start();
+        echo "Ошибка при отмене счета/платежа\n";
+        var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+        $result['error'] = 'Refund error';
+        return $result;
+    }
+    $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
+    if ($response['Success']) {
+        updateOrderOnSuccess($response);
+        addRefundEvent($order['customer_key'], $orderId, $order['amount']);
+        $result['status'] = 'Successfully refunded';
+    } else {
+        ob_start();
+        echo "Ошибка при отмене счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+        $result['error'] = $response['ErrorCode'];
+        $result['errorText'] = $response['Details'];
+    }
+    return $result;
 }
