@@ -7,6 +7,7 @@ global $_buttonInvateNew;
 global $tariff;
 global $_free;
 global $_premium;
+global $namec;
 
 if ($roleu == 'ceo') {
     $isCeo = true;

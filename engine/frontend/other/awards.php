@@ -31,9 +31,8 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
 <script src="/assets/js/circle-progress.min.js"></script>
 <div class="row">
     <div class="col">
-        <span class="h3">Прогресс достижений</span>
         <div class="progress progress-awards col mt-3 mb-2 p-0 w">
-            <div class="progress-bar bg-success" role="progressbar" style="width: <?= $percentAchieve ?>%"
+            <div class="progress-bar bg-primary" role="progressbar" style="width: <?= $percentAchieve ?>%"
                  aria-valuenow="<?= $percentAchieve ?>"
                  aria-valuemin="0"
                  aria-valuemax="100" title="Достижения">
@@ -43,7 +42,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
     </div>
 </div>
 
-<div class="d-flex text-center flex-wrap mb-5 mt-4">
+<div class="d-flex text-center flex-wrap mb-5 mt-3">
     <?php
     if ($countUserAchievements == 0):
         ?>
@@ -66,7 +65,8 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
 <?php if (!key_exists('taskDone_500', $nonMultipleAchievements)): ?>
     <div class="row mb-1">
         <div class="col">
-            <h3>Путь Ответственного</h3>
+            <h3 style=" color: #27406a; font-size: 26px; font-weight: 700; ">Путь Ответственного</h3>
+            <p class="text-secondary mb-0">Уверены, вы - мастер своего дела! На этом пути вас ждут следующие достижения:</p>
         </div>
     </div>
 
@@ -85,7 +85,8 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
 <?php if (!key_exists('taskCreate_500', $nonMultipleAchievements)): ?>
     <div class="row mt-5 mb-1">
         <div class="col">
-            <h3>Путь Руководителя</h3>
+            <h3 style=" color: #27406a; font-size: 26px; font-weight: 700; ">Путь Руководителя</h3>
+            <p class="text-secondary mb-0">На пути великого руководителя вас ждут следующие достижения:</p>
         </div>
     </div>
 <?php endif; ?>
@@ -102,7 +103,8 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
 
 <div class="row mt-5 mb-1">
     <div class="col">
-        <h3>Разовые достижения</h3>
+        <h3 style=" color: #27406a; font-size: 26px; font-weight: 700; ">Разовые достижения</h3>
+        <p class="text-secondary mb-0">Еще недостигнутые разовые достижения:</p>
     </div>
 </div>
 

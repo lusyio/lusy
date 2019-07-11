@@ -721,6 +721,9 @@ input:checked[type="checkbox"]::before {
     background-color: #83b258;
     border-color: #83b258;
 }
+.text-gold {
+    color: gold;
+}
 
 .input-settings{
     background-color: #fafafa;
@@ -2189,6 +2192,9 @@ span.date {
 .container-files {
     min-height: 38px;
     padding: .375rem .75rem;
+}
+.files {
+    border-radius: 0px !important;
 }
 
 .container-responsible {
