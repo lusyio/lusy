@@ -187,7 +187,7 @@ function updateCompanyTariff($notification)
     $orderInfo = getOrderInfo($notification['OrderId']);
     $companyTariff = getCompanyTariff($orderInfo['customer_key']);
     $newTariff = getTariffInfo($orderInfo['tariff']);
-    $seoId = getSeoId($orderInfo['customer_key']);
+    $seoId = getСeoId($orderInfo['customer_key']);
 
     if ($orderInfo['status'] == 'REJECTED' && !$orderInfo['processed'] && $companyTariff['tariff'] == $newTariff['tariff_id']) {
         addWithdrawalFailedEvent($orderInfo['customer_key'], $notification['OrderId'], $orderInfo['amount'], $newTariff['tariff_id']);
@@ -582,7 +582,7 @@ function getPromocodeInfo($promocodeName)
 function activatePromocode($companyId, $promocodeName)
 {
     global $pdo;
-    $seoId = getSeoId($companyId);
+    $seoId = getCeoId($companyId);
     $promocodeInfo = getPromocodeInfo($promocodeName);
     if (!$promocodeInfo) {
         return false;
