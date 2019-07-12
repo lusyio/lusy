@@ -1,5 +1,16 @@
 <?php
 
+$bgColor = [
+    'new' => 'bg-primary',
+    'inwork' => 'bg-primary',
+    'overdue' => 'bg-danger',
+    'postpone' => 'bg-warning',
+    'pending' => 'bg-warning',
+    'returned' => 'bg-primary',
+    'done' => 'bg-success',
+    'canceled' => 'bg-secondary',
+    'planned' => 'bg-info',
+];
 $borderColor = [
     'new' => 'border-primary',
     'inwork' => 'border-primary',
@@ -11,6 +22,28 @@ $borderColor = [
     'canceled' => 'border-secondary',
     'planned' => 'border-info',
 ];
+$iconTask = [
+    'new' => 'fas fa-plus',
+    'inwork' => 'fas fa-bolt',
+    'overdue' => 'fab fa-gripfire',
+    'postpone' => 'far fa-calendar-alt',
+    'pending' => 'fas fa-eye',
+    'returned' => 'fas fa-exchange-alt',
+    'done' => 'fas fa-check',
+    'canceled' => 'fas fa-times',
+    'planned' => 'fas fa-question',
+];
+$statusColor = [
+    'new' => 'text-primary',
+    'inwork' => 'text-primary',
+    'overdue' => 'text-danger',
+    'postpone' => 'text-warning',
+    'pending' => 'text-warning',
+    'returned' => 'text-primary',
+    'done' => 'text-success',
+    'canceled' => 'text-danger',
+    'planned' => 'text-primary',
+];
 ?>
 <link rel="stylesheet" href="/assets/css/swiper.min.css">
 <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
@@ -18,7 +51,7 @@ $borderColor = [
 
 <div class="row">
     <div class="col-12 col-lg-4">
-        <div class="card overflow-hidden chart-card" style="height: 219px">
+        <div class="card overflow-hidden chart-card" style="height: 241px">
             <div class="card-body chart-content">
                 <div class="d-flex" style="justify-content: space-between">
                     <span class="numberSlide">
@@ -48,56 +81,78 @@ $borderColor = [
         <div id="taskListSlide" class="position-relative">
             <?php foreach ($tasks as $task): ?>
                 <a href="/task/<?= $task['id'] ?>/" class="text-decoration-none cust">
-                    <div class="task-card">
-                        <div class="card mb-2 tasks">
-                            <div class="card-body tasks-list">
-                                <div class="d-block border-left-tasks <?= $borderColor[$task['status']] ?>">
-                                    <p class="font-weight-light text-ligther d-none"><?= _('Done') ?></p>
-                                    <div class="row">
-                                        <div class="col-9">
-                                            <div>
-                                                <span class="taskname"><?= $task['name'] ?></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-3 p-0">
-                                            <span class="<?= ($task['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($task['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $task['datedone']) == date("Y-m-d")) ? 'text-warning font-weight-bold' : ''; ?>"><?= $task['deadLineDay'] ?> <?= $task['deadLineMonth'] ?></span>
-                                        </div>
-                                    </div>
+                    <div class="taskDiv mb-2">
+                        <div class="row">
+                            <div class="col-1 mr-3 text-center">
+                                <div>
+                                    <span class="text-lowercase font-weight-bold"
+                                          style="line-height: 43px;">
+                                        <?= date("d.m", $task['datedone']) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-1 mr-4">
+                                <div class="<?= $bgColor[$task['status']] ?> logIcon">
+                                    <i class="<?= $iconTask[$task['status']] ?>"></i>
+                                </div>
+                            </div>
+                            <div class="col-5 p-0">
+                                <p class="mb-0 font-weight-bold"><?= $task['name'] ?></p>
+                                <p class="mb-0 text-muted small">Иван петрович</p>
+                            </div>
+                            <div class="col pl-0">
+                                <div class="statusText font-weight-bold text-right text-">
+                                    <span class="<?= $statusColor[$task['status']] ?>"
+                                          style="line-height: 43px;">
+                                        <?= $GLOBALS["_{$task['status']}"] ?>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
             <?php endforeach; ?>
-            <?php if ($countAllTasks > 20): ?>
-                <a href="/tasks/" class="text-decoration-none cust">
-                    <div class="task-card">
-                        <div class="card mb-2 tasks  pending manager">
-                            <div class="card-body tasks-list">
-                                <div class="d-block">
-                                    <p class="font-weight-light text-ligther d-none"><?= _('Done') ?></p>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="text-center">
-                                                <span class="taskname"><?= _('Show all tasks') ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <?php if ($countAllTasks == 1): ?>
+                <a href="/task/new/" class="text-decoration-none cust">
+                    <div class="taskDiv create-new-task mb-2">
+                        <div class="row">
+                            <div class="col text-center">
+                                <span class="text-muted">Создать новую задачу</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="/task/new/" class="text-decoration-none cust">
+                    <div class="taskDiv create-new-task mb-2">
+                        <div class="row">
+                            <div class="col text-center">
+                                <span class="text-muted">Создать новую задачу</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <?php endif; ?>
+
+            <?php if ($countAllTasks == 2): ?>
+                <a href="/task/new/" class="text-decoration-none cust">
+                    <div class="taskDiv create-new-task mb-2">
+                        <div class="row">
+                            <div class="col text-center">
+                                <span class="text-muted">Создать новую задачу</span>
                             </div>
                         </div>
                     </div>
                 </a>
             <?php endif; ?>
             <?php if ($countAllTasks == 0): ?>
-                <div class="card search-empty">
+                <div class="taskDiv create-new-task search-empty-new-task">
                     <div class="card-body">
                         <span><?= _('You have no tasks yet, create the first task.') ?></span>
                     </div>
                 </div>
             <?php endif; ?>
         </div>
-        <div class="bottomGradient"></div>
+        <!--        <div class="bottomGradient"></div>-->
     </div>
 </div>
 <div class="swiper-container" id="mainSwiper">
@@ -106,7 +161,6 @@ $borderColor = [
         <!-- Slides -->
         <div class="swiper-slide">
             <?php
-            $i = 1;
             foreach ($tasks as $task):
                 ?>
                 <a href="/task/<?= $task['id'] ?>/" class="text-decoration-none cust">
@@ -130,12 +184,6 @@ $borderColor = [
                         </div>
                     </div>
                 </a>
-                <?php
-                $i++;
-                if (($i % 3) == 1) {
-                    echo '</div> <div class="swiper-slide">';
-                }
-                ?>
             <?php endforeach; ?>
             <?php if ($countAllTasks > 20): ?>
                 <a href="/tasks/" class="text-decoration-none cust">
@@ -267,27 +315,27 @@ $borderColor = [
 </div>
 
 <div class="mt-1 pb-0">
-        <span class="font-weight-bold d-none"><?= _('History') ?></span>
-        <div id="logDashBoard">
-            <ul class="timeline" style="bottom: 0px;">
-                <?php $eventNumber = 1; ?>
-                <?php foreach ($events as $event): ?>
-                    <?php if ($eventNumber < 21) {
-                        renderEvent($event);
-                        $eventNumber++;
-                    } ?>
-                <?php endforeach; ?>
-                <?php if (count($events) > 20): ?>
-                    <a href="/log/">
-                        <div class="load-log-dashboard">
-                            <div id="loadLogDashboard" class="rounded-circle btn btn-light">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
+    <span class="font-weight-bold d-none"><?= _('History') ?></span>
+    <div id="logDashBoard">
+        <ul class="timeline" style="bottom: 0px;">
+            <?php $eventNumber = 1; ?>
+            <?php foreach ($events as $event): ?>
+                <?php if ($eventNumber < 21) {
+                    renderEvent($event);
+                    $eventNumber++;
+                } ?>
+            <?php endforeach; ?>
+            <?php if (count($events) > 20): ?>
+                <a href="/log/">
+                    <div class="load-log-dashboard">
+                        <div id="loadLogDashboard" class="rounded-circle btn btn-light">
+                            <i class="fas fa-chevron-down"></i>
                         </div>
-                    </a>
-                <?php endif; ?>
-            </ul>
-        </div>
+                    </div>
+                </a>
+            <?php endif; ?>
+        </ul>
+    </div>
 </div>
 <script src="/assets/js/swiper.min.js"></script>
 <script type="text/javascript">
@@ -434,6 +482,7 @@ $borderColor = [
     $(document).ready(function () {
         hideGradient();
         $('.percent-chart').show();
+
         function hideGradient() {
             if ($('.task-card:visible').length < 4) {
                 $("#bottomGradient").hide();
