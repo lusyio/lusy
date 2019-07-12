@@ -1869,6 +1869,8 @@ a {
 
 .create-new-task{
     opacity: 0.6;
+    padding-top: 25.5px;
+    padding-bottom: 25.5px;
 }
 
 .create-new-task:hover{
