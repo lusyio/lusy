@@ -17,7 +17,7 @@
             </div>
             <div class="col-sm-4 navbarNav collapse navbar-collapse">
                 <div class="position-relative searchDiv">
-                    <div id="searchBtn">
+                    <div id="searchBtn" class="d-none">
                         <div data-toggle="tooltip" data-placement="bottom" title="Поиск"
                              class="topsidebar-noty">
                             <div class="position-relative">

@@ -256,6 +256,7 @@ function getCounters(callback) {
 }
 
 function setCounters(counts) {
+    $('#searchBtn').removeClass('d-none');
     setTaskCounter(counts.task);
     setHotCounter(counts.hot);
     setCommentCounter(counts.comment);
