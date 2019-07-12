@@ -1475,18 +1475,18 @@ function checkViewStatus($eventId, $isMessage = false)
     return (boolean) $result;
 }
 
-function getSeoMail($companyId)
+function getCeoMail($companyId)
 {
     global $pdo;
-    $seoMailQuery = $pdo->prepare("SELECT email FROM users WHERE idcompany = :companyId AND role = 'seo'");
+    $seoMailQuery = $pdo->prepare("SELECT email FROM users WHERE idcompany = :companyId AND role = 'ceo'");
     $seoMailQuery->execute([':companyId' => $companyId]);
     $seoMail = $seoMailQuery->fetch(PDO::FETCH_COLUMN);
     return $seoMail;
 }
-function getSeoId($companyId)
+function getCeoId($companyId)
 {
     global $pdo;
-    $seoIdQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND role = 'seo'");
+    $seoIdQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND role = 'ceo'");
     $seoIdQuery->execute([':companyId' => $companyId]);
     $seoId = $seoIdQuery->fetch(PDO::FETCH_COLUMN);
     return $seoId;
@@ -1495,8 +1495,8 @@ function getSeoId($companyId)
 function sendSubscribePremiumEmailNotification($companyId, $tariffName, $subscribeUntil, $nextChargeDate, $freePeriod)
 {
     global $pdo;
-    $seoMail = getSeoMail($companyId);
-    $seoId = getSeoId($companyId);
+    $seoMail = getCeoMail($companyId);
+    $seoId = getCeoId($companyId);
     $notifications = getNotificationSettings($seoId);
     if (!$notifications['payment']) {
         return;
@@ -1529,8 +1529,8 @@ function sendSubscribePremiumEmailNotification($companyId, $tariffName, $subscri
 
 function sendSubscribePromoEmailNotification($companyId, $tariffName, $promocode)
 {
-    $seoMail = getSeoMail($companyId);
-    $seoId = getSeoId($companyId);
+    $seoMail = getCeoMail($companyId);
+    $seoId = getCeoId($companyId);
     $notifications = getNotificationSettings($seoId);
     if (!$notifications['payment']) {
         return;
@@ -1560,8 +1560,8 @@ function sendSubscribePromoEmailNotification($companyId, $tariffName, $promocode
 }
 function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffName, $cardDigits)
 {
-    $seoMail = getSeoMail($companyId);
-    $seoId = getSeoId($companyId);
+    $seoMail = getCeoMail($companyId);
+    $seoId = getCeoId($companyId);
     $notifications = getNotificationSettings($seoId);
     if (!$notifications['payment']) {
         return;
