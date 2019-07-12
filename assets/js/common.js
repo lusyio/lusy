@@ -1,27 +1,54 @@
-$('img.svg-icon').each(function(){
+$('img.svg-icon').each(function () {
     var $img = $(this);
     var imgClass = $img.attr('class');
     var imgURL = $img.attr('src');
-    $.get(imgURL, function(data) {
+    $.get(imgURL, function (data) {
         var $svg = $(data).find('svg');
-        if(typeof imgClass !== 'undefined') {
-            $svg = $svg.attr('class', imgClass+' replaced-svg');
+        if (typeof imgClass !== 'undefined') {
+            $svg = $svg.attr('class', imgClass + ' replaced-svg');
         }
         $svg = $svg.removeAttr('xmlns:a');
-        if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+        if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
             $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
         }
         $img.replaceWith($svg);
     }, 'xml');
 });
 $('#searchBtn').click(function () {
-    if ($("#search").val() != '') {
-
-    } else {
-        $('#searchForm').removeClass('d-none');
-    }
+    hideSearchForm();
+    showToolTip()
 });
-function subscribeToMessagesNotification (userId) {
+
+function showToolTip() {
+    $(document).on('click', function (e) {
+        if ($('#searchForm').is(':hidden')) {
+            $('#searchBtn').find('.topsidebar-noty').tooltip('enable');
+            console.log('hidden');
+        }
+    });
+}
+
+function hideSearchForm() {
+    $("#searchForm").show();
+    var input = $('#search').val();
+    console.log(input);
+    if ($('#searchForm').is(':visible')) {
+        $('#searchBtn').find('.topsidebar-noty').tooltip('disable');
+        if (input !== '') {
+            $('#searchForm').submit();
+        }
+        console.log('visible');
+        $(document).on('click', function (e) { // событие клика по веб-документу
+            var div = $("#searchForm"); // тут указываем ID элемента
+            var dov = $("#searchBtn"); //
+            if (!div.is(e.target) && !dov.is(e.target) && div.has(e.target).length === 0 && dov.has(e.target).length === 0) { // и не по его дочерним элементам
+                div.hide(); // скрываем его
+            }
+        });
+    }
+}
+
+function subscribeToMessagesNotification(userId) {
     console.log('подписыаемся на новые сообщения');
     cometApi.subscription("msg.yandexToken", function (e) {
         yt = e.data;
@@ -115,7 +142,8 @@ function decreaseTaskCounter() {
 }
 
 function onlineStatusCheckIn(channelName) {
-    cometApi.subscription(channelName, function(data){} )
+    cometApi.subscription(channelName, function (data) {
+    })
 }
 
 function subscribeToChatNotification(channelName) {
@@ -126,21 +154,19 @@ function subscribeToChatNotification(channelName) {
     });
 }
 
-function subscribeToOnlineStatusNotification (channelName) {
+function subscribeToOnlineStatusNotification(channelName) {
     var justLeftUsers = new Set();
-    CometServer().subscription(channelName + ".subscription", function(msg)
-    {
+    CometServer().subscription(channelName + ".subscription", function (msg) {
         var id = msg.data.user_id;
         justLeftUsers.add(id);
         console.log(msg);
-        $('#dialog-'+id).removeClass('d-none');
+        $('#dialog-' + id).removeClass('d-none');
         setTimeout(function () {
             justLeftUsers.delete(id)
         }, 10000);
         // Обработка события что кто то зашёл на сайт и подписался на канал track_online
     });
-    CometServer().subscription(channelName + ".unsubscription", function(msg)
-    {
+    CometServer().subscription(channelName + ".unsubscription", function (msg) {
         var id = msg.data.user_id;
         console.log(msg);
         setTimeout(function () {
@@ -152,6 +178,7 @@ function subscribeToOnlineStatusNotification (channelName) {
         // Обработка события что кто то покинул сайт и/или отписался от канала track_online
     });
 }
+
 function updateMessagesCounter() {
     console.log('парсим текущее число непрочитанных');
     var messagesCount = +$('#messagesCount').text();
@@ -163,6 +190,7 @@ function updateMessagesCounter() {
     $('#messagesCount').text(messagesCount);
     $('#messagesIcon').addClass('text-success');
 }
+
 function updateNotificationsCounter() {
     var notificationCount = +$('#notificationCount').text();
     console.log(notificationCount);
@@ -277,6 +305,7 @@ function setTaskCounter(count) {
     }
 
 }
+
 function setHotCounter(count) {
     var counter = $('#overdueCount');
     var icon = $('#overdueIcon');
@@ -292,6 +321,7 @@ function setHotCounter(count) {
         badge.removeClass('d-none');
     }
 }
+
 function setCommentCounter(count) {
     var counter = $('#commentCount');
     var icon = $('#commentIcon');
@@ -312,6 +342,7 @@ function setCommentCounter(count) {
     }
 
 }
+
 function setMailCounter(count) {
     var counter = $('#messagesCount');
     var icon = $('#messagesIcon');

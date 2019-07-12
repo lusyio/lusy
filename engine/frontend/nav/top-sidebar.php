@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <form method="get" class="d-none" id="searchForm" action="/../search/">
+                    <form method="get" id="searchForm" action="/../search/">
                         <div class="form-group mb-0 mt-1">
                             <div class="input-group">
                                 <div class="custom-file">
