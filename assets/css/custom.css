@@ -2452,10 +2452,17 @@ span.date {
 .percent-chart{
     right: 20px;
     bottom: 25px;
-    color: #5d9bf4;
+    color: #003effcc;
     position: absolute;
     display: none;
     cursor: default;
+    opacity: 0.1;
+    font-weight: 500;
+}
+
+.chart-card:hover .percent-chart{
+    opacity: 1;
+    color: #64a2f0;
 }
 
 #searchButton {
