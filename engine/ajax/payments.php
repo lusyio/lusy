@@ -251,6 +251,7 @@ if($_POST['module'] == 'usePromocode' && !empty($_POST['promocode'])) {
         'successText' => '',
     ];
     $promocode = filter_var($_POST['promocode'], FILTER_SANITIZE_STRING);
+    $promocode = trim($promocode);
     $promocode = mb_strtolower($promocode);
     $promocodeInfo = getPromocodeInfo($promocode);
 
