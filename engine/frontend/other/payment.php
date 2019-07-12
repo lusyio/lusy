@@ -1,121 +1,131 @@
 <?php if ($companyTariff['tariff'] == 0): ?>
-<div class="row mb-3">
-    <div class="col">
-        <div class="card">
-            <div class="row">
-                <div class="col-12 col-lg-5 pr-0">
-                    <div class="card-body">
-                        <span class="small text-muted">Ваш тарифный план</span>
-                        <h2>Бесплатный</h2>
-                        <p>
-                            <span class="small text-muted">Безграничный период <i class="fas fa-infinity"></i></span>
-                        </p>
-                        <div class="d-flex">
-                            <input class="form-control text-muted" placeholder="Введите промокод" type="text"
-                                   style="border-bottom-right-radius: 0; border-top-right-radius: 0">
-                            <button class="btn btn-primary"
-                                    style="border-bottom-left-radius: 0; border-top-left-radius: 0">
-                                Применить
-                            </button>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="card">
+                <div class="row">
+                    <div class="col-12 col-lg-5 pr-0">
+                        <div class="card-body">
+                            <span class="small text-muted">Ваш тарифный план</span>
+                            <h2>Бесплатный</h2>
+                            <p>
+                                <span class="small text-muted">Безграничный период <i
+                                            class="fas fa-infinity"></i></span>
+                            </p>
+                            <div class="d-flex">
+                                <input class="form-control text-muted" placeholder="Введите промокод" type="text"
+                                       style="border-bottom-right-radius: 0; border-top-right-radius: 0">
+                                <button class="btn btn-primary"
+                                        style="border-bottom-left-radius: 0; border-top-left-radius: 0">
+                                    Применить
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-7 col-12 card-tariff-right">
-                    <div class="card-body">
-                        <span class="small text-muted"> Ограничения по тарифу</span>
-                        <br>
-                        <span><i class="fas fa-times text-muted"></i> В хранилище файлов свободно <?= normalizeSize($remainingLimits['space'])['size'] ?> <?= normalizeSize($remainingLimits['space'])['suffix'] ?> из 100 МБ</span>
-                        <br>
-                        <span><i class="fas fa-times text-muted"></i> Осталось <?= $remainingLimits['tasks'] ?> из 150 задач в этом месяце</span>
-                        <br>
-                        <span><i class="fas fa-times text-muted"></i> Отсутствие отчетов</span>
-                        <br>
-                        <span><i class="fas fa-times text-muted"></i> Отсутствие интеграции с облаком</span>
+                    <div class="col-lg-7 col-12 card-tariff-right">
+                        <div class="card-body">
+                            <span class="small text-muted"> Ограничения по тарифу</span>
+                            <br>
+                            <span><i class="fas fa-times text-muted"></i> В хранилище файлов свободно <?= normalizeSize($remainingLimits['space'])['size'] ?> <?= normalizeSize($remainingLimits['space'])['suffix'] ?> из 100 МБ</span>
+                            <br>
+                            <span><i class="fas fa-times text-muted"></i> Осталось <?= $remainingLimits['tasks'] ?> из 150 задач в этом месяце</span>
+                            <br>
+                            <span><i class="fas fa-times text-muted"></i> Отсутствие отчетов</span>
+                            <br>
+                            <span><i class="fas fa-times text-muted"></i> Отсутствие интеграции с облаком</span>
+                        </div>
                     </div>
-                </div>
-                <span class="d-block text-muted position-absolute" style="right: 20px; bottom: 20px; z-index: 1">
+                    <span class="d-block text-muted position-absolute" style="right: 20px; bottom: 20px; z-index: 1">
                 <i class="fas fa-ruble-sign" style="font-size: 100px; opacity: 0.05;"></i>
                 </span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <?php else: ?>
-<div class="row mb-3">
-    <div class="col">
-        <div class="card">
-            <div class="row">
-                <div class="col-12 col-lg-5 card-tariff-left">
-                    <div class="card-body">
-                        <span class="small text-muted">Ваш тарифный план</span>
-                        <h2><?= $tariffInfo['tariff_name'] ?></h2>
-                        <input type="hidden" id="currentTariff" value="<?= $companyTariff['tariff'] ?>">
-                        <input type="hidden" id="isCardBinded" value="<?= $companyTariff['is_card_binded'] ?>">
-                        <p>
-                            <span class="small text-muted">Оплачено до <?= date('d.m', $companyTariff['payday']); ?></span>
-                        </p>
-                        <div class="d-flex">
-                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
-                                   type="text">
-                            <button class="btn btn-primary" id="promoBtn">
-                                Применить
-                            </button>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="card">
+                <div class="row">
+                    <div class="col-12 col-lg-5 card-tariff-left">
+                        <div class="card-body">
+                            <span class="small text-muted">Ваш тарифный план</span>
+                            <h2><?= $tariffInfo['tariff_name'] ?></h2>
+                            <input type="hidden" id="currentTariff" value="<?= $companyTariff['tariff'] ?>">
+                            <input type="hidden" id="isCardBinded" value="<?= $companyTariff['is_card_binded'] ?>">
+                            <p>
+                                <span class="small text-muted">Оплачено до <?= date('d.m', $companyTariff['payday']); ?></span>
+                            </p>
+                            <div class="d-flex">
+                                <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
+                                       type="text">
+                                <button class="btn btn-primary" id="promoBtn">
+                                    Применить
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-7 col-12 card-tariff-right">
-                    <div class="card-body">
-                        <?php if ($companyTariff['is_card_binded']): // Если привязана карта?>
-                        <div class="d-flex" style="justify-content: space-between">
-                            <span class="small text-muted mt-1">Ваша банковская карта</span>
-                            <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                    data-target="#deleteCardModal">
-                                Отвязать карту
-                            </button>
-                        </div>
-                        <div style="z-index: 2">
+                    <div class="col-lg-7 col-12 card-tariff-right">
+                        <div class="card-body">
+                            <?php if ($companyTariff['is_card_binded']): // Если привязана карта?>
+                                <div class="d-flex" style="justify-content: space-between">
+                                    <span class="small text-muted mt-1">Ваша банковская карта</span>
+                                    <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                            data-target="#deleteCardModal">
+                                        Отвязать карту
+                                    </button>
+                                </div>
+                                <div style="z-index: 2">
                             <span class="text-muted">
                             <i class="far fa-credit-card icon-credit-card"></i>
                             </span>
-                            <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?> в размере <?= $tariffInfo['price'] / 100; ?> руб.</span>
-                        </div>
-                        <?php else: // Если не привязана карта ?>
-                            <div style="z-index: 2">
+                                    <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?> в размере <?= $tariffInfo['price'] / 100; ?> руб.</span>
+                                </div>
+                            <?php else: // Если не привязана карта ?>
+                                <div style="z-index: 2">
                             <span class="text-muted fa-stack fa-1x">
                                 <i class="far fa-credit-card fa-stack-1x icon-credit-card"></i>
                                 <i class="fas fa-slash fa-stack-2x "></i>
                             </span>
-                                <span><?= date('d.m', strtotime('+1 day', $companyTariff['payday'])); ?> ваш тарифный план изменится на Бесплатный</span>
-                            </div>
-                        <?php endif; ?>
+                                    <span><?= date('d.m', strtotime('+1 day', $companyTariff['payday'])); ?> ваш тарифный план изменится на Бесплатный</span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                </div>
-                <span class="d-block text-muted bg-icon-ruble">
+                    <span class="d-block text-muted bg-icon-ruble">
                 <i class="fas fa-ruble-sign icon-ruble"></i>
                 </span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 <h5 class="font-weight-bold mb-4">Тарифный план</h5>
 <div class="row">
     <?php foreach ($tariffList as $tariff): ?>
-    <?php if ($tariff['tariff_id'] == 0) continue; ?>
-    <div class="col-sm-4 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="font-weight-bold"><?= $tariff['tariff_name']; ?></h3>
-                <p><span class="text-secondary">Периодичность оплаты<br><?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?> </span> - <?= $tariff['price'] / (100 * $tariff['period_in_months']); ?> руб./мес.</p>
-                <button class="btn btn-secondary choose-tariff" data-price="<?= $tariff['price'] / 100; ?>" data-price-per-month="<?= $tariff['price'] / (100 * $tariff['period_in_months']); ?>" data-period="<?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?>" data-tariff-name="<?= $tariff['tariff_name']; ?>" data-tariff-id="<?= $tariff['tariff_id']; ?>">Подробнее</button>
+        <?php if ($tariff['tariff_id'] == 0) continue; ?>
+        <div class="col-sm-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="font-weight-bold"><?= $tariff['tariff_name']; ?></h3>
+                    <p>
+                        <span class="text-secondary">Периодичность оплаты<br><?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?> </span>
+                        - <?= $tariff['price'] / (100 * $tariff['period_in_months']); ?> руб./мес.</p>
+                    <button class="btn btn-secondary choose-tariff" data-price="<?= $tariff['price'] / 100; ?>"
+                            data-price-per-month="<?= $tariff['price'] / (100 * $tariff['period_in_months']); ?>"
+                            data-period="<?= $tariff['period_in_months']; ?> <?= ngettext('month', 'months', $tariff['period_in_months']); ?>"
+                            data-tariff-name="<?= $tariff['tariff_name']; ?>"
+                            data-tariff-id="<?= $tariff['tariff_id']; ?>">Подробнее
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
     <?php endforeach; ?>
 </div>
 <p><strong>Внимание!</strong> Оплата тарифного плана происходит путем автоплатежа - автоматического
-    списания суммы средств с периодичностью, соответствующей выбранному тарифу. Подписку можно отменить в любой момент.</p>
-<p>Нажимая кнопки "Сменить тариф" или "Продлить подписку", вы подтверждаете, что ознакомились с понятием "автоплатеж" и с <a
+    списания суммы средств с периодичностью, соответствующей выбранному тарифу. Подписку можно отменить в любой момент.
+</p>
+<p>Нажимая кнопки "Сменить тариф" или "Продлить подписку", вы подтверждаете, что ознакомились с понятием "автоплатеж" и
+    с <a
             href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf" class="btn-link"
             target="_blank">Офертой рекуррентных платежей</a>.</p>
 <hr>
@@ -123,6 +133,19 @@
 <?php foreach ($financeEvents as $event):
     include __ROOT__ . '/engine/frontend/other/payment-event.php';
 endforeach; ?>
+<?php if (count($financeEvents) == 0): ?>
+    <div class="card mb-1 payment-card">
+        <div class="card-body">
+            <div class="row m-0">
+                <div class="col text-muted text-center">
+                    <span>
+                        Вы еще не совершили операции по тарифам
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="payModalLabel"
      aria-hidden="true">
     <div class="modal-dialog d-flex modal-dialog-tariff" role="document">
@@ -139,7 +162,8 @@ endforeach; ?>
                     </p>
                     <p><i class="fas fa-check"></i> Подробная отчетность о деятельности компании и отдельных сотрудниках
                     </p>
-                    <p><i class="fas fa-check"></i> Интеграции со сторонними сервисами, н-р AmoCRM, Яндекс.Метрика и т.д.
+                    <p><i class="fas fa-check"></i> Интеграции со сторонними сервисами, н-р AmoCRM, Яндекс.Метрика и
+                        т.д.
                     </p>
                 </div>
             </div>
@@ -151,42 +175,43 @@ endforeach; ?>
                     <h5 class="modal-title" id="exampleModalLabel">Тарифный план "<span id="tariffName"></span>"</h5>
                 </div>
                 <?php if ($companyTariff['tariff'] == 0): ?>
-                <div class="modal-body text-left">
-                    <p>Вы собираетесь оформить платную подписку:</p>
-                    <table class="table w-100 border">
-                        <tr>
-                            <td>Период списания средств</td>
-                            <td id="payPeriod"></td>
-                        </tr>
-                        <tr>
-                            <td>Стоимость в месяц</td>
-                            <td><span id="payPerMonth"></span> руб.</td>
-                        </tr>
-                        <tr>
-                            <td>Итого платеж</td>
-                            <td class="font-weight-bold"><span id="payFullPrice"></span> руб.</td>
-                        </tr>
-                    </table>
-                    <?php if ($wasUsedFreePeriod): ?>
-                        <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
-                    <?php else: ?>
-                    <p>Вы еще не использовали платный тариф - дарим вам 14 дней бесплатно</p>
-                    <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
-                    <?php endif; ?>
-                    <p><input type="checkbox" id="oferta" style=" position: relative; top: 7px; margin-right: 10px; ">Я
-                        согласен с <a
-                                href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
-                                class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
-                    <hr>
-                    <button class="btn btn-secondary w-100" id="pay" disabled>
-                        Оплатить подписку
-                        <div class="spinner-border spinner-border-sm text-white" role="status"
-                             style="display: none">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </button>
-                </div>
-                <span class="icon-close-modal">
+                    <div class="modal-body text-left">
+                        <p>Вы собираетесь оформить платную подписку:</p>
+                        <table class="table w-100 border">
+                            <tr>
+                                <td>Период списания средств</td>
+                                <td id="payPeriod"></td>
+                            </tr>
+                            <tr>
+                                <td>Стоимость в месяц</td>
+                                <td><span id="payPerMonth"></span> руб.</td>
+                            </tr>
+                            <tr>
+                                <td>Итого платеж</td>
+                                <td class="font-weight-bold"><span id="payFullPrice"></span> руб.</td>
+                            </tr>
+                        </table>
+                        <?php if ($wasUsedFreePeriod): ?>
+                            <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
+                        <?php else: ?>
+                            <p>Вы еще не использовали платный тариф - дарим вам 14 дней бесплатно</p>
+                            <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
+                        <?php endif; ?>
+                        <p><input type="checkbox" id="oferta"
+                                  style=" position: relative; top: 7px; margin-right: 10px; ">Я
+                            согласен с <a
+                                    href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
+                                    class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
+                        <hr>
+                        <button class="btn btn-secondary w-100" id="pay" disabled>
+                            Оплатить подписку
+                            <div class="spinner-border spinner-border-sm text-white" role="status"
+                                 style="display: none">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
+                    </div>
+                    <span class="icon-close-modal">
                     <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
                                 class="fas fa-times text-muted"></i></button>
                 </span>
@@ -214,7 +239,8 @@ endforeach; ?>
                         <?php if ($companyTariff['tariff'] == 0 || !$companyTariff['is_card_binded']): ?>
                             <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
                         <?php endif; ?>
-                        <p><input type="checkbox" id="oferta" style=" position: relative; top: 7px; margin-right: 10px; ">Я
+                        <p><input type="checkbox" id="oferta"
+                                  style=" position: relative; top: 7px; margin-right: 10px; ">Я
                             согласен с <a
                                     href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
                                     class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
@@ -275,7 +301,8 @@ endforeach; ?>
                     <span id="orderDate"></span>
                 </span>
                 <hr>
-                <p class="">При отмене платежа мы прекращаем выполнять автоматические платежи с вашей карты и на следующий день изменим ваш тариф на "Бесплатный"</p>
+                <p class="">При отмене платежа мы прекращаем выполнять автоматические платежи с вашей карты и на
+                    следующий день изменим ваш тариф на "Бесплатный"</p>
                 <span class="text-muted small">Деньги обычно возвращаются на карту держателя в тот же день, но иногда (зависит от эмитента) могут идти до 3-х дней.</span>
             </div>
             <div class="modal-footer border-0" style="justify-content: center">
@@ -306,7 +333,8 @@ endforeach; ?>
                 Для продолжения работы с Lusy.io необходимо обновить страницу
             </div>
             <div class="modal-footer border-0" style="justify-content: space-between">
-                <button type="button" class="form-control btn btn-primary" data-dismiss="modal">Обновить страницу</button>
+                <button type="button" class="form-control btn btn-primary" data-dismiss="modal">Обновить страницу
+                </button>
             </div>
         </div>
     </div>
@@ -335,7 +363,7 @@ endforeach; ?>
                     processData: false,
                     contentType: false,
                     data: fd,
-                    xhr: function(){
+                    xhr: function () {
                         var xhr = new XMLHttpRequest();
                         xhr.upload.onprogress = function (e) {
                             $('.spinner-border-sm').show();
@@ -343,7 +371,7 @@ endforeach; ?>
                         return xhr;
                     },
                     success: function (response) {
-                        if (response.error === ''){
+                        if (response.error === '') {
                             $('#paymentInfo').modal('hide');
                             $('#refreshModalLabel').text('Платёж был успешно отменен');
                             $('#refreshModal').modal('show');
@@ -408,7 +436,7 @@ endforeach; ?>
                     processData: false,
                     contentType: false,
                     data: fd,
-                    xhr: function(){
+                    xhr: function () {
                         var xhr = new XMLHttpRequest();
 
                         xhr.upload.onprogress = function (e) {
@@ -417,7 +445,7 @@ endforeach; ?>
                         return xhr;
                     },
                     success: function (response) {
-                        if (response.error === ''){
+                        if (response.error === '') {
                             if (response.url !== '') {
                                 window.open(response.url);
                                 $('#payModal').modal('hide');
@@ -449,7 +477,7 @@ endforeach; ?>
                     processData: false,
                     contentType: false,
                     data: fd,
-                    xhr: function(){
+                    xhr: function () {
                         var xhr = new XMLHttpRequest();
 
                         xhr.upload.onprogress = function (e) {
@@ -458,7 +486,7 @@ endforeach; ?>
                         return xhr;
                     },
                     success: function (response) {
-                        if (response.error === ''){
+                        if (response.error === '') {
                             location.reload();
                         } else {
                             console.log(response.error);
@@ -486,7 +514,7 @@ endforeach; ?>
                 success: function (response) {
                     if (response.status) {
                         location.reload();
-                    }else {
+                    } else {
                         console.log('Error');
                     }
                 },
