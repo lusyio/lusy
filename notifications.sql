@@ -19,3 +19,5 @@ alter table user_notifications
 
   add silence_end tinyint default 9 null;
 
+# Уведомления об оплате
+alter table user_notifications add payment int default 1 null;
