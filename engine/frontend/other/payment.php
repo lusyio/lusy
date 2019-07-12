@@ -443,6 +443,9 @@ endforeach; ?>
                     $('#pay').text('Привязать карту для оплаты');
                     $('#oferta').attr('disabled', false);
                     $('#changeTariff').text('Привязать карту для оплаты');
+                    $('#changeTariff').on('click', function () {
+                        $('#pay').trigger('click');
+                    })
                 }
             }
             $('#payPeriod').text(period);
