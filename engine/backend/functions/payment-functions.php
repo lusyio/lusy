@@ -187,9 +187,12 @@ function updateCompanyTariff($notification)
     $orderInfo = getOrderInfo($notification['OrderId']);
     $companyTariff = getCompanyTariff($orderInfo['customer_key']);
     $newTariff = getTariffInfo($orderInfo['tariff']);
+    $seoId = getSeoId($orderInfo['customer_key']);
 
-    if ($orderInfo['status'] == 'REJECTED' && !$orderInfo['processed']) {
+    if ($orderInfo['status'] == 'REJECTED' && !$orderInfo['processed'] && $companyTariff['tariff'] == $newTariff['tariff_id']) {
         addWithdrawalFailedEvent($orderInfo['customer_key'], $notification['OrderId'], $orderInfo['amount'], $newTariff['tariff_id']);
+        $mailData = [$orderInfo['customer_key'], $orderInfo['pan']];
+        addMailToQueue('sendSubscribeProlongationFailedEmailNotification', $mailData, $seoId);
     }
 
     if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
@@ -231,7 +234,16 @@ function updateCompanyTariff($notification)
             addWithdrawalEvent($orderInfo['customer_key'], $notification['OrderId'], $orderInfo['amount'], $newTariff['tariff_id']);
             if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
                 addTariffProlongationEvent($orderInfo['customer_key'], $newTariff['tariff_id'], $notification['OrderId']);
+                $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y',$newPayDay), date('d.m.Y',$newPayDay), false];
+                addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $seoId);
             } else {
+                if ($orderInfo['first_pay']) {
+                    $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y',$newPayDay), date('d.m.Y',$newPayDay), true];
+                    addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $seoId);
+                } else {
+                    $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y',$newPayDay), date('d.m.Y',$newPayDay), false];
+                    addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $seoId);
+                }
                 addTariffChangeEvent($orderInfo['customer_key'], $newTariff['tariff_id'], $notification['OrderId']);
             }
         }
