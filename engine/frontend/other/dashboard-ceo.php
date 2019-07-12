@@ -36,7 +36,7 @@ $borderColor = [
             <canvas class="d-none" id="canvas"></canvas>
             <div class="chart" style="z-index: 2">
                 <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Что это?">
-                    + 18%
+                    <?= $taskDoneDelta; ?>
                 </span>
             </div>
             <span class="bg-icon-achieve">

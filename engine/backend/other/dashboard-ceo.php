@@ -96,3 +96,24 @@ for ($i = 0; $i < 7; $i++){
     $dataForChart[] = '[\'' . date('d.m', $startTime + 3600 * 24 * $i) . '\' ' . ']';
 }
 $dataForChartString = implode(',', $dataForChart);
+
+$taskDoneSamePeriodPreviousMonthQuery = $pdo->prepare("SELECT COUNT(DISTINCT task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE company_id = :companyId AND e.action = 'workdone' AND e.datetime > :firstDayPreviousMonth AND e.datetime <:currentDayPreviousMonth");
+
+$firstDayOfPreviousMonth = (strtotime('first day of previous month midnight'));
+$lastDayPreviousMonth = strtotime('last day of -1 month');
+$thisDayPreviousMonth = strtotime('-1 month');
+if ($lastDayPreviousMonth < $thisDayPreviousMonth) {
+    $currentDayPreviousMonth = strtotime('midnight +1 day', $lastDayPreviousMonth);
+} else {
+    $currentDayPreviousMonth = strtotime('midnight +1 day', $thisDayPreviousMonth);
+}
+
+$taskDoneSamePeriodPreviousMonthQuery->bindValue(':firstDayPreviousMonth', (int) $firstDayOfPreviousMonth, PDO::PARAM_INT);
+$taskDoneSamePeriodPreviousMonthQuery->bindValue(':currentDayPreviousMonth', (int) $currentDayPreviousMonth, PDO::PARAM_INT);
+$taskDoneSamePeriodPreviousMonthQuery->bindValue(':companyId', (int) $idc, PDO::PARAM_INT);
+$taskDoneSamePeriodPreviousMonthQuery->execute();
+$taskDoneSamePeriodCount = $taskDoneSamePeriodPreviousMonthQuery->fetch(PDO::FETCH_COLUMN);
+
+$taskDoneDelta = $taskDoneCountOverall - $taskDoneSamePeriodCount;
+
+
