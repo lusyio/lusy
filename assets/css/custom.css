@@ -421,6 +421,15 @@ list-group:hover {
     padding: 12px 16px 12px 18px;
 }
 
+.search-button-top{
+    margin: 5px 5px;
+    padding: 6px 0;
+    border-radius: 0;
+    border: none;
+    min-width: 44px;
+    cursor: pointer;
+}
+
 #searchInput:focus {
     box-shadow: none;
 }

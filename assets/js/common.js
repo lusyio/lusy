@@ -22,7 +22,7 @@ $('#searchBtn').click(function () {
 function showToolTip() {
     $(document).on('click', function (e) {
         if ($('#searchForm').is(':hidden')) {
-            $('#searchBtn').find('.topsidebar-noty').tooltip('enable');
+            $('#searchBtn').find('.topsidebar-noty').tooltip('enable').removeClass('search-button-top');
             $('#search').val('');
             console.log('hidden');
         }
@@ -34,7 +34,7 @@ function hideSearchForm() {
     var input = $('#search').val();
     console.log(input);
     if ($('#searchForm').is(':visible')) {
-        $('#searchBtn').find('.topsidebar-noty').tooltip('disable');
+        $('#searchBtn').find('.topsidebar-noty').tooltip('disable').addClass('search-button-top');
         if (input !== '') {
             $('#searchForm').submit();
         }
