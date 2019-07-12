@@ -1952,20 +1952,10 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 #taskListSlide {
-    /*height: 219px;*/
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding: 0px 15px 0px 15px;
-    margin: 0px -15px -15px -15px;
-    -ms-overflow-style: none !important;
-    scrollbar-width: none !important;
+
 }
 #taskListSlide::-webkit-scrollbar {
-    width: 0 !important;
-    background: transparent !important;
-    display: none !important;
-    -ms-overflow-style: none !important;
-    scrollbar-width: none !important;
+
 }
 
 .bottomGradient {
@@ -2553,6 +2543,9 @@ span.date {
     .card-tariff-right{
         padding-left: 0 !important;
     }
+    .card-tariff-left{
+        padding-right: 0 !important;
+    }
 }
 
 @media (min-width: 768px) {
@@ -2586,9 +2579,7 @@ span.date {
         padding-right: 5px !important;
     }
 
-    .card-tariff-left{
-        padding-right: 0 !important;
-    }
+
 
     .navblock {
         padding-right: 0 !important;
@@ -2760,10 +2751,6 @@ span.date {
 
     .noty-padding-content-settings{
         padding-top: 0px;
-    }
-
-    #taskListSlide{
-        display: none;
     }
 
     .chart-content{
