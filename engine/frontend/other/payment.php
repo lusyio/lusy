@@ -1,24 +1,22 @@
 <?php if ($companyTariff['tariff'] == 0): ?>
-    <div class="row mb-3">
-        <div class="col">
-            <div class="card">
-                <div class="row">
-                    <div class="col-12 col-lg-5 pr-0">
-                        <div class="card-body">
-                            <span class="small text-muted">Ваш тарифный план</span>
-                            <h2>Бесплатный</h2>
-                            <p>
-                                <span class="small text-muted">Безграничный период <i
-                                            class="fas fa-infinity"></i></span>
-                            </p>
-                            <div class="d-flex">
-                                <input class="form-control text-muted" placeholder="Введите промокод" type="text"
-                                       style="border-bottom-right-radius: 0; border-top-right-radius: 0">
-                                <button class="btn btn-primary"
-                                        style="border-bottom-left-radius: 0; border-top-left-radius: 0">
-                                    Применить
-                                </button>
-                            </div>
+
+<div class="row mb-3">
+    <div class="col">
+        <div class="card">
+            <div class="row">
+                <div class="col-12 col-lg-5 pr-0">
+                    <div class="card-body">
+                        <span class="small text-muted">Ваш тарифный план</span>
+                        <h2>Бесплатный</h2>
+                        <p>
+                            <span class="small text-muted">Безграничный период <i class="fas fa-infinity"></i></span>
+                        </p>
+                        <div class="d-flex">
+                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
+                                   type="text">
+                            <button class="btn btn-primary" id="promoBtn">
+                                Применить
+                            </button>
                         </div>
                     </div>
                     <div class="col-lg-7 col-12 card-tariff-right">
@@ -122,10 +120,10 @@
     <?php endforeach; ?>
 </div>
 <p><strong>Внимание!</strong> Оплата тарифного плана происходит путем автоплатежа - автоматического
-    списания суммы средств с периодичностью, соответствующей выбранному тарифу. Подписку можно отменить в любой момент.
-</p>
-<p>Нажимая кнопки "Сменить тариф" или "Продлить подписку", вы подтверждаете, что ознакомились с понятием "автоплатеж" и
-    с <a
+
+    списания суммы средств с периодичностью, соответствующей выбранному тарифу. Подписку можно отменить в любой момент.</p>
+<p>Нажимая кнопки "Сменить тариф", "Продлить подписку" или "Привязать карту для оплаты", вы подтверждаете, что ознакомились с понятием "автоплатеж" и с <a
+
             href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf" class="btn-link"
             target="_blank">Офертой рекуррентных платежей</a>.</p>
 <hr>
@@ -342,6 +340,33 @@ endforeach; ?>
 
 <script>
     $(document).ready(function () {
+        $('#promoBtn').on('click', function () {
+            var promocode = $('#promoInput').val();
+            if (promocode) {
+                var fd = new FormData();
+                fd.append('promocode', promocode);
+                fd.append('module', 'usePromocode');
+                fd.append('ajax', 'payments');
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function (response) {
+                        if (response.error === '') {
+                            $('#refreshModalLabel').text('Промокод активирован');
+                            $('#refreshModal').modal('show');
+                        } else {
+                            console.log(response.error);
+                        }
+                    },
+                })
+            }
+        });
+
         $('.delete-operation').on('click', function () {
             var orderId = $(this).data('order-id');
             var refundAmount = $(this).data('refund-amount');

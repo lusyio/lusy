@@ -1527,6 +1527,37 @@ function sendSubscribePremiumEmailNotification($companyId, $tariffName, $subscri
     }
 }
 
+function sendSubscribePromoEmailNotification($companyId, $tariffName, $promocode)
+{
+    $seoMail = getSeoMail($companyId);
+    $seoId = getSeoId($companyId);
+    $notifications = getNotificationSettings($seoId);
+    if (!$notifications['payment']) {
+        return;
+    }
+
+    require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
+    $promocodeInfo = getPromocodeInfo($promocode);
+
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($seoMail);
+        $mail->isHTML();
+        $mail->Subject = "Подключение тарифа в Lusy.io";
+        $args = [
+            'tariffName' => $tariffName,
+            '$freeDays' => $promocodeInfo['days_to_add'],
+        ];
+        $mail->setMessageContent('subscribe-promo-free', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
 function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffName, $cardDigits)
 {
     $seoMail = getSeoMail($companyId);
