@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-07-12 12:57+0300\n"
-"PO-Revision-Date: 2019-07-12 12:58+0300\n"
+"POT-Creation-Date: 2019-07-12 14:33+0300\n"
+"PO-Revision-Date: 2019-07-12 14:34+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -15,8 +15,8 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: engine/ajax/payments.php:143 engine/frontend/other/payment.php:109
-#: engine/frontend/other/payment.php:110
+#: engine/ajax/payments.php:143 engine/frontend/other/payment.php:108
+#: engine/frontend/other/payment.php:109
 msgid "month"
 msgid_plural "months"
 msgstr[0] "месяц"
@@ -279,7 +279,7 @@ msgid "Profile"
 msgstr "Профиль"
 
 #: engine/frontend/nav/top-sidebar.php:105
-#: engine/frontend/other/dashboard-ceo.php:270
+#: engine/frontend/other/dashboard-ceo.php:318
 msgid "History"
 msgstr "Журнал"
 
@@ -291,59 +291,92 @@ msgstr "Настройки"
 msgid "Log Out"
 msgstr "Выход"
 
-#: engine/frontend/other/dashboard-ceo.php:55
-#: engine/frontend/other/dashboard-ceo.php:78
-#: engine/frontend/other/dashboard-ceo.php:117
-#: engine/frontend/other/dashboard-ceo.php:146
-msgid "Done"
-msgstr "Завершено"
-
-#: engine/frontend/other/dashboard-ceo.php:82
 #: engine/frontend/other/dashboard-ceo.php:150
-msgid "Show all tasks"
-msgstr "Показать все задачи"
-
-#: engine/frontend/other/dashboard-ceo.php:95
-#: engine/frontend/other/dashboard-ceo.php:164
+#: engine/frontend/other/dashboard-ceo.php:212
 msgid "You have no tasks yet, create the first task."
 msgstr "У вас пока нет задач, создайте первую задачу."
 
-#: engine/frontend/other/dashboard-ceo.php:178
+#: engine/frontend/other/dashboard-ceo.php:171
+#: engine/frontend/other/dashboard-ceo.php:194
+msgid "Done"
+msgstr "Завершено"
+
+#: engine/frontend/other/dashboard-ceo.php:198
+msgid "Show all tasks"
+msgstr "Показать все задачи"
+
+#: engine/frontend/other/dashboard-ceo.php:226
 msgid "Completed tasks"
 msgstr "Завершено задач"
 
-#: engine/frontend/other/dashboard-ceo.php:183
+#: engine/frontend/other/dashboard-ceo.php:231
 msgid "Was overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:188
+#: engine/frontend/other/dashboard-ceo.php:236
 msgid "Postpone requested"
 msgstr "Запрошен перенос срока"
 
-#: engine/frontend/other/dashboard-ceo.php:206
+#: engine/frontend/other/dashboard-ceo.php:254
+#: engine/frontend/other/godmode.php:24
 msgid "task"
 msgid_plural "tasks"
 msgstr[0] "задача"
 msgstr[1] "задачи"
 msgstr[2] "задач"
 
-#: engine/frontend/other/dashboard-ceo.php:219
+#: engine/frontend/other/dashboard-ceo.php:267
 msgid "In work"
 msgstr "В работе"
 
-#: engine/frontend/other/dashboard-ceo.php:233
+#: engine/frontend/other/dashboard-ceo.php:281
 msgid "Overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:247
+#: engine/frontend/other/dashboard-ceo.php:295
 msgid "Pending"
 msgstr "На рассмотрении"
 
-#: engine/frontend/other/dashboard-ceo.php:261
+#: engine/frontend/other/dashboard-ceo.php:309
 msgid "Postponement"
 msgstr "Перенос срока"
 
-#: engine/frontend/other/payment-event.php:36
+#: engine/frontend/other/godmode.php:10
+msgid "active company"
+msgid_plural "active companies"
+msgstr[0] "активная компания"
+msgstr[1] "активных компании"
+msgstr[2] "активных компаний"
+
+#: engine/frontend/other/godmode.php:12
+msgid "company"
+msgid_plural "companies"
+msgstr[0] "компания"
+msgstr[1] "компании"
+msgstr[2] "компаний"
+
+#: engine/frontend/other/godmode.php:13
+msgid "user"
+msgid_plural "users"
+msgstr[0] "пользователь"
+msgstr[1] "пользователя"
+msgstr[2] "пользователей"
+
+#: engine/frontend/other/godmode.php:32
+msgid "comment"
+msgid_plural "comments"
+msgstr[0] "комментарий"
+msgstr[1] "комментария"
+msgstr[2] "комментариев"
+
+#: engine/frontend/other/godmode.php:40
+msgid "message"
+msgid_plural "messages"
+msgstr[0] "сообщение"
+msgstr[1] "сообщения"
+msgstr[2] "сообщений"
+
+#: engine/frontend/other/payment-event.php:37
 msgid "day"
 msgid_plural "days"
 msgstr[0] "день"

@@ -7,10 +7,10 @@
             </div>
             <div class="col-sm-4">
                 <p style=" font-size: 2.1em; margin-bottom: -10px; "><?= $activeCompanies; ?></p>
-                <small class="text-secondary">Активных компаний</small>
+                <small class="text-secondary"><?= ngettext('active company', 'active companies', $activeCompanies); ?></small>
                 <hr>
-                <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countCompanies?></span><small class="text-secondary">компаний зарегистрировано</small></div>
-                <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countUsers?></span><small class="text-secondary">пользователей</small></div>
+                <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countCompanies?></span><small class="text-secondary"><?= ngettext('company', 'companies', $countCompanies); ?> зарегистрировано</small></div>
+                <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countUsers?></span><small class="text-secondary"><?= ngettext('user', 'users', $countUsers); ?></small></div>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-0"><?=$countTasks?></h4>
-                <small class="text-secondary">задач</small>
+                <small class="text-secondary"><?= ngettext('task', 'tasks', $countTasks); ?></small>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-0"><?=$countComments?></h4>
-                <small class="text-secondary">комментарий</small>
+                <small class="text-secondary"><?= ngettext('comment', 'comments', $countComments); ?></small>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-0"><?=$countMail?></h4>
-                <small class="text-secondary">сообщений</small>
+                <small class="text-secondary"><?= ngettext('message', 'messages', $countMail); ?></small>
             </div>
         </div>
     </div>
