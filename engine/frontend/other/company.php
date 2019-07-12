@@ -1,21 +1,21 @@
 <div class="card mb-3">
     <div class="card-body text-center">
         <h2 class="d-inline text-uppercase font-weight-bold">
-            <?=$namec?>
+            <?= $namec ?>
         </h2>
         <div>
-            <?php if ($tariff == 0):?>
-            <span class="badge badge-primary mt-3"><?=$_free?></span>
+            <?php if ($tariff == 0): ?>
+                <span class="badge badge-primary mt-3"><?= $_free ?></span>
             <?php endif; ?>
-            <?php if ($tariff == 1):?>
-            <span class="badge badge-dark text-gold mt-3"><?=$_premium?></span>
+            <?php if ($tariff == 1): ?>
+                <span class="badge badge-dark text-gold mt-3"><?= $_premium ?></span>
             <?php endif; ?>
         </div>
         <?php if ($isCeo): ?>
-        <div class="icon-edit-profile">
-            <a data-toggle="tooltip" data-placement="bottom" title="" href="/company-settings/"
-               data-original-title="Настройки компании"><i id="editProfile" class="fas fa-cog edit-profile"></i></a>
-        </div>
+            <div class="icon-edit-profile">
+                <a data-toggle="tooltip" data-placement="bottom" title="" href="/company-settings/"
+                   data-original-title="Настройки компании"><i id="editProfile" class="fas fa-cog edit-profile"></i></a>
+            </div>
         <?php endif; ?>
         <div class="info-company">
             <hr>
@@ -23,13 +23,13 @@
                 <div class="col-12 col-lg-9">
                     <div class="about-company">
                         <div class="mb-1">Описание:</div>
-                        <div style="color: #c6c9dc;"><?= ($companyData['description'] == '')? 'Отсутствует' : $companyData['description'] ?></div>
+                        <div style="color: #c6c9dc;"><?= ($companyData['description'] == '') ? 'Отсутствует' : $companyData['description'] ?></div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-3">
                     <div class="site-company">
                         <div class="mb-1">Сайт:</div>
-                        <div style="color: #c6c9dc;"><?= ($companyData['site'] == '')? 'Https://' : $companyData['site'] ?></div>
+                        <div style="color: #c6c9dc;"><?= ($companyData['site'] == '') ? 'Https://' : $companyData['site'] ?></div>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,8 @@
                         </div>
                         <?php if ($isFired && $n['id'] != $id): ?>
                             <div class="mt">
-                                <a href="#" title="" data-user-id="<?= $n['id'] ?>" class="restore-user">
+                                <a href="#" data-user-id="<?= $n['id'] ?>" class="restore-user" data-toggle="tooltip"
+                                   data-placement="bottom" title="Вернуть к работе">
                                     <i class="fas fa-user-check edit-profile"></i>
                                 </a>
                             </div>
