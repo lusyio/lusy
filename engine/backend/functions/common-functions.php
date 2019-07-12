@@ -1441,7 +1441,7 @@ function getRemainingLimits()
     return $result;
 }
 
-function addMailToQueue($function, $args, $id, $eventId)
+function addMailToQueue($function, $args, $id, $eventId = null)
 {
     global $pdo;
     $argsJson = json_encode($args);
@@ -1473,4 +1473,85 @@ function checkViewStatus($eventId, $isMessage = false)
     $viewStatusQuery->execute([':id' => $eventId]);
     $result = $viewStatusQuery->fetch(PDO::FETCH_COLUMN);
     return (boolean) $result;
+}
+
+function getSeoMail($companyId)
+{
+    global $pdo;
+    $seoMailQuery = $pdo->prepare("SELECT email FROM users WHERE idcompany = :companyId AND role = 'seo'");
+    $seoMailQuery->execute([':companyId' => $companyId]);
+    $seoMail = $seoMailQuery->fetch(PDO::FETCH_COLUMN);
+    return $seoMail;
+}
+function getSeoId($companyId)
+{
+    global $pdo;
+    $seoIdQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND role = 'seo'");
+    $seoIdQuery->execute([':companyId' => $companyId]);
+    $seoId = $seoIdQuery->fetch(PDO::FETCH_COLUMN);
+    return $seoId;
+}
+
+function sendSubscribePremiumEmailNotification($companyId, $tariffName, $subscribeUntil, $nextChargeDate, $freePeriod)
+{
+    global $pdo;
+    $seoMail = getSeoMail($companyId);
+    $seoId = getSeoId($companyId);
+    $notifications = getNotificationSettings($seoId);
+    if (!$notifications['payment']) {
+        return;
+    }
+
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($seoMail);
+        $mail->isHTML();
+        $mail->Subject = "Успешная оплата подписки в Lusy.io";
+        $args = [
+            'tariffName' => $tariffName,
+            'subscribeUntil' => $subscribeUntil,
+            'nextChargeDate' => $nextChargeDate,
+        ];
+        if ($freePeriod) {
+            $mail->setMessageContent('subscribe-premium-free', $args);
+        } else {
+            $mail->setMessageContent('subscribe-premium', $args);
+        }
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffName, $cardDigits)
+{
+    $seoMail = getSeoMail($companyId);
+    $seoId = getSeoId($companyId);
+    $notifications = getNotificationSettings($seoId);
+    if (!$notifications['payment']) {
+        return;
+    }
+
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($seoMail);
+        $mail->isHTML();
+        $mail->Subject = "Успешная оплата подписки в Lusy.io";
+        $args = [
+            'tariffName' => $tariffName,
+            'cardDigits' => $cardDigits,
+        ];
+        $mail->setMessageContent('premium-prolongation-failed.php', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
 }
