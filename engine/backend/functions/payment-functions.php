@@ -187,12 +187,12 @@ function updateCompanyTariff($notification)
     $orderInfo = getOrderInfo($notification['OrderId']);
     $companyTariff = getCompanyTariff($orderInfo['customer_key']);
     $newTariff = getTariffInfo($orderInfo['tariff']);
-    $seoId = getСeoId($orderInfo['customer_key']);
+    $ceoId = getCeoId($orderInfo['customer_key']);
 
     if ($orderInfo['status'] == 'REJECTED' && !$orderInfo['processed'] && $companyTariff['tariff'] == $newTariff['tariff_id']) {
         addWithdrawalFailedEvent($orderInfo['customer_key'], $notification['OrderId'], $orderInfo['amount'], $newTariff['tariff_id']);
         $mailData = [$orderInfo['customer_key'], $orderInfo['pan']];
-        addMailToQueue('sendSubscribeProlongationFailedEmailNotification', $mailData, $seoId);
+        addMailToQueue('sendSubscribeProlongationFailedEmailNotification', $mailData, $ceoId);
     }
 
     if ($orderInfo['status'] == 'CONFIRMED' && !$orderInfo['processed']) {
@@ -235,14 +235,14 @@ function updateCompanyTariff($notification)
             if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
                 addTariffProlongationEvent($orderInfo['customer_key'], $newTariff['tariff_id'], $notification['OrderId']);
                 $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y',$newPayDay), date('d.m.Y',$newPayDay), false];
-                addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $seoId);
+                addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $ceoId);
             } else {
                 if ($orderInfo['first_pay']) {
                     $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y',$newPayDay), date('d.m.Y',$newPayDay), true];
-                    addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $seoId);
+                    addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $ceoId);
                 } else {
                     $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y',$newPayDay), date('d.m.Y',$newPayDay), false];
-                    addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $seoId);
+                    addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $ceoId);
                 }
                 addTariffChangeEvent($orderInfo['customer_key'], $newTariff['tariff_id'], $notification['OrderId']);
             }
@@ -582,7 +582,7 @@ function getPromocodeInfo($promocodeName)
 function activatePromocode($companyId, $promocodeName)
 {
     global $pdo;
-    $seoId = getCeoId($companyId);
+    $ceoId = getCeoId($companyId);
     $promocodeInfo = getPromocodeInfo($promocodeName);
     if (!$promocodeInfo) {
         return false;
@@ -594,7 +594,7 @@ function activatePromocode($companyId, $promocodeName)
         $newTariffInfo = getTariffInfo($newTariff);
         $payday = strtotime('+' . $promocodeInfo['days_to_add'] . ' days midnight');
         $mailData = [$companyId, $newTariffInfo['tariff_name'], $promocodeInfo['days_to_add']];
-        addMailToQueue('sendSubscribePromoEmailNotification', $mailData, $seoId);
+        addMailToQueue('sendSubscribePromoEmailNotification', $mailData, $ceoId);
     } else {
         $payday = strtotime('+' . $promocodeInfo['days_to_add'] . ' days midnight', $companyTariff['payday']);
 

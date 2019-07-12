@@ -42,7 +42,7 @@ if($_POST['module'] == 'changeTariff' && !empty($_POST['tariff'])) {
 
     // Выдаем ошибку при попытке смены текущего тарифа на этот же тариф
     $companyTariff = getCompanyTariff($idc);
-    if ($selectedTariff == $companyTariff['tariff']) {
+    if ($selectedTariff == $companyTariff['tariff'] && $companyTariff['is_card_binded']) {
         $result['error'] = 'It is your current tariff';
         echo json_encode($result);
         exit;
