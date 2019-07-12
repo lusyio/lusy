@@ -1334,7 +1334,7 @@ function getNotificationSettings($userId = null)
         $userId = $id;
     }
     global $pdo;
-    $notificationSettingsQuery = $pdo->prepare('SELECT user_id, task_create, task_overdue, comment, task_review, task_postpone, message, achievement, silence_start, silence_end FROM user_notifications WHERE user_id = :userId');
+    $notificationSettingsQuery = $pdo->prepare('SELECT user_id, task_create, task_overdue, comment, task_review, task_postpone, message, achievement, silence_start, silence_end, payment FROM user_notifications WHERE user_id = :userId');
     $notificationSettingsQuery->execute(array(':userId' => $userId));
     $result = $notificationSettingsQuery->fetch(PDO::FETCH_ASSOC);
     return $result;
