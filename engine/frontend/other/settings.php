@@ -419,7 +419,7 @@
                                     <div class="col-3 col-lg-2">
                                         <div class="noty-padding-content-settings noty-padding-checkbox-settings">
                                             <input type="checkbox"
-                                                   id="achievement" <?= ($notifications['orders']) ? 'checked' : ''; ?>>
+                                                   id="payment" <?= ($notifications['payment']) ? 'checked' : ''; ?>>
                                         </div>
                                     </div>
                                 </div>
