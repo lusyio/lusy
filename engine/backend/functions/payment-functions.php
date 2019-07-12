@@ -490,13 +490,12 @@ function addUnbindCardEvent($companyId)
     $addEventQuery->execute($queryData);
 }
 
-function setTomorrowAsPayday($companyId)
+function setPayday($companyId, $newDate)
 {
     global $pdo;
-    $newDate = strtotime('+1 day midnight');
-    $setTomorrowAsPaydayQuery = $pdo->prepare('UPDATE company_tariff SET payday = :newDate WHERE company_id = :companyId');
-    $setTomorrowAsPaydayResult = $setTomorrowAsPaydayQuery->execute([':newDate' => $newDate, ':companyId' => $companyId]);
-    return $setTomorrowAsPaydayResult;
+    $setPaydayQuery = $pdo->prepare('UPDATE company_tariff SET payday = :newDate WHERE company_id = :companyId');
+    $setPaydayResult = $setPaydayQuery->execute([':newDate' => $newDate, ':companyId' => $companyId]);
+    return $setPaydayResult;
 }
 
 function addRefundEvent($companyId, $orderId, $amount)
@@ -569,4 +568,72 @@ function refundPayment($orderId)
         $result['errorText'] = $response['Details'];
     }
     return $result;
+}
+
+function getPromocodeInfo($promocodeName)
+{
+    global $pdo;
+    $promocodeInfoQuery = $pdo->prepare("SELECT promocode_id, promocode_name, days_to_add, is_multiple, valid_until, used FROM promocodes WHERE promocode_name = :promocode");
+    $promocodeInfoQuery->execute([':promocode' => $promocodeName]);
+    $promocodeInfo = $promocodeInfoQuery->fetch(PDO::FETCH_ASSOC);
+    return $promocodeInfo;
+}
+
+function activatePromocode($companyId, $promocodeName)
+{
+    global $pdo;
+    $seoId = getSeoId($companyId);
+    $promocodeInfo = getPromocodeInfo($promocodeName);
+    if (!$promocodeInfo) {
+        return false;
+    }
+    $companyTariff = getCompanyTariff($companyId);
+    if ($companyTariff['tariff'] == 0) {
+        $newTariff = 1;
+        changeTariff($companyId, $newTariff);
+        $newTariffInfo = getTariffInfo($newTariff);
+        $payday = strtotime('+' . $promocodeInfo['days_to_add'] . ' days midnight');
+        $mailData = [$companyId, $newTariffInfo['tariff_name'], $promocodeInfo['days_to_add']];
+        addMailToQueue('sendSubscribePromoEmailNotification', $mailData, $seoId);
+    } else {
+        $payday = strtotime('+' . $promocodeInfo['days_to_add'] . ' days midnight', $companyTariff['payday']);
+
+    }
+    setPayday($companyId, $payday);
+    addActivatePromocodeEvent($companyId, $promocodeName);
+    if ($promocodeInfo['is_multiple'] != 1) {
+        markPromocodeAsUsed($promocodeName);
+    }
+    return true;
+}
+
+function addActivatePromocodeEvent($companyId, $promocodeName)
+{
+    global $pdo;
+
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, comment) VALUES 
+(:event, :datetime, :companyId, :comment)");
+    $queryData = [
+        ':event' => 'promocode',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+        ':comment' => $promocodeName,
+    ];
+    $addEventQuery->execute($queryData);
+}
+
+function checkPromocodeForUsedByCompany($companyId, $promocodeName)
+{
+    global $pdo;
+    $promocodeInfoQuery = $pdo->prepare("SELECT COUNT(*) FROM finance_events WHERE company_id = :companyId AND event = 'promocode' AND comment = :promocodeName");
+    $promocodeInfoQuery->execute([':companyId' => $companyId, ':promocodeName' => $promocodeName]);
+    $promocodeInfo = $promocodeInfoQuery->fetch(PDO::FETCH_COLUMN);
+    return (boolean) $promocodeInfo;
+}
+
+function markPromocodeAsUsed($promocodeName)
+{
+    global $pdo;
+    $markAsUsedQuery = $pdo->prepare("UPDATE promocodes SET used = 1 WHERE promocode_name = :promocodeName");
+    $markAsUsedQuery->execute([':promocodeName' => $promocodeName]);
 }

@@ -11,10 +11,9 @@
                             <span class="small text-muted">Безграничный период <i class="fas fa-infinity"></i></span>
                         </p>
                         <div class="d-flex">
-                            <input class="form-control text-muted" placeholder="Введите промокод" type="text"
-                                   style="border-bottom-right-radius: 0; border-top-right-radius: 0">
-                            <button class="btn btn-primary"
-                                    style="border-bottom-left-radius: 0; border-top-left-radius: 0">
+                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
+                                   type="text">
+                            <button class="btn btn-primary" id="promoBtn">
                                 Применить
                             </button>
                         </div>
@@ -115,7 +114,7 @@
 </div>
 <p><strong>Внимание!</strong> Оплата тарифного плана происходит путем автоплатежа - автоматического
     списания суммы средств с периодичностью, соответствующей выбранному тарифу. Подписку можно отменить в любой момент.</p>
-<p>Нажимая кнопки "Сменить тариф" или "Продлить подписку", вы подтверждаете, что ознакомились с понятием "автоплатеж" и с <a
+<p>Нажимая кнопки "Сменить тариф", "Продлить подписку" или "Привязать карту для оплаты", вы подтверждаете, что ознакомились с понятием "автоплатеж" и с <a
             href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf" class="btn-link"
             target="_blank">Офертой рекуррентных платежей</a>.</p>
 <hr>
@@ -314,6 +313,33 @@ endforeach; ?>
 
 <script>
     $(document).ready(function () {
+        $('#promoBtn').on('click', function () {
+            var promocode = $('#promoInput').val();
+            if (promocode) {
+                var fd = new FormData();
+                fd.append('promocode', promocode);
+                fd.append('module', 'usePromocode');
+                fd.append('ajax', 'payments');
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function (response) {
+                        if (response.error === '') {
+                            $('#refreshModalLabel').text('Промокод активирован');
+                            $('#refreshModal').modal('show');
+                        } else {
+                            console.log(response.error);
+                        }
+                    },
+                })
+            }
+        });
+
         $('.delete-operation').on('click', function () {
             var orderId = $(this).data('order-id');
             var refundAmount = $(this).data('refund-amount');

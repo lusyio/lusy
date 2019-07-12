@@ -31,6 +31,11 @@ if ($event['event'] == 'unbindCard') {
     $icon = 'far fa-credit-card text-secondary';
     $text = 'Карта ' . $event['comment'] . ' успешно отвязана';
 }
+if ($event['event'] == 'promocode') {
+    $promocodeInfo = getPromocodeInfo($event['comment']);
+    $icon = 'fas fa-percentage text-success';
+    $text = 'Промокод  на ' . $promocodeInfo['days_to_add'] . ' ' . ngettext('day', 'days', $promocodeInfo['days_to_add']) .  ' активирован';
+}
 ?>
 <div class="card mb-1 payment-card" data-fin-event-id="<?= $event['fin_event_id']; ?>">
     <div class="card-body d-flex" style="justify-content: space-between">

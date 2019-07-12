@@ -243,3 +243,38 @@ if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
     echo json_encode($result);
     exit;
 }
+
+if($_POST['module'] == 'usePromocode' && !empty($_POST['promocode'])) {
+    $result = [
+        'error' => '',
+        'errorText' => '',
+        'successText' => '',
+    ];
+    $promocode = filter_var($_POST['promocode'], FILTER_SANITIZE_STRING);
+    $promocode = mb_strtolower($promocode);
+    $promocodeInfo = getPromocodeInfo($promocode);
+
+    if (!$promocodeInfo) {
+        $result['error'] = 'does not exist';
+        $result['errorText'] = 'Promocode does not exist';
+        echo json_encode($result);
+        exit;
+    }
+    if ($promocodeInfo['valid_until'] < time()) {
+        $result['error'] = 'expired';
+        $result['errorText'] = 'Promocode expired';
+        echo json_encode($result);
+        exit;
+    }
+    if ($promocodeInfo['used'] == 1 || checkPromocodeForUsedByCompany($idc, $promocode)) {
+        $result['error'] = 'used';
+        $result['errorText'] = 'Promocode was already used';
+        echo json_encode($result);
+        exit;
+    }
+
+    $activateStatus = activatePromocode($idc, $promocode);
+
+    echo json_encode($result);
+    exit;
+}
