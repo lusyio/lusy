@@ -194,6 +194,7 @@
     $month = ['', _("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")];
     $monthNumber = date("n", $event['datetime']);
     ?>
+    <a href="<?= $event['link'] ?>" class="text-decoration-none text-dark">
     <div class="eventDiv">
         <div class="row">
             <div class="col-2">
@@ -226,6 +227,7 @@
                 </div>
             </div>
         </div>
+    </a>
 </li>
 
 
