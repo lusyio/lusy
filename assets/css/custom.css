@@ -1648,6 +1648,7 @@ a {
 #promoBtn{
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
+    z-index: 3;
 }
 
 /*.payment-card:hover{*/
@@ -2548,6 +2549,12 @@ span.date {
     }
 }
 
+@media (min-width: 991px) {
+    .card-tariff-right{
+        padding-left: 0 !important;
+    }
+}
+
 @media (min-width: 768px) {
     .navbar-vertical.navbar-expand-md {
         position: fixed;
@@ -2581,10 +2588,6 @@ span.date {
 
     .card-tariff-left{
         padding-right: 0 !important;
-    }
-
-    .card-tariff-right{
-        padding-left: 0 !important;
     }
 
     .navblock {
