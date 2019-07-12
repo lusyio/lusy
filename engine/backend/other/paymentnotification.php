@@ -1,4 +1,8 @@
 <?php
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+ob_start();
 
 require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
 require_once __ROOT__ . '/engine/backend/other/TinkoffMerchantAPI.php';
@@ -9,7 +13,6 @@ $notification = json_decode($postData, true);
 
 $isTokenValid = checkTokens($notification);
 if ($isTokenValid) {
-    ob_start();
     updateOrderOnNotification($notification);
     updateCompanyTariff($notification);
 
