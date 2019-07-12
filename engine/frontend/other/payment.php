@@ -447,6 +447,7 @@ endforeach; ?>
 
             if (tariff == currentTariff) {
                 $('#oferta').attr('disabled', true);
+                $('#disabledBtn').hide();
                 $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Это ваш текущий тариф');
                 $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
                 if (isCardBinded) {
@@ -579,9 +580,11 @@ endforeach; ?>
             if ($(this).is(':checked')) {
                 $('#pay').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
                 $('#changeTariff').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
+                $('#disabledBtn').hide();
             } else {
                 $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
                 $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
+                $('#disabledBtn').show();
             }
         });
 
