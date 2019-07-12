@@ -23,6 +23,7 @@ function showToolTip() {
     $(document).on('click', function (e) {
         if ($('#searchForm').is(':hidden')) {
             $('#searchBtn').find('.topsidebar-noty').tooltip('enable');
+            $('#search').val('');
             console.log('hidden');
         }
     });
