@@ -1605,6 +1605,12 @@ a {
     transition: 0.3s;
 }
 
+.oferta-field{
+    margin-left: -10px;
+    padding-left: 10px;
+    border-radius: 8px;
+}
+
 .delete-operation{
 
     display: none;
@@ -2706,7 +2712,6 @@ span.date {
     }
 
     .right-modal{
-        height: 575px;
         border-top-left-radius: .3rem;;
         border-bottom-left-radius: .3rem;;
     }

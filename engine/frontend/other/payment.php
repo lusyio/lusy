@@ -198,12 +198,15 @@ endforeach; ?>
                             <p>Вы еще не использовали платный тариф - дарим вам 14 дней бесплатно</p>
                             <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
                         <?php endif; ?>
-                        <p><input type="checkbox" id="oferta"
+                        <p class="oferta-field"><input type="checkbox" id="oferta"
                                   style=" position: relative; top: 7px; margin-right: 10px; ">Я
                             согласен с <a
                                     href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
                                     class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
                         <hr>
+                        <span class="position-absolute" id="disabledBtn" style="width: 92%; height: 8%; z-index: 100000; opacity: 0">
+                            adasd
+                        </span>
                         <button class="btn btn-secondary w-100" id="pay" disabled>
                             Оплатить подписку
                             <div class="spinner-border spinner-border-sm text-white" role="status"
@@ -344,6 +347,17 @@ endforeach; ?>
 
 <script>
     $(document).ready(function () {
+        $('#disabledBtn').on('click', function () {
+            $('.oferta-field').css({
+                'background-color': 'rgba(255, 242, 242, 1)',
+                'transition': '1000ms'
+            });
+            setTimeout(function () {
+                $('.oferta-field').css('background-color', '#fff');
+            }, 1000);
+            console.log('asdasd');
+        });
+
         $('#promoBtn').on('click', function () {
             var promocode = $('#promoInput').val();
             if (promocode) {
