@@ -37,7 +37,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-0"><?=$countMail?></h4>
-                <small class="text-secondary"><?= ngettext('message', 'messages', $countMail); ?>сообщений</small>
+                <small class="text-secondary"><?= ngettext('message', 'messages', $countMail); ?></small>
             </div>
         </div>
     </div>
