@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-7 col-12 pl-0">
+                <div class="col-lg-7 col-12 card-tariff-right">
                     <div class="card-body">
                         <span class="small text-muted"> Ограничения по тарифу</span>
                         <br>

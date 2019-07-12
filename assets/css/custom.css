@@ -1648,6 +1648,7 @@ a {
 #promoBtn{
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
+    z-index: 3;
 }
 
 /*.payment-card:hover{*/
@@ -1854,6 +1855,40 @@ a {
     transition: all 0.5s;
     text-decoration: none !important;
 }
+
+.taskDiv{
+    box-shadow: rgba(197, 197, 201, 0.15) 0px 4px 5px 2px;
+    background: white;
+    border: none !important;
+    border-radius: 7px;
+    padding: 1rem;
+    padding-right: 1.25rem;
+    transition: all 0.5s;
+    text-decoration: none !important;
+}
+
+.create-new-task{
+    opacity: 0.6;
+}
+
+.create-new-task:hover{
+    opacity: 1;
+}
+
+.taskDiv i {
+    height: 16px;
+    color: white;
+}
+
+.taskDiv .font-weight-bold {
+    font-weight: 500 !important;
+}
+
+.taskDiv:hover{
+    transition: all 0.1s;
+    cursor: pointer;
+    box-shadow: rgba(197, 197, 201, 0.3) 0px 6px 8px 3px;
+}
 .eventDiv:hover {
     transition: all 0.1s;
     cursor: pointer;
@@ -1917,7 +1952,7 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 #taskListSlide {
-    height: 219px;
+    /*height: 219px;*/
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 0px 15px 0px 15px;
@@ -2514,6 +2549,12 @@ span.date {
     }
 }
 
+@media (min-width: 991px) {
+    .card-tariff-right{
+        padding-left: 0 !important;
+    }
+}
+
 @media (min-width: 768px) {
     .navbar-vertical.navbar-expand-md {
         position: fixed;
@@ -2547,10 +2588,6 @@ span.date {
 
     .card-tariff-left{
         padding-right: 0 !important;
-    }
-
-    .card-tariff-right{
-        padding-left: 0 !important;
     }
 
     .navblock {
@@ -2617,7 +2654,7 @@ span.date {
         font-size: 38px;
     }
     #mainSwiper {
-        display: block;
+        display: none;
         margin-left: -50vw;
         left: 50%;
         width: 100vw;
@@ -3053,6 +3090,15 @@ label.error {
     text-align: center;
     color: #65686c;
     padding: 72px 10px;
+    font-weight: 300;
+}
+
+.search-empty-new-task{
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #65686c;
+    padding: 85px 10px;
     font-weight: 300;
 }
 
