@@ -4,7 +4,7 @@
     <div class="col">
         <div class="card">
             <div class="row">
-                <div class="col-12 col-lg-5 pr-0">
+                <div class="col-12 col-lg-5 card-tariff-left">
                     <div class="card-body">
                         <span class="small text-muted">Ваш тарифный план</span>
                         <h2>Бесплатный</h2>
@@ -19,6 +19,7 @@
                             </button>
                         </div>
                     </div>
+                </div>
                     <div class="col-lg-7 col-12 card-tariff-right">
                         <div class="card-body">
                             <span class="small text-muted"> Ограничения по тарифу</span>
@@ -39,6 +40,7 @@
             </div>
         </div>
     </div>
+</div>
 <?php else: ?>
     <div class="row mb-3">
         <div class="col">
@@ -96,9 +98,10 @@
             </div>
         </div>
     </div>
+
 <?php endif; ?>
 <h5 class="font-weight-bold mb-4">Тарифный план</h5>
-<div class="row">
+    <div class="row">
     <?php foreach ($tariffList as $tariff): ?>
         <?php if ($tariff['tariff_id'] == 0) continue; ?>
         <div class="col-sm-4 mb-3">
@@ -118,14 +121,12 @@
             </div>
         </div>
     <?php endforeach; ?>
-</div>
-<p><strong>Внимание!</strong> Оплата тарифного плана происходит путем автоплатежа - автоматического
-
-    списания суммы средств с периодичностью, соответствующей выбранному тарифу. Подписку можно отменить в любой момент.</p>
-<p>Нажимая кнопки "Сменить тариф", "Продлить подписку" или "Привязать карту для оплаты", вы подтверждаете, что ознакомились с понятием "автоплатеж" и с <a
-
-            href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf" class="btn-link"
-            target="_blank">Офертой рекуррентных платежей</a>.</p>
+    </div>
+    <p><strong>Внимание!</strong> Оплата тарифного плана происходит путем автоплатежа - автоматического
+        списания суммы средств с периодичностью, соответствующей выбранному тарифу. Подписку можно отменить в любой момент.</p>
+    <p>Нажимая кнопки "Сменить тариф", "Продлить подписку" или "Привязать карту для оплаты", вы подтверждаете, что ознакомились с понятием "автоплатеж" и с <a
+                href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf" class="btn-link"
+                target="_blank">Офертой рекуррентных платежей</a>.</p>
 <hr>
 <h5 class="font-weight-bold mb-3 mt-3">Операции</h5>
 <?php foreach ($financeEvents as $event):
@@ -337,6 +338,7 @@ endforeach; ?>
         </div>
     </div>
 </div>
+
 
 <script>
     $(document).ready(function () {

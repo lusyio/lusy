@@ -2553,6 +2553,9 @@ span.date {
     .card-tariff-right{
         padding-left: 0 !important;
     }
+    .card-tariff-left{
+        padding-right: 0 !important;
+    }
 }
 
 @media (min-width: 768px) {
@@ -2586,9 +2589,7 @@ span.date {
         padding-right: 5px !important;
     }
 
-    .card-tariff-left{
-        padding-right: 0 !important;
-    }
+
 
     .navblock {
         padding-right: 0 !important;
