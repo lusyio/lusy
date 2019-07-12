@@ -91,12 +91,12 @@ $statusColor = [
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-1 mr-4">
+                            <div class="col-2 col-lg-1 mr-4">
                                 <div class="<?= $bgColor[$task['status']] ?> logIcon">
                                     <i class="<?= $iconTask[$task['status']] ?>"></i>
                                 </div>
                             </div>
-                            <div class="col-5 p-0">
+                            <div class="col-7 col-lg-5 p-0">
                                 <p class="mb-0 font-weight-bold"><?= $task['name'] ?></p>
                                 <p class="mb-0 text-muted small">Иван петрович</p>
                             </div>
@@ -151,6 +151,11 @@ $statusColor = [
                     </div>
                 </div>
             <?php endif; ?>
+            <a href="/tasks/">
+                <span class="icon-more-tasks" data-toggle="tooltip" data-placement="bottom" title="Больше задач">
+                    <i class="fas fa-sort-down"></i>
+                </span>
+            </a>
         </div>
         <!--        <div class="bottomGradient"></div>-->
     </div>

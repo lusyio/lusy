@@ -2085,6 +2085,20 @@ table.dataTable thead .sorting_desc_disabled:before {
     font-size: 14px;
 }
 
+.icon-more-tasks{
+    bottom: -20px;
+    left: 82px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+}
+
+.icon-more-tasks:hover{
+    background: #f2f2f2;
+}
+
 .send-mes-tooltip{
     position: absolute;
     opacity: 1;
@@ -2923,6 +2937,39 @@ span.date {
     .fc {
         display: none !important;
     }
+
+    .taskDiv .mr-3 {
+        flex: auto;
+        max-width: none;
+        position: absolute;
+        right: 0px;
+    }
+
+    .taskDiv .col div {
+        float: left !important;
+        text-align: left !important;
+        border-top: 1px solid #f5f5f6;
+        width: 100%;
+        padding-top: 10px;
+        margin-top: 5px;
+    }
+
+    .taskDiv .col {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-top: 10px;
+        padding-left: 30px !important;
+    }
+
+    .taskDiv .col-1 span {
+        float: right !important;
+    }
+
+    .icon-more-tasks{
+        display: none;
+    }
+
     .eventDiv .col-1 {
         -ms-flex: 0 0 20%;
         flex: 0 0 20%;
