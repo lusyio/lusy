@@ -152,9 +152,12 @@ function authorizeComet($id)
     return $hash;
 }
 
-function getCometTrackChannelName()
+function getCometTrackChannelName($companyId = null)
 {
     global $idc;
+    if (!is_null($companyId)){
+        $idc = $companyId;
+    }
     $saltIdc = md5('someSalt' . $idc);
     $channelName = 'track_online_' . $saltIdc;
     return $channelName;
@@ -431,8 +434,8 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
     }
 
     if ($action == 'postpone') {
-        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, view_status) 
-      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :viewStatus)');
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, view_status, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :viewStatus, :comment)');
         $eventDataForAuthor = [
             ':action' => $action,
             ':taskId' => $taskId,
@@ -441,6 +444,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             ':companyId' => $idc,
             ':datetime' => time(),
             ':viewStatus' => 1,
+            ':comment' => $comment,
         ];
         $eventDataForWorker = [
             ':action' => $action,
@@ -450,6 +454,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             ':companyId' => $idc,
             ':datetime' => time(),
             ':viewStatus' => 0,
+            ':comment' => $comment,
         ];
         $addEventQuery->execute($eventDataForAuthor);
         $addEventQuery->execute($eventDataForWorker);
@@ -877,7 +882,7 @@ function getUserData($userId)
     global $idc;
     global $pdo;
 
-    $userQuery = $pdo->prepare('SELECT id, login, email, phone, name, surname, idcompany, role, points, activity, register_date, social_networks, about FROM users WHERE id = :userId AND idcompany = :companyId');
+    $userQuery = $pdo->prepare('SELECT id, login, email, phone, name, surname, idcompany, role, points, activity, register_date, social_networks, about, birthdate FROM users WHERE id = :userId AND idcompany = :companyId');
     $userQuery->execute(array(':userId' => $userId, ':companyId' => $idc));
     $userData = $userQuery->fetch(PDO::FETCH_ASSOC);
     $socialNetworks = json_decode($userData['social_networks'], true);

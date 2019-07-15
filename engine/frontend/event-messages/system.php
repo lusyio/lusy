@@ -20,6 +20,11 @@ require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
         $action = $GLOBALS['_youGotNewAchievement'] . ' - <a href="/awards/">';
         $action .= $GLOBALS['_' . $event['comment']] . '</a>!';
     }
+    if ($event['action'] == 'birthday') { // день рождения
+        $bg = 'bg-success';
+        $icon = 'fas fa-birthday-cake';
+        $action = 'День рождения у - ' . fiomess($event["comment"]). '!';
+    }
     ?>
     <span class="before <?= $bg ?> <?= ($event['view_status']) ? '' : 'new-event' ?>"><i class="<?= $icon ?>"></i></span>
     <div class="position-relative">

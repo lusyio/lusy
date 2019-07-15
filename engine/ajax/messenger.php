@@ -87,9 +87,9 @@ if ($_POST['module'] == 'sendMessageToChat') {
         ];
     }
     if (!empty($mes)) {
-        $dbh = "INSERT INTO chat (text, author_id, datetime) VALUES (:message, :authorId, :datetime) ";
+        $dbh = "INSERT INTO chat (text, author_id, datetime, company_id) VALUES (:message, :authorId, :datetime, :companyId) ";
         $sql = $pdo->prepare($dbh);
-        $sql->execute(array(':message' => $mes, ':authorId' => $id, ':datetime' => $messageTime));
+        $sql->execute(array(':message' => $mes, ':authorId' => $id, ':datetime' => $messageTime, ':companyId' => $idc));
         $messageId = $pdo->lastInsertId();
         if (count($_FILES) > 0) {
             uploadAttachedFiles('chat', $messageId);

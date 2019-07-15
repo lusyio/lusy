@@ -50,7 +50,7 @@ $taskDoneCountOverallQuery->bindValue(':userId', (int) $id, PDO::PARAM_INT);
 $taskDoneCountOverallQuery->execute();
 $taskDoneCountOverall = $taskDoneCountOverallQuery->fetch(PDO::FETCH_COLUMN);
 
-$workerTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.datecreate, t.status, t.view_status, t.name, t.datedone, t.view, LOCATE( :quotedUserId, t.view_status) AS view_order FROM tasks t WHERE (t.manager = :userId OR t.worker = :userId) AND t.status NOT IN ('done', 'canceled') AND (t.status <> 'planned' OR t.manager = :userId) ORDER BY FIELD(t.status, 'pending', 'postpone') DESC, FIELD(view_order, 0) DESC, t.datedone LIMIT 3");
+$workerTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.datecreate, t.status, t.view_status, t.name, t.datedone, t.view, u.name AS managerName, u.surname AS managerSurname, LOCATE( :quotedUserId, t.view_status) AS view_order FROM tasks t LEFT JOIN users u ON t.worker = u.id WHERE (t.manager = :userId OR t.worker = :userId) AND t.status NOT IN ('done', 'canceled') AND (t.status <> 'planned' OR t.manager = :userId) ORDER BY FIELD(t.status, 'pending', 'postpone') DESC, FIELD(view_order, 0) DESC, t.datedone LIMIT 3");
 $workerTasksQuery->execute(array(':companyId' => $idc, ':quotedUserId' => '"' . $id . '"', ':userId' => $id));
 $tasks = $workerTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 
@@ -92,7 +92,7 @@ for ($i = 0; $i < 7; $i++){
 }
 $dataForChartString = implode(',', $dataForChart);
 
-$taskDoneSamePeriodPreviousMonthQuery = $pdo->prepare("SELECT COUNT(DISTINCT task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE (t.manager = :userId OR t.worker = :userId) AND e.action = 'workdone' AND e.datetime > :firstDayPreviousMonth AND e.datetime <:currentDayPreviousMonth");
+$userRegisterDate = DBOnce('register_date', 'users', 'id = ' . $id);
 
 $firstDayOfPreviousMonth = (strtotime('first day of previous month midnight'));
 $lastDayPreviousMonth = strtotime('last day of -1 month');
@@ -102,11 +102,15 @@ if ($lastDayPreviousMonth < $thisDayPreviousMonth) {
 } else {
     $currentDayPreviousMonth = strtotime('midnight +1 day', $thisDayPreviousMonth);
 }
+if ($userRegisterDate <= $currentDayPreviousMonth) {
+    $taskDoneSamePeriodPreviousMonthQuery = $pdo->prepare("SELECT COUNT(DISTINCT task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE (t.manager = :userId OR t.worker = :userId) AND e.action = 'workdone' AND e.datetime > :firstDayPreviousMonth AND e.datetime <:currentDayPreviousMonth");
+    $taskDoneSamePeriodPreviousMonthQuery->bindValue(':firstDayPreviousMonth', (int)$firstDayOfPreviousMonth, PDO::PARAM_INT);
+    $taskDoneSamePeriodPreviousMonthQuery->bindValue(':currentDayPreviousMonth', (int)$currentDayPreviousMonth, PDO::PARAM_INT);
+    $taskDoneSamePeriodPreviousMonthQuery->bindValue(':userId', (int)$id, PDO::PARAM_INT);
+    $taskDoneSamePeriodPreviousMonthQuery->execute();
+    $taskDoneSamePeriodCount = $taskDoneSamePeriodPreviousMonthQuery->fetch(PDO::FETCH_COLUMN);
 
-$taskDoneSamePeriodPreviousMonthQuery->bindValue(':firstDayPreviousMonth', (int) $firstDayOfPreviousMonth, PDO::PARAM_INT);
-$taskDoneSamePeriodPreviousMonthQuery->bindValue(':currentDayPreviousMonth', (int) $currentDayPreviousMonth, PDO::PARAM_INT);
-$taskDoneSamePeriodPreviousMonthQuery->bindValue(':userId', (int) $id, PDO::PARAM_INT);
-$taskDoneSamePeriodPreviousMonthQuery->execute();
-$taskDoneSamePeriodCount = $taskDoneSamePeriodPreviousMonthQuery->fetch(PDO::FETCH_COLUMN);
-
-$taskDoneDelta = $taskDoneCountOverall - $taskDoneSamePeriodCount;
+    $taskDoneDelta = $taskDoneCountOverall - $taskDoneSamePeriodCount;
+} else {
+    $taskDoneDelta = null;
+}

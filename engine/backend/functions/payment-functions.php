@@ -273,6 +273,7 @@ function changeTariff($companyId, $newTariff)
         addTariffChangeEvent($companyId, 0);
     } else {
         setTariffInCompany($companyId, 1);
+        addTariffChangeEvent($companyId, $newTariff);
     }
 
     if ($updateCompanyTariffResult) {

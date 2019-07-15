@@ -155,7 +155,7 @@
                         <div class="row">
                             <div class="col-lg-3 col-12">
                                 <div class="input-group mt-3">
-                                    <input type="text" id="bDayDate" class="form-control input-settings" value="">
+                                    <input type="date" id="bDayDate" class="form-control input-settings" value="<?= $userData['birthdate']; ?>">
                                 </div>
                                 <small class="text-muted text-muted-reg">
                                     Дата рождения
@@ -483,7 +483,7 @@
 
     $(document).ready(function () {
 
-        $('#bDayDate').mask('00/00/0000');
+        $('#bDayDate').mask('0000-00-00');
         $('#settingsPhoneNumber').mask('0 (000) 000-00-00');
 
         $('#sleepTime').on('change', function () {
@@ -626,7 +626,7 @@
             fd.append('vk', vk);
             fd.append('facebook', facebook);
             fd.append('instagram', instagram);
-            fd.append('birthday', bDayDate);
+            fd.append('birthdate', bDayDate);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',

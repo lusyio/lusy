@@ -67,11 +67,13 @@ $statusColor = [
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
+            <?php if (!is_null($taskDoneDelta)): ?>
             <div class="chart" style="z-index: 2">
                 <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Что это?">
                     <?= $taskDoneDelta; ?>
                 </span>
             </div>
+            <?php endif; ?>
             <span class="bg-icon-achieve">
                 <i class="fas fa-trophy" style="font-size: 150px; color: #003effcc; opacity: 0.05"></i>
             </span>
@@ -98,7 +100,7 @@ $statusColor = [
                             </div>
                             <div class="col-7 col-lg-5 p-0">
                                 <p class="mb-0 font-weight-bold"><?= $task['name'] ?></p>
-                                <p class="mb-0 text-muted small">Иван петрович</p>
+                                <p class="mb-0 text-muted small"><?= $task['managerName'] . ' ' . $task['managerSurname'] ?></p>
                             </div>
                             <div class="col pl-0">
                                 <div class="statusText font-weight-bold text-right text-">
