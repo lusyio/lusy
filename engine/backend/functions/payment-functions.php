@@ -664,7 +664,6 @@ function addBindCardEvent($companyId, $orderId, $amount, $comment)
         ':datetime' => time(),
         ':companyId' => $companyId,
         ':orderId' => $orderId,
-        ':amount' => $amount,
         ':comment' => $comment,
     ];
     $addEventQuery->execute($queryData);
