@@ -67,11 +67,13 @@ $statusColor = [
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
+            <?php if (!is_null($taskDoneDelta)): ?>
             <div class="chart" style="z-index: 2">
                 <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Что это?">
                     <?= $taskDoneDelta; ?>
                 </span>
             </div>
+            <?php endif; ?>
             <span class="bg-icon-achieve">
                 <i class="fas fa-trophy" style="font-size: 150px; color: #003effcc; opacity: 0.05"></i>
             </span>

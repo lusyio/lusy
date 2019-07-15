@@ -92,7 +92,7 @@ for ($i = 0; $i < 7; $i++){
 }
 $dataForChartString = implode(',', $dataForChart);
 
-$taskDoneSamePeriodPreviousMonthQuery = $pdo->prepare("SELECT COUNT(DISTINCT task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE (t.manager = :userId OR t.worker = :userId) AND e.action = 'workdone' AND e.datetime > :firstDayPreviousMonth AND e.datetime <:currentDayPreviousMonth");
+$userRegisterDate = DBOnce('register_date', 'users', 'id = ' . $id);
 
 $firstDayOfPreviousMonth = (strtotime('first day of previous month midnight'));
 $lastDayPreviousMonth = strtotime('last day of -1 month');
@@ -102,11 +102,15 @@ if ($lastDayPreviousMonth < $thisDayPreviousMonth) {
 } else {
     $currentDayPreviousMonth = strtotime('midnight +1 day', $thisDayPreviousMonth);
 }
+if ($userRegisterDate <= $currentDayPreviousMonth) {
+    $taskDoneSamePeriodPreviousMonthQuery = $pdo->prepare("SELECT COUNT(DISTINCT task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE (t.manager = :userId OR t.worker = :userId) AND e.action = 'workdone' AND e.datetime > :firstDayPreviousMonth AND e.datetime <:currentDayPreviousMonth");
+    $taskDoneSamePeriodPreviousMonthQuery->bindValue(':firstDayPreviousMonth', (int)$firstDayOfPreviousMonth, PDO::PARAM_INT);
+    $taskDoneSamePeriodPreviousMonthQuery->bindValue(':currentDayPreviousMonth', (int)$currentDayPreviousMonth, PDO::PARAM_INT);
+    $taskDoneSamePeriodPreviousMonthQuery->bindValue(':userId', (int)$id, PDO::PARAM_INT);
+    $taskDoneSamePeriodPreviousMonthQuery->execute();
+    $taskDoneSamePeriodCount = $taskDoneSamePeriodPreviousMonthQuery->fetch(PDO::FETCH_COLUMN);
 
-$taskDoneSamePeriodPreviousMonthQuery->bindValue(':firstDayPreviousMonth', (int) $firstDayOfPreviousMonth, PDO::PARAM_INT);
-$taskDoneSamePeriodPreviousMonthQuery->bindValue(':currentDayPreviousMonth', (int) $currentDayPreviousMonth, PDO::PARAM_INT);
-$taskDoneSamePeriodPreviousMonthQuery->bindValue(':userId', (int) $id, PDO::PARAM_INT);
-$taskDoneSamePeriodPreviousMonthQuery->execute();
-$taskDoneSamePeriodCount = $taskDoneSamePeriodPreviousMonthQuery->fetch(PDO::FETCH_COLUMN);
-
-$taskDoneDelta = $taskDoneCountOverall - $taskDoneSamePeriodCount;
+    $taskDoneDelta = $taskDoneCountOverall - $taskDoneSamePeriodCount;
+} else {
+    $taskDoneDelta = null;
+}
