@@ -1,4 +1,4 @@
-<div class="container mb-2 footer">
+<div class="container footer">
     <div class="row">
         <div class="col-sm-12">
             <small class="text-secondary float-left">LUSY.IO BETA 1.0</small>
