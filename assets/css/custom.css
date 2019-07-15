@@ -909,20 +909,24 @@ input:checked[type="checkbox"]::before {
     color: #fff;
 }
 
+.btn-file:hover .icon-paperclip{
+    color: #727272;
+}
+
 .btn-file:focus{
     box-shadow: none !important;
 }
 
 .bg-message .btn-file:hover{
-    background-color: #f2f2f2;
+    background-color: #ecf1f7;
 }
 
 .btn-file.btn-light:not(:disabled):not(.disabled):active{
-    background-color: #f2f2f2;
+    background-color: #ecf1f7;
 }
 
 .btn-file.btn-light:hover {
-    background-color: #f2f2f2;
+    background-color: #ecf1f7;
 }
 
 .btn-light#loadLog:hover{
@@ -942,7 +946,7 @@ input:checked[type="checkbox"]::before {
 
 .show>.btn-file.btn-light.dropdown-toggle {
     color: #212529;
-    background-color: #f2f2f2;
+    background-color: #ecf1f7;
 }
 
 .bg-message .btn-file:active{
@@ -2287,12 +2291,21 @@ ul.timeline > li span.before {
 .eventDiv .font-weight-bold {
     font-weight: 500 !important;
 }
+.message-width span.date{
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    font-size: 11px;
+    bottom: -22px !important;
+    top: unset;
+}
+
 span.date {
     position: absolute;
     z-index: 2;
     right: 0;
     font-size: 11px;
-    bottom: -22px;
+    top: 0;
 }
 
 .not-my-message .date {

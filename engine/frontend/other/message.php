@@ -12,7 +12,7 @@
                     <i class="fas fa-times"></i>
                 </button>
             <?php endif; ?>
-                <span class="date"><?= date('d.m H:i', $message['datetime']) ?>
+                <span class="date"><?= date('d.m в H:i', $message['datetime']) ?>
                     </span>
             <p class="m-0"><?= link_it(nl2br(htmlspecialchars($message['mes']))) ?></p>
             <?php if (count($message['files']) > 0): ?>

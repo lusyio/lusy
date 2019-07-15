@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header border-bottom dialogs p-0">
-                <div class="mb-1 p-3 text-center">
+                <div class="mb-1 p-3">
                     <div class="d-inline-block"><h4 class="mb-0 mt-2"><?= $GLOBALS['_mailconversation'] ?></h4></div>
                     <div class="d-inline-block position-absolute" style="right: 16px">
                         <button class="google-icon-btn min ripple" data-toggle="collapse" data-target="#collapseUsers"
