@@ -10,3 +10,7 @@ create table chat
 
 alter table users
   add last_viewed_chat_message int default 0 null;
+
+## Изменение 15.07
+
+alter table chat add company_id int null;
