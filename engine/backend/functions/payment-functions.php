@@ -236,9 +236,11 @@ function updateCompanyTariff($notification)
                 addBindCardEvent($orderInfo['customer_key'], $notification['OrderId'], $notification['OrderId'], $notification['Pan']);
             }
             if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
-                addTariffProlongationEvent($orderInfo['customer_key'], $newTariff['tariff_id'], $notification['OrderId']);
-                $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y',$newPayDay), date('d.m.Y',$newPayDay), false];
-                addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $ceoId);
+                if ($orderInfo['amount'] > 100) {
+                    addTariffProlongationEvent($orderInfo['customer_key'], $newTariff['tariff_id'], $notification['OrderId']);
+                    $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y', $newPayDay), date('d.m.Y', $newPayDay), false];
+                    addMailToQueue('sendSubscribePremiumEmailNotification', $mailData, $ceoId);
+                }
             } else {
                 if ($orderInfo['first_pay']) {
                     $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y',$newPayDay), date('d.m.Y',$newPayDay), true];
@@ -664,7 +666,6 @@ function addBindCardEvent($companyId, $orderId, $amount, $comment)
         ':datetime' => time(),
         ':companyId' => $companyId,
         ':orderId' => $orderId,
-        ':amount' => $amount,
         ':comment' => $comment,
     ];
     $addEventQuery->execute($queryData);

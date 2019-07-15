@@ -289,7 +289,8 @@ if($_POST['module'] == 'bindCard') {
         'errorText' => '',
     ];
     $companyTariff = getCompanyTariff($idc);
-    $tariffInfo = getTariffInfo($companyTariff['tariff_id']);
+    $tariffInfo = getTariffInfo($companyTariff['tariff']);
+    $selectedTariff = $companyTariff['tariff'];
 
     // Выдаем ошибку если карта уже привязана
     if ($companyTariff['is_card_binded']) {
