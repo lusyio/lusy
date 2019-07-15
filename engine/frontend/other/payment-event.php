@@ -33,6 +33,10 @@ if ($event['event'] == 'unbindCard') {
     $icon = 'far fa-credit-card text-secondary';
     $text = 'Карта ' . $event['comment'] . ' успешно отвязана';
 }
+if ($event['event'] == 'bindCard') {
+    $icon = 'far fa-credit-card text-success';
+    $text = 'Карта ' . $event['comment'] . ' успешно привязана';
+}
 if ($event['event'] == 'promocode') {
     $promocodeInfo = getPromocodeInfo($event['comment']);
     $icon = 'fas fa-percentage text-success';
