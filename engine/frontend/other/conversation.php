@@ -55,9 +55,15 @@
                 </div>
             </div>
         </form>
-        <div class="file-name container-files d-block" style="display: none"></div>
+        <div class="file-name container-files" style="display: none"></div>
     </div>
 </div>
+<style type="text/css">
+    .footer{
+        margin-top: 0!important;
+        margin-bottom: .5rem!important;
+    }
+</style>
 <?php if ($tariff == 1): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================

@@ -349,6 +349,11 @@ body{
     background-color: rgba(115, 135, 248, 0.21) !important;
 }
 
+.footer{
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
 .dialog-mail {
     background-color: #fff;
     border-bottom: 1px solid #dee2e6!important;
@@ -1431,7 +1436,7 @@ input:checked[type="checkbox"]::before {
 }
 #chatBox {
     position: relative;
-    height: calc(100vh - 405px);
+    height: calc(100vh - 315px);
     background-color: #fcfcfc;
 
     overflow: scroll;
