@@ -152,9 +152,12 @@ function authorizeComet($id)
     return $hash;
 }
 
-function getCometTrackChannelName()
+function getCometTrackChannelName($companyId = null)
 {
     global $idc;
+    if (!is_null($companyId)){
+        $idc = $companyId;
+    }
     $saltIdc = md5('someSalt' . $idc);
     $channelName = 'track_online_' . $saltIdc;
     return $channelName;
