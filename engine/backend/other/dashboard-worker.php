@@ -50,7 +50,7 @@ $taskDoneCountOverallQuery->bindValue(':userId', (int) $id, PDO::PARAM_INT);
 $taskDoneCountOverallQuery->execute();
 $taskDoneCountOverall = $taskDoneCountOverallQuery->fetch(PDO::FETCH_COLUMN);
 
-$workerTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.datecreate, t.status, t.view_status, t.name, t.datedone, t.view, LOCATE( :quotedUserId, t.view_status) AS view_order FROM tasks t WHERE (t.manager = :userId OR t.worker = :userId) AND t.status NOT IN ('done', 'canceled') AND (t.status <> 'planned' OR t.manager = :userId) ORDER BY FIELD(t.status, 'pending', 'postpone') DESC, FIELD(view_order, 0) DESC, t.datedone LIMIT 3");
+$workerTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.datecreate, t.status, t.view_status, t.name, t.datedone, t.view, u.name AS managerName, u.surname AS managerSurname, LOCATE( :quotedUserId, t.view_status) AS view_order FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE (t.manager = :userId OR t.worker = :userId) AND t.status NOT IN ('done', 'canceled') AND (t.status <> 'planned' OR t.manager = :userId) ORDER BY FIELD(t.status, 'pending', 'postpone') DESC, FIELD(view_order, 0) DESC, t.datedone LIMIT 3");
 $workerTasksQuery->execute(array(':companyId' => $idc, ':quotedUserId' => '"' . $id . '"', ':userId' => $id));
 $tasks = $workerTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 
