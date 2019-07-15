@@ -25,11 +25,11 @@
         <form>
             <div class="d-flex send-mes-block">
                 <div class="form-group w-100 text-area d-flex">
-                    <textarea style="overflow:hidden; padding-right: 45px;" class="form-control mr-2" id="mes"
-                              name="mes" rows="1"
-                              placeholder="<?= $GLOBALS['_enterconversation'] ?>" autofocus></textarea>
                     <?php $uploadModule = 'chat'; ?>
                     <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
+                    <textarea style="overflow:hidden;" class="form-control" id="mes"
+                              name="mes" rows="1"
+                              placeholder="<?= $GLOBALS['_enterconversation'] ?>" autofocus></textarea>
                     <div class="position-relative">
                         <button type="button" class="btn btn-primary rounded-circle" id="sendBtn">
                             <span id="sendMesName"><i class="fas fa-paper-plane"></i></span>
@@ -53,8 +53,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </form>
-        <div class="file-name container-files" style="display: none"></div>
+        <div class="file-name container-files d-block" style="display: none"></div>
     </div>
 </div>
 <?php if ($tariff == 1): ?>
@@ -186,7 +187,7 @@
                 $("#sendBtn").click();
                 $("#mes").val('');
                 setTimeout(function () {
-                    $("#mes").css('height', '38px');
+                    $("#mes").css('height', '54px');
                 }, 300);
             }
         }

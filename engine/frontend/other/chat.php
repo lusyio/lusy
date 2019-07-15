@@ -1,5 +1,5 @@
-<div class="card">
-    <div class="card-header text-center bg-mail">
+<div class="card shadow-none">
+    <div class="card-header text-center border-0 bg-message">
         <div class="position-absolute">
             <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
                         class="fas fa-arrow-left icon-invite"></i></a>
@@ -10,7 +10,7 @@
             <a href="/company/" class="mb-0 h5">Чат компании</a>
         </div>
     </div>
-    <div class="card-body p-0 border-bottom" id="chatBox">
+    <div class="card-body p-0" id="chatBox">
         <?php if ($messages): ?>
             <?php foreach ($messages as $message): ?>
                 <?php include __ROOT__ . '/engine/frontend/other/message.php'; ?>
@@ -21,19 +21,18 @@
     </div>
 </div>
 
-<div class="card border-top bg-mail">
+<div class="card bg-message">
     <div class="card-body pb-0 pl-2 pr-2">
         <form>
             <div class="d-flex send-mes-block">
+                <?php $uploadModule = 'chat'; ?>
+                <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
                 <div class="form-group w-100 text-area d-flex">
-                    <textarea style="overflow:hidden; padding-right: 45px;" class="form-control mr-2" id="mes"
+                    <textarea style="overflow:hidden;" class="form-control" id="mes"
                               name="mes" rows="1"
                               placeholder="<?= $GLOBALS['_enterconversation'] ?>"></textarea>
-                    <?php $uploadModule = 'chat'; ?>
-                    <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
-
                     <div class="position-relative">
-                        <button type="button" class="btn btn-primary" id="sendBtn">
+                        <button type="button" class="btn btn-primary rounded-circle" id="sendBtn">
                             <span id="sendMesName"><i class="fas fa-paper-plane"></i></span>
                             <div class="spinner-border spinner-border-sm text-white" role="status"
                                  style="display: none;">
@@ -54,11 +53,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </form>
         <div class="file-name container-files" style="display: none"></div>
     </div>
@@ -196,7 +192,7 @@
                 $("#sendBtn").click();
                 $("#mes").val('');
                 setTimeout(function () {
-                    $("#mes").css('height', '38px');
+                    $("#mes").css('height', '54px');
                 }, 300);
             }
         }
@@ -206,7 +202,7 @@
             var a = b.extend({
                 onResize: function () {
                 }, animate: !0, animateDuration: 150, animateCallback: function () {
-                }, extraSpace: 14, limit: 1E3
+                }, extraSpace: 30, limit: 1E3
             }, f);
             this.filter("textarea").each(function () {
                 var d = b(this).css({"overflow-y": "hidden", display: "block"}), f = d.height(), g = function () {

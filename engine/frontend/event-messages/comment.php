@@ -1,18 +1,38 @@
-<li data-event-id="<?= $event['event_id'] ?>"
-     class="d-none event <?= ($event['view_status']) ? '' : 'new-event' ?> comment readable-here">
-
-
-    <span class="before bg-secondary"><i class="fas fa-comment"></i></span>
-    <div class="position-relative">
-        <span class="date"><?= date("d.m H:i", $event['datetime']); ?></span>
-        <img src="/<?=getAvatarLink($event['author_id'])?>" class="avatar mr-2">
-        <?php if ($event['author_id'] == 1): ?>
-            <a class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
-        <?php else: ?>
-            <a href="/profile/<?=$event['author_id']?>/" class="font-weight-bold"><?= $event['name'] ?> <?= $event['surname'] ?></a>
-        <?php endif; ?>
-    </div>
-    <p class="mt-2 mb-2"><?= $GLOBALS['_logNewComment'] ?> <a href="/../<?= $event['link'] ?>" class="font-italic">"<?=$event['taskname']?>"</a></p>
-        <div class="commentText p-2 pl-3"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : $event['commentText'] ?></div>
-
-</li>
+<?php
+        $month = ['', _("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")];
+        $monthNumber = date("n", $event['datetime']);
+        $eventText = _('Wrote comment');
+        ?>
+<a href="/../<?= $event['link'] ?>" class="text-decoration-none text-dark">
+    <li data-event-id="<?= $event['event_id'] ?>"
+        class="event <?= ($event['view_status']) ? '' : 'new-event' ?> comment readable-here mb-3">
+        <div class="eventDiv">
+            <div class="row">
+                <div class="col-2">
+                    <div class="text-right float-right">
+                        <p class="mb-0 font-weight-bold"><?= date("d", $event['datetime']); ?> <span
+                                    class="text-lowercase"><?= _($month[$monthNumber]) ?></span></p>
+                        <span class="text-secondary">в <?= date("H:i", $event['datetime']); ?></span>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="bg-secondary logIcon">
+                        <i class="fas fa-comment"></i>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <p class="mb-0 font-weight-bold"><?= $event['taskname'] ?></p>
+                    <div>
+                        <span class="text-secondary"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : $event['commentText'] ?></span>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="float-right statusText font-weight-bold text-right">
+                        <?= $eventText ?><br>
+                        <span class="text-secondary text-capitalize font-weight-normal"><?= $event['name'] ?> <?= $event['surname'] ?></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</a>
