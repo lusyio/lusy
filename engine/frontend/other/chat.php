@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="card bg-message">
+<div class="card bg-message" style="margin-top: 10px;">
     <div class="card-body pb-0 pl-2 pr-2">
         <form>
             <div class="d-flex send-mes-block">

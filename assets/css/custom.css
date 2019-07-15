@@ -216,13 +216,13 @@ body{
     box-shadow: 0 0.35rem 0.5rem rgba(18, 38, 63, .03);
     z-index: 3;
     border-radius: 50%;
-    width: 85px;
-    height: 85px;
+    width: 60px;
+    height: 60px;
     background: #284c8e;
     display: block;
     color: white;
     text-align: center;
-    font-size: 2em;
+    font-size: 24px;
 }
 .companyAvatar i {
     vertical-align: -webkit-baseline-middle;
@@ -1433,7 +1433,7 @@ input:checked[type="checkbox"]::before {
 }
 #chatBox {
     position: relative;
-    height: calc(100vh - 345px);
+    height: calc(100vh - 405px);
     background-color: #fcfcfc;
 
     overflow: scroll;
@@ -1465,13 +1465,13 @@ input:checked[type="checkbox"]::before {
 .online-indicator{
     position: absolute;
     top: 0;
-    right: 5px;
+    right: 0;
     z-index: 3;
 }
 
 .dialog-list{
-    top: -7px;
-    right: 16px;
+    top: -8px;
+    right: 20px;
 }
 
 .dialog-list-mail{
@@ -1553,7 +1553,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .message-width{
-    min-width: 13%;
+    min-width: 14%;
     max-width: fit-content;
     padding: 15px 20px !important;
     border: 1px solid #e4e4e4;
@@ -2314,9 +2314,22 @@ ul.timeline > li span.before {
     position: absolute;
     z-index: 2;
     right: 0;
-    font-size: 11px;
+    font-size: 12px;
     bottom: -22px !important;
     top: unset;
+}
+
+.dialog-mail span.date{
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    font-size: 12px;
+    top: 5px;
+    color: #a7a9b4;
+}
+
+.dialog-mail:hover span.date {
+    color: #7b7b7b;
 }
 
 span.date {
@@ -2945,7 +2958,7 @@ span.date {
     }
 
     .message-width{
-        min-width: 31%;
+        min-width: 40%;
         max-width: fit-content;
     }
 
@@ -2962,8 +2975,8 @@ span.date {
     }
 
     .dialog-list{
-        top: -8px;
-        right: 8px;
+        top: -9px;
+        right: -1px;
     }
 
     .wizard > .content {

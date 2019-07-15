@@ -37,9 +37,9 @@
             </div>
 
         </div>
-        <div class="card mt-2 mb-2 dialog-mail">
-            <div class="card-body">
-                <a class="text-decoration-none text-dark" href="/chat/">
+        <a class="text-decoration-none text-dark" href="/chat/">
+            <div class="card mt-2 mb-2 dialog-mail">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-2 pl-2">
                                 <span class="companyAvatar user-pic position-relative"><i
@@ -56,21 +56,21 @@
                             <?php endif; ?>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
-        </div>
+        </a>
 
         <?php
         foreach ($dialog as $n) {
             $newMessages = numberOfNewMessages($n);
             $lastMessage = lastmess($n);
             $isOnline = in_array($n, $onlineUsersList) ?>
-            <div class="card mb-2 dialog-mail">
-                <div class="card-body">
-                    <a class="text-decoration-none text-dark" href="./<?= $n ?>/">
+            <a class="text-decoration-none text-dark" href="./<?= $n ?>/">
+                <div class="card mb-2 dialog-mail">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-2 pl-2">
-                                <div class="user-pic position-relative" style="width:85px">
+                                <div class="user-pic position-relative" style="width:60px">
                                     <img src="/<?= getAvatarLink($n) ?>"
                                          class="avatar-img rounded-circle w-100"/>
                                     <span class="online-indicator mobile-online-indicator">
@@ -85,9 +85,10 @@
                                 <span class="date mr-2"><?= date('d.m H:i', $lastMessage['datetime']); ?></span>
                             </div>
                         </div>
-                    </a>
+
+                    </div>
                 </div>
-            </div>
+            </a>
         <?php } ?>
     </div>
 </div>
