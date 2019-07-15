@@ -1,3 +1,185 @@
+<div class="row mb-3">
+    <div class="col">
+        <div class="card">
+            <div class="row">
+                <div class="col-lg-5 col-12 card-tariff-left">
+                    <div class="card-body ">
+                        <span class="small text-muted">У вас активирован</span>
+                        <h3>Пробный период</h3>
+                        <p>
+                            <span class="text-muted small">Плата автоматически спишется по истечению срока его действия</span>
+                        </p>
+                        <div class="d-flex">
+                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
+                                   type="text">
+                            <button class="btn btn-primary" id="promoBtn">
+                                Применить
+                            </button>
+                        </div>
+                        <span class="small text-muted">Если вы где-то нашли промокод, скорее вводите и получайте бонусы 🌟</span>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-12 card-tariff-right">
+                    <div class="card-body">
+                        <?php if ($companyTariff['is_card_binded']): // Если привязана карта?>
+                            <div class="d-flex" style="justify-content: space-between">
+                                <span class="small text-muted mt-1">Ваша банковская карта</span>
+                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                        data-target="#deleteCardModal">
+                                    Отвязать карту
+                                </button>
+                            </div>
+                        <?php else: // Если не привязана карта ?>
+                            <div class="d-flex" style="justify-content: space-between">
+                                <span class="small text-muted mt-1">Ваша банковская карта</span>
+                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                        data-target="#deleteCardModal">
+                                    Отвязать карту
+                                </button>
+                            </div>
+                            <div style="z-index: 2">
+                            <span class="text-muted">
+                            <i class="far fa-credit-card icon-credit-card"></i>
+                            </span>
+                                <span>26.07 будет списание с карты 400000******0333 в размере 299 руб.</span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <span class="d-block text-muted bg-icon-ruble">
+                <i class="fas fa-ruble-sign icon-ruble"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <div class="card">
+            <div class="row">
+                <div class="col-12 col-lg-5 card-tariff-left">
+                    <div class="card-body">
+                        <span class="small text-muted">Ваш тарифный план</span>
+                        <h2>Стартовый</h2>
+                        <p>
+                            <span class="small text-muted">На время действия промокода Lusy2019 до 12.08</span>
+                        </p>
+                        <div class="d-flex">
+                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
+                                   type="text">
+                            <button class="btn btn-primary" id="promoBtn">
+                                Применить
+                            </button>
+                        </div>
+                            <span class="small text-muted">Если вы где-то нашли промокод, скорее вводите и получайте бонусы 🌟</span>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-12 card-tariff-right">
+                    <div class="card-body">
+                        <?php if ($companyTariff['is_card_binded']): // Если привязана карта?>
+                            <div class="d-flex" style="justify-content: space-between">
+                                <span class="small text-muted mt-1">Ваша банковская карта</span>
+                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                        data-target="#deleteCardModal">
+                                    Отвязать карту
+                                </button>
+                            </div>
+                            <div style="z-index: 2">
+                            <span class="text-muted">
+                            <i class="far fa-credit-card icon-credit-card"></i>
+                            </span>
+                                <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?> в размере <?= $tariffInfo['price'] / 100; ?> руб.</span>
+                            </div>
+                        <?php else: // Если не привязана карта ?>
+                            <div class="d-flex" style="justify-content: space-between">
+                                <span class="small text-muted mt-1">Ваша банковская карта</span>
+                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                        data-target="#deleteCardModal">
+                                    Привязать карту
+                                </button>
+                            </div>
+                            <div style="z-index: 2">
+                            <span class="text-muted fa-stack fa-1x">
+                                <i class="far fa-credit-card fa-stack-1x icon-credit-card"></i>
+                                <i class="fas fa-slash fa-stack-2x "></i>
+                            </span>
+                                <span><?= date('d.m', strtotime('+1 day', $companyTariff['payday'])); ?> ваш тарифный план изменится на Бесплатный</span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <span class="d-block text-muted bg-icon-ruble">
+                <i class="fas fa-ruble-sign icon-ruble"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <div class="card">
+            <div class="row">
+                <div class="col-12 col-lg-5 card-tariff-left">
+                    <div class="card-body">
+                        <span class="small text-muted">Ваш тарифный план</span>
+                        <h2>Уверенный</h2>
+                        <p>
+                            <span class="small text-muted">Оплачен до 08.07</span>
+                        </p>
+                        <div class="d-flex">
+                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
+                                   type="text">
+                            <button class="btn btn-primary" id="promoBtn">
+                                Применить
+                            </button>
+                        </div>
+                        <span class="small text-muted">Если вы где-то нашли промокод, скорее вводите и получайте бонусы 🌟</span>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-12 card-tariff-right">
+                    <div class="card-body">
+                        <?php if ($companyTariff['is_card_binded']): // Если привязана карта?>
+                            <div class="d-flex" style="justify-content: space-between">
+                                <span class="small text-muted mt-1">Ваша банковская карта</span>
+                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                        data-target="#deleteCardModal">
+                                    Отвязать карту
+                                </button>
+                            </div>
+                            <div style="z-index: 2">
+                            <span class="text-muted">
+                            <i class="far fa-credit-card icon-credit-card"></i>
+                            </span>
+                                <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?> в размере <?= $tariffInfo['price'] / 100; ?> руб.</span>
+                            </div>
+                        <?php else: // Если не привязана карта ?>
+                            <div class="d-flex" style="justify-content: space-between">
+                                <span class="small text-muted mt-1">Ваша банковская карта</span>
+                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                        data-target="#deleteCardModal">
+                                    Привязать карту
+                                </button>
+                            </div>
+                            <div style="z-index: 2">
+                            <span class="text-muted fa-stack fa-1x">
+                                <i class="far fa-credit-card fa-stack-1x icon-credit-card"></i>
+                                <i class="fas fa-slash fa-stack-2x "></i>
+                            </span>
+                                <span><?= date('d.m', strtotime('+1 day', $companyTariff['payday'])); ?> ваш тарифный план изменится на Бесплатный</span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <span class="d-block text-muted bg-icon-ruble">
+                <i class="fas fa-ruble-sign icon-ruble"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php if ($companyTariff['tariff'] == 0): ?>
 
     <div class="row mb-3">
@@ -19,6 +201,7 @@
                                     Применить
                                 </button>
                             </div>
+                            <span class="small text-muted">Если вы где-то нашли промокод, скорее вводите и получайте бонусы 🌟</span>
                         </div>
                     </div>
                     <div class="col-lg-7 col-12 card-tariff-right">
@@ -34,8 +217,8 @@
                             <span><i class="fas fa-times text-muted"></i> Отсутствие интеграции с облаком</span>
                         </div>
                     </div>
-                    <span class="d-block text-muted position-absolute" style="right: 20px; bottom: 20px; z-index: 1">
-                <i class="fas fa-ruble-sign" style="font-size: 100px; opacity: 0.05;"></i>
+                    <span class="d-block text-muted bg-icon-ruble">
+                <i class="fas fa-ruble-sign icon-ruble"></i>
                 </span>
                 </div>
             </div>
@@ -62,6 +245,7 @@
                                     Применить
                                 </button>
                             </div>
+                            <span class="small text-muted">Если вы где-то нашли промокод, скорее вводите и получайте бонусы 🌟</span>
                         </div>
                     </div>
                     <div class="col-lg-7 col-12 card-tariff-right">
@@ -207,7 +391,7 @@ endforeach; ?>
                         <span class="position-absolute" id="disabledBtn" style="width: 92%; height: 8%; z-index: 100000; opacity: 0">
                             adasd
                         </span>
-                        <button class="btn btn-secondary w-100" id="pay" disabled>
+                        <button class="btn btn-secondary w-100" id="pay" disabled style="height: 38px">
                             Оплатить подписку
                             <div class="spinner-border spinner-border-sm text-white" role="status"
                                  style="display: none">
@@ -285,6 +469,24 @@ endforeach; ?>
     </div>
 </div>
 
+<div class="modal fade" id="wrongPromoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 390px">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center d-block">
+                <h5 class="modal-title" id="exampleModalLabel">Промокод</h5>
+            </div>
+            <div class="modal-body text-center">
+                Введенный неверный промокод или уже использованный 😢
+            </div>
+        </div>
+        <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+        </span>
+    </div>
+</div>
+
 <div class="modal fade" id="paymentInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -355,7 +557,6 @@ endforeach; ?>
             setTimeout(function () {
                 $('.oferta-field').css('background-color', '#fff');
             }, 1000);
-            console.log('asdasd');
         });
 
         $('#promoBtn').on('click', function () {
@@ -378,6 +579,7 @@ endforeach; ?>
                             $('#refreshModalLabel').text('Промокод активирован');
                             $('#refreshModal').modal('show');
                         } else {
+                            $('#wrongPromoModal').modal('show');
                             console.log(response.error);
                         }
                     },

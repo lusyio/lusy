@@ -1507,15 +1507,41 @@ input:checked[type="checkbox"]::before {
 .my-message {
     border-radius: 10px;
     padding: 1rem;
+    flex-flow: wrap;
+}
+
+.avatar-chat{
+    position: absolute;
+    bottom: 0;
 }
 
 .message:first-child{
     border-top: none !important;
 }
 
-.message-width{
-    max-width: 91%;
+.my-message .message-width{
+    border-radius: 15px;
+    border-bottom-right-radius: 0;
+    background-color: #f2f2f2;
 }
+
+.message-width{
+    max-width: 58%;
+    padding: 15px 20px !important;
+    border: 1px solid #e4e4e4;
+    /* border-color: #e4e4e4; */
+    border-radius: 15px;
+    border-bottom-left-radius: 0;
+}
+
+.my-message>.row{
+    justify-content: flex-end;
+}
+
+.my-message .col-2{
+    order: 2;
+}
+
 
 .no-messages{
     font-size: 20px;
@@ -2229,7 +2255,15 @@ span.date {
     z-index: 2;
     right: 0;
     font-size: 11px;
-    top: 0;
+    bottom: -22px;
+}
+
+.not-my-message .date {
+    left: 0;
+}
+
+.not-my-message:hover span.date {
+    color: #7b7b7b;
 }
 
 .avatar {
@@ -2342,7 +2376,7 @@ span.date {
     vertical-align: middle;
     width: 35px;
     height: 35px;
-    border-radius: 100%;
+    border-radius: 12px;
 }
 
 .avatar-mail-list{
@@ -2436,6 +2470,7 @@ span.date {
     color: #6c757d;
     font-size: 12px;
     padding-left: 20px;
+    height: 37px;
 }
 
 .send-mes-block #dropdownMenuButton{
@@ -2671,6 +2706,10 @@ span.date {
         display: none;
     }
 
+    .card-tariff-right>.card-body{
+        padding-top: 0;
+    }
+
     .lead-text {
         font-size: 38px;
     }
@@ -2837,7 +2876,7 @@ span.date {
     }
 
     .message-width{
-        max-width: 83%
+        max-width: 77%
     }
 
     .header-profile::after{
