@@ -14,13 +14,13 @@
             <?php endif; ?>
                 <span class="date"><?= date('d.m в H:i', $message['datetime']) ?>
                     </span>
-            <p class="m-0"><?= link_it(nl2br(htmlspecialchars($message['mes']))) ?></p>
+            <p class="m-0" style="color: #778297; font-weight: 300"><?= link_it(nl2br(htmlspecialchars($message['mes']))) ?></p>
             <?php if (count($message['files']) > 0): ?>
                 <?php foreach ($message['files'] as $file): ?>
                     <?php if ($file['is_deleted']): ?>
-                        <p class="m-0"><s><?= $file['file_name'] ?></s> <?= $GLOBALS['_deletedconversation'] ?></p>
+                        <p class="m-0" style="color: #778297; font-weight: 300"><s><?= $file['file_name'] ?></s> <?= $GLOBALS['_deletedconversation'] ?></p>
                     <?php else: ?>
-                        <p class="m-0"><a class=""
+                        <p class="m-0" style="color: #778297; font-weight: 300"><a class=""
                                           href="<?= ($file['file_size'] == 0) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
                         </p>
                     <?php endif; ?>

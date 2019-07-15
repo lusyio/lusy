@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header border-bottom dialogs p-0">
+            <div class="card-header dialogs p-0">
                 <div class="mb-1 p-3">
                     <div class="d-inline-block"><h4 class="mb-0 mt-2"><?= $GLOBALS['_mailconversation'] ?></h4></div>
                     <div class="d-inline-block position-absolute" style="right: 16px">
@@ -35,56 +35,60 @@
                     <?php } ?>
                 </div>
             </div>
-            <div class="list-group dialog">
-                <div class="dialog-mail border-secondary p-3">
-                    <a class="text-decoration-none text-dark" href="/chat/">
-                        <div class="row">
-                            <div class="col-2 pl-2">
+
+        </div>
+        <div class="card mt-2 mb-2 dialog-mail">
+            <div class="card-body">
+                <a class="text-decoration-none text-dark" href="/chat/">
+                    <div class="row">
+                        <div class="col-2 pl-2">
                                 <span class="companyAvatar user-pic position-relative"><i
                                             class="far fa-comments fa-fw"></i></span>
+                        </div>
+                        <div class="col" style="max-width: 83%;">
+                            <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат
+                                компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
+                            <?php if ($lastChatMessage): ?>
+                                <span><?= ($lastChatMessage['sender'] == $id) ? 'Вы: ' : fiomess($lastChatMessage['sender']) . ': '; ?> <?= $lastChatMessage['mes'] ?></span>
+                                <span class="date mr-2"><?= date('d.m H:i', $lastChatMessage['datetime']); ?></span>
+                            <?php else: ?>
+                                <span class="text-muted">В чате нет сообщений</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <?php
+        foreach ($dialog as $n) {
+            $newMessages = numberOfNewMessages($n);
+            $lastMessage = lastmess($n);
+            $isOnline = in_array($n, $onlineUsersList) ?>
+            <div class="card mb-2 dialog-mail">
+                <div class="card-body">
+                    <a class="text-decoration-none text-dark" href="./<?= $n ?>/">
+                        <div class="row">
+                            <div class="col-2 pl-2">
+                                <div class="user-pic position-relative" style="width:85px">
+                                    <img src="/<?= getAvatarLink($n) ?>"
+                                         class="avatar-img rounded-circle w-100"/>
+                                    <span class="online-indicator mobile-online-indicator">
+                                            <i class="fas fa-circle mr-1 ml-1 onlineIndicator mail <?= ($isOnline) ? 'text-success' : '' ?>"></i>
+                                        </span>
+                                </div>
                             </div>
                             <div class="col" style="max-width: 83%;">
-                                <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат
-                                    компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
-                                <?php if ($lastChatMessage): ?>
-                                    <span><?= ($lastChatMessage['sender'] == $id) ? 'Вы: ' : fiomess($lastChatMessage['sender']) . ': '; ?> <?= $lastChatMessage['mes'] ?></span>
-                                    <span class="date mr-2"><?= date('d.m H:i', $lastChatMessage['datetime']); ?></span>
-                                <?php else: ?>
-                                    <span class="text-muted">В чате нет сообщений</span>
-                                <?php endif; ?>
+                                <p class="mb-2 font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= fiomess($n) ?><?= ($newMessages) ? ' +' . $newMessages : ''; ?>
+                                </p>
+                                <span><?= ($lastMessage['sender'] == $id) ? 'Вы: ' : ''; ?> <?= $lastMessage['mes'] ?></span>
+                                <span class="date mr-2"><?= date('d.m H:i', $lastMessage['datetime']); ?></span>
                             </div>
                         </div>
                     </a>
                 </div>
-                <?php
-                foreach ($dialog as $n) {
-                    $newMessages = numberOfNewMessages($n);
-                    $lastMessage = lastmess($n);
-                    $isOnline = in_array($n, $onlineUsersList) ?>
-                    <div class="dialog-mail border-secondary p-3">
-                        <a class="text-decoration-none text-dark" href="./<?= $n ?>/">
-                            <div class="row">
-                                <div class="col-2 pl-2">
-                                    <div class="user-pic position-relative" style="width:85px">
-                                        <img src="/<?= getAvatarLink($n) ?>"
-                                             class="avatar-img rounded-circle w-100"/>
-                                        <span class="online-indicator mobile-online-indicator">
-                                            <i class="fas fa-circle mr-1 ml-1 onlineIndicator mail <?= ($isOnline) ? 'text-success' : '' ?>"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col" style="max-width: 83%;">
-                                    <p class="mb-2 font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= fiomess($n) ?><?= ($newMessages) ? ' +' . $newMessages : ''; ?>
-                                    </p>
-                                    <span><?= ($lastMessage['sender'] == $id) ? 'Вы: ' : ''; ?> <?= $lastMessage['mes'] ?></span>
-                                    <span class="date mr-2"><?= date('d.m H:i', $lastMessage['datetime']); ?></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                <?php } ?>
             </div>
-        </div>
+        <?php } ?>
     </div>
 </div>
 
