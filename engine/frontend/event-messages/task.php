@@ -33,7 +33,7 @@
                 $eventText .= $GLOBALS['_responsible'] . ' <span>' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>. ';
                 $eventText .= $GLOBALS['_planDate'] . ' <span>' . date('d.m', $event['comment']) . '</span>';
                 $eventText = _('You have scheduled a task');
-                $eventDop = _('Task will start') . ' ' . '01.01';
+                $eventDop = _('Task will start') . ' ' . date('d.m', $event['comment']);
             }
 
         }
@@ -111,10 +111,10 @@
             $icon = 'far fa-calendar-alt';
             if ($event['author_id'] == '1') {
                 $eventText = _('You requested a postponement');
-                $eventDop = _('to') . ' 01.01';
+                $eventDop = _('to') . ' ' . date('d.m', $event['comment']);
             } else {
                 $eventText = _('Request for postponement');
-                $eventDop = $eventDop = _('to') . ' 01.01';
+                $eventDop = $eventDop = _('to') . ' ' . date('d.m', $event['comment']);
             }
         }
 
@@ -135,10 +135,10 @@
             $icon = 'far fa-calendar-times';
             if ($event['author_id'] == '1') {
                 $eventText = _('You decline postpone');
-                $eventDop = _('Current deadline') . ' ' . '01.01';
+                $eventDop = _('Current deadline') . ' ' . date('d.m', $event['comment']);
             } else {
                 $eventText = _('Decline your postpone');
-                $eventDop = _('Current deadline') . ' ' . '01.01';
+                $eventDop = _('Current deadline') . ' ' . date('d.m', $event['comment']);
             }
         }
 

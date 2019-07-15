@@ -12,6 +12,8 @@ if (isset($_POST['it'])) {
     $taskAuthorId =  DBOnce('author', 'tasks', 'id='.$idtask);
     $idTaskManager = DBOnce('manager', 'tasks', 'id='.$idtask);
     $idTaskWorker = DBOnce('worker', 'tasks', 'id='.$idtask);
+    $taskDatedone = DBOnce('datedone', 'tasks', 'id='.$idtask);
+
     if ($id == $idTaskManager) {
         $isManager = true;
     }
@@ -52,7 +54,7 @@ if($_POST['module'] == 'sendpostpone' && $isWorker) {
 	setStatus($idtask, 'postpone');
 	addPostponeComments($idtask, strtotime($datepostpone), $text);
     resetViewStatus($idtask);
-    addEvent('postpone', $idtask, '', $idTaskManager);
+    addEvent('postpone', $idtask, $datepostpone, $idTaskManager);
 
 }
 
@@ -206,7 +208,7 @@ if ($_POST['module'] == 'cancelDate' && $isManager) {
 
     addChangeDateComments($idtask, 'canceldate');
     resetViewStatus($idtask);
-    addEvent('canceldate', $idtask, '');
+    addEvent('canceldate', $idtask, $taskDatedone);
 
 }
 
