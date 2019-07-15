@@ -232,6 +232,9 @@ function updateCompanyTariff($notification)
         if ($updateCompanyResult) {
             markOrderAsProcessed($notification['OrderId']);
             addWithdrawalEvent($orderInfo['customer_key'], $notification['OrderId'], $orderInfo['amount'], $newTariff['tariff_id']);
+            if ($orderInfo['amount'] == 100) {
+                addBindCardEvent($orderInfo['customer_key'], $notification['OrderId'], $notification['OrderId'], $notification['Pan']);
+            }
             if ($companyTariff['tariff'] == $newTariff['tariff_id']) {
                 addTariffProlongationEvent($orderInfo['customer_key'], $newTariff['tariff_id'], $notification['OrderId']);
                 $mailData = [$orderInfo['customer_key'], $newTariff['tariff_name'], date('d.m.Y',$newPayDay), date('d.m.Y',$newPayDay), false];
@@ -648,4 +651,21 @@ function markPromocodeAsUsed($promocodeName)
     global $pdo;
     $markAsUsedQuery = $pdo->prepare("UPDATE promocodes SET used = 1 WHERE promocode_name = :promocodeName");
     $markAsUsedQuery->execute([':promocodeName' => $promocodeName]);
+}
+
+function addBindCardEvent($companyId, $orderId, $amount, $comment)
+{
+    global $pdo;
+
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, order_id, comment) VALUES 
+(:event, :datetime, :companyId, :orderId, :comment)");
+    $queryData = [
+        ':event' => 'bindCard',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+        ':orderId' => $orderId,
+        ':amount' => $amount,
+        ':comment' => $comment,
+    ];
+    $addEventQuery->execute($queryData);
 }
