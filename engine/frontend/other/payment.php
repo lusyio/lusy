@@ -32,16 +32,17 @@
                         <?php else: // Если не привязана карта ?>
                             <div class="d-flex" style="justify-content: space-between">
                                 <span class="small text-muted mt-1">Ваша банковская карта</span>
-                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                        data-target="#deleteCardModal">
-                                    Отвязать карту
+                                <button id="addCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                        data-target="#addCardModal">
+                                    Привязать карту
                                 </button>
                             </div>
                             <div style="z-index: 2">
-                            <span class="text-muted">
-                            <i class="far fa-credit-card icon-credit-card"></i>
+                            <span class="text-muted fa-stack fa-1x">
+                                <i class="far fa-credit-card fa-stack-1x icon-credit-card"></i>
+                                <i class="fas fa-slash fa-stack-2x "></i>
                             </span>
-                                <span>26.07 будет списание с карты 400000******0333 в размере 299 руб.</span>
+                                <span><?= date('d.m', strtotime('+1 day', $companyTariff['payday'])); ?> ваш тарифный план изменится на Бесплатный</span>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -94,8 +95,8 @@
                         <?php else: // Если не привязана карта ?>
                             <div class="d-flex" style="justify-content: space-between">
                                 <span class="small text-muted mt-1">Ваша банковская карта</span>
-                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                        data-target="#deleteCardModal">
+                                <button id="addCard" class="btn btn-sm btn-light" data-toggle="modal"
+                                        data-target="#addCardModal">
                                     Привязать карту
                                 </button>
                             </div>
@@ -477,7 +478,7 @@ endforeach; ?>
                 <h5 class="modal-title" id="exampleModalLabel">Промокод</h5>
             </div>
             <div class="modal-body text-center">
-                Введенный неверный промокод или уже использованный 😢
+                Введен неверный промокод или уже использованный 😢
             </div>
         </div>
         <span class="icon-close-modal">
@@ -545,6 +546,8 @@ endforeach; ?>
         </div>
     </div>
 </div>
+
+
 
 
 <script>
