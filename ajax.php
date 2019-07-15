@@ -2,7 +2,16 @@
 define('__ROOT__', __DIR__);
 
 if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
+    session_cache_limiter('none');
+    session_start();
+    ob_start();
     setlocale(LC_ALL, 'ru_RU');
+    $locale = 'ru_RU';
+    putenv("LC_MESSAGES=" . $locale);
+    setlocale(5, $locale, $locale);
+    bindtextdomain($locale, realpath(__ROOT__ . '/engine/backend/lang/'));
+    bind_textdomain_codeset($locale, 'UTF-8');
+    textdomain($locale);
     // подключаем pdo
     require_once(realpath('conf.php'));
 
