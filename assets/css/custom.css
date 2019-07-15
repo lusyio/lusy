@@ -335,29 +335,24 @@ body{
     border-radius: 8px;
     border: none;
     z-index: 5;
-    background-color: #fff;
+    background-color: #fcfcfc;
 }
 
 .new-dialog-list{
     border-left: none !important;
     border-right: none !important;
+    border-radius: 8px !important;
 }
 
 .new-dialog-list:hover{
-    background-color: #f2f2f2;
-}
-
-.new-dialog-list:first-of-type{
-    border-radius: 0 !important;
-}
-
-.new-dialog-list:last-of-type{
-    border-bottom: none !important;
+    text-decoration: none;
+    background-color: rgba(115, 135, 248, 0.21) !important;
 }
 
 .dialog-mail {
     background-color: #fff;
     border-bottom: 1px solid #dee2e6!important;
+    transition: 50ms;
 }
 
 .dialog-mail:last-of-type{
@@ -367,6 +362,9 @@ body{
 .dialog-mail:hover{
     text-decoration: none;
     background-color: rgba(115, 135, 248, 0.21);
+    -webkit-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
 }
 
 
@@ -1725,12 +1723,6 @@ a {
     border-top-left-radius: 0;
     z-index: 3;
 }
-
-/*.payment-card:hover{*/
-/*    -webkit-transform: scale(1.02);*/
-/*    -ms-transform: scale(1.02);*/
-/*    transform: scale(1.02);*/
-/*}*/
 
 .cancel-delete-card{
     color: #dedede !important;

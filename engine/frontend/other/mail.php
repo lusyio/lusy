@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow-none">
             <div class="card-header dialogs p-0">
                 <div class="mb-1 p-3">
-                    <div class="d-inline-block"><h4 class="mb-0 mt-2"><?= $GLOBALS['_mailconversation'] ?></h4></div>
+                    <div class="d-inline-block"></div>
                     <div class="d-inline-block position-absolute" style="right: 16px">
-                        <button class="google-icon-btn min ripple" data-toggle="collapse" data-target="#collapseUsers"
+                        <button id="collapseTrigger" data-toggle="tooltip" data-placement="bottom" title="Начать диалог" class="google-icon-btn min ripple" data-target="#collapseUsers"
                                 aria-expanded="false" aria-controls="collapseExample">+
                         </button>
                     </div>
@@ -16,7 +16,7 @@
                         $isOnline = in_array($user['id'], $onlineUsersList);
                         ?>
                         <a href="./<?= $user['id'] ?>/"
-                           class="list-group-item list-group-item-action new-dialog-list">
+                           class="list-group-item list-group-item-action new-dialog-list border-0" style="background-color: #fcfcfc">
                             <div class="row">
                                 <div class="col-2 pl-2 col-lg-1">
                                     <div class="avatar-mail-list">
@@ -38,7 +38,7 @@
 
         </div>
         <a class="text-decoration-none text-dark" href="/chat/">
-            <div class="card mt-2 mb-2 dialog-mail">
+            <div class="card mt-3 mb-3 dialog-mail">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2 pl-2">
@@ -66,7 +66,7 @@
             $lastMessage = lastmess($n);
             $isOnline = in_array($n, $onlineUsersList) ?>
             <a class="text-decoration-none text-dark" href="./<?= $n ?>/">
-                <div class="card mb-2 dialog-mail">
+                <div class="card mb-3 dialog-mail">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-2 pl-2">
@@ -92,6 +92,11 @@
         <?php } ?>
     </div>
 </div>
+<script>
+    $('#collapseTrigger').on('click', function () {
+       $('#collapseUsers').collapse('toggle')
+    });
+</script>
 
 
 
