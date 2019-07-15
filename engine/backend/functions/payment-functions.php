@@ -1,6 +1,6 @@
 <?php
 
-function createOrder($customerId, $tariff, $userId = 0)
+function createOrder($customerId, $tariff, $userId = 0, $firstPay = false)
 {
     global $pdo;
     $tariffInfo = getTariffInfo($tariff);
@@ -9,8 +9,8 @@ function createOrder($customerId, $tariff, $userId = 0)
     }
     $amount = $tariffInfo['price']; // цена услуги в копейках
 
-    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff, user_id) VALUES (:amount, :customerKey, :createDate, :tariff, :userId)");
-    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff, ':userId' => $userId]);
+    $createOrderQuery = $pdo->prepare("INSERT INTO orders (amount, customer_key, create_date, tariff, user_id, first_pay) VALUES (:amount, :customerKey, :createDate, :tariff, :userId, :firstPay)");
+    $createOrderQuery->execute([':amount' => $amount, ':customerKey' => $customerId, ':createDate' => time(), ':tariff' => $tariff, ':userId' => $userId, ':firstPay' => (int) $firstPay]);
     $orderId = $pdo->lastInsertId();
     return $orderId;
 }
@@ -81,7 +81,7 @@ function getOrdersList()
 function getOrdersListForCompany($companyId)
 {
     global $pdo;
-    $ordersQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, processed FROM orders WHERE customer_key = :companyId");
+    $ordersQuery = $pdo->prepare("SELECT order_id, amount, customer_key, create_date, payment_id, status, error_code, rebill_id, processed, first_pay FROM orders WHERE customer_key = :companyId");
     $ordersQuery->execute([':companyId' => $companyId]);
     $ordersResult = $ordersQuery->fetchAll(PDO::FETCH_ASSOC);
     $ordersKeys = array_column($ordersResult, 'order_id');
@@ -526,6 +526,17 @@ function refundPayment($orderId)
     if ($order['status'] != 'CONFIRMED') {
         $result['error'] = 'Payment was not confirmed';
         return $result;
+    }
+    if ($order['first_pay']) {
+        if (time() - $order['create_date'] > 14 * 24 * 3600) {
+            $result['error'] = 'Its too late';
+            return $result;
+        }
+    } else {
+        if (time() - $order['create_date'] > 24 * 3600) {
+            $result['error'] = 'Its too late';
+            return $result;
+        }
     }
     $api = new TinkoffMerchantAPI(
         TTKEY,  //Ваш Terminal_Key
