@@ -24,6 +24,10 @@ if ($_POST['module'] == 'changeData') {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
     $phone = preg_replace("~[^0-9]~", '', $_POST['phone']);
     $about = filter_var($_POST['about'], FILTER_SANITIZE_STRING);
+    $birthdate = filter_var($_POST['birthdate'], FILTER_SANITIZE_STRING);
+    if (!preg_match('~[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}~', $birthdate)){
+        $birthdate = null;
+    }
 
     $vk = filter_var($_POST['vk'], FILTER_SANITIZE_URL);
     $vk = preg_replace('~((http[s]?:\/\/)?(www.)?(m.)?vk.com\/)?(\/)?~', '', $vk);
@@ -45,7 +49,7 @@ if ($_POST['module'] == 'changeData') {
     $userName = trim(DBOnce('name', 'users', 'id=' . $id));
     $userSurname = trim(DBOnce('surname', 'users', 'id=' . $id));
 
-    setNewUserData($name, $surname, $email, $phone, json_encode($socialNetworks), $about);
+    setNewUserData($name, $surname, $email, $phone, json_encode($socialNetworks), $about, $birthdate);
 
     if ($userName != $name || $userSurname != $surname) {
         createAlterAvatar($id);
