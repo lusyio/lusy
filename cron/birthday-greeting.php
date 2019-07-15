@@ -35,7 +35,7 @@ foreach ($birthdayUsers AS $user) {
 
         // Сообщение в лог
         $companyUsersQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND is_fired = 0");
-        $companyUsersQuery->execute([':idCompany' => $user['idcompany']]);
+        $companyUsersQuery->execute([':companyId' => $user['idcompany']]);
         $companyUsers = $usersQuery->fetchAll(PDO::FETCH_ASSOC);
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
