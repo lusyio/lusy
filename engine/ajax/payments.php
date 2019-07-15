@@ -93,11 +93,11 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         // Подключаем Класс Тинькофф АПИ
     $api = new TinkoffMerchantAPI(TTKEY,  TSKEY);
 
-    $financeEvents = getFinanceEvents($idc);
-    $wasUsedFreePeriod = false;
-    foreach ($financeEvents as $event){
-        if ($event['event'] == 'tariffChange' && $event['comment'] > 0){
-            $wasUsedFreePeriod = true;
+    $companyOrders = getOrdersListForCompany($idc);
+    $hasFirstPay = false;
+    foreach ($companyOrders as $order){
+        if ($order['first_pay'] == 1 && ($order['status'] == 'CONFIRMED' || $order['status'] == 'REFUNDED')){
+            $hasFirstPay = true;
             break;
         }
     }
@@ -112,15 +112,15 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
             exit;
         }
         $amount = 100;
-    } elseif ($companyTariff['tariff'] == 0 && !$wasUsedFreePeriod) {
-        //Создаем платеж в 1 рубль
-        $orderId = createMinimumOrder($idc, $selectedTariff, $id, true);
+    } elseif ($companyTariff['tariff'] == 0 && !$hasFirstPay) {
+        //Создаем первый платеж
+        $orderId = createOrder($idc, $selectedTariff, $id, true);
         if (!$orderId) {
             $result['error'] = 'Tariff not found';
             echo json_encode($result);
             exit;
         }
-        $amount = 100;
+        $amount = $tariffInfo['price'];
     } else {
         // Создаем внутренний платёж, выдаем ошибку если тариф не найден
         $orderId = createOrder($idc, $selectedTariff, $id);
