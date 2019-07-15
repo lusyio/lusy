@@ -20,7 +20,7 @@ function lastmess($iduser) {
 function lastChatMessage() {
     global $pdo;
     global $idc;
-    $sql = $pdo->prepare("SELECT c.message_id, c.text as mes, c.author_id as sender, c.datetime FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE u.idcompany = :companyId order by datetime DESC limit 1");
+    $sql = $pdo->prepare("SELECT c.message_id, c.text as mes, c.author_id as sender, c.datetime FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE c.company_id = :companyId order by datetime DESC limit 1");
     $sql->execute(array(':companyId' => $idc));
     $result = $sql->fetch(PDO::FETCH_ASSOC);
 
@@ -41,7 +41,7 @@ function numberOfNewChatMessages()
     global $pdo;
 
     $lastViewedMessage = DBOnce('last_viewed_chat_message', 'users', 'id = ' . $id);
-    $numberQuery = $pdo->prepare("SELECT COUNT(DISTINCT message_id) FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE u.idcompany = :companyId AND message_id > :lastViewedMessage");
+    $numberQuery = $pdo->prepare("SELECT COUNT(DISTINCT message_id) FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE c.company_id = :companyId AND message_id > :lastViewedMessage");
     $numberQuery->execute(array(':companyId' => $idc, ':lastViewedMessage' => $lastViewedMessage));
     $result = $numberQuery->fetch(PDO::FETCH_COLUMN);
     return $result;
@@ -135,7 +135,7 @@ function getChatMessageById($messageId)
     global $pdo;
     global $id;
     global $idc;
-    $query = "SELECT c.message_id, c.text as mes, c.author_id AS sender, c.datetime FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE u.idcompany = :companyId AND message_id = :messageId ORDER BY `datetime`";
+    $query = "SELECT c.message_id, c.text as mes, c.author_id AS sender, c.datetime FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE company_id = :companyId AND message_id = :messageId ORDER BY `datetime`";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':companyId' => $idc,':messageId' => $messageId));
     $result = $dbh->fetchAll(PDO::FETCH_ASSOC);
