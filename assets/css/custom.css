@@ -360,17 +360,13 @@ body{
     border-bottom: 1px solid #dee2e6!important;
 }
 
-.dialog-mail:hover .col{
-    color: white;
-}
-
 .dialog-mail:last-of-type{
     border-bottom: none !important;
 }
 
 .dialog-mail:hover{
     text-decoration: none;
-    background-color: #7387f8;
+    background-color: rgba(115, 135, 248, 0.21);
 }
 
 
