@@ -1,188 +1,4 @@
-<div class="row mb-3">
-    <div class="col">
-        <div class="card">
-            <div class="row">
-                <div class="col-lg-5 col-12 card-tariff-left">
-                    <div class="card-body ">
-                        <span class="small text-muted">У вас активирован</span>
-                        <h3>Пробный период</h3>
-                        <p>
-                            <span class="text-muted small">Плата автоматически спишется по истечению срока его действия</span>
-                        </p>
-                        <div class="d-flex">
-                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
-                                   type="text">
-                            <button class="btn btn-primary" id="promoBtn">
-                                Применить
-                            </button>
-                        </div>
-                        <span class="small text-muted">Если вы где-то нашли промокод, скорее вводите и получайте бонусы 🌟</span>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-12 card-tariff-right">
-                    <div class="card-body">
-                        <?php if ($companyTariff['is_card_binded']): // Если привязана карта?>
-                            <div class="d-flex" style="justify-content: space-between">
-                                <span class="small text-muted mt-1">Ваша банковская карта</span>
-                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                        data-target="#deleteCardModal">
-                                    Отвязать карту
-                                </button>
-                            </div>
-                        <?php else: // Если не привязана карта ?>
-                            <div class="d-flex" style="justify-content: space-between">
-                                <span class="small text-muted mt-1">Ваша банковская карта</span>
-                                <button id="addCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                        data-target="#addCardModal">
-                                    Привязать карту
-                                </button>
-                            </div>
-                            <div style="z-index: 2">
-                            <span class="text-muted fa-stack fa-1x">
-                                <i class="far fa-credit-card fa-stack-1x icon-credit-card"></i>
-                                <i class="fas fa-slash fa-stack-2x "></i>
-                            </span>
-                                <span><?= date('d.m', strtotime('+1 day', $companyTariff['payday'])); ?> ваш тарифный план изменится на Бесплатный</span>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <span class="d-block text-muted bg-icon-ruble">
-                <i class="fas fa-ruble-sign icon-ruble"></i>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mb-3">
-    <div class="col">
-        <div class="card">
-            <div class="row">
-                <div class="col-12 col-lg-5 card-tariff-left">
-                    <div class="card-body">
-                        <span class="small text-muted">Ваш тарифный план</span>
-                        <h2>Стартовый</h2>
-                        <p>
-                            <span class="small text-muted">На время действия промокода Lusy2019 до 12.08</span>
-                        </p>
-                        <div class="d-flex">
-                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
-                                   type="text">
-                            <button class="btn btn-primary" id="promoBtn">
-                                Применить
-                            </button>
-                        </div>
-                            <span class="small text-muted">Если вы где-то нашли промокод, скорее вводите и получайте бонусы 🌟</span>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-12 card-tariff-right">
-                    <div class="card-body">
-                        <?php if ($companyTariff['is_card_binded']): // Если привязана карта?>
-                            <div class="d-flex" style="justify-content: space-between">
-                                <span class="small text-muted mt-1">Ваша банковская карта</span>
-                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                        data-target="#deleteCardModal">
-                                    Отвязать карту
-                                </button>
-                            </div>
-                            <div style="z-index: 2">
-                            <span class="text-muted">
-                            <i class="far fa-credit-card icon-credit-card"></i>
-                            </span>
-                                <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?> в размере <?= $tariffInfo['price'] / 100; ?> руб.</span>
-                            </div>
-                        <?php else: // Если не привязана карта ?>
-                            <div class="d-flex" style="justify-content: space-between">
-                                <span class="small text-muted mt-1">Ваша банковская карта</span>
-                                <button id="addCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                        data-target="#addCardModal">
-                                    Привязать карту
-                                </button>
-                            </div>
-                            <div style="z-index: 2">
-                            <span class="text-muted fa-stack fa-1x">
-                                <i class="far fa-credit-card fa-stack-1x icon-credit-card"></i>
-                                <i class="fas fa-slash fa-stack-2x "></i>
-                            </span>
-                                <span><?= date('d.m', strtotime('+1 day', $companyTariff['payday'])); ?> ваш тарифный план изменится на Бесплатный</span>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <span class="d-block text-muted bg-icon-ruble">
-                <i class="fas fa-ruble-sign icon-ruble"></i>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mb-3">
-    <div class="col">
-        <div class="card">
-            <div class="row">
-                <div class="col-12 col-lg-5 card-tariff-left">
-                    <div class="card-body">
-                        <span class="small text-muted">Ваш тарифный план</span>
-                        <h2>Уверенный</h2>
-                        <p>
-                            <span class="small text-muted">Оплачен до 08.07</span>
-                        </p>
-                        <div class="d-flex">
-                            <input class="form-control text-muted" id="promoInput" placeholder="Введите промокод"
-                                   type="text">
-                            <button class="btn btn-primary" id="promoBtn">
-                                Применить
-                            </button>
-                        </div>
-                        <span class="small text-muted">Если вы где-то нашли промокод, скорее вводите и получайте бонусы 🌟</span>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-12 card-tariff-right">
-                    <div class="card-body">
-                        <?php if ($companyTariff['is_card_binded']): // Если привязана карта?>
-                            <div class="d-flex" style="justify-content: space-between">
-                                <span class="small text-muted mt-1">Ваша банковская карта</span>
-                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                        data-target="#deleteCardModal">
-                                    Отвязать карту
-                                </button>
-                            </div>
-                            <div style="z-index: 2">
-                            <span class="text-muted">
-                            <i class="far fa-credit-card icon-credit-card"></i>
-                            </span>
-                                <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?> в размере <?= $tariffInfo['price'] / 100; ?> руб.</span>
-                            </div>
-                        <?php else: // Если не привязана карта ?>
-                            <div class="d-flex" style="justify-content: space-between">
-                                <span class="small text-muted mt-1">Ваша банковская карта</span>
-                                <button id="deleteCard" class="btn btn-sm btn-light" data-toggle="modal"
-                                        data-target="#deleteCardModal">
-                                    Привязать карту
-                                </button>
-                            </div>
-                            <div style="z-index: 2">
-                            <span class="text-muted fa-stack fa-1x">
-                                <i class="far fa-credit-card fa-stack-1x icon-credit-card"></i>
-                                <i class="fas fa-slash fa-stack-2x "></i>
-                            </span>
-                                <span><?= date('d.m', strtotime('+1 day', $companyTariff['payday'])); ?> ваш тарифный план изменится на Бесплатный</span>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <span class="d-block text-muted bg-icon-ruble">
-                <i class="fas fa-ruble-sign icon-ruble"></i>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
 <?php if ($companyTariff['tariff'] == 0): ?>
-
     <div class="row mb-3">
         <div class="col">
             <div class="card">
@@ -266,6 +82,13 @@
                                     <span><?= date('d.m', $companyTariff['payday']); ?> будет списание с карты <?= $companyTariff['pan']; ?> в размере <?= $tariffInfo['price'] / 100; ?> руб.</span>
                                 </div>
                             <?php else: // Если не привязана карта ?>
+                                <div class="d-flex" style="justify-content: space-between">
+                                    <span class="small text-muted mt-1">Ваша банковская карта</span>
+                                    <button id="showAddCardModal" class="btn btn-sm btn-light" data-toggle="modal"
+                                            data-target="#addCardModal">
+                                        Привязать карту
+                                    </button>
+                                </div>
                                 <div style="z-index: 2">
                             <span class="text-muted fa-stack fa-1x">
                                 <i class="far fa-credit-card fa-stack-1x icon-credit-card"></i>
@@ -290,7 +113,7 @@
     <?php foreach ($tariffList as $tariff): ?>
         <?php if ($tariff['tariff_id'] == 0) continue; ?>
         <div class="col-sm-4 mb-3">
-            <div class="card">
+            <div class="card <?= ($tariff['tariff_id'] == $companyTariff['tariff']) ? 'bg-warning' : ''; ?>">
                 <div class="card-body">
                     <h3 class="font-weight-bold"><?= $tariff['tariff_name']; ?></h3>
                     <p>
@@ -465,6 +288,62 @@ endforeach; ?>
             <div class="modal-footer border-0" style="justify-content: space-between">
                 <i id="deleteCardBtn" class="fas fa-check delete-card"></i>
                 <i class="fas fa-times cancel-delete-card" data-dismiss="modal"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog d-flex" role="document">
+        <div>
+            <div class="modal-content right-modal border-0 pt-4">
+                <div class="modal-header border-0 text-center d-block">
+                    <h5 class="modal-title" id="exampleModalLabel">Тарифный план "<?= $tariffInfo['tariff_name']; ?>"</h5>
+                </div>
+                    <div class="modal-body text-left">
+                        <p>Вы собираетесь привязать карту для оплаты подписки:</p>
+                        <table class="table w-100 border">
+                            <tr>
+                                <td>Период списания средств</td>
+                                <td><?= $tariffInfo['period_in_months']; ?> <?= ngettext('month', 'months', $tariffInfo['period_in_months']) ?></td>
+                            </tr>
+                            <tr>
+                                <td>Стоимость в месяц</td>
+                                <td><?= $tariffInfo['price'] / (100 * $tariffInfo['period_in_months']); ?> руб.</td>
+                            </tr>
+                            <tr>
+                                <td>Дата следующего платежа</td>
+                                <td class="font-weight-bold"><?= date('d.m.Y', $companyTariff['payday']); ?></td>
+                            </tr>
+                            <tr>
+                                <td>Итого платеж</td>
+                                <td class="font-weight-bold"><?= $tariffInfo['price'] / 100; ?> руб.</td>
+                            </tr>
+                        </table>
+                        <p>Для привязывания карты мы спишем с вашей карты 1 рубль и вернём его</p>
+                        <p class="oferta-field"><input type="checkbox" id="ofertaAddModal"
+                                                       style=" position: relative; top: 7px; margin-right: 10px; ">Я
+                            согласен с <a
+                                    href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
+                                    class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
+                        <hr>
+                        <span class="position-absolute" id="disabledBtn" style="width: 92%; height: 8%; z-index: 100000; opacity: 0">
+                            adasd
+                        </span>
+                        <button class="btn btn-secondary w-100" id="addCard" disabled style="height: 38px">
+                            Привязать карту
+                            <div class="spinner-border spinner-border-sm text-white" role="status"
+                                 style="display: none">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
+                    </div>
+                    <span class="icon-close-modal">
+                    <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                                class="fas fa-times text-muted"></i></button>
+                </span>
+
             </div>
         </div>
     </div>
@@ -769,12 +648,56 @@ endforeach; ?>
                 },
             });
         });
+        $('#addCard').on('click', function () {
+            var fd = new FormData();
+            fd.append('module', 'bindCard');
+            fd.append('ajax', 'payments');
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                xhr: function () {
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.upload.onprogress = function (e) {
+                        $('.spinner-border-sm').show();
+                    };
+                    return xhr;
+                },
+                success: function (response) {
+                    if (response.error === '') {
+                        if (response.url !== '') {
+                            window.open(response.url);
+                            $('#addCardModal').modal('hide');
+                            $('#refreshModalLabel').text('Вы были перенаправлены на сайт Банка для совершения платежа');
+                            $('#refreshModal').modal('show');
+                        } else {
+                            console.log(response.status);
+                        }
+                    } else {
+                        console.log(response.error);
+                    }
+                },
+                complete: function () {
+                    $('.spinner-border-sm').hide();
+                },
+            });
+        });
 
         $('#payModal').on('hide.bs.modal', function () {
             $('#oferta').prop("checked", false);
             $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Оплатить подписку');
             $('#changeTariff').attr('disabled', true).addClass('btn-secondary').text('Сменить тариф');
             $('#oferta').attr('disabled', false);
+        });
+        $('#addCardModal').on('hide.bs.modal', function () {
+            $('#ofertaAddModal').prop("checked", false);
+            $('#addCard').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Оплатить подписку');
+            $('#ofertaAddModal').attr('disabled', false);
         });
 
         $('#refreshModal').on('hide.bs.modal', function () {
@@ -792,7 +715,15 @@ endforeach; ?>
                 $('#disabledBtn').show();
             }
         });
-
+        $('#ofertaAddModal').on('change', function () {
+            if ($(this).is(':checked')) {
+                $('#addCard').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
+                $('#disabledBtn').hide();
+            } else {
+                $('#addCard').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
+                $('#disabledBtn').show();
+            }
+        });
 
     });
 </script>
