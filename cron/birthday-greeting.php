@@ -22,8 +22,8 @@ foreach ($birthdayUsers AS $user) {
     if (date('H') == 9) {
         // Сообщение в чат
         $message = 'Сегодня день рождения отмечает ' . trim($user['name'] . ' ' . $user['surname']) . '. ПОЗДРАВЛЯЕМ!';
-        $addMessageToChatQuery = $pdo->prepare("INSERT INTO chat (text, author_id, datetime) VALUES (:message, :authorId, :datetime)");
-        $addMessageToChatQuery->execute(array(':message' => $message, ':authorId' => 1, ':datetime' => time()));
+        $addMessageToChatQuery = $pdo->prepare("INSERT INTO chat (text, author_id, datetime, company_id) VALUES (:message, :authorId, :datetime, :companyId)");
+        $addMessageToChatQuery->execute(array(':message' => $message, ':authorId' => 1, ':datetime' => time(), ':companyId' => $idc));
         $messageId = $pdo->lastInsertId();
 
         $cometSql = $cometPdo->prepare("INSERT INTO pipes_messages (name, event, message) VALUES (:channelName, 'newChat', :jsonMesData)");

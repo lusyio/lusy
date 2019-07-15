@@ -64,7 +64,7 @@ function getChatMessages()
     global $pdo;
     global $id;
     global $idc;
-    $query = "SELECT c.message_id, c.text as mes, c.author_id AS sender, c.datetime FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE u.idcompany = :companyId ORDER BY `datetime`";
+    $query = "SELECT c.message_id, c.text as mes, c.author_id AS sender, c.datetime FROM chat c LEFT JOIN users u ON c.author_id = u.id WHERE c.company_id = :companyId ORDER BY `datetime`";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':companyId' => $idc));
     $result = $dbh->fetchAll(PDO::FETCH_ASSOC);
