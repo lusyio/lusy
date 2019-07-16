@@ -68,7 +68,9 @@
 .label-tasknew {
     padding-left: 30px;
     margin-bottom: 13px;
-    color: #2b3043
+    color: #28416b;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 #name::placeholder {
