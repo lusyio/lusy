@@ -1103,6 +1103,12 @@ input:checked[type="checkbox"]::before {
     font-weight: 300
 }
 
+.add-subtask {
+    background-color: #ffffff;
+    border-radius: 5px;
+    font-weight: 300
+}
+
 .add-worker {
     background-color: #ffffff;
     border-radius: 5px;
@@ -2401,6 +2407,16 @@ span.date {
     padding: .375rem .75rem;
 }
 
+.container-subtask {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+}
+
+.container-subtask:hover {
+    cursor: pointer;
+}
+
 .container-responsible:hover {
     cursor: pointer;
 }
@@ -2447,6 +2463,17 @@ span.date {
 .select-responsible {
     padding: 7px;
     transition: 200ms;
+}
+
+.select-subtask {
+    padding: 7px;
+    transition: 200ms;
+}
+
+.select-subtask:hover {
+    color: #444;
+    background-color: #f2f2f2;
+    cursor: pointer;
 }
 
 .select-responsible:hover {

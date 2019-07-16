@@ -84,6 +84,31 @@
     border-top-right-radius: 5px;
 }
 
+.subtask{
+    overflow: scroll;
+    height: 500px;
+    display: none;
+    width: calc(100%);
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 2;
+    right: 0px;
+    bottom: 1px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, .1);
+    padding: 0;
+    top: 100px;
+}
+
+.container-subtask.disabled{
+    background-color: #f8f8f8;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    cursor: default !important;
+}
+
 .card-tasknew .form-control:disabled, .form-control[readonly]{
     background-color: #f8f8f8;
     border-top-left-radius: 0 !important;

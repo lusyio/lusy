@@ -82,6 +82,26 @@ $(document).ready(function () {
         }
     }
 
+//работа с надзадачами
+    $(".container-subtask").on('click', function () {
+        $(".subtask").fadeToggle(200);
+    });
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest(".container-subtask").length) {
+            $('.subtask').fadeOut(300);
+        }
+    });
+
+    $(".select-subtask").on('click', function () {
+        $('.placeholder-subtask').hide();
+        var id = $(this).attr('val');
+        var selected = $('.add-subtask:visible').attr('val');
+        $('.subtask-card').find("[val = " + selected + "]").removeClass('d-none');
+        $(this).addClass('d-none');
+        $('.add-subtask').addClass('d-none');
+        $('.container-subtask').find("[val = " + id + "]").removeClass('d-none');
+    });
 
 //работа с ответственными
     $(".container-responsible").on('click', function () {
