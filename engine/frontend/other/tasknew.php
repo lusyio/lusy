@@ -74,7 +74,6 @@
             </label>
             <div class="coworkers-toggle container container-coworker border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
                  style="padding-top: 10px;">
-                <div class="placeholder-coworkers">Не выбран</div>
                 <?php
                 $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                 foreach ($users as $n) { ?>
@@ -84,8 +83,11 @@
                         <i class="fas fa-times icon-newtask-delete-coworker"></i>
                     </div>
                 <?php } ?>
-                <div class="position-absolute icon-newtask icon-newtask-add-coworker">
-                    <i class="fas fa-caret-down"></i>
+                <div class="placeholder-coworkers position-relative">
+                    Не выбран
+                    <div class="position-absolute icon-newtask icon-newtask-add-coworker">
+                        <i class="fas fa-caret-down"></i>
+                    </div>
                 </div>
             </div>
 
@@ -98,29 +100,60 @@
 </div>
 
 <div class="row mt-25-tasknew">
+    <div class="col-12 text-center position-relative">
+        <div class="other-func text-center position-relative" data-toggle="collapse" href="#collapseFunctions"
+             role="button" aria-expanded="false" aria-controls="collapseFunctions">
+            <div class="additional-func">
+                <span>Дополнительные функции <i class="fas fa-caret-down"></i></span>
+            </div>
+        </div>
+        <div class="collapse" id="collapseFunctions">
+            <div class="row">
+                <div class="col-12 col-lg-8 top-block-tasknew">
+                    <div class="card card-tasknew">
+                        <div class="card card-tasknew">
+                            <label class="label-responsible text-left">
+                                Надзадачи
+                            </label>
+                            <select class="custom-select border-0 card-body-tasknew" id="startDate"
+                                    style="height: 50px;font-size: 14px">
+                                <option selected disabled>Выберите надзадачу</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="card card-tasknew">
+                        <label class="label-responsible text-left">
+                            Дата старта
+                        </label>
+                        <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
+                               style="height: 50px;font-size: 14px" min="<?= $GLOBALS["now"] ?>"
+                               value="<?= $GLOBALS["now"] ?>" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-25-tasknew">
     <div class="col-12 col-lg-8 top-block-tasknew">
         <label class="label-tasknew">
             Прикрепленные файлы
         </label>
+        <div style="display: none;padding-left: 30px;"
+             class="file-name container-files">
+        </div>
         <div style="padding-left: 20px;">
             <?php $uploadModule = 'task'; // Указываем тип дропдауна прикрепления файлов?>
             <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; // Подключаем дропдаун прикрепления файлов?>
         </div>
-        <div style="display: none;padding-left: 30px;"
-             class="file-name container-files">
-        </div>
     </div>
     <div class="col-lg-4 col-12">
-        <label class="label-tasknew">
-            Дополнительные функции
-        </label>
-        <div class="mb-2 card card-tasknew">
-            <label class="label-responsible">
-                Дата старта
-            </label>
-            <input type="date" class="form-control border-0 card-body-tasknew" id="startDate" style="height: 50px;font-size: 14px" min="<?= $GLOBALS["now"] ?>"
-                   value="<?= $GLOBALS["now"] ?>" required>
-        </div>
     </div>
 </div>
 
@@ -304,26 +337,50 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-<!--<div class="modal fade" id="taskLimitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
-<!--     aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header border-0 text-center d-block">-->
-<!--                <h5 class="modal-title" id="exampleModalLabel">Лимит задач</h5>-->
-<!--            </div>-->
-<!--            <div class="modal-body text-center">-->
-<!--                Извините, у вас ичерпан лимит задач в этом месяце. Безлимитное число задач доступно в Premium-->
-<!--                версии.-->
-<!--            </div>-->
-<!--            <div class="modal-footer border-0">-->
-<!--                --><?php //if ($isCeo): ?>
-<!--                    <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>-->
-<!--                --><?php //endif; ?>
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center d-block">
+                <h5 class="modal-title" id="exampleModalLabel">Подзадачи</h5>
+            </div>
+            <div class="modal-body text-center">
+                Введите описание подзадачи и что-нибудь еще
+            </div>
+            <div class="mb-2 card card-tasknew editor-card">
+                <div id="editor1" class="border-0">
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <?php if ($isCeo): ?>
+                    <a href="/payment/" class="btn btn-primary">Создать подзадачу</a>
+                <?php endif; ?>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="taskLimitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center d-block">
+                <h5 class="modal-title" id="exampleModalLabel">Лимит задач</h5>
+            </div>
+            <div class="modal-body text-center">
+                Извините, у вас ичерпан лимит задач в этом месяце. Безлимитное число задач доступно в Premium
+                версии.
+            </div>
+            <div class="modal-footer border-0">
+                <?php if ($isCeo): ?>
+                    <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
+                <?php endif; ?>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/assets/js/createtask.js?1"></script>
 <?php if ($tariff == 1): ?>
     <script type="text/javascript">
@@ -470,6 +527,10 @@
         });
     });
     var quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Опишите суть задания...',
+    });
+    var quill = new Quill('#editor1', {
         theme: 'snow',
         placeholder: 'Опишите суть задания...',
     });

@@ -98,6 +98,52 @@
     background-color: #f8f9fa;
 }
 
+.additional-func{
+    z-index: 2;
+    position: relative;
+}
+
+.additional-func span{
+    background: #fcfcfc;
+    padding: 0 5%;
+    color: #a2a5ac;
+}
+
+.other-func:hover span{
+    color: #2b3043;
+    cursor: pointer;
+}
+
+.icon-newtask-add-coworker{
+    top: 0 !important;
+    right: -15px !important;
+}
+
+.placeholder-coworkers{
+    display: inline !important;
+}
+
+.card-body-tasknew:focus{
+    box-shadow: none!important;
+}
+
+.add-worker > .icon-newtask-delete-coworker{
+    color: rgba(188, 0, 0, 0.51);
+}
+
+.other-func:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    top: 50%;
+    width: 100%;
+    z-index: 1;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
 .label-responsible{
     padding-left: 30px;
     padding-top: 20px;

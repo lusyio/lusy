@@ -1240,7 +1240,7 @@ input:checked[type="checkbox"]::before {
     position: absolute;
     z-index: 1;
     right: 16px;
-    box-shadow: 2px 2px 15px rgba(0, 0, 0, .3);
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, .1);
     padding: 0;
 }
 
@@ -1254,7 +1254,7 @@ input:checked[type="checkbox"]::before {
     position: absolute;
     z-index: 2;
     right: 15px;
-    box-shadow: 2px 2px 15px rgba(0, 0, 0, .3);
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, .1);
     padding: 0;
 }
 
