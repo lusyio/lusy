@@ -60,9 +60,10 @@ if($_POST['module'] == 'changeTariff' && !empty($_POST['tariff'])) {
             exit;
         }
     } else {
-        $bindResult = bindCard($idc, $id, $selectedTariff);
+        $result = bindCard($idc, $id, $selectedTariff);
     }
-
+    echo json_encode($result);
+    exit;
 }
 
 if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
