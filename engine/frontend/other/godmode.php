@@ -417,8 +417,8 @@
             var promoName = $('#promocodeName').val();;
             var promoDays = $('#promoDays').val();;
             var promoDate = $('#validUntilDate').val();
-            var promoMultiple = $('#multiple').prop('checked');
-            var promoUsed = $('#used').prop('checked');
+            var promoMultiple = +$('#multiple').prop('checked');
+            var promoUsed = +$('#used').prop('checked');
 
             var fd = new FormData;
             fd.append('ajax','godmode');
