@@ -670,3 +670,85 @@ function addBindCardEvent($companyId, $orderId, $amount, $comment)
     ];
     $addEventQuery->execute($queryData);
 }
+
+function bindCard($companyId, $userId = 0, $tariff = null)
+{
+    $result = [
+        'url' => '',
+        'error' => '',
+        'status' => '',
+        'errorText' => '',
+    ];
+    $companyTariff = getCompanyTariff($companyId);
+    if (is_null($tariff)) {
+        $selectedTariff = $companyTariff['tariff'];
+    } else {
+        $selectedTariff = $tariff;
+    }
+    $tariffInfo = getTariffInfo($companyTariff['tariff']);
+
+    // Выдаем ошибку если карта уже привязана
+    if ($companyTariff['is_card_binded']) {
+        $result['error'] = 'Card is already bound';
+        return $result;
+    }
+
+    // Выдаем ошибку, если привязываем карту к бесплатному тарифу
+    if ($companyTariff['tariff'] == 0) {
+        $result['error'] = 'Cant bind card to free tariff';
+        return $result;
+    }
+
+    // Подключаем Класс Тинькофф АПИ
+    $api = new TinkoffMerchantAPI(TTKEY,  TSKEY);
+
+    $orderId = createMinimumOrder($companyId, $selectedTariff, $userId, false);
+    if (!$orderId) {
+        $result['error'] = 'Tariff not found';
+        return $result;
+    }
+    $amount = 100;
+
+
+    // Формируем массив данных для создания ссылки на оплату - стоимость в копейках, номер внутреннего заказа,
+    // флаг рекуррентного платежа, ИД компании, Описание платежа, отображаемое на банковской странице оплаты
+    $paymentArgs = [
+        'Amount' => $amount,
+        'OrderId' => $orderId,
+        'Recurrent' => 'Y',
+        'CustomerKey' => $companyId,
+        'SuccessURL' => 'https://s.lusy.io/payment/',
+        'Description' => 'Оплата подписки по тарифу "' . $tariffInfo['tariff_name'] . '" (' . $tariffInfo['period_in_months'] . ' ' . ngettext('month', 'months', $tariffInfo['period_in_months']) . ')',
+    ];
+
+    try {
+        $api->init($paymentArgs);
+    } catch (Exception $e) {
+        //При ошибке создания счета записываем стектрейс в лог и выдаем ошибку
+        ob_start();
+        echo "Счёт не сформирован\n";
+        var_dump($e->getTrace());
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+        $result['error'] = 'Order not created';
+        return $result;
+    }
+    // Получаем json ответ от АПИ банка, преобразуем его в массив
+    $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
+
+    // При успешном статусе записываем ссылку на страницу оплаты, обновляем внутренний заказ полученными от
+    // АПИ банка данными, при неудаче - делаем запись в лог и выдаем код ошибки АПИ банка
+    if ($response['Success']) {
+        updateOrderOnSuccess($response);
+        $result['url'] = $response['PaymentURL'];
+    } else {
+        ob_start();
+        echo "Ошибка при создании счета\n";
+        var_dump($response);
+        $error = ob_get_clean();
+        addToPaymentsErrorLog($error);
+        $result['error'] = $response['ErrorCode'];
+        $result['errorText'] = $response['Details'];
+    }
+    return $result;
+}

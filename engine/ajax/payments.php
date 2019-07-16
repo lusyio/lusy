@@ -40,23 +40,29 @@ if($_POST['module'] == 'changeTariff' && !empty($_POST['tariff'])) {
 
     $selectedTariff = filter_var($_POST['tariff'], FILTER_SANITIZE_NUMBER_INT);
 
-    // Выдаем ошибку при попытке смены текущего тарифа на этот же тариф
     $companyTariff = getCompanyTariff($idc);
-    if ($selectedTariff == $companyTariff['tariff'] && $companyTariff['is_card_binded']) {
-        $result['error'] = 'It is your current tariff';
-        echo json_encode($result);
-        exit;
-    }
-    // Если уже есть платный тариф и карта привязана то оплату не производим, просто меняем тариф
-    if ($companyTariff['tariff'] != 0 && $companyTariff['is_card_binded']) {
-        if (changeTariff($idc, $selectedTariff)) {
-            $result['status'] = 'Tariff has been changed';
-        } else {
-            $result['error'] = 'Tariff has not been changed';
+
+    if ($companyTariff['is_card_binded']) {
+        // Выдаем ошибку при попытке смены текущего тарифа на этот же тариф
+        if ($selectedTariff == $companyTariff['tariff']) {
+            $result['error'] = 'It is your current tariff';
+            echo json_encode($result);
+            exit;
         }
-        echo json_encode($result);
-        exit;
+        // Если уже есть платный тариф и карта привязана то оплату не производим, просто меняем тариф
+        if ($companyTariff['tariff'] != 0) {
+            if (changeTariff($idc, $selectedTariff)) {
+                $result['status'] = 'Tariff has been changed';
+            } else {
+                $result['error'] = 'Tariff has not been changed';
+            }
+            echo json_encode($result);
+            exit;
+        }
+    } else {
+        $bindResult = bindCard($idc, $id, $selectedTariff);
     }
+
 }
 
 if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
@@ -87,8 +93,6 @@ if($_POST['module'] == 'getPaymentLink' && !empty($_POST['tariff'])) {
         echo json_encode($result);
         exit;
     }
-
-
 
         // Подключаем Класс Тинькофф АПИ
     $api = new TinkoffMerchantAPI(TTKEY,  TSKEY);
@@ -281,87 +285,7 @@ if($_POST['module'] == 'usePromocode' && !empty($_POST['promocode'])) {
 }
 
 if($_POST['module'] == 'bindCard') {
-
-    $result = [
-        'url' => '',
-        'error' => '',
-        'status' => '',
-        'errorText' => '',
-    ];
-    $companyTariff = getCompanyTariff($idc);
-    $tariffInfo = getTariffInfo($companyTariff['tariff']);
-    $selectedTariff = $companyTariff['tariff'];
-
-    // Выдаем ошибку если карта уже привязана
-    if ($companyTariff['is_card_binded']) {
-        $result['error'] = 'Card is already bound';
-        echo json_encode($result);
-        exit;
-    }
-
-    // Выдаем ошибку, если привязываем карту к бесплатному тарифу
-    if ($companyTariff['tariff'] == 0) {
-        $result['error'] = 'Cant bind card to free tariff';
-        echo json_encode($result);
-        exit;
-    }
-
-    // Подключаем Класс Тинькофф АПИ
-    $api = new TinkoffMerchantAPI(TTKEY,  TSKEY);
-
-    $tariffInfo = getTariffInfo($selectedTariff);
-
-    if ($companyTariff['tariff'] != 0) {
-        $orderId = createMinimumOrder($idc, $selectedTariff, $id, false);
-        if (!$orderId) {
-            $result['error'] = 'Tariff not found';
-            echo json_encode($result);
-            exit;
-        }
-        $amount = 100;
-    }
-
-    // Формируем массив данных для создания ссылки на оплату - стоимость в копейках, номер внутреннего заказа,
-    // флаг рекуррентного платежа, ИД компании, Описание платежа, отображаемое на банковской странице оплаты
-    $paymentArgs = [
-        'Amount' => $amount,
-        'OrderId' => $orderId,
-        'Recurrent' => 'Y',
-        'CustomerKey' => $idc,
-        'SuccessURL' => 'https://s.lusy.io/payment/',
-        'Description' => 'Оплата подписки по тарифу "' . $tariffInfo['tariff_name'] . '" (' . $tariffInfo['period_in_months'] . ' ' . ngettext('month', 'months', $tariffInfo['period_in_months']) . ')',
-    ];
-
-    try {
-        $api->init($paymentArgs);
-    } catch (Exception $e) {
-        //При ошибке создания счета записываем стектрейс в лог и выдаем ошибку
-        ob_start();
-        echo "Счёт не сформирован\n";
-        var_dump($e->getTrace());
-        $error = ob_get_clean();
-        addToPaymentsErrorLog($error);
-        $result['error'] = 'Order not created';
-        echo json_encode($result);
-        exit;
-    }
-    // Получаем json ответ от АПИ банка, преобразуем его в массив
-    $response = json_decode(htmlspecialchars_decode($api->__get('response')), true);
-
-    // При успешном статусе записываем ссылку на страницу оплаты, обновляем внутренний заказ полученными от
-    // АПИ банка данными, при неудаче - делаем запись в лог и выдаем код ошибки АПИ банка
-    if ($response['Success']) {
-        updateOrderOnSuccess($response);
-        $result['url'] = $response['PaymentURL'];
-    } else {
-        ob_start();
-        echo "Ошибка при создании счета\n";
-        var_dump($response);
-        $error = ob_get_clean();
-        addToPaymentsErrorLog($error);
-        $result['error'] = $response['ErrorCode'];
-        $result['errorText'] = $response['Details'];
-    }
+    $result = bindCard($idc, $id);
     echo json_encode($result);
 }
 
