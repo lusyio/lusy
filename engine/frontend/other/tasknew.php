@@ -107,36 +107,79 @@
                 <span>Дополнительные функции <i class="fas fa-caret-down"></i></span>
             </div>
         </div>
-        <div class="collapse" id="collapseFunctions">
-            <div class="row">
-                <div class="col-12 col-lg-8 top-block-tasknew">
-                    <div class="card card-tasknew">
+        <?php if ($tariff == 1): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
+            <div class="collapse" id="collapseFunctions">
+                <div class="row">
+                    <div class="col-12 col-lg-8 top-block-tasknew">
+                        <div class="card card-tasknew">
+                            <div class="card card-tasknew">
+                                <label class="label-responsible text-left">
+                                    Надзадачи
+                                </label>
+                                <select class="custom-select border-0 card-body-tasknew" id="startDate"
+                                        style="height: 50px;font-size: 14px">
+                                    <option selected disabled>Выберите надзадачу</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
                         <div class="card card-tasknew">
                             <label class="label-responsible text-left">
-                                Надзадачи
+                                Дата старта
                             </label>
-                            <select class="custom-select border-0 card-body-tasknew" id="startDate"
-                                    style="height: 50px;font-size: 14px">
-                                <option selected disabled>Выберите надзадачу</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
+                                   style="height: 50px;font-size: 14px" min="<?= $GLOBALS["now"] ?>"
+                                   value="<?= $GLOBALS["now"] ?>" required>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-4">
-                    <div class="card card-tasknew">
-                        <label class="label-responsible text-left">
-                            Дата старта
-                        </label>
-                        <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
-                               style="height: 50px;font-size: 14px" min="<?= $GLOBALS["now"] ?>"
-                               value="<?= $GLOBALS["now"] ?>" required>
+            </div>
+        <?php else: ?>
+            <div class="collapse" id="collapseFunctions">
+                <div class="row">
+                    <div class="col-12 col-lg-8 top-block-tasknew">
+                        <div class="card card-tasknew">
+                            <div class="card card-tasknew">
+                                <label class="label-responsible text-left">
+                                    Надзадачи
+                                </label>
+                                <span class="position-absolute disabledBtnOptions"
+                                      style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">
+
+                            </span>
+                                <select class="custom-select border-0 card-body-tasknew" id="startDate"
+                                        style="height: 50px;font-size: 14px" disabled>
+                                    <option selected disabled>Выберите надзадачу</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="card card-tasknew">
+                            <label class="label-responsible text-left">
+                                Дата старта
+                            </label>
+                            <span class="position-absolute disabledBtnOptions"
+                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">
+
+                        </span>
+                            <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
+                                   style="height: 50px;font-size: 14px" min="<?= $GLOBALS["now"] ?>"
+                                   value="<?= $GLOBALS["now"] ?>" required disabled>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php
+        endif;
+        ?>
     </div>
 </div>
 
@@ -338,6 +381,26 @@
 <!--    </div>-->
 <!--</div>-->
 
+<div class="modal fade" id="freeOptionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center d-block">
+                <h5 class="modal-title" id="exampleModalLabel">Дополнительные функции</h5>
+            </div>
+            <div class="modal-body text-center">
+                Извините, Дополнительные функции доступны только в Premium версии.
+            </div>
+            <div class="modal-footer border-0">
+                <?php if ($isCeo): ?>
+                    <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
+                <?php endif; ?>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="taskLimitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -481,6 +544,10 @@
 <?php endif; ?>
 <script>
     $(document).ready(function () {
+
+        $('.disabledBtnOptions').on('click', function () {
+            $('#freeOptionsModal').modal('toggle');
+        });
         $("#startDate").on('change', function () {
             var val = $(this).val();
             $('#datedone').attr('min', val);
