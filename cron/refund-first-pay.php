@@ -18,7 +18,7 @@ $ordersToRefundQuery = $pdo->prepare("SELECT order_id FROM orders WHERE status =
 $ordersToRefundQuery->execute();
 $ordersToRefund = $ordersToRefundQuery->fetchAll(PDO::FETCH_COLUMN);
 ob_start();
-var_dump($ordersToRefundQuery);
+var_dump($ordersToRefund);
 $error = ob_get_clean();
 addToPaymentsErrorLog($error);
 foreach ($ordersToRefund as $order) {
