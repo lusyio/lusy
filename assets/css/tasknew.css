@@ -60,7 +60,7 @@
 .ql-editor:after {
     position: absolute;
     top: 4px;
-    width: 87.5%;
+    width: 88.5%;
     border-top: 1px solid #c2c2c4;
     content: "";
 }
