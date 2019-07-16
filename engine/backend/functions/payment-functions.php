@@ -561,7 +561,7 @@ function refundPayment($orderId)
     } catch (Exception $e) {
         //При ошибке отмены платежа записываем стектрейс в лог и выдаем ошибку
         ob_start();
-        echo "Ошибка при отмене счета/платежа\n";
+        echo "Ошибка при отмене счета/платежа " . $orderId . "\n";
         var_dump($e->getTrace());
         $error = ob_get_clean();
         addToPaymentsErrorLog($error);
