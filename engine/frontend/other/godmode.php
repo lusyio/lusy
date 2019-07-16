@@ -71,6 +71,10 @@
             aria-controls="feedback" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
                 class="fas fa-lightbulb h3 mb-0 mt-2"></i>
         <p class="mb-0">Обратная связь</p></button>
+    <button type="button" data-toggle="collapse" href="#promocodes" role="button" aria-expanded="false"
+            aria-controls="feedback" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
+                class="fas fa-percentage h3 mb-0 mt-2"></i>
+        <p class="mb-0">Промокоды</p></button>
 </div>
 <div class="card mt-3 collapse" id="articles">
     <div class="card-body">
@@ -186,6 +190,40 @@
         </div>
     </div>
 </div>
+<div class="card mt-3 collapse" id="promocodes">
+    <div class="card-body">
+        <h5 class="text-center mb-3">Промокоды</h5>
+        <div class="promocodes-list">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Промокод</th>
+                    <th scope="col">Дни</th>
+                    <th scope="col">Срок действия</th>
+                    <th scope="col">Многоразовый</th>
+                    <th scope="col">Использован</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($promocodes as $code): ?>
+                <tr class="promo-row" data-promo-id="<?= $code['promocode_id']; ?>" data-date="<?= date('Y-m-d', $code['valid_until']); ?>"
+                data-multiple="<?= $code['is_multiple']; ?>" data-used="<?= $code['used']; ?>" data-days="<?= $code['days_to_add']; ?>"
+                data-promo-name="<?= $code['promocode_name']; ?>">
+                    <th scope="row"><?= $code['promocode_name']; ?></th>
+                    <td><?= $code['days_to_add']; ?></td>
+                    <td><?= date('d.m.Y', $code['valid_until']); ?></td>
+                    <td><?= ($code['is_multiple']) ? 'Да' : 'Нет'; ?></td>
+                    <td><?= ($code['used']) ? 'Да' : 'Нет'; ?></td>
+                </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="row float-right">
+            <button class="btn btn-primary mr-3" id="addPromoButton"><i class="fas fa-plus"></i></button>
+        </div>
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -200,6 +238,69 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="promoModal" tabindex="-1" role="dialog" aria-labelledby="promoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="promoModalLabel">Управление промокодом</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="promocodeId" class="" value="">
+                <input type="hidden" id="promocodeNameHidden" class="" value="">
+                <div class="input-group mt-3">
+                    <input type="text" id="promocodeName" class="form-control" value="">
+                </div>
+                <small class="text-muted text-muted-reg">
+                    Промокод
+                </small>
+                <div class="input-group mt-3">
+                    <input type="number" id="promoDays" class="form-control" value="">
+                </div>
+                <small class="text-muted text-muted-reg">
+                    Количество добавляемых дней
+                </small>
+                <div class="input-group mt-3">
+                    <input type="date" id="validUntilDate" class="form-control" value="">
+                </div>
+                <small class="text-muted text-muted-reg">
+                    Срок действия
+                </small>
+                <div class="input-group mt-3 pb-1">
+                    <input type="checkbox" id="multiple" style=" position: relative; top: 7px; margin-right: 10px; ">
+                </div>
+                <small class="text-muted text-muted-reg">
+                    Многопользовательский
+                </small>
+                <div class="input-group mt-3 pb-1">
+                    <input type="checkbox" id="used" style=" position: relative; top: 7px; margin-right: 10px; ">
+                </div>
+                <small class="text-muted text-muted-reg">
+                    Использован
+                </small>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="showCompanies">Активировать для компании</button>
+                <button type="button" class="btn btn-primary" id="savePromo"></button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+            <div class="modal-footer d-none" id="companiesBlock">
+                <select class="form-control" id="activatePromoCompany">
+                    <option value="" hidden></option>
+                    <option value="0">Все компании</option>
+                    <?php foreach ($companiesList as $company): ?>
+                        <option value="<?= $company['id']; ?>"><?= $company['idcompany']; ?>, <?= $company['full_company_name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="button" class="btn btn-primary" id="activatePromo">Активировать</button>
+            </div>
             </div>
         </div>
     </div>
@@ -274,6 +375,109 @@
             new Chart(ctx, config);
         });
     };
+
+    $(document).ready(function () {
+        $('.promo-row').on('click', function () {
+            var promoId = $(this).data('promo-id');
+            var promoName = $(this).data('promo-name');
+            var promoDays = $(this).data('days');
+            var promoDate = $(this).data('date');
+            var promoMultiple = $(this).data('multiple');
+            var promoUsed = $(this).data('used');
+            $('#promocodeId').val(promoId);
+            $('#promocodeName').val(promoName);
+            $('#promocodeNameHidden').val(promoName);
+            $('#promoDays').val(promoDays);
+            $('#validUntilDate').val(promoDate);
+            $('#multiple').prop('checked', promoMultiple);
+            $('#used').prop('checked', promoUsed);
+            $('#savePromo').text('Сохранить изменения');
+            $('#promoModal').modal('show');
+        });
+
+        $('#promoModal').on('hide.bs.modal', function () {
+            $('#promocodeId').val('');
+            $('#promocodeName').val('');
+            $('#promocodeNameHidden').val('');
+            $('#promoDays').val('');
+            $('#validUntilDate').val('');
+            $('#multiple').prop('checked', false);
+            $('#used').prop('checked', false);
+            $('#savePromo').text('');
+            $('#companiesBlock').addClass('d-none');
+        });
+
+        $('#addPromoButton').on('click', function () {
+            $('#savePromo').text('Добавить промокод');
+            $('#promoModal').modal('show');
+        })
+
+        $('#savePromo').on('click', function () {
+            var promoId = $('#promocodeId').val();
+            var promoName = $('#promocodeName').val();;
+            var promoDays = $('#promoDays').val();;
+            var promoDate = $('#validUntilDate').val();
+            var promoMultiple = $('#multiple').prop('checked');
+            var promoUsed = $('#used').prop('checked');
+
+            var fd = new FormData;
+            fd.append('ajax','godmode');
+            fd.append('promocodeId', promoId);
+            fd.append('promocodeName', promoName);
+            fd.append('promocodeDays', promoDays);
+            fd.append('promocodeDate', promoDate);
+            fd.append('promocodeMultiple', promoMultiple);
+            fd.append('promocodeUsed', promoUsed);
+            if (promoId === '') {
+                // Добавляем новый промокод
+                fd.append('module', 'addPromocode');
+            } else {
+                //Обновляем существующий промокод
+                fd.append('module', 'updatePromocode');
+            }
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (response) {
+                    console.log(response);
+                    if (response === '1') {
+                        location.reload();
+                    }
+                }
+            });
+        });
+
+        $('#showCompanies').on('click', function () {
+            $('#companiesBlock').removeClass('d-none');
+        });
+
+        $('#activatePromo').on('click', function () {
+            var promocodeNameHidden = $('#promocodeNameHidden').val();
+            var companyId = $('#activatePromoCompany').val();
+
+            var fd = new FormData;
+            fd.append('ajax','godmode');
+            fd.append('module', 'activatePromocode');
+            fd.append('promocodeName', promocodeNameHidden);
+            fd.append('companyId', companyId);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (response) {
+                    console.log(response);
+                    location.reload();
+                }
+            });
+        });
+    });
 </script>
 <script src="/assets/js/godmode.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
