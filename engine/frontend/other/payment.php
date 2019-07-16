@@ -52,6 +52,11 @@
                             <h2><?= $tariffInfo['tariff_name'] ?></h2>
                             <input type="hidden" id="currentTariff" value="<?= $companyTariff['tariff'] ?>">
                             <input type="hidden" id="isCardBinded" value="<?= $companyTariff['is_card_binded'] ?>">
+                            <?php if (!is_null($refundDeadline)): ?>
+                            <p>
+                                <span class="small text-muted">Пробный период! Вы можете отменить платёж до <?= date('d.m', $refundDeadline); ?></span>
+                            </p>
+                            <?php endif; ?>
                             <p>
                                 <span class="small text-muted">Оплачено до <?= date('d.m', $companyTariff['payday']); ?></span>
                             </p>
