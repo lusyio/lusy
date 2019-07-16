@@ -190,6 +190,7 @@
             if (e.which == 13 && e.ctrlKey) {
                 $('#mes').val($('#mes').val() + "\n");
             } else if (e.which == 13) {
+                e.preventDefault();
                 $("#sendBtn").click();
                 $("#mes").val('');
                 setTimeout(function () {
