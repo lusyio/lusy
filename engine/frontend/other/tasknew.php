@@ -35,7 +35,7 @@
         <label class="label-tasknew">
             Описание задачи
         </label>
-        <div class="mb-2 card card-tasknew">
+        <div class="mb-2 card card-tasknew editor-card">
             <div id="editor" class="border-0">
             </div>
         </div>
@@ -116,7 +116,7 @@
         </label>
         <div class="mb-2 card card-tasknew">
             <label class="label-responsible">
-                Дата начала
+                Дата старта
             </label>
             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate" style="height: 50px;font-size: 14px" min="<?= $GLOBALS["now"] ?>"
                    value="<?= $GLOBALS["now"] ?>" required>

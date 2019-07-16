@@ -205,47 +205,47 @@ $(document).ready(function () {
         } else {
             if (responsible == null) {
                 $('.container-responsible').css({
-                    'border-color': '#dc3545',
+                    'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
                 });
                 setTimeout(function () {
-                    $('.container-responsible').css('border-color', "#ced4da");
+                    $('.container-responsible').css('background-color', '#fff');
                 }, 1000)
             }
             if (name === '') {
                 $('#name').css({
-                    'border-color': '#dc3545',
+                    'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
                 });
                 setTimeout(function () {
-                    $('#name').css('border-color', "#ced4da");
+                    $('#name').css('background-color', '#fff');
                 }, 1000)
             }
             if (delta === '<p><br></p>') {
-                $('#editor').css({
-                    'border-color': '#dc3545',
+                $('#editor, .editor-card').css({
+                    'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
                 });
                 setTimeout(function () {
-                    $('#editor').css('border-color', "#ced4da");
+                    $('#editor, .editor-card').css('background-color', '#fff');
                 }, 1000)
             }
             if (datedone <= checkDate) {
                 $('#datedone').css({
-                    'border-color': '#dc3545',
+                    'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
                 });
                 setTimeout(function () {
-                    $('#datedone').css('border-color', "#ced4da");
+                    $('#datedone').css('background-color', '#fff');
                 }, 1000)
             }
             if (datedone === '') {
                 $('#datedone').css({
-                    'border-color': '#dc3545',
+                    'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
                 });
                 setTimeout(function () {
-                    $('#datedone').css('border-color', "#ced4da");
+                    $('#datedone').css('background-color', '#fff');
                 }, 1000)
             }
         }

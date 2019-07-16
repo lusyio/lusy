@@ -23,6 +23,10 @@
     margin-bottom: 1rem;
 }
 
+.editor-card{
+    border-radius: 12px !important;
+}
+
 .ql-toolbar {
     border: none !important;
     padding: 20px 22px !important;
@@ -77,12 +81,12 @@
 
 .card-tasknew{
     background-color: #ffffff;
-    border-radius: 12px
+    border-radius: 12px !important;
 }
 
 .card-body-tasknew{
     padding: 15px 30px !important;
-    border-radius: 12px;
+    border-radius: 12px !important;
     color: #c2c2c4
 }
 
