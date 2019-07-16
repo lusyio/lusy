@@ -615,7 +615,14 @@ endforeach; ?>
                     },
                     success: function (response) {
                         if (response.error === '') {
-                            location.reload();
+                            if (response.url !== '') {
+                                window.open(response.url);
+                                $('#addCardModal').modal('hide');
+                                $('#refreshModalLabel').text('Вы были перенаправлены на сайт Банка для совершения платежа');
+                                $('#refreshModal').modal('show');
+                            } else {
+                                location.reload();
+                            }
                         } else {
                             console.log(response.error);
                         }
