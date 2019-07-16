@@ -1556,7 +1556,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .message-width{
-    min-width: 14%;
+    min-width: 15%;
     max-width: fit-content;
     padding: 15px 20px !important;
     border: 1px solid #e4e4e4;
@@ -2308,6 +2308,7 @@ ul.timeline > li span.before {
     font-weight: 500 !important;
 }
 .message-width span.date{
+    min-width: 78px;
     position: absolute;
     z-index: 2;
     right: 0;
