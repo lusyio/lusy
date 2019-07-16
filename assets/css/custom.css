@@ -2803,6 +2803,10 @@ span.date {
         display: none;
     }
 
+    .top-block-tasknew{
+        margin-bottom: 13px;
+    }
+
     .card-tariff-right>.card-body{
         padding-top: 0;
     }
