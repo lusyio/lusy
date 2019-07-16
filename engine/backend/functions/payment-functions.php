@@ -536,7 +536,7 @@ function refundPayment($orderId)
             return $result;
         }
     } else {
-        if (time() - $order['create_date'] > 24 * 3600) {
+        if (time() - $order['create_date'] > 24 * 3600 && $order['amount'] > 100) {
             $result['error'] = 'Its too late';
             return $result;
         }
