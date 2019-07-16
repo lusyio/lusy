@@ -1108,6 +1108,7 @@ input:checked[type="checkbox"]::before {
     border-radius: 5px;
     transition: 200ms;
     font-weight: 300;
+    position: relative;
 }
 
 .add-worker:hover {

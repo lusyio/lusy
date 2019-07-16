@@ -73,6 +73,37 @@
     font-weight: 600;
 }
 
+.card-tasknew .icon-newtask-delete-coworker{
+    position: absolute;
+    right: -12px;
+    top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.card-tasknew .form-control:disabled, .form-control[readonly]{
+    background-color: #f8f8f8;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+.card-tasknew .custom-select:disabled{
+    background-color: #f8f8f8;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+.card-tasknew .add-worker:hover .icon-newtask-delete-coworker{
+    background: #f2f2f2;
+}
+
+.card-tasknew .add-worker{
+    width: 100%;
+}
+
 #name::placeholder {
     color: #c2c2c4;
 }
