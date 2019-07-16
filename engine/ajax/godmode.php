@@ -88,9 +88,9 @@ if ($_POST['module'] == 'addPromocode') {
     $data = [
         ':promocodeName' => mb_strtolower($_POST['promocodeName']),
         ':daysToAdd' => $_POST['promocodeDays'],
-        ':isMultiple' => ($_POST['promocodeMultiple']) ? 1 : 0,
+        ':isMultiple' => $_POST['promocodeMultiple'],
         ':validUntil' => strtotime($_POST['promocodeDate']),
-        ':used' => ($_POST['promocodeUsed']) ? 1 : 0,
+        ':used' => $_POST['promocodeUsed'],
     ];
     if ($query->execute($data)) {
         echo '1';
@@ -103,9 +103,9 @@ if ($_POST['module'] == 'updatePromocode') {
     $data = [
         ':promocodeName' => mb_strtolower($_POST['promocodeName']),
         ':daysToAdd' => $_POST['promocodeDays'],
-        ':isMultiple' => ($_POST['promocodeMultiple']) ? 1 : 0,
+        ':isMultiple' => $_POST['promocodeMultiple'],
         ':validUntil' => strtotime($_POST['promocodeDate']),
-        ':used' => ($_POST['promocodeUsed']) ? 1 : 0,
+        ':used' => $_POST['promocodeUsed'],
         ':promocodeId' => (int) $_POST['promocodeId'],
     ];
     if ($query->execute($data)) {
