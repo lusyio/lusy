@@ -617,7 +617,7 @@ endforeach; ?>
                         if (response.error === '') {
                             if (response.url !== '') {
                                 window.open(response.url);
-                                $('#addCardModal').modal('hide');
+                                $('#payModal').modal('hide');
                                 $('#refreshModalLabel').text('Вы были перенаправлены на сайт Банка для совершения платежа');
                                 $('#refreshModal').modal('show');
                             } else {
