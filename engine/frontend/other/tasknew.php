@@ -5,7 +5,7 @@
         crossorigin="anonymous"></script>
 
 <div class="row">
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-lg-8 top-block-tasknew">
         <label class="label-tasknew">
             Новая задача
         </label>
@@ -31,7 +31,7 @@
 </div>
 
 <div class="row mt-25-tasknew">
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-lg-8 top-block-tasknew">
         <label class="label-tasknew">
             Описание задачи
         </label>
@@ -98,7 +98,7 @@
 </div>
 
 <div class="row mt-25-tasknew">
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-lg-8 top-block-tasknew">
         <label class="label-tasknew">
             Прикрепленные файлы
         </label>
@@ -126,7 +126,7 @@
 
 
 <div class="row" style="margin-top: 50px;">
-    <div class="col-sm-4 create-task">
+    <div class="col-12 col-lg-4 create-task">
         <button id="createTask"
                 class="btn btn-block btn-outline-primary h-100"><?= $GLOBALS['_createnewtask'] ?></button>
     </div>
