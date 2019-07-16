@@ -17,6 +17,10 @@ require_once __ROOT__ . '/engine/backend/other/TinkoffMerchantAPI.php';
 $ordersToRefundQuery = $pdo->prepare("SELECT order_id FROM orders WHERE status = 'CONFIRMED' AND amount = 100");
 $ordersToRefundQuery->execute();
 $ordersToRefund = $ordersToRefundQuery->fetchAll(PDO::FETCH_COLUMN);
+ob_start();
+var_dump($ordersToRefund);
+$error = ob_get_clean();
+addToPaymentsErrorLog($error);
 foreach ($ordersToRefund as $order) {
     $refundResult = refundPayment($order);
     ob_start();
