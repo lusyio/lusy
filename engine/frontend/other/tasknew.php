@@ -208,179 +208,6 @@
     </div>
 </div>
 
-
-<!--<div class="row">-->
-<!--    <div class="col-sm-12 p-0">-->
-<!--        <a href="/" class="btn btn-block btn-link text-muted">-->
-<!--            --><? //= $GLOBALS['_cancelnewtask'] ?>
-<!--        </a>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-<!--<div class="card new-task-container">-->
-<!--    <div class="card-body">-->
-<!--        <div class="row mb-2 md-5">-->
-<!--            <div class="col">-->
-<!--                <div class="header">-->
-<!--                    <h4 class="header-title" id="headerName">-->
-<!--                        --><? // //= $GLOBALS['_newtask'] ?>
-<!--                    </h4>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="mb-2">-->
-<!--            <input type="text" id="name" class="form-control" placeholder="--><? // //= $GLOBALS['_namenewtask'] ?><!--"-->
-<!--                   autocomplete="off" autofocus required>-->
-<!--        </div>-->
-<!--        <div id="editor" class="mb-2">-->
-<!--        </div>-->
-<!--        <div style="display: none"-->
-<!--             class="bg-white file-name container-files">-->
-<!--        </div>-->
-<!--        --><?php //$uploadModule = 'task'; // Указываем тип дропдауна прикрепления файлов?>
-<!--        --><?php //include __ROOT__ . '/engine/frontend/other/upload-module.php'; // Подключаем дропдаун прикрепления файлов?>
-<!--        --><?php //if ($tariff == 1): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
-<!--            <div class="row mt-2">-->
-<!--                <div class="col-12 col-md-3">-->
-<!--                    <div class="form-group">-->
-<!--                        <label>-->
-<!--                            Дата начала-->
-<!--                        </label>-->
-<!--                        <input type="date" class="form-control" id="startDate" min="--><? // //= $GLOBALS["now"] ?><!--"-->
-<!--                               value="--><? // //= $GLOBALS["now"] ?><!--" required>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-12 col-md-3">-->
-<!--                    <div class="form-group">-->
-<!--                        <label>-->
-<!--                            Дата окончания-->
-<!--                        </label>-->
-<!--                        <input type="date" class="form-control" id="datedone" min="--><? // //= $GLOBALS["now"] ?><!--"-->
-<!--                               value="--><? // //= $GLOBALS["now"] ?><!--" required>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-12 col-md-6 coworkers-newtask">-->
-<!--                    <label>--><? // //= $GLOBALS['_responsiblenewtask'] ?><!--</label>-->
-<!--                    <div class="container container-responsible d-flex flex-wrap align-content-sm-stretch"-->
-<!--                         style="min-height: 38px">-->
-<!--                        <div class="text-muted placeholder-responsible">--><? // //= $GLOBALS['_placeholderresponsiblenewtask'] ?><!--</div>-->
-<!--                        --><?php
-//                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
-//                        foreach ($users as $n) { ?>
-<!--                            <div val="--><?php //echo $n['id'] ?><!--" class="add-responsible d-none">-->
-<!--                                <img src="/--><? // //= getAvatarLink($n["id"]) ?><!--" class="avatar-added mr-1">-->
-<!--                                <span class="card-coworker">--><? // //= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?><!--</span>-->
-<!--                            </div>-->
-<!--                            <hr class="m-0">-->
-<!--                        --><?php //} ?>
-<!--                        <div class="position-absolute icon-newtask icon-newtask-change-responsible">-->
-<!--                            <i class="fas fa-caret-down"></i>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    --><?php
-//                    include __ROOT__ . '/engine/frontend/members/responsible.php';
-//                    ?>
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col coworkers-toggle">-->
-<!--                    <label>--><? // //= $GLOBALS['_coworkersnewtask'] ?><!--</label>-->
-<!--                    <div class="container container-coworker d-flex flex-wrap align-content-sm-stretch">-->
-<!--                        <div class="text-muted placeholder-coworkers">--><? // //= $GLOBALS['_placeholdercoworkersnewtask'] ?><!--</div>-->
-<!--                        --><?php
-//                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
-//                        foreach ($users as $n) { ?>
-<!--                            <div val="--><?php //echo $n['id'] ?><!--" class="add-worker d-none">-->
-<!--                                <img src="/--><? // //= getAvatarLink($n["id"]) ?><!--" class="avatar-added mr-1">-->
-<!--                                <span class="coworker-fio">--><? // //= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?><!--</span>-->
-<!--                                <i class="fas fa-times icon-newtask-delete-coworker"></i>-->
-<!--                            </div>-->
-<!--                        --><?php //} ?>
-<!--                        <div class="position-absolute icon-newtask icon-newtask-add-coworker">-->
-<!--                            <i class="fas fa-caret-down"></i>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    --><?php
-//                    include __ROOT__ . '/engine/frontend/members/coworkers.php';
-//                    ?>
-<!--                </div>-->
-<!--            </div>-->
-<!--        --><?php //else: // БЛОК ДЛЯ БЕСПЛАТНОГО ТАРИФА?>
-<!--            <div class="row mt-2">-->
-<!--                <div class="col-12 col-md-5">-->
-<!--                    <div class="form-group">-->
-<!--                        <label>-->
-<!--                            Дата окончания-->
-<!--                        </label>-->
-<!--                        <input type="date" class="form-control" id="datedone" min="--><? // //= $GLOBALS["now"] ?><!--"-->
-<!--                               value="--><? // //= $GLOBALS["now"] ?><!--" required>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-12 col-md-7 coworkers-newtask">-->
-<!--                    <label>--><? // //= $GLOBALS['_responsiblenewtask'] ?><!--</label>-->
-<!--                    <div class="container container-responsible d-flex flex-wrap align-content-sm-stretch"-->
-<!--                         style="min-height: 38px">-->
-<!--                        <div class="text-muted placeholder-responsible">--><? // //= $GLOBALS['_placeholderresponsiblenewtask'] ?><!--</div>-->
-<!--                        --><?php
-//                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
-//                        foreach ($users as $n) { ?>
-<!--                            <div val="--><?php //echo $n['id'] ?><!--" class="add-responsible d-none">-->
-<!--                                <img src="/--><? // //= getAvatarLink($n["id"]) ?><!--" class="avatar-added mr-1">-->
-<!--                                <span class="card-coworker">--><? // //= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?><!--</span>-->
-<!--                            </div>-->
-<!--                            <hr class="m-0">-->
-<!--                        --><?php //} ?>
-<!--                        <div class="position-absolute icon-newtask icon-newtask-change-responsible">-->
-<!--                            <i class="fas fa-caret-down"></i>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    --><?php
-//                    include __ROOT__ . '/engine/frontend/members/responsible.php';
-//                    ?>
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col coworkers-toggle">-->
-<!--                    <label>--><? // //= $GLOBALS['_coworkersnewtask'] ?><!--</label>-->
-<!--                    <div class="container container-coworker d-flex flex-wrap align-content-sm-stretch">-->
-<!--                        <div class="text-muted placeholder-coworkers">--><? // //= $GLOBALS['_placeholdercoworkersnewtask'] ?><!--</div>-->
-<!--                        --><?php
-//                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
-//                        foreach ($users as $n) { ?>
-<!--                            <div val="--><?php //echo $n['id'] ?><!--" class="add-worker d-none">-->
-<!--                                <img src="/--><? // //= getAvatarLink($n["id"]) ?><!--" class="avatar-added mr-1">-->
-<!--                                <span class="coworker-fio">--><? // //= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?><!--</span>-->
-<!--                                <i class="fas fa-times icon-newtask-delete-coworker"></i>-->
-<!--                            </div>-->
-<!--                        --><?php //} ?>
-<!--                        <div class="position-absolute icon-newtask icon-newtask-add-coworker">-->
-<!--                            <i class="fas fa-caret-down"></i>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    --><?php
-//                    include __ROOT__ . '/engine/frontend/members/coworkers.php';
-//                    ?>
-<!--                </div>-->
-<!--            </div>-->
-<!--        --><?php //endif; ?>
-<!--        <hr class="mt-4 mb-4">-->
-<!--        <div class="row">-->
-<!--            <div class="col-sm p-0 create-task">-->
-<!--                <button id="createTask"-->
-<!--                        class="btn btn-block btn-primary h-100">--><? // //= $GLOBALS['_createnewtask'] ?><!--</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row">-->
-<!--            <div class="col-sm-12 p-0">-->
-<!--                <a href="/" class="btn btn-block btn-link text-muted">-->
-<!--                    --><? // //= $GLOBALS['_cancelnewtask'] ?>
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div class="modal fade" id="freeOptionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -395,8 +222,11 @@
                 <?php if ($isCeo): ?>
                     <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
                 <?php endif; ?>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
         </div>
     </div>
 </div>
@@ -416,8 +246,11 @@
                 <?php if ($isCeo): ?>
                     <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
                 <?php endif; ?>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
         </div>
     </div>
 </div>
