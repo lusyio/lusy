@@ -898,9 +898,31 @@ input:checked[type="checkbox"]::before {
 
 .btn-file {
     background-color: #ecf1f7;
+    border: none;
     position: relative;
     overflow: hidden;
     top: 0;
+    color: #c2c2c4 !important;
+}
+
+.btn-file-tasknew{
+    background-color: #fcfcfc !important;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    top: 0;
+    color: #c2c2c4 !important;
+}
+
+.btn-file:after {
+    display: none;
+}
+
+.icon-paperclip-newtask{
+    font-size: 20px;
+    color: #c2c2c4;
+    vertical-align: middle;
+    margin-right: 8px;
 }
 
 #premModal{
@@ -995,8 +1017,7 @@ input:checked[type="checkbox"]::before {
 
 .icon-newtask {
     transition: 200ms;
-    right: 30px;
-    top: 40px;
+    right: 15px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -1070,8 +1091,8 @@ input:checked[type="checkbox"]::before {
 }
 .avatar-added {
     vertical-align: middle;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border-radius: 10%;
     margin-bottom: 1%;
 }
@@ -1079,12 +1100,15 @@ input:checked[type="checkbox"]::before {
 .add-responsible {
     background-color: #ffffff;
     border-radius: 5px;
+    font-weight: 300
 }
 
 .add-worker {
     background-color: #ffffff;
     border-radius: 5px;
     transition: 200ms;
+    font-weight: 300;
+    margin-bottom: 7px;
 }
 
 .add-worker:hover {
@@ -1126,9 +1150,11 @@ input:checked[type="checkbox"]::before {
 }
 
 .coworker-fio {
-    font-size: 13px;
+    font-size: 15px;
 }
-
+.card-coworker{
+    font-size: 15px;
+}
 .card-coworker-delete {
     font-size: 12px;
     color: #e3e5e9;
@@ -1145,7 +1171,7 @@ input:checked[type="checkbox"]::before {
 }
 
 .add-coworker-text {
-    font-size: 1rem !important;
+    font-size: 0.9rem !important;
 }
 
 .owner {
@@ -2717,15 +2743,6 @@ span.date {
         width: 86%;
     }
 
-    #startDate{
-        padding-right: 5px !important;
-    }
-    #datedone{
-        padding-right: 5px !important;
-    }
-
-
-
     .navblock {
         padding-right: 0 !important;
     }
@@ -3218,7 +3235,13 @@ label.error {
 }
 
 .filenames {
-    color: #898989;
+    color: #727272;;
+}
+
+.filenames .fa-paperclip{
+    margin-right: 14px !important;
+    font-size: 20px;
+    vertical-align: middle;
 }
 
 .search-container {

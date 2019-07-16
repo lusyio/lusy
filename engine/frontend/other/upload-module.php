@@ -11,8 +11,10 @@
                     class="icon-paperclip fas fa-paperclip"></i>
         </button>
     <?php else: ?>
-        <button class="text-muted btn btn-light btn-file border dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Прикрепить файл
+        <button class="btn btn-light btn-file dropdown-toggle btn-file-tasknew " type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="icon-paperclip-newtask fas fa-paperclip"></i>
+            Прикрепить
         </button>
     <?php endif; ?>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

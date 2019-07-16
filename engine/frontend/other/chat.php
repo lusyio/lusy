@@ -56,7 +56,7 @@
                 </div>
             </div>
         </form>
-        <div class="file-name container-files" style="display: none"></div>
+        <div class="file-name container-files" style="display: none;padding-left: 34px;"></div>
     </div>
 </div>
 

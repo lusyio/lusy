@@ -2,16 +2,121 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
+
 #editor {
     background-color: white;
-    height: 160px;
+    height: 250px;
+    border-radius: 12px;
 }
+
 #createTask {
-    width: 80%;
+    border-radius: 20px;
+    padding-top: 9px;
+    padding-bottom: 9px;
 }
+
 .create-task {
     text-align: -webkit-center;
 }
-.coworkers-newtask{
+
+.coworkers-newtask {
     margin-bottom: 1rem;
+}
+
+.ql-toolbar {
+    border: none !important;
+    padding: 20px 22px !important;
+    padding-bottom: 15px !important;
+}
+
+.ql-toolbar span {
+    color: #c2c2c4;
+}
+
+.ql-toolbar .ql-fill {
+    fill: #c2c2c4 !important;
+}
+
+.ql-toolbar .ql-stroke {
+    stroke: #c2c2c4 !important;
+}
+
+.ql-editor {
+    padding: 20px 30px !important;
+}
+
+.ql-editor::before {
+    padding-left: 16px !important;
+    color: #c2c2c4 !important;
+    font-weight: 300;
+    font-size: 14px;
+    font-style: unset !important;
+}
+
+.ql-editor:after {
+    position: absolute;
+    top: 4px;
+    width: 87.5%;
+    border-top: 1px solid #c2c2c4;
+    content: "";
+}
+
+.label-tasknew{
+    padding-left: 30px;
+    margin-bottom: 13px;
+    color: #2b3043
+}
+
+#name::placeholder{
+    color: #c2c2c4;
+}
+
+.mt-25-tasknew{
+    margin-top: 25px;
+}
+
+.card-tasknew{
+    background-color: #ffffff;
+    border-radius: 12px
+}
+
+.card-body-tasknew{
+    padding: 15px 30px !important;
+    border-radius: 12px;
+    color: #c2c2c4
+}
+
+.container-responsible:hover .icon-newtask{
+    background-color: #f8f9fa;
+}
+
+.container-coworker:hover .icon-newtask{
+    background-color: #f8f9fa;
+}
+
+.label-responsible{
+    padding-left: 30px;
+    padding-top: 20px;
+    margin-bottom: 0;
+    color: #a2a5ac
+}
+
+.btn-file-tasknew:hover{
+    color: #727272 !important;
+}
+
+.btn-file-tasknew:hover .icon-paperclip-newtask{
+    color: #727272;
+}
+
+.icon-paperclip-newtask{
+    transition: 150ms;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow .ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar button:focus .ql-stroke, .ql-snow .ql-toolbar button:focus .ql-stroke, .ql-snow.ql-toolbar button.ql-active .ql-stroke, .ql-snow .ql-toolbar button.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow.ql-toolbar button:hover .ql-stroke-miter, .ql-snow .ql-toolbar button:hover .ql-stroke-miter, .ql-snow.ql-toolbar button:focus .ql-stroke-miter, .ql-snow .ql-toolbar button:focus .ql-stroke-miter, .ql-snow.ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
+    stroke: #06c !important;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow .ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar button:focus .ql-fill, .ql-snow .ql-toolbar button:focus .ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+    fill: #06c !important;
 }

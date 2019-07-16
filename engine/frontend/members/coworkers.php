@@ -1,4 +1,4 @@
-<div class="coworkers">
+<div class="coworkers" style="bottom: 0">
     <div class="coworker-card">
         <div class="empty-list text-muted">
             Список пуст
@@ -8,7 +8,7 @@
         foreach ($users as $n) { ?>
             <div val="<?php echo $n['id'] ?>" class="select-coworker">
                 <div class="row">
-                    <div class="col-1">
+                    <div class="col-2">
                         <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
                     </div>
                     <div class="col text-left">
