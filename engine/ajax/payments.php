@@ -239,7 +239,10 @@ if($_POST['module'] == 'refund' && !empty($_POST['orderId'])) {
     }
     $result = refundPayment($orderId);
     if ($result['error'] == '') {
-        //setTomorrowAsPayday($idc);
+        $tariffInfo = getTariffInfo($order['tariff']);
+        $companyTariff = getCompanyTariff($idc);
+        $newPaydate = strtotime('-' . $tariffInfo['period_in_months'] . ' months', $companyTariff['payday']);
+        setPayday($idc, $newPaydate);
         $unbindResult = unbindCard($idc);
         if ($unbindResult) {
             addUnbindCardEvent($idc);
