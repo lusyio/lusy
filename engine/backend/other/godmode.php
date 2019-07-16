@@ -53,3 +53,7 @@ $feedback = $feedbackQuery->fetchAll(PDO::FETCH_ASSOC);
 $promocodesQuery = $pdo->prepare("SELECT promocode_id, promocode_name, days_to_add, is_multiple, valid_until, used FROM promocodes");
 $promocodesQuery->execute();
 $promocodes = $promocodesQuery->fetchAll(PDO::FETCH_ASSOC);
+
+$companiesListQuery = $pdo->prepare("SELECT id, idcompany, full_company_name FROM company");
+$companiesListQuery->execute();
+$companiesList = $companiesListQuery->fetchAll(PDO::FETCH_ASSOC);

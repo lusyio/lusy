@@ -253,6 +253,7 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" id="promocodeId" class="" value="">
+                <input type="hidden" id="promocodeNameHidden" class="" value="">
                 <div class="input-group mt-3">
                     <input type="text" id="promocodeName" class="form-control" value="">
                 </div>
@@ -286,8 +287,20 @@
 
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="showCompanies">Активировать для компании</button>
                 <button type="button" class="btn btn-primary" id="savePromo"></button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+            <div class="modal-footer d-none" id="companiesBlock">
+                <select class="form-control" id="activatePromoCompany">
+                    <option value="" hidden></option>
+                    <option value="0">Все компании</option>
+                    <?php foreach ($companiesList as $company): ?>
+                        <option value="<?= $company['id']; ?>"><?= $company['idcompany']; ?>, <?= $company['full_company_name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="button" class="btn btn-primary" id="activatePromo">Активировать</button>
+            </div>
             </div>
         </div>
     </div>
@@ -373,28 +386,97 @@
             var promoUsed = $(this).data('used');
             $('#promocodeId').val(promoId);
             $('#promocodeName').val(promoName);
+            $('#promocodeNameHidden').val(promoName);
             $('#promoDays').val(promoDays);
             $('#validUntilDate').val(promoDate);
             $('#multiple').prop('checked', promoMultiple);
             $('#used').prop('checked', promoUsed);
-            $('#savePromo').text('Сохранить промокод');
+            $('#savePromo').text('Сохранить изменения');
             $('#promoModal').modal('show');
         });
 
         $('#promoModal').on('hide.bs.modal', function () {
             $('#promocodeId').val('');
             $('#promocodeName').val('');
+            $('#promocodeNameHidden').val('');
             $('#promoDays').val('');
             $('#validUntilDate').val('');
             $('#multiple').prop('checked', false);
             $('#used').prop('checked', false);
             $('#savePromo').text('');
+            $('#companiesBlock').addClass('d-none');
         });
 
         $('#addPromoButton').on('click', function () {
             $('#savePromo').text('Добавить промокод');
             $('#promoModal').modal('show');
         })
+
+        $('#savePromo').on('click', function () {
+            var promoId = $('#promocodeId').val();
+            var promoName = $('#promocodeName').val();;
+            var promoDays = $('#promoDays').val();;
+            var promoDate = $('#validUntilDate').val();
+            var promoMultiple = $('#multiple').prop('checked');
+            var promoUsed = $('#used').prop('checked');
+
+            var fd = new FormData;
+            fd.append('ajax','godmode');
+            fd.append('promocodeId', promoId);
+            fd.append('promocodeName', promoName);
+            fd.append('promocodeDays', promoDays);
+            fd.append('promocodeDate', promoDate);
+            fd.append('promocodeMultiple', promoMultiple);
+            fd.append('promocodeUsed', promoUsed);
+            if (promoId === '') {
+                // Добавляем новый промокод
+                fd.append('module', 'addPromocode');
+            } else {
+                //Обновляем существующий промокод
+                fd.append('module', 'updatePromocode');
+            }
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (response) {
+                    console.log(response);
+                    if (response === '1') {
+                        location.reload();
+                    }
+                }
+            });
+        });
+
+        $('#showCompanies').on('click', function () {
+            $('#companiesBlock').removeClass('d-none');
+        });
+
+        $('#activatePromo').on('click', function () {
+            var promocodeNameHidden = $('#promocodeNameHidden').val();
+            var companyId = $('#activatePromoCompany').val();
+
+            var fd = new FormData;
+            fd.append('ajax','godmode');
+            fd.append('module', 'activatePromocode');
+            fd.append('promocodeName', promocodeNameHidden);
+            fd.append('companyId', companyId);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (response) {
+                    console.log(response);
+                    location.reload();
+                }
+            });
+        });
     });
 </script>
 <script src="/assets/js/godmode.js"></script>

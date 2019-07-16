@@ -81,3 +81,52 @@ if ($_POST['module'] == 'updateArticle') {
         echo '1';
     }
 }
+
+if ($_POST['module'] == 'addPromocode') {
+
+    $query = $pdo->prepare('INSERT INTO promocodes(promocode_name, days_to_add, is_multiple, valid_until, used) values (:promocodeName, :daysToAdd, :isMultiple, :validUntil, :used)');
+    $data = [
+        ':promocodeName' => mb_strtolower($_POST['promocodeName']),
+        ':daysToAdd' => $_POST['promocodeDays'],
+        ':isMultiple' => (int) $_POST['promocodeMultiple'],
+        ':validUntil' => strtotime($_POST['promocodeDate']),
+        ':used' => strtotime($_POST['promocodeUsed']),
+    ];
+    if ($query->execute($data)) {
+        echo '1';
+    }
+}
+
+if ($_POST['module'] == 'updatePromocode') {
+
+    $query = $pdo->prepare('UPDATE promocodes SET promocode_name = :promocodeName, days_to_add = :daysToAdd, is_multiple = :isMultiple, valid_until = :validUntil, used = :used WHERE promocode_id = :promocodeId');
+    $data = [
+        ':promocodeName' => mb_strtolower($_POST['promocodeName']),
+        ':daysToAdd' => $_POST['promocodeDays'],
+        ':isMultiple' => (int) $_POST['promocodeMultiple'],
+        ':validUntil' => strtotime($_POST['promocodeDate']),
+        ':used' => strtotime($_POST['promocodeUsed']),
+        ':promocodeId' => (int) $_POST['promocodeId'],
+    ];
+    if ($query->execute($data)) {
+        echo '1';
+    }
+}
+if ($_POST['module'] == 'activatePromocode') {
+
+    require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
+
+    $companyId = $_POST['companyId'];
+    $promocode = mb_strtolower($_POST['promocodeName']);
+
+    if ($companyId == 0) {
+        $companiesListQuery = $pdo->prepare("SELECT id FROM company");
+        $companiesListQuery->execute();
+        $companiesList = $companiesListQuery->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($companiesList as $company) {
+            activatePromocode($company['id'], $promocode);
+        }
+    } else {
+        activatePromocode($companyId, $promocode);
+    }
+}
