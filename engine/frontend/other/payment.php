@@ -364,11 +364,11 @@ endforeach; ?>
             <div class="modal-body text-center">
                 Введен неверный промокод или уже использованный 😢
             </div>
-        </div>
-        <span class="icon-close-modal">
+            <span class="icon-close-modal">
             <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
                         class="fas fa-times text-muted"></i></button>
         </span>
+        </div>
     </div>
 </div>
 
