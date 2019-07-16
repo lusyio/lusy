@@ -210,7 +210,7 @@ function updateCompanyTariff($notification)
             $lastDay = $companyTariff['payday'];
         }
         $tariffPeriod = $newTariff['period_in_months'];
-        
+
         if ($orderInfo['amount'] == 100) {
             $newPayDay = $companyTariff['payday'];
         } elseif (date('d', $companyTariff['payday']) > 28) {
@@ -532,11 +532,11 @@ function refundPayment($orderId)
     }
     if ($order['first_pay']) {
         if (time() - $order['create_date'] > 14 * 24 * 3600) {
-            $result['error'] = 'Its too late';
+            $result['error'] = 'Its too late to refund first pay';
             return $result;
         }
     } else {
-        if (time() - $order['create_date'] > 24 * 3600) {
+        if (time() - $order['create_date'] > 24 * 3600 && $order['amount'] > 100) {
             $result['error'] = 'Its too late';
             return $result;
         }
