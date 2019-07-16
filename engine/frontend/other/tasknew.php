@@ -337,29 +337,6 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-0 text-center d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Подзадачи</h5>
-            </div>
-            <div class="modal-body text-center">
-                Введите описание подзадачи и что-нибудь еще
-            </div>
-            <div class="mb-2 card card-tasknew editor-card">
-                <div id="editor1" class="border-0">
-                </div>
-            </div>
-            <div class="modal-footer border-0">
-                <?php if ($isCeo): ?>
-                    <a href="/payment/" class="btn btn-primary">Создать подзадачу</a>
-                <?php endif; ?>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="taskLimitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -527,10 +504,6 @@
         });
     });
     var quill = new Quill('#editor', {
-        theme: 'snow',
-        placeholder: 'Опишите суть задания...',
-    });
-    var quill = new Quill('#editor1', {
         theme: 'snow',
         placeholder: 'Опишите суть задания...',
     });
