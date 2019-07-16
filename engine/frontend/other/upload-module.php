@@ -44,8 +44,11 @@
                 <?php if ($isCeo): ?>
                     <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
                 <?php endif; ?>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
         </div>
     </div>
 </div>
@@ -64,8 +67,11 @@
                 <?php if ($isCeo): ?>
                     <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
                 <?php endif; ?>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
         </div>
     </div>
 </div>
