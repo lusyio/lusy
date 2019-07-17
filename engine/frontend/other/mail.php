@@ -45,7 +45,7 @@
                                 <span class="companyAvatar user-pic position-relative"><i
                                             class="far fa-comments fa-fw"></i></span>
                         </div>
-                        <div class="col" style="max-width: 83%;">
+                        <div class="col text-area-message" style="max-width: 83%;">
                             <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат
                                 компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
                             <?php if ($lastChatMessage): ?>
@@ -78,7 +78,7 @@
                                         </span>
                                 </div>
                             </div>
-                            <div class="col" style="max-width: 83%;">
+                            <div class="col text-area-message" style="max-width: 83%;">
                                 <p class="mb-2 font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= fiomess($n) ?><?= ($newMessages) ? ' +' . $newMessages : ''; ?>
                                 </p>
                                 <span><?= ($lastMessage['sender'] == $id) ? 'Вы: ' : ''; ?> <?= $lastMessage['mes'] ?></span>

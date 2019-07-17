@@ -777,6 +777,12 @@ input:checked[type="checkbox"]::before {
     border-radius: 50%;
 }
 
+.text-area-message{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .custom-file {
     font-size: 2rem;
     color: #898989;
