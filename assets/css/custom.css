@@ -769,6 +769,10 @@ input:checked[type="checkbox"]::before {
     background-color: #fefefe;
 }
 
+.review-block .btn-file{
+
+}
+
 .fas.fa-check.custom-date.accept {
     color: #93c259 !important;
     margin-top: 5px;
@@ -2839,6 +2843,11 @@ span.date {
 
     .top-block-tasknew{
         margin-bottom: 13px;
+    }
+
+    #sendonreview{
+        padding: 6px 9px;
+        height: 38px;
     }
 
     .ql-editor:after {
