@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-sm-5 col-12">
                             <div>
-                                <span class="taskname"><?= ($isTaskRead) ? '' : '<span class="text-danger font-weight-bold mr-1">!</span>'; ?><?= $n['name'] ?></span>
+                                <span class="taskname"><?= ($isTaskRead) ? '' : '<span class="text-danger font-weight-bold mr-1">!</span>'; ?><?=  mb_strimwidth($n['name'], 0, 26, "..."); ?></span>
                             </div>
                         </div>
                         <div class="col-sm-1 pl-0">

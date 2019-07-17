@@ -29,6 +29,7 @@
     top: 125px !important;
     height: auto;
     max-height: 300px;
+    z-index: 4 !important;
 }
 
 #name{
@@ -41,6 +42,7 @@
     top: 230px !important;
     height: auto;
     max-height: 300px;
+    z-index: 4 !important;
 }
 
 .editor-card {

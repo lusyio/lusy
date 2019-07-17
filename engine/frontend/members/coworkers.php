@@ -1,4 +1,4 @@
-<div class="coworkers" style="bottom: 0">
+<div class="coworkers">
     <div class="coworker-card">
         <div class="empty-list text-muted">
             Список пуст
