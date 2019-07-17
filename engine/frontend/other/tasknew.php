@@ -283,7 +283,7 @@ $borderColor = [
         </div>
     </div>
 </div>
-<script src="/assets/js/createtask.js?1"></script>
+<script src="/assets/js/createtask.js?n=2"></script>
 <?php if ($tariff == 1): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================
