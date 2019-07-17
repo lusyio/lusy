@@ -124,7 +124,6 @@
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
                                     <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none">
-                                        <!--                                        <img src="/--><?//= getAvatarLink($n["id"]) ?><!--" class="avatar-added mr-1">-->
                                         <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
                                     <hr class="m-0">
@@ -174,10 +173,9 @@
                                  style="min-height: 38px;padding-top: 10px;">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
-                                foreach ($tasks as $n) { ?>
-                                    <div val="<?php echo $n['idtask'] ?>" class="add-subtask d-none">
-<!--                                        <img src="/--><?//= getAvatarLink($n["id"]) ?><!--" class="avatar-added mr-1">-->
-                                        <span class="card-coworker"><?= $n['name'] ?></span>
+                                foreach ($parentTasks as $parentTask) { ?>
+                                    <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none">
+                                        <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
                                     <hr class="m-0">
                                 <?php } ?>
