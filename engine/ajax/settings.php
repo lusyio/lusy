@@ -83,7 +83,7 @@ if ($_POST['module'] == 'updateNotifications') {
         $createNotificationRowQuery = $pdo->prepare('INSERT INTO user_notifications(user_id) VALUES (:userId)');
         $createNotificationRowQuery->execute(array(':userId' => $id));
     }
-    $unsafeNotifications = json_decode($_POST['notifications']);
+    $unsafeNotifications = json_decode($_POST['notifications'],true);
     $notifications = [];
     foreach ($unsafeNotifications as $k => $v) {
         $key = filter_var($k, FILTER_SANITIZE_STRING);
