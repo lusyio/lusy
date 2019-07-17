@@ -26,6 +26,9 @@ $badges = [
     'taskInwork_20' => 'fas fa-brain',
     'taskCreatePerDay_30' => 'fas fa-bolt',
 ];
+
+$month = ['', _("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")];
+$monthNumber = date("n", strtotime($userData['birthdate']));
 ?>
 <script src="/assets/js/circle-progress.min.js"></script>
 <div class="row justify-content-center">
@@ -109,7 +112,7 @@ $badges = [
                             <div class="collapse" id="collapseFunctions">
                                 <div class="row">
                                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
-                                        <p class="text-justify text-secondary mb-1">Дата рождения: <?= date('Y.m.d', strtotime($userData['birthdate'])); ?></p>
+                                        <p class="text-justify text-secondary mb-1">Дата рождения: <?= date('d', strtotime($userData['birthdate'])); ?> <?= _($month[$monthNumber]) ?>, <?= date('Y', strtotime($userData['birthdate'])); ?></p>
                                         <p class="text-justify text-secondary mb-0"><?= nl2br($userData['about']) ?></p>
                                     </div>
                                 </div>
