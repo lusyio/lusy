@@ -415,7 +415,9 @@ $borderColor = [
             }
         });
         <?php if ($tariff == 0):?>
-        $('#openGoogleDrive, #openDropbox').attr('data-target', '#premModal');
+        $('#openGoogleDrive, #openDropbox').on('click', function () {
+            $('.premModal').modal('show');
+        });
         <?php endif; ?>
 
         $("#name").on('input', function () {

@@ -43,10 +43,10 @@ endif;
             <a class="dropdown-item attach-file-review" href="#"><i class="fas fa-file-upload custom-date mr-2"
                                                              style="width: 25px;text-align: center;"></i>
                 <span>С компьютера</span></a>
-            <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i
+            <a class="dropdown-item" id="openGoogleDriveReview" href="#" data-toggle="modal"><i
                         class="custom-date mr-2 fab fa-google-drive"></i>
                 <span>Из Google Drive</span></a>
-            <a class="dropdown-item" id="openDropbox" href="#" data-toggle="modal"><i
+            <a class="dropdown-item" id="openDropboxReview" href="#" data-toggle="modal"><i
                         class="custom-date mr-2 fab fa-dropbox"></i>
                 <span>Из Dropbox</span></a>
         </div>
@@ -70,7 +70,7 @@ endif;
     <?php endif; ?>
 </div>
 
-<div class="modal fade" id="premModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade premModal" id="premModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
