@@ -3355,6 +3355,10 @@ label.error {
     transition: 200ms;
 }
 
+.icon-social:hover{
+    color: #0056b3;
+}
+
 .join {
     padding: 2.5%;
     border-radius: 8px;
