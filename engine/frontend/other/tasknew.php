@@ -416,7 +416,7 @@ $borderColor = [
         });
         <?php if ($tariff == 0):?>
         $('#openGoogleDrive, #openDropbox').on('click', function () {
-            $('#premModal').modal('show');
+            $('.premModal').modal('show');
         });
         <?php endif; ?>
 

@@ -70,7 +70,7 @@ endif;
     <?php endif; ?>
 </div>
 
-<div class="modal fade" id="premModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade premModal" id="premModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

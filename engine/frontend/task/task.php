@@ -418,11 +418,11 @@ if ($id == $worker and $view == 0) {
             }
         });
 
-<!--        --><?php //if ($tariff == 0):?>
-//        $('#openGoogleDrive, #openDropbox').on('click', function () {
-//            $('#premModal').modal('show');
-//        });
-<!--        --><?php //endif; ?>
+    <?php if ($tariff == 0):?>
+       $('#openGoogleDrive, #openDropbox, #openDropboxReview, #openGoogleDriveReview').on('click', function () {
+           $('.premModal').modal('show');
+       });
+    <?php endif; ?>
 
         // if (!$(e.target).closest(".tooltip-avatar").length) {
         //     $('.members').fadeOut(300);
