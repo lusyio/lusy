@@ -225,7 +225,7 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>
 </div>
-<?php if ($tariff == 1):?>
+<?php if ($tariff == 0):?>
     <script type="text/javascript">
         //=======================Google Drive==========================
         //=Create object of FilePicker Constructor function function & set Properties===
@@ -235,6 +235,7 @@ if ($id == $worker and $view == 0) {
                     apiKey: 'AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc',
                     clientId: '34979060720-4dmsjervh14tqqgqs81pd6f14ed04n3d.apps.googleusercontent.com',
                     buttonEl: document.getElementById("openGoogleDrive"),
+                    buttonEl1: document.getElementById("openGoogleDriveReview"),
                     onClick: function (file) {
                     }
                 });
@@ -252,11 +253,14 @@ if ($id == $worker and $view == 0) {
             this.clientId = User.clientId;
             //Button
             this.buttonEl = User.buttonEl;
+            this.buttonEl1 = User.buttonEl1;
             //Click Events
             this.onClick = User.onClick;
             this.buttonEl.addEventListener('click', this.open.bind(this));
+            this.buttonEl1.addEventListener('click', this.open.bind(this));
             //Disable the button until the API loads, as it won't work properly until then.
             this.buttonEl.disabled = true;
+            this.buttonEl1.disabled = true;
             //Load the drive API
             gapi.client.setApiKey(this.apiKey);
             gapi.client.load('drive', 'v2', this.DriveApiLoaded.bind(this));
@@ -420,7 +424,7 @@ if ($id == $worker and $view == 0) {
 
     <?php if ($tariff == 0):?>
        $('#openGoogleDrive, #openDropbox, #openDropboxReview, #openGoogleDriveReview').click(function () {
-           $('.premModal').modal('show');
+           // $('.premModal').modal('show');
        });
     <?php endif; ?>
 
