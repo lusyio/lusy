@@ -7,6 +7,8 @@ global $_buttonLogShowAll;
 global $_buttonLogShowNew;
 global $_tasks;
 global $_comments;
+global $supportCometHash;
+
 
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 

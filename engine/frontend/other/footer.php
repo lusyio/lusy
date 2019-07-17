@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <small class="text-secondary float-left">LUSY.IO BETA 1.0</small>
             <?php if (!is_null($id)): ?>
-            <a href="#" id="showFeedbackForm" class="small text-secondary float-right">Обратная связь</a>
+            <a href="/mail/1/" class="small text-secondary float-right">Обратная связь</a>
             <?php endif; ?>
         </div>
     </div>

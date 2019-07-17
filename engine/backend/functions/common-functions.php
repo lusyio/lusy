@@ -829,7 +829,7 @@ function createAlterAvatar($userId)
     $imageHeight = 190;
     $imageWidth = 190;
     $textSize = 64;
-    $fontFile = realpath(__ROOT__ . 'engine/backend/fonts/Roboto-Regular.ttf');
+    $fontFile = realpath(__ROOT__ . '/engine/backend/fonts/Roboto-Regular.ttf');
 
     // Создаем изображение со сглаживанием
     $im = @imagecreatetruecolor($imageWidth, $imageHeight);
@@ -1103,17 +1103,22 @@ function countTopsidebar()
     require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 
     global $id;
+    global $idc;
     $newTaskCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action NOT LIKE "comment"');
     $overdueCount = DBOnce('count(*)', 'tasks', '(worker='.$id.' or manager='.$id.') and status="overdue"');
     $newCommentCount = DBOnce('count(*)', 'events', 'recipient_id='.$id.' AND view_status=0 AND action LIKE "comment"');
     $newMailCount = DBOnce('count(*)', 'mail', 'recipient='.$id.' AND view_status=0');
     $newChatCount = numberOfNewChatMessages();
-
+    if ($idc == 1) {
+        $newSupportCount = DBOnce('count(DISTINCT sender)', 'mail', 'recipient= 1 AND view_status=0');
+    } else {
+        $newSupportCount = 0;
+    }
     $result = [
         'task' => $newTaskCount,
         'hot' => $overdueCount,
         'comment' => $newCommentCount,
-        'mail' => $newMailCount + $newChatCount,
+        'mail' => $newMailCount + $newChatCount + $newSupportCount,
     ];
     return $result;
 }

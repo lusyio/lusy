@@ -4,6 +4,8 @@ global $idc;
 global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
+global $supportCometHash;
+
 
 require_once __ROOT__ . '/engine/backend/functions/achievement-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';

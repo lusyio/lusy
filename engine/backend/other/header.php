@@ -89,10 +89,15 @@ if ($isAuthorized) {
     if (!empty($_GET['folder']) && $_GET['folder'] == 'chat') {
         $title = 'Чат компании';
     }
+    if (!empty($_GET['support'])) {
+        $title = 'Поддержка пользователей';
+    }
     if (!empty($_GET['mail'])) {
         $recipientIdc = DBOnce('idcompany', 'users', 'id=' . $_GET['mail']);
-        if ($idc == $recipientIdc || $id == $_GET['mail']) {
+        if ($idc == $recipientIdc && $id != $_GET['mail'] ) {
             $title = 'Диалоги';
+        } elseif ($_GET['mail'] == 1) {
+            $title = 'Служба поддержки';
         } else {
             header('location: /mail/');
             die();

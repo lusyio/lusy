@@ -6,6 +6,7 @@ global $id;
 global $tariff;
 global $cometHash;
 global $cometTrackChannelName;
+global $supportCometHash;
 global $roleu;
 
 if ($roleu == 'ceo') {

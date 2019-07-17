@@ -1,13 +1,19 @@
 <div class="card shadow-none">
     <div class="card-header text-center bg-message border-0">
         <div class="position-absolute">
-            <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="/mail/"><i
+            <a data-toggle="tooltip" data-placement="bottom" title="Назад к диалогам" class="text-left" href="../"><i
                         class="fas fa-arrow-left icon-invite"></i></a>
         </div>
         <div>
+            <?php if ($supportDialog): ?>
+                <span class="mb-0 h5">Lusy.io
+                    <i class="fas fa-circle mr-1 ml-1 onlineIndicator text-success"></i>
+                </span>
+            <?php else: ?>
             <a href="/profile/<?= $recipientId ?>/" class="mb-0 h5"><?= fiomess($recipientId) ?>
                 <i class="fas fa-circle mr-1 ml-1 onlineIndicator <?= (in_array($recipientId, $onlineUsersList)) ? 'text-success' : '' ?>"></i>
             </a>
+            <?php endif; ?>
         </div>
     </div>
     <div class="card-body p-0" id="chatBox">
@@ -237,10 +243,11 @@
     });
 
     var $recipientId = <?= $recipientId ?>;
-    var $userId = <?=$id?>;
+    var $userId = <?= (empty($supportPage)) ? $id : '1' ?>;
     var pageName = 'conversation';
     $(document).ready(function () {
-        cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?=$cometHash?>', node: "app.comet-server.ru"});
+        cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?= (empty($supportPage)) ? $cometHash : $supportCometHash; ?>', node: "app.comet-server.ru"});
+
         cometApi.subscription("msg.new", function (e) {
             console.log(e);
             if (e.data.senderId == $recipientId && e.data.recipientId == $userId || e.data.senderId == $userId && e.data.recipientId == $recipientId) {
@@ -248,6 +255,7 @@
                 fd.append('messageId', e.data.messageId);
                 fd.append('module', 'updateMessages');
                 fd.append('ajax', 'messenger');
+                <?= (!empty($supportPage)) ? "fd.append('fromSupport', '1');" : '' ?>
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -347,6 +355,7 @@
             fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
             fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
             fd.append('module', 'sendMessage');
+            <?= (!empty($supportPage)) ? "fd.append('fromSupport', '1');" : '' ?>
             fileList.forEach(function (file, i) {
                 fd.append('file' + i, file);
             });

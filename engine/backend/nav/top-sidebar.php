@@ -20,3 +20,6 @@ if ($tariff == 1) {
     $tariffName = $_free;
 }
 $GLOBALS['cometHash'] = authorizeComet($id);
+if ($idc == 1) {
+    $GLOBALS['supportCometHash'] = authorizeComet(1);
+}

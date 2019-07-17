@@ -9,6 +9,8 @@ global $idc;
 global $cometHash;
 global $cometPdo;
 global $cometTrackChannelName;
+global $supportCometHash;
+
 $lastChatMessage = lastChatMessage();
 $newChatMessages = numberOfNewChatMessages();
 $messages = DB('*','mail','sender = '.$id.' or recipient = '.$id. ' ORDER BY `datetime` DESC');
@@ -33,5 +35,9 @@ foreach ($messages as $n) {
             $dialog[] = $n['recipient'];
         }
     }
+}
+
+if ($idc == 1) {
+    $newSupportMessages = DBOnce('COUNT(DISTINCT sender)', 'mail', 'recipient = 1 AND view_status = 0');
 }
 

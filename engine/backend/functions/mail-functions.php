@@ -4,15 +4,18 @@ function fiomess($iduser) {
     global $pdo;
     $name = DBOnce('name','users','id='.$iduser);
     $surname = DBOnce('surname','users','id='.$iduser);
-
-    return trim( $name . ' ' . $surname);
+    $result = trim( $name . ' ' . $surname);
+    if ($result == '') {
+        $result = DBOnce('email','users','id='.$iduser);
+    }
+    return $result;
 }
 
-function lastmess($iduser) {
+function lastmess($interlocutorId, $userId) {
     global $pdo;
     global $id;
     $sql = $pdo->prepare("SELECT sender, mes, datetime FROM mail WHERE (sender = :userId or recipient = :userId ) and (sender = :id or recipient = :id) order by datetime DESC limit 1");
-    $sql->execute(array(':userId' => $iduser, ':id' => $id));
+    $sql->execute(array(':userId' => $interlocutorId, ':id' => $userId));
     $result = $sql->fetch(PDO::FETCH_ASSOC);
 
     return $result;
@@ -27,10 +30,10 @@ function lastChatMessage() {
     return $result;
 }
 
-function numberOfNewMessages($idSender)
+function numberOfNewMessages($idSender, $userId)
 {
     global $id;
-    $count = DBOnce('COUNT(*)', 'mail', 'recipient='.$id.' AND sender='.$idSender.' AND view_status=0');
+    $count = DBOnce('COUNT(*)', 'mail', 'recipient=' . $userId . ' AND sender=' . $idSender . ' AND view_status=0');
     return $count;
 }
 
@@ -117,13 +120,13 @@ function prepareChatMessages(&$messages, $userId)
     }
 }
 
-function getMessageById($messageId)
+function getMessageById($messageId, $userId)
 {
     global $pdo;
     global $id;
     $query = "SELECT message_id, mes, sender, recipient, datetime, view_status FROM `mail` WHERE (`sender` = :userId OR `recipient` = :userId) AND message_id=:messageId ORDER BY `datetime`";
     $dbh = $pdo->prepare($query);
-    $dbh->execute(array(':userId' => $id,':messageId' => $messageId));
+    $dbh->execute(array(':userId' => $userId,':messageId' => $messageId));
     $result = $dbh->fetchAll(PDO::FETCH_ASSOC);
 
     prepareMessages($result, $id);
@@ -147,6 +150,7 @@ function getChatMessageById($messageId)
 function prepareMessages(&$messages, $userId, $forChat = false)
 {
     global $id;
+    global $idc;
     global $pdo;
     if ($forChat) {
         $lastViewedMessage = DBOnce('last_viewed_chat_message', 'users', 'id = ' . $id);
@@ -155,7 +159,7 @@ function prepareMessages(&$messages, $userId, $forChat = false)
         $message['status'] = '';
         $message['owner'] = false;
 
-        if ($message['sender'] == $userId) {
+        if ($message['sender'] == $userId || ($message['sender'] == 1 && $idc == 1)) {
             $message['owner'] = true;
             $message['author'] = 'Вы';
             if ($forChat) {

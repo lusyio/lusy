@@ -4,6 +4,7 @@ global $id;
 global $cometHash;
 global $cometTrackChannelName;
 global $roleu;
+global $supportCometHash;
 
 require_once __ROOT__ . '/engine/backend/functions/storage-functions.php';
 

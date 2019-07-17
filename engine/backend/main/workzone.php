@@ -26,6 +26,9 @@ if (!empty($_GET['storage'])) {
 if (!empty($_GET['mail'])) {
     inc('other', 'conversation');
 }
+if (!empty($_GET['support'])) {
+    inc('other', 'support-dialog');
+}
 
 if(!empty($url)) {
 	inc('other',$url);

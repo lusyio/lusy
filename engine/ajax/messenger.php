@@ -11,6 +11,11 @@ require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 
 if ($_POST['module'] == 'sendMessage') {
+    if (isset($_POST['fromSupport'])) {
+        if ($_POST['fromSupport'] == 1 && $idc == 1) {
+            $id = 1;
+        }
+    }
     $mes = link_it($_POST['mes']);
     $mes = filter_var($_POST['mes'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $recipientId = filter_var($_POST['recipientId'], FILTER_SANITIZE_NUMBER_INT);
@@ -50,8 +55,6 @@ if ($_POST['module'] == 'sendMessage') {
         }
 
         $cometSql = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
-        $messageCometForSender = "<p>Вы (" . $datetime . "):</p><p>" . $mes . "</p>";
-        $messageCometForRecipient = "<p>" . fiomess($id) . " (" . $datetime . "):</p><p>" . $mes . "</p>";
         $mesData = [
             'senderId' => $id,
             'recipientId' => $recipientId,
@@ -114,8 +117,13 @@ if ($_POST['module'] == 'sendMessageToChat') {
 }
 
 if ($_POST['module'] == 'updateMessages') {
+    if (isset($_POST['fromSupport'])) {
+        if ($_POST['fromSupport'] == 1 && $idc == 1) {
+            $id = 1;
+        }
+    }
     $messageId = filter_var($_POST['messageId'], FILTER_SANITIZE_NUMBER_INT);
-    $messages = getMessageById($messageId);
+    $messages = getMessageById($messageId, $id);
     foreach ($messages as $message) {
         include __ROOT__ . '/engine/frontend/other/message.php';
     }

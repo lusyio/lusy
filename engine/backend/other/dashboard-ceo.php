@@ -12,6 +12,7 @@ global $_postpone;
 global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
+global $supportCometHash;
 
 
 $all = DBOnce('COUNT(*)','tasks','(status!="done" and status!="canceled") and (worker='.$id.' or manager='.$id.')');

@@ -6,6 +6,8 @@ global $cometPdo;
 global $cometHash;
 global $roleu;
 global $tariff;
+global $supportCometHash;
+
 
 if ($roleu == 'ceo') {
     $isCeo = true;

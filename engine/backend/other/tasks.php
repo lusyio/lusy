@@ -6,6 +6,7 @@ global $idc;
 global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
+global $supportCometHash;
 global $roleu;
 global $now;
 $cometTrackChannelName = getCometTrackChannelName();
