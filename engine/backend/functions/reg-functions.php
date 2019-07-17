@@ -44,6 +44,17 @@ function addUser($email, $password, $companyId, $position, $name = '', $surname 
     $createNotificationRowQuery = $pdo->prepare('INSERT INTO user_notifications(user_id) VALUES (:userId)');
     $createNotificationRowQuery->execute(array(':userId' => $userId));
 
+    $supportMessage = 'Добро пожаловать! С проблемами и пожеланиями обращайтесь сюда!';
+    $addSupportMessageQuery = $pdo->prepare('INSERT INTO mail(mes, sender, recipient, view_status, datetime) VALUES (:message, :sender, :recipient, :viewStatus, :datetime)');
+    $addSupportMessageQueryData = [
+        ':message' => $supportMessage,
+        ':sender' => 1,
+        ':recipient' => $userId,
+        ':viewStatus' => 1,
+        ':datetime' => time(),
+    ];
+    $addSupportMessageQuery->execute($addSupportMessageQueryData);
+
     return $userId;
 }
 
