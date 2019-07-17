@@ -250,6 +250,29 @@ $borderColor = [
     </div>
 </div>
 
+<div class="modal fade" id="premModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-center d-block">
+                <h5 class="modal-title" id="exampleModalLabel">Облачные хранилища</h5>
+            </div>
+            <div class="modal-body text-center">
+                Извините, но функция загрузки файлов из облачных хранилищ доступна только в Premium версии
+            </div>
+            <div class="modal-footer border-0">
+                <?php if ($isCeo): ?>
+                    <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
+                <?php endif; ?>
+            </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="taskLimitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -416,7 +439,7 @@ $borderColor = [
         });
         <?php if ($tariff == 0):?>
         $('#openGoogleDrive, #openDropbox').on('click', function () {
-            $('.premModal').modal('show');
+            $('#premModal').modal('show');
         });
         <?php endif; ?>
 

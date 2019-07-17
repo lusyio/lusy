@@ -419,7 +419,7 @@ if ($id == $worker and $view == 0) {
         });
 
     <?php if ($tariff == 0):?>
-       $('#openGoogleDrive, #openDropbox, #openDropboxReview, #openGoogleDriveReview').on('click', function () {
+       $('#openGoogleDrive, #openDropbox, #openDropboxReview, #openGoogleDriveReview').click(function () {
            $('.premModal').modal('show');
        });
     <?php endif; ?>
