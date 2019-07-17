@@ -41,7 +41,7 @@ FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask OR
         } else {
             $commentStatus = $c['status'];
         }
-        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
+        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
         $filesQuery->execute(array(':commentId' => $c['id'], ':commentType' => 'comment'));
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
         $commentViewStatus = json_decode($c['view_status'], true);

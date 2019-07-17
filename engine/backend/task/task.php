@@ -31,7 +31,7 @@ $taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.auth
 $taskQuery->execute(array(':taskId' => $id_task));
 $task = $taskQuery->fetch(PDO::FETCH_ASSOC);
 
-$filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted
+$filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud
   FROM uploads 
   WHERE comment_id = :commentId and comment_type = :commentType');
 $filesQuery->execute(array(':commentId' => $id_task, ':commentType' => 'task'));
