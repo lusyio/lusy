@@ -181,7 +181,7 @@ if($_POST['module'] == 'createTask') {
         $parentTaskDataQuery = $pdo->prepare("SELECT manager, idcompany FROM tasks WHERE id = :taskId");
         $parentTaskDataQuery->execute(['taskId' => $parentTask]);
         $parentTaskData = $parentTaskDataQuery->fetch(PDO::FETCH_ASSOC);
-        if ($parentTaskData['manager'] == $id) {
+        if ($parentTaskData['manager'] == $id || ($roleu == 'ceo' && $parentTaskData['idcompany'] == $idc)) {
             $taskCreateQueryData['parentTask'] = $parentTask;
         }
     }
