@@ -99,8 +99,23 @@ $badges = [
                 </div>
                 <?php if (!is_null($userData['about']) && $userData['about'] != ''): ?>
                     <div class="clearfix"></div>
-                    <hr class="mt-5">
-                    <p class="text-justify text-secondary"><?= nl2br($userData['about']) ?></p>
+                    <div class="row mt-25-tasknew">
+                        <div class="col-12 text-center position-relative">
+                            <div class="other-func text-center position-relative" data-toggle="collapse" href="#collapseFunctions" role="button" aria-expanded="false" aria-controls="collapseFunctions">
+                                <div class="additional-func">
+                                    <span>Показать всю информацию <i class="fas fa-caret-down"></i></span>
+                                </div>
+                            </div>
+                            <div class="collapse" id="collapseFunctions">
+                                <div class="row">
+                                    <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
+                                        <p class="text-justify text-secondary mb-1">Дата рождения: <?= date('Y.m.d', strtotime($userData['birthdate'])); ?></p>
+                                        <p class="text-justify text-secondary mb-0"><?= nl2br($userData['about']) ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
