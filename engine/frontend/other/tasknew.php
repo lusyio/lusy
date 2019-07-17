@@ -112,16 +112,27 @@
                 <div class="row">
                     <div class="col-12 col-lg-8 top-block-tasknew">
                         <div class="card card-tasknew">
+                            <?php
+                            include __ROOT__ . '/engine/frontend/members/subtask.php';
+                            ?>
                             <label class="label-responsible text-left">
-                                Надзадачи
+                                Надзадача
                             </label>
-                            <select class="custom-select border-0 card-body-tasknew" id="startDate"
-                                    style="height: 50px;font-size: 14px">
-                                <option selected disabled>Выберите надзадачу</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
+                                 style="min-height: 38px;padding-top: 10px;">
+                                <div class="placeholder-subtask">Не выбрана</div>
+                                <?php
+                                foreach ($tasks as $n) { ?>
+                                    <div val="<?php echo $n['idtask'] ?>" class="add-subtask d-none">
+                                        <!--                                        <img src="/--><?//= getAvatarLink($n["id"]) ?><!--" class="avatar-added mr-1">-->
+                                        <span class="card-coworker"><?= $n['name'] ?></span>
+                                    </div>
+                                    <hr class="m-0">
+                                <?php } ?>
+                                <div class="position-absolute icon-newtask icon-newtask-change-subtask">
+                                    <i class="fas fa-caret-down"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
@@ -147,10 +158,10 @@
                             <label class="label-responsible text-left">
                                 Надзадача
                             </label>
-                            <span class="position-absolute disabledBtnOptions"
-                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">
-
-                            </span>
+<!--                            <span class="position-absolute disabledBtnOptions"-->
+<!--                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">-->
+<!---->
+<!--                            </span>-->
                             <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled"
                                  style="min-height: 38px;padding-top: 10px;">
                                 <div class="placeholder-subtask">Не выбрана</div>
@@ -383,10 +394,17 @@
             data-app-key="pjjm32k7twiooo2"></script>
 <?php endif; ?>
 <script>
-    $(document).ready(function () {
 
+
+    $(document).ready(function () {
         $('.disabledBtnOptions').on('click', function () {
             $('#freeOptionsModal').modal('toggle');
+        });
+        $("#datedone").on('change', function () {
+            $(this).css('color', '#353b41');
+        });
+        $("#startDate").on('change', function () {
+            $(this).css('color', '#353b41');
         });
         $("#startDate").on('change', function () {
             var val = $(this).val();

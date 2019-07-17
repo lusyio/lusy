@@ -23,6 +23,24 @@
     margin-bottom: 1rem;
 }
 
+.mt-25-tasknew .responsible{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    top: 125px !important;
+    max-height: 500px;
+}
+
+#name{
+    color: #353b41 !important;
+}
+
+.mt-25-tasknew .coworkers{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    top: 230px !important;
+    max-height: 500px;
+}
+
 .editor-card {
     border-radius: 12px !important;
 }
@@ -73,6 +91,14 @@
     font-weight: 600;
 }
 
+.card-tasknew .card-coworker{
+    color: #353b41 !important;
+}
+
+.card-tasknew .coworker-fio{
+    color: #353b41 !important;
+}
+
 .card-tasknew .icon-newtask-delete-coworker{
     position: absolute;
     right: -12px;
@@ -85,7 +111,8 @@
 }
 
 .subtask{
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: 500px;
     display: none;
     width: calc(100%);
