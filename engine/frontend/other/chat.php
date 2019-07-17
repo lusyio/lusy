@@ -174,8 +174,8 @@
         });
 
         //===================End of Dropbox=======================
-        function addFileToList(name, link, source, icon) {
-            $(".file-name").show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "'>" +
+        function addFileToList(name, link, size, source, icon) {
+            $(".file-name").show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "' data-file-size='" + size + "'>" +
                 "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
                 "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
                 "</div>");
