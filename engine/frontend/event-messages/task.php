@@ -192,6 +192,19 @@
                 $eventText = _('Task reassigned');
             }
         }
+        if ($event['action'] == 'newsubtask') { // добавился соисполнитель
+            $bg = 'primary';
+            $icon = 'far fa-clipboard';
+            $parentTaskName = DBOnce('name', 'tasks', 'id=' . $event['task_id']);
+            $subTaskName = DBOnce('name', 'tasks', 'id=' . $event['comment']);
+            if ($event['author_id'] == '1') {
+                $eventText = 'Вы добавили подзадачу в "' . $parentTaskName . '"';
+                $eventDop = 'Новая подзадача - "' . $subTaskName . '"';
+            } else {
+                $eventText = 'В задаче "' . $parentTaskName . '" добавлена подзадача "' . $subTaskName . '"';
+            }
+        }
+
         $month = ['', _("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")];
         $monthNumber = date("n", $event['datetime']);
         ?>

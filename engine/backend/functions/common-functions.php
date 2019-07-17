@@ -685,7 +685,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
 
         //sendAchievementEmailNotification($id, $comment);
-        addMailToQueue('sendAchievementEmailNotification', [$id, $comment], $id, $eventId, $eventId);
+        addMailToQueue('sendAchievementEmailNotification', [$id, $comment], $id, $eventId);
     }
 }
 
@@ -1006,6 +1006,62 @@ function addCommentEvent($taskId, $commentId)
     foreach ($recipients as $key => $recipient) {
         addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipient, $commentId], $recipient, $eventIds[$recipient]);
 
+    }
+}
+
+function addNewSubTaskEvent($parentTaskId, $subTaskId)
+{
+    global $id;
+    global $idc;
+    global $pdo;
+    global $cometPdo;
+
+    $taskStatusQuery = $pdo->prepare("SELECT status FROM tasks WHERE id=:taskId");
+    $taskStatusQuery->execute(array(':taskId' => $parentTaskId));
+    $taskStatus = $taskStatusQuery->fetch(PDO::FETCH_COLUMN);
+    if ($taskStatus == 'planned') {
+        return;
+    }
+    $executorsQuery = $pdo->prepare('SELECT worker, manager FROM tasks WHERE id = :taskId');
+    $executorsQuery->execute(array(':taskId' => $parentTaskId));
+    $executors = $executorsQuery->fetch(PDO::FETCH_ASSOC);
+    $coworkersQuery = $pdo->prepare('SELECT worker_id FROM task_coworkers WHERE task_id = :taskId');
+    $coworkersQuery->execute(array(':taskId' => $parentTaskId));
+    $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_COLUMN);
+
+    $recipients = $coworkers;
+    $recipients[] = $executors['manager'];
+    $recipients[] = $executors['worker'];
+    array_unique($recipients);
+    if (($key = array_search($id, $recipients)) !== false) {
+        unset($recipients[$key]);
+    }
+
+
+    $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
+    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
+    $eventIds = [];
+    foreach ($recipients as $recipient) {
+        if ($recipient != $id) {
+            $eventData = [
+                ':action' => 'newsubtask',
+                ':taskId' => $parentTaskId,
+                ':authorId' => $id,
+                ':recipientId' => $recipient,
+                ':companyId' => $idc,
+                ':datetime' => time(),
+                ':comment' => $subTaskId,
+            ];
+            $addEventQuery->execute($eventData);
+            $eventId = $pdo->lastInsertId();
+            $eventIds[$recipient] = $eventId;
+            $pushData = [
+                'type' => 'task',
+                'eventId' => $eventId,
+            ];
+            $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
+        }
     }
 }
 

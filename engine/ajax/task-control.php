@@ -182,7 +182,7 @@ if($_POST['module'] == 'createTask') {
         $parentTaskDataQuery->execute(['taskId' => $parentTask]);
         $parentTaskData = $parentTaskDataQuery->fetch(PDO::FETCH_ASSOC);
         if ($parentTaskData['manager'] == $id || ($roleu == 'ceo' && $parentTaskData['idcompany'] == $idc)) {
-            $taskCreateQueryData['parentTask'] = $parentTask;
+            $taskCreateQueryData[':parentTask'] = $parentTask;
         }
     }
     $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask)");
@@ -215,8 +215,9 @@ if($_POST['module'] == 'createTask') {
     } else {
         addEvent('createplantask', $idtask, $dateCreate, $worker);
     }
-    if (!is_null($taskCreateQueryData['parentTask'])) {
-        addSubTaskComment($taskCreateQueryData['parentTask'], $idtask);
+    if (!is_null($taskCreateQueryData[':parentTask'])) {
+        addSubTaskComment($taskCreateQueryData[':parentTask'], $idtask);
+        addNewSubTaskEvent($taskCreateQueryData[':parentTask'], $idtask);
     }
 
 
