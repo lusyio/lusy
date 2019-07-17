@@ -285,7 +285,7 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 data: fd,
-                // success: controlUpdate,
+                success: controlUpdate,
             });
 
         } else {
