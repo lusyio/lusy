@@ -123,7 +123,7 @@ $borderColor = [
         <?php if ($tariff == 1): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
             <div class="collapse" id="collapseFunctions">
                 <div class="row">
-                    <div class="col-12 col-lg-8 top-block-tasknew">
+                    <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="card card-tasknew">
                             <?php
                             include __ROOT__ . '/engine/frontend/members/subtask.php';
@@ -137,7 +137,7 @@ $borderColor = [
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
                                     <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
-                                        <span class="card-coworker"><?= $parentTask['name']; ?></span>
+                                        <span class="card-coworker"><?= mb_strimwidth($parentTask['name'], 0, 38, "..."); ?></span>
                                     </div>
                                     <hr class="m-0">
                                 <?php } ?>
@@ -162,7 +162,7 @@ $borderColor = [
         <?php else: ?>
             <div class="collapse" id="collapseFunctions">
                 <div class="row">
-                    <div class="col-12 col-lg-8 top-block-tasknew">
+                    <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="card card-tasknew">
                             <?php
                             include __ROOT__ . '/engine/frontend/members/subtask.php';
@@ -170,17 +170,17 @@ $borderColor = [
                             <label class="label-responsible text-left">
                                 Надзадача
                             </label>
-                            <span class="position-absolute disabledBtnOptions"
-                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">
-
-                            </span>
-                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled"
+<!--                            <span class="position-absolute disabledBtnOptions"-->
+<!--                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">-->
+<!---->
+<!--                            </span>-->
+                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew "
                                  style="min-height: 38px;padding-top: 10px;">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
                                     <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
-                                        <span class="card-coworker"><?= $parentTask['name']; ?></span>
+                                        <span class="card-coworker"><?= mb_strimwidth($parentTask['name'], 0, 38, "..."); ?></span>
                                     </div>
                                     <hr class="m-0">
                                 <?php } ?>

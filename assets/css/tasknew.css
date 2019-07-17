@@ -27,7 +27,8 @@
     overflow-y: scroll;
     overflow-x: hidden;
     top: 125px !important;
-    max-height: 500px;
+    height: auto;
+    max-height: 300px;
 }
 
 #name{
@@ -38,7 +39,8 @@
     overflow-y: scroll;
     overflow-x: hidden;
     top: 230px !important;
-    max-height: 500px;
+    height: auto;
+    max-height: 300px;
 }
 
 .editor-card {
@@ -118,10 +120,16 @@
     border-top-right-radius: 5px;
 }
 
+.container-subtask:hover .icon-newtask-change-subtask{
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
 .subtask{
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 500px;
+    height: auto;
+    max-height: 300px;
     display: none;
     width: calc(100%);
     background-color: #fff;
@@ -131,10 +139,9 @@
     position: absolute;
     z-index: 2;
     right: 0px;
-    bottom: 1px;
+    bottom: -300px;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, .1);
     padding: 0;
-    top: 100px;
 }
 
 .container-subtask.disabled{

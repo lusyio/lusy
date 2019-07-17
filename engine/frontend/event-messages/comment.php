@@ -21,9 +21,9 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <p class="mb-0 font-weight-bold"><?= $event['taskname'] ?></p>
+                    <p class="mb-0 font-weight-bold"><?= mb_strimwidth($event['taskname'], 0, 21, "..."); ?></p>
                     <div>
-                        <span class="text-secondary"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : $event['commentText'] ?></span>
+                        <span class="text-secondary"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : mb_strimwidth($event['commentText'], 0, 25, "..."); ?></span>
                     </div>
                 </div>
                 <div class="col-5">

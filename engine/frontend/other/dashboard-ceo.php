@@ -99,7 +99,7 @@ $statusColor = [
                                 </div>
                             </div>
                             <div class="col-7 col-lg-5 p-0">
-                                <p class="mb-0 font-weight-bold"><?= $task['name'] ?></p>
+                                <p class="mb-0 font-weight-bold"> <?= mb_strimwidth($task['name'], 0, 25, "..."); ?></p>
                                 <p class="mb-0 text-muted small"><?= $task['managerName'] . ' ' . $task['managerSurname'] ?></p>
                             </div>
                             <div class="col pl-0">
