@@ -211,7 +211,7 @@ $borderColor = [
              class="file-name container-files">
         </div>
         <div style="padding-left: 20px;">
-            <?php $uploadModule = 'task'; // Указываем тип дропдауна прикрепления файлов?>
+            <?php $uploadModule = 'tasknew'; // Указываем тип дропдауна прикрепления файлов?>
             <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; // Подключаем дропдаун прикрепления файлов?>
         </div>
     </div>
