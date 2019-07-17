@@ -1,4 +1,4 @@
-<div class="responsible" style="bottom: 100px;">
+<div class="responsible">
     <div class="responsible-card">
         <?php
         $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');

@@ -116,6 +116,11 @@ $(document).ready(function () {
         $('#sendFiles').trigger('click');
     });
 
+    $('.attach-file-review').on('click', function (e) {
+        e.preventDefault();
+        $('#sendFilesReview').trigger('click');
+    });
+
     var fileList = new Map();
     var names;
     var n = 0;

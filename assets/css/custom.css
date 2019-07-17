@@ -225,7 +225,7 @@ body{
     font-size: 24px;
 }
 .companyAvatar i {
-    vertical-align: -webkit-baseline-middle;
+    vertical-align: -30%;
 }
 .progress {
     background-color: #f7f7f7;
@@ -769,12 +769,22 @@ input:checked[type="checkbox"]::before {
     background-color: #fefefe;
 }
 
+.review-block .btn-file{
+
+}
+
 .fas.fa-check.custom-date.accept {
     color: #93c259 !important;
     margin-top: 5px;
     padding: 5px;
     transition: 200ms;
     border-radius: 50%;
+}
+
+.text-area-message{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .custom-file {
@@ -2835,6 +2845,11 @@ span.date {
         margin-bottom: 13px;
     }
 
+    #sendonreview{
+        padding: 6px 9px;
+        height: 38px;
+    }
+
     .ql-editor:after {
         width: 79.5%;
     }
@@ -3347,6 +3362,10 @@ label.error {
 .icon-social {
     color: #6c757d;
     transition: 200ms;
+}
+
+.icon-social:hover{
+    color: #0056b3;
 }
 
 .join {

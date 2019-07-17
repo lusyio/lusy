@@ -21,9 +21,9 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <p class="mb-0 font-weight-bold"><?= $event['taskname'] ?></p>
-                    <div>
-                        <span class="text-secondary"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : $event['commentText'] ?></span>
+                    <p class="mb-0 text-area-message font-weight-bold"><?= $event['taskname']; ?></p>
+                    <div class="text-area-message">
+                        <span class="text-secondary"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : $event['commentText']; ?></span>
                     </div>
                 </div>
                 <div class="col-5">

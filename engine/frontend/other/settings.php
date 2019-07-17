@@ -111,7 +111,15 @@
                             <?= $GLOBALS['_aboutsettings'] ?>
                         </small>
                         <div class="row">
-                            <div class="col-12 col-lg-4">
+                            <div class="col-lg-6 col-12">
+                                <div class="input-group mt-3">
+                                    <input type="date" id="bDayDate" class="form-control input-settings" value="<?= $userData['birthdate']; ?>">
+                                </div>
+                                <small class="text-muted text-muted-reg">
+                                    Дата рождения
+                                </small>
+                            </div>
+                            <div class="col-12 col-lg-6">
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -122,8 +130,13 @@
                                            class="form-control input-settings email"
                                            value="<?= (isset($userData['social']['vk'])) ? $userData['social']['vk'] : ''; ?>">
                                 </div>
+                                <small class="text-muted text-muted-reg">
+                                    Вконтакте
+                                </small>
                             </div>
-                            <div class="col-12 col-lg-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -134,8 +147,11 @@
                                            class="form-control input-settings email"
                                            value="<?= (isset($userData['social']['facebook'])) ? $userData['social']['facebook'] : ''; ?>">
                                 </div>
+                                <small class="text-muted text-muted-reg">
+                                    Facebook
+                                </small>
                             </div>
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-6">
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -146,22 +162,14 @@
                                            class="form-control input-settings email"
                                            value="<?= (isset($userData['social']['instagram'])) ? $userData['social']['instagram'] : ''; ?>">
                                 </div>
-                            </div>
-                        </div>
-                        <small class="text-muted text-muted-reg">
-                            Социальные сети
-                        </small>
-
-                        <div class="row">
-                            <div class="col-lg-3 col-12">
-                                <div class="input-group mt-3">
-                                    <input type="date" id="bDayDate" class="form-control input-settings" value="<?= $userData['birthdate']; ?>">
-                                </div>
                                 <small class="text-muted text-muted-reg">
-                                    Дата рождения
+                                    Instagram
                                 </small>
                             </div>
-                            <div class="col-12 col-lg-4">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
                                 <div class="input-group mt-3">
                                     <input id="settingsEmail" name="settingsEmail" type="email"
                                            class="form-control input-settings email" value="<?= $userData['email']; ?>">
@@ -170,7 +178,7 @@
                                     Электронная почта
                                 </small>
                             </div>
-                            <div class="col-12 col-lg-5">
+                            <div class="col-12 col-lg-6">
                                 <div class="input-group mt-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">+</span>
