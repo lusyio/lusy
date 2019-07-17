@@ -1,7 +1,7 @@
 <?php 
 $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
 $text = filter_var(trim($_POST['text']), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-$unsafeGoogleFiles = json_decode($_POST['googleAttach']);
+$unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
 $googleFiles = [];
 foreach ($unsafeGoogleFiles as $k => $v) {
     $googleFiles[] = [
@@ -10,7 +10,7 @@ foreach ($unsafeGoogleFiles as $k => $v) {
         'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
     ];
 }
-$unsafeDropboxFiles = json_decode($_POST['dropboxAttach']);
+$unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
 $dropboxFiles = [];
 foreach ($unsafeDropboxFiles as $k => $v) {
     $dropboxFiles[] = [

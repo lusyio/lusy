@@ -20,7 +20,7 @@ if ($_POST['module'] == 'sendMessage') {
     $mes = filter_var($_POST['mes'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $recipientId = filter_var($_POST['recipientId'], FILTER_SANITIZE_NUMBER_INT);
     $messageTime = time();
-    $unsafeGoogleFiles = json_decode($_POST['googleAttach']);
+    $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $googleFiles = [];
     foreach ($unsafeGoogleFiles as $k => $v) {
         $googleFiles[] = [
@@ -29,7 +29,7 @@ if ($_POST['module'] == 'sendMessage') {
             'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
-    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach']);
+    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'],true);
     $dropboxFiles = [];
     foreach ($unsafeDropboxFiles as $k => $v) {
         $dropboxFiles[] = [
@@ -71,7 +71,7 @@ if ($_POST['module'] == 'sendMessageToChat') {
     $mes = link_it($_POST['mes']);
     $mes = filter_var($_POST['mes'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $messageTime = time();
-    $unsafeGoogleFiles = json_decode($_POST['googleAttach']);
+    $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $googleFiles = [];
     foreach ($unsafeGoogleFiles as $k => $v) {
         $googleFiles[] = [
@@ -80,7 +80,7 @@ if ($_POST['module'] == 'sendMessageToChat') {
             'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
-    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach']);
+    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'].true);
     $dropboxFiles = [];
     foreach ($unsafeDropboxFiles as $k => $v) {
         $dropboxFiles[] = [
