@@ -136,8 +136,8 @@ $borderColor = [
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
-                                    <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
-                                        <span class="card-coworker"><?= mb_strimwidth($parentTask['name'], 0, 38, "..."); ?></span>
+                                    <div val="<?php echo $parentTask['id']; ?>" class="add-subtask text-area-message d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
+                                        <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
                                     <hr class="m-0">
                                 <?php } ?>

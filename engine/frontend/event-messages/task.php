@@ -224,7 +224,7 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <p class="mb-0 font-weight-bold"><?=  mb_strimwidth($event['taskname'], 0, 29, "..."); ?></p>
+                    <p class="mb-0 font-weight-bold text-area-message"><?=  $event['taskname']; ?></p>
                     <div>
                         <?php if ($event['author_id'] == 1): ?>
                             <span class="text-secondary"><?= _('System message') ?></span>
