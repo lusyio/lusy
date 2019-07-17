@@ -108,7 +108,7 @@ function prepareChatMessages(&$messages, $userId)
             $message['author'] = fiomess($message['sender']);
         }
         $commentType = 'chat';
-        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
+        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
         $filesQuery->execute(array(':messageId' => $message['message_id'], ':commentType' => $commentType));
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
         if (count($files) > 0) {
@@ -188,7 +188,7 @@ function prepareMessages(&$messages, $userId, $forChat = false)
         } else {
             $commentType = 'conversation';
         }
-        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
+        $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
         $filesQuery->execute(array(':messageId' => $message['message_id'], ':commentType' => $commentType));
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
         if (count($files) > 0) {
