@@ -188,11 +188,12 @@ $(document).ready(function () {
         var delta = quill.root.innerHTML;
         var datedone = $("#datedone").val();
         var startdate = $("#startDate").val();
+        var parentTask = $("#parentTask").val();
         var fd = new FormData();
-        console.log(datedone);
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
         });
+        fd.append('ajax', 'task-control');
         fd.append('module', 'createTask');
         fd.append('name', name);
         fd.append('description', delta);
@@ -202,7 +203,7 @@ $(document).ready(function () {
         fd.append('coworkers', JSON.stringify(coworkers));
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
-        fd.append('ajax', 'task-control');
+        fd.append('parentTask', parentTask);
         if (name != null && delta != null && datedone != null && datedone >= checkDate && responsible != null) {
             $.ajax({
                 url: '/ajax.php',

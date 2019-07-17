@@ -73,6 +73,9 @@ if ($comment[0] == 'removecoworker') {
     $coworkerLink = '<a href="/profile/' . $coworkerId .'/">' . $workername . '</a>';
     $text = $_coworkerWasRemoved . ' - ' . $coworkerLink;
 }
+if ($comment[0] == 'addsubtask') {
+    $text = '<a href="/task/' . $comment[1] .'/">Создана подзадача</a>';
+}
 ?>
 
 <div class="mt-5 mb-5 system text-center text-secondary position-relative" id="<?= $c['id'] ?>">

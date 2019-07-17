@@ -115,12 +115,13 @@
                             <label class="label-responsible text-left">
                                 Надзадачи
                             </label>
-                            <select class="custom-select border-0 card-body-tasknew" id="startDate"
+                            <select class="custom-select border-0 card-body-tasknew" id="parentTask"
                                     style="height: 50px;font-size: 14px">
                                 <option selected disabled>Выберите надзадачу</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option value="">Нет надзадачи</option>
+                                <?php foreach ($parentTasks as $parentTask): ?>
+                                    <option value="<?= $parentTask['id']; ?>"><?= $parentTask['name']; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>

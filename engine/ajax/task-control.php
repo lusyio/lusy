@@ -2,6 +2,7 @@
 
 require_once __ROOT__ . '/engine/backend/functions/task-functions.php';
 
+global $idc;
 global $roleu;
 global $tariff;
 
@@ -155,7 +156,6 @@ if($_POST['module'] == 'createTask') {
 	$description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$datedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
 	$worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
-
 	$status = 'new';
 	$dateCreate = time();
 	if (isset($_POST['startdate']) && $tariff == 1) {
@@ -164,10 +164,30 @@ if($_POST['module'] == 'createTask') {
             $status = 'planned';
         }
     }
-	$query = "INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0') ";
-	$sql = $pdo->prepare($query);
-	$sql->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => $dateCreate, ':author' => $id, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $idc, ':datedone' => $datedone, ':status' => $status));
-	if ($sql) {
+	$parentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
+
+	$taskCreateQueryData = [
+	    ':name' => $name,
+        ':description' => $description,
+        ':dateCreate' => $dateCreate,
+        ':author' => $id, ':manager' => $managerId,
+        ':worker' => $worker,
+        ':companyId' => $idc,
+        ':datedone' => $datedone,
+        ':status' => $status,
+        ':parentTask' => null,
+    ];
+	if ($parentTask != '' && $parentTask != 0) {
+        $parentTaskDataQuery = $pdo->prepare("SELECT manager, idcompany FROM tasks WHERE id = :taskId");
+        $parentTaskDataQuery->execute(['taskId' => $parentTask]);
+        $parentTaskData = $parentTaskDataQuery->fetch(PDO::FETCH_ASSOC);
+        if ($parentTaskData['manager'] == $id) {
+            $taskCreateQueryData['parentTask'] = $parentTask;
+        }
+    }
+    $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask)");
+    $taskCreateQuery->execute($taskCreateQueryData);
+	if ($taskCreateQuery) {
 		$idtask = $pdo->lastInsertId();
 		if (!empty($idtask)) {
 		    $result['taskId'] = $idtask;
@@ -194,6 +214,9 @@ if($_POST['module'] == 'createTask') {
         addEvent('createtask', $idtask, $datedone, $worker);
     } else {
         addEvent('createplantask', $idtask, $dateCreate, $worker);
+    }
+    if (!is_null($taskCreateQueryData['parentTask'])) {
+        addSubTaskComment($taskCreateQueryData['parentTask'], $idtask);
     }
 
 
