@@ -3,6 +3,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
+<?php
+$borderColor = [
+    'new' => 'border-primary',
+    'inwork' => 'border-primary',
+    'overdue' => 'border-danger',
+    'postpone' => 'border-warning',
+    'pending' => 'border-warning',
+    'returned' => 'border-primary',
+    'done' => 'border-success',
+    'canceled' => 'border-secondary',
+    'planned' => 'border-info',
+];
+?>
 
 <div class="row">
     <div class="col-12 col-lg-8 top-block-tasknew">
@@ -123,7 +136,7 @@
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
-                                    <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none">
+                                    <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
                                         <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
                                     <hr class="m-0">
@@ -146,14 +159,6 @@
                     </div>
                 </div>
             </div>
-<!--            <select class="custom-select border-0 card-body-tasknew" id="parentTask"-->
-<!--                    style="height: 50px;font-size: 14px">-->
-<!--                <option selected disabled>Выберите надзадачу</option>-->
-<!--                <option value="">Нет надзадачи</option>-->
-<!--                --><?php //foreach ($parentTasks as $parentTask): ?>
-<!--                    <option value="--><?//= $parentTask['id']; ?><!--">--><?//= $parentTask['name']; ?><!--</option>-->
-<!--                --><?php //endforeach; ?>
-<!--            </select>-->
         <?php else: ?>
             <div class="collapse" id="collapseFunctions">
                 <div class="row">
@@ -165,16 +170,16 @@
                             <label class="label-responsible text-left">
                                 Надзадача
                             </label>
-<!--                            <span class="position-absolute disabledBtnOptions"-->
-<!--                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">-->
-<!---->
-<!--                            </span>-->
-                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled"
+                            <span class="position-absolute disabledBtnOptions"
+                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">
+
+                            </span>
+                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
                                  style="min-height: 38px;padding-top: 10px;">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
-                                    <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none">
+                                    <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
                                         <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
                                     <hr class="m-0">

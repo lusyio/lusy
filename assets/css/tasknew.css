@@ -95,6 +95,14 @@
     color: #353b41 !important;
 }
 
+.select-subtask:hover .icon-change-responsible{
+    color: #5d95db;
+}
+
+.add-subtask{
+    border-radius: 0 !important;
+}
+
 .card-tasknew .coworker-fio{
     color: #353b41 !important;
 }
