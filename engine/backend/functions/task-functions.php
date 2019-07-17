@@ -238,3 +238,19 @@ function checkSystemTask($taskId)
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :viewStatus)');
         $addEventQuery->execute($eventDataForWorker);
 }
+
+function addSubTaskComment($parentTask, $subTask)
+{
+    global $pdo;
+
+    $sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :commentText, `iduser` = :iduser, `idtask` = :idtask, `status` = :status, `view`=0, `datetime` = :datetime");
+
+    $commentData = [
+        ':status' => 'system',
+        ':commentText' => 'addsubtask:' . $subTask,
+        ':iduser' => '0',
+        ':idtask' => $parentTask,
+        ':datetime' => time(),
+    ];
+    $sql->execute($commentData);
+}

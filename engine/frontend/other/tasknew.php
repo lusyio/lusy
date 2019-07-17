@@ -122,10 +122,10 @@
                                  style="min-height: 38px;padding-top: 10px;">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
-                                foreach ($tasks as $n) { ?>
-                                    <div val="<?php echo $n['idtask'] ?>" class="add-subtask d-none">
+                                foreach ($parentTasks as $parentTask) { ?>
+                                    <div val="<?php echo $parentTask['id']; ?>" class="add-subtask d-none">
                                         <!--                                        <img src="/--><?//= getAvatarLink($n["id"]) ?><!--" class="avatar-added mr-1">-->
-                                        <span class="card-coworker"><?= $n['name'] ?></span>
+                                        <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
                                     <hr class="m-0">
                                 <?php } ?>
@@ -147,6 +147,14 @@
                     </div>
                 </div>
             </div>
+<!--            <select class="custom-select border-0 card-body-tasknew" id="parentTask"-->
+<!--                    style="height: 50px;font-size: 14px">-->
+<!--                <option selected disabled>Выберите надзадачу</option>-->
+<!--                <option value="">Нет надзадачи</option>-->
+<!--                --><?php //foreach ($parentTasks as $parentTask): ?>
+<!--                    <option value="--><?//= $parentTask['id']; ?><!--">--><?//= $parentTask['name']; ?><!--</option>-->
+<!--                --><?php //endforeach; ?>
+<!--            </select>-->
         <?php else: ?>
             <div class="collapse" id="collapseFunctions">
                 <div class="row">

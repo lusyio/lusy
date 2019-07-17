@@ -42,6 +42,10 @@ WHERE tc.task_id = :taskId");
 $coworkersQuery->execute(array(':taskId' => $id_task));
     $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_ASSOC);
 
+$subTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone FROM tasks WHERE parent_task = :taskId");
+$subTasksQuery->execute([':taskId' => $id_task]);
+$subTasks = $subTasksQuery->fetchAll(PDO::FETCH_ASSOC);
+
 $report = $task['report'];
 $idtask = $task['id'];
 $nametask = $task['name'];
