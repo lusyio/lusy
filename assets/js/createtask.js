@@ -188,7 +188,7 @@ $(document).ready(function () {
         var delta = quill.root.innerHTML;
         var datedone = $("#datedone").val();
         var startdate = $("#startDate").val();
-        var parentTask = $("#parentTask").val();
+        var parentTask = $('.add-subtask:visible').attr('val');
         var fd = new FormData();
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
