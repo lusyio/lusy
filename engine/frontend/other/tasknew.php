@@ -174,7 +174,7 @@ $borderColor = [
                                   style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">
 
                             </span>
-                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
+                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled"
                                  style="min-height: 38px;padding-top: 10px;">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
