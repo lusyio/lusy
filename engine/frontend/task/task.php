@@ -225,7 +225,7 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>
 </div>
-<?php if ($tariff == 0):?>
+<?php if ($tariff == 1):?>
     <script type="text/javascript">
         //=======================Google Drive==========================
         //=Create object of FilePicker Constructor function function & set Properties===
@@ -420,7 +420,7 @@ if ($id == $worker and $view == 0) {
 
     <?php if ($tariff == 0):?>
        $('#openGoogleDrive, #openDropbox, #openDropboxReview, #openGoogleDriveReview').click(function () {
-           // $('.premModal').modal('show');
+           $('.premModal').modal('show');
        });
     <?php endif; ?>
 
