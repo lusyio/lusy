@@ -81,7 +81,7 @@ if($_POST['module'] == 'sendpostpone' && $isWorker) {
 	setStatus($idtask, 'postpone');
 	addPostponeComments($idtask, strtotime($datepostpone), $text);
     resetViewStatus($idtask);
-    addEvent('postpone', $idtask, $datepostpone, $idTaskManager);
+    addEvent('postpone', $idtask, strtotime($datepostpone), $idTaskManager);
 
 }
 
