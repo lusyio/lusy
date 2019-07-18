@@ -91,6 +91,8 @@
 
 .ql-editor {
     padding: 20px 30px !important;
+    margin-top: 6px;
+    height: 240px !important;
 }
 
 .ql-editor::before {

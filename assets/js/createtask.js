@@ -146,7 +146,7 @@ $(document).ready(function () {
     $(document).on('click', function (e) { // событие клика по веб-документу
         var div = $(".coworkers-toggle"); // тут указываем ID элемента
         var dov = $('.coworkers');
-        if (!div.is(e.target) // если клик был не по нашему блоку
+        if (!div.is(e.target) && !dov.is(e.target) && dov.has(e.target).length === 0 // если клик был не по нашему блоку
             && div.has(e.target).length === 0) { // и не по его дочерним элементам
             dov.fadeOut(200); // скрываем его
         }
