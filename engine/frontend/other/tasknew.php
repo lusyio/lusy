@@ -74,7 +74,6 @@ $borderColor = [
                         <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
                         <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                     </div>
-                    <hr class="m-0">
                 <?php } ?>
                 <div class="position-absolute icon-newtask icon-newtask-change-responsible">
                     <i class="fas fa-caret-down"></i>
@@ -139,7 +138,6 @@ $borderColor = [
                                     <div val="<?php echo $parentTask['id']; ?>" class="add-subtask text-area-message d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
                                         <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
-                                    <hr class="m-0">
                                 <?php } ?>
                                 <div class="position-absolute icon-newtask icon-newtask-change-subtask">
                                     <i class="fas fa-caret-down"></i>
