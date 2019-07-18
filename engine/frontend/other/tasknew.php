@@ -170,7 +170,7 @@ $borderColor = [
 
                             </span>
                             <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled"
-                                 style="min-height: 38px;padding-top: 10px;">
+                                 style="min-height: 38px;padding-top: 10px; margin-top: 10px;">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <div class="position-absolute icon-newtask icon-newtask-change-subtask">
                                     <i class="fas fa-caret-down"></i>
@@ -184,11 +184,11 @@ $borderColor = [
                                 Дата старта
                             </label>
                             <span class="position-absolute disabledBtnOptions"
-                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">
+                                  style="background-color: #000;width: 100%;bottom: 2px; height: 52%;z-index: 100000;opacity: 0;">
 
                         </span>
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
-                                   style="height: 50px;font-size: 14px" min="<?= $GLOBALS["now"] ?>"
+                                   style="height: 54px;font-size: 14px; margin-top: 10px;" min="<?= $GLOBALS["now"] ?>"
                                    value="<?= $GLOBALS["now"] ?>" required disabled>
                         </div>
                     </div>
