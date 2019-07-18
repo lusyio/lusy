@@ -227,17 +227,33 @@ if ($id == $worker and $view == 0) {
 </div>
 <?php if ($tariff == 1):?>
     <script type="text/javascript">
+        $('#openGoogleDrive').click(function(){
+            $(this).data('clicked', true);
+            $('#openGoogleDriveReview').data('clicked', false);
+        });
+        $('#openGoogleDriveReview').click(function(){
+            $(this).data('clicked', true);
+            $('#openGoogleDrive').data('clicked', false);
+        });
         //=======================Google Drive==========================
         //=Create object of FilePicker Constructor function function & set Properties===
         function SetPicker() {
-            var picker = new FilePicker(
-                {
-                    apiKey: 'AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc',
-                    clientId: '34979060720-4dmsjervh14tqqgqs81pd6f14ed04n3d.apps.googleusercontent.com',
-                    buttonEl: document.getElementById("openGoogleDrive"),
-                    onClick: function (file) {
-                    }
-                });
+            var Options = {
+                apiKey: 'AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc',
+                clientId: '34979060720-4dmsjervh14tqqgqs81pd6f14ed04n3d.apps.googleusercontent.com',
+                buttonEl: document.getElementById("openGoogleDrive"),
+                onClick: function (file) {
+                }
+            };
+            var Options2 = {
+                apiKey: 'AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc',
+                clientId: '34979060720-4dmsjervh14tqqgqs81pd6f14ed04n3d.apps.googleusercontent.com',
+                buttonEl: document.getElementById("openGoogleDriveReview"),
+                onClick: function (file) {
+                }
+            };
+            var picker = new FilePicker(Options);
+            var picker2 = new FilePicker(Options2);
         }
         //====================Create POPUP function==============
         function PopupCenter(url, title, w, h) {
@@ -290,11 +306,18 @@ if ($id == $worker and $view == 0) {
             },
             //====Called when a file has been selected in the Google Picker Dialog Box======
             PickerResponse: function (data) {
+
                 if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
                         console.log(file);
-                        addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive', 'file-name' );
+                        if ($('#openGoogleDrive').data('clicked')) {
+                            addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive', 'file-name');
+                        }
+                        if ($('#openGoogleDriveReview').data('clicked')) {
+                            $('#openGoogleDrive').data('clicked', false);
+                            addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive', 'file-name-review');
+                        }
                     });
                 }
             },
