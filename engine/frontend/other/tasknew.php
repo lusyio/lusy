@@ -135,7 +135,8 @@ $borderColor = [
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
-                                    <div val="<?php echo $parentTask['id']; ?>" class="add-subtask text-area-message d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
+                                    <div val="<?php echo $parentTask['id']; ?>"
+                                         class="add-subtask text-area-message d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
                                         <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
                                 <?php } ?>
@@ -424,9 +425,21 @@ $borderColor = [
         });
         $("#datedone").on('change', function () {
             $(this).css('color', '#353b41');
+            var minVal = $(this).attr('min');
+            setTimeout(function () {
+                if ($('#datedone').val() < minVal) {
+                    $('#datedone').val(minVal);
+                }
+            }, 500);
         });
         $("#startDate").on('change', function () {
             $(this).css('color', '#353b41');
+            var minVal = $(this).attr('min');
+            setTimeout(function () {
+                if ($('#startDate').val() < minVal) {
+                    $('#startDate').val(minVal);
+                }
+            }, 500);
         });
         $("#startDate").on('change', function () {
             var val = $(this).val();
