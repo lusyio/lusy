@@ -7,7 +7,7 @@
             <i class="fas <?= $badges[$name] ?>"></i>
         </div>
     </div>
-    <h6 class="text-uppercase font-weight-bold"><?= $GLOBALS['_' . $name] ?></h6>
+    <h5><?= $GLOBALS['_' . $name] ?></h5>
     <small class="text-muted mt-2 text-award"><?= $GLOBALS['_' . $name . '_text' ]?></small>
     <hr>
     <span class="badge badge-primary"><?= date('d.m.Y', $values['datetime']) ?></span>
@@ -21,7 +21,7 @@
             <i class="fas <?= $badges[$name] ?>"></i>
         </div>
     </div>
-    <h6 class="text-uppercase font-weight-bold"><?= $GLOBALS['_' . $name] ?></h6>
+    <h5><?= $GLOBALS['_' . $name] ?></h5>
     <small class="text-muted mt-2 text-award"><?= $GLOBALS['_' . $name . '_text' ]?></small>
     <hr>
     <span class="badge badge-secondary"><?= $values['count'] ?></span>

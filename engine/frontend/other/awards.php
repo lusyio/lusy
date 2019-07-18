@@ -141,6 +141,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
 
     $('.circle').circleProgress({
         size: 75,
+        thickness: 2
     });
 </script>
 

@@ -21,7 +21,9 @@
 .award hr {
     width: 70px;
 }
-
+.award h5 {
+    font-weight: 900;
+}
 .award .badge-secondary {
     background-color: #e5e5e5;
     transition: 200ms;

@@ -120,3 +120,6 @@ if ($userRegisterDate <= $currentDayPreviousMonth) {
 } else {
     $taskDoneDelta = null;
 }
+if ($taskDoneDelta > 0) {
+    $taskDoneDelta = '+' . $taskDoneDelta;
+}
