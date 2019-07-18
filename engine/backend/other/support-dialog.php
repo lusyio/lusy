@@ -8,18 +8,13 @@ global $supportCometHash;
 global $tariff;
 global $roleu;
 
-
-if ($roleu == 'ceo') {
-    $isCeo = true;
-} else {
-    $isCeo = false;
+if ($idc != 1) {
+    header('location: /mail/');
 }
-
 require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 
 $recipientId = filter_var($_GET['support'], FILTER_SANITIZE_NUMBER_INT);
 $supportDialog = false;
-$supportPage = true;
 $messages = getMessages(1, $recipientId);
 setMessagesViewStatus(1, $recipientId);
 

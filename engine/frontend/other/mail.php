@@ -37,7 +37,6 @@
             </div>
 
         </div>
-        <?php if (empty($supportPage)): ?>
             <?php if ($idc == 1): ?>
                 <a class="text-decoration-none text-dark" href="/support/">
                     <div class="card mt-3 mb-3 dialog-mail">
@@ -77,18 +76,10 @@
                 </div>
             </div>
         </a>
-        <?php endif; ?>
         <?php
         foreach ($dialog as $n) {
-            if (empty($supportPage)) {
-                $lastMessage = lastmess($n, $id);
-                $newMessages = numberOfNewMessages($n, $id);
-
-            } else {
-                $lastMessage = lastmess($n, 1);
-                $newMessages = numberOfNewMessages($n, 1);
-
-            }
+            $lastMessage = lastmess($n, $id);
+            $newMessages = numberOfNewMessages($n, $id);
             $isOnline = in_array($n, $onlineUsersList) ?>
             <a class="text-decoration-none text-dark" href="./<?= $n ?>/">
                 <div class="card mb-3 dialog-mail">
@@ -110,7 +101,7 @@
                             <div class="col text-area-message" style="max-width: 82%;">
                                 <p class="mb-2 font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= ($n == 1) ? 'Служба поддержки' : fiomess($n) ?><?= ($newMessages) ? ' +' . $newMessages : ''; ?>
                                 </p>
-                                <span><?= ($lastMessage['sender'] == $id || !empty($supportPage) && $lastMessage['sender'] == 1) ? 'Вы: ' : ''; ?> <?= $lastMessage['mes'] ?></span>
+                                <span><?= ($lastMessage['sender'] == $id) ? 'Вы: ' : ''; ?> <?= $lastMessage['mes'] ?></span>
                                 <span class="date mr-2"><?= date('d.m H:i', $lastMessage['datetime']); ?></span>
                             </div>
                         </div>

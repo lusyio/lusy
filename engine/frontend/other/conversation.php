@@ -243,10 +243,10 @@
     });
 
     var $recipientId = <?= $recipientId ?>;
-    var $userId = <?= (empty($supportPage)) ? $id : '1' ?>;
+    var $userId = <?= $id ?>;
     var pageName = 'conversation';
     $(document).ready(function () {
-        cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?= (empty($supportPage)) ? $cometHash : $supportCometHash; ?>', node: "app.comet-server.ru"});
+        cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?= $cometHash; ?>', node: "app.comet-server.ru"});
 
         cometApi.subscription("msg.new", function (e) {
             console.log(e);
@@ -255,7 +255,6 @@
                 fd.append('messageId', e.data.messageId);
                 fd.append('module', 'updateMessages');
                 fd.append('ajax', 'messenger');
-                <?= (!empty($supportPage)) ? "fd.append('fromSupport', '1');" : '' ?>
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -355,7 +354,6 @@
             fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
             fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
             fd.append('module', 'sendMessage');
-            <?= (!empty($supportPage)) ? "fd.append('fromSupport', '1');" : '' ?>
             fileList.forEach(function (file, i) {
                 fd.append('file' + i, file);
             });

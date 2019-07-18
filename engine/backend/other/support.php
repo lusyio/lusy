@@ -11,16 +11,17 @@ global $cometPdo;
 global $cometTrackChannelName;
 global $supportCometHash;
 
+if ($idc != 1) {
+    header('location: /mail/');
+}
+
 $supportPage = true;
-$lastChatMessage = [];
-$newChatMessages = [];
 $messages = DB('*','mail','recipient = 1 ORDER BY `datetime` DESC');
 $userList = [];
 
 $onlineUsersList = [];
 
 $dialog = [];
-
 foreach ($messages as $n) {
     if (in_array($n['sender'], $dialog)) {
     } else {
@@ -35,4 +36,3 @@ foreach ($messages as $n) {
         }
     }
 }
-
