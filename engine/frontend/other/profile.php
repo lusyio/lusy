@@ -112,7 +112,7 @@ $monthNumber = date("n", strtotime($userData['birthdate']));
                             <div class="collapse" id="collapseFunctions">
                                 <div class="row">
                                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
-                                        <p class="mb-1 text-justify"><span class="text-secondary">Дата рождения:</span> <?= date('d', strtotime($userData['birthdate'])); ?> <?= _($month[$monthNumber]) ?>, <?= date('Y', strtotime($userData['birthdate'])); ?></p>
+                                        <p class="mb-3 mt-3 text-justify"><span class="text-secondary">Дата рождения:</span> <?= date('d', strtotime($userData['birthdate'])); ?> <?= _($month[$monthNumber]) ?>, <?= date('Y', strtotime($userData['birthdate'])); ?></p>
                                         <p class="mb-0 text-justify"><span class="text-secondary">О себе:</span> <?= nl2br($userData['about']) ?></p>
                                     </div>
                                 </div>
