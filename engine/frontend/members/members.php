@@ -11,7 +11,7 @@
             </div>
             <div class="text-justify owner">
                 <img src="/<?= getAvatarLink($manager) ?>"
-                     class="avatar-added mr-1">
+                     class="avatar-added mr-1 mb-0">
                 <?php
                 if ($task['managerName'] != null || $task['managerSurname'] != null): ?>
                     <a href="#"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>

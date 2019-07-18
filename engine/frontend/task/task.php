@@ -105,10 +105,16 @@ if ($id == $worker and $view == 0) {
     <div class="card" style="margin-top: -21px;">
         <div class="card-body">
             <div class="row">
-                <div class="col-4">
+                <div class="col-8 col-lg-4">
                     <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_{$task['status']}"] ?></span>
+                    <?php
+                    foreach ($subTasks as $subTask): ?>
+                        <a href="/task/<?= $subTask['id'] ?>/"><span data-toggle="tooltip" data-placement="bottom" title="Перейти к надзадаче" class="badge badge-info">Надзадача</span></a>
+                    <?php
+                    endforeach;
+                    ?>
                 </div>
-                <div class="col-8">
+                <div class="col-4 col-lg-8">
                     <div class="float-right" title="<?= $GLOBALS["_$status"] ?>">
                         <span class="status-icon rounded-circle noty-m <?= $statusBar[$task['status']]['bg1'] ?>"><i
                                     class="<?= $statusBar[$task['status']]['ic1'] ?> custom"></i></span>
@@ -137,21 +143,21 @@ if ($id == $worker and $view == 0) {
                             </medium>
                         </div>
                         <?php if ($isCeo || !$isCoworker): ?>
-                        <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
-                        <div id="change-date">
-                            <div class="form-group mb-0 p-3">
-                                <?php if ($role != 'manager'): ?>
-                                    <textarea name="report" id="reportarea1" class="form-control mb-2" rows="3"
-                                              placeholder="Причина" required></textarea>
-                                <?php endif; ?>
-                                <input class="form-control form-control-sm mb-2" value="" type="date"
-                                       id="deadlineInput"
-                                       min="" required>
-                                <button type="submit"
-                                        id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
-                                        class="btn btn-primary btn-sm float-left mb-3"><?= $GLOBALS["_change"] ?></button>
+                            <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
+                            <div id="change-date">
+                                <div class="form-group mb-0 p-3">
+                                    <?php if ($role != 'manager'): ?>
+                                        <textarea name="report" id="reportarea1" class="form-control mb-2" rows="3"
+                                                  placeholder="Причина" required></textarea>
+                                    <?php endif; ?>
+                                    <input class="form-control form-control-sm mb-2" value="" type="date"
+                                           id="deadlineInput"
+                                           min="" required>
+                                    <button type="submit"
+                                            id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
+                                            class="btn btn-primary btn-sm float-left mb-3"><?= $GLOBALS["_change"] ?></button>
+                                </div>
                             </div>
-                        </div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -186,18 +192,19 @@ if ($id == $worker and $view == 0) {
                         <p class="text-secondary"><s><i class="fas fa-paperclip"></i> <?= $file['file_name'] ?></s>
                             (удален)</p>
                     <?php else: ?>
-                        <p class="text-secondary"><a class="text-secondary" href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
+                        <p class="text-secondary"><a class="text-secondary"
+                                                     href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
                                         class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a></p>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
             <?php if ($isCeo || !$isCoworker): ?>
-            <div id="control">
-                <?php
-                include __ROOT__ . '/engine/backend/task/task/control/' . $role . '/' . $status . '.php';
-                include __ROOT__ . '/engine/frontend/task/control/' . $role . '/' . $status . '.php';
-                ?>
-            </div>
+                <div id="control">
+                    <?php
+                    include __ROOT__ . '/engine/backend/task/task/control/' . $role . '/' . $status . '.php';
+                    include __ROOT__ . '/engine/frontend/task/control/' . $role . '/' . $status . '.php';
+                    ?>
+                </div>
             <?php endif; ?>
         </div>
     </div>
@@ -225,13 +232,13 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>
 </div>
-<?php if ($tariff == 1):?>
+<?php if ($tariff == 1): ?>
     <script type="text/javascript">
-        $('#openGoogleDrive').click(function(){
+        $('#openGoogleDrive').click(function () {
             $(this).data('clicked', true);
             $('#openGoogleDriveReview').data('clicked', false);
         });
-        $('#openGoogleDriveReview').click(function(){
+        $('#openGoogleDriveReview').click(function () {
             $(this).data('clicked', true);
             $('#openGoogleDrive').data('clicked', false);
         });
@@ -255,12 +262,14 @@ if ($id == $worker and $view == 0) {
             var picker = new FilePicker(Options);
             var picker2 = new FilePicker(Options2);
         }
+
         //====================Create POPUP function==============
         function PopupCenter(url, title, w, h) {
             var left = (screen.width / 2) - (w / 2);
             var top = (screen.height / 2) - (h / 2);
             return window.open(url, title, 'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
         }
+
         //===============Create Constructor function==============
         function FilePicker(User) {
             //Configuration
@@ -276,8 +285,9 @@ if ($id == $worker and $view == 0) {
             //Load the drive API
             gapi.client.setApiKey(this.apiKey);
             gapi.client.load('drive', 'v2', this.DriveApiLoaded.bind(this));
-            gapi.load('picker', '1', { callback: this.PickerApiLoaded.bind(this) });
+            gapi.load('picker', '1', {callback: this.PickerApiLoaded.bind(this)});
         }
+
         FilePicker.prototype = {
             //==========Check Authentication & Call ShowPicker() function=======
             open: function () {
@@ -285,24 +295,16 @@ if ($id == $worker and $view == 0) {
                 if (token) {
                     this.ShowPicker();
                 } else {
-                    this.DoAuth(false, function ()
-                    { this.ShowPicker(); }.bind(this));
+                    this.DoAuth(false, function () {
+                        this.ShowPicker();
+                    }.bind(this));
                 }
             },
             //========Show the file picker once authentication has been done.=========
             ShowPicker: function () {
                 var accessToken = gapi.auth.getToken().access_token;
                 var DisplayView = new google.picker.DocsView().setIncludeFolders(true);
-                this.picker = new google.picker.PickerBuilder().
-                addView(DisplayView).
-                enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
-                setAppId(this.clientId).
-                setOAuthToken(accessToken).
-                setCallback(this.PickerResponse.bind(this)).
-                setTitle('Google Drive').
-                setLocale('ru').
-                build().
-                setVisible(true);
+                this.picker = new google.picker.PickerBuilder().addView(DisplayView).enableFeature(google.picker.Feature.MULTISELECT_ENABLED).setAppId(this.clientId).setOAuthToken(accessToken).setCallback(this.PickerResponse.bind(this)).setTitle('Google Drive').setLocale('ru').build().setVisible(true);
             },
             //====Called when a file has been selected in the Google Picker Dialog Box======
             PickerResponse: function (data) {
@@ -348,9 +350,9 @@ if ($id == $worker and $view == 0) {
 
         $('#openDropbox').on('click', function () {
             options = {
-                success: function(files) {
+                success: function (files) {
                     files.forEach(function (file) {
-                        addFileToList(file.name, file.link, file.bytes, 'dropbox', 'fab fa-dropbox','file-name');
+                        addFileToList(file.name, file.link, file.bytes, 'dropbox', 'fab fa-dropbox', 'file-name');
                     })
                 },
                 linkType: "direct", // or "preview"
@@ -361,9 +363,9 @@ if ($id == $worker and $view == 0) {
         });
         $('#openDropboxReview').on('click', function () {
             options = {
-                success: function(files) {
+                success: function (files) {
                     files.forEach(function (file) {
-                        addFileToList(file.name, file.link, file.bytes, 'dropbox', 'fab fa-dropbox','file-name-review');
+                        addFileToList(file.name, file.link, file.bytes, 'dropbox', 'fab fa-dropbox', 'file-name-review');
                     })
                 },
                 linkType: "direct", // or "preview"
@@ -372,10 +374,11 @@ if ($id == $worker and $view == 0) {
             };
             Dropbox.choose(options);
         });
+
         //===================End of Dropbox=======================
         function addFileToList(name, link, size, source, icon, cont) {
             console.log(cont);
-            $('.'+ cont).show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "' data-file-size='" + size + "'>" +
+            $('.' + cont).show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "' data-file-size='" + size + "'>" +
                 "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
                 "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
                 "</div>");
@@ -383,7 +386,8 @@ if ($id == $worker and $view == 0) {
     </script>
     <script src="https://www.google.com/jsapi?key=AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc"></script>
     <script src="https://apis.google.com/js/client.js?onload=SetPicker"></script>
-    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="pjjm32k7twiooo2"></script>
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs"
+            data-app-key="pjjm32k7twiooo2"></script>
 <?php endif; ?>
 
 <script>
@@ -441,11 +445,11 @@ if ($id == $worker and $view == 0) {
             }
         });
 
-    <?php if ($tariff == 0):?>
-       $('#openGoogleDrive, #openDropbox, #openDropboxReview, #openGoogleDriveReview').click(function () {
-           $('.premModal').modal('show');
-       });
-    <?php endif; ?>
+        <?php if ($tariff == 0):?>
+        $('#openGoogleDrive, #openDropbox, #openDropboxReview, #openGoogleDriveReview').click(function () {
+            $('.premModal').modal('show');
+        });
+        <?php endif; ?>
 
         // if (!$(e.target).closest(".tooltip-avatar").length) {
         //     $('.members').fadeOut(300);
