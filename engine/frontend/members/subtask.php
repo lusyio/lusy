@@ -1,5 +1,8 @@
 <div class="subtask">
     <div class="subtask-card">
+        <div class="empty-list-subtask text-muted text-center">
+            Список пуст
+        </div>
         <?php
         foreach ($parentTasks as $parentTask) { ?>
             <div val="<?php echo $parentTask['id']; ?>" class="select-subtask">

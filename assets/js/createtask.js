@@ -83,8 +83,17 @@ $(document).ready(function () {
     }
 
 //работа с надзадачами
+    function subtaskListEmpty() {
+        if ($(".select-subtask").is(':visible')) {
+            $('.empty-list-subtask').hide();
+        } else {
+            $('.empty-list-subtask').show();
+        }
+    }
+
     $(".container-subtask").on('click', function () {
         $(".subtask").fadeToggle(200);
+        subtaskListEmpty();
     });
 
     $(document).on('click', function (e) {
@@ -101,6 +110,7 @@ $(document).ready(function () {
         $(this).addClass('d-none');
         $('.add-subtask').addClass('d-none');
         $('.container-subtask').find("[val = " + id + "]").removeClass('d-none');
+        subtaskListEmpty();
     });
 
 //работа с ответственными
