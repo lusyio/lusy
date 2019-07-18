@@ -443,7 +443,10 @@ $borderColor = [
         });
         $("#startDate").on('change', function () {
             var val = $(this).val();
-            $('#datedone').attr('min', val);
+            var minVal = $(this).attr('min');
+            if (val > minVal) {
+                $('#datedone').attr('min', val);
+            }
             if (val > $('#datedone').val()) {
                 $('#datedone').val(val);
             }
