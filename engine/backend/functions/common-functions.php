@@ -790,6 +790,9 @@ function getAvatarLink($userId)
     } else {
         global $idc;
     }
+    if ($idc == 1) {
+        $idc = DBOnce('idcompany', 'users', 'id = ' . $userId);
+    }
     $avatarPath = 'upload/avatar/' . $idc . '/' . $userId . '.jpg';
     $alterAvatarPath = 'upload/avatar/' . $idc . '/' . $userId . '-alter.jpg';
     if (file_exists($avatarPath)) {

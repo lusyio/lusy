@@ -69,7 +69,7 @@ if ($_POST['module'] == 'sendMessage') {
 }
 if ($_POST['module'] == 'sendMessageToChat') {
     $mes = link_it($_POST['mes']);
-    $mes = filter_var($_POST['mes'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $mes = filter_var($mes, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $messageTime = time();
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $googleFiles = [];
@@ -150,5 +150,21 @@ if ($_POST['module'] == 'deleteMessage') {
     if ($roleu == 'ceo') {
         $messageId = filter_var($_POST['messageId'], FILTER_SANITIZE_NUMBER_INT);
         deleteMessageFromChat($messageId);
+    }
+}
+
+if ($_POST['module'] == 'sendToAll' && $idc == 1) {
+    $messageText = link_it($_POST['message']);
+    $messageText = filter_var($messageText, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $messageTime = time();
+    $sendTo = filter_var($_POST['sendTo'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+    if (!empty($messageText)) {
+        if ($sendTo == 'ceo') {
+            sendMessageToAllCeo($messageText);
+        }
+        if ($sendTo == 'all') {
+            sendMessageToAllUsers($messageText);
+        }
     }
 }

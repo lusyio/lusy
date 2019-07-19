@@ -246,3 +246,51 @@ function deleteMessageFromChat($messageId)
     $deleteMessageQuery = $pdo->prepare("DELETE from chat where message_id = :messageId");
     $deleteMessageQuery->execute(array(':messageId' => $messageId));
 }
+
+function sendMessageToAllCeo($messageText)
+{
+    global $pdo;
+    global $cometPdo;
+    $ceoListQuery = $pdo->prepare("SELECT id FROM users WHERE role = 'ceo' AND is_fired = 0 AND id > 1");
+    $ceoListQuery->execute();
+    $ceoList = $ceoListQuery->fetchAll(PDO::FETCH_COLUMN);
+
+    $sendMessageQuery = $pdo->prepare("INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:message, :sender, :recipient, :datetime)");
+    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
+
+    foreach ($ceoList as $ceoId) {
+        $sendMessageQuery->execute(array(':message' => $messageText, ':sender' => 1, ':recipient' => $ceoId, ':datetime' => time()));
+        $messageId = $pdo->lastInsertId();
+        $mesData = [
+            'senderId' => 1,
+            'recipientId' => $ceoId,
+            'messageId' => $messageId,
+        ];
+        $jsonMesData = json_encode($mesData);
+        $sendToCometQuery->execute(array(':jsonMesData' => $jsonMesData, ':id' => $ceoId));
+    }
+}
+
+function sendMessageToAllUsers($messageText)
+{
+    global $pdo;
+    global $cometPdo;
+    $ceoListQuery = $pdo->prepare("SELECT id FROM users WHERE is_fired = 0 AND id > 1");
+    $ceoListQuery->execute();
+    $ceoList = $ceoListQuery->fetchAll(PDO::FETCH_COLUMN);
+
+    $sendMessageQuery = $pdo->prepare("INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:message, :sender, :recipient, :datetime)");
+    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
+
+    foreach ($ceoList as $ceoId) {
+        $sendMessageQuery->execute(array(':message' => $messageText, ':sender' => 1, ':recipient' => $ceoId, ':datetime' => time()));
+        $messageId = $pdo->lastInsertId();
+        $mesData = [
+            'senderId' => 1,
+            'recipientId' => $ceoId,
+            'messageId' => $messageId,
+        ];
+        $jsonMesData = json_encode($mesData);
+        $sendToCometQuery->execute(array(':jsonMesData' => $jsonMesData, ':id' => $ceoId));
+    }
+}
