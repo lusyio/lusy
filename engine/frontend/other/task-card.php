@@ -41,7 +41,7 @@
             </div>
             </a>
 
-            <a href="#" class="text-decoration-none cust">
+            <a href="#" class="text-decoration-none d-none cust">
             <div class="card-footer border-0" style="padding: 0.8rem;">
                 <div class="d-block">
                     <div class="row">
