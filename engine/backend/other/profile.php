@@ -8,7 +8,7 @@ if (empty($_GET['profile'])) {
 }
 $profileId = $_GET["profile"];
 $userData = getUserData($profileId);
-var_dump($userData);
+
 $achievementProfile = getUserNonMultipleAchievements($profileId);
 
 // Проверка на попытку просмотра профиля чужой компании
