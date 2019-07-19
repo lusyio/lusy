@@ -167,7 +167,7 @@
 
 </div>
 
-<div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="spinnerRegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content border-0" style="margin-top: 60%;background-color: transparent;">
@@ -279,7 +279,7 @@
             return form.valid();
         },
         onFinished: function (event, currentIndex) {
-            $('#spinnerModal').modal('show');
+            $('#spinnerRegModal').modal('show');
             document.regForm.submit();
         }
     }).validate({
