@@ -413,7 +413,7 @@ $statusColor = [
                     backgroundColor: gradient,
                     borderColor: '#61a0f4',
                     colors: ['', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#e4e4e4'],
-                    borderWidth: 5
+                    borderWidth: 5,
                 }]
             },
             options: {
