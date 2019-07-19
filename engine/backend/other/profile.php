@@ -8,11 +8,11 @@ if (empty($_GET['profile'])) {
 }
 $profileId = $_GET["profile"];
 $userData = getUserData($profileId);
-
+var_dump($userData);
 $achievementProfile = getUserNonMultipleAchievements($profileId);
 
 // Проверка на попытку просмотра профиля чужой компании
-if ($idc != $userData['idcompany']) {
+if (!isset($userData['idcompany']) || $idc != $userData['idcompany']) {
     header("location:/");
     ob_end_flush();
     die;

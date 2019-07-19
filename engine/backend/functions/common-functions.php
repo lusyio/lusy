@@ -888,17 +888,19 @@ function getUserData($userId)
     $userQuery = $pdo->prepare('SELECT id, login, email, phone, name, surname, idcompany, role, points, activity, register_date, social_networks, about, birthdate FROM users WHERE id = :userId AND idcompany = :companyId');
     $userQuery->execute(array(':userId' => $userId, ':companyId' => $idc));
     $userData = $userQuery->fetch(PDO::FETCH_ASSOC);
-    $socialNetworks = json_decode($userData['social_networks'], true);
-    $userData['social'] = [];
-    if (!is_null($socialNetworks)) {
-        foreach ($socialNetworks as $network => $link) {
-            $userData['social'][$network] = $link;
+    if ($userData) {
+        $socialNetworks = json_decode($userData['social_networks'], true);
+        $userData['social'] = [];
+        if (!is_null($socialNetworks)) {
+            foreach ($socialNetworks as $network => $link) {
+                $userData['social'][$network] = $link;
+            }
         }
-    }
-    $onlineUsers = getOnlineUsersList();
-    $userData['online'] = false;
-    if (in_array($userData['id'], $onlineUsers) || $userData['activity'] > time() - 180) {
-        $userData['online'] = true;
+        $onlineUsers = getOnlineUsersList();
+        $userData['online'] = false;
+        if (in_array($userData['id'], $onlineUsers) || $userData['activity'] > time() - 180) {
+            $userData['online'] = true;
+        }
     }
     return $userData;
 }
