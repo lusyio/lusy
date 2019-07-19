@@ -228,6 +228,7 @@ $(document).ready(function () {
                     console.log(data);
                     $('#spinnerModal').modal('show');
                     if (data.error === 'taskLimit') {
+                        $('#spinnerModal').modal('hide');
                         $("#taskLimitModal").modal('show');
                     } else if (data.taskId !== '') {
                         location.href = '/task/' + data.taskId + '/';
