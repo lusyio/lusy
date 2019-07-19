@@ -147,11 +147,13 @@ $statusColor = [
                 </a>
             <?php endif; ?>
             <?php if ($countAllTasks == 0): ?>
-                <div class="taskDiv create-new-task search-empty-new-task">
-                    <div class="card-body">
-                        <span><?= _('You have no tasks yet, create the first task.') ?></span>
+                <a href="/task/new/" class="text-decoration-none">
+                    <div class="taskDiv create-new-task search-empty-new-task">
+                        <div class="card-body">
+                            <span><?= _('You have no tasks yet, create the first task.') ?></span>
+                        </div>
                     </div>
-                </div>
+                </a>
             <?php endif; ?>
             <a href="/tasks/">
                 <span class="icon-more-tasks" data-toggle="tooltip" data-placement="bottom" title="Больше задач">

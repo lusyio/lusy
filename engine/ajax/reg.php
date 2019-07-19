@@ -22,7 +22,7 @@ if ($_POST['module'] == 'joinUser') {
     $newUserId = addUser($inviteeMail, $inviteePassword, $inviteData['company_id'], $inviteData['invitee_position'], $inviteeName, $inviteeSurname);
     updateInvite($inviteData['invite_id'], $newUserId);
 
-    session_start();
+    @session_start();
     $_SESSION['login'] = $inviteeMail;
     $_SESSION['password'] = $inviteePassword;
     $idc = $inviteData['company_id'];
