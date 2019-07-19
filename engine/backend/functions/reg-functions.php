@@ -1,7 +1,10 @@
 <?php
 
 function getUserLanguage() {
-    $userLanguage = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        $userLanguage = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    }
+    $userLanguage = 'ru';
     $russianSpeakerCodes = ['ru', 'be', 'uk'];
     if (in_array($userLanguage, $russianSpeakerCodes)) {
         $companyLanguage = 'ru';

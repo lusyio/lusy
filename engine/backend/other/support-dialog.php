@@ -11,6 +11,13 @@ global $roleu;
 if ($idc != 1) {
     header('location: /mail/');
 }
+
+if ($roleu == 'ceo') {
+    $isCeo = true;
+} else {
+    $isCeo = false;
+}
+
 require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 
 $recipientId = filter_var($_GET['support'], FILTER_SANITIZE_NUMBER_INT);

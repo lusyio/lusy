@@ -49,7 +49,7 @@ if ($isAuthorized) {
         if (empty($GLOBALS['idc'])) {
             $_SESSION['idc'] = DBOnce('idcompany', 'users', 'id="' . $_SESSION['id'] . '"');
         }
-        if ($_GET['avatar'] == '0' || $_GET['avatar'] == $GLOBALS['idc']) {
+        if ($_GET['avatar'] == '0' || $_GET['avatar'] == $GLOBALS['idc'] || $GLOBALS['idc'] == 1) {
             $file = 'upload/avatar/' . $_GET['avatar'] . '/' . $_GET['name'] . '.jpg';
             $last_modified_time = filemtime($file);
             $etag = md5_file($file);
