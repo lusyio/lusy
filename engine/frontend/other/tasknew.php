@@ -295,6 +295,19 @@ $borderColor = [
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content border-0" style="margin-top: 60%;background-color: transparent;">
+            <div class="modal-body text-center">
+                <div class="spinner-border" style="width: 3rem; height: 3rem;color: #f2f2f2;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/assets/js/createtask.js?n=2"></script>
 <?php if ($tariff == 1): ?>
     <script type="text/javascript">

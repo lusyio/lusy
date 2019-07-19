@@ -226,6 +226,7 @@ $(document).ready(function () {
                 data: fd,
                 success: function (data) {
                     console.log(data);
+                    $('#spinnerModal').modal('show');
                     if (data.error === 'taskLimit') {
                         $("#taskLimitModal").modal('show');
                     } else if (data.taskId !== '') {
