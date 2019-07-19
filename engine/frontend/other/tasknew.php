@@ -120,7 +120,7 @@ $borderColor = [
             </div>
         </div>
         <?php if ($tariff == 1): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
-            <div class="collapse" id="collapseFunctions">
+            <div class="collapse mt-25-tasknew" id="collapseFunctions">
                 <div class="row">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="card card-tasknew">
