@@ -3,14 +3,19 @@ require_once __ROOT__ . '/engine/backend/functions/mail-functions.php';
 ?>
 <?php
 if ($event['action'] == 'newuser') { // новый пользователь
-    $bg = 'bg-success';
+    $bg = 'success';
     $icon = 'fas fa-user';
-    $action = $GLOBALS['_newUserRegistered'] . ' <a href="/profile/' . $event["comment"] . '/">' . fiomess($event["comment"]) . '</a>';
+    $action = 'Новый сотрудник';
+    $event['link'] = $event["comment"] . '/';
+    $eventText = fiomess($event["comment"]);
 }
 if ($event['action'] == 'newcompany') { // регистрация компании
-    $bg = 'bg-success';
-    $icon = 'fas fa-exclamation';
-    $action = $GLOBALS['_newCompanyRegistered'];
+    $bg = 'danger';
+    $icon = 'fas fa-heart';
+    $eventText = 'Добро пожаловать!';
+    $eventDop = 'Ваша компания зарегистрирована';
+    $action = '';
+    $event['link'] = 'company/';
 }
 if ($event['action'] == 'newachievement') { // новое достижение
     $badges = [
@@ -40,16 +45,18 @@ if ($event['action'] == 'newachievement') { // новое достижение
         'taskInwork_20' => 'fas fa-brain',
         'taskCreatePerDay_30' => 'fas fa-bolt',
     ];
-    $bg = 'success';
-    $icon = 'fas fa-trophy';
+    $bg = 'primary';
+    $icon = 'fas !иконкаАчивки!';
     $action = $GLOBALS['_youGotNewAchievement'];
     $eventText = $GLOBALS['_' . $event['comment']];
     $event['link'] = 'awards/';
 }
 if ($event['action'] == 'birthday') { // день рождения
-    $bg = 'bg-success';
+    $bg = 'success';
     $icon = 'fas fa-birthday-cake';
-    $action = 'День рождения у - ' . fiomess($event["comment"]) . '!';
+    $eventText = 'День рождения!';
+    $eventDop = 'у ' . fiomess($event["comment"]);
+    $event['link'] = '!ссылкаНаПрофиль!';
 }
 $month = ['', _("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")];
 $monthNumber = date("n", $event['datetime']);
@@ -67,9 +74,9 @@ $monthNumber = date("n", $event['datetime']);
 <!--</li>-->
 <a href="/../<?= $event['link'] ?>" class="text-decoration-none text-dark">
     <li data-event-id="<?= $event['event_id'] ?>"
-        class="d-none event <?= ($event['view_status']) ? '' : 'new-event' ?> <?= ($event['action'] == 'createtask') ? '' : 'readable-here' ?> task mb-3">
+        class="event <?= $event['action'] ?> <?= ($event['view_status']) ? '' : 'new-event' ?> <?= ($event['action'] == 'createtask') ? '' : 'readable-here' ?> task mb-3">
 
-        <div class="eventDiv">
+        <div class="eventDiv position-relative">
             <div class="row">
                 <div class="col-2">
                     <div class="text-right float-right">
@@ -86,11 +93,15 @@ $monthNumber = date("n", $event['datetime']);
                 <div class="col-5">
                     <p class="mb-0 font-weight-bold text-area-message"><?= $eventText; ?></p>
                     <div>
+                        <?php if (!empty($eventDop)) : ?>
+                            <span class="text-secondary"><?= $eventDop ?></span>
+                        <?php else:?>
                         <?php if ($event['author_id'] == 1): ?>
                             <span class="text-secondary"><?= _('System message') ?></span>
                         <?php else: ?>
                             <span href="/profile/<?= $event['author_id'] ?>/"
                                   class="text-secondary"><?= $event['name'] ?> <?= $event['surname'] ?></span>
+                        <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>

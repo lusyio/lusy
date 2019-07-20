@@ -2358,6 +2358,20 @@ ul.timeline > li span.before {
 .eventDiv .col-4 {
     padding-left: 0px;
 }
+.newachievement:hover .eventDiv {
+    background: transparent;
+}
+.newachievement:hover .eventDiv::after {
+    content: "";
+    background: url(/upload/bg-sprinkles.svg);
+    opacity: 0.1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
 .eventDiv .font-weight-bold {
     font-weight: 500 !important;
 }
