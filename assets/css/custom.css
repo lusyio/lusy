@@ -2202,17 +2202,25 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 .icon-more-tasks{
-    bottom: -20px;
+    bottom: -25px;
     left: 82px;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     position: absolute;
     text-align: center;
+    opacity: 0.1;
+    transition: 0.5s all;
+    z-index: 999;
 }
 
+.icon-more-tasks i {
+    color: #283f6a;
+}
 .icon-more-tasks:hover{
     background: #f2f2f2;
+    opacity: 1;
+    transition: 0.3s all;
 }
 
 .send-mes-tooltip{
