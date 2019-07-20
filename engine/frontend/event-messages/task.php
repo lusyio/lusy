@@ -25,9 +25,9 @@
                 $eventDop = _('Deadline to') . ' ' . date('d.m', $event['comment']);
             }
         }
-        if ($event['action'] == 'createplantask') { // создание, назначение задачи
-            $bg = 'warning';
-            $icon = 'fas fa-plus';
+        if ($event['action'] == 'createplantask') { // задача запланирована
+            $bg = 'info';
+            $icon = 'fas fa-history';
             if ($event['author_id'] == '1') {
                 $eventText = $GLOBALS['_youCreatedPlanTask'] . ' ';
                 $eventText .= $GLOBALS['_responsible'] . ' <span>' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>. ';
@@ -54,7 +54,7 @@
         }
 
         if ($event['action'] == 'canceltask') { // отменена
-            $bg = 'danger';
+            $bg = 'dark';
             $icon = 'fas fa-times';
             if ($event['author_id'] == '1') {
                 $eventText = _('You canceled the task');
@@ -71,7 +71,7 @@
         }
 
         if ($event['action'] == 'review') { // отправлена на рассмотрение
-            $bg = 'primary';
+            $bg = 'warning';
             $icon = 'fas fa-file-import';
             if ($event['author_id'] == '1') {
                 $eventText = _('Task completed');
@@ -84,7 +84,7 @@
 
         if ($event['action'] == 'workreturn') { // возвращена в работу
             $bg = 'warning';
-            $icon = 'fas fa-exchange-alt';
+            $icon = 'fas fa-file-export fa-flip-horizontal';
             if ($event['author_id'] == '1') {
                 $eventText = _('You returned task');
                 $eventDop = _('New deadline') . ' ' . _('To the') . ' ' . date('d.m', $event['comment']);
@@ -119,8 +119,8 @@
         }
 
         if ($event['action'] == 'confirmdate') { // одобрение переноса срока
-            $bg = 'success';
-            $icon = 'fas fa-check';
+            $bg = 'primary';
+            $icon = 'fas fa-calendar-check';
             if ($event['author_id'] == '1') {
                 $eventText = _('You confirm postpone');
                 $eventDop = _('to') . ' ' . date('d.m', $event['comment']);
@@ -143,8 +143,8 @@
         }
 
         if ($event['action'] == 'changeworker') { // смена ответственного
-            $bg = 'danger';
-            $icon = 'far fa-calendar-times';
+            $bg = 'primary';
+            $icon = 'fas fa-user-edit';
             if ($event['author_id'] == '1') {
                 $eventText = _('You changed worker');
                 $eventDop = _('New worker is') . ' <span class="text-capitalize">' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>';
@@ -169,7 +169,7 @@
 
         if ($event['action'] == 'addcoworker') { // добавился соисполнитель
             $bg = 'primary';
-            $icon = 'far fa-calendar-plus';
+            $icon = 'fas fa-user-check';
             if ($event['author_id'] == '1') {
                 $coworkerName = DBOnce('name', 'users', 'id=' . $event['comment']);
                 $coworkerSurname = DBOnce('surname', 'users', 'id=' . $event['comment']);
@@ -181,8 +181,8 @@
         }
 
         if ($event['action'] == 'removecoworker') { // удалил соисполнителя
-            $bg = 'primary';
-            $icon = 'far fa-calendar-plus';
+            $bg = 'danger';
+            $icon = 'fas fa-user-slash';
             if ($event['author_id'] == '1') {
                 $coworkerName = DBOnce('name', 'users', 'id=' . $event['comment']);
                 $coworkerSurname = DBOnce('surname', 'users', 'id=' . $event['comment']);
@@ -192,16 +192,19 @@
                 $eventText = _('Task reassigned');
             }
         }
-        if ($event['action'] == 'newsubtask') { // добавился соисполнитель
+        if ($event['action'] == 'newsubtask') { // создана подзадача
             $bg = 'primary';
-            $icon = 'far fa-clipboard';
+            $icon = 'fas fa-plus';
             $parentTaskName = DBOnce('name', 'tasks', 'id=' . $event['task_id']);
             $subTaskName = DBOnce('name', 'tasks', 'id=' . $event['comment']);
             if ($event['author_id'] == '1') {
-                $eventText = 'Вы добавили подзадачу в "' . $parentTaskName . '"';
-                $eventDop = 'Новая подзадача - "' . $subTaskName . '"';
+                $event['taskname'] = $subTaskName;
+                $eventText = 'Вы добавили подзадачу';
+                $eventDop = 'для "' . $parentTaskName . '"';
             } else {
-                $eventText = 'В задаче "' . $parentTaskName . '" добавлена подзадача "' . $subTaskName . '"';
+                $event['taskname'] = $subTaskName;
+                $eventText = 'добавлена подзадача';
+                $eventDop = 'для "' . $parentTaskName . '"';
             }
         }
 
@@ -223,18 +226,20 @@
                         <i class="<?= $icon ?> "></i>
                     </div>
                 </div>
-                <div class="col-4">
-                    <p class="mb-0 font-weight-bold text-area-message"><?=  $event['taskname']; ?></p>
-                    <div>
-                        <?php if ($event['author_id'] == 1): ?>
-                            <span class="text-secondary"><?= _('System message') ?></span>
-                        <?php else: ?>
-                            <span href="/profile/<?= $event['author_id'] ?>/"
-                                  class="text-secondary"><?= $event['name'] ?> <?= $event['surname'] ?></span>
-                        <?php endif; ?>
+                <div class="col-5">
+                    <div class="pl-2">
+                        <p class="mb-0 font-weight-bold text-area-message"><?= $event['taskname']; ?></p>
+                        <div>
+                            <?php if ($event['author_id'] == 1): ?>
+                                <span class="text-secondary"><?= _('System message') ?></span>
+                            <?php else: ?>
+                                <span href="/profile/<?= $event['author_id'] ?>/"
+                                      class="text-secondary"><?= $event['name'] ?> <?= $event['surname'] ?></span>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                     <div class="float-right statusText font-weight-bold text-right text-<?= $bg ?>">
                         <?= $eventText ?><br>
                         <span class="text-secondary text-lowercase font-weight-normal"><?= $eventDop ?></span>

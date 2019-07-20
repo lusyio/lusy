@@ -31,7 +31,7 @@ $iconTask = [
     'returned' => 'fas fa-exchange-alt',
     'done' => 'fas fa-check',
     'canceled' => 'fas fa-times',
-    'planned' => 'fas fa-question',
+    'planned' => 'fas fa-history',
 ];
 $statusColor = [
     'new' => 'text-primary',
@@ -98,7 +98,7 @@ $statusColor = [
                                     <i class="<?= $iconTask[$task['status']] ?>"></i>
                                 </div>
                             </div>
-                            <div class="col-7 col-lg-5 p-0">
+                            <div class="col-7 col-lg-5 p-0 pl-2">
                                 <p class="mb-0 font-weight-bold text-area-message"> <?= $task['name']; ?></p>
                                 <p class="mb-0 text-muted small text-area-message"><?= $task['managerName'] . ' ' . $task['managerSurname'] ?></p>
                             </div>
