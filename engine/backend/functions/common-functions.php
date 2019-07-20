@@ -964,7 +964,6 @@ function addCommentEvent($taskId, $commentId)
     if ($taskStatus == 'planned') {
         return;
     }
-    echo $taskStatus;
     $executorsQuery = $pdo->prepare('SELECT worker, manager FROM tasks WHERE id = :taskId');
     $executorsQuery->execute(array(':taskId' => $taskId));
     $executors = $executorsQuery->fetch(PDO::FETCH_ASSOC);
