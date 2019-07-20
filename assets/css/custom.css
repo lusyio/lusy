@@ -2202,7 +2202,7 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 .icon-more-tasks{
-    bottom: -25px;
+    bottom: -28px;
     left: 82px;
     width: 30px;
     height: 30px;
@@ -2645,7 +2645,7 @@ span.date {
 
 .percent-chart{
     right: 20px;
-    bottom: 25px;
+    bottom: 15px;
     color: #003effcc;
     position: absolute;
     display: none;

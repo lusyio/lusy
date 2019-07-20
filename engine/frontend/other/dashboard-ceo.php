@@ -69,7 +69,7 @@ $statusColor = [
             <canvas class="d-none" id="canvas"></canvas>
             <?php if (!is_null($taskDoneDelta)): ?>
             <div class="chart" style="z-index: 2">
-                <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Что это?">
+                <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Разница за аналогичный период в прошлом месяце">
                     <?= $taskDoneDelta; ?>
                 </span>
             </div>
