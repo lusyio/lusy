@@ -53,7 +53,15 @@ $statusColor = [
     <div class="col-12 col-lg-4">
         <div class="card overflow-hidden chart-card" style="height: 241px">
             <div class="card-body chart-content">
-                <div class="d-flex" style="justify-content: space-between">
+                <div class="d-none">
+                    <div class="d-flex" style="justify-content: space-between">
+                        <div>
+                            <b>Завершайте задачи</b>
+                            <div class="small text-muted">и здесь появится график</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex d-none" style="justify-content: space-between">
                     <span class="numberSlide">
                         <?= $taskDoneCountOverall ?>
                     </span>
