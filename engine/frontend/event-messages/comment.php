@@ -21,11 +21,9 @@ $eventText = _('Wrote comment');
                     </div>
                 </div>
                 <div class="col-5">
-                    <div class="pl-2">
-                        <p class="mb-0 text-area-message font-weight-bold"><?= $event['taskname']; ?></p>
-                        <div class="text-area-message">
-                            <span class="text-secondary"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : $event['commentText']; ?></span>
-                        </div>
+                    <p class="mb-0 text-area-message font-weight-bold"><?= $event['taskname']; ?></p>
+                    <div class="text-area-message">
+                        <span class="text-secondary"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : $event['commentText']; ?></span>
                     </div>
                 </div>
                 <div class="col-4">

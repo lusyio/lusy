@@ -2355,7 +2355,7 @@ ul.timeline > li span.before {
     height: 16px;
     color: white;
 }
-.eventDiv .col-5 {
+.eventDiv .col-4 {
     padding-left: 0px;
 }
 .eventDiv .font-weight-bold {
@@ -3199,7 +3199,7 @@ span.date {
         padding-left: 30px;
         padding-right: 0px;
     }
-    .eventDiv .col-4 {
+    .eventDiv .col-5 {
         -ms-flex: 0 0 60%;
         flex: 0 0 60%;
         max-width: 60%;
@@ -3211,14 +3211,14 @@ span.date {
         position: absolute;
         right: 0px;
     }
-    .eventDiv .col-5 {
+    .eventDiv .col-4 {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%;
         padding-top: 10px;
         padding-left: 30px !important;
     }
-    .eventDiv .col-5 div {
+    .eventDiv .col-4 div {
         float: left !important;
         text-align: left !important;
         border-top: 1px solid #f5f5f6;
@@ -3235,7 +3235,7 @@ span.date {
     .tasks .avatars {
         margin-top: -3px;
     }
-    .task-card .col-5, .task-card .col-3 {
+    .task-card .col-4, .task-card .col-3 {
         font-size: 14px;
     }
 }

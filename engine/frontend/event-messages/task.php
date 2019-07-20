@@ -227,16 +227,14 @@
                     </div>
                 </div>
                 <div class="col-5">
-                    <div class="pl-2">
-                        <p class="mb-0 font-weight-bold text-area-message"><?= $event['taskname']; ?></p>
-                        <div>
-                            <?php if ($event['author_id'] == 1): ?>
-                                <span class="text-secondary"><?= _('System message') ?></span>
-                            <?php else: ?>
-                                <span href="/profile/<?= $event['author_id'] ?>/"
-                                      class="text-secondary"><?= $event['name'] ?> <?= $event['surname'] ?></span>
-                            <?php endif; ?>
-                        </div>
+                    <p class="mb-0 font-weight-bold text-area-message"><?= $event['taskname']; ?></p>
+                    <div>
+                        <?php if ($event['author_id'] == 1): ?>
+                            <span class="text-secondary"><?= _('System message') ?></span>
+                        <?php else: ?>
+                            <span href="/profile/<?= $event['author_id'] ?>/"
+                                  class="text-secondary"><?= $event['name'] ?> <?= $event['surname'] ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-4">

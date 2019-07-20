@@ -49,21 +49,21 @@ if ($event['action'] == 'newachievement') { // новое достижение
 if ($event['action'] == 'birthday') { // день рождения
     $bg = 'bg-success';
     $icon = 'fas fa-birthday-cake';
-    $action = 'День рождения у - ' . fiomess($event["comment"]). '!';
+    $action = 'День рождения у - ' . fiomess($event["comment"]) . '!';
 }
 $month = ['', _("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")];
 $monthNumber = date("n", $event['datetime']);
 ?>
-<!--<li data-event-id="--><?//= $event['event_id'] ?><!--"-->
-<!--    class="event system-event --><?//= ($event['view_status']) ? '' : 'new-event' ?><!--  readable-here">-->
+<!--<li data-event-id="--><? //= $event['event_id'] ?><!--"-->
+<!--    class="event system-event --><? //= ($event['view_status']) ? '' : 'new-event' ?><!--  readable-here">-->
 <!---->
-<!--    <span class="before --><?//= $bg ?><!-- --><?//= ($event['view_status']) ? '' : 'new-event' ?><!--"><i class="--><?//= $icon ?><!--"></i></span>-->
+<!--    <span class="before --><? //= $bg ?><!-- --><? //= ($event['view_status']) ? '' : 'new-event' ?><!--"><i class="--><? //= $icon ?><!--"></i></span>-->
 <!--    <div class="position-relative">-->
-<!--        <span class="date">--><?//= date("d.m H:i", $event['datetime']); ?><!--</span>-->
-<!--        <img src="/--><?//= getAvatarLink($event['author_id']) ?><!--" class="avatar mr-2">-->
-<!--        <span class="font-weight-bold">--><?//= $event['name'] ?><!-- --><?//= $event['surname'] ?><!--</span>-->
+<!--        <span class="date">--><? //= date("d.m H:i", $event['datetime']); ?><!--</span>-->
+<!--        <img src="/--><? //= getAvatarLink($event['author_id']) ?><!--" class="avatar mr-2">-->
+<!--        <span class="font-weight-bold">--><? //= $event['name'] ?><!-- --><? //= $event['surname'] ?><!--</span>-->
 <!--    </div>-->
-<!--    <p class="eventText">--><?//= $action ?><!--</p>-->
+<!--    <p class="eventText">--><? //= $action ?><!--</p>-->
 <!--</li>-->
 <a href="/../<?= $event['link'] ?>" class="text-decoration-none text-dark">
     <li data-event-id="<?= $event['event_id'] ?>"
@@ -84,16 +84,14 @@ $monthNumber = date("n", $event['datetime']);
                     </div>
                 </div>
                 <div class="col-5">
-                    <div class="pl-2">
-                        <p class="mb-0 font-weight-bold text-area-message"><?= $eventText; ?></p>
-                        <div>
-                            <?php if ($event['author_id'] == 1): ?>
-                                <span class="text-secondary"><?= _('System message') ?></span>
-                            <?php else: ?>
-                                <span href="/profile/<?= $event['author_id'] ?>/"
-                                      class="text-secondary"><?= $event['name'] ?> <?= $event['surname'] ?></span>
-                            <?php endif; ?>
-                        </div>
+                    <p class="mb-0 font-weight-bold text-area-message"><?= $eventText; ?></p>
+                    <div>
+                        <?php if ($event['author_id'] == 1): ?>
+                            <span class="text-secondary"><?= _('System message') ?></span>
+                        <?php else: ?>
+                            <span href="/profile/<?= $event['author_id'] ?>/"
+                                  class="text-secondary"><?= $event['name'] ?> <?= $event['surname'] ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-4">
