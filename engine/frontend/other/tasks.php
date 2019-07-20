@@ -71,11 +71,6 @@
         ],
     ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
     foreach ($tasks as $n):
-        if (isset($_COOKIE[$n['idtask']]) && $_COOKIE[$n['idtask']] < $n['lastCommentTime']) {
-            $hasNewComments = true;
-        } else {
-            $hasNewComments = false;
-        }
         if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$n['idmanager']])) {
             $viewStatusTitleManager = 'Просмотрено ' . $n['viewStatus'][$n['idmanager']]['datetime'];
         } else {
