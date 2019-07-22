@@ -46,6 +46,10 @@ $subTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, w
 $subTasksQuery->execute([':taskId' => $id_task]);
 $subTasks = $subTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 
+$hasOwnSubTaskQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE parent_task = :taskId AND (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId)");
+$hasOwnSubTaskQuery->execute([':taskId' => $id_task, ':userId' => $id]);
+$hasOwnSubTask = $hasOwnSubTaskQuery->fetch(PDO::FETCH_COLUMN);
+
 $report = $task['report'];
 $idtask = $task['id'];
 $nametask = $task['name'];
@@ -113,7 +117,7 @@ if ($worker == $id && $view == '0') {
 $coworkersId = array_column($coworkers, 'worker_id');
 if ($id == $manager || $isCeo || $manager == 1) {
     $role = 'manager';
-} elseif ((in_array($id,$coworkersId) || $worker == $id) && $status != 'planned'){
+} elseif ((in_array($id,$coworkersId) || $worker == $id || $hasOwnSubTask) && $status != 'planned'){
     $role = 'worker';
 } else {
     header('Location: /tasks/');

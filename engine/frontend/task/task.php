@@ -198,7 +198,7 @@ if ($id == $worker and $view == 0) {
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <?php if ($isCeo || !$isCoworker): ?>
+            <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
                     <?php
                     include __ROOT__ . '/engine/backend/task/task/control/' . $role . '/' . $status . '.php';

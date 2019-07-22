@@ -15,14 +15,12 @@ function prepareTasks(&$tasks)
         } else {
             $task['coworkers'] = [];
         }
-        if (!empty($task['idworker']) && ($task['idworker'] == $id || in_array($id, $task['coworkers']))) {
-            $task['classRole'] .= ' worker';
-            $task['mainRole'] = 'worker';
-        }
         if (!empty($task['idmanager']) && $task['idmanager'] == $id || $roleu == 'ceo') {
             $task['classRole'] .= ' manager';
             $task['mainRole'] = 'manager';
-
+        } else {
+            $task['classRole'] .= ' worker';
+            $task['mainRole'] = 'worker';
         }
         $task['countCoworkers'] = count($task['coworkers']);
         $task['viewStatus'] = json_decode($task['view_status'], true);

@@ -46,6 +46,17 @@
         'canceled' => 'border-secondary',
         'planned' => 'border-info',
     ];
+    $textColor = [
+        'new' => 'text-primary',
+        'inwork' => 'text-primary',
+        'overdue' => 'text-danger',
+        'postpone' => 'text-warning',
+        'pending' => 'text-warning',
+        'returned' => 'text-primary',
+        'done' => 'text-success',
+        'canceled' => 'text-secondary',
+        'planned' => 'text-info',
+    ];
     $taskStatusText = [
         'manager' => [
             'new' => $GLOBALS['_tasknewmanager'],
@@ -70,13 +81,13 @@
             'planned' => $GLOBALS['_plannedlist'],
         ],
     ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
-    foreach ($tasks as $n):
-        if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$n['idmanager']])) {
-            $viewStatusTitleManager = 'Просмотрено ' . $n['viewStatus'][$n['idmanager']]['datetime'];
+    foreach ($groupedTasks as $n):
+        if (!is_null($n['task']['viewStatus']) && isset($n['task']['viewStatus'][$n['task']['idmanager']])) {
+            $viewStatusTitleManager = 'Просмотрено ' . $n['task']['viewStatus'][$n['task']['idmanager']]['datetime'];
         } else {
             $viewStatusTitleManager = 'Не просмотрено';
         }
-        if (is_null($n['viewStatus']) || !isset($n['viewStatus'][$id])) {
+        if (is_null($n['task']['viewStatus']) || !isset($n['task']['viewStatus'][$id])) {
             $isTaskRead = false;
         } else {
             $isTaskRead = true;
