@@ -1447,6 +1447,9 @@ input:checked[type="checkbox"]::before {
 .no-events i, .no-events p {
     color: #e8e8e8 !important;
 }
+.event:after{
+    content: none !important;
+}
 .eventText {
     margin-top: 10px;
     line-height: 1.8;
