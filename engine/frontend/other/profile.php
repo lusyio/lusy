@@ -117,7 +117,7 @@ $monthNumber = date("n", strtotime($userData['birthdate']));
                                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                                         <?php if ($userData['birthdate'] != ''): ?>
                                             <p class="text-about-profile mt-3 text-justify"><span class="text-secondary">Дата рождения:</span> <?= date('d', strtotime($userData['birthdate'])); ?> <?= _($month[$monthNumber]) ?>
-                                                , <?= date('Y', strtotime($userData['birthdate'])); ?></p>
+                                                 <?= date('Y', strtotime($userData['birthdate'])); ?></p>
                                         <?php endif; ?>
                                         <?php if ($userData['about'] != ''): ?>
                                             <p class="text-about-profile text-justify"><span
