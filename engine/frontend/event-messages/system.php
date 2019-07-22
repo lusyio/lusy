@@ -75,7 +75,7 @@ $monthNumber = date("n", $event['datetime']);
 <!--</li>-->
 <a href="/../<?= $event['link'] ?>" class="text-decoration-none text-dark">
     <li data-event-id="<?= $event['event_id'] ?>"
-        class="event <?= $event['action'] ?> <?= ($event['view_status']) ? '' : 'new-event' ?> <?= ($event['action'] == 'createtask') ? '' : 'readable-here' ?> task mb-3">
+        class="event <?= $event['action'] ?> <?= ($event['view_status']) ? '' : 'new-event' ?> <?= ($event['action'] == 'createtask') ? '' : 'readable-here' ?> system mb-3">
 
         <div class="eventDiv position-relative">
             <div class="row">
