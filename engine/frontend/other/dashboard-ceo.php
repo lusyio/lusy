@@ -81,7 +81,7 @@ $statusColor = [
                     <?= $taskDoneDelta; ?>
                 </span>
                 <?php endif; ?>
-                <?php if (is_null($taskDoneCountOverall)): ?>
+                <?php if ($taskDoneCountOverall == 0): ?>
                 <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Пока что на графике представлены случайные значения">
                     <i class="fas fa-info-circle"></i>
                 </span>
@@ -478,7 +478,7 @@ $statusColor = [
     }];
 
     var randomScalingFactor = function() {
-        return Math.ceil(Math.random() * 10.0) * Math.pow(10, Math.ceil(Math.random() * 5));
+        return Math.ceil(Math.random() * 5) * Math.ceil(Math.random() * 2);
     };
 
     var emptyData = [0,0,0,0,0,0,0];
