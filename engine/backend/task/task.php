@@ -111,7 +111,7 @@ if ($worker == $id && $view == '0') {
 }
 
 $coworkersId = array_column($coworkers, 'worker_id');
-if ($id == $manager || $isCeo) {
+if ($id == $manager || $isCeo || $manager == 1) {
     $role = 'manager';
 } elseif ((in_array($id,$coworkersId) || $worker == $id) && $status != 'planned'){
     $role = 'worker';

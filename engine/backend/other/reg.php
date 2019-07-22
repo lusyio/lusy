@@ -39,8 +39,8 @@ if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['pass
             $_SESSION['login'] = $login;
             $_SESSION['password'] = $password;
 
-            addEvent('newcompany', '' , '$companyId' , $ceoId);
-
+            addEvent('newcompany', '' , $companyId , $ceoId);
+            createInitTask($ceoId, $companyId, true);
             $activationCode = createActivationCode($companyId);
             require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
             require_once __ROOT__ . '/engine/phpmailer/Exception.php';
