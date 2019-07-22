@@ -20,7 +20,7 @@ if ($roleu == 'ceo') {
 $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 $id = $GLOBALS["id"];
 
-$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.report, t.view_status, u1.name AS managerName, u1.surname AS managerSurname, u1.email AS managerEmail,
+$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, u1.name AS managerName, u1.surname AS managerSurname, u1.email AS managerEmail,
        u2.name AS workerName, u2.surname AS workerSurname, u2.email AS workerEmail, u3.name AS authorName, u3.surname AS authorSurname, u3.email AS authorEmail FROM tasks t 
   LEFT JOIN users u1 ON t.manager = u1.id 
   LEFT JOIN users u2 ON t.worker = u2.id 
@@ -40,10 +40,16 @@ $coworkersQuery = $pdo->prepare("SELECT tc.worker_id, u.surname, u.name, u.email
   LEFT JOIN users u ON tc.worker_id = u.id 
 WHERE tc.task_id = :taskId");
 $coworkersQuery->execute(array(':taskId' => $id_task));
-    $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_ASSOC);
+$coworkers = $coworkersQuery->fetchAll(PDO::FETCH_ASSOC);
+$coworkersId = array_column($coworkers, 'worker_id');
 
-$subTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone FROM tasks WHERE parent_task = :taskId");
-$subTasksQuery->execute([':taskId' => $id_task]);
+if ($isCeo || $task['manager'] == $id || $task['worker'] == $id || in_array($id, $coworkersId)) {
+    $subTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone FROM tasks WHERE parent_task = :taskId");
+    $subTasksQuery->execute([':taskId' => $id_task]);
+} else {
+    $subTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.name, t.description, t.status, t.manager, t.worker, t.idcompany, t.report, t.view, t.view_status, t.author, t.datecreate, t.datepostpone, t.datedone FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.worker_id WHERE t.parent_task = :taskId AND (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId)");
+    $subTasksQuery->execute([':taskId' => $id_task, ':userId' => $id]);
+}
 $subTasks = $subTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 
 $hasOwnSubTaskQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE parent_task = :taskId AND (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId)");
@@ -114,7 +120,6 @@ if ($worker == $id && $view == '0') {
     }
 }
 
-$coworkersId = array_column($coworkers, 'worker_id');
 if ($id == $manager || $isCeo || $manager == 1) {
     $role = 'manager';
 } elseif ((in_array($id,$coworkersId) || $worker == $id || $hasOwnSubTask) && $status != 'planned'){
