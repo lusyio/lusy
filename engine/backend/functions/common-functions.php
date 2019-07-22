@@ -1463,7 +1463,7 @@ function createInitTask($userId, $companyId, $forCeo = false)
             ':recipientId' => $userId,
             ':companyId' => $companyId,
             ':datetime' => time(),
-            ':comment' => $taskId,
+            ':comment' => strtotime('midnight'),
             ':viewStatus' => 0,
         ];
         $addEventQuery->execute($eventData);
