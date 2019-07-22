@@ -1540,7 +1540,7 @@ input:checked[type="checkbox"]::before {
     z-index: 1;
 }
 
-.system:after {
+#task .system:after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -2351,7 +2351,7 @@ ul.timeline > li span.before {
     width: 40px;
     height: 40px;
     top: 5px;
-    line-height: 2.4;
+    line-height: 2.6;
     position: relative;
 }
 .eventDiv i {
