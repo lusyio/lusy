@@ -53,15 +53,15 @@ $statusColor = [
     <div class="col-12 col-lg-4">
         <div class="card overflow-hidden chart-card" style="height: 241px">
             <div class="card-body chart-content">
-                <div class="d-none">
+                <div class="empty-chart" style="display: none">
                     <div class="d-flex" style="justify-content: space-between">
                         <div>
                             <b>Завершайте задачи</b>
-                            <div class="small text-muted">и здесь появится график</div>
+                            <div class="small text-muted">и здесь появится ваш график</div>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex d-none" style="justify-content: space-between">
+                <div class="not-empty-chart" style="display: none; justify-content: space-between">
                     <span class="numberSlide">
                         <?= $taskDoneCountOverall ?>
                     </span>
@@ -75,13 +75,19 @@ $statusColor = [
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
-            <?php if (!is_null($taskDoneDelta)): ?>
             <div class="chart" style="z-index: 2">
+                <?php if (!is_null($taskDoneDelta)): ?>
                 <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Разница за аналогичный период в прошлом месяце">
                     <?= $taskDoneDelta; ?>
                 </span>
+                    <?php
+                else:
+                    ?>
+                <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="На графике представлены случайные значения">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
             <span class="bg-icon-achieve">
                 <i class="fas fa-trophy" style="font-size: 150px; color: #003effcc; opacity: 0.05"></i>
             </span>
@@ -357,6 +363,7 @@ $statusColor = [
 <script src="/assets/js/swiper.min.js"></script>
 <script type="text/javascript">
 
+
     Chart.defaults.multicolorLine = Chart.defaults.line;
     Chart.controllers.multicolorLine = Chart.controllers.line.extend({
         draw: function (ease) {
@@ -465,15 +472,33 @@ $statusColor = [
         };
     }
 
-
     var container = document.querySelector('.chart');
-
-    var data = [<?=$taskCountString?>];
 
     var steppedLineSettings = [{
         color: window.chartColors.red
     }];
 
+    var randomScalingFactor = function() {
+        return Math.ceil(Math.random() * 10.0) * Math.pow(10, Math.ceil(Math.random() * 5));
+    };
+
+    var emptyData = [0,0,0,0,0,0,0];
+    if ([<?=$taskCountString?>].length === emptyData.length && [<?=$taskCountString?>].every((value, index) => value === emptyData[index])){
+        console.log('asdasd');
+         data = [
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor(),
+            randomScalingFactor()
+        ];
+        $('.empty-chart').show();
+    } else {
+       var data = [<?=$taskCountString?>];
+       $('.not-empty-chart').css('display', 'flex');
+    }
 
     steppedLineSettings.forEach(function (details) {
         var div = document.createElement('div');
@@ -486,7 +511,6 @@ $statusColor = [
         var ctx = canvas.getContext('2d');
         var config = createConfig(details, data);
         new Chart(ctx, config);
-
     });
 </script>
 <script>
