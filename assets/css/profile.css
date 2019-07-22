@@ -25,3 +25,9 @@
     right: 15px;
     top: 3px;
 }
+.text-about-profile:last-of-type{
+    margin-bottom: 0 !important;
+}
+.text-about-profile{
+    margin-bottom: 1rem;
+}

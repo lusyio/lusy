@@ -100,20 +100,30 @@ $monthNumber = date("n", strtotime($userData['birthdate']));
                         </div>
                     <?php endif; ?>
                 </div>
-                <?php if (!is_null($userData['about']) && $userData['about'] != ''): ?>
+                <?php if (!is_null($userData['birthdate']) && $userData['birthdate'] != '' || !is_null($userData['about']) && $userData['about'] != ''): ?>
                     <div class="clearfix"></div>
                     <div class="row mt-25-tasknew">
                         <div class="col-12 text-center position-relative">
-                            <div class="other-func text-center position-relative" data-toggle="collapse" href="#collapseFunctions" role="button" aria-expanded="false" aria-controls="collapseFunctions">
+                            <div class="other-func text-center position-relative" data-toggle="collapse"
+                                 href="#collapseFunctions" role="button" aria-expanded="false"
+                                 aria-controls="collapseFunctions">
                                 <div class="additional-func">
-                                    <span style="background-color: #fff">Показать всю информацию <i class="fas fa-caret-down"></i></span>
+                                    <span style="background-color: #fff">Показать всю информацию <i
+                                                class="fas fa-caret-down"></i></span>
                                 </div>
                             </div>
                             <div class="collapse" id="collapseFunctions">
                                 <div class="row">
                                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
-                                        <p class="mb-3 mt-3 text-justify"><span class="text-secondary">Дата рождения:</span> <?= date('d', strtotime($userData['birthdate'])); ?> <?= _($month[$monthNumber]) ?>, <?= date('Y', strtotime($userData['birthdate'])); ?></p>
-                                        <p class="mb-0 text-justify"><span class="text-secondary">О себе:</span> <?= nl2br($userData['about']) ?></p>
+                                        <?php if ($userData['birthdate'] != ''): ?>
+                                            <p class="text-about-profile mt-3 text-justify"><span class="text-secondary">Дата рождения:</span> <?= date('d', strtotime($userData['birthdate'])); ?> <?= _($month[$monthNumber]) ?>
+                                                , <?= date('Y', strtotime($userData['birthdate'])); ?></p>
+                                        <?php endif; ?>
+                                        <?php if ($userData['about'] != ''): ?>
+                                            <p class="text-about-profile text-justify"><span
+                                                        class="text-secondary">О себе:</span> <?= nl2br($userData['about']) ?>
+                                            </p>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
