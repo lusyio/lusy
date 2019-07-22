@@ -59,3 +59,15 @@ function getSortedStatuses($usedStatuses)
     return $sortedStatuses;
 }
 
+function groupTasks($tasks)
+{
+    $groupedTasks = [];
+    foreach ($tasks as $task) {
+        if ($task['parent_task']) {
+            $groupedTasks[$task['parent_task']]['subTasks'][] = $task;
+        } else {
+            $groupedTasks[$task['idtask']]['task'] = $task;
+        }
+    }
+    return $groupedTasks;
+}

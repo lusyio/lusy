@@ -52,11 +52,4 @@ $countAllTasks = count($tasks);
 $countArchiveDoneTasks = DBOnce('COUNT(*)', 'tasks t LEFT JOIN task_coworkers tc ON tc.task_id=t.id', "(t.worker='". $id ."' OR t.manager = '". $id . "' OR tc.worker_id = '". $id ."') AND t.status = 'done'");
 $countArchiveCanceledTasks = DBOnce('COUNT(*)', 'tasks t LEFT JOIN task_coworkers tc ON tc.task_id=t.id', "(t.worker='". $id ."' OR t.manager = '". $id . "' OR tc.worker_id = '". $id ."') AND t.status = 'canceled'");
 prepareTasks($tasks);
-$groupedTasks = [];
-foreach ($tasks as $task) {
-    if ($task['parent_task']) {
-        $groupedTasks[$task['parent_task']]['subTasks'][] = $task;
-    } else {
-        $groupedTasks[$task['idtask']]['task'] = $task;
-    }
-}
+$groupedTasks = groupTasks($tasks);
