@@ -46,7 +46,7 @@ if ($event['action'] == 'newachievement') { // новое достижение
         'taskCreatePerDay_30' => 'fas fa-bolt',
     ];
     $bg = 'primary';
-    $icon = 'fas !иконкаАчивки!';
+    $icon = $badges[$event['comment']];
     $action = $GLOBALS['_youGotNewAchievement'];
     $eventText = $GLOBALS['_' . $event['comment']];
     $event['link'] = 'awards/';
@@ -56,7 +56,8 @@ if ($event['action'] == 'birthday') { // день рождения
     $icon = 'fas fa-birthday-cake';
     $eventText = 'День рождения!';
     $eventDop = 'у ' . fiomess($event["comment"]);
-    $event['link'] = '!ссылкаНаПрофиль!';
+    $event['link'] = 'profile/' . $event["comment"] . '/';
+    $action = '';
 }
 $month = ['', _("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")];
 $monthNumber = date("n", $event['datetime']);
