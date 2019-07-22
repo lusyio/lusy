@@ -224,6 +224,21 @@ $(document).ready(function () {
                 contentType: false,
                 dataType: 'json',
                 data: fd,
+
+                xhr: function () {
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.upload.onprogress = function (e) {
+                        $(window).bind('beforeunload', function () {
+                            event.preventDefault();
+                            event.returnValue = 'as';
+                        });
+                        $('#sendMesName').hide();
+                        $('.spinner-border-sm').show();
+                    };
+                    return xhr;
+                },
+
                 success: function (data) {
                     console.log(data);
                     $('#spinnerModal').modal('show');
@@ -233,6 +248,12 @@ $(document).ready(function () {
                     } else if (data.taskId !== '') {
                         location.href = '/task/' + data.taskId + '/';
                     }
+                },
+
+                complete: function () {
+                    $('#sendMesName').show();
+                    $('.spinner-border-sm').hide();
+                    $(window).unbind('beforeunload');
                 },
             });
         } else {

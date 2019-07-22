@@ -183,8 +183,6 @@
 
 .container-subtask.disabled{
     background-color: #f8f8f8;
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
     cursor: default !important;
 }
 

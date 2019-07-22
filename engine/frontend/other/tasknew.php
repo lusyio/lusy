@@ -123,19 +123,19 @@ $borderColor = [
             <div class="collapse mt-25-tasknew" id="collapseFunctions">
                 <div class="row">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
+                        <div class="label-tasknew text-left">
+                            Надзадача
+                        </div>
                         <div class="card card-tasknew">
                             <?php
                             include __ROOT__ . '/engine/frontend/members/subtask.php';
                             ?>
-                            <label class="label-responsible text-left">
-                                Надзадача
-                            </label>
-                            <span class="position-absolute disabledBtnOptions"
-                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">
-
-                            </span>
-                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled"
-                                 style="min-height: 38px;padding-top: 10px;">
+<!--                            <span class="position-absolute disabledBtnOptions"-->
+<!--                                  style="background-color: #000;width: 100%;bottom: 2px; height: 100%;z-index: 100000;opacity: 0;">-->
+<!---->
+<!--                            </span>-->
+                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
+                                 style="height: 50px;padding-top: 13px !important;">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
@@ -151,10 +151,10 @@ $borderColor = [
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
+                        <div class="label-tasknew text-left">
+                            Дата старта
+                        </div>
                         <div class="card card-tasknew">
-                            <label class="label-responsible text-left">
-                                Дата старта
-                            </label>
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
                                    style="height: 50px;font-size: 14px" min="<?= $GLOBALS["now"] ?>"
                                    value="<?= $GLOBALS["now"] ?>" required>
@@ -166,16 +166,15 @@ $borderColor = [
             <div class="collapse mt-25-tasknew" id="collapseFunctions">
                 <div class="row">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
+                        <div class="label-tasknew text-left">
+                            Надзадача
+                        </div>
                         <div class="card card-tasknew">
-                            <label class="label-responsible text-left">
-                                Надзадача
-                            </label>
                             <span class="position-absolute disabledBtnOptions"
-                                  style="background-color: #000;width: 100%;bottom: 2px; height: 50%;z-index: 100000;opacity: 0;">
-
+                                  style="background-color: #000;width: 100%;bottom: 2px; height: 100%;z-index: 100000;opacity: 0;">
                             </span>
                             <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled"
-                                 style="min-height: 38px;padding-top: 10px; margin-top: 10px;">
+                                 style="height: 50px;padding-top: 13px !important;">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <div class="position-absolute icon-newtask icon-newtask-change-subtask">
                                     <i class="fas fa-caret-down"></i>
@@ -184,16 +183,16 @@ $borderColor = [
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
+                        <div class="label-tasknew text-left">
+                            Дата старта
+                        </div>
                         <div class="card card-tasknew">
-                            <label class="label-responsible text-left">
-                                Дата старта
-                            </label>
                             <span class="position-absolute disabledBtnOptions"
                                   style="background-color: #000;width: 100%;bottom: 2px; height: 52%;z-index: 100000;opacity: 0;">
 
                         </span>
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
-                                   style="height: 54px;font-size: 14px; margin-top: 10px;" min="<?= $GLOBALS["now"] ?>"
+                                   style="height: 54px;font-size: 14px;" min="<?= $GLOBALS["now"] ?>"
                                    value="<?= $GLOBALS["now"] ?>" required disabled>
                         </div>
                     </div>
@@ -210,6 +209,10 @@ $borderColor = [
         <label class="label-tasknew">
             Прикрепленные файлы
         </label>
+        <div class="spinner-border spinner-border-sm ml-1" role="status"
+             style="color: #28416b; display: none">
+            <span class="sr-only">Loading...</span>
+        </div>
         <div style="display: none;padding-left: 30px;"
              class="file-name container-files">
         </div>
