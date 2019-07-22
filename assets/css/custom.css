@@ -1447,6 +1447,9 @@ input:checked[type="checkbox"]::before {
 .no-events i, .no-events p {
     color: #e8e8e8 !important;
 }
+.event:after{
+    content: none !important;
+}
 .eventText {
     margin-top: 10px;
     line-height: 1.8;
@@ -1537,7 +1540,7 @@ input:checked[type="checkbox"]::before {
     z-index: 1;
 }
 
-.system:after {
+#task .system:after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -2348,7 +2351,7 @@ ul.timeline > li span.before {
     width: 40px;
     height: 40px;
     top: 5px;
-    line-height: 2.4;
+    line-height: 2.6;
     position: relative;
 }
 .eventDiv i {
@@ -2656,14 +2659,17 @@ span.date {
 .chart-content{
     padding-bottom: 0;
 }
-
+.chart {
+    position: relative;
+    top: -20px;
+}
 #search:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: rgba(255, 255, 255, 0.5);
 }
 
 .percent-chart{
     right: 20px;
-    bottom: 15px;
+    bottom: -5px;
     color: #003effcc;
     position: absolute;
     display: none;

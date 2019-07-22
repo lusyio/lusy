@@ -22,12 +22,15 @@ if ($companyUsageSpacePercent > 90) {
 <small class="text-secondary"><?= $GLOBALS["_files"] ?> <?= $normalizedCompanyFilesSize['size'] ?> <?= $normalizedCompanyFilesSize['suffix'] ?>
     /<?= $normalizedProvidedSpace['size'] ?> <?= $normalizedProvidedSpace['suffix'] ?></small>
 <div class="progress col-12 mb-2 mt-1 p-0">
-    <div class="progress-bar <?= $bguser ?>" role="progressbar" style="width: <?= $userUsageSpacePercent ?>%"
-         aria-valuenow="<?= $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100"
+    <div class="progress-bar <?= $bguser ?>" role="progressbar"
+         style="width: <?= $userUsageSpacePercent ?>%"
+         aria-valuenow="<?= $userUsageSpacePercent ?>"
+         aria-valuemin="0" aria-valuemax="100"
          title="<?= $GLOBALS["_titleuserusage"] ?>"></div>
     <div class="progress-bar <?= $bgall ?>" role="progressbar"
          style="width: <?= $companyUsageSpacePercent - $userUsageSpacePercent ?>%"
-         aria-valuenow="<?= $companyUsageSpacePercent - $userUsageSpacePercent ?>" aria-valuemin="0" aria-valuemax="100"
+         aria-valuenow="<?= $companyUsageSpacePercent - $userUsageSpacePercent ?>"
+         aria-valuemin="0" aria-valuemax="100"
          title="<?= $GLOBALS["_titlecompanyusage"] ?>"></div>
 </div>
 <?php

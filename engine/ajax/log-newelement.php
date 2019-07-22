@@ -17,7 +17,7 @@ include 'logfunction.php';?>
 	</div>
 	<p class="mt-2"><?=${'l_'.$l['action']}?><?=$taskpart?></p>
 	<?=$comment?>
-</li>    
+</li>
 <?php }
 } else {
 	echo $lastidnew;

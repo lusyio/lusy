@@ -80,6 +80,10 @@ $statusColor = [
                 <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Разница за аналогичный период в прошлом месяце">
                     <?= $taskDoneDelta; ?>
                 </span>
+                <?php else: ?>
+                <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="По мере выполнения задач будет доступна разница за периоды">
+                    <i class="fas fa-info-circle"></i>
+                </span>
                 <?php endif; ?>
                 <?php if ($taskDoneCountOverall == 0): ?>
                 <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Пока что на графике представлены случайные значения">
