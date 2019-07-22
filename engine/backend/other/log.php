@@ -12,7 +12,7 @@ global $supportCometHash;
 
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 
-$events = getEventsForUser();
+$events = getEventsForUser(0, 7);
 prepareEvents($events);
 
 $newtask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "new" and worker='.$id);
