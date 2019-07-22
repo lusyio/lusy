@@ -6,7 +6,7 @@ if ($event['action'] == 'newuser') { // новый пользователь
     $bg = 'success';
     $icon = 'fas fa-user';
     $action = 'Новый сотрудник';
-    $event['link'] = $event["comment"] . '/';
+    $event['link'] = 'profile/' . $event["comment"] . '/';
     $eventText = fiomess($event["comment"]);
 }
 if ($event['action'] == 'newcompany') { // регистрация компании
