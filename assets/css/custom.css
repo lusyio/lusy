@@ -2656,14 +2656,17 @@ span.date {
 .chart-content{
     padding-bottom: 0;
 }
-
+.chart {
+    position: relative;
+    top: -20px;
+}
 #search:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: rgba(255, 255, 255, 0.5);
 }
 
 .percent-chart{
     right: 20px;
-    bottom: 15px;
+    bottom: -5px;
     color: #003effcc;
     position: absolute;
     display: none;
