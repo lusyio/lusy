@@ -6,8 +6,11 @@ global $idc;
 global $roleu;
 global $tariff;
 
+$tryPremiumLimits = getFreePremiumLimits($idc);
 $isManager = false;
 $isWorker = false;
+$usePremiumTask = false;
+$usePremiumCloud = false;
 if (isset($_POST['it'])) {
     $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
     $taskAuthorId =  DBOnce('author', 'tasks', 'id='.$idtask);
@@ -60,13 +63,19 @@ if($_POST['module'] == 'sendonreview' && $isWorker) {
 	if (count($_FILES) > 0) {
 		uploadAttachedFiles('comment', $commentId);
     }
-    if (count($googleFiles) > 0) {
+    if (count($googleFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
         addGoogleFiles('comment', $commentId, $googleFiles);
+        $usePremiumCloud = true;
     }
-    if (count($dropboxFiles) > 0) {
+    if (count($dropboxFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
         addDropboxFiles('comment', $commentId, $dropboxFiles);
+        $usePremiumCloud = true;
     }
-    
+    if ($tariff == 0) {
+        if ($usePremiumCloud) {
+            updateFreePremiumLimits($idc, 'cloud');
+        }
+    }
     resetViewStatus($idtask);
     addEvent('review', $idtask, $commentId);
     if ($idTaskManager == 1) {
@@ -127,12 +136,49 @@ if($_POST['module'] == 'workreturn' && $isManager) {
 	$datepostpone = filter_var($_POST['datepostpone'], FILTER_SANITIZE_SPECIAL_CHARS);
 	$text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
+	$unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
+    $googleFiles = [];
+    foreach ($unsafeGoogleFiles as $k => $v) {
+        $googleFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
+        ];
+    }
+    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
+    $dropboxFiles = [];
+    foreach ($unsafeDropboxFiles as $k => $v) {
+        $dropboxFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
+        ];
+    }
+
+    if (count($_FILES) > 0) {
+        uploadAttachedFiles('comment', $commentId);
+    }
+    if (count($googleFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
+        addGoogleFiles('comment', $commentId, $googleFiles);
+        $usePremiumCloud = true;
+    }
+    if (count($dropboxFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
+        addDropboxFiles('comment', $commentId, $dropboxFiles);
+        $usePremiumCloud = true;
+    }
+
+    if ($tariff == 0) {
+        if ($usePremiumTask) {
+            updateFreePremiumLimits($idc, 'task');
+        }
+        if ($usePremiumCloud) {
+            updateFreePremiumLimits($idc, 'cloud');
+        }
+    }
+    
 	setStatus($idtask, 'returned', strtotime($datepostpone));
 	$commentId = addWorkReturnComments($idtask, strtotime($datepostpone), $text);
 
-	if (count($_FILES) > 0) {
-		uploadAttachedFiles('comment', $commentId);
-	}
     resetViewStatus($idtask);
     addEvent('workreturn', $idtask, strtotime($datepostpone));
 
@@ -195,10 +241,11 @@ if($_POST['module'] == 'createTask') {
 	$worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
 	$status = 'new';
 	$dateCreate = time();
-	if (isset($_POST['startdate']) && $tariff == 1) {
+	if (isset($_POST['startdate']) && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
 	    $dateCreate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
 	    if (date('Y-m-d', $dateCreate) > date('Y-m-d') && date('Y-m-d', $dateCreate) <= date('Y-m-d', $datedone)) {
             $status = 'planned';
+            $usePremiumTask = true;
         }
     }
 	$parentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
@@ -214,12 +261,13 @@ if($_POST['module'] == 'createTask') {
         ':status' => $status,
         ':parentTask' => null,
     ];
-	if ($parentTask != '' && $parentTask != 0) {
+	if ($parentTask != '' && $parentTask != 0 && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
         $parentTaskDataQuery = $pdo->prepare("SELECT manager, idcompany FROM tasks WHERE id = :taskId");
         $parentTaskDataQuery->execute(['taskId' => $parentTask]);
         $parentTaskData = $parentTaskDataQuery->fetch(PDO::FETCH_ASSOC);
         if ($parentTaskData['manager'] == $id || ($roleu == 'ceo' && $parentTaskData['idcompany'] == $idc)) {
             $taskCreateQueryData[':parentTask'] = $parentTask;
+            $usePremiumTask = true;
         }
     }
     $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask)");
@@ -239,11 +287,13 @@ if($_POST['module'] == 'createTask') {
     if (count($_FILES) > 0) {
         uploadAttachedFiles('task', $idtask);
     }
-    if (count($googleFiles) > 0) {
+    if (count($googleFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
         addGoogleFiles('task', $idtask, $googleFiles);
+        $usePremiumCloud = true;
     }
-    if (count($dropboxFiles) > 0) {
+    if (count($dropboxFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
         addDropboxFiles('task', $idtask, $dropboxFiles);
+        $usePremiumCloud = true;
     }
     if ($status != 'planned') {
         resetViewStatus($idtask);
@@ -257,7 +307,14 @@ if($_POST['module'] == 'createTask') {
         addNewSubTaskEvent($taskCreateQueryData[':parentTask'], $idtask);
     }
 
-
+    if ($tariff == 0) {
+        if ($usePremiumTask) {
+            updateFreePremiumLimits($idc, 'task');
+        }
+        if ($usePremiumCloud) {
+            updateFreePremiumLimits($idc, 'cloud');
+        }
+    }
 }
 
 

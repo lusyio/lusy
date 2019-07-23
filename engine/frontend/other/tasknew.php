@@ -119,7 +119,7 @@ $borderColor = [
                 <span>Дополнительные функции <i class="fas fa-caret-down"></i></span>
             </div>
         </div>
-        <?php if ($tariff == 1): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
+        <?php if ($tariff == 1 || $tryPremiumLimits['task'] < 3): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
             <div class="collapse mt-25-tasknew" id="collapseFunctions">
                 <div class="row">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
@@ -316,7 +316,7 @@ $borderColor = [
     </div>
 </div>
 <script src="/assets/js/createtask.js?n=2"></script>
-<?php if ($tariff == 1): ?>
+<?php if ($tariff == 1 || $tryPremiumLimits['cloud'] < 3): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================
         //=Create object of FilePicker Constructor function function & set Properties===
@@ -471,7 +471,7 @@ $borderColor = [
                 $('#datedone').val(val);
             }
         });
-        <?php if ($tariff == 0):?>
+        <?php if ($tariff == 0 || $tryPremiumLimits['cloud'] >= 3):?>
         $('#openGoogleDrive, #openDropbox').on('click', function () {
             $('#premModal').modal('show');
         });

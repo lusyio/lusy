@@ -1677,3 +1677,32 @@ function sendActivationLink($companyId)
         return;
     }
 }
+
+function getFreePremiumLimits($companyId)
+{
+    $tryPremiumLimitsQuery = $pdo->prepare("SELECT premium_free_access FROM company WHERE id = :companyId");
+    $tryPremiumLimitsQuery->execute([':companyId' =>$companyId]);
+    $tryPremiumLimits = $tryPremiumLimitsQuery->fetch(PDO::FETCH_ASSOC);
+    if (!is_null($tryPremiumLimits)) {
+        $result = json_decode($tryPremiumLimits, true);
+    } else {
+        $result = [
+            'task' => 0,
+            'report' => 0,
+            'cloud' => 0
+        ];
+    }
+    return $result;
+}
+
+function updateFreePremiumLimits($companyId, $updatingType)
+{
+    global $pdo;
+    $currentLimits = getFreePremiumLimits($companyId);
+    if (isset($currentLimits[$updatingType])) {
+        $currentLimits[$updatingType]++;
+        $newLimitsJson = json_encode($currentLimits);
+        $updateLimitsQuery = $pdo->prepare("UPDATE company SET premium_free_access = :newLimitsJson WHERE id = :companyId");
+        $updateLimitsQuery->execute([':companyId' =>$companyId, ':newLimitsJson' => $newLimitsJson]);
+    }
+}
