@@ -3038,6 +3038,13 @@ span.date {
         margin-left: 0;
     }
 
+    .my-message{
+        margin-left: 15%;
+    }
+    .not-my-message{
+        margin-right: 15%;
+    }
+
 
     .left-report{
         order: 2;
