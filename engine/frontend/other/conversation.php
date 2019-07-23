@@ -374,10 +374,10 @@
                         var xhr = new XMLHttpRequest();
 
                         xhr.upload.onprogress = function () {
-                            $(window).bind('beforeunload', function () {
-                                event.preventDefault();
-                                event.returnValue = 'as';
-                            });
+                            // $(window).bind('beforeunload', function () {
+                            //     event.preventDefault();
+                            //     event.returnValue = 'as';
+                            // });
                             $('#sendMesName').hide();
                             $('.spinner-border-sm').show();
                         };
@@ -400,7 +400,7 @@
                     complete: function () {
                         $('#sendMesName').show();
                         $('.spinner-border-sm').hide();
-                        $(window).unbind('beforeunload');
+                        // $(window).unbind('beforeunload');
                     },
                 });
                 $("#mes").removeClass('border-danger');
