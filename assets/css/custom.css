@@ -2886,6 +2886,10 @@ span.date {
         padding-left: 15px;
     }
 
+    .worker-name-reports{
+        margin-bottom: 25px;
+    }
+
     #sendonreview{
         padding: 6px 9px;
         height: 38px;

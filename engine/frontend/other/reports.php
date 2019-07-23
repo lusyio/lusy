@@ -185,20 +185,24 @@ if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
                                     <div class="col-2 col-lg-1">
                                         <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added m-0">
                                     </div>
-                                    <div class="col-10 col-lg-3 text-left pl-0 pr-0">
+                                    <div class="col-10 col-lg-3 text-left pl-0 pr-0 worker-name-reports">
                                         <span class="mb-1 text-color-new"><?= $n["name"] ?> <?= $n["surname"] ?></span>
                                     </div>
-                                    <div class="col-3 col-lg-2 text-center">
-                                        <span class="text-color-new"><?= $n['doneAsWorker'] ?></span>
+                                    <div class="col-3 col-lg-2 p-0 text-center">
+                                        <div class="text-color-new"><?= $n['doneAsWorker'] ?></div>
+                                        <small class="text-muted company-tasks">Выполнил</small>
                                     </div>
-                                    <div class="col-3 col-lg-2 text-center">
-                                        <span class="text-color-new"><?= $n['doneAsManager'] ?></span>
+                                    <div class="col-3 col-lg-2 p-0 text-center">
+                                        <div class="text-color-new"><?= $n['doneAsManager'] ?></div>
+                                        <small class="text-muted company-tasks">Поручил</small>
                                     </div>
-                                    <div class="col-3 col-lg-2 text-center">
-                                        <span class="text-color-new"><?= $overdue ?></span>
+                                    <div class="col-3 col-lg-2 p-0 text-center">
+                                        <div class="text-color-new"><?= $overdue ?></div>
+                                        <small class="text-muted company-tasks">Просрочил</small>
                                     </div>
-                                    <div class="col-3 col-lg-2 text-center">
-                                        <span class="text-color-new">15</span>
+                                    <div class="col-3 col-lg-2 p-0 text-center">
+                                        <div class="text-color-new">15</div>
+                                        <small class="text-muted company-tasks">Перенес</small>
                                     </div>
                                 </div>
                             </div>
