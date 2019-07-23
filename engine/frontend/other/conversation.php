@@ -70,7 +70,7 @@
         margin-bottom: .5rem!important;
     }
 </style>
-<?php if ($tariff == 1): ?>
+<?php if ($tariff == 1 || $tryPremiumLimits['cloud'] < 3): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================
         //=Create object of FilePicker Constructor function function & set Properties===
@@ -283,7 +283,7 @@
 
         });
 
-        <?php if ($tariff == 0):?>
+        <?php if ($tariff == 0 && $tryPremiumLimits['cloud'] >= 3):?>
         $('#openGoogleDrive, #openDropbox').attr('data-target', '#premModal');
         <?php endif; ?>
 

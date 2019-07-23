@@ -235,7 +235,7 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>
 </div>
-<?php if ($tariff == 1): ?>
+<?php if ($tariff == 1 || $tryPremiumLimits['cloud'] < 3): ?>
     <script type="text/javascript">
         $('#openGoogleDrive').click(function () {
             $(this).data('clicked', true);
@@ -448,7 +448,7 @@ if ($id == $worker and $view == 0) {
             }
         });
 
-        <?php if ($tariff == 0):?>
+        <?php if ($tariff == 0 && $tryPremiumLimits['cloud'] >= 3):?>
         $('#openGoogleDrive, #openDropbox, #openDropboxReview, #openGoogleDriveReview').click(function () {
             $('.premModal').modal('show');
         });

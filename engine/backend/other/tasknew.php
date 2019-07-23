@@ -3,6 +3,7 @@
 require_once __ROOT__ . '/engine/backend/other/tasks.php';
 
 global $id;
+global $idc;
 global $tariff;
 global $cometHash;
 global $cometTrackChannelName;
@@ -18,6 +19,7 @@ if ($roleu == 'ceo') {
 $remainingLimits = getRemainingLimits();
 $isTaskCreateDisabled = $remainingLimits['tasks'] <= 0;
 $emptySpace = $remainingLimits['space'];
+$tryPremiumLimits = getFreePremiumLimits($idc);
 if ($isCeo) {
     $ceoParentTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone FROM tasks WHERE idcompany = :companyId AND status NOT IN ('done', 'canceled') AND parent_task IS NULL");
     $ceoParentTasksQuery->execute([':companyId' => $idc]);
