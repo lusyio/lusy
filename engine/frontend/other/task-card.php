@@ -2,8 +2,7 @@
     <div class="task-card">
         <div class="card mb-2 tasks  <?= $n['task']['status'] ?><?= $n['task']['classRole'] ?>">
             <a href="/task/<?= $n['task']['idtask'] ?>/" class="text-decoration-none cust">
-                <!--             класс для подзадач   shadow-subtask-->
-                <div class="card-body tasks-list">
+                <div class="card-body tasks-list <?= (isset($n['subTasks'])) ? 'shadow-subtask' : '';?> ">
                 <div class="d-block border-left-tasks <?= $borderColor[$n['task']['status']] ?> ">
                     <p class="font-weight-light text-ligther d-none"><?= $taskStatusText[$n['task']['mainRole']][$n['task']['status']] ?></p>
                     <div class="row">

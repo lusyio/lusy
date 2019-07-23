@@ -5,6 +5,7 @@
 @import "tasks.css";
 @import "task.css";
 @import "profile.css";
+@import "reports.css";
 
 #searchbody {
     background: #F8F9FA;
@@ -2873,8 +2874,16 @@ span.date {
         display: none;
     }
 
+    .report-task-text{
+        vertical-align: unset;
+    }
+
     .top-block-tasknew{
         margin-bottom: 13px;
+    }
+
+    .task-report{
+        padding-left: 15px;
     }
 
     #sendonreview{
@@ -3018,6 +3027,27 @@ span.date {
 
     .deadline-block-word{
         display: none;
+    }
+
+    .right-report{
+        order: 1;
+        border-left: none;
+    }
+
+    .right-report>.count-tasks-reports, .count-info-reports{
+        margin-left: 0;
+    }
+
+    .my-message{
+        margin-left: 15%;
+    }
+    .not-my-message{
+        margin-right: 15%;
+    }
+
+
+    .left-report{
+        order: 2;
     }
 
     .add-newtask-button{

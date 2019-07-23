@@ -108,7 +108,7 @@ if ($id == $worker and $view == 0) {
                 <div class="col-8 col-lg-4">
                     <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_{$task['status']}"] ?></span>
                     <?php if (!is_null($task['parent_task'])): ?>
-                        <a href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom" title="Перейти к надзадаче" class="badge badge-info">Подзадача</span></a>
+                        <a href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom" title="Перейти к надзадаче" class="badge badge-info">Надзадача</span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-lg-8">
