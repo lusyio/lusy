@@ -1,0 +1,55 @@
+#createReport{
+    border-radius: 20px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+.create-report::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    top: 50%;
+    width: 100%;
+    z-index: 1;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+.text-color-new{
+    color: #28416b;
+}
+.reportIcon {
+    border-radius: 50%;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 2.6;
+    position: relative;
+}
+.report-task-text{
+    vertical-align: -25%;
+}
+.text-statistic{
+    display: inline-block;
+    width: 29px;
+}
+.task-report{
+    padding-left: 1.5rem;
+}
+.right-report{
+    border-left: 1px solid #e4e4e4;
+    padding-top: 20px;
+}
+.count-info-reports{
+    margin-left: 30%;
+
+}
+.count-tasks-reports{
+    color: #28416b !important;
+    font-weight: 400;
+    margin-left: 30%;
+}
+.card-body-reports {
+    padding: 15px 30px !important;
+    border-radius: 12px !important;
+}
