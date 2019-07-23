@@ -1,46 +1,87 @@
-<!--<form method="post">-->
-<!--    <button type="submit" class="btn btn-link mb-3 pl-0" name="send">Отправить на почту</button>-->
-<!--</form>-->
-<!--<div class="card">-->
-<?php
-//global $idc;
-//$inviteeMail = 'mr-kelevras@yandex.ru';
-//$template = 'company-welcome';
-//
-//require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
-//require_once __ROOT__ . '/engine/phpmailer/Exception.php';
-//$mail = new \PHPMailer\PHPMailer\LusyMailer();
-//try {
-//    $mail->addAddress($inviteeMail);
-//
-//    $mail->isHTML();
-//    $mail->Subject = "Добро пожаловать в Lusy.io";
-//    $companyName = DBOnce('idcompany', 'company', 'id=' . $idc);
-//    $args = [
-//        'companyName' => $companyName,
-//    ];
-//    $mail->setMessageContent($template, $args);
-//} catch (Exception $e) {
-//
-//}
-//
-//if (isset($_POST["send"])) {
-//    $mail->send();
-//    echo 'отправлено';
-//}
-//
-//include __ROOT__ . '/engine/phpmailer/templates/ru/content-header.php';
-//include __ROOT__ . '/engine/phpmailer/templates/ru/'.$template.'.php';
-//include __ROOT__ . '/engine/phpmailer/templates/ru/content-footer.php';
-//?>
-<!---->
-<!---->
-<!--</div>-->
-<!--<link href="/assets/css/datatables.min.css" rel="stylesheet">-->
-<!--<script type="text/javascript" src="/assets/js/datatables.min.js"></script>-->
 <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinysort/2.3.6/tinysort.min.js"></script>
+<?php
+global $tariff;
+if ($tariff == 0): ?>
+    <form id="">
+        <div class="row">
+            <div class="col-12 col-lg-6 top-block-tasknew">
+                <label class="label-tasknew">
+                    Тип отчета
+                </label>
+                <div class="mb-2 card card-tasknew">
+                    <select class="input-reports custom-select custom-select-sm border-0 card-body-reports" id="typeOfReport"
+                            style="height: 50px">
+                        <option value="1" selected><span>Отчет по компании</option>
+                        <option value="2"><span>Отчет по сотруднику</option>
+                    </select>
+                    <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
+                    <!--                       style="height: 50px;"-->
+                    <!--                       placeholder="Выберите тип отчета"-->
+                    <!--                       autocomplete="off" autofocus required>-->
+                </div>
+            </div>
+            <div class="col-12 col-lg-3">
+                <label class="label-tasknew">
+                    Дата начала
+                </label>
+                <div class="mb-2 card card-tasknew">
+                    <input type="date" class="input-reports form-control border-0 card-body-reports"
+                           style="height: 50px; font-size: 14px; padding-right: 20px !important;"
+                           id="startReportDate"
+                           value="<?= $GLOBALS["now"] ?>" required>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3">
+                <label class="label-tasknew">
+                    Дата окончания
+                </label>
+                <div class="mb-2 card card-tasknew">
+                    <input type="date" class="input-reports form-control border-0 card-body-reports"
+                           style="height: 50px; font-size: 14px;padding-right: 20px !important;"
+                           id="endReportDate"
+                           value="<?= $GLOBALS["now"] ?>" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-25-tasknew" id="workerBlockReports" style="display: none">
+            <div class="col-12 col-lg-6 top-block-tasknew">
+                <div class="card card-tasknew">
+                    <select class="input-reports custom-select custom-select-sm border-0 card-body-reports" id="workerReport"
+                            style="height: 50px">
+                        <option value="" selected disabled>Выберите сотрудника</option>
+                        <?php
+                        require_once __ROOT__ . '/engine/backend/other/company.php';
+                        foreach ($sql as $n):?>
+                            <option value="<?= $n['id'] ?>"><span><?= $n["name"] ?> <?= $n["surname"] ?></option>
+                            <?php
+                            ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <!--            <div class="mb-2 card card-tasknew">-->
+                <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
+                <!--                       style="height: 50px;"-->
+                <!--                       placeholder="Выберите сотрудника"-->
+                <!--                       autocomplete="off" autofocus required>-->
+                <!--            </div>-->
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
+            <div class="col-10 col-lg-4">
+                <button id="createReport"
+                        class="btn btn-block btn-outline-primary h-100" style="margin-left: 30px;">Построить отчет
+                </button>
+            </div>
+        </div>
+    </form>
+<?php endif; ?>
+<?php if ($tariff == 1): ?>
 <form id="">
     <div class="row">
         <div class="col-12 col-lg-6 top-block-tasknew">
@@ -67,7 +108,6 @@
                 <input type="date" class="input-reports form-control border-0 card-body-reports"
                        style="height: 50px; font-size: 14px; padding-right: 20px !important;"
                        id="startReportDate"
-                       min="<?= $GLOBALS["now"] ?>"
                        value="<?= $GLOBALS["now"] ?>" required>
             </div>
         </div>
@@ -79,7 +119,6 @@
                 <input type="date" class="input-reports form-control border-0 card-body-reports"
                        style="height: 50px; font-size: 14px;padding-right: 20px !important;"
                        id="endReportDate"
-                       min="<?= $GLOBALS["now"] ?>"
                        value="<?= $GLOBALS["now"] ?>" required>
             </div>
         </div>
@@ -137,7 +176,7 @@
                                 <div class="row" style="padding-top: 20px;">
                                     <div class="col-6 col-lg-5">
                                         <div>
-                                            <div class="text-info text-statistic">118</div>
+                                            <div class="text-primary text-statistic">118</div>
                                             <span class="text-reports">В работе</span>
                                         </div>
                                         <div>
@@ -245,6 +284,8 @@
         ?>
     </div>
 </div>
+<?php endif; ?>
+
 
 <div>
     <div class="row tasks-reports-container" style="margin-top: 60px; display: none">

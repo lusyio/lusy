@@ -189,7 +189,8 @@ $monthNumber = date("n", strtotime($userData['birthdate']));
         $('[data-toggle="tooltip"]').tooltip()
     });
     $('.circle').circleProgress({
-        size: 75
+        size: 75,
+        thickness: 2
     });
 </script>
 
