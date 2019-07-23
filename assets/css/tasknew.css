@@ -23,6 +23,13 @@
     margin-bottom: 1rem;
 }
 
+.tooltip-free{
+    color: #c2c2c4;
+}
+.tooltip-free:hover{
+    color: #28416b;
+}
+
 .mt-25-tasknew .responsible{
     overflow-y: scroll;
     overflow-x: hidden;

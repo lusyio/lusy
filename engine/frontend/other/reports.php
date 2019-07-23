@@ -3,87 +3,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinysort/2.3.6/tinysort.min.js"></script>
 <?php
 global $tariff;
-if ($tariff == 0): ?>
-    <form id="">
-        <div class="row">
-            <div class="col-12 col-lg-6 top-block-tasknew">
-                <label class="label-tasknew">
-                    Тип отчета
-                </label>
-                <div class="mb-2 card card-tasknew">
-                    <select class="input-reports custom-select custom-select-sm border-0 card-body-reports"
-                            id="typeOfReport"
-                            style="height: 50px">
-                        <option value="1" selected><span>Отчет по компании</option>
-                        <option value="2"><span>Отчет по сотруднику</option>
-                    </select>
-                    <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
-                    <!--                       style="height: 50px;"-->
-                    <!--                       placeholder="Выберите тип отчета"-->
-                    <!--                       autocomplete="off" autofocus required>-->
-                </div>
-            </div>
-            <div class="col-12 col-lg-3">
-                <label class="label-tasknew">
-                    Дата начала
-                </label>
-                <div class="mb-2 card card-tasknew">
-                    <input type="date" class="input-reports form-control border-0 card-body-reports"
-                           style="height: 50px; font-size: 14px; padding-right: 20px !important;"
-                           id="startReportDate"
-                           value="<?= $GLOBALS["now"] ?>" required>
-                </div>
-            </div>
-            <div class="col-12 col-lg-3">
-                <label class="label-tasknew">
-                    Дата окончания
-                </label>
-                <div class="mb-2 card card-tasknew">
-                    <input type="date" class="input-reports form-control border-0 card-body-reports"
-                           style="height: 50px; font-size: 14px;padding-right: 20px !important;"
-                           id="endReportDate"
-                           value="<?= $GLOBALS["now"] ?>" required>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-25-tasknew" id="workerBlockReports" style="display: none">
-            <div class="col-12 col-lg-6 top-block-tasknew">
-                <div class="card card-tasknew">
-                    <select class="input-reports custom-select custom-select-sm border-0 card-body-reports"
-                            id="workerReport"
-                            style="height: 50px">
-                        <option value="" selected disabled>Выберите сотрудника</option>
-                        <?php
-                        require_once __ROOT__ . '/engine/backend/other/company.php';
-                        foreach ($sql as $n):?>
-                            <option value="<?= $n['id'] ?>"><span><?= $n["name"] ?> <?= $n["surname"] ?></option>
-                            <?php
-                            ?>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <!--            <div class="mb-2 card card-tasknew">-->
-                <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
-                <!--                       style="height: 50px;"-->
-                <!--                       placeholder="Выберите сотрудника"-->
-                <!--                       autocomplete="off" autofocus required>-->
-                <!--            </div>-->
-            </div>
-        </div>
-
-
-        <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
-            <div class="col-10 col-lg-4">
-                <button id="createReportDisabled"
-                        class="btn btn-block btn-outline-primary h-100" style="margin-left: 30px;">Построить отчет
-                </button>
-            </div>
-        </div>
-    </form>
-<?php endif; ?>
-<?php if ($tariff == 1): ?>
+global $tryPremiumLimits;
+if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
     <form id="">
         <div class="row">
             <div class="col-12 col-lg-6 top-block-tasknew">
@@ -157,7 +78,7 @@ if ($tariff == 0): ?>
         <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
             <div class="col-10 col-lg-4">
                 <button id="createReport"
-                        class="btn btn-block btn-outline-primary h-100" style="margin-left: 30px;">Построить отчет
+                        class="btn btn-block btn-outline-primary h-100" style="margin-left: 30px;" data-toggle="<?= ($tryPremiumLimits['report'] < 3)? 'tooltip': ''?>" data-placement="bottom" title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">Построить отчет
                 </button>
             </div>
         </div>
@@ -289,6 +210,87 @@ if ($tariff == 0): ?>
             ?>
         </div>
     </div>
+    <?php
+else:
+    ?>
+    <form id="">
+        <div class="row">
+            <div class="col-12 col-lg-6 top-block-tasknew">
+                <label class="label-tasknew">
+                    Тип отчета
+                </label>
+                <div class="mb-2 card card-tasknew">
+                    <select class="input-reports custom-select custom-select-sm border-0 card-body-reports"
+                            id="typeOfReport"
+                            style="height: 50px">
+                        <option value="1" selected><span>Отчет по компании</option>
+                        <option value="2"><span>Отчет по сотруднику</option>
+                    </select>
+                    <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
+                    <!--                       style="height: 50px;"-->
+                    <!--                       placeholder="Выберите тип отчета"-->
+                    <!--                       autocomplete="off" autofocus required>-->
+                </div>
+            </div>
+            <div class="col-12 col-lg-3">
+                <label class="label-tasknew">
+                    Дата начала
+                </label>
+                <div class="mb-2 card card-tasknew">
+                    <input type="date" class="input-reports form-control border-0 card-body-reports"
+                           style="height: 50px; font-size: 14px; padding-right: 20px !important;"
+                           id="startReportDate"
+                           value="<?= $GLOBALS["now"] ?>" required>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3">
+                <label class="label-tasknew">
+                    Дата окончания
+                </label>
+                <div class="mb-2 card card-tasknew">
+                    <input type="date" class="input-reports form-control border-0 card-body-reports"
+                           style="height: 50px; font-size: 14px;padding-right: 20px !important;"
+                           id="endReportDate"
+                           value="<?= $GLOBALS["now"] ?>" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-25-tasknew" id="workerBlockReports" style="display: none">
+            <div class="col-12 col-lg-6 top-block-tasknew">
+                <div class="card card-tasknew">
+                    <select class="input-reports custom-select custom-select-sm border-0 card-body-reports"
+                            id="workerReport"
+                            style="height: 50px">
+                        <option value="" selected disabled>Выберите сотрудника</option>
+                        <?php
+                        require_once __ROOT__ . '/engine/backend/other/company.php';
+                        foreach ($sql as $n):?>
+                            <option value="<?= $n['id'] ?>"><span><?= $n["name"] ?> <?= $n["surname"] ?></option>
+                            <?php
+                            ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <!--            <div class="mb-2 card card-tasknew">-->
+                <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
+                <!--                       style="height: 50px;"-->
+                <!--                       placeholder="Выберите сотрудника"-->
+                <!--                       autocomplete="off" autofocus required>-->
+                <!--            </div>-->
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
+            <div class="col-10 col-lg-4">
+                <button id="createReportDisabled"
+                        class="btn btn-block btn-outline-primary h-100" style="margin-left: 30px;">Построить отчет
+                </button>
+            </div>
+        </div>
+    </form>
 <?php endif; ?>
 
 
@@ -380,165 +382,8 @@ if ($tariff == 0): ?>
     });
 </script>
 
-<!--<div class="card">-->
-<!--    <div class="card-body text-center">-->
-<!--        <h2 class="d-inline text-uppercase font-weight-bold">-->
-<!--            Demo-->
-<!--        </h2>-->
-<!--        <h5 class="text-center">-->
-<!--            Общая статистика-->
-<!--        </h5>-->
-<!--        <hr>-->
-<!--        <div class="row text-center">-->
-<!--            <div class="col">-->
-<!--                <p class="text-muted">Выполнено</p>-->
-<!--                <p>50</p>-->
-<!--            </div>-->
-<!--            <div class="col">-->
-<!--                <p class="text-muted">Просрочено</p>-->
-<!--                <p>12</p>-->
-<!--            </div>-->
-<!--            <div class="col">-->
-<!--                <p class="text-muted">Комментарии</p>-->
-<!--                <p>123</p>-->
-<!--            </div>-->
-<!--            <div class="col">-->
-<!--                <p class="text-muted">События</p>-->
-<!--                <p>300</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!---->
-<!--<form id="create-report" method="post">-->
-<!--    <div class="card mt-3">-->
-<!--        <div class="card-body">-->
-<!--            <h5>-->
-<!--                Построение отчета-->
-<!--            </h5>-->
-<!--            <div class="row">-->
-<!--                <div class="col">-->
-<!--                    <label>-->
-<!--                        Дата начала:-->
-<!--                    </label>-->
-<!--                    <input type="date" class="form-control form-control-sm" value="-->
-<? // //= $GLOBALS["now"] ?><!--"-->
-<!--                           id="startReportDate">-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <label>-->
-<!--                        Дата конца:-->
-<!--                    </label>-->
-<!--                    <input type="date" class="form-control form-control-sm" value="-->
-<? // //= $GLOBALS["now"] ?><!--"-->
-<!--                           id="endReportDate">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row mt-2">-->
-<!--                <div class="col-12 col-lg-6">-->
-<!--                    <label>-->
-<!--                        Выберите сотрудника-->
-<!--                    </label>-->
-<!--                    <select class="custom-select custom-select-sm" id="workerReport">-->
-<!--                        --><?php
-//                        require_once __ROOT__ . '/engine/backend/other/company.php';
-//                        foreach ($sql as $n):?>
-<!--                            <option value="--><? // // //= $n['id'] ?><!--"><span>-->
-<? // // //= $n["name"] ?><!-- --><? // // //= $n["surname"] ?><!--</option>-->
-<!--                            --><?php
-//                            ?>
-<!--                        --><?php //endforeach; ?>
-<!--                    </select>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row mt-3">-->
-<!--                <div class="col text-center">-->
-<!--                    <button class="btn btn-primary create-report">Построить отчет</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</form>-->
-<!---->
-<!--<div class="card mt-3 total-report">-->
-<!--    <div class="card-body">-->
-<!--        <table id="dtOrderExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">-->
-<!--            <thead>-->
-<!--            <tr class="text-center text-muted">-->
-<!--                <th class="th-sm">ФИО</th>-->
-<!--                <th class="th-sm">В работе</th>-->
-<!--                <th class="th-sm">Просрочено</th>-->
-<!--                <th class="th-sm">Выполнено</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!---->
-<!--            --><?php
-//            require_once __ROOT__ . '/engine/backend/other/company.php';
-//            foreach ($sql
-//
-//            as $n):
-//            $overdue = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="overdue"');
-//            $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')'); ?>
-<!--            <tr>-->
-<!--                <td><span>--><? // //= $n["name"] ?><!-- --><? // //= $n["surname"] ?><!--</td>-->
-<!--                <td class="text-center">--><? // //= $inwork ?><!--</td>-->
-<!--                <td class="text-center">--><? // //= $overdue ?><!--</td>-->
-<!--                <td class="text-center">-->
-<!--                    <span class="badge badge-primary">--><? // //= $n['doneAsManager'] ?><!--</span>-->
-<!--                    <span class="badge badge-dark">--><? // //= $n['doneAsWorker'] ?><!--</span>-->
-<!--                </td>-->
-<!--                --><?php
-//                endforeach;
-//                ?>
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class="card mt-3 report-container" style="display: none">-->
-<!--    <div class="card-body">-->
-<!--        <div class="row text-muted text-center">-->
-<!--            <div class="col-8">-->
-<!--                <span class="small">Выполнено</span>-->
-<!--            </div>-->
-<!--            <div class="col-4">-->
-<!--                <span class="small">Просрочено</span>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row text-center">-->
-<!--            <div class="col">-->
-<!--                <span class="badge badge-primary done-outcome" data-toggle="tooltip" data-placement="bottom"-->
-<!--                      title="--><? // //= $GLOBALS['_outbox'] ?><!--"></span>-->
-<!--            </div>-->
-<!--            <div class="col">-->
-<!--                <span class="badge badge-dark done-income" data-toggle="tooltip" data-placement="bottom"-->
-<!--                      title="--><? // //= $GLOBALS['_inbox'] ?><!--">></span>-->
-<!--            </div>-->
-<!--            <div class="col">-->
-<!--                <span class="overdue"></span>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row mt-3">-->
-<!--            <div class="col">-->
-<!--                <div class="text-muted mb-2">Задачи за выбранный период:</div>-->
-<!--                <div class="tasks-list-report-empty">-->
-<!--                </div>-->
-<!--                <div class="tasks-list-report">-->
-<!---->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 <script>
     $(document).ready(function () {
-        // $('#dtOrderExample').DataTable({
-        //     "order": [[3, "desc"]]
-        // });
-        // $('.dataTables_length').addClass('bs-select');
 
         $('#createReportDisabled').on('click', function (e) {
             e.preventDefault();
