@@ -59,6 +59,9 @@
 .input-reports{
     color: #c2c2c4;
 }
+.text-reports{
+    color: #a2a5ac !important;
+}
 .text-reports span{
     color: #a2a5ac !important;
 }

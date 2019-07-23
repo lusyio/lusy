@@ -198,7 +198,7 @@ if ($id == $worker and $view == 0) {
             <?php if (count($subTasks) > 0): ?>
             <h5>Подзадачи</h5>
             <?php foreach ($subTasks as $subTask): ?>
-            <p><a href="/task/<?= $subTask['id'] ?>/"><?= $subTask['name'] ?></a></p>
+            <p class="mb-2"><a href="/task/<?= $subTask['id'] ?>/"><?= $subTask['name'] ?></a></p>
             <?php endforeach; ?>
             <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
