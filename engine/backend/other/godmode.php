@@ -57,3 +57,11 @@ $promocodes = $promocodesQuery->fetchAll(PDO::FETCH_ASSOC);
 $companiesListQuery = $pdo->prepare("SELECT id, idcompany, full_company_name FROM company");
 $companiesListQuery->execute();
 $companiesList = $companiesListQuery->fetchAll(PDO::FETCH_ASSOC);
+
+$companiesInfoQuery = $pdo->prepare("SELECT c.id, c.idcompany, c.tariff, c.lang, c.full_company_name, c.site, c.description, c.datareg,
+       (SELECT COUNT(*) FROM tasks t WHERE t.idcompany = c.id) AS allTasks,
+       (SELECT COUNT(*) FROM tasks t WHERE t.idcompany = c.id AND t.status NOT IN ('canceled', 'done')) AS activeTasks,
+       (SELECT COUNT(*) FROM users u WHERE u.idcompany = c.id AND u.is_fired = 0) AS activeUsers
+FROM company c ORDER BY datareg DESC");
+$companiesInfoQuery->execute();
+$companiesInfo = $companiesInfoQuery->fetchAll(PDO::FETCH_ASSOC);

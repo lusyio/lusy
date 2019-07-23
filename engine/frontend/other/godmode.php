@@ -75,6 +75,10 @@
             aria-controls="feedback" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
                 class="fas fa-percentage h3 mb-0 mt-2"></i>
         <p class="mb-0">Промокоды</p></button>
+    <button type="button" data-toggle="collapse" href="#companies" role="button" aria-expanded="false"
+            aria-controls="feedback" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
+                class="fas fa-user-tie h3 mb-0 mt-2"></i>
+        <p class="mb-0">Компании</p></button>
 </div>
 <div class="card mt-3 collapse" id="articles">
     <div class="card-body">
@@ -222,6 +226,25 @@
         <div class="row float-right">
             <button class="btn btn-primary mr-3" id="addPromoButton"><i class="fas fa-plus"></i></button>
         </div>
+    </div>
+</div>
+<div class="card mt-3 collapse" id="companies">
+    <div class="card-body">
+        название компании, описание, сайт, когда зарегистрированы, сколько создали задач всего, сколько сейчас в работе, сколько сотрудников.
+        <h5 class="text-center mb-3">Компании</h5>
+        <?php foreach ($companiesInfo as $company): ?>
+            <div class="border-bottom">
+                <h6><?= $company['idcompany']; ?></h6>
+                <p><?= ($company['full_company_name'] != '') ? 'Полное название: ' . $company['full_company_name'] . ', ' : ''?>id: <?= $company['id']; ?></p>
+                <p>Описание компании: <?= $company['description']; ?></p>
+                <p>Сайт: <?= $company['site']; ?></p>
+                <p>Зарегистрирована: <?= date('d.m.Y', $company['datareg']); ?> (<?= floor((time() - $company['datareg']) / (3600 * 24)) ?> <?= ngettext('day', 'days', floor((time() - $company['datareg']) / (3600 * 24))) ?>)</p>
+                <p>Задач создано: <?= $company['allTasks']; ?></p>
+                <p>Задач в работе: <?= $company['activeTasks']; ?></p>
+                <p>Сотрудников: <?= $company['activeUsers']; ?></p>
+
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
 <!-- Modal -->
