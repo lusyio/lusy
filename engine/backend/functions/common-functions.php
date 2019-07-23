@@ -1656,3 +1656,24 @@ function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffNam
         return;
     }
 }
+
+function sendActivationLink($companyId)
+{
+    $activationCode = createActivationCode($companyId);
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    $seoMail = getCeoMail($companyId);
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+    try {
+        $mail->addAddress($seoMail);
+        $mail->isHTML();
+        $mail->Subject = "Подтверждение e-mail";
+        $args = [
+            'activationLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/activate/' . $companyId . '/' . $activationCode . '/',
+        ];
+        $mail->setMessageContent('company-activation', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
