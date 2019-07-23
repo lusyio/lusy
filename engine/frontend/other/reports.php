@@ -175,7 +175,7 @@ if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
 
     <div class="row" style="margin-top: 60px;">
         <div class="col-12">
-            <label class="label-tasknew">
+            <label class="label-tasknew" id="scrollAnchor">
                 Статистика по сотрудникам за выбранный период
             </label>
             <div style="padding: 0.8rem;" class="d-sm task-box">
@@ -218,19 +218,19 @@ if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
                                         <span class="mb-1 text-color-new"><?= $n["name"] ?> <?= $n["surname"] ?></span>
                                     </div>
                                     <div class="col-3 col-lg-2 p-0 text-center">
-                                        <div class="text-color-new"><?= $n['doneAsWorker'] ?></div>
+                                        <div class="text-color-new done-tasks"><?= $n['doneAsWorker'] ?></div>
                                         <small class="text-muted company-tasks">Выполнил</small>
                                     </div>
                                     <div class="col-3 col-lg-2 p-0 text-center">
-                                        <div class="text-color-new"><?= $n['doneAsManager'] ?></div>
+                                        <div class="text-color-new done-tasks-manager"><?= $n['doneAsManager'] ?></div>
                                         <small class="text-muted company-tasks">Поручил</small>
                                     </div>
                                     <div class="col-3 col-lg-2 p-0 text-center">
-                                        <div class="text-color-new"><?= $overdue ?></div>
+                                        <div class="text-color-new overdue-tasks"><?= $overdue ?></div>
                                         <small class="text-muted company-tasks">Просрочил</small>
                                     </div>
                                     <div class="col-3 col-lg-2 p-0 text-center">
-                                        <div class="text-color-new">15</div>
+                                        <div class="text-color-new postpone-tasks">15</div>
                                         <small class="text-muted company-tasks">Перенес</small>
                                     </div>
                                 </div>
@@ -412,6 +412,9 @@ else:
 
 <script>
     $(document).ready(function () {
+        //запрос на текущий период
+
+        //
 
         $(".container-report").on('click', function () {
             $(".report-select").fadeToggle(200);
@@ -465,6 +468,14 @@ else:
             $(this).css('color', '#353b41');
         });
 
+        function slowScroll(id) {
+            var offset = 0;
+            $('html, body').animate({
+                scrollTop: $(id).offset().top - offset
+            }, 1000);
+            return false;
+        }
+
 
         $('.select-report').on('click', function () {
             var val = $('.add-report:visible').attr('val');
@@ -505,9 +516,10 @@ else:
                     $.when($('.total-report').fadeOut(300)).done(function () {
                         $('.tasks-reports-container').show();
                         $('.report-container').show();
-                        $('.done-income').html(data.doneIncome);
-                        $('.done-outcome').html(data.doneOutcome);
-                        $('.overdue').html(data.overdue);
+                        $('.done-tasks').html(data.doneIncome);
+                        $('.done-tasks-manager').html(data.doneOutcome);
+                        $('.overdue-tasks').html(data.overdue);
+                        slowScroll(scrollAnchor);
                         var icon;
                         var bg;
                         var status;
@@ -575,8 +587,9 @@ else:
                                     '                           </div>\n' +
                                     '                       <div class="col-6 col-lg-8">\n' +
                                     '                           <div class="text-area-message">\n' +
-                                    '                               <span class="taskname report-task-text mb-0"> ' + e.name + ' </span>\n' +
+                                    '                               <span class="taskname mb-0"> ' + e.name + ' </span>\n' +
                                     '                           </div>\n' +
+                                    '                               <span class="small mb-0"> ' + e.managerFullName + ' </span>\n' +
                                     '                       </div>\n' +
                                     '                           <div class="col-4 col-lg-3 pl-0 text-center">\n' +
                                     '                               <span class=\'report-task-text ' + textColor + ' \'> ' + status + ' </span>\n' +
