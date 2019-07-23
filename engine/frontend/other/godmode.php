@@ -230,7 +230,6 @@
 </div>
 <div class="card mt-3 collapse" id="companies">
     <div class="card-body">
-        название компании, описание, сайт, когда зарегистрированы, сколько создали задач всего, сколько сейчас в работе, сколько сотрудников.
         <h5 class="text-center mb-3">Компании</h5>
         <?php foreach ($companiesInfo as $company): ?>
             <div class="border-bottom">
