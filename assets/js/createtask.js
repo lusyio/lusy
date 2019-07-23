@@ -227,12 +227,11 @@ $(document).ready(function () {
 
                 xhr: function () {
                     var xhr = new XMLHttpRequest();
-
                     xhr.upload.onprogress = function (e) {
-                        $(window).bind('beforeunload', function () {
-                            event.preventDefault();
-                            event.returnValue = 'as';
-                        });
+                        // $(window).bind('beforeunload', function () {
+                        //     event.preventDefault();
+                        //     event.returnValue = 'as';
+                        // });
                         $('#sendMesName').hide();
                         $('.spinner-border-sm').show();
                     };
@@ -253,7 +252,7 @@ $(document).ready(function () {
                 complete: function () {
                     $('#sendMesName').show();
                     $('.spinner-border-sm').hide();
-                    $(window).unbind('beforeunload');
+                    // $(window).unbind('beforeunload');
                 },
             });
         } else {
