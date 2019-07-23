@@ -1680,6 +1680,7 @@ function sendActivationLink($companyId)
 
 function getFreePremiumLimits($companyId)
 {
+    global $pdo;
     $tryPremiumLimitsQuery = $pdo->prepare("SELECT premium_free_access FROM company WHERE id = :companyId");
     $tryPremiumLimitsQuery->execute([':companyId' =>$companyId]);
     $tryPremiumLimits = $tryPremiumLimitsQuery->fetch(PDO::FETCH_ASSOC);
