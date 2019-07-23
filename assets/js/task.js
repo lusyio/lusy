@@ -440,23 +440,46 @@ $(document).ready(function () {
         })
     });
 
-// Кнопка "принять" для worker'a (в статусе "на рассмотрении"")
+// Возврат
 
     $("#workreturn").click(function () {
         var datepostpone = $("#returnDateInput").val();
         var text = $("#reportarea").val();
+        var fd = new FormData();
+
+        var attachedGoogleFiles = {};
+        $('.attached-google-drive-file').each(function (i, googleFileToSend) {
+            attachedGoogleFiles[$(googleFileToSend).data('name')] = {
+                link: $(googleFileToSend).data('link'),
+                size: $(googleFileToSend).data('file-size'),
+            };
+        });
+        var attachedDropboxFiles = {};
+        $('.attached-dropbox-file').each(function (i, dropboxFileToSend) {
+            attachedDropboxFiles[$(dropboxFileToSend).data('name')] = {
+                link: $(dropboxFileToSend).data('link'),
+                size: $(dropboxFileToSend).data('file-size')
+            };
+        });
+        fileList.forEach(function (file, i) {
+            fd.append('file' + i, file);
+        });
+        fd.append('module', 'workreturn');
+        fd.append('ajax', 'task-control');
+        fd.append('text', text);
+        fd.append('datepostpone', datepostpone);
+        fd.append('it', $it);
+        fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
+        fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         if (text) {
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
 
-                data: {
-                    module: 'workreturn',
-                    text: text,
-                    datepostpone: datepostpone,
-                    it: $it,
-                    ajax: 'task-control'
-                },
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
                 success: controlUpdate,
             });
 
