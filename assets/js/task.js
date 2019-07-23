@@ -404,13 +404,19 @@ $(document).ready(function () {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-
+            dataType: 'json',
             data: {
                 module: 'workdone',
                 it: $it,
                 ajax: 'task-control'
             },
-            success: controlUpdate,
+            success: function (response) {
+                if (response.status){
+                    controlUpdate()
+                } else {
+                    console.log(response)
+                }
+            },
         });
 
         // } else {
@@ -485,13 +491,19 @@ $(document).ready(function () {
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
-
+            dataType: 'json',
             data: {
                 module: 'cancelTask',
                 it: $it,
                 ajax: 'task-control'
             },
-            success: controlUpdate,
+            success: function (response) {
+                if (response.status){
+                    controlUpdate()
+                } else {
+                    console.log(response)
+                }
+            },
         });
     });
 

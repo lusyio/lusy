@@ -1,0 +1,1 @@
+alter table company add premium_free_access text null;

@@ -39,24 +39,9 @@ if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['pass
             $_SESSION['login'] = $login;
             $_SESSION['password'] = $password;
 
-            addEvent('newcompany', '' , '$companyId' , $ceoId);
-
-            $activationCode = createActivationCode($companyId);
-            require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
-            require_once __ROOT__ . '/engine/phpmailer/Exception.php';
-            $mail = new \PHPMailer\PHPMailer\LusyMailer();
-            try {
-                $mail->addAddress($login);
-                $mail->isHTML();
-                $mail->Subject = "Подтверждение e-mail";
-                $args = [
-                    'activationLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/activate/' . $companyId . '/' . $activationCode . '/',
-                ];
-                $mail->setMessageContent('company-activation', $args);
-                $mail->send();
-            } catch (Exception $e) {
-
-            }
+            addEvent('newcompany', '' , $companyId , $ceoId);
+            createInitTask($ceoId, $companyId, true);
+            addMailToQueue('sendActivationLink', [$companyId], $ceoId);
             header('location: /login/');
             ob_flush();
             die;

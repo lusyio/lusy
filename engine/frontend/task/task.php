@@ -107,12 +107,9 @@ if ($id == $worker and $view == 0) {
             <div class="row">
                 <div class="col-8 col-lg-4">
                     <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_{$task['status']}"] ?></span>
-                    <?php
-                    foreach ($subTasks as $subTask): ?>
-                        <a href="/task/<?= $subTask['id'] ?>/"><span data-toggle="tooltip" data-placement="bottom" title="Перейти к надзадаче" class="badge badge-info">Надзадача</span></a>
-                    <?php
-                    endforeach;
-                    ?>
+                    <?php if (!is_null($task['parent_task'])): ?>
+                        <a href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom" title="Перейти к надзадаче" class="badge badge-info">Подзадача</span></a>
+                    <?php endif; ?>
                 </div>
                 <div class="col-4 col-lg-8">
                     <div class="float-right" title="<?= $GLOBALS["_$status"] ?>">
@@ -198,7 +195,13 @@ if ($id == $worker and $view == 0) {
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <?php if ($isCeo || !$isCoworker): ?>
+            <?php if (count($subTasks) > 0): ?>
+            <h5>Подзадачи</h5>
+            <?php foreach ($subTasks as $subTask): ?>
+            <p><a href="/task/<?= $subTask['id'] ?>/"><?= $subTask['name'] ?></a></p>
+            <?php endforeach; ?>
+            <?php endif; ?>
+            <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
                     <?php
                     include __ROOT__ . '/engine/backend/task/task/control/' . $role . '/' . $status . '.php';

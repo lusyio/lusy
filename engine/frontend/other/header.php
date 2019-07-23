@@ -55,9 +55,6 @@ if (empty($title)) {
     $(document).ready(function () {
         var userId = <?= $id ?>;
         cometApi.start({dev_id: 2553, user_id: userId, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
-        <?php if ($idc == 1): ?>
-        cometApi.start({dev_id: 2553, user_id: 1, user_key: '<?= $supportCometHash ?>', node: "app.comet-server.ru"});
-        <?php endif; ?>
         cometApi.onAuthSuccess(function(){
             console.log("Подключились и авторизовались успешно")
         });

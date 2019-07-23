@@ -18,13 +18,20 @@ $mailQueueQuery->execute();
 $mailQueue = $mailQueueQuery->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($mailQueue as $mail) {
+    if ($mail['function_name'] == 'sendActivationLink') {
+        if (function_exists($mail['function_name'])) {
+            $arguments = json_decode($mail['args']);
+            call_user_func_array($mail['function_name'], $arguments);
+            removeMailFromQueue($mail['queue_id']);
+            continue;
+        }
+    }
     $isMessage = $mail['function_name'] == 'sendMessageEmailNotification';
     $isRead = checkViewStatus($mail['event_id'], $isMessage);
     if ($isRead) {
         removeMailFromQueue($mail['queue_id']);
         continue;
     }
-
     date_default_timezone_set($mail['timezone']);
     $notifications = getNotificationSettings($mail['user_id']);
     if ($notifications['silence_start'] != -1) {

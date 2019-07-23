@@ -15,14 +15,12 @@ function prepareTasks(&$tasks)
         } else {
             $task['coworkers'] = [];
         }
-        if (!empty($task['idworker']) && ($task['idworker'] == $id || in_array($id, $task['coworkers']))) {
-            $task['classRole'] .= ' worker';
-            $task['mainRole'] = 'worker';
-        }
         if (!empty($task['idmanager']) && $task['idmanager'] == $id || $roleu == 'ceo') {
             $task['classRole'] .= ' manager';
             $task['mainRole'] = 'manager';
-
+        } else {
+            $task['classRole'] .= ' worker';
+            $task['mainRole'] = 'worker';
         }
         $task['countCoworkers'] = count($task['coworkers']);
         $task['viewStatus'] = json_decode($task['view_status'], true);
@@ -61,3 +59,15 @@ function getSortedStatuses($usedStatuses)
     return $sortedStatuses;
 }
 
+function groupTasks($tasks)
+{
+    $groupedTasks = [];
+    foreach ($tasks as $task) {
+        if ($task['parent_task']) {
+            $groupedTasks[$task['parent_task']]['subTasks'][] = $task;
+        } else {
+            $groupedTasks[$task['idtask']]['task'] = $task;
+        }
+    }
+    return $groupedTasks;
+}

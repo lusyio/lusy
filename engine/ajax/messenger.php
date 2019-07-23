@@ -55,14 +55,30 @@ if ($_POST['module'] == 'sendMessage') {
         }
 
         $cometSql = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
+        $supportAdmins = [2, 3, 4];
         $mesData = [
             'senderId' => $id,
             'recipientId' => $recipientId,
             'messageId' => $messageId,
         ];
         $jsonMesData = json_encode($mesData);
-        $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
-        $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
+
+        if ($id == 1) {
+            foreach ($supportAdmins as $admin) {
+                $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $admin));
+            }
+            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
+
+        } elseif ($recipientId == 1) {
+            foreach ($supportAdmins as $admin) {
+                $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $admin));
+            }
+            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $admin));
+        } else {
+            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
+            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
+        }
+
         //@sendMessageEmailNotification($recipientId, $id);
         addMailToQueue('sendMessageEmailNotification', [$recipientId, $id], $recipientId, $messageId);
     }

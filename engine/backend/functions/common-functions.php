@@ -1463,7 +1463,7 @@ function createInitTask($userId, $companyId, $forCeo = false)
             ':recipientId' => $userId,
             ':companyId' => $companyId,
             ':datetime' => time(),
-            ':comment' => $taskId,
+            ':comment' => strtotime('midnight'),
             ':viewStatus' => 0,
         ];
         $addEventQuery->execute($eventData);
@@ -1651,6 +1651,27 @@ function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffNam
             'cardDigits' => $cardDigits,
         ];
         $mail->setMessageContent('premium-prolongation-failed.php', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendActivationLink($companyId)
+{
+    $activationCode = createActivationCode($companyId);
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    $seoMail = getCeoMail($companyId);
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+    try {
+        $mail->addAddress($seoMail);
+        $mail->isHTML();
+        $mail->Subject = "Подтверждение e-mail";
+        $args = [
+            'activationLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/activate/' . $companyId . '/' . $activationCode . '/',
+        ];
+        $mail->setMessageContent('company-activation', $args);
         $mail->send();
     } catch (Exception $e) {
         return;

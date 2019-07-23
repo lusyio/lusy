@@ -25,6 +25,7 @@ if (isset($_POST['it'])) {
         $isWorker = true;
     }
     $taskStatus = DBOnce('status', 'tasks', 'id='.$idtask);
+
 }
 
 if ($roleu == 'ceo') {
@@ -89,24 +90,34 @@ if($_POST['module'] == 'sendpostpone' && $isWorker) {
 // Завершение задачи
 
 if($_POST['module'] == 'workdone' && $isManager) {
-    setFinalStatus($idtask, 'done');
-    addFinalComments($idtask, 'done');
-    resetViewStatus($idtask);
-    if ($taskStatus != 'planned') {
-        addEvent('workdone', $idtask, '');
+    $subTasks = checkSubTasksForFinish($idtask);
+    if ($subTasks['status']) {
+        setFinalStatus($idtask, 'done');
+        addFinalComments($idtask, 'done');
+        resetViewStatus($idtask);
+        if ($taskStatus != 'planned') {
+            addEvent('workdone', $idtask, '');
+        }
+    } else {
+        echo json_encode($subTasks);
     }
-
 }
 
 // Отмена задачи
 
 if($_POST['module'] == 'cancelTask' && $isManager) {
-    setFinalStatus($idtask, 'canceled');
-    addFinalComments($idtask, 'canceled');
-    resetViewStatus($idtask);
-    if ($taskStatus != 'planned') {
-        addEvent('canceltask', $idtask, '');
+    $subTasks = checkSubTasksForFinish($idtask);
+    if ($subTasks['status']) {
+        setFinalStatus($idtask, 'canceled');
+        addFinalComments($idtask, 'canceled');
+        resetViewStatus($idtask);
+        if ($taskStatus != 'planned') {
+            addEvent('canceltask', $idtask, '');
+        }
+    } else {
+        echo json_encode($subTasks);
     }
+
 
 }
 
