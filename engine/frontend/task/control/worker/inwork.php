@@ -1,15 +1,18 @@
-
-
 <link href="/assets/css/datepicker.min.css" rel="stylesheet" type="text/css" xmlns="http://www.w3.org/1999/html">
-
-
+<?php if ($showNote): ?>
 <div class="postpone-manager <?=$displayNote?>" id="inwork-postpone-manager">
     <div class="report">
         <h4 class="text-ligther"><?=$note?></h4>
         <p><?=htmlspecialchars_decode($request)?></p>
+        <?php if (count($files) > 0): ?>
+            <p class="">Прикрепленнные файлы:</p>
+            <?php foreach ($files as $file): ?>
+                <p><a class="" href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a></p>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 </div>
-
+<?php endif; ?>
 <div id="report-block" class="collapse review-block mt-2">
 	<p class="text-ligther mb-2"><?=$GLOBALS["_writereport"]?>:</p>
 	<div class="form-group mb-0">
