@@ -1683,7 +1683,7 @@ function getFreePremiumLimits($companyId)
     global $pdo;
     $tryPremiumLimitsQuery = $pdo->prepare("SELECT premium_free_access FROM company WHERE id = :companyId");
     $tryPremiumLimitsQuery->execute([':companyId' =>$companyId]);
-    $tryPremiumLimits = $tryPremiumLimitsQuery->fetch(PDO::FETCH_ASSOC);
+    $tryPremiumLimits = $tryPremiumLimitsQuery->fetch(PDO::FETCH_COLUMN);
     if (!is_null($tryPremiumLimits)) {
         $result = json_decode($tryPremiumLimits, true);
     } else {
