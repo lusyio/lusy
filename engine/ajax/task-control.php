@@ -175,7 +175,7 @@ if($_POST['module'] == 'workreturn' && $isManager) {
             updateFreePremiumLimits($idc, 'cloud');
         }
     }
-    
+
 	setStatus($idtask, 'returned', strtotime($datepostpone));
 	$commentId = addWorkReturnComments($idtask, strtotime($datepostpone), $text);
 
@@ -262,10 +262,10 @@ if($_POST['module'] == 'createTask') {
         ':parentTask' => null,
     ];
 	if ($parentTask != '' && $parentTask != 0 && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
-        $parentTaskDataQuery = $pdo->prepare("SELECT manager, idcompany FROM tasks WHERE id = :taskId");
+        $parentTaskDataQuery = $pdo->prepare("SELECT manager, worker, idcompany FROM tasks WHERE id = :taskId");
         $parentTaskDataQuery->execute(['taskId' => $parentTask]);
         $parentTaskData = $parentTaskDataQuery->fetch(PDO::FETCH_ASSOC);
-        if ($parentTaskData['manager'] == $id || ($roleu == 'ceo' && $parentTaskData['idcompany'] == $idc)) {
+        if ($parentTaskData['manager'] == $id || $parentTaskData['worker'] == $id || ($roleu == 'ceo' && $parentTaskData['idcompany'] == $idc)) {
             $taskCreateQueryData[':parentTask'] = $parentTask;
             $usePremiumTask = true;
         }
