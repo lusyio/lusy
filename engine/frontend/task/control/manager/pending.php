@@ -15,15 +15,46 @@
 </div>
 
 
-<div id="report-block" class="collapse">
-    <div class="form-group">
-        <p class="text-ligther mt-3"><?=$GLOBALS["_pendingtext"]?>:</p>
-        <textarea name="report" id="reportarea" class="form-control mb-3" rows="3" placeholder="<?=$GLOBALS["_pendingareatext"]?>" required></textarea>
-        <input class="form-control" type="date" id="returnDateInput" min="<?= $GLOBALS["now"] ?>" value="<?= $GLOBALS["now"] ?>">
-        <div class="form-group row d-block mb-0">
-            <button type="button" id="backbutton" class="btn btn-secondary w-30 text-center mt-3 mb-1 ml-3" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><?=$GLOBALS["_back"]?></button>
-            <button type="submit" id="workreturn" class="btn btn-outline-primary w-30 text-center mt-3 mb-1"><i class="fas fa-exchange-alt mr-2"></i> <?=$GLOBALS["_return"]?></button>
+<!--<div id="report-block" class="collapse">-->
+<!--    <div class="form-group">-->
+<!--        <p class="text-ligther mt-3">--><?//=$GLOBALS["_pendingtext"]?><!--:</p>-->
+<!--        <textarea name="report" id="reportarea" class="form-control mb-3" rows="3" placeholder="--><?//=$GLOBALS["_pendingareatext"]?><!--" required></textarea>-->
+<!--        <input class="form-control" type="date" id="returnDateInput" min="--><?//= $GLOBALS["now"] ?><!--" value="--><?//= $GLOBALS["now"] ?><!--">-->
+<!--        <div class="form-group row d-block mb-0">-->
+<!--            <button type="button" id="backbutton" class="btn btn-secondary w-30 text-center mt-3 mb-1 ml-3" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block">--><?//=$GLOBALS["_back"]?><!--</button>-->
+<!--            <button type="submit" id="workreturn" class="btn btn-outline-primary w-30 text-center mt-3 mb-1"><i class="fas fa-exchange-alt mr-2"></i> --><?//=$GLOBALS["_return"]?><!--</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="report-block" class="collapse review-block mt-2">
+    <p class="text-ligther mb-2"><?=$GLOBALS["_pendingtext"]?>:</p>
+    <div class="form-group mb-0">
+        <div class="row">
+            <div class="col">
+                <textarea name="report" id="reportarea" class="form-control" rows="4" placeholder="<?=$GLOBALS["_pendingareatext"]?>" required></textarea>
+            </div>
         </div>
+        <div class="row mt-2">
+            <div class="col">
+                <input class="form-control" type="date" id="returnDateInput" min="<?= $GLOBALS["now"] ?>" value="<?= $GLOBALS["now"] ?>">
+            </div>
+        </div>
+        <div style="display: none" class="bg-white file-name-review container-files">
+        </div>
+        <div class="row mb-1">
+            <div class="col-2 col-lg-1 mt-2">
+                <?php $uploadModule = 'task'; ?>
+                <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
+            </div>
+            <div class="col-4 col-lg-2 mt-2">
+                <button type="button" id="backbutton" class="btn btn-secondary w-100 text-center" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block" style="height: 38px"><?=$GLOBALS["_back"]?></button>
+            </div>
+            <div class="col-6 col-lg-5 pl-0 mt-2">
+                <button type="submit" id="workreturn" class="btn btn-outline-primary w-100 text-center"><?=$GLOBALS["_return"]?></button>
+            </div>
+        </div>
+
     </div>
 </div>
 
