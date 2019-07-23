@@ -254,3 +254,25 @@ function addSubTaskComment($parentTask, $subTask)
     ];
     $sql->execute($commentData);
 }
+
+function checkSubTasksForFinish($taskId)
+{
+    global $pdo;
+    $subTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone, parent_task FROM tasks WHERE parent_task = :taskId");
+    $subTasksQuery->execute([':taskId' => $taskId]);
+    $subTasks = $subTasksQuery->fetchAll(PDO::FETCH_ASSOC);
+    $result = [
+        'status' => true,
+        'tasks' => [],
+    ];
+    foreach ($subTasks as $subTask) {
+        if ($subTask['status'] != 'canceled' || $subTask['status'] != 'done') {
+            $result['status'] = false;
+            $result['tasks'][] = [
+                'id' => $subTask['id'],
+                'name' => $subTask['name'],
+            ];
+        }
+    }
+    return $result;
+}
