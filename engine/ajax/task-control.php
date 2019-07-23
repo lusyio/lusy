@@ -155,6 +155,9 @@ if($_POST['module'] == 'workreturn' && $isManager) {
         ];
     }
 
+	setStatus($idtask, 'returned', strtotime($datepostpone));
+	$commentId = addWorkReturnComments($idtask, strtotime($datepostpone), $text);
+
     if (count($_FILES) > 0) {
         uploadAttachedFiles('comment', $commentId);
     }
@@ -175,9 +178,6 @@ if($_POST['module'] == 'workreturn' && $isManager) {
             updateFreePremiumLimits($idc, 'cloud');
         }
     }
-
-	setStatus($idtask, 'returned', strtotime($datepostpone));
-	$commentId = addWorkReturnComments($idtask, strtotime($datepostpone), $text);
 
     resetViewStatus($idtask);
     addEvent('workreturn', $idtask, strtotime($datepostpone));
