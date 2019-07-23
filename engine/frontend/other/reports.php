@@ -311,13 +311,23 @@ if ($tariff == 0): ?>
             type: 'doughnut',
             data: {
                 datasets: [{
-                    data: [10, 20, 30]
+                    data: [118, 90, 12, 15, 12],
+                    backgroundColor: [
+                        'rgb(93,149,219)',
+                        'rgb(153,196,107)',
+                        'rgb(210,79,94)',
+                        'rgb(237,196,93)',
+                        'rgb(113,117,121)'
+                    ],
                 }],
                 labels: [
-                    'Red',
-                    'Yellow',
-                    'Blue'
-                ]
+                    'В работе',
+                    'Выполнено',
+                    'Просрочено',
+                    'Перенесено',
+                    'Отменено'
+                ],
+
             },
             options: {
                 responsive: true,
