@@ -45,11 +45,20 @@
 
 }
 .count-tasks-reports{
-    color: #28416b !important;
+    color: #28416b;
     font-weight: 400;
     margin-left: 30%;
+}
+.count-info-reports-content{
+    color: #28416b;
 }
 .card-body-reports {
     padding: 15px 30px !important;
     border-radius: 12px !important;
+}
+.input-reports{
+    color: #c2c2c4;
+}
+.text-reports span{
+    color: #a2a5ac !important;
 }

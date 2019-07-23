@@ -48,7 +48,7 @@
                 Тип отчета
             </label>
             <div class="mb-2 card card-tasknew">
-                <select class="custom-select custom-select-sm border-0 card-body-reports" id="typeOfReport"
+                <select class="input-reports custom-select custom-select-sm border-0 card-body-reports" id="typeOfReport"
                         style="height: 50px">
                     <option value="1" selected><span>Отчет по компании</option>
                     <option value="2"><span>Отчет по сотруднику</option>
@@ -64,7 +64,7 @@
                 Дата начала
             </label>
             <div class="mb-2 card card-tasknew">
-                <input type="date" class="form-control border-0 card-body-reports"
+                <input type="date" class="input-reports form-control border-0 card-body-reports"
                        style="height: 50px; font-size: 14px; padding-right: 20px !important;"
                        id="startReportDate"
                        min="<?= $GLOBALS["now"] ?>"
@@ -76,7 +76,7 @@
                 Дата окончания
             </label>
             <div class="mb-2 card card-tasknew">
-                <input type="date" class="form-control border-0 card-body-reports"
+                <input type="date" class="input-reports form-control border-0 card-body-reports"
                        style="height: 50px; font-size: 14px;padding-right: 20px !important;"
                        id="endReportDate"
                        min="<?= $GLOBALS["now"] ?>"
@@ -88,7 +88,7 @@
     <div class="row mt-25-tasknew" id="workerBlockReports" style="display: none">
         <div class="col-12 col-lg-6 top-block-tasknew">
             <div class="card card-tasknew">
-                <select class="custom-select custom-select-sm border-0 card-body-reports" id="workerReport"
+                <select class="input-reports custom-select custom-select-sm border-0 card-body-reports" id="workerReport"
                         style="height: 50px">
                     <option value="" selected disabled>Выберите сотрудника</option>
                     <?php
@@ -138,28 +138,28 @@
                                     <div class="col-6 col-lg-5">
                                         <div>
                                             <div class="text-info text-statistic">118</div>
-                                            <span class="text-muted">В работе</span>
+                                            <span class="text-reports">В работе</span>
                                         </div>
                                         <div>
                                             <div class="text-success text-statistic">90</div>
                                             <span
-                                                    class="text-muted">Выполнено</span>
+                                                    class="text-reports">Выполнено</span>
                                         </div>
                                     </div>
                                     <div class="col-6 col-lg-5">
                                         <div>
                                             <div class="text-danger text-statistic">12</div>
                                             <span
-                                                    class="text-muted">Просрочено</span>
+                                                    class="text-reports">Просрочено</span>
                                         </div>
                                         <div>
                                             <div class="text-warning text-statistic">15</div>
                                             <span
-                                                    class="text-muted">Перенесено</span>
+                                                    class="text-reports">Перенесено</span>
                                         </div>
                                         <div>
                                             <div class="text-dark text-statistic">12</div>
-                                            <span class="text-muted">Отменено</span>
+                                            <span class="text-reports">Отменено</span>
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +167,7 @@
                             <div class="col-lg-4 col-12 right-report">
                                 <h2 class="mb-0 count-tasks-reports">340</h2>
                                 <div class="count-info-reports">
-                                    <span class="text-muted"
+                                    <span class="count-info-reports-content"
                                           style="font-size: 70%;">Всего задач за выбранный период</span>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
         </label>
         <div style="padding: 0.8rem;" class="d-sm task-box">
             <div style="padding-left: 7px;">
-                <div class="row sort small">
+                <div class="row sort small text-reports">
                     <div class="col-4 text-center">
                         <span>Сотрудник <i class="fas fa-sort d-none"></i></span>
                     </div>
@@ -459,6 +459,10 @@
             //     "order": [[3, "desc"]]
             // });
             // $('.dataTables_length').addClass('bs-select');
+
+            $(".input-reports").on('change', function () {
+                $(this).css('color', '#353b41');
+            });
 
 
             $('#typeOfReport').on('change', function () {
