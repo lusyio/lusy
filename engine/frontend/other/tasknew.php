@@ -471,7 +471,7 @@ $borderColor = [
                 $('#datedone').val(val);
             }
         });
-        <?php if ($tariff == 0 || $tryPremiumLimits['cloud'] >= 3):?>
+        <?php if ($tariff == 0 && $tryPremiumLimits['cloud'] >= 3):?>
         $('#openGoogleDrive, #openDropbox').on('click', function () {
             $('#premModal').modal('show');
         });

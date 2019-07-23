@@ -8,6 +8,7 @@ global $roleu;
 global $tariff;
 global $supportCometHash;
 
+$tryPremiumLimits = getFreePremiumLimits($idc);
 
 if ($roleu == 'ceo') {
     $isCeo = true;

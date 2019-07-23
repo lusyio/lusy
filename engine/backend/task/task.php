@@ -1,4 +1,5 @@
 <?php
+global $idc;
 global $roleu;
 global $pdo;
 global $datetime;
@@ -7,7 +8,7 @@ global $cometTrackChannelName;
 global $_months;
 global $tariff;
 global $supportCometHash;
-
+$tryPremiumLimits = getFreePremiumLimits($idc);
 
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
