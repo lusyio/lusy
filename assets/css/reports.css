@@ -65,3 +65,68 @@
 .text-reports span{
     color: #a2a5ac !important;
 }
+#workerBlockReports .responsible{
+    top: 50px !important;
+}
+
+.select-report:hover {
+    color: #444;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.select-report:hover .icon-change-responsible{
+    color: #5d95db;
+}
+
+.select-report {
+    padding: 7px;
+    transition: 200ms;
+}
+
+.add-report{
+    border-radius: 0 !important;
+}
+
+.container-report:hover .icon-change-report{
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.container-report{
+    cursor: pointer;
+}
+
+.report-select{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: auto;
+    display: none;
+    width: calc(100%);
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 2;
+    right: 0px;
+    top: 50px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, .1);
+    padding: 0;
+
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
+
+.report-select::-webkit-scrollbar{
+    width: 0 !important;
+    background: transparent !important;
+    display: none !important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+}
+
+.container-report.disabled{
+    background-color: #f8f8f8;
+    cursor: default !important;
+}

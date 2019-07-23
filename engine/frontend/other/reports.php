@@ -11,17 +11,44 @@ if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
                 <label class="label-tasknew">
                     Тип отчета
                 </label>
-                <div class="mb-2 card card-tasknew">
-                    <select class="input-reports custom-select custom-select-sm border-0 card-body-reports"
-                            id="typeOfReport"
-                            style="height: 50px">
-                        <option value="1" selected><span>Отчет по компании</option>
-                        <option value="2"><span>Отчет по сотруднику</option>
-                    </select>
-                    <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
-                    <!--                       style="height: 50px;"-->
-                    <!--                       placeholder="Выберите тип отчета"-->
-                    <!--                       autocomplete="off" autofocus required>-->
+                <div class="card card-tasknew">
+                    <div class="report-select">
+                        <div class="responsible-card">
+                            <div val="1" class="select-report">
+                                <div class="row">
+                                    <div class="col text-left pr-0">
+                                        <span class="mb-1 add-coworker-text">Отчет по компании</span>
+                                    </div>
+                                    <div class="col-2 pl-0">
+                                        <i class="fas fa-exchange-alt icon-change-responsible"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div val="2" class="select-report">
+                                <div class="row">
+                                    <div class="col text-left pr-0">
+                                        <span class="mb-1 add-coworker-text">Отчет по сотруднику</span>
+                                    </div>
+                                    <div class="col-2 pl-0">
+                                        <i class="fas fa-exchange-alt icon-change-responsible"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container container-report border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
+                         style="max-height: 50px;">
+                        <div class="placeholder-report"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
+                            <div val="1" class="add-report d-none">
+                                <span class="card-coworker">Отчет по компании</span>
+                            </div>
+                            <div val="2" class="add-report d-none">
+                                <span class="card-coworker">Отчет по сотруднику</span>
+                            </div>
+                        <div class="position-absolute icon-newtask icon-change-report">
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-12 col-lg-3">
@@ -50,27 +77,26 @@ if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
 
         <div class="row mt-25-tasknew" id="workerBlockReports" style="display: none">
             <div class="col-12 col-lg-6 top-block-tasknew">
+                <?php
+                include __ROOT__ . '/engine/frontend/members/responsible.php';
+                ?>
                 <div class="card card-tasknew">
-                    <select class="input-reports custom-select custom-select-sm border-0 card-body-reports"
-                            id="workerReport"
-                            style="height: 50px">
-                        <option value="" selected disabled>Выберите сотрудника</option>
+                    <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
+                         style="max-height: 50px;padding-top: 10px !important;">
+                        <div class="placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                         <?php
-                        require_once __ROOT__ . '/engine/backend/other/company.php';
-                        foreach ($sql as $n):?>
-                            <option value="<?= $n['id'] ?>"><span><?= $n["name"] ?> <?= $n["surname"] ?></option>
-                            <?php
-                            ?>
-                        <?php endforeach; ?>
-                    </select>
+                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
+                        foreach ($users as $n) { ?>
+                            <div val="<?php echo $n['id'] ?>" class="add-responsible d-none">
+                                <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
+                                <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+                            </div>
+                        <?php } ?>
+                        <div class="position-absolute icon-newtask icon-newtask-change-responsible">
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </div>
                 </div>
-
-                <!--            <div class="mb-2 card card-tasknew">-->
-                <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
-                <!--                       style="height: 50px;"-->
-                <!--                       placeholder="Выберите сотрудника"-->
-                <!--                       autocomplete="off" autofocus required>-->
-                <!--            </div>-->
             </div>
         </div>
 
@@ -78,7 +104,10 @@ if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
         <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
             <div class="col-10 col-lg-4">
                 <button id="createReport"
-                        class="btn btn-block btn-outline-primary h-100" style="margin-left: 30px;" data-toggle="<?= ($tryPremiumLimits['report'] < 3)? 'tooltip': ''?>" data-placement="bottom" title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">Построить отчет
+                        class="btn btn-block btn-outline-primary h-100" style="margin-left: 30px;"
+                        data-toggle="<?= ($tryPremiumLimits['report'] < 3) ? 'tooltip' : '' ?>" data-placement="bottom"
+                        title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">
+                    Построить отчет
                 </button>
             </div>
         </div>
@@ -214,7 +243,7 @@ if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
             ?>
         </div>
     </div>
-    <?php
+<?php
 else:
     ?>
     <form id="">
@@ -230,10 +259,6 @@ else:
                         <option value="1" selected><span>Отчет по компании</option>
                         <option value="2"><span>Отчет по сотруднику</option>
                     </select>
-                    <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
-                    <!--                       style="height: 50px;"-->
-                    <!--                       placeholder="Выберите тип отчета"-->
-                    <!--                       autocomplete="off" autofocus required>-->
                 </div>
             </div>
             <div class="col-12 col-lg-3">
@@ -262,27 +287,26 @@ else:
 
         <div class="row mt-25-tasknew" id="workerBlockReports" style="display: none">
             <div class="col-12 col-lg-6 top-block-tasknew">
+                <?php
+                include __ROOT__ . '/engine/frontend/members/responsible.php';
+                ?>
                 <div class="card card-tasknew">
-                    <select class="input-reports custom-select custom-select-sm border-0 card-body-reports"
-                            id="workerReport"
-                            style="height: 50px">
-                        <option value="" selected disabled>Выберите сотрудника</option>
+                    <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
+                         style="max-height: 50px;padding-top: 10px !important;">
+                        <div class="placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                         <?php
-                        require_once __ROOT__ . '/engine/backend/other/company.php';
-                        foreach ($sql as $n):?>
-                            <option value="<?= $n['id'] ?>"><span><?= $n["name"] ?> <?= $n["surname"] ?></option>
-                            <?php
-                            ?>
-                        <?php endforeach; ?>
-                    </select>
+                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
+                        foreach ($users as $n) { ?>
+                            <div val="<?php echo $n['id'] ?>" class="add-responsible d-none">
+                                <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
+                                <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+                            </div>
+                        <?php } ?>
+                        <div class="position-absolute icon-newtask icon-newtask-change-responsible">
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </div>
                 </div>
-
-                <!--            <div class="mb-2 card card-tasknew">-->
-                <!--                <input type="text" id="name" class="form-control border-0 card-body-tasknew"-->
-                <!--                       style="height: 50px;"-->
-                <!--                       placeholder="Выберите сотрудника"-->
-                <!--                       autocomplete="off" autofocus required>-->
-                <!--            </div>-->
             </div>
         </div>
 
@@ -389,6 +413,49 @@ else:
 <script>
     $(document).ready(function () {
 
+        $(".container-report").on('click', function () {
+            $(".report-select").fadeToggle(200);
+        });
+
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest(".container-report").length) {
+                $('.report-select').fadeOut(300);
+            }
+        });
+
+        $(".select-report").on('click', function () {
+            $('.placeholder-report').hide();
+            var id = $(this).attr('val');
+            var selected = $('.add-report:visible').attr('val');
+            $('.responsible-card').find("[val = " + selected + "]").removeClass('d-none');
+            $(this).addClass('d-none');
+            $('.add-report').addClass('d-none');
+            $('.coworker-card').find("[val = " + id + "]").addClass('d-none');
+            $('.container-report').find("[val = " + id + "]").removeClass('d-none');
+        });
+
+        //
+        $(".container-responsible").on('click', function () {
+            $(".responsible").fadeToggle(200);
+        });
+
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest(".container-responsible").length) {
+                $('.responsible').fadeOut(300);
+            }
+        });
+
+        $(".select-responsible").on('click', function () {
+            $('.placeholder-responsible').hide();
+            var id = $(this).attr('val');
+            var selected = $('.add-responsible:visible').attr('val');
+            $('.responsible-card').find("[val = " + selected + "]").removeClass('d-none');
+            $(this).addClass('d-none');
+            $('.add-responsible').addClass('d-none');
+            $('.coworker-card').find("[val = " + id + "]").addClass('d-none');
+            $('.container-responsible').find("[val = " + id + "]").removeClass('d-none');
+        });
+
         $('#createReportDisabled').on('click', function (e) {
             e.preventDefault();
             $('#disabledReportsModal').modal('show');
@@ -399,8 +466,8 @@ else:
         });
 
 
-        $('#typeOfReport').on('change', function () {
-            var val = $(this).val();
+        $('.select-report').on('click', function () {
+            var val = $('.add-report:visible').attr('val');
             if (val == 1) {
                 $('#workerBlockReports').hide()
 
@@ -413,12 +480,13 @@ else:
             e.preventDefault();
             var startDate = $('#startReportDate').val();
             var endDate = $('#endReportDate').val();
-            var workerId = $('#workerReport').val();
+            var workerId = $('.add-responsible:visible').attr('val');
             if (workerId == null) {
                 console.log('worker = null')
             }
             console.log(startDate);
             console.log(endDate);
+            console.log(workerId);
             var fd = new FormData();
             fd.append('ajax', 'report');
             fd.append('module', 'personalStat');
