@@ -18,11 +18,11 @@ global $supportCometHash;
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 
-$all = DBOnce('COUNT(*)','tasks','(status!="done" and status!="canceled") and (worker='.$id.' or manager='.$id.')');
-$inwork = DBOnce('COUNT(*) as count','tasks','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.')');
-$pending = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="pending"');
-$postpone = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="postpone"');
-$overdue = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
+$all = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(status!="done" and status!="canceled") and (worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.')');
+$inwork = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.')');
+$pending = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="pending"');
+$postpone = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="postpone"');
+$overdue = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="overdue"');
 
 $events = getEventsForUser(21);
 prepareEvents($events);
@@ -52,7 +52,7 @@ $taskDoneCountOverallQuery->bindValue(':userId', (int) $id, PDO::PARAM_INT);
 $taskDoneCountOverallQuery->execute();
 $taskDoneCountOverall = $taskDoneCountOverallQuery->fetch(PDO::FETCH_COLUMN);
 
-$workerTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.datecreate, t.status, t.view_status, t.name, t.datedone, t.view, u.name AS managerName, u.surname AS managerSurname, LOCATE( :quotedUserId, t.view_status) AS view_order FROM tasks t LEFT JOIN users u ON t.worker = u.id WHERE (t.manager = :userId OR t.worker = :userId) AND t.status NOT IN ('done', 'canceled') AND (t.status <> 'planned' OR t.manager = :userId) ORDER BY FIELD(t.status, 'pending', 'postpone') DESC, FIELD(view_order, 0) DESC, t.datedone LIMIT 3");
+$workerTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.datecreate, t.status, t.view_status, t.name, t.datedone, t.view, u.name AS managerName, u.surname AS managerSurname, LOCATE( :quotedUserId, t.view_status) AS view_order FROM tasks t LEFT JOIN users u ON t.worker = u.id LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId) AND t.status NOT IN ('done', 'canceled') AND (t.status <> 'planned' OR t.manager = :userId) ORDER BY FIELD(t.status, 'pending', 'postpone') DESC, FIELD(view_order, 0) DESC, t.datedone LIMIT 3");
 $workerTasksQuery->execute(array(':companyId' => $idc, ':quotedUserId' => '"' . $id . '"', ':userId' => $id));
 $tasks = $workerTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 

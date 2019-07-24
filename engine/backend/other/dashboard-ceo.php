@@ -15,11 +15,11 @@ global $cometTrackChannelName;
 global $supportCometHash;
 
 
-$all = DBOnce('COUNT(*)','tasks','(status!="done" and status!="canceled") and (worker='.$id.' or manager='.$id.')');
-$inwork = DBOnce('COUNT(*) as count','tasks','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.')');
-$pending = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="pending"');
-$postpone = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="postpone"');
-$overdue = DBOnce('COUNT(*) as count','tasks','(worker='.$id.' or manager='.$id.') and status="overdue"');
+$all = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(status!="done" and status!="canceled") and (worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.')');
+$inwork = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.')');
+$pending = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="pending"');
+$postpone = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="postpone"');
+$overdue = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="overdue"');
 
 
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
