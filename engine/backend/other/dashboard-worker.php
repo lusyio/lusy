@@ -18,7 +18,7 @@ global $supportCometHash;
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 
-$countTaskQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE status NOT IN ('done', 'canceled') AND (worker = :userId OR manager = :userId OR tc.worker_id = :userId)");
+$countTaskQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE t.status NOT IN ('planned', 'done', 'canceled') AND (t.worker = :userId OR t.manager = :userId OR tc.worker_id = :userId)");
 $countTaskQuery->execute([':userId' => $id]);
 $all = $countTaskQuery->fetch(PDO::FETCH_COLUMN);
 $inwork = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.')');

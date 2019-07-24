@@ -611,6 +611,17 @@ list-group:hover {
 #taskBox .taskname {
     color: #353b41;
 }
+.subTaskInList a .card-footer {
+    border-bottom: 1px solid #ececec !important;
+    border-radius: 0px;
+}
+.subTaskInList a .card-footer:hover {
+    background-color: rgba(0,0,0,.02);
+}
+.subTaskInList a:last-child .card-footer {
+    border-bottom: none !important;
+    border-radius: 0 0 calc(.4rem - 1px) calc(.4rem - 1px) !important;
+}
 input[type="checkbox"] {
     width: 50px;
     height: 25px;
