@@ -657,7 +657,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             ':recipientId' => $recipientId,
             ':authorId' => 1,
             ':companyId' => $idc,
-            ':datetime' => time(),
+            ':datetime' => time() - 10,
         ];
         $addEventQuery->execute($eventData);
     }
@@ -951,7 +951,7 @@ function getOnlineUsersList()
     return array_column($onlineUsers, 'user_id');
 }
 
-function addCommentEvent($taskId, $commentId)
+function addCommentEvent($taskId, $commentId, $commentFromSystemUser = false, $delay = 0)
 {
     global $id;
     global $idc;
@@ -975,6 +975,9 @@ function addCommentEvent($taskId, $commentId)
     $recipients[] = $executors['manager'];
     $recipients[] = $executors['worker'];
     array_unique($recipients);
+    if ($commentFromSystemUser) {
+        $id = 1;
+    }
     if (($key = array_search($id, $recipients)) !== false) {
      unset($recipients[$key]);
     }
@@ -995,6 +998,9 @@ function addCommentEvent($taskId, $commentId)
                 ':datetime' => time(),
                 ':comment' => $commentId,
             ];
+            if ($commentFromSystemUser) {
+                $eventData[':datetime'] = time() + $delay;
+            }
             $addEventQuery->execute($eventData);
             $eventId = $pdo->lastInsertId();
             $eventIds[$recipient] = $eventId;
@@ -1420,54 +1426,137 @@ function createInitTask($userId, $companyId, $forCeo = false)
     $managerId = 1;
     $addTaskQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view) VALUES (:name, :description, :dateCreate, :datedone, NULL, 'new', :author, :manager, :worker, :companyId, :description, '0') ");
     $addTaskCommentsQuery = $pdo->prepare("INSERT INTO `comments` SET `comment` = :commentText, `iduser` = :iduser, `idtask` = :idtask, `status` = :status, `view`=0, `datetime` = :datetime");
-    $worker = $userId;
+    $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment, view_status) VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment, :viewStatus)');
+
+    // Создание задачи Заполнить профиль
+    $name = 'Заполнить профиль';
+    $description = '&#60;p class=&#34;ql-align-justify&#34;&#62;В настройках профиля&#38;nbsp;&#60;a href=&#34;https://s.lusy.io/settings/&#34; target=&#34;_blank&#34; style=&#34;color: rgb(32, 36, 41);&#34;&#62;https://s.lusy.io/settings/&#60;/a&#62;&#38;nbsp;Вы можете указать контактную информацию, рассказать о себе или добавить ссылки на Ваши социальные сети!&#60;/p&#62;&#60;p class=&#34;ql-align-justify&#34;&#62;&#60;br&#62;&#60;/p&#62;&#60;p&#62;&#60;br&#62;&#60;/p&#62;';
+    $datedone = strtotime('midnight');
+    $addTaskQueryData = [
+        ':name' => $name,
+        ':description' => $description,
+        ':dateCreate' => time() - 9,
+        ':author' => $managerId,
+        ':manager' => $managerId,
+        ':worker' => $userId,
+        ':companyId' => $companyId,
+        ':datedone' => $datedone
+    ];
+    $addTaskQuery->execute($addTaskQueryData);
+    $profileTaskId = $pdo->lastInsertId();
+
+    // Событие о создании задачи
+    $eventInviteTaskData = [
+        ':action' => 'createinittask',
+        ':taskId' => $profileTaskId,
+        ':authorId' => 1,
+        ':recipientId' => $userId,
+        ':companyId' => $companyId,
+        ':datetime' => time()-8,
+        ':comment' => strtotime('midnight'),
+        ':viewStatus' => 0,
+    ];
+    $addEventQuery->execute($eventInviteTaskData);
+
+    // Комментарий о создании задачи
+    resetViewStatus($profileTaskId);
+    $commentData = [
+        ':status' => 'system',
+        ':commentText' => 'taskcreate',
+        ':iduser' => 1,
+        ':idtask' => $profileTaskId,
+        ':datetime' => time() - 8,
+    ];
+    $addTaskCommentsQuery->execute($commentData);
+
+    // Комментарий о новом ответственном
+    $commentData[':commentText'] = 'newworker:' . $userId;
+    $commentData[':datetime'] = time() - 7;
+    $addTaskCommentsQuery->execute($commentData);
+
+    // Комментарий о письме с ссылкой
+    $profileTaskCommentQuery = $pdo->prepare("INSERT INTO `comments` (`comment`, `status`, `iduser`, `idtask`, `view`, `datetime`) VALUES (:comment, :status, :iduser, :idtask, :view, :datetime)");
+    $profileTaskCommentData = [
+        ':status' => 'comment',
+        ':iduser' => 1,
+        ':idtask' => $profileTaskId,
+        'view' => 0,
+        ':datetime' => time()-6,
+    ];
+    if ($forCeo) {
+        $profileTaskCommentData[':comment'] = 'Не забудьте загрузить аватарку, пускай сотрудники сразу увидят, кто здесь Босс!';
+    } else {
+        $profileTaskCommentData[':comment'] = 'Не забудьте загрузить аватарку!';
+    }
+    $profileTaskCommentQuery->execute($profileTaskCommentData);
+    $profileCommentId = $pdo->lastInsertId();
+
+    // Событие о новом комментарии
+    addCommentEvent($profileTaskId, $profileCommentId, true, -6);
 
     if ($forCeo) {
+        // Создание задачи Пригласить сотрудника
         $name = 'Пригласите сотрудника';
-        $datedone = strtotime(date('Y-m-d'));
+        $datedone = strtotime('midnight +1 day');
         $description = '&#60;p&#62;Пригласите сотрудника, отправив ему приглашение на странице Компания - &#60;a href=&#34;https://s.lusy.io/invite/&#34; target=&#34;_blank&#34;&#62;Пригласить сотрудников&#60;/a&#62;&#60;/p&#62;';
-        $addTaskQuery->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => time(), ':author' => $managerId, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $companyId, ':datedone' => $datedone));
-
-    } else {
-        $name = 'Заполнить профиль';
-        $description = '&#60;p class=&#34;ql-align-justify&#34;&#62;В настройках профиля&#38;nbsp;&#60;a href=&#34;https://s.lusy.io/settings/&#34; target=&#34;_blank&#34; style=&#34;color: rgb(32, 36, 41);&#34;&#62;https://s.lusy.io/settings/&#60;/a&#62;&#38;nbsp;Вы можете указать контактную информацию, рассказать о себе или добавить ссылки на Ваши социальные сети! А также, не забудьте загрузить свою фотографию.&#60;/p&#62;&#60;p class=&#34;ql-align-justify&#34;&#62;&#60;br&#62;&#60;/p&#62;&#60;p&#62;&#60;br&#62;&#60;/p&#62;';
-        $datedone = strtotime(date('Y-m-d'));
-        $addTaskQuery->execute(array(':name' => $name, ':description' => $description, ':dateCreate' => time(), ':author' => $managerId, ':manager' => $managerId, ':worker' => $worker, ':companyId' => $companyId, ':datedone' => $datedone));
-    }
-
-    if ($addTaskQuery) {
-        $taskId = $pdo->lastInsertId();
-        resetViewStatus($taskId);
-
-        //addTaskCreateComments($idtask, $worker, []);
-        $commentData = [
-            ':status' => 'system',
-            ':commentText' => 'taskcreate',
-            ':iduser' => 1,
-            ':idtask' => $taskId,
-            ':datetime' => time(),
+        $addInviteTaskData = [
+            ':name' => $name,
+            ':description' => $description,
+            ':dateCreate' => time()-5,
+            ':author' => $managerId,
+            ':manager' => $managerId,
+            ':worker' => $userId,
+            ':companyId' => $companyId,
+            ':datedone' => $datedone,
         ];
-        $addTaskCommentsQuery->execute($commentData);
-        if (!$forCeo) {
-            $commentData[':commentText'] = 'newworker:' . $userId;
-            $addTaskCommentsQuery->execute($commentData);
-        }
+        $addTaskQuery->execute($addInviteTaskData);
+        $InviteTaskId = $pdo->lastInsertId();
 
-        //addEvent('createtask', $idtask, $datedone, $worker);
-        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment, view_status) 
-        VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment, :viewStatus)');
-        $eventData = [
+        // Событие о создании задачи
+        $eventInviteTaskData = [
             ':action' => 'createinittask',
-            ':taskId' => $taskId,
+            ':taskId' => $InviteTaskId,
             ':authorId' => 1,
             ':recipientId' => $userId,
             ':companyId' => $companyId,
-            ':datetime' => time(),
-            ':comment' => strtotime('midnight'),
+            ':datetime' => time()-4,
+            ':comment' => $datedone,
             ':viewStatus' => 0,
         ];
-        $addEventQuery->execute($eventData);
+        $addEventQuery->execute($eventInviteTaskData);
+
+        // Комментарий о создании задачи
+        resetViewStatus($InviteTaskId);
+        $createCommentInviteTaskData = [
+            ':status' => 'system',
+            ':commentText' => 'taskcreate',
+            ':iduser' => 1,
+            ':idtask' => $InviteTaskId,
+            ':datetime' => time()-4,
+        ];
+        $addTaskCommentsQuery->execute($createCommentInviteTaskData);
+
+        // Комментарий о новом ответственном
+        $createCommentInviteTaskData[':commentText'] = 'newworker:' . $userId;
+        $createCommentInviteTaskData[':datetime'] = time() - 3;
+        $addTaskCommentsQuery->execute($createCommentInviteTaskData);
+
+        // Комментарий о письме с ссылкой
+        $inviteTaskCommentQuery = $pdo->prepare("INSERT INTO `comments` (`comment`, `status`, `iduser`, `idtask`, `view`, `datetime`) VALUES (:comment, :status, :iduser, :idtask, :view, :datetime)");
+        $inviteTaskCommentData = [
+            ':comment' => 'После отправки приглашения сотрудник получит письмо с ссылкой для активации его аккаунта',
+            ':status' => 'comment',
+            ':iduser' => 1,
+            ':idtask' => $InviteTaskId,
+            'view' => 0,
+            ':datetime' => time()-2,
+        ];
+        $inviteTaskCommentQuery->execute($inviteTaskCommentData);
+        $inviteCommentId = $pdo->lastInsertId();
+        // Событие о новом комментарии
+        addCommentEvent($InviteTaskId, $inviteCommentId, true, -2);
     }
+
 }
 
 /**Подсчитывает оставшееся свообдное место для файлов
