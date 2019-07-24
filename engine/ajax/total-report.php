@@ -1,3 +1,36 @@
+<?php
+global $idc;
+global $pdo;
+if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
+    $startDate = filter_var($_POST['startDate'], FILTER_SANITIZE_STRING);
+    $endDate = filter_var($_POST['endDate'], FILTER_SANITIZE_STRING);
+    $firstDay = strtotime($startDate);
+    $lastDay = strtotime('+1 day', strtotime($endDate)) - 1;
+} else {
+    $firstDay = strtotime('first day of month midnight');
+    $lastDay = strtotime('+1 day midnight') - 1;
+}
+$countInworkTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT td.taskId) FROM (SELECT t.id AS taskId, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate FROM tasks t LEFT JOIN events e ON e.task_id = t.id WHERE e.action IN ('workdone', 'canceltask')) td WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
+$countInworkTasksQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+$countInworkTasks = $countInworkTasksQuery->fetch(PDO::FETCH_COLUMN);
+
+$countTaskDoneQuery = $pdo->prepare("SELECT COUNT(distinct t.id) AS count FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE e.company_id = :companyId AND e.action='workdone' AND datetime > :firstDay AND datetime < :lastDay");
+$countTaskDoneQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+$countTaskDone = $countTaskDoneQuery->fetch(PDO::FETCH_COLUMN);
+
+$countOverdueQuery = $pdo->prepare("SELECT COUNT(DISTINCT e.task_id, e.datetime) FROM events e WHERE (e.action = 'overdue' AND e.datetime > :firstDay AND e.datetime < :lastDay ) AND e.company_id = :companyId");
+$countOverdueQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+$countOverdue = $countOverdueQuery->fetch(PDO::FETCH_COLUMN);
+
+$countChangeDateQuery = $pdo->prepare("SELECT COUNT(*) FROM events e WHERE e.action IN ('senddate', 'confirmdate') AND e.datetime > :firstDay AND e.datetime < :lastDay AND author_id = 1 AND e.company_id = :companyId");
+$countChangeDateQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+$countChangeDate = $countChangeDateQuery->fetch(PDO::FETCH_COLUMN);
+
+$countCancelQuery = $pdo->prepare("SELECT COUNT(*) FROM events e WHERE e.action = 'canceltask' AND e.datetime > :firstDay AND e.datetime < :lastDay AND author_id = 1 AND e.company_id = :companyId");
+$countCancelQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+$countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
+?>
+
 <div class="row">
     <div class="col-12">
         <div class="card card-tasknew">
@@ -16,35 +49,35 @@
                                 <div class="row" style="padding-top: 20px;">
                                     <div class="col-6 col-lg-5">
                                         <div>
-                                            <div class="text-primary text-statistic">118</div>
+                                            <div class="text-primary text-statistic"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></div>
                                             <span class="text-reports">В работе</span>
                                         </div>
                                         <div>
-                                            <div class="text-success text-statistic">90</div>
+                                            <div class="text-success text-statistic"><?= ($countTaskDone) ? $countTaskDone : 0 ?></div>
                                             <span
                                                 class="text-reports">Выполнено</span>
                                         </div>
                                     </div>
                                     <div class="col-6 col-lg-5">
                                         <div>
-                                            <div class="text-danger text-statistic">12</div>
+                                            <div class="text-danger text-statistic"><?= ($countOverdue) ? $countOverdue : 0 ?></div>
                                             <span
                                                 class="text-reports">Просрочено</span>
                                         </div>
                                         <div>
-                                            <div class="text-warning text-statistic">15</div>
+                                            <div class="text-warning text-statistic"><?= ($countChangeDate) ? $countChangeDate : 0 ?></div>
                                             <span
                                                 class="text-reports">Перенесено</span>
                                         </div>
                                         <div>
-                                            <div class="text-dark text-statistic">12</div>
+                                            <div class="text-dark text-statistic"><?= ($countCancel) ? $countCancel : 0 ?></div>
                                             <span class="text-reports">Отменено</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-12 right-report">
-                                <h2 class="mb-0 count-tasks-reports">340</h2>
+                                <h2 class="mb-0 count-tasks-reports"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></h2>
                                 <div class="count-info-reports">
                                     <span class="count-info-reports-content"
                                           style="font-size: 70%;">Всего задач за выбранный период</span>
@@ -178,7 +211,13 @@
         type: 'doughnut',
         data: {
             datasets: [{
-                data: [118, 90, 12, 15, 12],
+                data: [
+                    <?= ($countInworkTasks) ? $countInworkTasks : 0 ?>,
+                    <?= ($countTaskDone) ? $countTaskDone : 0 ?>,
+                    <?= ($countOverdue) ? $countOverdue : 0 ?>,
+                    <?= ($countChangeDate) ? $countChangeDate : 0 ?>,
+                    <?= ($countCancel) ? $countCancel : 0 ?>
+                ],
                 backgroundColor: [
                     'rgb(93,149,219)',
                     'rgb(153,196,107)',
