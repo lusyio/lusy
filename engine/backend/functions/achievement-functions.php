@@ -112,7 +112,7 @@ function getUserProgress($userId)
         $inviteSent = true;
     }
 
-    $messageQuery = $pdo->prepare("SELECT COUNT(*) FROM mail WHERE recipient = :userId");
+    $messageQuery = $pdo->prepare("SELECT COUNT(*) FROM mail WHERE recipient = :userId AND sender > 1");
     $messageQuery->execute(array(':userId' => $userId));
     $message = $messageQuery->fetch(PDO::FETCH_COLUMN);
 
