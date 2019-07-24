@@ -198,7 +198,10 @@ if ($id == $worker and $view == 0) {
             <?php if (count($subTasks) > 0): ?>
             <h5>Подзадачи</h5>
             <?php foreach ($subTasks as $subTask): ?>
-            <p class="mb-2"><div class="d-inline-block text-center" style="width: 20px"><i class="<?= ($subTask['status'] == 'done')? 'fas fa-check text-success':'fas fa-bolt text-primary' ?>"></i></div> <a href="/task/<?= $subTask['id'] ?>/"><?= $subTask['name'] ?></a></p>
+            <div class="mb-2">
+                <div class="d-inline-block text-center" style="width: 20px"><i class="<?= ($subTask['status'] == 'done')? 'fas fa-check text-success':'fas fa-bolt text-primary' ?>"></i></div>
+                <a href="/task/<?= $subTask['id'] ?>/"><?= $subTask['name'] ?></a>
+            </div>
             <?php endforeach; ?>
             <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
