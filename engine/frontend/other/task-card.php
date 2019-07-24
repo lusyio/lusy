@@ -41,6 +41,7 @@
             </div>
             </a>
             <?php if (isset($n['subTasks'])): ?>
+            <div class="subTaskInList">
             <?php foreach ($n['subTasks'] as $subTask): ?>
             <a href="/task/<?= $subTask['idtask'] ?>/" class="text-decoration-none cust">
             <div class="card-footer border-0" style="padding: 0.8rem;">
@@ -80,6 +81,7 @@
             </div>
             </a>
             <?php endforeach; ?>
+            </div>
             <?php endif; ?>
         </div>
     </div>
