@@ -171,6 +171,7 @@
 
         $('[href="/log/#comments"]').on('click', function () {
             $('#commentSearch').trigger('click');
+            $('#allSearch').trigger('click');
         });
 
         $('[href="/log/#new-comments"]').on('click', function () {
