@@ -105,7 +105,7 @@
             });
         });
 
-        $('#create-invite').on('click', function (e) {
+        $('#create-invite').on('submit', function (e) {
             e.preventDefault();
             var inviteeMail = $('#invitee-mail').val();
             if (inviteeMail) {
