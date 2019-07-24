@@ -53,7 +53,7 @@ function addUser($email, $password, $companyId, $position, $name = '', $surname 
         ':message' => $supportMessage,
         ':sender' => 1,
         ':recipient' => $userId,
-        ':viewStatus' => 1,
+        ':viewStatus' => 0,
         ':datetime' => time(),
     ];
     $addSupportMessageQuery->execute($addSupportMessageQueryData);
