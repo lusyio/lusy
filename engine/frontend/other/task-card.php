@@ -45,7 +45,7 @@
             <?php foreach ($n['subTasks'] as $subTask): ?>
             <a href="/task/<?= $subTask['idtask'] ?>/" class="text-decoration-none cust">
             <div class="card-footer border-0" style="padding: 0.8rem;">
-                <div class="d-block">
+                <div class="d-block" style="margin-left: 8px;">
                     <div class="row">
                         <div class="col-sm-5 col-12">
                             <div class="text-area-message">

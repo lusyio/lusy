@@ -232,23 +232,35 @@ if ($id == $worker and $view == 0) {
             <div class="subTaskInList">
                 <?php foreach ($subTasks as $subTask): ?>
                     <a class="text-decoration-none cust" href="/task/<?= $subTask['id'] ?>/">
-                        <div class="card-footer border-0">
-                            <div class="d-block">
+                        <div class="card-footer border-0" style="padding: 0.8rem;">
+                            <div class="d-block" style="height: 24px;">
                                 <div class="row">
                                     <div class="col-sm-5 col-12">
                                         <div class="text-area-message">
-                                            <span class="taskname" style="padding-left: 28px;vertical-align: sub;"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
+                                            <span class="taskname" style="padding-left: 28px;font-weight: 600;color: #353b41;"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
 <!--                                            <div class="d-inline-block text-center" style="width: 20px"><i-->
 <!--                                                        class="--><?//= ($subTask['status'] == 'done') ? 'fas fa-check text-success' : 'fas fa-bolt text-primary' ?><!--"></i>-->
 <!--                                            </div>-->
 <!--                                            <span class="taskname">--><?//= $subTask['name'] ?><!--</span>-->
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-5">
-                                        <span style="vertical-align: sub;"><?= $taskStatusText[$subTask['status']] ?></span>
+                                    <div class="col-sm-1 pl-0">
+                                        <div class="d-flex fc">
+                                            <div class="informer d-flex mr-3"><i class="fas fa-comments">
+                                                </i><span class="ml-1">1</span>
+                                                <span class="ml-1 text-primary">1</span>
+                                            </div>
+                                            <div class="informer d-flex">
+                                                <i class="fas fa-file"></i><span class="ml-1">1</span>
+                                                <span class="ml-1 text-primary">1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-5 pr-0">
+                                        <span style="color: #5E5E5E;"><?= $taskStatusText[$subTask['status']] ?></span>
                                     </div>
                                     <div class="col-sm-2 col-3 <?= ($subTask['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
-                                        <span style="vertical-align: sub;">
+                                        <span style="color: #5E5E5E;">
                                             <?php
                                             $subTask['deadLineDay'] = date('j', $subTask['datedone']);
                                             $subTask['deadLineMonth'] = $_months[date('n', $subTask['datedone']) - 1];

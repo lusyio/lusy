@@ -110,8 +110,6 @@
             loadLogPage();
         });
 
-        var action = window.location.hash.substr(1);
-
         $('#commentIcon').closest('a').on('click', function () {
             if (!$('#commentSearch').hasClass('active')) {
                 $('#commentSearch').trigger('click');
@@ -147,13 +145,49 @@
             hideLoadLog();
             insertPlug();
         });
+
+        $('[href="/log/#tasks"]').on('click', function () {
+            var val = $('.topsidebar-noty-content').attr('href');
+            if (val == '/log/#new-tasks'){
+                $('#newSearch').trigger('click');
+                $('#taskSearch').trigger('click');
+                $('#taskSearch').addClass('active');
+                $('#systemSearch').addClass('active');
+                $('.event').hide();
+                $('.system-event.new-event').show();
+                $('.task.new-event').show();
+                insertPlug();
+                console.log('asda');
+            } else {
+                $('#taskSearch').trigger('click');
+                $('#taskSearch').addClass('active');
+                $('#systemSearch').addClass('active');
+                $('.event').hide();
+                $('.system-event').show();
+                $('.task').show();
+                insertPlug();
+            }
+        });
+
+        $('[href="/log/#comments"]').on('click', function () {
+            $('#commentSearch').trigger('click');
+        });
+
+        $('[href="/log/#new-comments"]').on('click', function () {
+            $('#commentSearch').trigger('click');
+            $('#newSearch').trigger('click');
+        });
+
+        var action = window.location.hash.substr(1);
+
         if (action === 'new-comments') {
             $('#commentSearch').trigger('click');
             $('#newSearch').trigger('click');
         }
         if (action === 'new-tasks') {
-            $('#taskSearch').trigger('click');
             $('#newSearch').trigger('click');
+            $('#taskSearch').trigger('click');
+            $('#taskSearch').addClass('active');
             $('#systemSearch').addClass('active');
             $('.event').hide();
             $('.system-event.new-event').show();
@@ -171,6 +205,7 @@
             $('.task').show();
             insertPlug()
         }
+
 
         $('#eventBox').on('mouseover', '.new-event', function () {
             if ($(this).hasClass('task')) {
