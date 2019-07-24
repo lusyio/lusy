@@ -224,8 +224,9 @@
                     return d.clone().removeAttr("id").removeAttr("name").css({
                         position: "absolute",
                         top: 0,
-                        left: -9999
-                    }).css(c).attr("tabIndex", "-1").insertBefore(d)
+                        left: -9999,
+                        padding: 55
+                }).css(c).attr("tabIndex", "-1").insertBefore(d)
                 }(), h = null, e = function () {
                     g.height(0).val(b(this).val()).scrollTop(1E4);
                     var c = Math.max(g.scrollTop(), f) + a.extraSpace, e = b(this).add(g);
