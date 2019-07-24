@@ -2907,6 +2907,24 @@ span.date {
         height: 38px;
     }
 
+    .subtask-task .col-3 {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .subtask-task .col-12 {
+        margin-bottom: 10px;
+    }
+
+    .subtask-task .avatars {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .subtask-task .d-block {
+        height: unset !important;
+    }
+
     .ql-editor:after {
         width: 79.5%;
     }
