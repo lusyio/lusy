@@ -275,7 +275,8 @@
                         }
                     })
                 });
-            } else {
+            }
+            if (val == 2) {
                 $('#workerBlockReports').show();
 
                 $('#createReport').on('click', function (e) {
