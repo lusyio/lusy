@@ -172,7 +172,7 @@
     position: absolute;
     z-index: 2;
     right: 0px;
-    bottom: -300px;
+    top:50px;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, .1);
     padding: 0;
 
