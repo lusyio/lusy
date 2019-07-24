@@ -2908,8 +2908,21 @@ span.date {
     }
 
     .subtask-task .col-3 {
-        padding-right: 0px;
-        padding-left: 0px;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .task-card .taskname-subtask{
+        padding-left: 0;
+    }
+
+    .subtask-task .taskname {
+        padding-left: 0 !important;
+    }
+
+    .subtask-task .avatar-subtask-task {
+        padding-left: 0;
+        padding-right: 18px;
     }
 
     .subtask-task .col-12 {
@@ -2917,8 +2930,8 @@ span.date {
     }
 
     .subtask-task .avatars {
-        padding-right: 0px;
-        padding-left: 0px;
+        padding-right: 0;
+        padding-left: 0;
     }
 
     .subtask-task .d-block {

@@ -248,11 +248,9 @@ if ($id == $worker and $view == 0) {
                                         <div class="d-flex fc">
                                             <div class="informer d-flex mr-3"><i class="fas fa-comments">
                                                 </i><span class="ml-1">1</span>
-                                                <span class="ml-1 text-primary">1</span>
                                             </div>
                                             <div class="informer d-flex">
                                                 <i class="fas fa-file"></i><span class="ml-1">1</span>
-                                                <span class="ml-1 text-primary">1</span>
                                             </div>
                                         </div>
                                     </div>
@@ -269,7 +267,7 @@ if ($id == $worker and $view == 0) {
                                         </span>
                                     </div>
                                     <div class="col-sm-2 col-4 avatars">
-                                        <div style="padding-left: 3px;">
+                                        <div class="avatar-subtask-task">
                                             <img src="/<?= getAvatarLink($subTask['manager']) ?>" class="avatar"> |
                                             <img src="/<?= getAvatarLink($subTask['worker']) ?>" class="avatar">
                                         </div>

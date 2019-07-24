@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-sm-5 col-12">
                             <div class="text-area-message">
-                                <span class="taskname" style="padding-left: 9px;"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
+                                <span class="taskname taskname-subtask" ><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
                             </div>
                         </div>
                         <div class="col-sm-1 pl-0">

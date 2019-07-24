@@ -126,3 +126,7 @@
     background-color: #fff;
     border: none !important;
 }
+
+.avatar-subtask-task{
+    padding-left: 3px;
+}
