@@ -1,4 +1,26 @@
 <?php
+$textColor = [
+    'new' => 'text-primary',
+    'inwork' => 'text-primary',
+    'overdue' => 'text-danger',
+    'postpone' => 'text-warning',
+    'pending' => 'text-warning',
+    'returned' => 'text-primary',
+    'done' => 'text-success',
+    'canceled' => 'text-secondary',
+    'planned' => 'text-info',
+];
+$taskStatusText = [
+        'new' => $GLOBALS['_inprogresslist'],
+        'inwork' => $GLOBALS['_inprogresslist'],
+        'overdue' => $GLOBALS['_overduelist'],
+        'postpone' => $GLOBALS['_postponelist'],
+        'pending' => $GLOBALS['_pendinglist'],
+        'returned' => $GLOBALS['_returnedlist'],
+        'done' => $GLOBALS['_donelist'],
+        'canceled' => $GLOBALS['_canceledlist'],
+        'planned' => $GLOBALS['_plannedlist'],
+];
 $statusBar = [
     'new' => [
         'border' => 'border-success',
@@ -103,12 +125,14 @@ if ($id == $worker and $view == 0) {
 ?>
 <div id="task">
     <div class="card" style="margin-top: -21px;">
-        <div class="card-body">
+        <div class="card-body <?= ((count($subTasks) > 0)) ? 'shadow-subtask' : ''; ?>">
             <div class="row">
                 <div class="col-8 col-lg-4">
                     <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_{$task['status']}"] ?></span>
                     <?php if (!is_null($task['parent_task'])): ?>
-                        <a href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom" title="Перейти к надзадаче" class="badge badge-info">Надзадача</span></a>
+                        <a href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom"
+                                                                           title="Перейти к надзадаче"
+                                                                           class="badge badge-info">Надзадача</span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-lg-8">
@@ -195,15 +219,6 @@ if ($id == $worker and $view == 0) {
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <?php if (count($subTasks) > 0): ?>
-            <h5>Подзадачи</h5>
-            <?php foreach ($subTasks as $subTask): ?>
-            <div class="mb-2">
-                <div class="d-inline-block text-center" style="width: 20px"><i class="<?= ($subTask['status'] == 'done')? 'fas fa-check text-success':'fas fa-bolt text-primary' ?>"></i></div>
-                <a href="/task/<?= $subTask['id'] ?>/"><?= $subTask['name'] ?></a>
-            </div>
-            <?php endforeach; ?>
-            <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
                     <?php
@@ -213,6 +228,47 @@ if ($id == $worker and $view == 0) {
                 </div>
             <?php endif; ?>
         </div>
+        <?php if (count($subTasks) > 0): ?>
+            <div class="subTaskInList">
+                <?php foreach ($subTasks as $subTask): ?>
+                    <a class="text-decoration-none cust" href="/task/<?= $subTask['id'] ?>/">
+                        <div class="card-footer border-0">
+                            <div class="d-block">
+                                <div class="row">
+                                    <div class="col-sm-5 col-12">
+                                        <div class="text-area-message">
+                                            <span class="taskname" style="padding-left: 28px;vertical-align: sub;"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
+<!--                                            <div class="d-inline-block text-center" style="width: 20px"><i-->
+<!--                                                        class="--><?//= ($subTask['status'] == 'done') ? 'fas fa-check text-success' : 'fas fa-bolt text-primary' ?><!--"></i>-->
+<!--                                            </div>-->
+<!--                                            <span class="taskname">--><?//= $subTask['name'] ?><!--</span>-->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-5">
+                                        <span style="vertical-align: sub;"><?= $taskStatusText[$subTask['status']] ?></span>
+                                    </div>
+                                    <div class="col-sm-2 col-3 <?= ($subTask['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
+                                        <span style="vertical-align: sub;">
+                                            <?php
+                                            $subTask['deadLineDay'] = date('j', $subTask['datedone']);
+                                            $subTask['deadLineMonth'] = $_months[date('n', $subTask['datedone']) - 1];
+                                            ?>
+                                            <?= $subTask['deadLineDay'] ?> <?= $subTask['deadLineMonth'] ?>
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-2 col-4 avatars">
+                                        <div style="padding-left: 3px;">
+                                            <img src="/<?= getAvatarLink($subTask['manager']) ?>" class="avatar"> |
+                                            <img src="/<?= getAvatarLink($subTask['worker']) ?>" class="avatar">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
     <?php if ($enableComments): ?>
         <div class="card mt-3">
