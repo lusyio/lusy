@@ -18,7 +18,9 @@ global $supportCometHash;
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 
-$all = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(status!="done" and status!="canceled") and (worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.')');
+$countTaskQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE status NOT IN ('done', 'canceled') AND (worker = :userId OR manager = :userId OR tc.worker_id = :userId)");
+$countTaskQuery->execute([':userId' => $id]);
+$all = $countTaskQuery->fetch(PDO::FETCH_COLUMN);
 $inwork = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.')');
 $pending = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="pending"');
 $postpone = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="postpone"');
