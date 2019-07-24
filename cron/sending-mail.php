@@ -13,7 +13,7 @@ include __ROOT__ . '/engine/backend/lang/'.$langc.'.php';
 require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/task-functions.php';
 
-$mailQueueQuery = $pdo->prepare("SELECT mq.queue_id, mq.function_name, mq.args, mq.start_time, mq.user_id, c.timezone, mq.event_id FROM mail_queue mq LEFT JOIN users u ON mq.user_id = u.id LEFT JOIN company c ON u.idcompany = c.id");
+$mailQueueQuery = $pdo->prepare("SELECT mq.queue_id, mq.function_name, mq.args, mq.start_time, mq.user_id, c.timezone, mq.event_id FROM mail_queue mq LEFT JOIN users u ON mq.user_id = u.id LEFT JOIN company c ON u.idcompany = c.id AND mq.user_id > 1");
 $mailQueueQuery->execute();
 $mailQueue = $mailQueueQuery->fetchAll(PDO::FETCH_ASSOC);
 
