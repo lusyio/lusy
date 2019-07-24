@@ -78,7 +78,7 @@ $(document).ready(function () {
         if ($(".select-coworker").is(':visible')) {
             $('.empty-list').hide();
         } else {
-            $('.empty-list').show();
+            $('.empty-list').hide();
         }
     }
 
