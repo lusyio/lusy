@@ -81,7 +81,7 @@
     <div class="col-12">
         <div class="tasks-list-report-empty">
         </div>
-        <div class="tasks-list-report">
+        <div class="tasks-list-report" id="tasksReport">
             <a class="text-decoration-none cust" href='#'
             <div class="task-card">
                 <div class="card mb-2 tasks">

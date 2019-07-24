@@ -8,7 +8,7 @@
             <label class="label-tasknew">
                 Тип отчета
             </label>
-            <div class="card card-tasknew">
+            <div class="card card-tasknew" id="selectTypeReport">
                 <div class="report-select">
                     <div class="responsible-card">
                         <div val="1" class="select-report">
@@ -77,7 +77,7 @@
             <?php
             include __ROOT__ . '/engine/frontend/members/responsible.php';
             ?>
-            <div class="card card-tasknew">
+            <div class="card card-tasknew" id="selectWorkerReports">
                 <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
                      style="max-height: 50px;padding-top: 10px !important;">
                     <div class="placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
@@ -209,13 +209,13 @@
             $(this).css('color', '#353b41');
         });
 
-        // function slowScroll(id) {
-        //     var offset = 0;
-        //     $('html, body').animate({
-        //         scrollTop: $(id).offset().top - offset
-        //     }, 1000);
-        //     return false;
-        // }
+        function slowScroll(id) {
+            var offset = 0;
+            $('html, body').animate({
+                scrollTop: $(id).offset().top - offset
+            }, 1000);
+            return false;
+        }
 
         $.ajax({
             url: '/ajax.php',
@@ -228,6 +228,20 @@
             success: function (data) {
                 $('#reportsContainer').html(data);
                 // console.log(data);
+            }
+        });
+
+        $('#createReport').on('click', function (e) {
+            e.preventDefault();
+            var val = $('.add-report:visible').attr('val');
+            if (val == undefined) {
+                $('#selectTypeReport').css({
+                    'background-color': 'rgba(255, 242, 242, 1)',
+                    'transition': '1000ms'
+                });
+                setTimeout(function () {
+                    $('#selectTypeReport').css('background-color', '#fff');
+                }, 1000)
             }
         });
 
@@ -269,24 +283,39 @@
                     var startDate = $('#startReportDate').val();
                     var endDate = $('#endReportDate').val();
                     var workerId = $('.add-responsible:visible').attr('val');
-                    var fd = new FormData();
-                    fd.append('ajax', 'personal-report');
-                    fd.append('workerId', workerId);
-                    fd.append('startDate', startDate);
-                    fd.append('endDate', endDate);
-                    $.ajax({
-                        url: '/ajax.php',
-                        type: 'POST',
-                        dataType: 'html',
-                        cache: false,
-                        processData: false,
-                        contentType: false,
-                        data: fd,
-                        success: function (data) {
-                            $('#reportsContainer').html(data);
-                            // console.log(data);
-                        }
-                    });
+                    console.log(workerId);
+
+                    if (workerId != undefined) {
+                        var fd = new FormData();
+                        fd.append('ajax', 'personal-report');
+                        fd.append('workerId', workerId);
+                        fd.append('startDate', startDate);
+                        fd.append('endDate', endDate);
+                        $.ajax({
+                            url: '/ajax.php',
+                            type: 'POST',
+                            dataType: 'html',
+                            cache: false,
+                            processData: false,
+                            contentType: false,
+                            data: fd,
+                            success: function (data) {
+                                $('#reportsContainer').html(data);
+                                slowScroll(tasksReport);
+                                // console.log(data);
+                            }
+                        });
+                    } else {
+                        console.log('error');
+                        $('#selectWorkerReports').css({
+                            'background-color': 'rgba(255, 242, 242, 1)',
+                            'transition': '1000ms'
+                        });
+                        setTimeout(function () {
+                            $('#selectWorkerReports').css('background-color', '#fff');
+                        }, 1000)
+                    }
+
                 });
             }
         });
