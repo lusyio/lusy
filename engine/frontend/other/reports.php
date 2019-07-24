@@ -56,7 +56,7 @@
                 <input type="date" class="input-reports form-control border-0 card-body-reports"
                        style="height: 50px; font-size: 14px; padding-right: 20px !important;"
                        id="startReportDate"
-                       value="<?= $GLOBALS["now"] ?>" required>
+                       value="<?= date('Y-m-01') ?>" required>
             </div>
         </div>
         <div class="col-12 col-lg-3">

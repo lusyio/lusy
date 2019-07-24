@@ -154,12 +154,22 @@
         if (action === 'new-tasks') {
             $('#taskSearch').trigger('click');
             $('#newSearch').trigger('click');
+            $('#systemSearch').addClass('active');
+            $('.event').hide();
+            $('.system-event.new-event').show();
+            $('.task.new-event').show();
+            insertPlug()
         }
         if (action === 'comments') {
             $('#commentSearch').trigger('click');
         }
         if (action === 'tasks') {
             $('#taskSearch').trigger('click');
+            $('#systemSearch').addClass('active');
+            $('.event').hide();
+            $('.system-event').show();
+            $('.task').show();
+            insertPlug()
         }
 
         $('#eventBox').on('mouseover', '.new-event', function () {

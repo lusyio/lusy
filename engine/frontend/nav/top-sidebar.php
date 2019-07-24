@@ -39,7 +39,7 @@
                 <div id="counters" class="alerts text-center">
                     <div class="d-flex counters-topsidebar">
                         <a href="/log/#tasks" class="text-decoration-none d-none topsidebar-noty-content">
-                            <div data-toggle="tooltip" data-placement="bottom" title="Задачи"
+                            <div data-toggle="tooltip" data-placement="bottom" title="События"
                                  class="topsidebar-noty">
                                 <div class="position-relative">
                                     <img class="svg-icon" src="/assets/svg/alarm.svg">
