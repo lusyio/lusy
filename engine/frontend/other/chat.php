@@ -223,7 +223,7 @@
                         position: "absolute",
                         top: 0,
                         left: -9999,
-                        padding: 55
+                        padding: 80
                     }).css(c).attr("tabIndex", "-1").insertBefore(d)
                 }(), h = null, e = function () {
                     g.height(0).val(b(this).val()).scrollTop(1E4);

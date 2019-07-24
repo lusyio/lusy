@@ -1645,6 +1645,7 @@ input:checked[type="checkbox"]::before {
     border-radius: 12px;
     resize:none;
     padding-left: 80px;
+    padding-right: 80px;
 }
 
 .not-my-message {
