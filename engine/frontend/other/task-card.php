@@ -6,7 +6,7 @@
                 <div class="d-block border-left-tasks <?= $borderColor[$n['task']['status']] ?> ">
                     <p class="font-weight-light text-ligther d-none"><?= $taskStatusText[$n['task']['mainRole']][$n['task']['status']] ?></p>
                     <div class="row">
-                        <div class="col-sm-5 col-12">
+                        <div class="col-sm-5 col-lg-5 col-md-12 col-12">
                             <div class="text-area-message">
                                 <span class="taskname"><?= ($isTaskRead) ? '' : '<span class="text-danger font-weight-bold mr-1">!</span>'; ?><?= $n['task']['name']; ?></span>
                             </div>
@@ -24,13 +24,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2 col-5">
+                        <div class="col-sm-2 col-lg-2 col-md-5 col-5">
                             <?= $taskStatusText[$n['task']['mainRole']][$n['task']['status']] ?>
                         </div>
-                        <div class="col-sm-2 col-3 <?= ($n['task']['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($n['task']['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $n['task']['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
+                        <div class="col-sm-2 col-lg-2 col-md-3 col-3 <?= ($n['task']['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($n['task']['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $n['task']['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
                             <?= $n['task']['deadLineDay'] ?> <?= $n['task']['deadLineMonth'] ?>
                         </div>
-                        <div class="col-sm-2 col-4 avatars">
+                        <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
                             <div>
                                 <img src="/<?= getAvatarLink($n['task']['idmanager']) ?>" class="avatar"> |
                                 <img src="/<?= getAvatarLink($n['task']['idworker']) ?>" class="avatar">
@@ -47,7 +47,7 @@
             <div class="card-footer border-0" style="padding: 0.8rem;">
                 <div class="d-block" style="margin-left: 8px;">
                     <div class="row">
-                        <div class="col-sm-5 col-12">
+                        <div class="col-sm-5 col-lg-5 col-md-12 col-12">
                             <div class="text-area-message">
                                 <span class="taskname taskname-subtask" ><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
                             </div>
@@ -64,13 +64,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2 col-5">
+                        <div class="col-sm-2 col-lg-2 col-md-5 col-5">
                             <?= $taskStatusText[$subTask['mainRole']][$subTask['status']] ?>
                         </div>
-                        <div class="col-sm-2 col-3 <?= ($subTask['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
+                        <div class="col-sm-2 col-lg-2 col-md-3 col-3 <?= ($subTask['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
                             <?= $subTask['deadLineDay'] ?> <?= $subTask['deadLineMonth'] ?>
                         </div>
-                        <div class="col-sm-2 col-4 avatars">
+                        <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
                             <div>
                                 <img src="/<?= getAvatarLink($subTask['idmanager']) ?>" class="avatar"> |
                                 <img src="/<?= getAvatarLink($subTask['idworker']) ?>" class="avatar">

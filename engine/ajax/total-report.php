@@ -47,7 +47,7 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
                         <div class="row">
                             <div class="col-lg-8 col-12 left-report">
                                 <div class="row" style="padding-top: 20px;">
-                                    <div class="col-6 col-lg-5">
+                                    <div class="col-6 col-lg-6 col-xlg-5">
                                         <div>
                                             <div class="text-primary text-statistic"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></div>
                                             <span class="text-reports">В работе</span>
@@ -58,7 +58,7 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
                                                 class="text-reports">Выполнено</span>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-lg-5">
+                                    <div class="col-6 col-lg-6 col-xlg-5">
                                         <div>
                                             <div class="text-danger text-statistic"><?= ($countOverdue) ? $countOverdue : 0 ?></div>
                                             <span

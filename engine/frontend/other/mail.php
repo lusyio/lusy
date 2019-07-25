@@ -18,7 +18,7 @@
                         <a href="./<?= $user['id'] ?>/"
                            class="list-group-item list-group-item-action new-dialog-list border-0" style="background-color: #fcfcfc">
                             <div class="row">
-                                <div class="col-2 pl-2 col-lg-1">
+                                <div class="col-2 pl-2 col-md-1 col-lg-1">
                                     <div class="avatar-mail-list">
                                         <img src="/<?= getAvatarLink($user['id']) ?>"
                                              class="avatar-img rounded-circle w-100"/>

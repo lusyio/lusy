@@ -2826,6 +2826,10 @@ span.date {
         width: 86%;
     }
 
+    .subtask-badge-mobile{
+        display: none;
+    }
+
     .navblock {
         padding-right: 0 !important;
     }
@@ -2865,39 +2869,7 @@ span.date {
 
 }
 
-/* iPads (portrait) ----------- */
-@media only screen
-and (max-device-width: 1024px)
-and (min-device-width: 768px)
-and (orientation: portrait) {
 
-    .alerts {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-end !important;
-        border-top: none !important;
-        padding: 0 !important;
-
-    }
-
-    .navbar-toggler {
-        display: none;
-    }
-
-    .collapse:not(.show) {
-         display: block;
-    }
-    #navbarNav {
-         padding-top: 70px;
-    }
-
-    .award {
-        min-width: 27.4vw !important;
-        max-width: 27.4vw !important;
-        margin-right: 12px !important;
-    }
-
-}
 
 @media (min-width: 992px) {
     .navbar-toggler {
@@ -2926,6 +2898,10 @@ and (orientation: portrait) {
 
     .top-block-tasknew{
         margin-bottom: 13px;
+    }
+
+    .subtask-badge-desktop{
+        display: none;
     }
 
     #sendBtn{
@@ -3408,6 +3384,11 @@ and (orientation: portrait) {
         float: right !important;
     }
 
+    .list-group .dialog-list {
+        top: -9px;
+        right: 9px;
+    }
+
     .icon-more-tasks{
         display: none;
     }
@@ -3447,6 +3428,150 @@ and (orientation: portrait) {
         margin-top: 5px;
     }
 }
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (max-device-width: 1024px)
+and (min-device-width: 768px)
+and (orientation: portrait) {
+
+    .alerts {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        border-top: none;
+        padding: 0;
+    }
+
+    .left-report .col-6.col-lg-5 {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .right-report {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    #workzone {
+        margin-top: 30px !important;
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    #taskBox .card.mb-2.add-newtask-tasks{
+        display: none;
+    }
+
+    .dialog-list {
+        top: -9px !important;
+        right: -5px !important;
+    }
+
+    .profile-submenu a {
+        text-decoration: none;
+        padding: 15px 20px;
+        display: block;
+        border-bottom: unset;
+        border-top: unset;
+        border-radius: unset;
+    }
+
+    .submenu {
+        text-align: left;
+        padding: 0;
+        background: #fff;
+        margin-top: 9px;
+        box-shadow: rgba(197, 197, 201, 0.15) 0px 14px 15px 2px;
+        position: absolute;
+        right: 10px;
+        top: 45px;
+        display: none;
+        z-index: 999;
+        border-radius: 8px;
+        bottom: unset;
+        left: unset;
+    }
+
+    .bg-icon-achieve {
+        left: 32%;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+        display: -ms-flexbox!important;
+        display: flex!important;
+        -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+    }
+
+    #taskBox .col-sm-1.pl-0{
+        display: none;
+    }
+
+    .subtask-badge-mobile{
+        display: block;
+    }
+
+    #task .col-sm-1.pl-0{
+        display: none;
+    }
+
+    .chart-card{
+        height: unset !important;
+    }
+
+    #navbarNav {
+        padding-top: 70px;
+    }
+
+    .top-sidebar .collapse {
+        display: block;
+    }
+
+    .award {
+        min-width: 27.4vw;
+        max-width: 27.4vw;
+        margin-right: 12px;
+    }
+
+    .award-sm {
+        min-width: 26.4vw;
+        max-width: 26.4vw;
+        margin-right: 12px;
+    }
+
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: landscape) {
+    .bg-icon-achieve {
+        position: absolute;
+        top: 25%;
+        left: 10%;
+        z-index: 1;
+    }
+
+    .award {
+        min-width: 20vw;
+        max-width: 20vw;
+    }
+
+    .award-sm {
+        min-width: 17vw;
+        max-width: 17vw;
+    }
+
+    .searchDiv {
+        display: none;
+    }
+
+}
+
 @media (max-width: 400px) {
     .task-card .avatar {
         width: 25px;

@@ -117,7 +117,7 @@
 <div class="row">
     <?php foreach ($tariffList as $tariff): ?>
         <?php if ($tariff['tariff_id'] == 0) continue; ?>
-        <div class="col-sm-4 mb-3">
+        <div class="col-sm-4 col-lg-4 col-md-6 mb-3">
             <div class="card <?= ($tariff['tariff_id'] == $companyTariff['tariff']) ? 'bg-warning' : ''; ?>">
                 <div class="card-body">
                     <h3 class="font-weight-bold"><?= $tariff['tariff_name']; ?></h3>

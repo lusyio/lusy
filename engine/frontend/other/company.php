@@ -80,7 +80,7 @@
         <?php endif; ?>
         <div class="card-body border-bottom-company <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
             <div class="row">
-                <div class="col-lg-1 col-2">
+                <div class="col-lg-1 col-md-2 col-2">
                     <div class="user-pic position-relative" style="width:45px">
                         <a href="/profile/<?= $n['id'] ?>/">
                             <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-img rounded-circle w-100"/>
@@ -90,7 +90,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-10 col-sm-4">
+                <div class="col-10 col-md-10 col-sm-4 col-lg-4">
                     <?php
                     if ($n["name"] != null && $n["surname"] != null): ?>
                         <p class="h5 mb-0 company-profile-fio text-area-message">
@@ -109,17 +109,17 @@
                         </span>
                     <?php endif; ?>
                 </div>
-                <div class="col-4 col-sm-2 text-center">
+                <div class="col-4 col-md-4 col-sm-2 col-lg-2 text-center">
                     <div class="count-company-tasks" style="margin-top: 15%;">
                         <?= $inwork ?>
                     </div>
                     <small class="text-muted company-tasks">В работе</small>
                 </div>
-                <div class="col-4 col-sm-2 text-center">
+                <div class="col-4 col-md-4 col-sm-2 col-lg-2 text-center">
                     <div class="count-company-tasks" style="margin-top: 15%;"><?= $overdue ?></div>
                     <small class="text-muted company-tasks">Просрочено</small>
                 </div>
-                <div class="col-4 col-sm-2 text-center">
+                <div class="col-4 col-md-4 col-sm-2 col-lg-2 text-center">
                     <div class="count-company-tasks" style="margin-top: 15%;">
                         <span class="badge badge-company-primary"><?= $n['doneAsManager'] ?></span>
                         <span class="badge badge-company-dark"><?= $n['doneAsWorker'] ?></span>

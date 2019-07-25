@@ -127,15 +127,22 @@ if ($id == $worker and $view == 0) {
     <div class="card" style="margin-top: -21px;">
         <div class="card-body <?= ((count($subTasks) > 0)) ? 'shadow-subtask' : ''; ?>">
             <div class="row">
-                <div class="col-8 col-lg-4">
-                    <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_{$task['status']}"] ?></span>
+                <div class="col-12 subtask-badge-mobile">
                     <?php if (!is_null($task['parent_task'])): ?>
                         <a href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom"
                                                                            title="Перейти к надзадаче"
                                                                            class="badge badge-info"><i class="fas fa-clipboard mr-2"></i><?=DBOnce('name','tasks','id='.$task['parent_task'])?></span></a>
                     <?php endif; ?>
                 </div>
-                <div class="col-4 col-lg-8">
+                <div class="col-8 col-lg-8">
+                    <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_{$task['status']}"] ?></span>
+                    <?php if (!is_null($task['parent_task'])): ?>
+                        <a class="subtask-badge-desktop" href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom"
+                                                                           title="Перейти к надзадаче"
+                                                                           class="badge badge-info"><i class="fas fa-clipboard mr-2"></i><?=DBOnce('name','tasks','id='.$task['parent_task'])?></span></a>
+                    <?php endif; ?>
+                </div>
+                <div class="col-4 col-lg-4">
                     <div class="float-right" title="<?= $GLOBALS["_$status"] ?>">
                         <span class="status-icon rounded-circle noty-m <?= $statusBar[$task['status']]['bg1'] ?>"><i
                                     class="<?= $statusBar[$task['status']]['ic1'] ?> custom"></i></span>
@@ -235,7 +242,7 @@ if ($id == $worker and $view == 0) {
                         <div class="card-footer border-0" style="padding: 0.8rem;">
                             <div class="d-block" style="height: 24px;">
                                 <div class="row">
-                                    <div class="col-sm-5 col-12">
+                                    <div class="col-sm-5 col-lg-5 col-md-12 col-12">
                                         <div class="text-area-message">
                                             <span class="taskname" style="padding-left: 28px;font-weight: 600;color: #353b41;"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
 <!--                                            <div class="d-inline-block text-center" style="width: 20px"><i-->
@@ -254,10 +261,10 @@ if ($id == $worker and $view == 0) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2 col-5 pr-0">
+                                    <div class="col-sm-2 col-lg-2 col-md-5 col-5 pr-0">
                                         <span style="color: #5E5E5E;"><?= $taskStatusText[$subTask['status']] ?></span>
                                     </div>
-                                    <div class="col-sm-2 col-3 <?= ($subTask['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
+                                    <div class="col-sm-2 col-lg-2 col-md-3 col-3 <?= ($subTask['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
                                         <span style="color: #5E5E5E;">
                                             <?php
                                             $subTask['deadLineDay'] = date('j', $subTask['datedone']);
@@ -266,7 +273,7 @@ if ($id == $worker and $view == 0) {
                                             <?= $subTask['deadLineDay'] ?> <?= $subTask['deadLineMonth'] ?>
                                         </span>
                                     </div>
-                                    <div class="col-sm-2 col-4 avatars">
+                                    <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
                                         <div class="avatar-subtask-task">
                                             <img src="/<?= getAvatarLink($subTask['manager']) ?>" class="avatar"> |
                                             <img src="/<?= getAvatarLink($subTask['worker']) ?>" class="avatar">
