@@ -3572,6 +3572,32 @@ and (orientation: landscape) {
 
 }
 
+@media only screen
+and (min-width: 1025px)
+and (max-width: 1200px) {
+    .bg-icon-achieve {
+        position: absolute;
+        top: 25%;
+        left: 10%;
+        z-index: 1;
+    }
+
+    .award {
+        min-width: 18vw;
+        max-width: 18vw;
+    }
+
+    .award-sm {
+        min-width: 14.8vw;
+        max-width: 14.8vw;
+    }
+
+    .searchDiv {
+        display: none;
+    }
+
+}
+
 @media (max-width: 400px) {
     .task-card .avatar {
         width: 25px;
