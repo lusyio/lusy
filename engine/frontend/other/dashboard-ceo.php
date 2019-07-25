@@ -282,8 +282,8 @@ $statusColor = [
             </div>
         </a>
     </div>
-    <div class="col-sm-4 mb-3 card-tasks-dash">
-        <div<?= ($inwork == 0) ? ' class="no-events"' : ''; ?>>
+    <div class="col-sm-4 mb-3 card-tasks-dash <?= ($inwork == 0) ? "no-events" : ''; ?>">
+        <div>
             <a href="/tasks/#inwork" class="text-decoration-none">
                 <div class="card">
                     <div class="card-body pb-2 pt-2">
@@ -296,8 +296,8 @@ $statusColor = [
             </a>
         </div>
     </div>
-    <div class="col-sm-4 mb-3 card-tasks-dash">
-        <div<?= ($overdue == 0) ? ' class="no-events"' : ''; ?>>
+    <div class="col-sm-4 mb-3 card-tasks-dash <?= ($overdue == 0) ? "no-events" : ''; ?>">
+        <div>
             <a href="/tasks/#overdue" class="text-decoration-none">
                 <div class="card">
                     <div class="card-body pb-2 pt-2">
@@ -310,8 +310,8 @@ $statusColor = [
             </a>
         </div>
     </div>
-    <div class="col-sm-4 mb-3 card-tasks-dash">
-        <div<?= ($pending == 0) ? ' class="no-events"' : ''; ?>>
+    <div class="col-sm-4 mb-3 card-tasks-dash <?= ($pending == 0) ? "no-events" : ''; ?>">
+        <div>
             <a href="/tasks/#pending" class="text-decoration-none">
                 <div class="card">
                     <div class="card-body pb-2 pt-2">
@@ -324,8 +324,8 @@ $statusColor = [
             </a>
         </div>
     </div>
-    <div class="col-sm-4 mb-3 card-tasks-dash">
-        <div<?= ($postpone == 0) ? ' class="no-events"' : ''; ?>>
+    <div class="col-sm-4 mb-3 card-tasks-dash <?= ($postpone == 0) ? "no-events" : ''; ?>">
+        <div>
             <a href="/tasks/#postpone" class="text-decoration-none">
                 <div class="card">
                     <div class="card-body pb-2 pt-2">

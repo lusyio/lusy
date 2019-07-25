@@ -3278,8 +3278,16 @@ span.date {
         margin-right: 0!important;
     }
 
+    #taskListSlide .taskDiv.create-new-task.search-empty-new-task{
+        display: none;
+    }
+
     .profile-body .additional-func span{
         padding: 0 3%;
+    }
+
+    .text-decoration-none.cust .taskDiv.create-new-task.mb-2{
+        display: none;
     }
 
     .user-img {
