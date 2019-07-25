@@ -132,7 +132,7 @@ if ($id == $worker and $view == 0) {
                     <?php if (!is_null($task['parent_task'])): ?>
                         <a href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom"
                                                                            title="Перейти к надзадаче"
-                                                                           class="badge badge-info">Надзадача</span></a>
+                                                                           class="badge badge-info"><i class="fas fa-clipboard mr-2"></i><?=DBOnce('name','tasks','id='.$task['parent_task'])?></span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-lg-8">
