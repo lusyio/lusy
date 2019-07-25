@@ -470,7 +470,7 @@ list-group:hover {
 
 .load-log{
     bottom: 35px;
-    left: 50%;
+    left: 48%;
     right: 50%;
     z-index: 3;
 }
@@ -2925,12 +2925,36 @@ span.date {
         padding-right: 18px;
     }
 
+    .border-bottom-company .col-4.col-sm-2{
+        padding-left: 0 !important;
+    }
+
+    .border-bottom-company .col-lg-1.col-2{
+        padding-left: 0.5rem !important;
+    }
+
+    .taskDiv .text-lowercase.font-weight-bold{
+        line-height: unset !important;
+    }
+
+    .taskDiv .col-7.col-lg-5.p-0.pl-2{
+        padding-right: 0.5rem !important;
+    }
+
+    .taskDiv .col-1.mr-3.text-center{
+        padding-right: 0;
+    }
+
     .subtask-task .col-12 {
         margin-bottom: 10px;
     }
 
     .subtask-task .avatars {
         padding-right: 0;
+        padding-left: 0;
+    }
+
+    #task .col-6.col-lg-8{
         padding-left: 0;
     }
 
@@ -3195,9 +3219,26 @@ span.date {
         margin-right: 0;
     }
     .award{
-        min-width: 166px;
-        max-width: 166px;
+        min-width: 43.4vw;
+        max-width: 43.4vw;
         margin-right: 12px;
+    }
+
+    .left-report .col-6.col-lg-5{
+        padding: 0 !important;
+    }
+
+    .load-log{
+        left: 45%;
+    }
+
+    .eventDiv .col-5{
+        padding-right: 0;
+    }
+
+    .right-report {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 
     .award:last-of-type{

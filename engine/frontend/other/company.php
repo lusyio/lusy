@@ -93,13 +93,13 @@
                 <div class="col-10 col-sm-4">
                     <?php
                     if ($n["name"] != null && $n["surname"] != null): ?>
-                        <p class="h5 mb-0 company-profile-fio">
+                        <p class="h5 mb-0 company-profile-fio text-area-message">
                             <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
                         </p>
                         <span class="text-muted-reg activity-company"><?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
                     <?php
                     else: ?>
-                        <p class="h5 mb-0 company-profile-fio">
+                        <p class="h5 mb-0 company-profile-fio text-area-message">
                             <a href="/profile/<?= $n["id"] ?>/">
                                 <?= $n['email'] ?>
                             </a>

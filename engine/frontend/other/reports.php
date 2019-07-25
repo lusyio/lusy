@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-3 top-block-tasknew">
             <label class="label-tasknew">
                 Дата начала
             </label>

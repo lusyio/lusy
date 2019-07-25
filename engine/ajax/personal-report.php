@@ -36,10 +36,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-2 col-lg-1">
+                                <div class="col-3 col-lg-1">
                                     <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added m-0">
                                 </div>
-                                <div class="col-10 col-lg-3 text-left pl-0 pr-0 worker-name-reports">
+                                <div class="col-9 col-lg-3 text-left pl-0 pr-0 worker-name-reports text-area-message">
                                     <span class="mb-1 text-color-new"><?= $n["name"] ?> <?= $n["surname"] ?></span>
                                 </div>
                                 <div class="col-3 col-lg-2 p-0 text-center">

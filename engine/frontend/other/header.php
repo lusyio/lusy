@@ -49,7 +49,6 @@ if (empty($title)) {
         </div>
     </div>
 </div>
-<div class="push-messages-area d-none"></div>
 <script src="/assets/js/CometServerApi.js"></script>
 <script>
     $(document).ready(function () {
@@ -70,11 +69,6 @@ if (empty($title)) {
         subscribeToMessagesNotification(userId);
         subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
         subscribeToChatNotification('<?=$cometTrackChannelName?>');
-        checkNotifications('onLoad');
-        $('.push-messages-area').on('click', '.close-push-message', function (e) {
-            e.preventDefault();
-            $(this).parents('.push-message').fadeOut(300);
-        });
 
         $('#search').on('keyup', function () {
             var request = $('#search').val();

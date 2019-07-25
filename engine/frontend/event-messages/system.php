@@ -82,7 +82,7 @@ $monthNumber = date("n", $event['datetime']);
                 </div>
                 <div class="col-5">
                     <p class="mb-0 font-weight-bold text-area-message"><?= $eventText; ?></p>
-                    <div>
+                    <div class="text-area-message">
                         <?php if (!empty($eventDop)) : ?>
                             <span class="text-secondary"><?= $eventDop ?></span>
                         <?php else:?>
