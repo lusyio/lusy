@@ -62,16 +62,16 @@
                                 <span class="companyAvatar user-pic position-relative"><i
                                             class="far fa-comments fa-fw"></i></span>
                         </div>
-                        <div class="col text-area-message" style="max-width: 82%;">
+                        <div class="col text-area-message">
                             <p class="mb-2 font-weight-bold <?= ($newChatMessages) ? 'text-warning' : ''; ?>">Чат
                                 компании<?= ($newChatMessages) ? ' +' . $newChatMessages : ''; ?></p>
                             <?php if ($lastChatMessage): ?>
                                 <span><?= ($lastChatMessage['sender'] == $id) ? 'Вы: ' : fiomess($lastChatMessage['sender']) . ': '; ?> <?= $lastChatMessage['mes'] ?></span>
-                                <span class="date mr-2"><?= date('d.m H:i', $lastChatMessage['datetime']); ?></span>
                             <?php else: ?>
                                 <span class="text-muted">В чате нет сообщений</span>
                             <?php endif; ?>
                         </div>
+                        <span class="date mr-2"><?= date('d.m H:i', $lastChatMessage['datetime']); ?></span>
                     </div>
                 </div>
             </div>
@@ -98,12 +98,12 @@
                                 </div>
                                     <?php endif; ?>
                             </div>
-                            <div class="col text-area-message" style="max-width: 82%;">
+                            <div class="col text-area-message">
                                 <p class="mb-2 font-weight-bold <?= ($newMessages) ? 'text-warning' : ''; ?>"><?= ($n == 1) ? 'Служба поддержки' : fiomess($n) ?><?= ($newMessages) ? ' +' . $newMessages : ''; ?>
                                 </p>
                                 <span><?= ($lastMessage['sender'] == $id) ? 'Вы: ' : ''; ?> <?= $lastMessage['mes'] ?></span>
-                                <span class="date mr-2"><?= date('d.m H:i', $lastMessage['datetime']); ?></span>
                             </div>
+                            <span class="date mr-2"><?= date('d.m H:i', $lastMessage['datetime']); ?></span>
                         </div>
 
                     </div>

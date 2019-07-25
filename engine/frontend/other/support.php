@@ -53,12 +53,12 @@
                                         <img src="/<?= getAvatarLink($userId) ?>" class="avatar-img rounded-circle w-100 <?= ($lastMessage['role'] == 'ceo') ? 'border-warning' : '' ?>"/>
                                     </div>
                                 </div>
-                                <div class="col text-area-message" style="max-width: 82%;">
+                                <div class="col text-area-message">
                                     <p class="mb-2 font-weight-bold <?= ($lastMessage['newMessages']) ? 'text-warning' : ''; ?>"><?= (trim($lastMessage['name'] . ' ' . $lastMessage['surname']) == '') ? $lastMessage['email'] : trim($lastMessage['name'] . ' ' . $lastMessage['surname']) ?><?= ($lastMessage['newMessages']) ? ' +' . $lastMessage['newMessages'] : ''; ?>
                                     </p>
                                     <span><?= ($lastMessage['message']['sender'] == 1) ? 'Вы: ' : ''; ?> <?= $lastMessage['message']['mes'] ?></span>
-                                    <span class="date mr-2"><?= date('d.m H:i', $lastMessage['message']['datetime']); ?></span>
                                 </div>
+                                <span class="date mr-2"><?= date('d.m H:i', $lastMessage['message']['datetime']); ?></span>
                             </div>
 
                         </div>
