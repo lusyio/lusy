@@ -32,7 +32,7 @@ $monthNumber = date("n", strtotime($userData['birthdate']));
 ?>
 <script src="/assets/js/circle-progress.min.js"></script>
 <div class="row justify-content-center">
-    <div class="col-12 col-lg-10 col-md-10 col-xl-10">
+    <div class="col-12 col-lg-10 col-md-10 col-xl-10 profile-body">
         <div class="card">
             <div class="card-body p-4">
                 <div class="float-left mr-4 position-relative">

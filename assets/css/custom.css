@@ -2898,6 +2898,11 @@ span.date {
         left: -45px;
     }
 
+    .card-header.text-center.bg-message.border-0{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
     #mes{
         padding-left: 70px;
         padding-right: 40px;
@@ -3255,8 +3260,8 @@ span.date {
     }
 
     .award-sm{
-        min-width: 162px;
-        max-width: 162px;
+        min-width: 43.4vw;
+        max-width: 43.4vw;
         margin-right: 10px;
     }
 
@@ -3265,8 +3270,16 @@ span.date {
         margin-right: 10px !important;
     }
 
+    #accordionSettings .position-absolute.edit-settings{
+        top: 4px;
+    }
+
     .award-sm:nth-child(2n){
         margin-right: 0!important;
+    }
+
+    .profile-body .additional-func span{
+        padding: 0 3%;
     }
 
     .user-img {
@@ -3397,7 +3410,7 @@ label.error {
 }
 
 .text-reg {
-    font-size: 22px;
+    font-size: 1.2rem;
     line-height: 1.55;
     font-weight: 200;
     color: #000;
