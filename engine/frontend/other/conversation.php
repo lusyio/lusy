@@ -208,7 +208,13 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
+
     (function (b) {
+        if (screen.width <= 375){
+            var padding = 55;
+        } else {
+            padding = 80;
+        }
         b.fn.autoResize = function (f) {
             var a = b.extend({
                 onResize: function () {
@@ -225,7 +231,7 @@
                         position: "absolute",
                         top: 0,
                         left: -9999,
-                        padding: 80
+                        padding: padding
                 }).css(c).attr("tabIndex", "-1").insertBefore(d)
                 }(), h = null, e = function () {
                     g.height(0).val(b(this).val()).scrollTop(1E4);

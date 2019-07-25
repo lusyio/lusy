@@ -2894,6 +2894,15 @@ span.date {
         margin-bottom: 13px;
     }
 
+    #sendBtn{
+        left: -45px;
+    }
+
+    #mes{
+        padding-left: 70px;
+        padding-right: 40px;
+    }
+
     .task-report{
         padding-left: 15px;
     }
