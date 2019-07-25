@@ -2865,6 +2865,40 @@ span.date {
 
 }
 
+/* iPads (portrait) ----------- */
+@media only screen
+and (max-device-width: 1024px)
+and (min-device-width: 768px)
+and (orientation: portrait) {
+
+    .alerts {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        border-top: none !important;
+        padding: 0 !important;
+
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .collapse:not(.show) {
+         display: block;
+    }
+    #navbarNav {
+         padding-top: 70px;
+    }
+
+    .award {
+        min-width: 27.4vw !important;
+        max-width: 27.4vw !important;
+        margin-right: 12px !important;
+    }
+
+}
+
 @media (min-width: 992px) {
     .navbar-toggler {
         display: none;
