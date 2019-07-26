@@ -3596,6 +3596,29 @@ and (max-width: 1200px) {
         display: none;
     }
 
+    .subtask-badge-mobile{
+        display: none;
+    }
+
+}
+
+@media (max-width: 1024px)
+and     (min-width: 768px)
+{
+
+    .subtask-badge-mobile{
+        display: none;
+    }
+
+}
+
+@media (min-width: 1024px)
+and (max-width: 1366px) {
+
+    .subtask-badge-mobile{
+        display: none;
+    }
+
 }
 
 @media (max-width: 400px) {
