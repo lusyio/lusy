@@ -113,8 +113,7 @@ $borderColor = [
 
 <div class="row mt-25-tasknew">
     <div class="col-12 text-center position-relative">
-        <div class="other-func text-center position-relative" data-toggle="collapse" href="#collapseFunctions"
-             role="button" aria-expanded="false" aria-controls="collapseFunctions">
+        <div class="other-func text-center position-relative">
             <div class="additional-func">
                 <span>Дополнительные функции <i class="fas fa-caret-down"></i></span>
             </div>
@@ -450,6 +449,9 @@ $borderColor = [
 
 
     $(document).ready(function () {
+        $('.other-func').on('click', function () {
+            $('#collapseFunctions').collapse('toggle');
+        });
         $('.disabledBtnOptions').on('click', function () {
             $('#freeOptionsModal').modal('toggle');
         });
