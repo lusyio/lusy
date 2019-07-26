@@ -56,8 +56,16 @@
     padding: 15px 30px !important;
     border-radius: 12px !important;
 }
+#scrollAnchor, .tasks-reports-container .label-tasknew {
+    font-weight: 700;
+    font-size: 18px;
+}
 #reportsContainer .card-body-reports {
-    padding: 0px 30px 10px 30px !important;
+    padding: 0px 30px 15px 30px !important;
+}
+#reportsContainer .avatar-added {
+    margin-top: -5px;
+    margin-bottom: 0;
 }
 .card-body-reports h5 {
     color: #28416b;
@@ -68,10 +76,18 @@
     color: #c2c2c4;
 }
 .text-reports{
-    color: #a2a5ac !important;
+    color: #a8b1be !important;
 }
 .text-reports span{
-    color: #a2a5ac !important;
+    color: #a8b1be !important;
+    font-weight: 600;
+}
+.worker-name-reports {
+    font-weight: 700;
+}
+
+.text-reports .col-4 span {
+    padding-left: 52px;
 }
 #workerBlockReports .responsible{
     top: 50px !important;

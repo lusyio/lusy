@@ -29,6 +29,8 @@ $countChangeDate = $countChangeDateQuery->fetch(PDO::FETCH_COLUMN);
 $countCancelQuery = $pdo->prepare("SELECT COUNT(*) FROM events e WHERE e.action = 'canceltask' AND e.datetime > :firstDay AND e.datetime < :lastDay AND author_id = 1 AND e.company_id = :companyId");
 $countCancelQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
 $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
+
+$allEvents = $countInworkTasks + $countTaskDone + $countOverdue + $countChangeDate + $countCancel;
 ?>
 
 <div class="row">
@@ -48,7 +50,7 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
                             <div class="col-lg-8 col-12 left-report">
                                 <div class="row" style="padding-top: 20px;">
                                     <div class="col-6 col-lg-6 col-xlg-5">
-                                        <div class="mb-1">
+                                        <div class="mb-2">
                                             <div class="text-primary text-statistic font-weight-bold"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></div>
                                             <span class="text-reports">Создали</span>
                                         </div>
@@ -59,12 +61,12 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
                                         </div>
                                     </div>
                                     <div class="col-6 col-lg-6 col-xlg-5">
-                                        <div class="mb-1">
+                                        <div class="mb-2">
                                             <div class="text-danger text-statistic font-weight-bold"><?= ($countOverdue) ? $countOverdue : 0 ?></div>
                                             <span
                                                 class="text-reports">Просрочили</span>
                                         </div>
-                                        <div class="mb-1">
+                                        <div class="mb-2">
                                             <div class="text-warning text-statistic font-weight-bold"><?= ($countChangeDate) ? $countChangeDate : 0 ?></div>
                                             <span
                                                 class="text-reports">Перенесли</span>
@@ -77,7 +79,7 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
                                 </div>
                             </div>
                             <div class="col-lg-4 col-12 right-report">
-                                <h2 class="mb-0 count-tasks-reports"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></h2>
+                                <h2 class="mb-0 count-tasks-reports"><?= ($allEvents) ? $allEvents : 0 ?></h2>
                                 <div class="count-info-reports">
                                     <span class="count-info-reports-content"
                                           style="font-size: 70%;">Всего событий, связанных с задачами</span>
@@ -99,7 +101,7 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
         <div style="padding: 0.8rem;" class="d-sm task-box">
             <div style="padding-left: 7px;">
                 <div class="row sort small text-reports">
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <span>Сотрудник <i class="fas fa-sort d-none"></i></span>
                     </div>
                     <div class="col-2 text-center">
@@ -130,7 +132,7 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-3 col-lg-1">
-                                    <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added m-0">
+                                    <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added">
                                 </div>
                                 <div class="col-9 col-lg-3 text-left pl-0 pr-0 worker-name-reports text-area-message">
                                     <span class="mb-1 text-color-new"><?= $n["name"] ?> <?= $n["surname"] ?></span>
@@ -162,7 +164,7 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
     </div>
 </div>
 
-<div class="row tasks-reports-container" style="margin-top: 60px; display: none">
+<div class="row tasks-reports-container" style="margin-top: 60px; ">
     <div class="col-12">
         <label class="label-tasknew">
             Задачи за выбранный период
