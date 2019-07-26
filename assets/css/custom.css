@@ -1724,7 +1724,54 @@ ul.navbar-nav {
 a {
     color: #27406a;
 }
-
+.premiumCard {
+    background: rgb(112,133,254);
+    background: linear-gradient(180deg, rgba(112,133,254,1) 0%, rgba(126,123,252,1) 100%);
+    color: white;
+    font-size: 18px;
+}
+.premiumCard .position-relative div {
+    position: relative;
+    z-index: 2;
+}
+.dayLast {
+    font-size: 24px;
+    font-weight: 100;
+}
+.diamond {
+    position: absolute;
+    top: 8%;
+    height: auto;
+    width: 100%;
+    max-width: 215px;
+    opacity: 0.1;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+.payZag {
+    font-size: 28px;
+    font-weight: 300;
+    margin-top: 10px;
+    font-family: roboto light;
+}
+.payZag span {
+    font-weight: 900;
+    font-family: roboto;
+}
+.checkUl {
+    padding-left: 0px;
+}
+.checkUl li {
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+.checkUl li:before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f00c";
+    padding-right: 15px;
+}
 .payment-card{
     transition: 300ms;
     

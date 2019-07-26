@@ -1,3 +1,35 @@
+<?php $companyTariff['tariff'] = 0; ?>
+<div class="card mb-5 premiumCard">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-5 text-center position-relative">
+                <div>
+                    <?php if ($companyTariff['tariff'] == 0): ?>
+                        <p class="payZag">Попробуйте<br><span>Premium</span> доступ</p>
+                        <button class="btn btn-light choose-tariff">Попробовать</button>
+                    <?php endif; ?>
+                    <?php if ($companyTariff['tariff'] == 1): ?>
+                        <p class="payZag">У вас активирован<br><span>Premium</span> доступ</p>
+                        <div class="dayLast">
+                            Заканчивается<br>через 5 дней
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <img class="diamond" src="/assets/svg/diamond.svg">
+            </div>
+            <div class="col-sm-7">
+                <ul class="checkUl">
+                    <li>Все, что есть в бесплатном тарифе</li>
+                    <li>Расширенные настройки задач (отложенный старт, подзадачи, чек-листы, редактирование существующих задач)</li>
+                    <li>Неограниченное количество задач</li>
+                    <li>Детальные отчеты о деятельности компании</li>
+                    <li>1 ГБ + интеграция с Google Drive и DropBox</li>
+                </ul>
+                <p>В течение 14 дней вы сможете в 1 клик вернуть списанные средства, если вам что-то не понравится.</p>
+            </div>
+        </div>
+    </div>
+</div>
 <?php if ($companyTariff['tariff'] == 0): ?>
     <div class="row mb-3">
         <div class="col">
