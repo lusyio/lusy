@@ -38,16 +38,16 @@
 }
 .right-report{
     border-left: 1px solid #e4e4e4;
-    padding-top: 20px;
 }
-.count-info-reports{
-    margin-left: 30%;
-
+.count-info-reports {
+    margin-left: 20%;
+    line-height: 15px;
+    margin-top: 5px;
 }
 .count-tasks-reports{
     color: #28416b;
     font-weight: 400;
-    margin-left: 30%;
+    margin-left: 20%;
 }
 .count-info-reports-content{
     color: #28416b;
@@ -55,6 +55,14 @@
 .card-body-reports {
     padding: 15px 30px !important;
     border-radius: 12px !important;
+}
+#reportsContainer .card-body-reports {
+    padding: 0px 30px 10px 30px !important;
+}
+.card-body-reports h5 {
+    color: #28416b;
+    font-weight: 700;
+    margin-top: 35px;
 }
 .input-reports{
     color: #c2c2c4;

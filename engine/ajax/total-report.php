@@ -41,37 +41,37 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
                                 style="height: 170px; width: 170px;margin-bottom: 10%;"></canvas>
                     </div>
                     <div class="col-lg-9 col-12">
-                        <h5 style="color: #28416b;">
+                        <h5>
                             Статистика по задачам
                         </h5>
                         <div class="row">
                             <div class="col-lg-8 col-12 left-report">
                                 <div class="row" style="padding-top: 20px;">
                                     <div class="col-6 col-lg-6 col-xlg-5">
-                                        <div>
-                                            <div class="text-primary text-statistic"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></div>
-                                            <span class="text-reports">В работе</span>
+                                        <div class="mb-1">
+                                            <div class="text-primary text-statistic font-weight-bold"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></div>
+                                            <span class="text-reports">Создали</span>
                                         </div>
                                         <div>
-                                            <div class="text-success text-statistic"><?= ($countTaskDone) ? $countTaskDone : 0 ?></div>
+                                            <div class="text-success text-statistic font-weight-bold"><?= ($countTaskDone) ? $countTaskDone : 0 ?></div>
                                             <span
-                                                class="text-reports">Выполнено</span>
+                                                class="text-reports">Выполнили</span>
                                         </div>
                                     </div>
                                     <div class="col-6 col-lg-6 col-xlg-5">
-                                        <div>
-                                            <div class="text-danger text-statistic"><?= ($countOverdue) ? $countOverdue : 0 ?></div>
+                                        <div class="mb-1">
+                                            <div class="text-danger text-statistic font-weight-bold"><?= ($countOverdue) ? $countOverdue : 0 ?></div>
                                             <span
-                                                class="text-reports">Просрочено</span>
+                                                class="text-reports">Просрочили</span>
+                                        </div>
+                                        <div class="mb-1">
+                                            <div class="text-warning text-statistic font-weight-bold"><?= ($countChangeDate) ? $countChangeDate : 0 ?></div>
+                                            <span
+                                                class="text-reports">Перенесли</span>
                                         </div>
                                         <div>
-                                            <div class="text-warning text-statistic"><?= ($countChangeDate) ? $countChangeDate : 0 ?></div>
-                                            <span
-                                                class="text-reports">Перенесено</span>
-                                        </div>
-                                        <div>
-                                            <div class="text-dark text-statistic"><?= ($countCancel) ? $countCancel : 0 ?></div>
-                                            <span class="text-reports">Отменено</span>
+                                            <div class="text-dark text-statistic font-weight-bold"><?= ($countCancel) ? $countCancel : 0 ?></div>
+                                            <span class="text-reports">Отмененили</span>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
                                 <h2 class="mb-0 count-tasks-reports"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></h2>
                                 <div class="count-info-reports">
                                     <span class="count-info-reports-content"
-                                          style="font-size: 70%;">Всего задач за выбранный период</span>
+                                          style="font-size: 70%;">Всего событий, связанных с задачами</span>
                                 </div>
                             </div>
                         </div>
