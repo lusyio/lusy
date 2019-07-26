@@ -199,6 +199,7 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         if (text) {
+            $(this).prop('disabled', true);
             console.log(fd.get('googleAttach'));
             $("#comin").attr("disabled", true);
             $('#comment').html('<i class="fas fa-spinner fa-spin"></i>');
@@ -228,6 +229,7 @@ $(document).ready(function () {
                     fileList = new Map();
                 },
             });
+            $('#comment').prop('disabled', false);
             $("#comin").val("");
             $(".file-name").empty();
         }
@@ -277,6 +279,7 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         if (text) {
+            $(this).prop('disabled', true);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -299,6 +302,7 @@ $(document).ready(function () {
         var checkDate = $("#deadlineInput").attr('min');
         var text = $("#reportarea1").val();
         if (text !== '' && datepostpone >= checkDate) {
+            $(this).prop('disabled', true);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -340,6 +344,7 @@ $(document).ready(function () {
         var sendDate = $("#deadlineInput").val();
         var checkDate = $("#deadlineInput").attr('min');
         if (sendDate >= checkDate) {
+            $(this).prop('disabled', true);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -368,6 +373,7 @@ $(document).ready(function () {
 
     // Манагер принимает дату
     $("#confirmDate").click(function () {
+        $(this).prop('disabled', true);
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -383,6 +389,7 @@ $(document).ready(function () {
 
     // Манагер отменят дату
     $("#cancelDate").click(function () {
+        $(this).prop('disabled', true);
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -399,6 +406,8 @@ $(document).ready(function () {
 // Кнопка принять для worker'a (в статусе "на рассмотрении""), переводит в статус done - завершен
 
     $("#workdone").click(function () {
+        $(this).prop('disabled', true);
+        $("#cancelTask").prop('disabled', true);
         // var report = $("#reportarea").val();
         // if (report) {
         $.ajax({
@@ -425,6 +434,7 @@ $(document).ready(function () {
     });
 
     $("#changePlanDate").on('click', function () {
+        $(this).prop('disabled', true);
         var datePlan = $("#inputChangePlanDate").val();
         $.ajax({
             url: '/ajax.php',
@@ -472,6 +482,7 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         if (text) {
+            $(this).prop('disabled', true);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -491,6 +502,7 @@ $(document).ready(function () {
 // Кнопка "В работу" для worker'a (на странице "возвращен")
 
     $("#inwork").click(function () {
+        $(this).prop('disabled', true);
         // var report = $("#reportarea").val();
         // if (report) {
         $.ajax({
@@ -511,6 +523,8 @@ $(document).ready(function () {
 
     //Отмена таска
     $("#cancelTask").click(function () {
+        $(this).prop('disabled', true);
+        $("#workdone").prop('disabled', true);
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
