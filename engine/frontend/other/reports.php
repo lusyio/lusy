@@ -102,24 +102,42 @@
     global $tryPremiumLimits;
     if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
         <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
-            <div class="col-10 col-lg-4">
-                <button id="createReport"
-                        class="btn btn-block btn-outline-primary h-100" style="margin-left: 30px;"
-                        data-toggle="<?= ($tryPremiumLimits['report'] < 3) ? 'tooltip' : '' ?>" data-placement="bottom"
-                        title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">
-                    Построить отчет
-                </button>
+            <div class="col-12 position-relative">
+                <div class="report-btn position-relative">
+                    <div style="z-index: 2;position: relative;">
+                        <div class="create-report-btn">
+                        <button id="createReport"
+                                class="btn btn-block btn-outline-primary h-100"
+                                data-toggle="<?= ($tryPremiumLimits['report'] < 3) ? 'tooltip' : '' ?>"
+                                data-placement="bottom"
+                                title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">
+                            Построить отчет
+                        </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
 
     <?php
     else:
         ?>
         <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
-            <div class="col-10 col-lg-4">
-                <button id="createReportDisabled"
-                        class="btn btn-block btn-outline-primary h-100" style="margin-left: 30px;">Построить отчет
-                </button>
+            <div class="col-12 position-relative">
+                <div class="report-btn position-relative">
+                    <div style="z-index: 2;position: relative;">
+                        <div class="create-report-btn">
+                            <button id="createReportDisabled"
+                                    class="btn btn-block btn-outline-primary h-100"
+                                    data-toggle="<?= ($tryPremiumLimits['report'] < 3) ? 'tooltip' : '' ?>"
+                                    data-placement="bottom"
+                                    title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">
+                                Построить отчет
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

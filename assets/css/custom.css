@@ -2715,6 +2715,27 @@ span.date {
     background-color: #f2f2f2 !important;
 }
 
+.create-report-btn{
+    margin-left: 8%;
+    width: 35%;
+    padding-left: 30px;
+    background: #fcfcfc;
+    padding-right: 30px;
+}
+
+.report-btn:after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    top: 50%;
+    width: 100%;
+    z-index: 1;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
 
 #searchButton:focus{
     outline: 0;
@@ -2898,6 +2919,11 @@ span.date {
 
     .top-block-tasknew{
         margin-bottom: 13px;
+    }
+
+    .create-report-btn {
+        margin-left: 0;
+        width: 100%;
     }
 
     .subtask-badge-desktop{

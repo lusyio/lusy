@@ -31,6 +31,68 @@ $countCancelQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':la
 $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
 
 $allEvents = $countInworkTasks + $countTaskDone + $countOverdue + $countChangeDate + $countCancel;
+
+$tasks = DB('*','tasks','id!=0 limit 20');
+
+$taskStatusText = [
+        'new' => $GLOBALS['_tasknewmanager'],
+        'inwork' => $GLOBALS['_inprogresslist'],
+        'overdue' => $GLOBALS['_overduelist'],
+        'postpone' => $GLOBALS['_postponelist'],
+        'pending' => $GLOBALS['_pendinglist'],
+        'returned' => $GLOBALS['_returnedlist'],
+        'done' => $GLOBALS['_donelist'],
+        'canceled' => $GLOBALS['_canceledlist'],
+        'planned' => $GLOBALS['_plannedlist'],
+
+];
+
+
+$bgColor = [
+    'new' => 'bg-primary',
+    'inwork' => 'bg-primary',
+    'overdue' => 'bg-danger',
+    'postpone' => 'bg-warning',
+    'pending' => 'bg-warning',
+    'returned' => 'bg-primary',
+    'done' => 'bg-success',
+    'canceled' => 'bg-secondary',
+    'planned' => 'bg-info',
+];
+$borderColor = [
+    'new' => 'border-primary',
+    'inwork' => 'border-primary',
+    'overdue' => 'border-danger',
+    'postpone' => 'border-warning',
+    'pending' => 'border-warning',
+    'returned' => 'border-primary',
+    'done' => 'border-success',
+    'canceled' => 'border-secondary',
+    'planned' => 'border-info',
+];
+$iconTask = [
+    'new' => 'fas fa-plus',
+    'inwork' => 'fas fa-bolt',
+    'overdue' => 'fab fa-gripfire',
+    'postpone' => 'far fa-calendar-alt',
+    'pending' => 'fas fa-eye',
+    'returned' => 'fas fa-exchange-alt',
+    'done' => 'fas fa-check',
+    'canceled' => 'fas fa-times',
+    'planned' => 'fas fa-history',
+];
+$statusColor = [
+    'new' => 'text-primary',
+    'inwork' => 'text-primary',
+    'overdue' => 'text-danger',
+    'postpone' => 'text-warning',
+    'pending' => 'text-warning',
+    'returned' => 'text-primary',
+    'done' => 'text-success',
+    'canceled' => 'text-danger',
+    'planned' => 'text-primary',
+];
+
 ?>
 
 <div class="row">
@@ -177,25 +239,28 @@ $allEvents = $countInworkTasks + $countTaskDone + $countOverdue + $countChangeDa
         <div class="tasks-list-report-empty">
         </div>
         <div class="tasks-list-report">
-            <a class="text-decoration-none cust" href='#'
+           <?php foreach ($tasks as $n) : ?>
+            <a class="text-decoration-none cust" href='/task/<?= $n['id'] ?>/'>
             <div class="task-card">
                 <div class="card mb-2 tasks">
                     <div class="card-body tasks-list">
                         <div class='d-block'>
                             <div class="row">
                                 <div class="col-2 col-lg-1 task-report text-center">
-                                    <div class='reportIcon'>
-                                        <i class=''></i>
+                                    <div class="<?= $bgColor[$n['status']] ?> reportIcon text-white">
+                                        <i class="<?= $iconTask[$n['status']] ?>"></i>
                                     </div>
                                 </div>
                                 <div class="col-6 col-lg-8">
                                     <div class="text-area-message">
-                                        <span class="taskname mb-0"> Название задачи </span>
+                                        <span class="taskname mb-0"><?= $n['name'] ?></span>
                                     </div>
-                                    <span class="small mb-0"> workerFullName  </span>
+                                    <span class="small mb-0"><?= $n['worker'] ?></span>
                                 </div>
                                 <div class="col-4 col-lg-3 pl-0 text-center">
-                                    <span class='report-task-text'> статус </span>
+                                    <span class='report-task-text'>
+                                        <?= $taskStatusText[$n['status']] ?>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -203,6 +268,7 @@ $allEvents = $countInworkTasks + $countTaskDone + $countOverdue + $countChangeDa
                 </div>
             </div>
             </a>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
