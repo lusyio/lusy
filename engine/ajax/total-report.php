@@ -59,6 +59,17 @@ $bgColor = [
     'canceled' => 'bg-secondary',
     'planned' => 'bg-info',
 ];
+$textColor = [
+    'new' => 'text-primary',
+    'inwork' => 'text-primary',
+    'overdue' => 'text-danger',
+    'postpone' => 'text-warning',
+    'pending' => 'text-warning',
+    'returned' => 'text-primary',
+    'done' => 'text-success',
+    'canceled' => 'text-secondary',
+    'planned' => 'text-info',
+];
 $borderColor = [
     'new' => 'border-primary',
     'inwork' => 'border-primary',
@@ -258,7 +269,7 @@ $statusColor = [
                                     <span class="small mb-0"><?= $n['worker'] ?></span>
                                 </div>
                                 <div class="col-4 col-lg-3 pl-0 text-center">
-                                    <span class='report-task-text'>
+                                    <span class='<?= $textColor[$n['status']] ?> report-task-text'>
                                         <?= $taskStatusText[$n['status']] ?>
                                     </span>
                                 </div>

@@ -368,6 +368,7 @@
             fd.append('recipientId', '<?=$recipientId;?>');
             fd.append('mes', mes);
             if (mes.trim() !== '' && typeof mes.trim() !== undefined) {
+                $(this).prop('disabled', true);
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -401,7 +402,7 @@
                         $(".filenames").remove();
                         fileList = new Map();
                         $('.file-name').hide();
-
+                        $('#sendBtn').prop('disabled', false);
                     },
 
                     complete: function () {
