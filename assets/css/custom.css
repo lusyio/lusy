@@ -16,7 +16,10 @@ body{
     -webkit-font-smoothing: subpixel-antialiased;
     color: #27406a;
 }
-
+h5, .ns {
+    color: #28416b;
+    font-weight: 600;
+}
 .navbar-nav a {
     color: #979cad;
     font-weight: 400;
@@ -1729,25 +1732,45 @@ a {
     background: linear-gradient(180deg, rgba(112,133,254,1) 0%, rgba(126,123,252,1) 100%);
     color: white;
     font-size: 18px;
+    box-shadow: rgba(125, 122, 239, 0.58) 0px 25px 30px -15px !important;
 }
 .premiumCard .position-relative div {
     position: relative;
     z-index: 2;
+    margin-top: 25px;
 }
 .dayLast {
     font-size: 24px;
     font-weight: 100;
 }
+.text-grey {
+    color: #a2abb9;
+}
 .diamond {
     position: absolute;
-    top: 8%;
+    top: 0%;
     height: auto;
     width: 100%;
-    max-width: 215px;
+    max-width: 245px;
     opacity: 0.1;
     margin: auto;
     left: 0;
     right: 0;
+}
+.gift {
+    position: absolute;
+    top: 6%;
+    height: auto;
+    width: 93%;
+    max-width: 245px;
+    opacity: 0.1;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+.gift-inside {
+    position: relative;
+    z-index: 2;
 }
 .payZag {
     font-size: 28px;
@@ -1759,17 +1782,68 @@ a {
     font-weight: 900;
     font-family: roboto;
 }
-.checkUl {
+.choose-tariff {
+    color: #7680fe;
+    background: white;
+    padding: 15px 50px;
+    border-radius: 20px;
+    font-weight: 100;
+    transition: 0.3s all;
+    margin-top: 40px;
+    box-shadow: 0 12px 15px rgba(14,21,47,.1);
+}
+.choose-tariff:hover {
+    background: white;
+    color: #7680fe;
+    transition: 0.5s all;
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+    box-shadow: 0 17px 30px rgba(14,21,47,.3);
+}
+.btn-promocode {
+    color: white;
+    background: #797efe;
+    padding: 15px 50px;
+    border-radius: 20px;
+    font-weight: 100;
+    transition: 0.3s all;
+    margin-top: 20px;
+    box-shadow: 0 12px 15px rgba(14,21,47,.1);
+    margin-bottom: 38px;
+}
+.btn-promocode:hover {
+    background: #797efe;
+    color: white;
+    transition: 0.5s all;
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+    box-shadow: 0 17px 30px rgba(14,21,47,.3);
+}
+.checkUl, .plusUl {
     padding-left: 0px;
 }
-.checkUl li {
+.checkUl li, .plusUl li {
     list-style-type: none;
     margin-bottom: 10px;
+    font-weight: 100;
 }
 .checkUl li:before {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     content: "\f00c";
+    padding-right: 15px;
+}
+.plusUl {
+    color: #a2abb9;
+}
+.plusUl span {
+    color: #28416b;
+    font-weight: 600;
+}
+.plusUl li:before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f067";
     padding-right: 15px;
 }
 .payment-card{
@@ -1825,17 +1899,12 @@ a {
     z-index: 2;
 }
 
-#promoInput{
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+#promoInput {
+    padding: 25px 10px;
+    text-align: center;
+    border-radius: 10px;
+    color: #a2abb9;
 }
-
-#promoBtn{
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    z-index: 3;
-}
-
 .cancel-delete-card{
     color: #dedede !important;
     margin-left: 13px;
