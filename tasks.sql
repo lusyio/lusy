@@ -1,1 +1,1 @@
-alter table tasks add parent_task int null;
+alter table tasks add regular int default 0 null;
