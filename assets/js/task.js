@@ -425,7 +425,7 @@ $(document).ready(function () {
                 } else {
                     response.tasks.forEach(function (e) {
                         $('.subTaskInList').find('[idtask= '+ e.id + ']').children('.card-footer').css({
-                            'background-color': 'rgba(255, 242, 242, 1)',
+                            'background-color': '#ff000008',
                             'transition': '1000ms'
                         });
                         setTimeout(function () {
