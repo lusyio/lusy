@@ -224,7 +224,9 @@ $statusColor = [
             $taskDoneWorkerQuery->execute([':userId' => $user['id'], ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
             $doneAsWorker = $taskDoneWorkerQuery->fetch(PDO::FETCH_COLUMN);
 
-
+            if ($user['is_fired'] && $overdue + $changedDate + $doneAsManager + $doneAsWorker == 0) {
+                continue;
+            }
             ?>
             <div class="row mt-2">
                 <div class="col-12">
