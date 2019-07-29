@@ -21,7 +21,7 @@ if ($roleu == 'ceo') {
 $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 $id = $GLOBALS["id"];
 
-$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, u1.name AS managerName, u1.surname AS managerSurname, u1.email AS managerEmail,
+$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, t.checklist, u1.name AS managerName, u1.surname AS managerSurname, u1.email AS managerEmail,
        u2.name AS workerName, u2.surname AS workerSurname, u2.email AS workerEmail, u3.name AS authorName, u3.surname AS authorSurname, u3.email AS authorEmail FROM tasks t 
   LEFT JOIN users u1 ON t.manager = u1.id 
   LEFT JOIN users u2 ON t.worker = u2.id 
@@ -91,6 +91,7 @@ $dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 
 $dateProgress = getDateProgress($task['datedone'], $task['datecreate']);
 
+$checklist = json_decode($task['checklist'], true);
 
 $view = $task['view'];
 $viewState = '';
