@@ -42,6 +42,18 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
 
 $allEvents = $countInworkTasks + $countTaskDone + $countOverdue + $countChangeDate + $countCancel;
 
+$inworkTasksQuery = $pdo->prepare("SELECT DISTINCT td.taskId, td.taskStatus, td.taskName, td.workerName, td.workerSurname, td.workerEmail, td.workerId FROM (SELECT t.id AS taskId, t.name AS taskName, t.worker AS workerId, u.name AS workerName, u.surname AS workerSurname, u.email AS workerEmail, t.status AS taskStatus, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate FROM tasks t LEFT JOIN users u ON t.worker = u.id LEFT JOIN events e ON e.task_id = t.id WHERE e.action IN ('workdone', 'canceltask')) td WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
+$inworkTasksQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+$inworkTasks = $inworkTasksQuery->fetchAll(PDO::FETCH_ASSOC);
+
+$companyUsers = DB('*','users','idcompany='.$idc . ' ORDER BY is_fired, id');
+
+$countOverdueByUserQuery = $pdo->prepare("SELECT COUNT(DISTINCT e.task_id, e.datetime) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE (e.action = 'overdue' AND e.datetime > :firstDay AND e.datetime < :lastDay ) AND e.recipient_id = :userId AND t.worker = :userId");
+$countChangeDateByUserQuery = $pdo->prepare("SELECT COUNT(*) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE e.action IN ('senddate', 'confirmdate') AND e.datetime > :firstDay AND e.datetime < :lastDay AND author_id = 1 AND e.recipient_id = :userId AND t.worker = :userId");
+$taskDoneManagerQuery = $pdo->prepare("SELECT COUNT(distinct t.id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE t.manager = :userId AND e.action='workdone' AND datetime > :firstDay AND e.datetime < :lastDay");
+$taskDoneWorkerQuery = $pdo->prepare("SELECT COUNT(distinct t.id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE t.worker = :userId AND e.action='workdone' AND datetime > :firstDay AND e.datetime < :lastDay");
+
+
 $tasks = DB('*','tasks','id!=0 limit 20');
 
 $taskStatusText = [
@@ -202,30 +214,35 @@ $statusColor = [
                 </div>
             </div>
         </div>
-        <?php
-        require_once __ROOT__ . '/engine/backend/other/company.php';
-        foreach ($sql
+        <?php foreach ($companyUsers as $user):
+            $countOverdueByUserQuery->execute([':userId' => $user['id'], ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+            $overdue = $countOverdueByUserQuery->fetch(PDO::FETCH_COLUMN);
+            $countChangeDateByUserQuery->execute([':userId' => $user['id'], ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+            $changedDate = $countChangeDateByUserQuery->fetch(PDO::FETCH_COLUMN);
+            $taskDoneManagerQuery->execute([':userId' => $user['id'], ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+            $doneAsManager = $taskDoneManagerQuery->fetch(PDO::FETCH_COLUMN);
+            $taskDoneWorkerQuery->execute([':userId' => $user['id'], ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
+            $doneAsWorker = $taskDoneWorkerQuery->fetch(PDO::FETCH_COLUMN);
 
-                 as $n):
-            $overdue = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="overdue"');
-            $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')'); ?>
+
+            ?>
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-3 col-lg-1">
-                                    <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added">
+                                    <img src="/<?= getAvatarLink($user['id']) ?>" class="avatar-added">
                                 </div>
                                 <div class="col-9 col-lg-3 text-left pl-0 pr-0 worker-name-reports text-area-message">
-                                    <span class="mb-1 text-color-new"><?= $n["name"] ?> <?= $n["surname"] ?></span>
+                                    <span class="mb-1 text-color-new"><?= $user['name'] ?> <?= $user['surname'] ?></span>
                                 </div>
                                 <div class="col-3 col-lg-2 p-0 text-center">
-                                    <div class="text-color-new done-tasks"><?= $n['doneAsWorker'] ?></div>
+                                    <div class="text-color-new done-tasks"><?= $doneAsWorker ?></div>
                                     <small class="text-muted company-tasks">Выполнил</small>
                                 </div>
                                 <div class="col-3 col-lg-2 p-0 text-center">
-                                    <div class="text-color-new done-tasks-manager"><?= $n['doneAsManager'] ?></div>
+                                    <div class="text-color-new done-tasks-manager"><?= $doneAsManager ?></div>
                                     <small class="text-muted company-tasks">Поручил</small>
                                 </div>
                                 <div class="col-3 col-lg-2 p-0 text-center">
@@ -233,7 +250,7 @@ $statusColor = [
                                     <small class="text-muted company-tasks">Просрочил</small>
                                 </div>
                                 <div class="col-3 col-lg-2 p-0 text-center">
-                                    <div class="text-color-new postpone-tasks">15</div>
+                                    <div class="text-color-new postpone-tasks"><?= $changedDate ?></div>
                                     <small class="text-muted company-tasks">Перенес</small>
                                 </div>
                             </div>
@@ -241,9 +258,7 @@ $statusColor = [
                     </div>
                 </div>
             </div>
-        <?php
-        endforeach;
-        ?>
+        <?php endforeach; ?>
     </div>
 </div>
 
@@ -260,27 +275,28 @@ $statusColor = [
         <div class="tasks-list-report-empty">
         </div>
         <div class="tasks-list-report">
-           <?php foreach ($tasks as $n) : ?>
-            <a class="text-decoration-none cust" href='/task/<?= $n['id'] ?>/'>
+           <?php foreach ($inworkTasks as $task) : ?>
+           <?php $workerFullName = (trim($task['workerName'] . ' ' . $task['workerSurname']) == '') ? $task['workerEmail'] : trim($task['workerName'] . ' ' . $task['workerSurname']); ?>
+            <a class="text-decoration-none cust" href='/task/<?= $task['taskId'] ?>/'>
             <div class="task-card">
                 <div class="card mb-2 tasks">
                     <div class="card-body tasks-list">
                         <div class='d-block'>
                             <div class="row">
                                 <div class="col-2 col-lg-1 task-report text-center">
-                                    <div class="<?= $bgColor[$n['status']] ?> reportIcon text-white">
-                                        <i class="<?= $iconTask[$n['status']] ?>"></i>
+                                    <div class="<?= $bgColor[$task['taskStatus']] ?> reportIcon text-white">
+                                        <i class="<?= $iconTask[$task['taskStatus']] ?>"></i>
                                     </div>
                                 </div>
                                 <div class="col-6 col-lg-8">
                                     <div class="text-area-message">
-                                        <span class="taskname mb-0"><?= $n['name'] ?></span>
+                                        <span class="taskname mb-0"><?= $task['taskName'] ?></span>
                                     </div>
-                                    <span class="small mb-0"><?= $n['worker'] ?></span>
+                                    <span class="small mb-0"><?= $workerFullName ?></span>
                                 </div>
                                 <div class="col-4 col-lg-3 pl-0 text-center">
-                                    <span class='<?= $textColor[$n['status']] ?> report-task-text'>
-                                        <?= $taskStatusText[$n['status']] ?>
+                                    <span class='<?= $textColor[$task['taskStatus']] ?> report-task-text'>
+                                        <?= $taskStatusText[$task['taskStatus']] ?>
                                     </span>
                                 </div>
                             </div>
