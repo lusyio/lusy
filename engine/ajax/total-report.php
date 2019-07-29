@@ -1,6 +1,16 @@
 <?php
 global $idc;
 global $pdo;
+global $tariff;
+$tryPremiumLimits = getFreePremiumLimits($idc);
+if ($tariff == 0) {
+    if ($tryPremiumLimits['report'] < 3) {
+        updateFreePremiumLimits($idc, 'report');
+    } else {
+        exit;
+    }
+}
+
 if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
     $startDate = filter_var($_POST['startDate'], FILTER_SANITIZE_STRING);
     $endDate = filter_var($_POST['endDate'], FILTER_SANITIZE_STRING);

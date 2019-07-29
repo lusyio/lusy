@@ -98,14 +98,13 @@
     </div>
 
     <?php
-    global $tariff;
-    global $tryPremiumLimits;
     if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
         <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
             <div class="col-12 position-relative">
                 <div class="report-btn position-relative">
                     <div style="z-index: 2;position: relative;">
                         <div class="create-report-btn">
+                        <?php if ($tariff == 0): ?>
                         <button id="createReport"
                                 class="btn btn-block btn-outline-primary h-100"
                                 data-toggle="<?= ($tryPremiumLimits['report'] < 3) ? 'tooltip' : '' ?>"
@@ -113,6 +112,12 @@
                                 title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">
                             Построить отчет
                         </button>
+                        <?php else: ?>
+                        <button id="createReport"
+                                class="btn btn-block btn-outline-primary h-100">
+                            Построить отчет
+                        </button>
+                        <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -234,7 +239,7 @@
             }, 1000);
             return false;
         }
-
+<?php if ($tariff == 1): ?>
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -248,7 +253,7 @@
                 // console.log(data);
             }
         });
-
+<?php endif; ?>
         $('#createReport').on('click', function (e) {
             e.preventDefault();
             var val = $('.add-report:visible').attr('val');
