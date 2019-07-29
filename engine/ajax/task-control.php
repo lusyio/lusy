@@ -17,7 +17,7 @@ if (isset($_POST['it'])) {
     $idTaskManager = DBOnce('manager', 'tasks', 'id='.$idtask);
     $idTaskWorker = DBOnce('worker', 'tasks', 'id='.$idtask);
     $taskDatedone = DBOnce('datedone', 'tasks', 'id='.$idtask);
-
+    $checklist = json_decode(DBOnce('checklist', 'tasks', 'id='.$idtask), true);
     if ($id == $idTaskManager) {
         $isManager = true;
     }
@@ -60,8 +60,8 @@ if($_POST['module'] == 'sendonreview' && $isWorker) {
     setStatus($idtask, 'pending');
     $commentId = addSendOnReviewComments($idtask, $report);
 
-	if (count($_FILES) > 0) {
-		uploadAttachedFiles('comment', $commentId);
+    if (count($_FILES) > 0) {
+        uploadAttachedFiles('comment', $commentId);
     }
     if (count($googleFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
         addGoogleFiles('comment', $commentId, $googleFiles);
@@ -84,12 +84,12 @@ if($_POST['module'] == 'sendonreview' && $isWorker) {
 }
 
 if($_POST['module'] == 'sendpostpone' && $isWorker) {
-	$text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$datepostpone = filter_var($_POST['datepostpone'],FILTER_SANITIZE_SPECIAL_CHARS);
-	$status = 'request:' . strtotime($datepostpone);
+    $text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $datepostpone = filter_var($_POST['datepostpone'],FILTER_SANITIZE_SPECIAL_CHARS);
+    $status = 'request:' . strtotime($datepostpone);
 
-	setStatus($idtask, 'postpone');
-	addPostponeComments($idtask, strtotime($datepostpone), $text);
+    setStatus($idtask, 'postpone');
+    addPostponeComments($idtask, strtotime($datepostpone), $text);
     resetViewStatus($idtask);
     addEvent('postpone', $idtask, strtotime($datepostpone), $idTaskManager);
 
@@ -106,7 +106,6 @@ if($_POST['module'] == 'workdone' && $isManager) {
         resetViewStatus($idtask);
         if ($taskStatus != 'planned') {
             addEvent('workdone', $idtask, '');
-            echo json_encode($subTasks);
         }
     } else {
         echo json_encode($subTasks);
@@ -134,10 +133,10 @@ if($_POST['module'] == 'cancelTask' && $isManager) {
 // Кнопка вернуть для worker'a
 
 if($_POST['module'] == 'workreturn' && $isManager) {
-	$datepostpone = filter_var($_POST['datepostpone'], FILTER_SANITIZE_SPECIAL_CHARS);
-	$text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $datepostpone = filter_var($_POST['datepostpone'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	$unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
+    $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $googleFiles = [];
     foreach ($unsafeGoogleFiles as $k => $v) {
         $googleFiles[] = [
@@ -156,8 +155,8 @@ if($_POST['module'] == 'workreturn' && $isManager) {
         ];
     }
 
-	setStatus($idtask, 'returned', strtotime($datepostpone));
-	$commentId = addWorkReturnComments($idtask, strtotime($datepostpone), $text);
+    setStatus($idtask, 'returned', strtotime($datepostpone));
+    $commentId = addWorkReturnComments($idtask, strtotime($datepostpone), $text);
 
     if (count($_FILES) > 0) {
         uploadAttachedFiles('comment', $commentId);
@@ -188,8 +187,8 @@ if($_POST['module'] == 'workreturn' && $isManager) {
 // Кнопка В работу для worker'a
 
 if($_POST['module'] == 'inwork') {
-	$sql = $pdo->prepare('UPDATE `tasks` SET `status` = "new" WHERE id='.$idtask);
-	$sql->execute();
+    $sql = $pdo->prepare('UPDATE `tasks` SET `status` = "new" WHERE id='.$idtask);
+    $sql->execute();
 }
 
 // создание новой задачи
@@ -209,6 +208,12 @@ if($_POST['module'] == 'createTask') {
     $coworkers = [];
     foreach ($unsafeCoworkers as $c) {
         $coworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
+    }
+    $unsafeChecklist = json_decode($_POST['checklist'], true);
+    $checklist = [];
+    foreach ($unsafeChecklist as $key => $value) {
+        $checklist[$key]['text'] = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+        $checklist[$key]['status'] = 0;
     }
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $googleFiles = [];
@@ -234,25 +239,25 @@ if($_POST['module'] == 'createTask') {
         $managerId = $id;
     }
     $coworkers = array_unique($coworkers, SORT_NUMERIC);
-	$name = trim($_POST['name']);
-	$name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
-	$description = trim($_POST['description']);
-	$description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
-	$datedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
-	$worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
-	$status = 'new';
-	$dateCreate = time();
-	if (isset($_POST['startdate']) && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
-	    $dateCreate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
-	    if (date('Y-m-d', $dateCreate) > date('Y-m-d') && date('Y-m-d', $dateCreate) <= date('Y-m-d', $datedone)) {
+    $name = trim($_POST['name']);
+    $name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $description = trim($_POST['description']);
+    $description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $datedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
+    $worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
+    $status = 'new';
+    $dateCreate = time();
+    if (isset($_POST['startdate']) && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
+        $dateCreate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
+        if (date('Y-m-d', $dateCreate) > date('Y-m-d') && date('Y-m-d', $dateCreate) <= date('Y-m-d', $datedone)) {
             $status = 'planned';
             $usePremiumTask = true;
         }
     }
-	$parentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
+    $parentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
 
-	$taskCreateQueryData = [
-	    ':name' => $name,
+    $taskCreateQueryData = [
+        ':name' => $name,
         ':description' => $description,
         ':dateCreate' => $dateCreate,
         ':author' => $id, ':manager' => $managerId,
@@ -261,8 +266,9 @@ if($_POST['module'] == 'createTask') {
         ':datedone' => $datedone,
         ':status' => $status,
         ':parentTask' => null,
+        ':checklist' => json_encode($checklist),
     ];
-	if ($parentTask != '' && $parentTask != 0 && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
+    if ($parentTask != '' && $parentTask != 0 && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
         $parentTaskDataQuery = $pdo->prepare("SELECT manager, worker, idcompany FROM tasks WHERE id = :taskId");
         $parentTaskDataQuery->execute(['taskId' => $parentTask]);
         $parentTaskData = $parentTaskDataQuery->fetch(PDO::FETCH_ASSOC);
@@ -271,20 +277,20 @@ if($_POST['module'] == 'createTask') {
             $usePremiumTask = true;
         }
     }
-    $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask)");
+    $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, checklist) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :checklist)");
     $taskCreateQuery->execute($taskCreateQueryData);
-	if ($taskCreateQuery) {
-		$idtask = $pdo->lastInsertId();
-		if (!empty($idtask)) {
-		    $result['taskId'] = $idtask;
-		    echo json_encode($result);
-			$coworkersQuery = "INSERT INTO task_coworkers(task_id, worker_id) VALUES (:taskId, :workerId)";
+    if ($taskCreateQuery) {
+        $idtask = $pdo->lastInsertId();
+        if (!empty($idtask)) {
+            $result['taskId'] = $idtask;
+            echo json_encode($result);
+            $coworkersQuery = "INSERT INTO task_coworkers(task_id, worker_id) VALUES (:taskId, :workerId)";
             $sql = $pdo->prepare($coworkersQuery);
             foreach ($coworkers as $workerId) {
                 $sql->execute(array(':taskId' => $idtask, ':workerId' => $workerId));
             }
-		}
-	}
+        }
+    }
     if (count($_FILES) > 0) {
         uploadAttachedFiles('task', $idtask);
     }
@@ -322,8 +328,8 @@ if($_POST['module'] == 'createTask') {
 //отклонение запроса на перенос срока
 
 if ($_POST['module'] == 'cancelDate' && $isManager) {
-	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork' WHERE id=" . $idtask); //TODO нужно разобраться со статусами
-	$sql->execute();
+    $sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork' WHERE id=" . $idtask); //TODO нужно разобраться со статусами
+    $sql->execute();
 
     addChangeDateComments($idtask, 'canceldate');
     resetViewStatus($idtask);
@@ -334,19 +340,19 @@ if ($_POST['module'] == 'cancelDate' && $isManager) {
 //одобрение запроса на перенос срока
 
 if ($_POST['module'] == 'confirmDate' && $isManager) {
-	$statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
-	$datepostpone = preg_split('~:~', $statusWithDate)[1];
-	setStatus($idtask, 'inwork', $datepostpone);
+    $statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
+    $datepostpone = preg_split('~:~', $statusWithDate)[1];
+    setStatus($idtask, 'inwork', $datepostpone);
 
-	addChangeDateComments($idtask, 'confirmdate', $datepostpone);
+    addChangeDateComments($idtask, 'confirmdate', $datepostpone);
     resetViewStatus($idtask);
     addEvent('confirmdate', $idtask, $datepostpone);
 
 }
 
 if ($_POST['module'] == 'sendDate' && $isManager) {
-	$datepostpone = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS));
-	$sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datedone = :datepostpone, `view` = 0 WHERE id=".$idtask);
+    $datepostpone = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS));
+    $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datedone = :datepostpone, `view` = 0 WHERE id=".$idtask);
 
     if ($taskStatus != 'planned') {
         $sql->execute(array('datepostpone' => $datepostpone, ':status' => 'inwork'));
@@ -419,5 +425,18 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
     }
 }
 
-
+if ($_POST['module'] == 'checklist' && ($isManager || $id == $idTaskWorker) && isset($_POST['checklistRow'])) {
+    $checklistRow = filter_var($_POST['checklistRow'], FILTER_SANITIZE_STRING);
+    if ($checklist[$checklistRow] == 0) {
+        $checklist[$checklistRow] = 1;
+    } else {
+        $checklist[$checklistRow] = 0;
+    }
+    $updateCheklistQuery = $pdo->prepare('UPDATE `tasks` SET checklist = :checklist WHERE id='.$idtask);
+    $updateCheklistData = [
+        ':checklist' => json_encode($checklist)
+    ];
+    $sql->execute($updateCheklistData);
+    return $checklist[$checklistRow];
+}
 

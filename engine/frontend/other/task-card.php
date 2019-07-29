@@ -32,8 +32,12 @@
                         </div>
                         <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
                             <div>
-                                <img src="/<?= getAvatarLink($n['task']['idmanager']) ?>" class="avatar"> |
-                                <img src="/<?= getAvatarLink($n['task']['idworker']) ?>" class="avatar">
+                                <?php if ($n['task']['idmanager'] == $n['task']['idworker']): ?>
+                                    <img src="/<?= getAvatarLink($n['task']['idmanager']) ?>" class="avatar">
+                                <?php else: ?>
+                                    <img src="/<?= getAvatarLink($n['task']['idmanager']) ?>" class="avatar"> |
+                                    <img src="/<?= getAvatarLink($n['task']['idworker']) ?>" class="avatar">
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -72,8 +76,12 @@
                         </div>
                         <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
                             <div>
+                                <?php if ($subTask['idmanager'] == $subTask['idworker']): ?>
+                                <img src="/<?= getAvatarLink($n['task']['idmanager']) ?>" class="avatar">
+                                <?php else: ?>
                                 <img src="/<?= getAvatarLink($subTask['idmanager']) ?>" class="avatar"> |
                                 <img src="/<?= getAvatarLink($subTask['idworker']) ?>" class="avatar">
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
