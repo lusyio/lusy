@@ -92,6 +92,9 @@ $dayost = (strtotime($datedone) - strtotime($nowdate)) / (60 * 60 * 24);
 $dateProgress = getDateProgress($task['datedone'], $task['datecreate']);
 
 $checklist = json_decode($task['checklist'], true);
+if (is_null($checklist)) {
+    $checklist = [];
+}
 
 $view = $task['view'];
 $viewState = '';
