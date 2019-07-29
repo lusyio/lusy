@@ -17,7 +17,7 @@ if (isset($_POST['it'])) {
     $idTaskManager = DBOnce('manager', 'tasks', 'id='.$idtask);
     $idTaskWorker = DBOnce('worker', 'tasks', 'id='.$idtask);
     $taskDatedone = DBOnce('datedone', 'tasks', 'id='.$idtask);
-
+    $checklist = json_decode(DBOnce('checklist', 'tasks', 'id='.$idtask), true);
     if ($id == $idTaskManager) {
         $isManager = true;
     }
@@ -209,6 +209,12 @@ if($_POST['module'] == 'createTask') {
     foreach ($unsafeCoworkers as $c) {
         $coworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
     }
+    $unsafeChecklist = json_decode($_POST['checklist'], true);
+    $checklist = [];
+    foreach ($unsafeChecklist as $key => $value) {
+        $checklist[$key]['text'] = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+        $checklist[$key]['status'] = 0;
+    }
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $googleFiles = [];
     foreach ($unsafeGoogleFiles as $k => $v) {
@@ -260,6 +266,7 @@ if($_POST['module'] == 'createTask') {
         ':datedone' => $datedone,
         ':status' => $status,
         ':parentTask' => null,
+        ':checklist' => json_encode($checklist),
     ];
 	if ($parentTask != '' && $parentTask != 0 && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
         $parentTaskDataQuery = $pdo->prepare("SELECT manager, worker, idcompany FROM tasks WHERE id = :taskId");
@@ -270,7 +277,7 @@ if($_POST['module'] == 'createTask') {
             $usePremiumTask = true;
         }
     }
-    $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask)");
+    $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, checklist) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :checklist)");
     $taskCreateQuery->execute($taskCreateQueryData);
 	if ($taskCreateQuery) {
 		$idtask = $pdo->lastInsertId();
@@ -418,5 +425,18 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
     }
 }
 
-
+if ($_POST['module'] == 'checklist' && ($isManager || $id == $idTaskWorker) && isset($_POST['checklistRow'])) {
+    $checklistRow = filter_var($_POST['checklistRow'], FILTER_SANITIZE_STRING);
+    if ($checklist[$checklistRow] == 0) {
+        $checklist[$checklistRow] = 1;
+    } else {
+        $checklist[$checklistRow] = 0;
+    }
+    $updateCheklistQuery = $pdo->prepare('UPDATE `tasks` SET checklist = :checklist WHERE id='.$idtask);
+    $updateCheklistData = [
+        ':checklist' => json_encode($checklist)
+    ];
+    $sql->execute($updateCheklistData);
+    return $checklist[$checklistRow];
+}
 
