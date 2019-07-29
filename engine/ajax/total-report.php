@@ -53,9 +53,6 @@ $countChangeDateByUserQuery = $pdo->prepare("SELECT COUNT(*) FROM events e LEFT 
 $taskDoneManagerQuery = $pdo->prepare("SELECT COUNT(distinct t.id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE t.manager = :userId AND e.action='workdone' AND datetime > :firstDay AND e.datetime < :lastDay");
 $taskDoneWorkerQuery = $pdo->prepare("SELECT COUNT(distinct t.id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE t.worker = :userId AND e.action='workdone' AND datetime > :firstDay AND e.datetime < :lastDay");
 
-
-$tasks = DB('*','tasks','id!=0 limit 20');
-
 $taskStatusText = [
         'new' => $GLOBALS['_tasknewmanager'],
         'inwork' => $GLOBALS['_inprogresslist'],
