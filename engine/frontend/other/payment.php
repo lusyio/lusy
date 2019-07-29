@@ -1,8 +1,5 @@
 <?php
-$payBefore = 0; // ранее не было оплат?
-$cardBinded = 1; // карта привязана?
-$countReports = 3; // доступно отчетов
-$countTaskEdit = 3; // доступно раз расширенного функционала задач
+
 ?>
 <div class="card mb-5 premiumCard">
     <div class="card-body">
@@ -10,19 +7,26 @@ $countTaskEdit = 3; // доступно раз расширенного функ
             <div class="col-sm-5 text-center position-relative">
                 <div>
                     <?php if ($companyTariff['tariff'] == 0): ?>
-                        <?php if ($payBefore == 0): ?>
-                            <p class="payZag">Попробуйте<br><span>Premium</span> доступ</p>
-                        <?php else: ?>
+                        <?php if ($wasUsedFreePeriod): ?>
                             <p class="payZag">Активируйте<br><span>Premium</span> доступ</p>
+                        <?php else: ?>
+                            <p class="payZag">Попробуйте<br><span>Premium</span> доступ</p>
                         <?php endif; ?>
                         <button class="btn btn-light choose-tariff" data-price="299" data-price-per-month="299"
                                 data-period="1 месяц" data-tariff-name="Стартовый" data-tariff-id="1">Подробнее
                         </button>
                     <?php endif; ?>
-                    <?php if ($companyTariff['tariff'] == 1): ?>
+                    <?php if ($companyTariff['tariff']): ?>
+                    <?php $daysToPayday = floor(($companyTariff['payday'] -  time()) / (24 * 3600)); ?>
                         <p class="payZag">У вас активирован<br><span>Premium</span> доступ</p>
                         <div class="dayLast">
-                            Заканчивается<br>через 5 дней
+                            <?php if ($daysToPayday > 0): ?>
+                            Заканчивается<br>через <?= $daysToPayday; ?> <?= ngettext('day', 'days', $daysToPayday); ?>
+                            <?php elseif ($daysToPayday == 0): ?>
+                                Заканчивается<br> сегодня
+                            <?php else: ?>
+                                Пропущена оплата <?= $daysToPayday; ?> <?= ngettext('day', 'days', $daysToPayday); ?> назад
+                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -56,22 +60,21 @@ $countTaskEdit = 3; // доступно раз расширенного функ
                             <span><?= normalizeSize($remainingLimits['space'])['size'] ?> <?= normalizeSize($remainingLimits['space'])['suffix'] ?></span>
                             из 100 МБ
                         </li>
-                        <li>Вы можете создать еще <span><?= $remainingLimits['tasks'] ?> задачи</span> из 150 возможных
+                        <li>Вы можете создать еще <span><?= $remainingLimits['tasks'] ?> <?= ngettext('task', 'tasks', $remainingLimits['tasks']) ?></span> из 150 возможных
                         </li>
-                        <li>Вам доступно еще <span><?= $countReports ?> отчета</span> в этом месяце (макс. 3)</li>
-                        <li>Вам доступно <span><?= $countTaskEdit ?> раза</span> возможность создать задачу с
+                        <li>Вам доступно еще <span><?= $countReports ?> <?= ngettext('report', 'reports', $countReports) ?></span> в этом месяце (макс. 3)</li>
+                        <li>Вам доступно <span><?= $countTaskEdit ?> <?= ngettext('time', 'times', $countTaskEdit) ?></span> возможность создать задачу с
                             расширенными настройками (макс. 3)
                         </li>
                     </ul>
                 <?php else: ?>
-                    <?php if ($cardBinded == 0): ?>
-                        <p><span class="ns">Доступен до <?= date('d.m', $companyTariff['payday']); ?></span> <span
-                                    class="small ns font-weight-light"> - далее вы будете переведены на бесплатный тариф</span>
-                        </p>
-                    <?php else: ?>
+                    <?php if ($companyTariff['is_card_binded']): ?>
                         <p><span class="ns">Доступен до <?= date('d.m', $companyTariff['payday']); ?></span> <span
                                     class="small ns font-weight-light"> - далее будет произведено автоматическое списание средств, согласно ранее выбраному тарифу</span>
                         </p>
+                    <?php else: ?>
+                        <p><span class="ns">Доступен до <?= date('d.m', $companyTariff['payday']); ?></span> <span
+                                    class="small ns font-weight-light"> - далее вы будете переведены на бесплатный тариф</span></p>
                     <?php endif; ?>
                     <ul class="plusUl">
                         <li>В хранилище файлов осталось места на
@@ -85,7 +88,6 @@ $countTaskEdit = 3; // доступно раз расширенного функ
                         <li>Вам доступна интеграция с Google Drive и DropBox</li>
                     </ul>
                 <?php endif; ?>
-
             </div>
         </div>
     </div>
