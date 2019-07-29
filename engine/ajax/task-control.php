@@ -106,6 +106,7 @@ if($_POST['module'] == 'workdone' && $isManager) {
         resetViewStatus($idtask);
         if ($taskStatus != 'planned') {
             addEvent('workdone', $idtask, '');
+            echo json_encode($subTasks);
         }
     } else {
         echo json_encode($subTasks);

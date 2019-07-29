@@ -266,7 +266,7 @@ function checkSubTasksForFinish($taskId)
         'tasks' => [],
     ];
     foreach ($subTasks as $subTask) {
-        if ($subTask['status'] != 'canceled' || $subTask['status'] != 'done') {
+        if ($subTask['status'] != 'canceled' && $subTask['status'] != 'done') {
             $result['status'] = false;
             $result['tasks'][] = [
                 'id' => $subTask['id'],
