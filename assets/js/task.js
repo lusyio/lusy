@@ -423,7 +423,17 @@ $(document).ready(function () {
                 if (response.status){
                     controlUpdate()
                 } else {
-                    console.log(response)
+                    response.tasks.forEach(function (e) {
+                        $('.subTaskInList').find('[idtask= '+ e.id + ']').children('.card-footer').css({
+                            'background-color': 'rgba(255, 242, 242, 1)',
+                            'transition': '1000ms'
+                        });
+                        setTimeout(function () {
+                            $('.subTaskInList').find('[idtask= '+ e.id + ']').children('.card-footer').css('background-color', '#00000008');
+                            $('#workdone').prop('disabled', false);
+                            $("#cancelTask").prop('disabled', false);
+                        }, 1000)
+                    });
                 }
             },
         });

@@ -238,7 +238,7 @@ if ($id == $worker and $view == 0) {
         <?php if (count($subTasks) > 0): ?>
             <div class="subTaskInList subtask-task">
                 <?php foreach ($subTasks as $subTask): ?>
-                    <a class="text-decoration-none cust" href="/task/<?= $subTask['id'] ?>/">
+                    <a class="text-decoration-none cust" idtask="<?= $subTask['id'] ?>" href="/task/<?= $subTask['id'] ?>/">
                         <div class="card-footer border-0" style="padding: 0.8rem;">
                             <div class="d-block" style="height: 24px;">
                                 <div class="row">

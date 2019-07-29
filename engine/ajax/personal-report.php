@@ -102,7 +102,7 @@ $statusColor = [
         <?php
         require_once __ROOT__ . '/engine/backend/other/company.php';
         foreach ($sql
-            
+
                  as $n):
             $overdue = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="overdue"');
             $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')'); ?>
