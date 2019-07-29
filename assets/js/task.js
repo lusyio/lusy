@@ -420,16 +420,16 @@ $(document).ready(function () {
                 ajax: 'task-control'
             },
             success: function (response) {
-                if (response.status){
+                if (response.status) {
                     controlUpdate()
                 } else {
                     response.tasks.forEach(function (e) {
-                        $('.subTaskInList').find('[idtask= '+ e.id + ']').children('.card-footer').css({
+                        $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css({
                             'background-color': '#ff000008',
                             'transition': '1000ms'
                         });
                         setTimeout(function () {
-                            $('.subTaskInList').find('[idtask= '+ e.id + ']').children('.card-footer').css('background-color', '#00000008');
+                            $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css('background-color', '#00000008');
                             $('#workdone').prop('disabled', false);
                             $("#cancelTask").prop('disabled', false);
                         }, 1000)
@@ -545,7 +545,7 @@ $(document).ready(function () {
                 ajax: 'task-control'
             },
             success: function (response) {
-                if (response.status){
+                if (response.status) {
                     controlUpdate()
                 } else {
                     console.log(response)
@@ -667,5 +667,35 @@ $(document).ready(function () {
             $(this).removeClass('new-event');
         })
     );
+
+    $('#nameTask').on('click', function () {
+        $('.collapse-checklist').collapse('toggle');
+    });
+
+    $('.checkbox-checklist').on('change', function () {
+        // var isChecked = $(this).prop('checked');
+        // console.log(isChecked);
+        var $this = $(this);
+        var idCheckList = $(this).attr('idChecklist');
+        console.log(idCheckList);
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+
+            data: {
+                ajax: 'task-control',
+                module: 'checklist',
+                it: $it,
+                checklistRow: idCheckList
+            },
+            success: function (data) {
+                if (data == 1){
+                    $this.prop('checked', true);
+                } else{
+                    $this.prop('checked', false);
+                }
+            }
+        })
+    })
 
 });

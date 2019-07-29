@@ -233,10 +233,10 @@ $(document).ready(function () {
         fd.append('name', name);
         fd.append('description', delta);
         fd.append('datedone', datedone);
-        fd.append('checklist', checkList);
         fd.append('startdate', startdate);
         fd.append('worker', responsible);
         fd.append('coworkers', JSON.stringify(coworkers));
+        fd.append('checklist', JSON.stringify(checkList));
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('parentTask', parentTask);
