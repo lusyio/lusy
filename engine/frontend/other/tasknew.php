@@ -178,6 +178,13 @@ $borderColor = [
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Подпункты
+                            <?php if ($tryPremiumLimits['task'] < 3): ?>
+                                <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
+                                      title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
+                                            class="fas fa-comment-dollar"></i></span>
+                            <?php
+                            endif;
+                            ?>
                         </div>
                         <div class="mb-2 card card-tasknew">
                             <input type="text" id="checklistInput" class="form-control border-0 card-body-tasknew"
