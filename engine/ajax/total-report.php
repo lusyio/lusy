@@ -7,7 +7,7 @@ if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
     $firstDay = strtotime($startDate);
     $lastDay = strtotime('+1 day', strtotime($endDate)) - 1;
 } else {
-    $firstDay = strtotime('first day of month midnight');
+    $firstDay = strtotime('first day of this month midnight');
     $lastDay = strtotime('+1 day midnight') - 1;
 }
 $countInworkTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT td.taskId) FROM (SELECT t.id AS taskId, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate FROM tasks t LEFT JOIN events e ON e.task_id = t.id WHERE e.action IN ('workdone', 'canceltask')) td WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
