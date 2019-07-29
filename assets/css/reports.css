@@ -132,7 +132,7 @@
     text-align: center;
     border-radius: 6px;
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     right: 0px;
     top: 50px;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, .1);

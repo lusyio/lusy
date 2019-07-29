@@ -127,7 +127,7 @@ $statusColor = [
                     </div>
                     <div class="col-lg-9 col-12">
                         <h5>
-                            Статистика по задачам
+                            Статистика по событиям
                         </h5>
                         <div class="row">
                             <div class="col-lg-8 col-12 left-report">
@@ -156,7 +156,7 @@ $statusColor = [
                                         </div>
                                         <div>
                                             <div class="text-dark text-statistic font-weight-bold"><?= ($countCancel) ? $countCancel : 0 ?></div>
-                                            <span class="text-reports">Отмененили</span>
+                                            <span class="text-reports">Отменили</span>
                                         </div>
                                     </div>
                                 </div>
@@ -316,11 +316,11 @@ $statusColor = [
                 ],
             }],
             labels: [
-                'В работе',
-                'Выполнено',
-                'Просрочено',
-                'Перенесено',
-                'Отменено'
+                'Создали',
+                'Выполнили',
+                'Просрочили',
+                'Перенесли',
+                'Отменили'
             ],
 
         },
