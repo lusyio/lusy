@@ -427,16 +427,16 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
 
 if ($_POST['module'] == 'checklist' && ($isManager || $id == $idTaskWorker) && isset($_POST['checklistRow'])) {
     $checklistRow = filter_var($_POST['checklistRow'], FILTER_SANITIZE_STRING);
-    if ($checklist[$checklistRow] == 0) {
-        $checklist[$checklistRow] = 1;
+    if ($checklist[$checklistRow]['status'] == 0) {
+        $checklist[$checklistRow]['status'] = 1;
     } else {
-        $checklist[$checklistRow] = 0;
+        $checklist[$checklistRow]['status'] = 0;
     }
-    $updateCheklistQuery = $pdo->prepare('UPDATE `tasks` SET checklist = :checklist WHERE id='.$idtask);
-    $updateCheklistData = [
+    $updateChecklistQuery = $pdo->prepare('UPDATE `tasks` SET checklist = :checklist WHERE id='.$idtask);
+    $updateChecklistData = [
         ':checklist' => json_encode($checklist)
     ];
-    $sql->execute($updateCheklistData);
-    return $checklist[$checklistRow];
+    $updateChecklistQuery->execute($updateChecklistData);
+    echo $checklist[$checklistRow]['status'];
 }
 

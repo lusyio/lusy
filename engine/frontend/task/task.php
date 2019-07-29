@@ -153,7 +153,23 @@ if ($id == $worker and $view == 0) {
                     </div>
                 </div>
             </div>
-            <h4 class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5"><?= $nametask ?></h4>
+            <h4 id="nameTask" class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5"><?= $nametask ?> <?= ($checklist != [])? '<i class="fas fa-caret-down"></i>': '' ?> </h4>
+            <?php
+            if ($checklist != []):
+            ?>
+            <div class="collapse collapse-checklist">
+            <?php
+            foreach ($checklist as $k => $n):
+                ?>
+                <div class="ml-3">
+                    <input idChecklist="<?= $k ?>" type="checkbox" class="checkbox-checklist" <?= ($n['status'] == 1)? 'checked': '' ?>>
+                    <span class="ml-3"><?= $n['text'] ?></span>
+                </div>
+            <?php
+            endforeach;
+            ?>
+            </div>
+            <?php endif; ?>
             <hr>
             <div class="row">
                 <div class="col-6 col-lg-4">
