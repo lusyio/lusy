@@ -622,7 +622,7 @@ list-group:hover {
     border-bottom: none !important;
     border-radius: 0 0 calc(.4rem - 1px) calc(.4rem - 1px) !important;
 }
-input[type="checkbox"] {
+input[type="checkbox"].new-checkbox {
     width: 50px;
     height: 25px;
     -webkit-appearance: none;
@@ -635,11 +635,11 @@ input[type="checkbox"] {
     position: relative;
 }
 
-input:checked[type="checkbox"] {
+input:checked[type="checkbox"].new-checkbox {
     background: #5d95db;
 }
 
-input[type="checkbox"]::before {
+input[type="checkbox"].new-checkbox::before {
     content: '';
     position: absolute;
     width: 25px;
@@ -653,7 +653,7 @@ input[type="checkbox"]::before {
     transition: 0.5s;
 }
 
-input:checked[type="checkbox"]::before {
+input:checked[type="checkbox"].new-checkbox::before {
     left: 25px;
 }
 

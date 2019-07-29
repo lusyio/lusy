@@ -82,6 +82,27 @@ $(document).ready(function () {
         }
     }
 
+//подпункты
+
+    $('.check-list-container').on('click', '.delete-checklist-item', function () {
+        $(this).closest('.check-list-new').remove();
+        if ($('.check-list-new:visible').length < 1) {
+            $('.check-list-container').hide();
+        }
+    });
+    $('#addChecklistBtn').on('click', function () {
+        var checkName = $('#checklistInput').val();
+        if (checkName != ''){
+            $('.check-list-container').show().append('<div class="position-relative check-list-new mb-2">\n' +
+                '                                    <input type="checkbox" checked disabled>\n' +
+                '                                    <span class="ml-3" style="color: #28416b;"> '+ checkName +' </span>\n' +
+                '                                    <i class="fas fa-times delete-checklist-item"></i>\n' +
+                '                                </div>');
+            $('#checklistInput').val('');
+        }
+
+    });
+
 //работа с надзадачами
     function subtaskListEmpty() {
         if ($(".select-subtask").is(':visible')) {
@@ -193,6 +214,10 @@ $(document).ready(function () {
         $('.add-worker:visible').each(function () {
             coworkers.push($(this).attr('val'));
         });
+        var checkList = [];
+        $('.check-list-new:visible').each(function () {
+            checkList.push($(this).text().trim());
+        });
         var checkDate = $('#datedone').attr('min');
         var name = $("#name").val();
         var delta = quill.root.innerHTML;
@@ -208,6 +233,7 @@ $(document).ready(function () {
         fd.append('name', name);
         fd.append('description', delta);
         fd.append('datedone', datedone);
+        fd.append('checklist', checkList);
         fd.append('startdate', startdate);
         fd.append('worker', responsible);
         fd.append('coworkers', JSON.stringify(coworkers));

@@ -295,13 +295,13 @@
                     Срок действия
                 </small>
                 <div class="input-group mt-3 pb-1">
-                    <input type="checkbox" id="multiple" style=" position: relative; top: 7px; margin-right: 10px; ">
+                    <input class="new-checkbox" type="checkbox" id="multiple" style=" position: relative; top: 7px; margin-right: 10px; ">
                 </div>
                 <small class="text-muted text-muted-reg">
                     Многопользовательский
                 </small>
                 <div class="input-group mt-3 pb-1">
-                    <input type="checkbox" id="used" style=" position: relative; top: 7px; margin-right: 10px; ">
+                    <input class="new-checkbox" type="checkbox" id="used" style=" position: relative; top: 7px; margin-right: 10px; ">
                 </div>
                 <small class="text-muted text-muted-reg">
                     Использован

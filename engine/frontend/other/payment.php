@@ -211,7 +211,7 @@ endforeach; ?>
                             <p>Вы еще не использовали платный тариф - дарим вам 14 дней бесплатно</p>
                             <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
                         <?php endif; ?>
-                        <p class="oferta-field"><input type="checkbox" id="oferta"
+                        <p class="oferta-field"><input class="new-checkbox" type="checkbox" id="oferta"
                                   style=" position: relative; top: 7px; margin-right: 10px; ">Я
                             согласен с <a
                                     href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
@@ -256,7 +256,7 @@ endforeach; ?>
                         <?php if ($companyTariff['tariff'] == 0 || !$companyTariff['is_card_binded']): ?>
                             <p>Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
                         <?php endif; ?>
-                        <p><input type="checkbox" id="oferta"
+                        <p><input class="new-checkbox" type="checkbox" id="oferta"
                                   style=" position: relative; top: 7px; margin-right: 10px; ">Я
                             согласен с <a
                                     href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
@@ -327,7 +327,7 @@ endforeach; ?>
                             </tr>
                         </table>
                         <p>Для привязывания карты мы спишем с вашей карты 1 рубль и вернём его</p>
-                        <p class="oferta-field"><input type="checkbox" id="ofertaAddModal"
+                        <p class="oferta-field"><input class="new-checkbox" type="checkbox" id="ofertaAddModal"
                                                        style=" position: relative; top: 7px; margin-right: 10px; ">Я
                             согласен с <a
                                     href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"

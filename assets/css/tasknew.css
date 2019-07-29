@@ -213,6 +213,10 @@
     color: #c2c2c4;
 }
 
+#checklistInput::placeholder {
+    color: #c2c2c4;
+}
+
 .mt-25-tasknew {
     margin-top: 25px;
 }
@@ -290,7 +294,29 @@
     padding-left: 30px;
     padding-top: 20px;
     margin-bottom: 0;
-    color: #a2a5ac
+    color: #a2a5ac;
+}
+
+.check-list-container{
+    display: none;
+}
+
+#checklistInput{
+    color: #353b41 !important;
+}
+
+.delete-checklist-item{
+    position: absolute;
+    right: -17px;
+    bottom: -6px;
+    padding: 10px 13px;
+    border-radius: 50%;
+    color: rgba(188, 0, 0, 0.51);
+}
+
+.delete-checklist-item:hover{
+    background-color: rgba(212, 74, 95, 0.31);
+    cursor: pointer;
 }
 
 .btn-file-tasknew:hover {
