@@ -17,11 +17,12 @@
                         </button>
                     <?php endif; ?>
                     <?php if ($companyTariff['tariff']): ?>
-                    <?php $daysToPayday = floor(($companyTariff['payday'] -  time()) / (24 * 3600)); ?>
+                        <?php $daysToPayday = floor(($companyTariff['payday'] - time()) / (24 * 3600)); ?>
                         <p class="payZag">У вас активирован<br><span>Premium</span> доступ</p>
                         <div class="dayLast">
                             <?php if ($daysToPayday > 0): ?>
-                            Заканчивается<br>через <?= $daysToPayday; ?> <?= ngettext('day', 'days', $daysToPayday); ?>
+                                Заканчивается
+                                <br>через <?= $daysToPayday; ?> <?= ngettext('day', 'days', $daysToPayday); ?>
                             <?php elseif ($daysToPayday == 0): ?>
                                 Заканчивается<br> сегодня
                             <?php else: ?>
@@ -60,10 +61,17 @@
                             <span><?= normalizeSize($remainingLimits['space'])['size'] ?> <?= normalizeSize($remainingLimits['space'])['suffix'] ?></span>
                             из 100 МБ
                         </li>
-                        <li>Вы можете создать еще <span><?= $remainingLimits['tasks'] ?> <?= ngettext('task', 'tasks', $remainingLimits['tasks']) ?></span> из 150 возможных
+                        <li>Вы можете создать еще
+                            <span><?= $remainingLimits['tasks'] ?> <?= ngettext('task', 'tasks', $remainingLimits['tasks']) ?></span>
+                            из 150 возможных
                         </li>
-                        <li>Вам доступно еще <span><?= $countReports ?> <?= ngettext('report', 'reports', $countReports) ?></span> в этом месяце (макс. 3)</li>
-                        <li>Вам доступно <span><?= $countTaskEdit ?> <?= ngettext('time', 'times', $countTaskEdit) ?></span> возможность создать задачу с
+                        <li>Вам доступно еще
+                            <span><?= $countReports ?> <?= ngettext('report', 'reports', $countReports) ?></span> в этом
+                            месяце (макс. 3)
+                        </li>
+                        <li>Вам доступно
+                            <span><?= $countTaskEdit ?> <?= ngettext('time', 'times', $countTaskEdit) ?></span>
+                            возможность создать задачу с
                             расширенными настройками (макс. 3)
                         </li>
                     </ul>
@@ -74,7 +82,8 @@
                         </p>
                     <?php else: ?>
                         <p><span class="ns">Доступен до <?= date('d.m', $companyTariff['payday']); ?></span> <span
-                                    class="small ns font-weight-light"> - далее вы будете переведены на бесплатный тариф</span></p>
+                                    class="small ns font-weight-light"> - далее вы будете переведены на бесплатный тариф</span>
+                        </p>
                     <?php endif; ?>
                     <ul class="plusUl">
                         <li>В хранилище файлов осталось места на
@@ -145,38 +154,32 @@ endforeach; ?>
                             подходящий тариф</h5>
                     </div>
                     <div class="modal-body text-left">
-                        <div class="row mb-3">
-                            <div class="col-2 pr-0 text-right">
-                                <input id="rFirst" type="radio" name="radio" style="color: #28416b;font-weight: 600;">
-                            </div>
-                            <div class="col">
-                                <div class="mb-2" style="color: #28416b;font-weight: 600;"><span>Стартовый</span></div>
-                                <p class="text-muted-new">Переодичность оплаты - 1 месяц <br>
-                                    Стоимость - 499 руб./мес
-                                </p>
-                            </div>
+                        <div class="mb-3 pl-5">
+                            <label class="pure-material-radio">
+                                <input type="radio" name="radio">
+                                <span style="color: #28416b;font-weight: 600;">Стартовый</span>
+                            </label>
+                            <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 1 месяц <br>
+                                Стоимость - 499 руб./мес
+                            </p>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-2 pr-0 text-right">
-                                <input id="rSecond" type="radio" name="radio">
-                            </div>
-                            <div class="col">
-                                <div class="mb-2" style="color: #28416b;font-weight: 600;"><span>Уверенный</span></div>
-                                <p class="text-muted-new">Переодичность оплаты - 3 месяц <br>
-                                    Стоимость - 349 руб./мес
-                                </p>
-                            </div>
+                        <div class="mb-3 pl-5">
+                            <label class="pure-material-radio">
+                                <input type="radio" name="radio">
+                                <span style="color: #28416b;font-weight: 600;">Уверенный</span>
+                            </label>
+                            <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 3 месяц <br>
+                                Стоимость - 349 руб./мес
+                            </p>
                         </div>
-                        <div class="row">
-                            <div class="col-2 pr-0 text-right">
-                                <input id="rThird" type="radio" name="radio">
-                            </div>
-                            <div class="col">
-                                <div class="mb-2" style="color: #28416b;font-weight: 600;"><span>Босс</span></div>
-                                <p class="text-muted-new">Переодичность оплаты - 12 месяц <br>
-                                    Стоимость - 249 руб./мес
-                                </p>
-                            </div>
+                        <div class="mb-3 pl-5">
+                            <label class="pure-material-radio">
+                                <input type="radio" name="radio">
+                                <span style="color: #28416b;font-weight: 600;">Босс</span>
+                            </label>
+                            <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 12 месяц <br>
+                                Стоимость - 249 руб./мес
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -190,7 +193,8 @@ endforeach; ?>
                     </div>
                     <?php if ($companyTariff['tariff'] == 0): ?>
                         <div class="modal-body text-left">
-                            <p class="text-muted-new">Вы собираетесь оформить платную подписку по тарифному плану "<span id="tariffName"></span>"
+                            <p class="text-muted-new">Вы собираетесь оформить платную подписку по тарифному плану "<span
+                                        id="tariffName"></span>"
                             </p>
                             <table class="table w-100 border">
                                 <tr>
@@ -207,22 +211,25 @@ endforeach; ?>
                                 </tr>
                             </table>
                             <?php if ($wasUsedFreePeriod): ?>
-                                <p class="text-muted-new small">Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
+                                <p class="text-muted-new small">Для оформления подписки мы спишем с вашей карты 1 рубль
+                                    и вернём его</p>
                             <?php else: ?>
-                                <p class="text-muted-new small">Вы еще не использовали платный тариф - дарим вам 14 дней бесплатно. Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
+                                <p class="text-muted-new small">Вы еще не использовали платный тариф - дарим вам 14 дней
+                                    бесплатно. Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
                             <?php endif; ?>
                             <p class="oferta-field"><input type="checkbox" id="oferta"
                                                            style=" position: relative; top: 7px; margin-right: 10px; ">
                                 Я согласен с
                                 <a href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
-                                         style="text-decoration: underline" target="_blank">
+                                   style="text-decoration: underline" target="_blank">
                                     Офертой рекуррентных платежей
                                 </a>
                             </p>
                             <span class="position-absolute" id="disabledBtn">
                             adasd
                             </span>
-                            <button class="btn text-white w-100 mt-3" id="pay" disabled style="height: 50px; background: #7b81f9;border-radius: 20px;">
+                            <button class="btn text-white w-100 mt-3" id="pay" disabled
+                                    style="height: 50px; background: #7b81f9;border-radius: 20px;">
                                 Перейти к оплате подписки
                                 <div class="spinner-border spinner-border-sm text-white" role="status"
                                      style="display: none">
@@ -256,10 +263,11 @@ endforeach; ?>
                                 </tr>
                             </table>
                             <?php if ($companyTariff['tariff'] == 0 || !$companyTariff['is_card_binded']): ?>
-                                <p class="text-muted-new small">Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
+                                <p class="text-muted-new small">Для оформления подписки мы спишем с вашей карты 1 рубль
+                                    и вернём его</p>
                             <?php endif; ?>
                             <p class="oferta-field"><input type="checkbox" id="oferta"
-                                      style=" position: relative; top: 7px; margin-right: 10px; ">
+                                                           style=" position: relative; top: 7px; margin-right: 10px; ">
                                 Я согласен с
                                 <a href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
                                    style="text-decoration: underline" target="_blank">
@@ -270,7 +278,9 @@ endforeach; ?>
                             adasd
                             </span>
                             <hr>
-                            <button class="btn text-white w-100" style="height: 50px; background: #7b81f9;border-radius: 20px;" id="changeTariff" disabled>
+                            <button class="btn text-white w-100"
+                                    style="height: 50px; background: #7b81f9;border-radius: 20px;" id="changeTariff"
+                                    disabled>
                                 Сменить тариф
                                 <div class="spinner-border spinner-border-sm text-white" role="status"
                                      style="display: none">
@@ -290,10 +300,13 @@ endforeach; ?>
             <div class="modal-body">
                 <hr style="margin-left: 24px; margin-right: 24px;">
                 <p class="text-muted-new small mb-0" style="margin-left: 24px;margin-right: 24px;">
-                    <b>Внимание!</b> Оплата тарифного плана происходит путем автоплатежа - автоматического списания суммы
+                    <b>Внимание!</b> Оплата тарифного плана происходит путем автоплатежа - автоматического списания
+                    суммы
                     средств с периодичностью, соответствующей выбранному тарифу. Подписку можно отменить в любой момент.
                     Нажимая кнопки "Сменить тариф", "Продлить подписку" или "Привязать карту для оплаты", вы
-                    подтверждаете, что ознакомились с понятием "автоплатеж" и с <a class="btn-link" href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf">Офертой рекуррентных платежей.</a>
+                    подтверждаете, что ознакомились с понятием "автоплатеж" и с <a class="btn-link"
+                                                                                   href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf">Офертой
+                        рекуррентных платежей.</a>
                 </p>
             </div>
         </div>
