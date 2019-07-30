@@ -9,6 +9,19 @@
     top: 20px;
 }
 
+.pure-material-radio:hover{
+    cursor: pointer;
+}
+
+.pure-material-radio span {
+    color: #28416b;
+    font-weight: 700;
+}
+
+#tariffName{
+    font-weight: 700;
+}
+
 .pure-material-radio {
     z-index: 0;
     position: relative;

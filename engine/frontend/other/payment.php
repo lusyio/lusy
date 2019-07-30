@@ -53,14 +53,16 @@
         <div class="card">
             <div class="card-body position-relative">
                 <h5>Текущий тариф - <?= $tariffInfo['tariff_name'] ?></h5>
-                <div class="edit-tariff-block">
-                    <button id="changeTariffBlock" class="btn btn-edit-tariff btn-sm btn-light" data-toggle="tooltip" data-placement="bottom" title="Изменить тариф">
-                        <i class="fas fa-pencil-alt" style="color: #999999;"></i>
-                    </button>
-                    <button id="cancelTariff" class="btn btn-edit-tariff btn-sm btn-light" data-toggle="tooltip" data-placement="bottom" title="Отменить подписку">
-                        <i class="fas fa-times" style="color: #999999;"></i>
-                    </button>
-                </div>
+<!--                <div class="edit-tariff-block">-->
+<!--                    <button id="changeTariffBlock" class="btn btn-edit-tariff btn-sm btn-light" data-toggle="tooltip"-->
+<!--                            data-placement="bottom" title="Изменить тариф">-->
+<!--                        <i class="fas fa-pencil-alt" style="color: #999999;"></i>-->
+<!--                    </button>-->
+<!--                    <button id="cancelTariff" class="btn btn-edit-tariff btn-sm btn-light" data-toggle="tooltip"-->
+<!--                            data-placement="bottom" title="Отменить подписку">-->
+<!--                        <i class="fas fa-times" style="color: #999999;"></i>-->
+<!--                    </button>-->
+<!--                </div>-->
                 <?php if ($companyTariff['tariff'] == 0): ?>
                     <p class="ns">Безграничный период</p>
                     <ul class="plusUl">
@@ -163,32 +165,34 @@ endforeach; ?>
                             подходящий тариф</h5>
                     </div>
                     <div class="modal-body text-left">
-                        <div class="mb-3 pl-5">
+                        <div class="mb-4 pl-5">
                             <label class="pure-material-radio">
                                 <input type="radio" name="radio">
-                                <span style="color: #28416b;font-weight: 600;">Стартовый</span>
+                                <span>Стартовый</span>
+
+                                <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 1 месяц <br>
+                                    Стоимость - 499 руб./мес
+                                </p>
                             </label>
-                            <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 1 месяц <br>
-                                Стоимость - 499 руб./мес
-                            </p>
                         </div>
-                        <div class="mb-3 pl-5">
+                        <div class="mb-4 pl-5">
                             <label class="pure-material-radio">
                                 <input type="radio" name="radio">
-                                <span style="color: #28416b;font-weight: 600;">Уверенный</span>
+                                <span>Уверенный</span>
+                                <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 3 месяц <br>
+                                    Стоимость - 349 руб./мес
+                                </p>
                             </label>
-                            <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 3 месяц <br>
-                                Стоимость - 349 руб./мес
-                            </p>
                         </div>
-                        <div class="mb-3 pl-5">
+                        <div class="pl-5">
                             <label class="pure-material-radio">
                                 <input type="radio" name="radio">
-                                <span style="color: #28416b;font-weight: 600;">Босс</span>
+                                <span>Босс</span>
+                                <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 12 месяц
+                                    <br>
+                                    Стоимость - 249 руб./мес
+                                </p>
                             </label>
-                            <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 12 месяц <br>
-                                Стоимость - 249 руб./мес
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -288,7 +292,8 @@ endforeach; ?>
                             </span>
                             <hr>
                             <button class="btn text-white w-100"
-                                    style="height: 50px; background: #7b81f9;border-radius: 20px;" id="changeTariff" disabled>
+                                    style="height: 50px; background: #7b81f9;border-radius: 20px;" id="changeTariff"
+                                    disabled>
                                 Сменить тариф
                                 <div class="spinner-border spinner-border-sm text-white" role="status"
                                      style="display: none">
@@ -482,11 +487,11 @@ endforeach; ?>
         });
 
         $('#changeTariffBlock').on('mouseleave', function () {
-           $(this).tooltip('hide');
+            $(this).tooltip('hide');
         });
 
         $('#cancelTariff').on('mouseleave', function () {
-           $(this).tooltip('hide');
+            $(this).tooltip('hide');
         });
 
         $('#disabledBtn').on('click', function () {
