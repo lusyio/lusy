@@ -31,3 +31,7 @@
 .text-about-profile{
     margin-bottom: 1rem;
 }
+
+.accordion-link:hover .small.text-muted{
+    text-decoration: underline;
+}

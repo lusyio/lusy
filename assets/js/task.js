@@ -280,6 +280,7 @@ $(document).ready(function () {
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         if (text) {
             $(this).prop('disabled', true);
+            $('#spinnerModal').modal('show');
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -303,6 +304,7 @@ $(document).ready(function () {
         var text = $("#reportarea1").val();
         if (text !== '' && datepostpone >= checkDate) {
             $(this).prop('disabled', true);
+            $('#spinnerModal').modal('show');
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -345,6 +347,7 @@ $(document).ready(function () {
         var checkDate = $("#deadlineInput").attr('min');
         if (sendDate >= checkDate) {
             $(this).prop('disabled', true);
+            $('#spinnerModal').modal('show');
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -374,6 +377,7 @@ $(document).ready(function () {
     // Манагер принимает дату
     $("#confirmDate").click(function () {
         $(this).prop('disabled', true);
+        $('#spinnerModal').modal('show');
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -390,6 +394,7 @@ $(document).ready(function () {
     // Манагер отменят дату
     $("#cancelDate").click(function () {
         $(this).prop('disabled', true);
+        $('#spinnerModal').modal('show');
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -410,6 +415,7 @@ $(document).ready(function () {
         $("#cancelTask").prop('disabled', true);
         // var report = $("#reportarea").val();
         // if (report) {
+        $('#spinnerModal').modal('show');
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -446,6 +452,7 @@ $(document).ready(function () {
     $("#changePlanDate").on('click', function () {
         $(this).prop('disabled', true);
         var datePlan = $("#inputChangePlanDate").val();
+        $('#spinnerModal').modal('show');
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -492,6 +499,7 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         if (text) {
+            $('#spinnerModal').modal('show');
             $(this).prop('disabled', true);
             $.ajax({
                 url: '/ajax.php',
@@ -515,6 +523,7 @@ $(document).ready(function () {
         $(this).prop('disabled', true);
         // var report = $("#reportarea").val();
         // if (report) {
+        $('#spinnerModal').modal('show');
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -533,6 +542,7 @@ $(document).ready(function () {
 
     //Отмена таска
     $("#cancelTask").click(function () {
+        $('#spinnerModal').modal('show');
         $(this).prop('disabled', true);
         $("#workdone").prop('disabled', true);
         $.ajax({

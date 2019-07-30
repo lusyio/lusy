@@ -8,17 +8,20 @@
     <div class="col-12 col-lg-10 col-xl-10">
         <div class="accordion" id="accordionSettings">
             <div class="card">
-                <div class="card-header bg-mail">
-                    <div class="position-relative">
-                        <div class="text-reg" style="font-weight: 300;">
-                            Настройки профиля
-                        </div>
-                        <span class="position-absolute edit-settings">
-                        <a data-toggle="collapse" href="#collapseProfile" role="button" aria-expanded="false"
-                           aria-controls="collapseProfile" class="small text-muted">Изменить</a>
+                <a class="text-decoration-none accordion-link" href="#collapseProfile" data-toggle="collapse"
+                   role="button" aria-expanded="false"
+                   aria-controls="collapseProfile">
+                    <div class="card-header bg-mail">
+                        <div class="position-relative">
+                            <div class="text-reg" style="font-weight: 300;">
+                                Настройки профиля
+                            </div>
+                            <span class="position-absolute edit-settings">
+                        <span class="small text-muted">Изменить
                     </span>
+                        </div>
                     </div>
-                </div>
+                </a>
                 <div class="collapse show" id="collapseProfile" aria-labelledby="headingOne"
                      data-parent="#accordionSettings">
                     <div class="card-body p-4">
@@ -113,7 +116,8 @@
                         <div class="row">
                             <div class="col-lg-6 col-12">
                                 <div class="input-group mt-3">
-                                    <input type="date" id="bDayDate" class="form-control input-settings" value="<?= $userData['birthdate']; ?>">
+                                    <input type="date" id="bDayDate" class="form-control input-settings"
+                                           value="<?= $userData['birthdate']; ?>">
                                 </div>
                                 <small class="text-muted text-muted-reg">
                                     Дата рождения
@@ -204,17 +208,20 @@
             </div>
 
             <div class="card">
-                <div class="card-header border-top bg-mail">
-                    <div class="position-relative">
-                        <div class="text-reg" style="font-weight: 300;">
-                            Смена пароля
-                        </div>
-                        <span class="position-absolute edit-settings">
-                        <a data-toggle="collapse" href="#collapsePassword" role="button" aria-expanded="false"
-                           aria-controls="collapsePassword" class="small text-muted">Изменить</a>
+                <a class="text-decoration-none accordion-link" data-toggle="collapse" href="#collapsePassword"
+                   role="button" aria-expanded="false"
+                   aria-controls="collapsePassword">
+                    <div class="card-header border-top bg-mail">
+                        <div class="position-relative">
+                            <div class="text-reg" style="font-weight: 300;">
+                                Смена пароля
+                            </div>
+                            <span class="position-absolute edit-settings">
+                        <span class="small text-muted">Изменить</span>
                         </span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <div class="collapse" id="collapsePassword" aria-labelledby="headingThree"
                      data-parent="#accordionSettings">
@@ -250,20 +257,24 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header border-top bg-mail">
-                        <div class="position-relative">
-                            <div class="text-reg" style="font-weight: 300;">
-                                Уведомления
-                            </div>
-                            <span class="position-absolute edit-settings">
-                                <a data-toggle="collapse" href="#collapseNoty" role="button" aria-expanded="false"
-                                   aria-controls="collapseNoty" class="small text-muted">Изменить</a>
-                            </span>
-                            <span class="position-absolute edit-settings edit-settings-saved">
+                    <a class="text-decoration-none accordion-link" data-toggle="collapse" href="#collapseNoty"
+                       role="button" aria-expanded="false"
+                       aria-controls="collapseNoty">
+                        <div class="card-header border-top bg-mail">
+                            <div class="position-relative">
+                                <div class="text-reg" style="font-weight: 300;">
+                                    Уведомления
+                                </div>
+                                <span class="position-absolute edit-settings">
+                                <span id="editSpan" class="small text-muted">Изменить</span>
+                                </span>
+                                <span class="position-absolute edit-settings edit-settings-saved">
                                 <span class="text-muted small">Изменения сохранены</span>
                             </span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+
 
                     <div class="collapse" id="collapseNoty" aria-labelledby="headingFour"
                          data-parent="#accordionSettings">
@@ -547,10 +558,10 @@
                 contentType: false,
                 data: fd,
                 success: function () {
-                    $('[href="#collapseNoty"]').hide();
+                    $('#editSpan').hide();
                     $('.edit-settings-saved').fadeIn(200);
                     $.when($('.edit-settings-saved').fadeOut(800)).done(function () {
-                        $('[href="#collapseNoty"]').fadeIn(200);
+                        $('#editSpan').fadeIn(200);
                     });
                 },
             });

@@ -169,7 +169,8 @@
 
 
 .pure-material-checkbox {
-    width: 50%;
+    width: fit-content;
+    width: -moz-fit-content;
     z-index: 0;
     position: relative;
     display: inline-block;

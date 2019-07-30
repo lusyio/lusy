@@ -267,6 +267,8 @@
                 fd.append('coworkers', JSON.stringify(coworkers));
                 fd.append('ajax', 'task-control');
                 fd.append('it', $it);
+                $(this).prop('disabled', true);
+                $('#spinnerModal').modal('show');
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',

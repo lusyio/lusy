@@ -153,25 +153,7 @@ if ($id == $worker and $view == 0) {
                     </div>
                 </div>
             </div>
-            <h4 <?= ($checklist != [])? 'id="nameTask"': '' ?>  class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5"><?= $nametask ?> <?= ($checklist != [])? '<div class="icon-checklist-task" data-toggle="tooltip" data-placement="bottom"
-                                                                           title="Показать подпункты"><i class="fas fa-caret-down"></i></div>': '' ?> </h4>
-            <?php
-            if ($checklist != []):
-            ?>
-            <div class="collapse collapse-checklist">
-            <?php
-            foreach ($checklist as $k => $n):
-                ?>
-                <label class="pure-material-checkbox d-block ml-3">
-                    <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?>>
-                    <span class="text-area-message"><?= $n['text'] ?></span>
-
-                </label>
-            <?php
-            endforeach;
-            ?>
-            </div>
-            <?php endif; ?>
+            <h4 class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5"><?= $nametask ?></h4>
             <hr>
             <div class="row">
                 <div class="col-6 col-lg-4">
@@ -244,6 +226,22 @@ if ($id == $worker and $view == 0) {
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
+            <?php
+            if ($checklist != []):
+                ?>
+                <div class="collapse-checklist">
+                    <?php
+                    foreach ($checklist as $k => $n):
+                        ?>
+                        <label class="pure-material-checkbox d-block">
+                            <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?> <?= ($isCoworker == true)? 'disabled': '' ?>>
+                            <span class="text-area-message"><?= $n['text'] ?></span>
+                        </label>
+                    <?php
+                    endforeach;
+                    ?>
+                </div>
+            <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
                     <?php
@@ -252,6 +250,7 @@ if ($id == $worker and $view == 0) {
                     ?>
                 </div>
             <?php endif; ?>
+
         </div>
         <?php if (count($subTasks) > 0): ?>
             <div class="subTaskInList subtask-task">
@@ -320,6 +319,18 @@ if ($id == $worker and $view == 0) {
     <div class="card mt-3">
         <div class="card-body">
             <?php include __ROOT__ . '/engine/frontend/task/notyfeed.php' ?>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content border-0" style="margin-top: 60%;background-color: transparent;">
+            <div class="modal-body text-center">
+                <div class="spinner-border" style="width: 3rem; height: 3rem;color: #f2f2f2;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
