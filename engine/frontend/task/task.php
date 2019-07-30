@@ -163,7 +163,7 @@ if ($id == $worker and $view == 0) {
                 ?>
                 <label class="pure-material-checkbox d-block ml-3">
                     <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?>>
-                    <span><?= $n['text'] ?></span>
+                    <span class="text-area-message"><?= $n['text'] ?></span>
 
                 </label>
             <?php
