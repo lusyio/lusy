@@ -104,20 +104,20 @@
                 <div class="report-btn position-relative">
                     <div style="z-index: 2;position: relative;">
                         <div class="create-report-btn">
-                        <?php if ($tariff == 0): ?>
-                        <button id="createReport"
-                                class="btn btn-block btn-outline-primary h-100"
-                                data-toggle="<?= ($tryPremiumLimits['report'] < 3) ? 'tooltip' : '' ?>"
-                                data-placement="bottom"
-                                title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">
-                            Построить отчет
-                        </button>
-                        <?php else: ?>
-                        <button id="createReport"
-                                class="btn btn-block btn-outline-primary h-100">
-                            Построить отчет
-                        </button>
-                        <?php endif; ?>
+                            <?php if ($tariff == 0): ?>
+                                <button id="createReport"
+                                        class="btn btn-block btn-outline-primary h-100"
+                                        data-toggle="<?= ($tryPremiumLimits['report'] < 3) ? 'tooltip' : '' ?>"
+                                        data-placement="bottom"
+                                        title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">
+                                    Построить отчет
+                                </button>
+                            <?php else: ?>
+                                <button id="createReport"
+                                        class="btn btn-block btn-outline-primary h-100">
+                                    Построить отчет
+                                </button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
             }, 1000);
             return false;
         }
-<?php if ($tariff == 1): ?>
+        <?php if ($tariff == 1): ?>
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -256,7 +256,7 @@
                 // console.log(data);
             }
         });
-<?php endif; ?>
+        <?php endif; ?>
         $('#createReport').on('click', function (e) {
             e.preventDefault();
             var val = $('.add-report:visible').attr('val');
@@ -282,45 +282,14 @@
                     e.preventDefault();
                     var startDate = $('#startReportDate').val();
                     var endDate = $('#endReportDate').val();
-                    var fd = new FormData();
-                    fd.append('ajax', 'total-report');
-                    // fd.append('module', 'totalReport');
-                    fd.append('startDate', startDate);
-                    fd.append('endDate', endDate);
-                    $.ajax({
-                        url: '/ajax.php',
-                        type: 'POST',
-                        dataType: 'html',
-                        cache: false,
-                        processData: false,
-                        contentType: false,
-                        data: fd,
-                        success: function (data) {
-                            $('#reportsContainer').html(data);
-                            var title = $('#createReport').attr('data-original-title');
-                            title = title.replace('1/3', '0/3');
-                            title = title.replace('2/3', '1/3');
-                            title = title.replace('3/3', '2/3');
-                            $('#createReport').attr('data-original-title', title).tooltip('hide');
-                            // console.log(data);
-                        }
-                    })
-                });
-            }
-            if (val == 2) {
-                $('#workerBlockReports').show();
+                    var title = $('#createReport').attr('data-original-title');
 
-                $('#createReport').on('click', function (e) {
-                    e.preventDefault();
-                    var startDate = $('#startReportDate').val();
-                    var endDate = $('#endReportDate').val();
-                    var workerId = $('.add-responsible:visible').attr('val');
-                    console.log(workerId);
-
-                    if (workerId != undefined) {
+                    if (title.indexOf('0/3') != -1) {
+                        $('#disabledReportsModal').modal('show');
+                    } else {
                         var fd = new FormData();
-                        fd.append('ajax', 'personal-report');
-                        fd.append('workerId', workerId);
+                        fd.append('ajax', 'total-report');
+                        // fd.append('module', 'totalReport');
                         fd.append('startDate', startDate);
                         fd.append('endDate', endDate);
                         $.ajax({
@@ -333,24 +302,64 @@
                             data: fd,
                             success: function (data) {
                                 $('#reportsContainer').html(data);
-                                slowScroll(tasksReport);
-                                var title = $('#createReport').attr('data-original-title');
                                 title = title.replace('1/3', '0/3');
                                 title = title.replace('2/3', '1/3');
                                 title = title.replace('3/3', '2/3');
                                 $('#createReport').attr('data-original-title', title).tooltip('hide');
                                 // console.log(data);
                             }
-                        });
+                        })
+                    }
+                });
+            }
+            if (val == 2) {
+                $('#workerBlockReports').show();
+
+                $('#createReport').on('click', function (e) {
+                    e.preventDefault();
+                    var startDate = $('#startReportDate').val();
+                    var endDate = $('#endReportDate').val();
+                    var workerId = $('.add-responsible:visible').attr('val');
+                    console.log(workerId);
+                    var title = $('#createReport').attr('data-original-title');
+                    if (title.indexOf('0/3')) {
+                        $('#disabledReportsModal').modal('show');
                     } else {
-                        console.log('error');
-                        $('#selectWorkerReports').css({
-                            'background-color': 'rgba(255, 242, 242, 1)',
-                            'transition': '1000ms'
-                        });
-                        setTimeout(function () {
-                            $('#selectWorkerReports').css('background-color', '#fff');
-                        }, 1000)
+                        if (workerId != undefined) {
+                            var fd = new FormData();
+                            fd.append('ajax', 'personal-report');
+                            fd.append('workerId', workerId);
+                            fd.append('startDate', startDate);
+                            fd.append('endDate', endDate);
+                            $.ajax({
+                                url: '/ajax.php',
+                                type: 'POST',
+                                dataType: 'html',
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                data: fd,
+                                success: function (data) {
+                                    $('#reportsContainer').html(data);
+                                    // slowScroll(tasksReport);
+                                    title = title.replace('1/3', '0/3');
+                                    title = title.replace('2/3', '1/3');
+                                    title = title.replace('3/3', '2/3');
+
+                                    $('#createReport').attr('data-original-title', title).tooltip('hide');
+                                    // console.log(data);
+                                }
+                            });
+                        } else {
+                            console.log('error');
+                            $('#selectWorkerReports').css({
+                                'background-color': 'rgba(255, 242, 242, 1)',
+                                'transition': '1000ms'
+                            });
+                            setTimeout(function () {
+                                $('#selectWorkerReports').css('background-color', '#fff');
+                            }, 1000)
+                        }
                     }
 
                 });
