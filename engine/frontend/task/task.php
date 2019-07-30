@@ -262,10 +262,6 @@ if ($id == $worker and $view == 0) {
                                     <div class="col-sm-5 col-lg-5 col-md-12 col-12">
                                         <div class="text-area-message">
                                             <span class="taskname" style="padding-left: 28px;font-weight: 600;color: #353b41;"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
-<!--                                            <div class="d-inline-block text-center" style="width: 20px"><i-->
-<!--                                                        class="--><?//= ($subTask['status'] == 'done') ? 'fas fa-check text-success' : 'fas fa-bolt text-primary' ?><!--"></i>-->
-<!--                                            </div>-->
-<!--                                            <span class="taskname">--><?//= $subTask['name'] ?><!--</span>-->
                                         </div>
                                     </div>
                                     <div class="col-sm-1 pl-0">
@@ -279,16 +275,14 @@ if ($id == $worker and $view == 0) {
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-lg-2 col-md-5 col-5 pr-0">
-                                        <span style="color: #5E5E5E;"><?= $taskStatusText[$subTask['status']] ?></span>
+                                        <span class="subtask-status"><?= $taskStatusText[$subTask['status']] ?></span>
                                     </div>
-                                    <div class="col-sm-2 col-lg-2 col-md-3 col-3 <?= ($subTask['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
-                                        <span style="color: #5E5E5E;">
+                                    <div class="col-sm-2 col-lg-2 col-md-3 subtask-status col-3 <?= ($subTask['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask['datedone']) == $GLOBALS["now"]) ? 'text-warning font-weight-bold' : ''; ?>">
                                             <?php
                                             $subTask['deadLineDay'] = date('j', $subTask['datedone']);
                                             $subTask['deadLineMonth'] = $_months[date('n', $subTask['datedone']) - 1];
                                             ?>
                                             <?= $subTask['deadLineDay'] ?> <?= $subTask['deadLineMonth'] ?>
-                                        </span>
                                     </div>
                                     <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
                                         <div class="avatar-subtask-task">

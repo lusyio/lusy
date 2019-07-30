@@ -89,6 +89,10 @@
     border-radius: 8px;
 }
 
+.subtask-status{
+    color: #5E5E5E;
+}
+
 .comment.system {
     font-size: 0.75rem;
     background-color: #f7f7f7 !important;

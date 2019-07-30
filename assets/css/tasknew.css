@@ -306,6 +306,7 @@
 }
 
 .delete-checklist-item{
+    transition: 200ms;
     position: absolute;
     right: -17px;
     bottom: -6px;
