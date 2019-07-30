@@ -179,6 +179,10 @@
 
 <script>
     $(document).ready(function () {
+        
+        $('#createReport').on('mouseleave', function () {
+            $(this).tooltip('hide');
+        });
 
         $(".container-report").on('click', function () {
             $(".report-select").fadeToggle(200);
