@@ -93,6 +93,33 @@
     color: #5E5E5E;
 }
 
+.icon-checklist-task{
+    transition: 200ms;
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #999999;
+}
+
+.icon-checklist-task:hover{
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+#nameTask:hover .icon-checklist-task{
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+#nameTask{
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+#nameTask{
+    cursor: pointer;
+}
+
 .comment.system {
     font-size: 0.75rem;
     background-color: #f7f7f7 !important;

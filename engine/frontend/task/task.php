@@ -153,7 +153,8 @@ if ($id == $worker and $view == 0) {
                     </div>
                 </div>
             </div>
-            <h4 id="nameTask" class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5"><?= $nametask ?> <?= ($checklist != [])? '<i class="fas fa-caret-down"></i>': '' ?> </h4>
+            <h4 <?= ($checklist != [])? 'id="nameTask"': '' ?>  class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5"><?= $nametask ?> <?= ($checklist != [])? '<div class="icon-checklist-task" data-toggle="tooltip" data-placement="bottom"
+                                                                           title="Показать подпункты"><i class="fas fa-caret-down"></i></div>': '' ?> </h4>
             <?php
             if ($checklist != []):
             ?>
