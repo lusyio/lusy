@@ -51,8 +51,16 @@
 <div class="row mb-5">
     <div class="col-sm-8">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body position-relative">
                 <h5>Текущий тариф - <?= $tariffInfo['tariff_name'] ?></h5>
+                <div class="edit-tariff-block">
+                    <button id="changeTariffBlock" class="btn btn-edit-tariff btn-sm btn-light" data-toggle="tooltip" data-placement="bottom" title="Изменить тариф">
+                        <i class="fas fa-pencil-alt" style="color: #999999;"></i>
+                    </button>
+                    <button id="cancelTariff" class="btn btn-edit-tariff btn-sm btn-light" data-toggle="tooltip" data-placement="bottom" title="Отменить подписку">
+                        <i class="fas fa-times" style="color: #999999;"></i>
+                    </button>
+                </div>
                 <?php if ($companyTariff['tariff'] == 0): ?>
                     <p class="ns">Безграничный период</p>
                     <ul class="plusUl">
@@ -274,13 +282,12 @@ endforeach; ?>
                                     Офертой рекуррентных платежей
                                 </a>
                             </p>
-                            <span class="position-absolute" id="disabledBtn">
+                            <span class="position-absolute" id="disabledBtnChange">
                             adasd
                             </span>
                             <hr>
                             <button class="btn text-white w-100"
-                                    style="height: 50px; background: #7b81f9;border-radius: 20px;" id="changeTariff"
-                                    disabled>
+                                    style="height: 50px; background: #7b81f9;border-radius: 20px;" id="changeTariff" disabled>
                                 Сменить тариф
                                 <div class="spinner-border spinner-border-sm text-white" role="status"
                                      style="display: none">
@@ -468,6 +475,19 @@ endforeach; ?>
 
 <script>
     $(document).ready(function () {
+
+        $('#changeTariffBlock').on('click', function () {
+            $('#payModal').modal('show');
+        });
+
+        $('#changeTariffBlock').on('mouseleave', function () {
+           $(this).tooltip('hide');
+        });
+
+        $('#cancelTariff').on('mouseleave', function () {
+           $(this).tooltip('hide');
+        });
+
         $('#disabledBtn').on('click', function () {
             $('.oferta-field').css({
                 'background-color': 'rgba(255, 242, 242, 1)',
@@ -569,6 +589,7 @@ endforeach; ?>
             if (tariff == currentTariff) {
                 $('#oferta').attr('disabled', true);
                 $('#disabledBtn').hide();
+                $('#disabledBtnChange').hide();
                 $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Это ваш текущий тариф');
                 $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
                 if (isCardBinded) {
@@ -735,7 +756,7 @@ endforeach; ?>
         $('#payModal').on('hide.bs.modal', function () {
             $('#oferta').prop("checked", false);
             $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Оплатить подписку');
-            $('#changeTariff').attr('disabled', true).addClass('btn-secondary').text('Сменить тариф');
+            $('#changeTariff').attr('disabled', true).text('Сменить тариф');
             $('#oferta').attr('disabled', false);
         });
         $('#addCardModal').on('hide.bs.modal', function () {
@@ -752,20 +773,26 @@ endforeach; ?>
             if ($(this).is(':checked')) {
                 $('#pay').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
                 $('#changeTariff').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
+                $('#changeTariff').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
                 $('#disabledBtn').hide();
+                $('#disabledBtnChange').hide();
             } else {
                 $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
                 $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
+                $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
                 $('#disabledBtn').show();
+                $('#disabledBtnChange').show();
             }
         });
         $('#ofertaAddModal').on('change', function () {
             if ($(this).is(':checked')) {
                 $('#addCard').attr('disabled', false).removeClass('btn-secondary').addClass('btn-primary');
                 $('#disabledBtn').hide();
+                $('#disabledBtnChange').hide();
             } else {
                 $('#addCard').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
                 $('#disabledBtn').show();
+                $('#disabledBtnChange').show();
             }
         });
 

@@ -1720,6 +1720,14 @@ input:checked[type="checkbox"]::before {
     bottom: 15px;
 }
 
+#disabledBtnChange{
+    width: 92%;
+    height: 12%;
+    z-index: 100000;
+    opacity: 0;
+    bottom: 15px;
+}
+
 .right-modal .modal-body.text-left{
     margin-left: 32px;
 }
@@ -3072,6 +3080,10 @@ span.date {
         left: -45px;
     }
 
+    .edit-tariff-block{
+        position: unset;
+    }
+
     .card-header.text-center.bg-message.border-0{
         padding-left: 0;
         padding-right: 0;
@@ -3207,6 +3219,14 @@ span.date {
     }
 
     #disabledBtn{
+        width: 92%;
+        height: 16%;
+        z-index: 100000;
+        opacity: 0;
+        bottom: 0;
+    }
+
+    #disabledBtnChange{
         width: 92%;
         height: 16%;
         z-index: 100000;

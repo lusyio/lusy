@@ -1,3 +1,14 @@
+.btn-edit-tariff{
+    width: 32px;
+    height: 32px;
+}
+
+.edit-tariff-block{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
 .pure-material-radio {
     z-index: 0;
     position: relative;
