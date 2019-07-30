@@ -1011,9 +1011,15 @@ function addCommentEvent($taskId, $commentId, $commentFromSystemUser = false, $d
             $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
         }
     }
-
+    $isSelfTask = false;
+    if ($executors['manager'] == $executors['worker']) {
+        $isSelfTask = true;
+    }
     //sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
     foreach ($recipients as $key => $recipient) {
+        if ($isSelfTask && $executors['manager'] == $id) {
+            continue;
+        }
         addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipient, $commentId], $recipient, $eventIds[$recipient]);
 
     }
