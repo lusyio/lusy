@@ -297,6 +297,11 @@
                         data: fd,
                         success: function (data) {
                             $('#reportsContainer').html(data);
+                            var title = $('#createReport').attr('data-original-title');
+                            title = title.replace('1/3', '0/3');
+                            title = title.replace('2/3', '1/3');
+                            title = title.replace('3/3', '2/3');
+                            $('#createReport').attr('data-original-title', title).tooltip('hide');
                             // console.log(data);
                         }
                     })
@@ -329,6 +334,11 @@
                             success: function (data) {
                                 $('#reportsContainer').html(data);
                                 slowScroll(tasksReport);
+                                var title = $('#createReport').attr('data-original-title');
+                                title = title.replace('1/3', '0/3');
+                                title = title.replace('2/3', '1/3');
+                                title = title.replace('3/3', '2/3');
+                                $('#createReport').attr('data-original-title', title).tooltip('hide');
                                 // console.log(data);
                             }
                         });
