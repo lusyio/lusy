@@ -53,6 +53,8 @@
         <div class="card">
             <div class="card-body position-relative">
                 <h5>Текущий тариф - <?= $tariffInfo['tariff_name'] ?></h5>
+                <input type="hidden" id="currentTariff" value="<?= $companyTariff['tariff'] ?>">
+                <input type="hidden" id="isCardBinded" value="<?= $companyTariff['is_card_binded'] ?>">
 <!--                <div class="edit-tariff-block">-->
 <!--                    <button id="changeTariffBlock" class="btn btn-edit-tariff btn-sm btn-light" data-toggle="tooltip"-->
 <!--                            data-placement="bottom" title="Изменить тариф">-->
@@ -167,9 +169,8 @@ endforeach; ?>
                     <div class="modal-body text-left">
                         <div class="mb-4 pl-5">
                             <label class="pure-material-radio">
-                                <input type="radio" name="radio">
+                                <input type="radio" name="radio" data-id="1" checked>
                                 <span>Стартовый</span>
-
                                 <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 1 месяц <br>
                                     Стоимость - 499 руб./мес
                                 </p>
@@ -177,7 +178,7 @@ endforeach; ?>
                         </div>
                         <div class="mb-4 pl-5">
                             <label class="pure-material-radio">
-                                <input type="radio" name="radio">
+                                <input type="radio" name="radio" data-id="2" >
                                 <span>Уверенный</span>
                                 <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 3 месяц <br>
                                     Стоимость - 349 руб./мес
@@ -186,7 +187,7 @@ endforeach; ?>
                         </div>
                         <div class="pl-5">
                             <label class="pure-material-radio">
-                                <input type="radio" name="radio">
+                                <input type="radio" name="radio" data-id="3" >
                                 <span>Босс</span>
                                 <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 12 месяц
                                     <br>
@@ -581,7 +582,7 @@ endforeach; ?>
             $('#refundAmount').text('');
             $('#orderDate').text('');
         });
-
+        
 
         $(".choose-tariff").on('click', function () {
             var currentTariff = $('#currentTariff').val();
