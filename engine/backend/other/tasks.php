@@ -36,7 +36,7 @@ $tasksQuery = "SELECT DISTINCT t.id AS idtask, (SELECT GROUP_CONCAT(tc.worker_id
        (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
 FROM tasks t 
 LEFT JOIN task_coworkers tc ON tc.task_id = t.id
-WHERE (t.id IN (SELECT DISTINCT t.parent_task FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE manager=:userId OR worker=:userId OR tc.worker_id=:userId)
+WHERE (t.id IN (SELECT DISTINCT t.parent_task FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status NOT IN ('done', 'canceled'))
 OR (t.manager=:userId OR t.worker=:userId OR tc.worker_id=:userId)) AND t.status NOT IN ('done', 'canceled') AND (t.status <> 'planned' OR t.manager = :userId) ORDER BY FIELD(status, 'pending', 'postpone') DESC, FIELD(view_order, 0) DESC, datedone";
 
 if ($roleu == 'ceo') {
