@@ -93,7 +93,7 @@
                         </div>
                     <?php } ?>
                     <?php else: ?>
-                    <div class="container-members-responsible-selected <?= (in_array($n['id'], $coworkersId)) ? '' : 'd-none' ?>">
+                    <div class="container-members-responsible-selected">
                         <div class="row" style="padding: 5px;">
                             <div class="col text-justify">
                                 <span class="text-muted">Соисполнители</span>
@@ -103,7 +103,7 @@
                         $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                         foreach ($users as $n) { ?>
                             <div val="<?php echo $n['id'] ?>"
-                                 class="row members-responsible-selected <?= (in_array($n['id'], $coworkersId)) ? '' : 'd-none' ?>">
+                                 class="row members-responsible-selected">
                                 <div class="col-1">
                                     <img src="/<?= getAvatarLink($n['id']) ?>"
                                          class="avatar-added mr-1">
