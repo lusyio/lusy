@@ -974,7 +974,7 @@ function addCommentEvent($taskId, $commentId, $commentFromSystemUser = false, $d
     $recipients = $coworkers;
     $recipients[] = $executors['manager'];
     $recipients[] = $executors['worker'];
-    array_unique($recipients);
+    $recipients = array_unique($recipients);
     if ($commentFromSystemUser) {
         $id = 1;
     }
@@ -1011,15 +1011,9 @@ function addCommentEvent($taskId, $commentId, $commentFromSystemUser = false, $d
             $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
         }
     }
-    $isSelfTask = false;
-    if ($executors['manager'] == $executors['worker']) {
-        $isSelfTask = true;
-    }
+
     //sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
     foreach ($recipients as $key => $recipient) {
-        if ($isSelfTask && $executors['manager'] == $recipient) {
-            continue;
-        }
         addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipient, $commentId], $recipient, $eventIds[$recipient]);
 
     }
