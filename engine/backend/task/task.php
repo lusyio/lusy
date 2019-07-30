@@ -48,7 +48,7 @@ if ($isCeo || $task['manager'] == $id || $task['worker'] == $id || in_array($id,
     $subTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone FROM tasks WHERE parent_task = :taskId");
     $subTasksQuery->execute([':taskId' => $id_task]);
 } else {
-    $subTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.name, t.description, t.status, t.manager, t.worker, t.idcompany, t.report, t.view, t.view_status, t.author, t.datecreate, t.datepostpone, t.datedone FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.worker_id WHERE t.parent_task = :taskId AND (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId)");
+    $subTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.name, t.description, t.status, t.manager, t.worker, t.idcompany, t.report, t.view, t.view_status, t.author, t.datecreate, t.datepostpone, t.datedone FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE t.parent_task = :taskId AND (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId)");
     $subTasksQuery->execute([':taskId' => $id_task, ':userId' => $id]);
 }
 $subTasks = $subTasksQuery->fetchAll(PDO::FETCH_ASSOC);
