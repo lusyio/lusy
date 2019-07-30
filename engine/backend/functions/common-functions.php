@@ -1017,7 +1017,7 @@ function addCommentEvent($taskId, $commentId, $commentFromSystemUser = false, $d
     }
     //sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
     foreach ($recipients as $key => $recipient) {
-        if ($isSelfTask && $executors['manager'] == $id) {
+        if ($isSelfTask && $executors['manager'] == $recipient) {
             continue;
         }
         addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipient, $commentId], $recipient, $eventIds[$recipient]);
