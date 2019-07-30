@@ -70,27 +70,11 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status I
         ],
     ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
     foreach ($tasks as $n):
-        if (isset($_COOKIE[$n['idtask']]) && $_COOKIE[$n['idtask']] < strtotime($n['lastCommentTime'])) {
-            $hasNewComments = true;
-        } else {
             $hasNewComments = false;
-        }
-        if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$n['idmanager']])) {
-            $viewStatusTitleManager = 'Просмотрено ' . $n['viewStatus'][$n['idmanager']]['datetime'];
-        } else {
-            $viewStatusTitleManager = 'Не просмотрено';
-        }
-        if (is_null($n['viewStatus']) || !isset($n['viewStatus'][$id])) {
-            $isTaskRead = false;
-        } else {
+            $viewStatusTitleManager = 'Просмотрено';
             $isTaskRead = true;
-        }
-        if (empty($n['countNewComments'])) {
-            $n['countNewComments'] = 0;
-        }
-        if (empty($n['countNewFiles'])) {
-            $n['countNewFiles'] = 0;
-        }
+            $n['task']['countNewComments'] = 0;
+            $n['task']['countNewFiles'] = 0;
         include __ROOT__ . '/engine/frontend/other/task-card.php';
     endforeach;
 }
@@ -133,7 +117,10 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status =
     $tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
     $countArchiveTasks = count($tasks);
     prepareTasks($tasks);
-
+    $groupedTasks = [];
+    foreach ($tasks as $task) {
+        $groupedTasks[$task['idtask']]['task'] = $task;
+    }
     $borderColor = [
         'new' => 'border-primary',
         'inwork' => 'border-primary',
@@ -166,28 +153,12 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status =
             'canceled' => $GLOBALS['_canceledlist'],
         ],
     ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
-    foreach ($tasks as $n):
-        if (isset($_COOKIE[$n['idtask']]) && $_COOKIE[$n['idtask']] < strtotime($n['lastCommentTime'])) {
-            $hasNewComments = true;
-        } else {
-            $hasNewComments = false;
-        }
-        if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$n['idmanager']])) {
-            $viewStatusTitleManager = 'Просмотрено ' . $n['viewStatus'][$n['idmanager']]['datetime'];
-        } else {
-            $viewStatusTitleManager = 'Не просмотрено';
-        }
-        if (is_null($n['viewStatus']) || !isset($n['viewStatus'][$id])) {
-            $isTaskRead = false;
-        } else {
+    foreach ($groupedTasks as $n):
+        $hasNewComments = false;
+            $viewStatusTitleManager = 'Просмотрено';
             $isTaskRead = true;
-        }
-        if (empty($n['countNewComments'])) {
-            $n['countNewComments'] = 0;
-        }
-        if (empty($n['countNewFiles'])) {
-            $n['countNewFiles'] = 0;
-        }
+            $n['task']['countNewComments'] = 0;
+            $n['task']['countNewFiles'] = 0;
         include __ROOT__ . '/engine/frontend/other/task-card.php';
     endforeach;
 }
@@ -230,6 +201,10 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status =
     $tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
     $countArchiveTasks = count($tasks);
     prepareTasks($tasks);
+    $groupedTasks = [];
+    foreach ($tasks as $task) {
+        $groupedTasks[$task['idtask']]['task'] = $task;
+    }
 
     $borderColor = [
         'new' => 'border-primary',
@@ -263,28 +238,12 @@ WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status =
             'canceled' => $GLOBALS['_canceledlist'],
         ],
     ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
-    foreach ($tasks as $n):
-        if (isset($_COOKIE[$n['idtask']]) && $_COOKIE[$n['idtask']] < strtotime($n['lastCommentTime'])) {
-            $hasNewComments = true;
-        } else {
-            $hasNewComments = false;
-        }
-        if (!is_null($n['viewStatus']) && isset($n['viewStatus'][$n['idmanager']])) {
-            $viewStatusTitleManager = 'Просмотрено ' . $n['viewStatus'][$n['idmanager']]['datetime'];
-        } else {
-            $viewStatusTitleManager = 'Не просмотрено';
-        }
-        if (is_null($n['viewStatus']) || !isset($n['viewStatus'][$id])) {
-            $isTaskRead = false;
-        } else {
-            $isTaskRead = true;
-        }
-        if (empty($n['countNewComments'])) {
-            $n['countNewComments'] = 0;
-        }
-        if (empty($n['countNewFiles'])) {
-            $n['countNewFiles'] = 0;
-        }
+    foreach ($groupedTasks as $n):
+        $hasNewComments = false;
+        $viewStatusTitleManager = 'Просмотрено';
+        $isTaskRead = true;
+        $n['task']['countNewComments'] = 0;
+        $n['task']['countNewFiles'] = 0;
         include __ROOT__ . '/engine/frontend/other/task-card.php';
     endforeach;
 }
