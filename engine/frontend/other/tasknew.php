@@ -235,6 +235,27 @@ $borderColor = [
                         </div>
                     </div>
                 </div>
+                <div class="row mt-25-tasknew">
+                    <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
+                        <div class="label-tasknew text-left">
+                            Подпункты
+                        </div>
+                        <div class="mb-2 card card-tasknew">
+                            <span class="position-absolute disabledBtnOptions"
+                                         style="background-color: #000;width: 100%;bottom: 2px; height: 100%;z-index: 100000;opacity: 0;">
+                            </span>
+                            <input type="text" id="checklistInput" class="form-control border-0 card-body-tasknew disabled"
+                                   style="height: 50px;"
+                                   placeholder="Наименование подпункта"
+                                   autocomplete="off">
+                            <div id="addChecklistBtn" class="position-absolute icon-newtask" style="top: 13px;">
+                                <i class="fas fa-plus" style="font-size: 15px;color: #c2c2c4;transition: 200ms"></i>
+                            </div>
+                            <div class="check-list-container card-body-tasknew text-left">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         <?php
         endif;

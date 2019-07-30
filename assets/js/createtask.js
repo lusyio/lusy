@@ -90,6 +90,13 @@ $(document).ready(function () {
             $('.check-list-container').hide();
         }
     });
+
+    $("#checklistInput").keypress(function (e) {
+            if (e.which == 13) {
+                $('#addChecklistBtn').trigger('click')
+            }
+    });
+
     $('#addChecklistBtn').on('click', function () {
         var checkName = $('#checklistInput').val();
         if (checkName != ''){
@@ -195,6 +202,7 @@ $(document).ready(function () {
 
 //создание новой задачи
     $("#createTask").click(function () {
+        $this = $(this);
         var attachedGoogleFiles = {};
         $('.attached-google-drive-file').each(function (i, googleFileToSend) {
             attachedGoogleFiles[$(googleFileToSend).data('name')] = {
@@ -241,6 +249,8 @@ $(document).ready(function () {
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('parentTask', parentTask);
         if (name != null && delta != null && datedone != null && datedone >= checkDate && responsible != null) {
+            $this.prop('disabled', true);
+            $('#spinnerModal').modal('show');
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -259,14 +269,15 @@ $(document).ready(function () {
                         //     event.returnValue = 'as';
                         // });
                         $('#sendMesName').hide();
-                        $('.spinner-border-sm').show();
+                        if (fileList.size != 0){
+                            $('.spinner-border-sm').show();
+                        }
                     };
                     return xhr;
                 },
 
                 success: function (data) {
                     console.log(data);
-                    $('#spinnerModal').modal('show');
                     if (data.error === 'taskLimit') {
                         $('#spinnerModal').modal('hide');
                         $("#taskLimitModal").modal('show');

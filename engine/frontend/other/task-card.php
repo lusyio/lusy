@@ -48,7 +48,7 @@
             <div class="subTaskInList">
             <?php foreach ($n['subTasks'] as $subTask): ?>
             <a href="/task/<?= $subTask['idtask'] ?>/" class="text-decoration-none cust">
-            <div class="card-footer border-0" style="padding: 0.8rem;">
+            <div class="tasks card-footer border-0" style="padding: 0.8rem;">
                 <div class="d-block" style="margin-left: 8px;">
                     <div class="row">
                         <div class="col-sm-5 col-lg-5 col-md-12 col-12">

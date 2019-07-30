@@ -101,6 +101,11 @@
     color: #999999;
 }
 
+#checklistInput.disabled {
+    background-color: #f8f8f8;
+    cursor: default !important;
+}
+
 .icon-checklist-task:hover{
     background-color: #f8f9fa;
     cursor: pointer;
