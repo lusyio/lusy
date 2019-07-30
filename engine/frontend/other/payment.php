@@ -86,7 +86,8 @@
                 <?php else: ?>
                     <?php if ($companyTariff['is_card_binded']): ?>
                         <p><span class="ns">Доступен до <?= date('d.m', $companyTariff['payday']); ?></span> <span
-                                    class="small ns font-weight-light"> - далее будет произведено автоматическое списание средств, согласно ранее выбраному тарифу</span>
+                                    class="small ns font-weight-light"> - далее будет произведено автоматическое списание суммы 249 руб<br>
+                                    согласно тарифу "Стартовый"</span>
                         </p>
                     <?php else: ?>
                         <p><span class="ns">Доступен до <?= date('d.m', $companyTariff['payday']); ?></span> <span
