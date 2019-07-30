@@ -179,7 +179,7 @@
 
 <script>
     $(document).ready(function () {
-        
+
         $('#createReport').on('mouseleave', function () {
             $(this).tooltip('hide');
         });
@@ -205,7 +205,6 @@
             $('.container-report').find("[val = " + id + "]").removeClass('d-none');
         });
 
-        //
         $(".container-responsible").on('click', function () {
             $(".responsible").fadeToggle(200);
         });

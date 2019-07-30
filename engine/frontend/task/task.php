@@ -161,10 +161,11 @@ if ($id == $worker and $view == 0) {
             <?php
             foreach ($checklist as $k => $n):
                 ?>
-                <div class="ml-3">
-                    <input idChecklist="<?= $k ?>" type="checkbox" class="checkbox-checklist" <?= ($n['status'] == 1)? 'checked': '' ?>>
-                    <span class="ml-3"><?= $n['text'] ?></span>
-                </div>
+                <label class="pure-material-checkbox d-block ml-3">
+                    <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?>>
+                    <span><?= $n['text'] ?></span>
+
+                </label>
             <?php
             endforeach;
             ?>
