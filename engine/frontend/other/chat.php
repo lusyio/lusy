@@ -279,9 +279,48 @@
 
         });
 
+
+
         <?php if ($tariff == 0 && $tryPremiumLimits['cloud'] >= 3):?>
         $('#openGoogleDrive, #openDropbox').attr('data-target', '#premModal');
         <?php endif; ?>
+
+        var dropZone = $('.anim-show');
+
+        dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function(){
+            return false;
+        });
+
+        dropZone.on('dragover dragenter', function() {
+            $('#chatBox').addClass('dragover');
+        });
+
+        dropZone.on('dragleave', function(e) {
+            $('#chatBox').removeClass('dragover');
+        });
+
+        dropZone.on('drop', function(e) {
+            $('#chatBox').removeClass('dragover');
+            var files = e.originalEvent.dataTransfer.files;
+            console.log(files);
+            for (var i = 0; i < files.length; i++){
+                names = files[i].name;
+                console.log(names);
+                size = files[i].size;
+                console.log(size);
+                var sizeLimit = $('.dropdown').attr('empty-space');
+                if (size <= sizeLimit) {
+                    fileList.set(n, $(this)[0]);
+                    $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
+                        "<i class='fas fa-paperclip mr-1'></i>" + names +
+                        "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                        "</div>");
+                    n++;
+                } else {
+                    $("#fileSizeLimitModal").modal('show');
+                }
+            }
+        });
 
         $(".file-name").on('click', '.cancelFile', function () {
             $(this).closest(".filenames").remove();
