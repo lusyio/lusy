@@ -209,11 +209,13 @@ if($_POST['module'] == 'createTask') {
     foreach ($unsafeCoworkers as $c) {
         $coworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
     }
-    $unsafeChecklist = json_decode($_POST['checklist'], true);
     $checklist = [];
-    foreach ($unsafeChecklist as $key => $value) {
-        $checklist[$key]['text'] = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
-        $checklist[$key]['status'] = 0;
+    if (isset($_POST['checklist'])) {
+        $unsafeChecklist = json_decode($_POST['checklist'], true);
+        foreach ($unsafeChecklist as $key => $value) {
+            $checklist[$key]['text'] = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+            $checklist[$key]['status'] = 0;
+        }
     }
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $googleFiles = [];
