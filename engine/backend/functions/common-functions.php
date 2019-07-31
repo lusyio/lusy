@@ -1748,6 +1748,7 @@ function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffNam
 
 function sendActivationLink($companyId)
 {
+    require_once __ROOT__ . '/engine/backend/functions/reg-functions.php';
     $activationCode = createActivationCode($companyId);
     require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
     $seoMail = getCeoMail($companyId);
