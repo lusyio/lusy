@@ -168,7 +168,7 @@ endforeach; ?>
         <div class="flex-modal accordion-target" id="accordionExample">
             <div>
                 <div class="modal-content border-0 left-modal">
-                    <div class="modal-header border-0 mb-3 text-center d-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <div class="modal-header border-0 mb-3 text-center d-block" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <h5 class="modal-title text-left">1. Выберите
                             подходящий тариф</h5>
                     </div>
@@ -211,7 +211,7 @@ endforeach; ?>
 
             <div>
                 <div class="modal-content right-modal border-0">
-                    <div class="modal-header border-0 text-center d-block" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <div class="modal-header border-0 text-center d-block" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         <h5 class="modal-title text-left" id="exampleModalLabel">2.
                             Подтвердите данные</h5>
                     </div>
@@ -497,6 +497,8 @@ endforeach; ?>
     $(document).ready(function () {
 
         if(screen.width <= 768){
+            $('.left-modal .modal-header').attr('data-toggle', 'collapse');
+            $('.right-modal .modal-header').attr('data-toggle', 'collapse');
             $('.accordion-target').addClass('accordion');
             $('.collapse-target-first').addClass('collapse').addClass('show');
             $('.collapse-target').addClass('collapse');
