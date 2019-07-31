@@ -241,14 +241,19 @@ endforeach; ?>
                                 <p class="text-muted-new small">Вы еще не использовали платный тариф - дарим вам 14 дней
                                     бесплатно. Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
                             <?php endif; ?>
-                            <p class="oferta-field"><input type="checkbox" id="oferta"
-                                                           style=" position: relative; top: 7px; margin-right: 10px; ">
-                                Я согласен с
-                                <a href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
-                                   style="text-decoration: underline" target="_blank">
-                                    Офертой рекуррентных платежей
-                                </a>
-                            </p>
+                            <div class="row oferta-field">
+                                <div class="col-2">
+                                    <input class="new-checkbox" type="checkbox" id="oferta"
+                                           style=" position: relative; top: 7px; margin-right: 10px; ">
+                                </div>
+                                <div class="col">
+                                    Я согласен с
+                                    <a href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
+                                       style="text-decoration: underline" target="_blank">
+                                        Офертой рекуррентных платежей
+                                    </a>
+                                </div>
+                            </div>
                             <span class="position-absolute" id="disabledBtn">
                             adasd
                             </span>
