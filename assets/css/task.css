@@ -164,7 +164,6 @@
 }
 
 .avatar-subtask-task{
-    padding-left: 3px;
 }
 
 
@@ -262,6 +261,10 @@
     border-color: rgb(var(--pure-material-onprimary-rgb, 255, 255, 255));
 }
 
+.status-icon .fas.fa-bolt.custom{
+    margin-left: 1px;
+}
+
 .pure-material-checkbox > input:indeterminate + span::after {
     border-left: none;
     transform: translate(4px, 3px);
@@ -273,7 +276,7 @@
 }
 
 .pure-material-checkbox > input:focus {
-    opacity: 0.12;
+    opacity: 0;
 }
 
 .pure-material-checkbox:hover > input:focus {

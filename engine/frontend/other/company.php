@@ -29,7 +29,14 @@
                 <div class="col-12 col-lg-3">
                     <div class="site-company">
                         <div class="mb-1">Сайт:</div>
-                        <div style="color: #c6c9dc;"><?= ($companyData['site'] == '') ? 'Https://' : $companyData['site'] ?></div>
+
+                        <div style="color: #c6c9dc;">
+                            <?php if ($companyData['site'] == '') :?>
+                            Https://
+                            <?php else: ?>
+                                <a target="_blank" href="https://<?= $companyData['site'] ?>"> <?= $companyData['site'] ?> </a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -207,6 +214,7 @@
 
         $('#workzone').on('click', '.fire-user', function (e) {
             e.preventDefault();
+            var $this = $(this);
             var el = $(this);
             var userId = el.data('user-id');
             var userCard = el.closest('.card-body');
@@ -235,6 +243,7 @@
                     setTimeout(function () {
                         userCard.attr('style', '');
                     }, 3000);
+                    $this.attr('data-original-title', 'Вернуть к работе')
                 },
             });
         });
@@ -245,6 +254,7 @@
             var el = $(this);
             var userId = el.data('user-id');
             var userCard = el.closest('.card-body');
+            var $this = $(this);
             console.log(userId);
             var fd = new FormData();
             fd.append('module', 'restoreUser');
@@ -272,6 +282,8 @@
                     if ($('.fired').length === 0) {
                         $('#showFired').addClass('d-none');
                     }
+                    $this.attr('data-original-title', 'Уволить сотрудника')
+
                 },
             });
 

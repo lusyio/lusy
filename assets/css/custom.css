@@ -1743,8 +1743,9 @@ input:checked[type="checkbox"].new-checkbox::before {
     bottom: 15px;
 }
 
-.right-modal .modal-body.text-left{
-    margin-left: 32px;
+.container-members-responsible-selected{
+    background-color: aliceblue;
+    border-radius: 8px;
 }
 
 .modal-bottom{
