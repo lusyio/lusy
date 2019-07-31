@@ -165,14 +165,14 @@ endforeach; ?>
 <div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="payModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-tariff" role="document">
-        <div class="flex-modal accordion-target">
+        <div class="flex-modal accordion-target" id="accordionExample">
             <div>
                 <div class="modal-content border-0 left-modal">
                     <div class="modal-header border-0 mb-3 text-center d-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <h5 class="modal-title text-left">1. Выберите
                             подходящий тариф</h5>
                     </div>
-                    <div class="modal-body text-left collapse-target-first" id="collapseOne">
+                    <div class="modal-body text-left collapse-target-first" id="collapseOne" data-parent="#accordionExample">
                         <div class="radio-body mb-4">
                             <label class="pure-material-radio">
                                 <input type="radio" name="tariff" data-price="499" data-price-per-month="499"
@@ -211,12 +211,12 @@ endforeach; ?>
 
             <div>
                 <div class="modal-content right-modal border-0">
-                    <div class="modal-header border-0 text-center d-block" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <div class="modal-header border-0 text-center d-block" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         <h5 class="modal-title text-left" id="exampleModalLabel">2.
                             Подтвердите данные</h5>
                     </div>
                     <?php if ($companyTariff['tariff'] == 0): ?>
-                        <div class="modal-body text-left collapse-target" id="collapseTwo">
+                        <div class="modal-body text-left collapse-target" id="collapseTwo" data-parent="#accordionExample">
                             <p class="text-muted-new">Вы собираетесь оформить платную подписку по тарифному плану "<span
                                         id="tariffName"></span>"
                             </p>
@@ -262,7 +262,7 @@ endforeach; ?>
                             </button>
                         </div>
                     <?php else: ?>
-                        <div class="modal-body text-left collapse-target" id="collapseTwo">
+                        <div class="modal-body text-left collapse-target" id="collapseTwo" data-parent="#accordionExample">
                             <p class="text-muted-new">Вы собираетесь сменить тариф на <br> "<span
                                         id="tariffName"></span>"</p>
                             <table class="table w-100 border">
