@@ -68,12 +68,11 @@ if ($_POST['module'] == 'sendMessage') {
                 $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $admin));
             }
             $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
-
         } elseif ($recipientId == 1) {
             foreach ($supportAdmins as $admin) {
                 $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $admin));
             }
-            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $admin));
+            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
         } else {
             $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
             $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
