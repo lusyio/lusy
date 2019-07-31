@@ -29,3 +29,5 @@ if ($isCeo) {
     $parentTasksQuery->execute([':managerId' => $id]);
     $parentTasks = $parentTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 }
+
+$users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');

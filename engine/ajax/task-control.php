@@ -252,6 +252,11 @@ if($_POST['module'] == 'createTask') {
     $description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
     $datedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
     $worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
+    foreach ($coworkers as $key => $coworker) {
+        if ($coworker == $managerId || $coworker == $worker) {
+            unset($coworkers[$key]);
+        }
+    }
     $status = 'new';
     $dateCreate = time();
     if (isset($_POST['startdate']) && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
@@ -419,7 +424,7 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
     }
 
     $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
-    if ($newWorker != $idTaskWorker) {
+    if ($newWorker != $idTaskWorker && $newWorker != $idTaskManager) {
         $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
         $changeWorkerQuery->execute(array(':taskId' => $idtask, ':newWorker' => $newWorker));
         if ($taskStatus != 'planned') {

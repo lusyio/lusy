@@ -1,7 +1,6 @@
 <div class="responsible">
     <div class="responsible-card">
         <?php
-        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
         foreach ($users as $n) { ?>
             <div val="<?php echo $n['id'] ?>" class="select-responsible">
                 <div class="row">

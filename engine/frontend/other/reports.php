@@ -82,7 +82,6 @@
                      style="max-height: 50px;padding-top: 10px !important;">
                     <div class="placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                     <?php
-                    $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                     foreach ($users as $n) { ?>
                         <div val="<?php echo $n['id'] ?>" class="add-responsible d-none">
                             <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
