@@ -180,6 +180,11 @@
 <script>
     $(document).ready(function () {
 
+        $('.placeholder-report').hide();
+        $('.add-report[val=1]').removeClass('d-none');
+        $('.select-report[val=1]').addClass('d-none');
+
+
         $('#createReport').on('mouseleave', function () {
             $(this).tooltip('hide');
         });
@@ -271,25 +276,49 @@
             }
         });
 
-        $('.select-report').on('click', function (e) {
+        $('#createReport').on('click', function (e) {
             e.preventDefault();
             var val = $('.add-report:visible').attr('val');
-            console.log(val);
+            var workerId = $('.add-responsible:visible').attr('val');
+            var startDate = $('#startReportDate').val();
+            var endDate = $('#endReportDate').val();
+            var title = $('#createReport').attr('data-original-title');
             if (val == 1) {
-                $('#workerBlockReports').hide();
-
-                $('#createReport').on('click', function (e) {
-                    e.preventDefault();
-                    var startDate = $('#startReportDate').val();
-                    var endDate = $('#endReportDate').val();
-                    var title = $('#createReport').attr('data-original-title');
-
-                    if (title.indexOf('0/3') != -1) {
-                        $('#disabledReportsModal').modal('show');
-                    } else {
+                if (title.indexOf('0/3') != -1) {
+                    $('#disabledReportsModal').modal('show');
+                } else {
+                    var fd = new FormData();
+                    fd.append('ajax', 'total-report');
+                    // fd.append('module', 'totalReport');
+                    fd.append('startDate', startDate);
+                    fd.append('endDate', endDate);
+                    $.ajax({
+                        url: '/ajax.php',
+                        type: 'POST',
+                        dataType: 'html',
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        data: fd,
+                        success: function (data) {
+                            $('#reportsContainer').html(data);
+                            title = title.replace('1/3', '0/3');
+                            title = title.replace('2/3', '1/3');
+                            title = title.replace('3/3', '2/3');
+                            $('#createReport').attr('data-original-title', title).tooltip('hide');
+                            // console.log(data);
+                        }
+                    })
+                }
+            }
+            if (val == 2) {
+                if (title.indexOf('0/3') != -1) {
+                    $('#disabledReportsModal').modal('show');
+                } else {
+                    if (workerId != undefined) {
                         var fd = new FormData();
-                        fd.append('ajax', 'total-report');
-                        // fd.append('module', 'totalReport');
+                        fd.append('ajax', 'personal-report');
+                        fd.append('workerId', workerId);
                         fd.append('startDate', startDate);
                         fd.append('endDate', endDate);
                         $.ajax({
@@ -302,68 +331,39 @@
                             data: fd,
                             success: function (data) {
                                 $('#reportsContainer').html(data);
+                                // slowScroll(tasksReport);
                                 title = title.replace('1/3', '0/3');
                                 title = title.replace('2/3', '1/3');
                                 title = title.replace('3/3', '2/3');
+
                                 $('#createReport').attr('data-original-title', title).tooltip('hide');
                                 // console.log(data);
                             }
-                        })
+                        });
+                    } else {
+                        console.log('error');
+                        $('#selectWorkerReports').css({
+                            'background-color': 'rgba(255, 242, 242, 1)',
+                            'transition': '1000ms'
+                        });
+                        setTimeout(function () {
+                            $('#selectWorkerReports').css('background-color', '#fff');
+                        }, 1000)
                     }
-                });
+                }
+            }
+        });
+
+        $('.select-report').on('click', function (e) {
+            e.preventDefault();
+            var val = $('.add-report:visible').attr('val');
+            if (val == 1) {
+                $('#workerBlockReports').hide();
             }
             if (val == 2) {
                 $('#workerBlockReports').show();
-
-                $('#createReport').on('click', function (e) {
-                    e.preventDefault();
-                    var startDate = $('#startReportDate').val();
-                    var endDate = $('#endReportDate').val();
-                    var workerId = $('.add-responsible:visible').attr('val');
-                    console.log(workerId);
-                    var title = $('#createReport').attr('data-original-title');
-                    if (title.indexOf('0/3')) {
-                        $('#disabledReportsModal').modal('show');
-                    } else {
-                        if (workerId != undefined) {
-                            var fd = new FormData();
-                            fd.append('ajax', 'personal-report');
-                            fd.append('workerId', workerId);
-                            fd.append('startDate', startDate);
-                            fd.append('endDate', endDate);
-                            $.ajax({
-                                url: '/ajax.php',
-                                type: 'POST',
-                                dataType: 'html',
-                                cache: false,
-                                processData: false,
-                                contentType: false,
-                                data: fd,
-                                success: function (data) {
-                                    $('#reportsContainer').html(data);
-                                    // slowScroll(tasksReport);
-                                    title = title.replace('1/3', '0/3');
-                                    title = title.replace('2/3', '1/3');
-                                    title = title.replace('3/3', '2/3');
-
-                                    $('#createReport').attr('data-original-title', title).tooltip('hide');
-                                    // console.log(data);
-                                }
-                            });
-                        } else {
-                            console.log('error');
-                            $('#selectWorkerReports').css({
-                                'background-color': 'rgba(255, 242, 242, 1)',
-                                'transition': '1000ms'
-                            });
-                            setTimeout(function () {
-                                $('#selectWorkerReports').css('background-color', '#fff');
-                            }, 1000)
-                        }
-                    }
-
-                });
             }
+
         });
     });
 </script>
