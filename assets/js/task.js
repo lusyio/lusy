@@ -429,16 +429,17 @@ $(document).ready(function () {
                 if (response.status) {
                     controlUpdate()
                 } else {
+                    $('#spinnerModal').modal('hide');
+                    $('#workdone').prop('disabled', false);
+                    $("#cancelTask").prop('disabled', false);
                     response.tasks.forEach(function (e) {
                         $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css({
-                            'background-color': '#ff000008',
+                            'background-color': '#ff000030',
                             'transition': '1000ms'
                         });
                         setTimeout(function () {
                             $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css('background-color', '#00000008');
-                            $('#workdone').prop('disabled', false);
-                            $("#cancelTask").prop('disabled', false);
-                        }, 1000)
+                        }, 3000)
                     });
                 }
             },
@@ -558,7 +559,18 @@ $(document).ready(function () {
                 if (response.status) {
                     controlUpdate()
                 } else {
-                    console.log(response)
+                    $('#spinnerModal').modal('hide');
+                    $('#workdone').prop('disabled', false);
+                    $("#cancelTask").prop('disabled', false);
+                    response.tasks.forEach(function (e) {
+                        $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css({
+                            'background-color': '#ff000030',
+                            'transition': '1000ms'
+                        });
+                        setTimeout(function () {
+                            $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css('background-color', '#00000008');
+                        }, 3000)
+                    });
                 }
             },
         });
