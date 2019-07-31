@@ -5,7 +5,11 @@ function prepareTasks(&$tasks)
     global $id;
     global $roleu;
     global $_months;
-    foreach ($tasks as &$task) {
+    foreach ($tasks as $key => &$task) {
+        if ($roleu == 'ceo' && $task['idworker'] != $id && $task['idmanager'] == 1) {
+            unset($tasks[$key]);
+            continue;
+        }
         $task['dateProgress'] = getDateProgress($task['datedone'], $task['datecreate']);
         $task['deadLineDay'] = date('j', $task['datedone']);
         $task['deadLineMonth'] = $_months[date('n', $task['datedone']) - 1];
