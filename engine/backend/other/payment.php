@@ -37,3 +37,8 @@ foreach ($financeEvents as $event){
     }
 }
 
+$tryPremiumLimits = getFreePremiumLimits($idc);
+$countReports = 3 - $tryPremiumLimits['report']; // доступно отчетов
+$countTaskEdit = 3 - $tryPremiumLimits['task']; // доступно раз расширенного функционала задач
+
+

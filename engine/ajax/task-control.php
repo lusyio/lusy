@@ -218,6 +218,7 @@ if($_POST['module'] == 'createTask') {
             $checklist[$key]['text'] = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
             $checklist[$key]['status'] = 0;
         }
+
     }
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $googleFiles = [];

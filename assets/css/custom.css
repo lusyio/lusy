@@ -6,6 +6,7 @@
 @import "task.css";
 @import "profile.css";
 @import "reports.css";
+@import "payment.css";
 
 #searchbody {
     background: #F8F9FA;
@@ -16,7 +17,10 @@ body{
     -webkit-font-smoothing: subpixel-antialiased;
     color: #27406a;
 }
-
+h5, .ns {
+    color: #28416b;
+    font-weight: 600;
+}
 .navbar-nav a {
     color: #979cad;
     font-weight: 400;
@@ -1699,21 +1703,81 @@ input:checked[type="checkbox"].new-checkbox::before {
     position: absolute;
 }
 
+.icon-close-modal.modal-content{
+    right: -10px;
+    top: -10px;
+    position: absolute;
+    width: unset;
+    background-color: unset;
+    border: none;
+}
+
+.btn-link-payment{
+    font-weight: 400;
+    color: #2c7be5;
+    text-decoration: underline;
+}
+
 .right-modal{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    max-width: 400px;
+    border-bottom-right-radius: 0;
+    max-width: 500px;
     height: 100%;
+    padding-right: 74px;
+}
+
+#disabledBtn{
+    width: 92%;
+    height: 12%;
+    z-index: 100000;
+    opacity: 0;
+    bottom: 15px;
+}
+
+#disabledBtnChange{
+    width: 92%;
+    height: 12%;
+    z-index: 100000;
+    opacity: 0;
+    bottom: 15px;
+}
+
+.right-modal .modal-body.text-left{
+    margin-left: 32px;
+}
+
+.modal-bottom{
+    display: block;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0
+}
+
+.text-muted-new{
+    color: #999999;
+}
+
+.oferta-field input:checked[type="checkbox"] {
+    background: #7b81f9;
+}
+
+.right-modal .table td{
+    padding: .45rem;
+    color: #28416b;
+    font-weight: 400;
 }
 
 .left-modal{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    max-width: 600px;
+    border-bottom-left-radius: 0;
+    max-width: 500px;
+    min-width: 500px;
     height: 100%;
-    background: #56CCF2;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding-left: 5px;
+    /*background: #56CCF2;  !* fallback for old browsers *!*/
+    /*background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  !* Chrome 10-25, Safari 5.1-6 *!*/
+    /*background: linear-gradient(to right, #2F80ED, #56CCF2); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
 }
 
 .navbar-vertical {
@@ -1730,7 +1794,123 @@ ul.navbar-nav {
 a {
     color: #27406a;
 }
-
+.premiumCard {
+    background: rgb(112,133,254);
+    background: linear-gradient(180deg, rgba(112,133,254,1) 0%, rgba(126,123,252,1) 100%);
+    color: white;
+    font-size: 18px;
+    box-shadow: rgba(125, 122, 239, 0.58) 0px 25px 30px -15px !important;
+}
+.premiumCard .position-relative div {
+    position: relative;
+    z-index: 2;
+    margin-top: 25px;
+}
+.dayLast {
+    font-size: 24px;
+    font-weight: 100;
+}
+.text-grey {
+    color: #a2abb9;
+}
+.diamond {
+    position: absolute;
+    top: 0%;
+    height: auto;
+    width: 100%;
+    max-width: 245px;
+    opacity: 0.1;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+.gift {
+    position: absolute;
+    top: 6%;
+    height: auto;
+    width: 93%;
+    max-width: 245px;
+    opacity: 0.1;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+.gift-inside {
+    position: relative;
+    z-index: 2;
+}
+.payZag {
+    font-size: 28px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+.payZag span {
+    font-weight: 900;
+}
+.choose-tariff {
+    color: #7680fe;
+    background: white;
+    padding: 15px 50px;
+    border-radius: 20px;
+    font-weight: 100;
+    transition: 0.3s all;
+    margin-top: 40px;
+    box-shadow: 0 12px 15px rgba(14,21,47,.1);
+}
+.choose-tariff:hover {
+    background: white;
+    color: #7680fe;
+    transition: 0.5s all;
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+    box-shadow: 0 17px 30px rgba(14,21,47,.3);
+}
+.btn-promocode {
+    color: white;
+    background: #797efe;
+    padding: 15px 50px;
+    border-radius: 20px;
+    font-weight: 100;
+    transition: 0.3s all;
+    margin-top: 20px;
+    box-shadow: 0 12px 15px rgba(14,21,47,.1);
+    margin-bottom: 38px;
+}
+.btn-promocode:hover {
+    background: #797efe;
+    color: white;
+    transition: 0.5s all;
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+    box-shadow: 0 17px 30px rgba(14,21,47,.3);
+}
+.checkUl, .plusUl {
+    padding-left: 0px;
+}
+.checkUl li, .plusUl li {
+    list-style-type: none;
+    margin-bottom: 10px;
+    font-weight: 100;
+}
+.checkUl li:before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f00c";
+    padding-right: 15px;
+}
+.plusUl {
+    color: #a2abb9;
+}
+.plusUl span {
+    color: #28416b;
+    font-weight: 600;
+}
+.plusUl li:before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f067";
+    padding-right: 15px;
+}
 .payment-card{
     transition: 300ms;
     
@@ -1746,6 +1926,10 @@ a {
     margin-left: -10px;
     padding-left: 10px;
     border-radius: 8px;
+    padding-bottom: 8px;
+    color: #28416b;
+    font-size: 85%;
+    font-weight: 600;
 }
 
 .delete-operation{
@@ -1784,17 +1968,12 @@ a {
     z-index: 2;
 }
 
-#promoInput{
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+#promoInput {
+    padding: 25px 10px;
+    text-align: center;
+    border-radius: 10px;
+    color: #a2abb9;
 }
-
-#promoBtn{
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    z-index: 3;
-}
-
 .cancel-delete-card{
     color: #dedede !important;
     margin-left: 13px;
@@ -2928,8 +3107,16 @@ span.date {
     }
 
     .create-report-btn {
-        margin-left: 0;
-        width: 100%;
+            margin-left: 0;
+            width: 100%;
+    }
+
+    .modal-dialog-tariff .flex-modal{
+        display: block;
+    }
+
+    .promocode-block{
+        margin-top: 3rem;
     }
 
     .subtask-badge-desktop{
@@ -2938,6 +3125,10 @@ span.date {
 
     #sendBtn{
         left: -45px;
+    }
+
+    .edit-tariff-block{
+        position: unset;
     }
 
     .card-header.text-center.bg-message.border-0{
@@ -3063,13 +3254,54 @@ span.date {
         margin: 0px;
     }
 
+    .left-modal .modal-body.text-left{
+        margin-left: 0;
+    }
+
+    .radio-body{
+        padding-left: 0;
+    }
+
     .left-modal{
-        display: none;
+        padding-bottom: 0;
+        min-width: 100%;
+         border-top-right-radius: .3rem;
+         border-bottom-right-radius: 0;
+         border-bottom-left-radius: 0;
     }
 
     .right-modal{
-        border-top-left-radius: .3rem;;
-        border-bottom-left-radius: .3rem;;
+        padding-top: 0;
+        min-width: 100%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+        padding-right: 0;
+    }
+
+    #disabledBtn{
+        width: 92%;
+        height: 16%;
+        z-index: 100000;
+        opacity: 0;
+        bottom: 0;
+    }
+
+    #disabledBtnChange{
+        width: 92%;
+        height: 16%;
+        z-index: 100000;
+        opacity: 0;
+        bottom: 0;
+    }
+
+    .right-modal .modal-body.text-left{
+        margin-left: 0px;
+    }
+
+    .modal-bottom{
+        display: none;
     }
 
     .card-tasks-dash:last-of-type{
