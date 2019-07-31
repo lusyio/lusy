@@ -28,7 +28,9 @@ if (isset($_POST['it'])) {
         $isWorker = true;
     }
     $taskStatus = DBOnce('status', 'tasks', 'id='.$idtask);
-
+    if (in_array($taskStatus, ['done', 'canceled'])) {
+        exit;
+    }
 }
 
 if ($roleu == 'ceo') {
