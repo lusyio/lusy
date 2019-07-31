@@ -120,7 +120,7 @@ $borderColor = [
         </div>
         <?php if ($tariff == 1 || $tryPremiumLimits['task'] < 3): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
             <div class="collapse mt-25-tasknew" id="collapseFunctions">
-                <div class="row">
+                <div class="row top-block-tasknew">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Надзадача
@@ -174,7 +174,7 @@ $borderColor = [
                         </div>
                     </div>
                 </div>
-                <div class="row mt-25-tasknew">
+                <div class="row">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Подпункты
@@ -202,7 +202,7 @@ $borderColor = [
             </div>
         <?php else: ?>
             <div class="collapse mt-25-tasknew" id="collapseFunctions">
-                <div class="row">
+                <div class="row top-block-tasknew">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Надзадача
@@ -235,8 +235,8 @@ $borderColor = [
                         </div>
                     </div>
                 </div>
-                <div class="row mt-25-tasknew">
-                    <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
+                <div class="row">
+                    <div class="col-12 col-lg-8 top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Подпункты
                         </div>
