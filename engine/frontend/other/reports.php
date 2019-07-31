@@ -11,7 +11,7 @@
             <div class="card card-tasknew" id="selectTypeReport">
                 <div class="report-select">
                     <div class="responsible-card">
-                        <div val="1" class="select-report">
+                        <div val="1" class="select-report d-none">
                             <div class="row">
                                 <div class="col text-left pr-0">
                                     <span class="mb-1 add-coworker-text">Отчет по компании</span>
@@ -36,7 +36,7 @@
                 <div class="container container-report border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
                      style="max-height: 50px;">
                     <div class="placeholder-report"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
-                    <div val="1" class="add-report d-none">
+                    <div val="1" class="add-report">
                         <span class="card-coworker">Отчет по компании</span>
                     </div>
                     <div val="2" class="add-report d-none">
@@ -179,11 +179,6 @@
 
 <script>
     $(document).ready(function () {
-
-        $('.placeholder-report').hide();
-        $('.add-report[val=1]').removeClass('d-none');
-        $('.select-report[val=1]').addClass('d-none');
-
 
         $('#createReport').on('mouseleave', function () {
             $(this).tooltip('hide');

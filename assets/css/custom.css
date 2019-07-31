@@ -497,7 +497,9 @@ list-group:hover {
     border-radius: 8px;
 }
 
-
+.placeholder-report{
+    display: none;
+}
 
 .archive-search{
     padding: .375rem .75rem;
