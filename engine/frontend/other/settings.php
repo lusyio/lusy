@@ -221,8 +221,11 @@
                                 Смена пароля
                             </div>
                             <span class="position-absolute edit-settings">
-                        <span class="small text-muted">Изменить</span>
-                        </span>
+                                <span id="editSpan1" class="small text-muted">Изменить</span>
+                                </span>
+                            <span class="position-absolute edit-settings edit-settings-saved" settings-id="2">
+                                <span class="text-muted small">Изменения сохранены</span>
+                            </span>
                         </div>
                     </div>
                 </a>
@@ -270,11 +273,11 @@
                                     Уведомления
                                 </div>
                                 <span class="position-absolute edit-settings">
-                                <span id="editSpan" class="small text-muted">Изменить</span>
+                                <span id="editSpan2" class="small text-muted">Изменить</span>
                                 </span>
-                                <span class="position-absolute edit-settings edit-settings-saved">
+                                <span class="position-absolute edit-settings edit-settings-saved" settings-id="3">
                                 <span class="text-muted small">Изменения сохранены</span>
-                            </span>
+                                </span>
                             </div>
                         </div>
                     </a>
@@ -562,10 +565,10 @@
                 contentType: false,
                 data: fd,
                 success: function () {
-                    $('#editSpan').hide();
-                    $('.edit-settings-saved').fadeIn(200);
-                    $.when($('.edit-settings-saved').fadeOut(800)).done(function () {
-                        $('#editSpan').fadeIn(200);
+                    $('#editSpan2').hide();
+                    $('.edit-settings-saved[settings-id=3]').fadeIn(200);
+                    $.when($('.edit-settings-saved[settings-id=3]').fadeOut(800)).done(function () {
+                        $('#editSpan2').fadeIn(200);
                     });
                 },
             });
@@ -612,11 +615,49 @@
                     contentType: false,
                     data: fd,
                     success: function (data) {
-                        location.reload();
+                        if (data.status){
+                        $('#editSpan1').hide();
+                        $('.edit-settings-saved[settings-id=2]').fadeIn(200);
+                        $('.edit-settings-saved[settings-id=2] .small').text('Изменения сохранены');
+                        $.when($('.edit-settings-saved[settings-id=2]').fadeOut(800)).done(function () {
+                            $('#editSpan1').fadeIn(200);
+                        });
+                        } else {
+                            $('#editSpan1').hide();
+                            $('#password').css({
+                                'border-color': '#dc3545',
+                                'transition': '1000ms'
+                            });
+                            setTimeout(function () {
+                                $('#password').css('border-color', "#ced4da");
+                            }, 1000);
+                            $('.edit-settings-saved[settings-id=2] .small').text('Неверный пароль');
+                            $('.edit-settings-saved[settings-id=2]').fadeIn(200);
+                            $.when($('.edit-settings-saved[settings-id=2]').fadeOut(800)).done(function () {
+                                $('#editSpan1').fadeIn(200);
+                            });
+                        }
                     },
                 });
             } else {
-                $("#password").addClass('border-danger');
+                if (password == ''){
+                    $('#password').css({
+                        'border-color': '#dc3545',
+                        'transition': '1000ms'
+                    });
+                    setTimeout(function () {
+                        $('#password').css('border-color', "#ced4da");
+                    }, 1000);
+                }
+                if (newPassword == '') {
+                    $('#settingsNewPassword').css({
+                        'border-color': '#dc3545',
+                        'transition': '1000ms'
+                    });
+                    setTimeout(function () {
+                        $('#settingsNewPassword').css('border-color', "#ced4da");
+                    }, 1000);
+                }
             }
         });
 
