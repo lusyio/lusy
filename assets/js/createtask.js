@@ -101,7 +101,7 @@ $(document).ready(function () {
         var checkName = $('#checklistInput').val();
         if (checkName != ''){
             $('.check-list-container').show().append('<div class="position-relative check-list-new mb-2">\n' +
-                '                                    <input type="checkbox" checked disabled>\n' +
+                '                                    <i class="far fa-check-square text-muted-new"></i>\n' +
                 '                                    <span class="ml-3" style="color: #28416b;"> '+ checkName +' </span>\n' +
                 '                                    <i class="fas fa-times delete-checklist-item"></i>\n' +
                 '                                </div>');
@@ -248,7 +248,7 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('parentTask', parentTask);
-        if (name != null && delta != null && datedone != null && datedone >= checkDate && responsible != null) {
+        if (name != null && datedone != null && datedone >= checkDate && responsible != null) {
             $this.prop('disabled', true);
             $('#spinnerModal').modal('show');
             $.ajax({
@@ -309,15 +309,6 @@ $(document).ready(function () {
                 });
                 setTimeout(function () {
                     $('#name').css('background-color', '#fff');
-                }, 1000)
-            }
-            if (delta === '<p><br></p>') {
-                $('#editor, .editor-card').css({
-                    'background-color': 'rgba(255, 242, 242, 1)',
-                    'transition': '1000ms'
-                });
-                setTimeout(function () {
-                    $('#editor, .editor-card').css('background-color', '#fff');
                 }, 1000)
             }
             if (datedone <= checkDate) {

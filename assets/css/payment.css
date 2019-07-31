@@ -32,16 +32,19 @@
     padding-bottom: 1.5rem;
 }
 
+.right-modal .modal-body.text-left{
+    margin-left: 26px;
+}
+
 .right-modal{
     padding-top: 1.5rem;
 }
 
 .left-modal .modal-body.text-left{
-    margin-left: 22px;
 }
 
 .radio-body{
-    padding-left: 3rem;
+    padding-left: 2rem;
 }
 
 .btn-change-tariff:hover {

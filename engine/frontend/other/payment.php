@@ -58,30 +58,53 @@
                 <?php if ($companyTariff['tariff'] == 0): ?>
                     <p class="ns">Безграничный период</p>
                     <ul class="plusUl">
-                        <li>В хранилище файлов
-                            свободно
-                            <span><?= normalizeSize($remainingLimits['space'])['size'] ?> <?= normalizeSize($remainingLimits['space'])['suffix'] ?></span>
-                            из 100 МБ
+                        <li>
+                            <?php if (normalizeSize($remainingLimits['space'])['size'] == 0): ?>
+                                <span>У вас исчерпан лимит свободного места в этом месяце</span>
+                            <?php else: ?>
+                                В хранилище файлов
+                                свободно
+                                <span><?= normalizeSize($remainingLimits['space'])['size'] ?> <?= normalizeSize($remainingLimits['space'])['suffix'] ?></span>
+                                из 100 МБ
+                            <?php endif; ?>
+
                         </li>
-                        <li>Вы можете создать еще
-                            <span><?= $remainingLimits['tasks'] ?> <?= ngettext('task', 'tasks', $remainingLimits['tasks']) ?></span>
-                            из 150 возможных
+                        <li>
+                            <?php if ($remainingLimits['tasks'] == 0): ?>
+                                <span>У вас исчерпан лимит задач в этом месяце</span>
+                            <?php else: ?>
+                                Вы можете создать еще
+                                <span><?= $remainingLimits['tasks'] ?> <?= ngettext('task', 'tasks', $remainingLimits['tasks']) ?></span>
+                                из 150 возможных
+                            <?php endif; ?>
+
                         </li>
-                        <li>Вам доступно еще
-                            <span><?= $countReports ?> <?= ngettext('report', 'reports', $countReports) ?></span> в этом
-                            месяце (макс. 3)
+                        <li>
+                            <?php if ($countReports == 0): ?>
+                            <span>У вас исчерпан лимит отчетов в этом месяце</span>
+                            <?php else: ?>
+                                Вам доступно еще
+                                <span><?= $countReports ?> <?= ngettext('report', 'reports', $countReports) ?></span> в этом
+                                месяце (макс. 3)
+                            <?php endif; ?>
                         </li>
-                        <li>Вам доступно
-                            <span><?= $countTaskEdit ?> <?= ngettext('time', 'times', $countTaskEdit) ?></span>
-                            возможность создать задачу с
-                            расширенными настройками (макс. 3)
+                        <li>
+                            <?php if ($countTaskEdit == 0): ?>
+                            <span>У вас исчерпан лимит дополнительных функций в этом месяце</span>
+                            <?php else: ?>
+                                Вам доступно
+                                <span><?= $countTaskEdit ?> <?= ngettext('time', 'times', $countTaskEdit) ?></span>
+                                возможность создать задачу с
+                                расширенными настройками (макс. 3)
+                            <?php endif; ?>
+
                         </li>
                     </ul>
                 <?php else: ?>
                     <?php if ($companyTariff['is_card_binded']): ?>
                         <p><span class="ns">Доступен до <?= date('d.m', $companyTariff['payday']); ?></span> <span
                                     class="small ns font-weight-light"> - далее будет произведено автоматическое списание суммы <?= $tariffInfo['price'] / 100 ?> руб
-                                    согласно тарифу "Стартовый"</span>
+                                    согласно тарифу <?= $tariffInfo['tariff_name'] ?></span>
                         </p>
                     <?php else: ?>
                         <p><span class="ns">Доступен до <?= date('d.m', $companyTariff['payday']); ?></span> <span
@@ -292,7 +315,7 @@ endforeach; ?>
                                 <p class="text-muted-new small">Для оформления подписки мы спишем с вашей карты 1 рубль
                                     и вернём его</p>
                             <?php endif; ?>
-                            <p class="oferta-field"><input type="checkbox" id="oferta"
+                            <p class="oferta-field"><input class="new-checkbox" type="checkbox" id="oferta"
                                                            style=" position: relative; top: 7px; margin-right: 10px; ">
                                 Я согласен с
                                 <a href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
@@ -393,7 +416,7 @@ endforeach; ?>
                         </tr>
                     </table>
                     <p>Для привязывания карты мы спишем с вашей карты 1 рубль и вернём его</p>
-                    <p class="oferta-field"><input type="checkbox" id="ofertaAddModal"
+                    <p class="oferta-field"><input class="new-checkbox" type="checkbox" id="ofertaAddModal"
                                                    style=" position: relative; top: 7px; margin-right: 10px; ">Я
                         согласен с <a
                                 href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"

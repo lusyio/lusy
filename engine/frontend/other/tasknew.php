@@ -96,7 +96,7 @@ $borderColor = [
                     </div>
                 <?php } ?>
                 <div class="placeholder-coworkers position-relative">
-                    Не выбран
+                    Добавить
                     <div class="position-absolute icon-newtask icon-newtask-add-coworker">
                         <i class="fas fa-caret-down"></i>
                     </div>
@@ -124,7 +124,7 @@ $borderColor = [
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Надзадача
-                            <?php if ($tryPremiumLimits['task'] < 3): ?>
+                            <?php if ($tryPremiumLimits['task'] < 3 && $tariff == 0): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
@@ -159,7 +159,7 @@ $borderColor = [
                     <div class="col-12 col-lg-4">
                         <div class="label-tasknew text-left">
                             Дата старта
-                            <?php if ($tryPremiumLimits['task'] < 3): ?>
+                            <?php if ($tryPremiumLimits['task'] < 3 && $tariff == 0): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
@@ -178,7 +178,7 @@ $borderColor = [
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Подпункты
-                            <?php if ($tryPremiumLimits['task'] < 3): ?>
+                            <?php if ($tryPremiumLimits['task'] < 3 && $tariff == 0): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>

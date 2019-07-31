@@ -80,7 +80,11 @@
                                 </div>
                             </div>
                             <div class="col text-center align-center fio-profile">
-                                <?= $userData['name']; ?> <?= $userData['surname']; ?>
+                                <?php if ($userData['name'] != null && $userData['surname'] != null): ?>
+                                    <div class="fio-profile"><?= $userData['name'] ?> <?= $userData['surname'] ?></div>
+                                <?php else: ?>
+                                    <div class="fio-profile"><?= $userData['email'] ?></div>
+                                <?php endif; ?>
                             </div>
                         </div>
 

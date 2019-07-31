@@ -216,6 +216,20 @@ if ($id == $worker and $view == 0) {
                 </div>
             </div>
             <div class="mt-5 mb-5 text-justify"><?= $description ?></div>
+            <?php if ($checklist != []): ?>
+                <div class="collapse-checklist">
+                    <?php
+                    foreach ($checklist as $k => $n):
+                        ?>
+                        <label class="pure-material-checkbox d-block">
+                            <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?> <?= ($isCoworker == true && $n['status'] == 1 || $role == 'worker' && $n['status'] == 1)? 'disabled': '' ?>>
+                            <span class="text-area-message"><?= $n['text'] ?></span>
+                        </label>
+                    <?php
+                    endforeach;
+                    ?>
+                </div>
+            <?php endif; ?>
             <?php if (count($files) > 0): ?>
                 <?php foreach ($files as $file): ?>
                     <?php if ($file['is_deleted']): ?>
@@ -227,22 +241,6 @@ if ($id == $worker and $view == 0) {
                                         class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a></p>
                     <?php endif; ?>
                 <?php endforeach; ?>
-            <?php endif; ?>
-            <?php
-            if ($checklist != []):
-                ?>
-                <div class="collapse-checklist">
-                    <?php
-                    foreach ($checklist as $k => $n):
-                        ?>
-                        <label class="pure-material-checkbox d-block">
-                            <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?> <?= ($isCoworker == true && $n['status'] == 1)? 'disabled': '' ?>>
-                            <span class="text-area-message"><?= $n['text'] ?></span>
-                        </label>
-                    <?php
-                    endforeach;
-                    ?>
-                </div>
             <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
@@ -263,17 +261,17 @@ if ($id == $worker and $view == 0) {
                                 <div class="row">
                                     <div class="col-sm-5 col-lg-5 col-md-12 col-12">
                                         <div class="text-area-message">
-                                            <span class="taskname" style="padding-left: 28px;font-weight: 600;color: #353b41;"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
+                                            <span class="taskname" style="padding-left: 35px;font-weight: 600;color: #353b41;"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-1 pl-0">
                                         <div class="d-flex fc">
-                                            <div class="informer d-flex mr-3"><i class="fas fa-comments">
-                                                </i><span class="ml-1">1</span>
-                                            </div>
-                                            <div class="informer d-flex">
-                                                <i class="fas fa-file"></i><span class="ml-1">1</span>
-                                            </div>
+<!--                                            <div class="informer d-flex mr-3"><i class="fas fa-comments">-->
+<!--                                                </i><span class="ml-1">1</span>-->
+<!--                                            </div>-->
+<!--                                            <div class="informer d-flex">-->
+<!--                                                <i class="fas fa-file"></i><span class="ml-1">1</span>-->
+<!--                                            </div>-->
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-lg-2 col-md-5 col-5 pr-0">

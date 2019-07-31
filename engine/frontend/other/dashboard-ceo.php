@@ -172,11 +172,13 @@ $statusColor = [
                     </div>
                 </a>
             <?php endif; ?>
+            <?php if ($countAllTasks > 4): ?>
             <a href="/tasks/">
                 <span class="icon-more-tasks" data-toggle="tooltip" data-placement="bottom" title="Больше задач">
                     <i class="fas fa-sort-down"></i>
                 </span>
             </a>
+            <?php endif; ?>
         </div>
         <!--        <div class="bottomGradient"></div>-->
     </div>
