@@ -341,17 +341,16 @@ $(document).ready(function () {
         }
     });
 
-    // $("#deadlineInput").on('change', function () {
-    //     var datedone = $(this).val();
-    //     var $this = $(this);
-    //     console.log(datedone);
-    //     var minVal = $(this).attr('min');
-    //     setTimeout(function () {
-    //         if (datedone <= minVal) {
-    //             // $this.val(minVal + 1);
-    //         }
-    //     }, 500);
-    // });
+    $("#deadlineInput").on('change', function () {
+        var datedone = $(this).val();
+        var $this = $(this);
+        var minVal = $(this).attr('min');
+        setTimeout(function () {
+            if (datedone < minVal) {
+                $this.val(minVal);
+            }
+        }, 500);
+    });
 
     // Манагер ставит дату
     $("#sendDate").click(function () {
