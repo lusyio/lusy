@@ -161,7 +161,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Дополнительные функции</h5>
             </div>
             <div class="modal-body text-center">
-                Извините, Дополнительные функции доступны только в Premium версии.
+                Извините, Вы исчерпали все бесплатные использования модуля отчетов.
             </div>
             <div class="modal-footer border-0">
                 <?php if ($isCeo): ?>
