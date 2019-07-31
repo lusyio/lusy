@@ -1697,6 +1697,15 @@ input:checked[type="checkbox"]::before {
     position: absolute;
 }
 
+.icon-close-modal.modal-content{
+    right: -10px;
+    top: -10px;
+    position: absolute;
+    width: unset;
+    background-color: unset;
+    border: none;
+}
+
 .btn-link-payment{
     font-weight: 400;
     color: #2c7be5;
@@ -3070,6 +3079,14 @@ span.date {
         margin-bottom: 13px;
     }
 
+    .modal-dialog-tariff .flex-modal{
+        display: block;
+    }
+
+    .promocode-block{
+        margin-top: 3rem;
+    }
+
     .subtask-badge-desktop{
         display: none;
     }
@@ -3205,12 +3222,27 @@ span.date {
         margin: 0px;
     }
 
+    .left-modal .modal-body.text-left{
+        margin-left: 0;
+    }
+
+    .radio-body{
+        padding-left: 0;
+    }
+
     .left-modal{
-        display: none;
+        padding-bottom: 0;
+        min-width: 100%;
+         border-top-right-radius: .3rem;
+         border-bottom-right-radius: 0;
+         border-bottom-left-radius: 0;
     }
 
     .right-modal{
-        border-top-left-radius: .3rem;;
+        padding-top: 0;
+        min-width: 100%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
         border-bottom-left-radius: .3rem;
         border-bottom-right-radius: .3rem;
         padding-right: 0;

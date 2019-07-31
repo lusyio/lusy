@@ -55,16 +55,6 @@
                 <h5>Текущий тариф - <?= $tariffInfo['tariff_name'] ?></h5>
                 <input type="hidden" id="currentTariff" value="<?= $companyTariff['tariff'] ?>">
                 <input type="hidden" id="isCardBinded" value="<?= $companyTariff['is_card_binded'] ?>">
-<!--                <div class="edit-tariff-block">-->
-<!--                    <button id="changeTariffBlock" class="btn btn-edit-tariff btn-sm btn-light" data-toggle="tooltip"-->
-<!--                            data-placement="bottom" title="Изменить тариф">-->
-<!--                        <i class="fas fa-pencil-alt" style="color: #999999;"></i>-->
-<!--                    </button>-->
-<!--                    <button id="cancelTariff" class="btn btn-edit-tariff btn-sm btn-light" data-toggle="tooltip"-->
-<!--                            data-placement="bottom" title="Отменить подписку">-->
-<!--                        <i class="fas fa-times" style="color: #999999;"></i>-->
-<!--                    </button>-->
-<!--                </div>-->
                 <?php if ($companyTariff['tariff'] == 0): ?>
                     <p class="ns">Безграничный период</p>
                     <ul class="plusUl">
@@ -90,7 +80,7 @@
                 <?php else: ?>
                     <?php if ($companyTariff['is_card_binded']): ?>
                         <p><span class="ns">Доступен до <?= date('d.m', $companyTariff['payday']); ?></span> <span
-                                    class="small ns font-weight-light"> - далее будет произведено автоматическое списание суммы 249 руб<br>
+                                    class="small ns font-weight-light"> - далее будет произведено автоматическое списание суммы <?= $tariffInfo['price'] / 100 ?> руб
                                     согласно тарифу "Стартовый"</span>
                         </p>
                     <?php else: ?>
@@ -109,11 +99,27 @@
                         <li>Вам доступно неограниченное количество отчетов</li>
                         <li>Вам доступна интеграция с Google Drive и DropBox</li>
                     </ul>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <button class="btn btn-outline-change-tariff w-100" id="changeTariffBlock" data-price="499"
+                                    data-price-per-month="499" data-period="1 месяц" data-tariff-name="Стартовый"
+                                    data-tariff-id="1">
+                                Сменить тариф
+                            </button>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <?php if (($companyTariff['is_card_binded'])): ?>
+                                <button class="btn btn-change-tariff w-100" id="cancelTariffBlock">
+                                    Отменить подписку
+                                </button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4 promocode-block">
         <div class="card position-relative text-center">
             <div class="card-body">
                 <div class="gift-inside">
@@ -159,35 +165,38 @@ endforeach; ?>
 <div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="payModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-tariff" role="document">
-        <div class="d-flex">
+        <div class="flex-modal accordion-target">
             <div>
-                <div class="modal-content border-0 left-modal pt-4 pb-4">
-                    <div class="modal-header border-0 mb-3 text-center d-block">
-                        <h5 class="modal-title text-left" style="margin-left: 22px;" id="exampleModalLabel">1. Выберите
+                <div class="modal-content border-0 left-modal">
+                    <div class="modal-header border-0 mb-3 text-center d-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h5 class="modal-title text-left">1. Выберите
                             подходящий тариф</h5>
                     </div>
-                    <div class="modal-body text-left">
-                        <div class="mb-4 pl-5">
+                    <div class="modal-body text-left collapse-target-first" id="collapseOne">
+                        <div class="radio-body mb-4">
                             <label class="pure-material-radio">
-                                <input type="radio" name="radio" data-id="1" checked>
+                                <input type="radio" name="tariff" data-price="499" data-price-per-month="499"
+                                       data-period="1 месяц" data-tariff-name="Стартовый" data-tariff-id="1" checked>
                                 <span>Стартовый</span>
                                 <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 1 месяц <br>
                                     Стоимость - 499 руб./мес
                                 </p>
                             </label>
                         </div>
-                        <div class="mb-4 pl-5">
+                        <div class="radio-body mb-4">
                             <label class="pure-material-radio">
-                                <input type="radio" name="radio" data-id="2" >
+                                <input type="radio" name="tariff" data-price="1047" data-price-per-month="349"
+                                       data-period="3 месяца" data-tariff-name="Уверенный" data-tariff-id="2">
                                 <span>Уверенный</span>
                                 <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 3 месяц <br>
                                     Стоимость - 349 руб./мес
                                 </p>
                             </label>
                         </div>
-                        <div class="pl-5">
+                        <div class="radio-body">
                             <label class="pure-material-radio">
-                                <input type="radio" name="radio" data-id="3" >
+                                <input type="radio" name="tariff" data-price="2988" data-price-per-month="249"
+                                       data-period="12 месяцев" data-tariff-name="Босс" data-tariff-id="3">
                                 <span>Босс</span>
                                 <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 12 месяц
                                     <br>
@@ -196,17 +205,18 @@ endforeach; ?>
                             </label>
                         </div>
                     </div>
+
                 </div>
             </div>
 
             <div>
-                <div class="modal-content right-modal border-0 pt-4">
-                    <div class="modal-header border-0 text-center d-block">
+                <div class="modal-content right-modal border-0">
+                    <div class="modal-header border-0 text-center d-block" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                         <h5 class="modal-title text-left" id="exampleModalLabel">2.
                             Подтвердите данные</h5>
                     </div>
                     <?php if ($companyTariff['tariff'] == 0): ?>
-                        <div class="modal-body text-left">
+                        <div class="modal-body text-left collapse-target" id="collapseTwo">
                             <p class="text-muted-new">Вы собираетесь оформить платную подписку по тарифному плану "<span
                                         id="tariffName"></span>"
                             </p>
@@ -245,19 +255,16 @@ endforeach; ?>
                             <button class="btn text-white w-100 mt-3" id="pay" disabled
                                     style="height: 50px; background: #7b81f9;border-radius: 20px;">
                                 Перейти к оплате подписки
-                                <div class="spinner-border spinner-border-sm text-white" role="status"
+                                <div class="spinner-border spinner-border-sm text-white border-0" role="status"
                                      style="display: none">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </button>
                         </div>
-                        <span class="icon-close-modal">
-                    <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
-                                class="fas fa-times text-muted"></i></button>
-                </span>
                     <?php else: ?>
-                        <div class="modal-body text-left">
-                            <p class="text-muted-new">Вы собираетесь сменить тариф</p>
+                        <div class="modal-body text-left collapse-target" id="collapseTwo">
+                            <p class="text-muted-new">Вы собираетесь сменить тариф на <br> "<span
+                                        id="tariffName"></span>"</p>
                             <table class="table w-100 border">
                                 <tr>
                                     <td>Период списания средств</td>
@@ -292,26 +299,27 @@ endforeach; ?>
                             adasd
                             </span>
                             <hr>
-                            <button class="btn text-white w-100"
+                            <button class="btn text-white w-100 border-0"
                                     style="height: 50px; background: #7b81f9;border-radius: 20px;" id="changeTariff"
                                     disabled>
                                 Сменить тариф
-                                <div class="spinner-border spinner-border-sm text-white" role="status"
+                                <div class="spinner-border spinner-border-sm text-white border-0" role="status"
                                      style="display: none">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </button>
                         </div>
-                        <span class="icon-close-modal">
-                    <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
-                                class="fas fa-times text-muted"></i></button>
-                </span>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
         <div class="modal-content border-0 modal-bottom">
             <div class="modal-body">
+                <?php if ($companyTariff['tariff'] != 0 && $companyTariff['is_card_binded'] == null): ?>
+                    <p class="text-muted-new small mb-0" style="margin-left: 24px;margin-right: 24px;">
+                        <b>Внимание!</b> После оплаты ваши неиспользованные дни сохраняются.
+                    </p>
+                <?php endif; ?>
                 <hr style="margin-left: 24px; margin-right: 24px;">
                 <p class="text-muted-new small mb-0" style="margin-left: 24px;margin-right: 24px;">
                     <b>Внимание!</b> Оплата тарифного плана происходит путем автоплатежа - автоматического списания
@@ -324,6 +332,11 @@ endforeach; ?>
                 </p>
             </div>
         </div>
+        <span class="icon-close-modal modal-content">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i>
+            </button>
+        </span>
     </div>
 </div>
 
@@ -332,10 +345,10 @@ endforeach; ?>
     <div class="modal-dialog" role="document" style="max-width: 390px">
         <div class="modal-content">
             <div class="modal-header border-0 text-center d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Управление картой</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Управление тарифом</h5>
             </div>
             <div class="modal-body text-center">
-                Вы действительно хотите отвязать карту?
+                Вы действительно хотите Отменить подписку?
             </div>
             <div class="modal-footer border-0" style="justify-content: space-between">
                 <i id="deleteCardBtn" class="fas fa-check delete-card"></i>
@@ -483,17 +496,11 @@ endforeach; ?>
 <script>
     $(document).ready(function () {
 
-        $('#changeTariffBlock').on('click', function () {
-            $('#payModal').modal('show');
-        });
-
-        $('#changeTariffBlock').on('mouseleave', function () {
-            $(this).tooltip('hide');
-        });
-
-        $('#cancelTariff').on('mouseleave', function () {
-            $(this).tooltip('hide');
-        });
+        if(screen.width <= 768){
+            $('.accordion-target').addClass('accordion');
+            $('.collapse-target-first').addClass('collapse').addClass('show');
+            $('.collapse-target').addClass('collapse');
+        }
 
         $('#disabledBtn').on('click', function () {
             $('.oferta-field').css({
@@ -582,9 +589,8 @@ endforeach; ?>
             $('#refundAmount').text('');
             $('#orderDate').text('');
         });
-        
 
-        $(".choose-tariff").on('click', function () {
+        $(".choose-tariff, #changeTariffBlock").on('click', function () {
             var currentTariff = $('#currentTariff').val();
             var isCardBinded = $('#isCardBinded').val();
             var period = $(this).data('period');
@@ -593,8 +599,47 @@ endforeach; ?>
             var tariffName = $(this).data('tariff-name');
             var tariff = $(this).data('tariff-id');
 
+            console.log(currentTariff);
+
+            $('[name=tariff]').on('change', function () {
+                if ($(this).prop('checked')) {
+                    period = $(this).data('period');
+                    pricePerMonth = $(this).data('price-per-month');
+                    fullPrice = $(this).data('price');
+                    tariffName = $(this).data('tariff-name');
+                    tariff = $(this).data('tariff-id');
+
+                    $('#payPeriod').text(period);
+                    $('#payPerMonth').text(pricePerMonth);
+                    $('#descriptionPrice').text(pricePerMonth);
+                    $('#payFullPrice').text(fullPrice);
+                    $('#tariffName').text(tariffName);
+                }
+
+                if (tariff == currentTariff) {
+                    $('#oferta').prop('disabled', true);
+                    $('#disabledBtn').hide();
+                    $('#disabledBtnChange').hide();
+                    $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Это ваш текущий тариф');
+                    $('#changeTariff').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary');
+                    if (isCardBinded) {
+                        $('#pay').text('Это ваш текущий тариф');
+                        $('#changeTariff').text('Это ваш текущий тариф');
+                        $('#oferta').prop('disabled', true);
+                    } else {
+                        $('#pay').text('Привязать карту для оплаты');
+                        $('#oferta').prop('disabled', false);
+                        $('#changeTariff').text('Привязать карту для оплаты');
+                    }
+                } else {
+                    $('#oferta').prop('disabled', false);
+                    $('#pay').text('Сменить тариф');
+                    $('#changeTariff').text('Сменить тариф');
+                }
+            });
+
             if (tariff == currentTariff) {
-                $('#oferta').attr('disabled', true);
+                $('#oferta').prop('disabled', true);
                 $('#disabledBtn').hide();
                 $('#disabledBtnChange').hide();
                 $('#pay').attr('disabled', true).addClass('btn-secondary').removeClass('btn-primary').text('Это ваш текущий тариф');
@@ -602,18 +647,25 @@ endforeach; ?>
                 if (isCardBinded) {
                     $('#pay').text('Это ваш текущий тариф');
                     $('#changeTariff').text('Это ваш текущий тариф');
-                    $('#oferta').attr('disabled', true);
+                    $('#oferta').prop('disabled', true);
                 } else {
                     $('#pay').text('Привязать карту для оплаты');
-                    $('#oferta').attr('disabled', false);
+                    $('#oferta').prop('disabled', false);
                     $('#changeTariff').text('Привязать карту для оплаты');
                 }
+            } else {
+                $('#oferta').prop('disabled', false);
+                $('#pay').text('Сменить тариф');
+                $('#changeTariff').text('Сменить тариф');
             }
+
+
             $('#payPeriod').text(period);
             $('#payPerMonth').text(pricePerMonth);
             $('#descriptionPrice').text(pricePerMonth);
             $('#payFullPrice').text(fullPrice);
             $('#tariffName').text(tariffName);
+            $('.pure-material-radio [data-price=499]').prop('checked', true);
             $('#payModal').modal('show');
 
             $('#pay').on('click', function () {
@@ -638,6 +690,7 @@ endforeach; ?>
                         return xhr;
                     },
                     success: function (response) {
+                        console.log(response);
                         if (response.error === '') {
                             if (response.url !== '') {
                                 window.open(response.url);
@@ -699,6 +752,10 @@ endforeach; ?>
             });
         });
 
+        $('#cancelTariffBlock').on('click', function () {
+            $('#deleteCardModal').modal('show');
+        });
+
         $('#deleteCardBtn').on('click', function () {
             var fd = new FormData();
             fd.append('module', 'unbindCard');
@@ -720,6 +777,7 @@ endforeach; ?>
                 },
             });
         });
+
         $('#addCard').on('click', function () {
             var fd = new FormData();
             fd.append('module', 'bindCard');
