@@ -74,10 +74,15 @@ if ($comment[0] == 'removecoworker') {
     $text = $_coworkerWasRemoved . ' - ' . $coworkerLink;
 }
 if ($comment[0] == 'addsubtask') {
+    $subTaskAvailabilityQuery = $pdo->prepare("SELECT id FROM tasks t  left join task_coworkers tc ON t.id = tc.task_id WHERE t.id = :taskId AND (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId)");
+    $subTaskAvailabilityQuery->execute([':taskId' => $comment[1], ':userId' => $id]);
+    $subTaskAvailability = $subTaskAvailabilityQuery->fetch(PDO::FETCH_COLUMN);
+    if (!$subTaskAvailability && $roleu != 'ceo') {
+        return;
+    }
     $text = '<a href="/task/' . $comment[1] .'/">Создана подзадача</a>';
 }
 ?>
-
 <div class="mt-5 mb-5 system text-center text-secondary position-relative" id="<?= $c['id'] ?>">
     <div class="system-text">
         <span><?= $text ?></span>
