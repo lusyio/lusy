@@ -411,43 +411,33 @@ $(document).ready(function () {
 // Кнопка принять для worker'a (в статусе "на рассмотрении""), переводит в статус done - завершен
 
     $("#workdone").click(function () {
-        $(this).prop('disabled', true);
-        $("#cancelTask").prop('disabled', true);
-        // var report = $("#reportarea").val();
-        // if (report) {
-        $('#spinnerModal').modal('show');
-        $.ajax({
-            url: '/ajax.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                module: 'workdone',
-                it: $it,
-                ajax: 'task-control'
-            },
-            success: function (response) {
-                if (response.status) {
-                    controlUpdate()
-                } else {
-                    $('#spinnerModal').modal('hide');
-                    $('#workdone').prop('disabled', false);
-                    $("#cancelTask").prop('disabled', false);
-                    response.tasks.forEach(function (e) {
-                        $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css({
-                            'background-color': '#ff000030',
-                            'transition': '1000ms'
+        if ($(this).hasClass('continue-none')) {
+            highlightUnfinishedTasks();
+        } else {
+            $(this).prop('disabled', true);
+            $("#cancelTask").prop('disabled', true);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    module: 'workdone',
+                    it: $it,
+                    ajax: 'task-control'
+                },
+                success: function (response) {
+                    if (response.status) {
+                        controlUpdate()
+                    } else {
+                        $('#workdone').prop('disabled', false);
+                        $("#cancelTask").prop('disabled', false);
+                        response.tasks.forEach(function (e) {
+                            highlightUnfinishedTasksById(e.id)
                         });
-                        setTimeout(function () {
-                            $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css('background-color', '#00000008');
-                        }, 3000)
-                    });
-                }
-            },
-        });
-
-        // } else {
-        // 	$("#reportarea").addClass('border-danger');
-        // }
+                    }
+                },
+            });
+        }
     });
 
     $("#changePlanDate").on('click', function () {
@@ -543,37 +533,33 @@ $(document).ready(function () {
 
     //Отмена таска
     $("#cancelTask").click(function () {
-        $('#spinnerModal').modal('show');
-        $(this).prop('disabled', true);
-        $("#workdone").prop('disabled', true);
-        $.ajax({
-            url: '/ajax.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                module: 'cancelTask',
-                it: $it,
-                ajax: 'task-control'
-            },
-            success: function (response) {
-                if (response.status) {
-                    controlUpdate()
-                } else {
-                    $('#spinnerModal').modal('hide');
-                    $('#workdone').prop('disabled', false);
-                    $("#cancelTask").prop('disabled', false);
-                    response.tasks.forEach(function (e) {
-                        $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css({
-                            'background-color': '#ff000030',
-                            'transition': '1000ms'
+        if ($(this).hasClass('continue-none')) {
+            highlightUnfinishedTasks();
+        } else {
+            $(this).prop('disabled', true);
+            $("#workdone").prop('disabled', true);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    module: 'cancelTask',
+                    it: $it,
+                    ajax: 'task-control'
+                },
+                success: function (response) {
+                    if (response.status) {
+                        controlUpdate()
+                    } else {
+                        $('#workdone').prop('disabled', false);
+                        $("#cancelTask").prop('disabled', false);
+                        response.tasks.forEach(function (e) {
+                            highlightUnfinishedTasksById(e.id);
                         });
-                        setTimeout(function () {
-                            $('.subTaskInList').find('[idtask= ' + e.id + ']').children('.card-footer').css('background-color', '#00000008');
-                        }, 3000)
-                    });
-                }
-            },
-        });
+                    }
+                },
+            });
+        }
     });
 
 
@@ -719,5 +705,35 @@ $(document).ready(function () {
             }
         })
     })
+
+    $('.continue-none').on('mouseleave', function () {
+        $(this).tooltip('hide');
+    })
+
+    function highlightUnfinishedTasks() {
+        $('.not-finished').each(function () {
+            $(this).children('.card-footer').css({
+                'background-color': '#ff000030',
+                'transition': '1000ms'
+            });
+        });
+        setTimeout(function () {
+            $('.not-finished').each(function () {
+                $(this).children('.card-footer').css({
+                    'background-color': '#00000008',
+                });
+            });
+        }, 3000)
+    }
+
+    function highlightUnfinishedTasksById(id) {
+        $('.subTaskInList').find('[idtask= ' + id + ']').children('.card-footer').css({
+            'background-color': '#ff000030',
+            'transition': '1000ms'
+        });
+        setTimeout(function () {
+            $('.subTaskInList').find('[idtask= ' + id + ']').children('.card-footer').css('background-color', '#00000008');
+        }, 3000)
+    }
 
 });

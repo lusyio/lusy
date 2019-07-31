@@ -60,9 +60,13 @@
 
 
 <div id="status-block">
-    <button id ="workdone" type="button" class="btn btn-outline-primary mt-3 mb-3 w-10"><i class="fas fa-check mr-2"></i> <?=$GLOBALS["_completetask"]?></button>
+    <button id ="workdone" type="button" class="btn btn-outline-primary mt-3 mb-3 w-10<?= ($hasUnfinishedSubTask) ? ' continue-none' : ''?>"
+        <?= ($hasUnfinishedSubTask) ? 'data-toggle="tooltip" data-placement="bottom" title="Нельзя завершить задачу - есть незавершенные подзадачи"' : ''; ?>
+    ><i class="fas fa-check mr-2"></i> <?=$GLOBALS["_completetask"]?></button>
     <button id ="return-manager" type="button" class="btn btn-outline-warning mt-3 mb-3 w-10"  data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><i class="fas fa-exchange-alt mr-2"></i> <?=$GLOBALS["_return"]?></button>
-    <button id="cancelTask" type="button" class="btn btn-outline-danger mt-3 mb-3 w-10"><i class="fas fa-times cancel mr-2" id="cancel-icon-button"></i> <?=$GLOBALS["_cancel"]?></button>
+    <button id="cancelTask" type="button" class="btn btn-outline-danger mt-3 mb-3 w-10<?= ($hasUnfinishedSubTask) ? ' continue-none' : ''?>"
+            <?= ($hasUnfinishedSubTask) ? 'data-toggle="tooltip" data-placement="bottom" title="Нельзя отменить задачу - есть незавершенные подзадачи"' : ''; ?>
+    ><i class="fas fa-times cancel mr-2" id="cancel-icon-button"></i> <?=$GLOBALS["_cancel"]?></button>
 </div>
 
 
