@@ -305,6 +305,10 @@
     color: #353b41 !important;
 }
 
+.mt-13px{
+    margin-top: 13px;
+}
+
 .delete-checklist-item{
     transition: 200ms;
     position: absolute;

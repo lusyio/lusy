@@ -174,7 +174,7 @@ $borderColor = [
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-13px">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Подпункты
@@ -202,7 +202,7 @@ $borderColor = [
             </div>
         <?php else: ?>
             <div class="collapse mt-25-tasknew" id="collapseFunctions">
-                <div class="row top-block-tasknew">
+                <div class="row">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Надзадача
@@ -235,7 +235,7 @@ $borderColor = [
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mt-13px">
                     <div class="col-12 col-lg-8 top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Подпункты
