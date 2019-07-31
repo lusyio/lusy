@@ -234,7 +234,7 @@ $statusColor = [
                                     <img src="/<?= getAvatarLink($user['id']) ?>" class="avatar-added">
                                 </div>
                                 <div class="col-9 col-lg-3 text-left pl-0 pr-0 worker-name-reports text-area-message">
-                                    <span class="mb-1 text-color-new"><?= $user['name'] ?> <?= $user['surname'] ?></span>
+                                    <span class="mb-1 text-color-new"><?= (trim($user['name'] . ' ' . $user['surname']) == '') ? $user['email'] : trim($user['name'] . ' ' . $user['surname']) ?></span>
                                 </div>
                                 <div class="col-3 col-lg-2 p-0 text-center">
                                     <div class="text-color-new done-tasks"><?= $doneAsWorker ?></div>

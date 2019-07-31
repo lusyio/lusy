@@ -3,9 +3,10 @@
         <div class="empty-list text-muted">
             Список пуст
         </div>
-        <?php
-        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
-        foreach ($users as $n) { ?>
+        <?php foreach ($users as $n) { ?>
+            <?php if ($n['id'] == $id) {
+                continue;
+            } ?>
             <div val="<?php echo $n['id'] ?>" class="select-coworker">
                 <div class="row">
                     <div class="col-2">

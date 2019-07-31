@@ -28,7 +28,9 @@ if (isset($_POST['it'])) {
         $isWorker = true;
     }
     $taskStatus = DBOnce('status', 'tasks', 'id='.$idtask);
-
+    if (in_array($taskStatus, ['done', 'canceled'])) {
+        exit;
+    }
 }
 
 if ($roleu == 'ceo') {
@@ -250,6 +252,11 @@ if($_POST['module'] == 'createTask') {
     $description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
     $datedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
     $worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
+    foreach ($coworkers as $key => $coworker) {
+        if ($coworker == $managerId || $coworker == $worker) {
+            unset($coworkers[$key]);
+        }
+    }
     $status = 'new';
     $dateCreate = time();
     if (isset($_POST['startdate']) && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
@@ -347,6 +354,9 @@ if ($_POST['module'] == 'cancelDate' && $isManager) {
 if ($_POST['module'] == 'confirmDate' && $isManager) {
     $statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
     $datepostpone = preg_split('~:~', $statusWithDate)[1];
+    if ($datepostpone == $taskDatedone) {
+        exit;
+    }
     setStatus($idtask, 'inwork', $datepostpone);
 
     addChangeDateComments($idtask, 'confirmdate', $datepostpone);
@@ -357,6 +367,9 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 
 if ($_POST['module'] == 'sendDate' && $isManager) {
     $datepostpone = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS));
+    if ($datepostpone == $taskDatedone) {
+        exit;
+    }
     $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datedone = :datepostpone, `view` = 0 WHERE id=".$idtask);
 
     if ($taskStatus != 'planned') {
@@ -417,7 +430,7 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
     }
 
     $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
-    if ($newWorker != $idTaskWorker) {
+    if ($newWorker != $idTaskWorker && $newWorker != $idTaskManager) {
         $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
         $changeWorkerQuery->execute(array(':taskId' => $idtask, ':newWorker' => $newWorker));
         if ($taskStatus != 'planned') {

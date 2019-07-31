@@ -68,7 +68,6 @@ $borderColor = [
                  style="min-height: 38px;padding-top: 10px;">
                 <div class="placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                 <?php
-                $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                 foreach ($users as $n) { ?>
                     <div val="<?php echo $n['id'] ?>" class="add-responsible d-none">
                         <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
@@ -86,9 +85,7 @@ $borderColor = [
             </label>
             <div class="coworkers-toggle container container-coworker border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
                  style="padding-top: 10px;">
-                <?php
-                $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
-                foreach ($users as $n) { ?>
+                <?php foreach ($users as $n) { ?>
                     <div val="<?php echo $n['id'] ?>" class="add-worker d-none">
                         <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
                         <span class="coworker-fio"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
