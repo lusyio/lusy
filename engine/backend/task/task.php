@@ -52,10 +52,18 @@ if ($isCeo || $task['manager'] == $id || $task['worker'] == $id || in_array($id,
     $subTasksQuery->execute([':taskId' => $id_task, ':userId' => $id]);
 }
 $subTasks = $subTasksQuery->fetchAll(PDO::FETCH_ASSOC);
+$unfinishedSubTasks = [];
+foreach ($subTasks as $subTask) {
+    if (!in_array($subTask['status'], ['done', 'canceled', 'planned'])) {
+        $unfinishedSubTasks[] = $subTask['id'];
+    }
+}
+$hasUnfinishedSubTask = (bool) count($unfinishedSubTasks);
 
 $hasOwnSubTaskQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE parent_task = :taskId AND (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId)");
 $hasOwnSubTaskQuery->execute([':taskId' => $id_task, ':userId' => $id]);
 $hasOwnSubTask = $hasOwnSubTaskQuery->fetch(PDO::FETCH_COLUMN);
+
 
 $report = $task['report'];
 $idtask = $task['id'];
