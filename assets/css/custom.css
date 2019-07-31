@@ -3381,6 +3381,12 @@ span.date {
     .avatars div {
         float: right;
     }
+
+    .avatars-big{
+        padding-right: 15px;
+    }
+
+
     .fc {
         display: none !important;
     }

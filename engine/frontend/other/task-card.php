@@ -30,8 +30,8 @@
                         <div class="col-sm-2 col-lg-2 col-md-3 col-3 <?= ($n['task']['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($n['task']['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $n['task']['datedone']) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
                             <?= $n['task']['deadLineDay'] ?> <?= $n['task']['deadLineMonth'] ?>
                         </div>
-                        <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
-                            <div>
+                        <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars avatars-big">
+                            <div style="float: right">
                                 <?php if ($n['task']['idmanager'] == $n['task']['idworker']): ?>
                                     <img src="/<?= getAvatarLink($n['task']['idmanager']) ?>" class="avatar">
                                 <?php else: ?>

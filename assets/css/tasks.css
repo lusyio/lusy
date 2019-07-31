@@ -20,6 +20,11 @@
 .task-card .col-5, .task-card .col-3 {
     color: #5E5E5E;
 }
+
+.avatars-big{
+    padding-right: 48px;
+}
+
 .task-card .col-5 {
     padding-right: 0px;
 }
