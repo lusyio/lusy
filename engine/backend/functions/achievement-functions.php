@@ -106,9 +106,9 @@ function getUserProgress($userId)
         $isProfileFilled = true;
     }
 
-    $inviteSentQuery = $pdo->prepare("SELECT COUNT(*) FROM events WHERE action = 'sentinvite' AND recipient_id = :userId");
+    $inviteSentQuery = $pdo->prepare("SELECT COUNT(*) FROM events WHERE action = 'newuser' AND recipient_id = :userId");
     $inviteSentQuery->execute(array(':userId' => $userId));
-    if ($inviteSentQuery->fetch(PDO::FETCH_COLUMN) > 0) {
+    if ($inviteSentQuery->fetch(PDO::FETCH_COLUMN)) {
         $inviteSent = true;
     }
 
