@@ -242,11 +242,11 @@ endforeach; ?>
                                     бесплатно. Для оформления подписки мы спишем с вашей карты 1 рубль и вернём его</p>
                             <?php endif; ?>
                             <div class="row oferta-field">
-                                <div class="col-2">
+                                <div class="col-2 pl-0">
                                     <input class="new-checkbox" type="checkbox" id="oferta"
                                            style=" position: relative; top: 7px; margin-right: 10px; ">
                                 </div>
-                                <div class="col">
+                                <div class="col pl-0">
                                     Я согласен с
                                     <a href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
                                        style="text-decoration: underline" target="_blank">
