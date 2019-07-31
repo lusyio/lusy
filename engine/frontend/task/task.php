@@ -75,10 +75,10 @@ $statusBar = [
     'returned' => [
         'border' => 'border-primary',
         'bg' => 'badge-primary',
-        'bg1' => 'bg-custom-color',
+        'bg1' => 'bg-primary',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-custom-color',
-        'ic1' => 'fas fa-bolt',
+        'ic1' => 'fas fa-exchange-alt',
         'ic2' => 'fas fa-eye',
         'ic3' => 'fas fa-check',
     ],
