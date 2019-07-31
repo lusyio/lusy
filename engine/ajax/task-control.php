@@ -354,6 +354,9 @@ if ($_POST['module'] == 'cancelDate' && $isManager) {
 if ($_POST['module'] == 'confirmDate' && $isManager) {
     $statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
     $datepostpone = preg_split('~:~', $statusWithDate)[1];
+    if ($datepostpone == $taskDatedone) {
+        exit;
+    }
     setStatus($idtask, 'inwork', $datepostpone);
 
     addChangeDateComments($idtask, 'confirmdate', $datepostpone);
@@ -364,6 +367,9 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 
 if ($_POST['module'] == 'sendDate' && $isManager) {
     $datepostpone = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS));
+    if ($datepostpone == $taskDatedone) {
+        exit;
+    }
     $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datedone = :datepostpone, `view` = 0 WHERE id=".$idtask);
 
     if ($taskStatus != 'planned') {
