@@ -191,10 +191,12 @@ if ($id == $worker and $view == 0) {
                 </div>
                 <div class="col-6 col-lg-8 ">
                     <div class="member-block">
-                        <div class="float-right members-block">
-                            <img src="/<?= getAvatarLink($manager) ?>" class="avatar mr-1">
-                            <span class=" text-secondary slash">|</span>
-                            <img src="/<?= getAvatarLink($worker) ?>" class="avatar ml-1">
+                        <div class="float-right members-block" style="padding-left: 35px;">
+                            <img src="/<?= getAvatarLink($manager) ?>" class="avatar">
+                            <?php if ($manager != $worker): ?>
+                                <span class="ml-1 mr-1 text-secondary slash">|</span>
+                                <img src="/<?= getAvatarLink($worker) ?>" class="avatar">
+                            <?php endif; ?>
                             <?php
                             $i = 1;
                             foreach ($coworkers as $coworker): ?>
