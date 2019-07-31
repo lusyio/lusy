@@ -103,6 +103,19 @@ $checklist = json_decode($task['checklist'], true);
 if (is_null($checklist)) {
     $checklist = [];
 }
+$userFullNameQuery = $pdo->prepare('SELECT name, surname, email FROM users u WHERE id = :userId');
+foreach ($checklist as $key => $value) {
+    if ($value['status'] == 1) {
+        $userFullNameQuery->execute([':userId' => $value['checkedBy']]);
+        $userFullNameResult = $userFullNameQuery->fetch(PDO::FETCH_ASSOC);
+        if (trim($userFullNameResult['name'] . ' ' . $userFullNameResult['surname']) == '') {
+            $userFullName = $userFullNameResult['email'];
+        } else {
+            $userFullName = trim($userFullNameResult['name'] . ' ' . $userFullNameResult['surname']);
+        }
+        $checklist[$key]['name'] = $userFullName;
+    }
+}
 
 $view = $task['view'];
 $viewState = '';
@@ -171,3 +184,5 @@ if ($status == 'done' || $status == 'canceled') {
 
 $remainingLimits = getRemainingLimits();
 $emptySpace = $remainingLimits['space'];
+
+

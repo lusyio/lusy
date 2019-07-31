@@ -219,6 +219,7 @@ if($_POST['module'] == 'createTask') {
         foreach ($unsafeChecklist as $key => $value) {
             $checklist[$key]['text'] = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
             $checklist[$key]['status'] = 0;
+            $checklist[$key]['checkedBy'] = 0;
         }
 
     }
@@ -445,10 +446,13 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
 
 if ($_POST['module'] == 'checklist' && ($isManager || $id == $idTaskWorker) && isset($_POST['checklistRow'])) {
     $checklistRow = filter_var($_POST['checklistRow'], FILTER_SANITIZE_STRING);
-    if ($checklist[$checklistRow]['status'] == 0) {
+    if ($checklist[$checklistRow]['status'] == 0 ) {
         $checklist[$checklistRow]['status'] = 1;
-    } else {
+        $checklist[$checklistRow]['checkedBy'] = $id;
+    } elseif ($isManager) {
         $checklist[$checklistRow]['status'] = 0;
+    } else {
+        exit;
     }
     $updateChecklistQuery = $pdo->prepare('UPDATE `tasks` SET checklist = :checklist WHERE id='.$idtask);
     $updateChecklistData = [
