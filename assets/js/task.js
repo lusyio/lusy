@@ -302,7 +302,8 @@ $(document).ready(function () {
         var datepostpone = $("#deadlineInput").val();
         var checkDate = $("#deadlineInput").attr('min');
         var text = $("#reportarea1").val();
-        if (text !== '' && datepostpone >= checkDate) {
+        var dateDone = $("#deadlineInput").attr('datedone');
+        if (text !== '' && datepostpone >= checkDate && datepostpone != dateDone) {
             $(this).prop('disabled', true);
             $('#spinnerModal').modal('show');
             $.ajax({
@@ -329,7 +330,7 @@ $(document).ready(function () {
                     $('#reportarea1').css('border-color', "#ced4da");
                 }, 1000)
             }
-            if (datepostpone <= checkDate) {
+            if (datepostpone <= checkDate || datepostpone == dateDone) {
                 $('#deadlineInput').css({
                     'border-color': '#dc3545',
                     'transition': '1000ms'
@@ -356,7 +357,8 @@ $(document).ready(function () {
     $("#sendDate").click(function () {
         var sendDate = $("#deadlineInput").val();
         var checkDate = $("#deadlineInput").attr('min');
-        if (sendDate >= checkDate) {
+        var dateDone = $("#deadlineInput").attr('datedone');
+        if (sendDate >= checkDate &&  sendDate != dateDone) {
             $(this).prop('disabled', true);
             $('#spinnerModal').modal('show');
             $.ajax({
@@ -373,7 +375,7 @@ $(document).ready(function () {
             });
 
         } else {
-            if (sendDate <= checkDate) {
+            if (sendDate <= checkDate || sendDate == dateDone) {
                 $('#deadlineInput').css({
                     'border-color': '#dc3545',
                     'transition': '1000ms'

@@ -180,6 +180,7 @@ if ($id == $worker and $view == 0) {
                                     <?php endif; ?>
                                     <input class="form-control form-control-sm mb-2" value="<?= ($task['status'] == 'planned')? date('Y-m-d', strtotime($datecreate)) : date("Y-m-d", $task['datedone']); ?>" type="date"
                                            id="deadlineInput"
+                                           datedone="<?= date("Y-m-d", $task['datedone']) ?>"
                                            min="<?= ($task['status'] == 'planned')? date('Y-m-d', strtotime($datecreate)) : $GLOBALS["now"] ?>" required>
                                     <button type="submit"
                                             id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
