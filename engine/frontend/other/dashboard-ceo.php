@@ -68,10 +68,7 @@ $statusColor = [
                     <div>
                         <b>Завершено</b>
                         <div class="small text-muted">в этом месяце</div>
-                        <!--                        <small class="text-secondary">-->
-                        <? //= _('Tasks done per month') ?><!--</small>-->
                     </div>
-                    <!--                    <i class="iconSlide fas fa-check float-right"></i>-->
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
@@ -92,7 +89,7 @@ $statusColor = [
                 <?php endif; ?>
             </div>
             <span class="bg-icon-achieve">
-                <i class="fas fa-trophy" style="font-size: 150px; color: #003effcc; opacity: 0.05"></i>
+                <i class="fas fa-trophy bg-chart-trophy"></i>
             </span>
         </div>
     </div>

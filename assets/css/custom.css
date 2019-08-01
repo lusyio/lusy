@@ -1697,6 +1697,13 @@ input:checked[type="checkbox"].new-checkbox::before {
 
 }
 
+.bg-chart-trophy{
+    font-size: 150px;
+    color: #003effcc;
+    opacity: 0.05;
+}
+
+
 .icon-close-modal{
     right: -10px;
     top: -10px;
