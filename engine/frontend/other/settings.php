@@ -596,6 +596,27 @@
             });
         });
 
+        $('#settingsNewPassword').on('keyup', function () {
+            var $this = $(this);
+            var password = $this.val();
+            var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+            var checkPass = reg.exec(password);
+
+            if (checkPass == null){
+                $this.css({
+                    'border': '1px solid #dc3545',
+                    'color': '#dc3545'
+                });
+                $('#sendPassword').prop('disabled', true)
+            } else {
+                $this.css({
+                    'border': '1px solid #ced4da',
+                    'color': '#495057'
+                });
+                $('#sendPassword').prop('disabled', false)
+            }
+        });
+
         $("#sendPassword").on("click", function () {
             var newPassword = $("#settingsNewPassword").val();
             var password = $("#password").val();
