@@ -11,6 +11,10 @@ if ($_POST['module'] == 'joinUser') {
     $inviteeSurname = filter_var(trim($_POST['inviteeSurname']), FILTER_SANITIZE_STRING);
     $inviteePassword = trim($_POST['inviteePassword']);
     $inviteePassword = filter_var($inviteePassword, FILTER_SANITIZE_STRING);
+    $passwordRule = '~^[\w\~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/<>?]{6,64}$~';
+    if (!preg_match($passwordRule, $inviteePassword)) {
+        exit('Incorrect password');
+    }
 
     $inviteData = readInviteByCode($inviteCode);
     if (!$inviteData || $inviteData['status']) {

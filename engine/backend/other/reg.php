@@ -26,28 +26,34 @@ if (isset($_POST['companyName']) && isset($_POST['email']) && isset($_POST['pass
     } else {
         $companyLanguage = 'en';
     }
-    $companyName = filter_var(trim($_POST['companyName']), FILTER_SANITIZE_STRING);
-    $login = filter_var(trim($_POST['email']), FILTER_SANITIZE_STRING);
-    $password = filter_var(trim($_POST['password']), FILTER_SANITIZE_STRING);
-
-    $isLoginGood = !isEmailExist($login);
-
-    if ($isLoginGood) {
-        $companyId = addCompany($companyName, $companyLanguage, $companyTimeZone);
-        if ($companyId) {
-            $ceoId = addUser($login, $password, $companyId, 'ceo');
-            $_SESSION['login'] = $login;
-            $_SESSION['password'] = $password;
-
-            addEvent('newcompany', '' , $companyId , $ceoId);
-            createInitTask($ceoId, $companyId, true);
-            addMailToQueue('sendActivationLink', [$companyId], $ceoId);
-            header('location: /login/');
-            ob_flush();
-            die;
-        }
+    $companyName = trim($_POST['companyName']);
+    $companyName = filter_var($companyName, FILTER_SANITIZE_STRING);
+    $login = trim($_POST['email']);
+    $login = filter_var($login, FILTER_SANITIZE_STRING);
+    $password = trim($_POST['password']);
+    $password = filter_var($password, FILTER_SANITIZE_STRING);
+    $passwordRule = '~^[\w\~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/<>?]{6,64}$~';
+    if (!preg_match($passwordRule, $password)) {
+        $regErrors[] = 'Incorrect password format';
     } else {
-        $regErrors[] = 'User with this e-mail already exists';
+        $isLoginGood = !isEmailExist($login);
 
+        if ($isLoginGood) {
+            $companyId = addCompany($companyName, $companyLanguage, $companyTimeZone);
+            if ($companyId) {
+                $ceoId = addUser($login, $password, $companyId, 'ceo');
+                $_SESSION['login'] = $login;
+                $_SESSION['password'] = $password;
+
+                addEvent('newcompany', '', $companyId, $ceoId);
+                createInitTask($ceoId, $companyId, true);
+                addMailToQueue('sendActivationLink', [$companyId], $ceoId);
+                header('location: /login/');
+                ob_flush();
+                die;
+            }
+        } else {
+            $regErrors[] = 'User with this e-mail already exists';
+        }
     }
 }

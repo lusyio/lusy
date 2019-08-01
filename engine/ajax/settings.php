@@ -62,7 +62,12 @@ if ($_POST['module'] == 'changePassword') {
         $hash = DBOnce('password', 'users', 'id=' . $id);
         if (password_verify($password, $hash)) {
             if (isset($_POST['newPassword']) && trim($_POST['newPassword']) != '') {
-                $newPassword = filter_var(trim($_POST['newPassword']), FILTER_SANITIZE_STRING);
+                $newPassword = trim($_POST['newPassword']);
+                $newPassword = filter_var($newPassword, FILTER_SANITIZE_STRING);
+                $passwordRule = '~^[\w\~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/<>?]{6,64}$~';
+                if (!preg_match($passwordRule, $newPassword)) {
+                    exit('Incorrect new password');
+                }
                 setNewPassword($newPassword);
             }
         }
