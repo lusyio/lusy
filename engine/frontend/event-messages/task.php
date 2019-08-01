@@ -216,7 +216,7 @@
             <div class="row">
                 <div class="col-2">
                     <div class="text-right float-right">
-                        <p class="mb-0 font-weight-bold"><?= date("d", $event['datetime']); ?> <span
+                        <p class="mb-0 font-weight-bold"><?= date("j", $event['datetime']); ?> <span
                                     class="text-lowercase"><?= _($month[$monthNumber]) ?></span></p>
                         <span class="text-secondary">в <?= date("H:i", $event['datetime']); ?></span>
                     </div>
@@ -226,7 +226,7 @@
                         <i class="<?= $icon ?> "></i>
                     </div>
                 </div>
-                <div class="col-5">
+                <div class="col-7 col-lg-5 col-xlg-5">
                     <p class="mb-0 font-weight-bold text-area-message"><?= $event['taskname']; ?></p>
                     <div class="text-area-message">
                         <?php if ($event['author_id'] == 1): ?>

@@ -3671,11 +3671,6 @@ span.date {
         padding-left: 30px;
         padding-right: 0px;
     }
-    .eventDiv .col-5 {
-        -ms-flex: 0 0 60%;
-        flex: 0 0 60%;
-        max-width: 60%;
-    }
     .eventDiv .col-2 {
         -ms-flex: auto;
         flex: auto;

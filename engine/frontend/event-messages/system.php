@@ -70,7 +70,7 @@ $monthNumber = date("n", $event['datetime']);
             <div class="row">
                 <div class="col-2">
                     <div class="text-right float-right">
-                        <p class="mb-0 font-weight-bold"><?= date("d", $event['datetime']); ?> <span
+                        <p class="mb-0 font-weight-bold"><?= date("j", $event['datetime']); ?> <span
                                     class="text-lowercase"><?= _($month[$monthNumber]) ?></span></p>
                         <span class="text-secondary">в <?= date("H:i", $event['datetime']); ?></span>
                     </div>

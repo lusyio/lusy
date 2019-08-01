@@ -106,7 +106,7 @@ $statusColor = [
                                 <div>
                                     <span class="text-lowercase font-weight-bold"
                                           style="line-height: 43px;">
-                                        <?= date("d.m", $task['datedone']) ?>
+                                        <?= date("j.m", $task['datedone']) ?>
                                     </span>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@ $statusColor = [
                     </div>
                 </a>
             <?php endif; ?>
-            <?php if ($countAllTasks > 4): ?>
+            <?php if ($countAllTasks >= 4): ?>
             <a href="/tasks/">
                 <span class="icon-more-tasks" data-toggle="tooltip" data-placement="bottom" title="Больше задач">
                     <i class="fas fa-sort-down"></i>
