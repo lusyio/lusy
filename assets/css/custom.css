@@ -1227,6 +1227,7 @@ input:checked[type="checkbox"].new-checkbox::before {
 
 .submenu {
     text-align: left;
+    width: 200px;
     padding: 0;
     background: #fff;
     margin-top: 9px;
@@ -1701,6 +1702,11 @@ input:checked[type="checkbox"].new-checkbox::before {
     font-size: 150px;
     color: #003effcc;
     opacity: 0.05;
+}
+
+.text-blue{
+    color: #28416b;
+    font-weight: 700;
 }
 
 
@@ -3110,8 +3116,20 @@ span.date {
         vertical-align: unset;
     }
 
+    .limit-modal .text-block{
+        width: 75%;
+    }
+
+    .limit-modal .modal-footer{
+        justify-content: center;
+    }
+
     .top-block-tasknew{
         margin-bottom: 13px;
+    }
+
+    .limit-modal .modal-content{
+        padding: 0;
     }
 
     .create-report-btn {
