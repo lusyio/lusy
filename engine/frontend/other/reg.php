@@ -149,7 +149,7 @@
                         <div class="form-group mb-0">
                             <div class="input-group">
                                 <input id="password" type="password" name="password"
-                                       class="form-control required" placeholder="Пароль не менее 8 символов" autocomplete="off">
+                                       class="form-control required" placeholder="Пароль не менее 6 символов" autocomplete="off">
                             </div>
                         </div>
                     </section>
@@ -250,7 +250,69 @@
             'text-align': 'center',
             'margin-bottom': '3%',
             'width': '20rem'
-        })
+        });
+
+        var security = 0;
+
+        var securityMail = 0;
+
+        var securityPass = 0;
+
+
+        $('#emailAdmin').on('keyup', function () {
+            var $this = $(this);
+
+            var email = $('#emailAdmin').val();
+            var regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{2,}\.[a-z]{2,}$/i;
+            var checkMail = regMail.exec(email);
+
+            if (checkMail == null){
+                $this.css({
+                    'border': '2px solid #fbc2c4',
+                    'color': '#8a1f11'
+                });
+                securityMail = 0;
+            } else {
+                $this.css({
+                    'border': '1px solid #ccc',
+                    'color': '#495057'
+                });
+                securityMail = 1;
+            }
+            security = securityMail + securityPass;
+            if (security == 2){
+                $("a[href=\"#finish\"]").removeClass('disabled');
+            } else {
+                $("a[href=\"#finish\"]").addClass('disabled');
+            }
+        });
+
+        $('#password').on('keyup', function () {
+            var $this = $(this);
+            var password = $this.val();
+            var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+            var checkPass = reg.exec(password);
+
+            if (checkPass == null){
+                $this.css({
+                    'border': '2px solid #fbc2c4',
+                    'color': '#8a1f11'
+                });
+                securityPass = 0;
+            } else {
+                $this.css({
+                    'border': '1px solid #ccc',
+                    'color': '#495057'
+                });
+                securityPass = 1;
+            }
+            security = securityMail + securityPass;
+            if (security == 2){
+                $("a[href=\"#finish\"]").removeClass('disabled');
+            } else {
+                $("a[href=\"#finish\"]").addClass('disabled');
+            }
+        });
     });
 
     var form = $("#regForm");

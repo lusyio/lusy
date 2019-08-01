@@ -2797,6 +2797,10 @@ span.date {
     color: #edc345 !important;
 }
 
+.steps.clearfix{
+    margin-right: 10px;
+}
+
 .text-primary{
    color: #5a93df !important;
 }
