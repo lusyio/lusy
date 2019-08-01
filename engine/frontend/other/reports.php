@@ -106,6 +106,7 @@
                             <?php if ($tariff == 0): ?>
                                 <button id="createReport"
                                         class="btn btn-block btn-outline-primary h-100"
+                                        data-free-report="<?= 3 - $tryPremiumLimits['report'] ?>"
                                         data-toggle="<?= ($tryPremiumLimits['report'] < 3) ? 'tooltip' : '' ?>"
                                         data-placement="bottom"
                                         title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">
@@ -134,6 +135,7 @@
                         <div class="create-report-btn">
                             <button id="createReportDisabled"
                                     class="btn btn-block btn-outline-primary h-100"
+                                    data-free-report="<?= 3 - $tryPremiumLimits['report'] ?>"
                                     data-toggle="<?= ($tryPremiumLimits['report'] < 3) ? 'tooltip' : '' ?>"
                                     data-placement="bottom"
                                     title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['report'] ?>/3">
@@ -285,8 +287,9 @@
             var startDate = $('#startReportDate').val();
             var endDate = $('#endReportDate').val();
             var title = $('#createReport').attr('data-original-title');
+            var reportsRemaining = $('#createReport').data('free-report');
             if (val == 1) {
-                if (title == undefined || title.indexOf('0/3') != -1) {
+                if (reportsRemaining <= 0) {
                     $('#disabledReportsModal').modal('show');
                 } else {
                     var fd = new FormData();
@@ -307,6 +310,7 @@
                             title = title.replace('1/3', '0/3');
                             title = title.replace('2/3', '1/3');
                             title = title.replace('3/3', '2/3');
+                            $('#createReport').data('free-report', reportsRemaining - 1);
                             $('#createReport').attr('data-original-title', title).tooltip('hide');
                             // console.log(data);
                         }
@@ -314,7 +318,7 @@
                 }
             }
             if (val == 2) {
-                if (title == undefined || title.indexOf('0/3') != -1) {
+                if (reportsRemaining <= 0) {
                     $('#disabledReportsModal').modal('show');
                 } else {
                     if (workerId != undefined) {
@@ -337,7 +341,7 @@
                                 title = title.replace('1/3', '0/3');
                                 title = title.replace('2/3', '1/3');
                                 title = title.replace('3/3', '2/3');
-
+                                $('#createReport').data('free-report', reportsRemaining - 1);
                                 $('#createReport').attr('data-original-title', title).tooltip('hide');
                                 // console.log(data);
                             }

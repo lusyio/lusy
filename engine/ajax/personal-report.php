@@ -30,7 +30,7 @@ $countOverdueByUserQuery = $pdo->prepare("SELECT COUNT(DISTINCT e.task_id, e.dat
 $countOverdueByUserQuery->execute([':userId' => $userId, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
 $overdue = $countOverdueByUserQuery->fetch(PDO::FETCH_COLUMN);
 
-$countChangeDateByUserQuery = $pdo->prepare("SELECT COUNT(*) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE e.action IN ('senddate', 'confirmdate') AND e.datetime > :firstDay AND e.datetime < :lastDay AND author_id = 1 AND e.recipient_id = :userId AND t.worker = :userId");
+$countChangeDateByUserQuery = $pdo->prepare("SELECT COUNT(*) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE ((e.action = 'senddate' AND e.author_id = 1) OR (e.action = 'confirmdate' AND e.author_id > 1)) AND e.datetime > :firstDay AND e.datetime < :lastDay AND e.recipient_id = :userId AND (t.manager = :userId OR t.worker = :userId)");
 $countChangeDateByUserQuery->execute([':userId' => $userId, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
 $changedDate = $countChangeDateByUserQuery->fetch(PDO::FETCH_COLUMN);
 
