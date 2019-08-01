@@ -444,13 +444,15 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
     }
 }
 
-if ($_POST['module'] == 'checklist' && ($isManager || $id == $idTaskWorker) && isset($_POST['checklistRow'])) {
+if ($_POST['module'] == 'checklist' && ($isManager || $isWorker) && isset($_POST['checklistRow'])) {
     $checklistRow = filter_var($_POST['checklistRow'], FILTER_SANITIZE_STRING);
     if ($checklist[$checklistRow]['status'] == 0 ) {
         $checklist[$checklistRow]['status'] = 1;
         $checklist[$checklistRow]['checkedBy'] = $id;
-    } elseif ($isManager) {
+        $checklist[$checklistRow]['checkTime'] = time();
+    } elseif ($isManager || ($checklist[$checklistRow]['checkedBy'] == $id && $checklist[$checklistRow]['checkTime'] > time() - 300)) {
         $checklist[$checklistRow]['status'] = 0;
+        $checklist[$checklistRow]['checkTime'] = 0;
     } else {
         exit;
     }
