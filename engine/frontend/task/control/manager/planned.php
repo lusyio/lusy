@@ -8,8 +8,8 @@
 
 <div id="status-block">
     <button id="changePlanDate" type="button" class="btn btn-outline-primary mt-3 mb-3 w-10"><i
-                class="fas fa-check mr-2"></i> <?= $GLOBALS["_changePlanDate"] ?></button>
-    <input type="date" class="form-control change-plan-date" id="inputChangePlanDate" min="<?= $GLOBALS["now"] ?>" value="<?= $GLOBALS["now"] ?>" required>
+                class="fas fa-check mr-2"></i>В работу</button>
+    <input type="date" class="form-control change-plan-date d-none" id="inputChangePlanDate" min="<?= $GLOBALS["now"] ?>" value="<?= $GLOBALS["now"] ?>" required>
     <button id="cancelTask" type="button" class="btn btn-outline-danger mt-3 mb-3 w-10<?= ($hasUnfinishedSubTask) ? ' continue-none' : ''?>"
         <?= ($hasUnfinishedSubTask) ? 'data-toggle="tooltip" data-placement="bottom" title="Нельзя отменить задачу - есть незавершенные подзадачи"' : ''; ?>
     ><i

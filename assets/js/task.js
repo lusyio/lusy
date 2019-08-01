@@ -696,7 +696,6 @@ $(document).ready(function () {
         // console.log(isChecked);
         var $this = $(this);
         var idCheckList = $(this).attr('idChecklist');
-        console.log(idCheckList);
         $.ajax({
             url: '/ajax.php',
             type: 'POST',
@@ -708,18 +707,21 @@ $(document).ready(function () {
                 checklistRow: idCheckList
             },
             success: function (data) {
+                console.log(data);
                 if (data == 1){
                     $this.prop('checked', true);
+                    $this.parents('.pure-material-checkbox').find('.small').text('(name)');
                 } else{
                     $this.prop('checked', false);
+                    $this.parents('.pure-material-checkbox').find('.small').text('');
                 }
             }
         })
-    })
+    });
 
     $('.continue-none').on('mouseleave', function () {
         $(this).tooltip('hide');
-    })
+    });
 
     function highlightUnfinishedTasks() {
         $('.not-finished').each(function () {

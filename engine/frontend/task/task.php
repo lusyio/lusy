@@ -105,10 +105,10 @@ $statusBar = [
     'planned' => [
         'border' => 'border-info',
         'bg' => 'badge-info',
-        'bg1' => 'bg-warning',
+        'bg1' => 'bg-info',
         'bg2' => 'bg-custom-color',
         'bg3' => 'bg-custom-color',
-        'ic1' => 'fas fa-bolt',
+        'ic1' => 'fas fa-pause',
         'ic2' => 'fas fa-eye',
         'ic3' => 'fas fa-times',
     ],
@@ -212,7 +212,7 @@ if ($id == $worker and $view == 0) {
                         ?>
                         <label class="pure-material-checkbox d-block">
                             <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?> <?= ($role != 'manager' && $n['status'] == 1 && ($n['checkedBy'] != $id || $n['checkTime'] < time() - 300)) ? 'disabled': '' ?>>
-                            <span class="text-area-message"><?= $n['text'] ?><?= ($n['status'] == 1)? ' (' . $n['name'] . ')' :'' ?></span>
+                            <span class="text-area-message"> <span class="text-checklist"><?= $n['text'] ?></span> <span class="small text-muted-new"><?= ($n['status'] == 1)? ' (' . $n['name'] . ')' :'' ?></span></span>
                         </label>
                     <?php
                     endforeach;
