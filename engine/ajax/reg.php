@@ -27,6 +27,8 @@ if ($_POST['module'] == 'joinUser') {
     $_SESSION['password'] = $inviteePassword;
     $idc = $inviteData['company_id'];
     addEvent('newuser', '', $newUserId);
+    addEvent('userwelcome', '' , '' , $newUserId);
+
     createInitTask($newUserId, $idc);
 
     require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';

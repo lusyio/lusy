@@ -171,7 +171,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
     global $cometPdo;
 
     $possibleActions = ['createtask', 'createplantask', 'viewtask', 'comment', 'overdue', 'review', 'postpone', 'confirmdate', 'canceldate',
-        'senddate', 'workreturn', 'workdone', 'canceltask', 'changeworker', 'addcoworker', 'removecoworker', 'newuser',
+        'senddate', 'workreturn', 'workdone', 'canceltask', 'changeworker', 'addcoworker', 'removecoworker', 'newuser', 'userwelcome',
         'newcompany', 'newachievement'];
 
     if (!in_array($action, $possibleActions)) {
@@ -646,6 +646,23 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         ];
         $addEventQuery->execute($eventData);
     }
+
+    if ($action == 'userwelcome') {
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
+        $datetime = time();
+        $eventData = [
+            ':action' => $action,
+            ':taskId' => 0,
+            ':recipientId' => $recipientId,
+            ':authorId' => 1,
+            ':companyId' => $idc,
+            ':datetime' => time() - 10,
+            ':comment' => $comment,
+        ];
+        $addEventQuery->execute($eventData);
+    }
+
 
     if ($action == 'newcompany') {
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 

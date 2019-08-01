@@ -175,7 +175,7 @@ function renderEvent($event)
     global $id;
     global $pdo;
     $systemEvents = [
-        'sendInvite', 'newuser', 'newcompany', 'newachievement', 'birthday'
+        'sendInvite', 'newuser', 'userwelcome', 'newcompany', 'newachievement', 'birthday'
     ];
 
     if ($event['action'] == 'comment') {
