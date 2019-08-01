@@ -156,8 +156,9 @@
                 $('.event').hide();
                 $('.system-event.new-event').show();
                 $('.task.new-event').show();
+                loadLog();
+                hideLoadLog();
                 insertPlug();
-                console.log('asda');
             } else {
                 $('#taskSearch').trigger('click');
                 $('#taskSearch').addClass('active');
@@ -165,6 +166,8 @@
                 $('.event').hide();
                 $('.system-event').show();
                 $('.task').show();
+                loadLog();
+                hideLoadLog();
                 insertPlug();
             }
         });
@@ -193,7 +196,9 @@
             $('.event').hide();
             $('.system-event.new-event').show();
             $('.task.new-event').show();
-            insertPlug()
+            loadLog();
+            hideLoadLog();
+            insertPlug();
         }
         if (action === 'comments') {
             $('#commentSearch').trigger('click');
@@ -204,7 +209,9 @@
             $('.event').hide();
             $('.system-event').show();
             $('.task').show();
-            insertPlug()
+            loadLog();
+            hideLoadLog();
+            insertPlug();
         }
 
 
