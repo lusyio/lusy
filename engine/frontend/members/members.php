@@ -141,7 +141,7 @@
                             </div>
                         <?php } ?>
                     </div>
-                    <?php if ($isCeo || $role == 'manager'): ?>
+                    <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'coworker')): ?>
                         <div class="mt-3 text-center">
                             <button class="btn btn-primary btn-sm" id="confirmMembers" type="button">Сохранить</button>
                         </div>
