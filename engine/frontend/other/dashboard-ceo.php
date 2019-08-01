@@ -63,7 +63,7 @@ $statusColor = [
                 </div>
                 <div class="not-empty-chart" style="display: none; justify-content: space-between">
                     <span class="numberSlide">
-                        <?= $taskDoneCountOverall ?>
+                        <?= $taskDoneCountCurrentMonth ?>
                     </span>
                     <div>
                         <b>Завершено</b>

@@ -47,12 +47,16 @@ $completetask2 = DB('*','tasks','view="0" and status = "done" and worker='.$id);
 
 $firstDayOfMonth = strtotime(date('1.m.Y'));
 
-$taskDoneCountOverallQuery = $pdo->prepare("SELECT COUNT(DISTINCT e.task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE (t.manager = :userId OR t.worker = :userId) AND datetime > :firstDay AND action = 'workdone'");
-$taskDoneCountOverallQuery->bindValue(':firstDay', (int) $firstDayOfMonth, PDO::PARAM_INT);
-$taskDoneCountOverallQuery->bindValue(':companyId', (int) $idc, PDO::PARAM_INT);
-$taskDoneCountOverallQuery->bindValue(':userId', (int) $id, PDO::PARAM_INT);
-$taskDoneCountOverallQuery->execute();
-$taskDoneCountOverall = $taskDoneCountOverallQuery->fetch(PDO::FETCH_COLUMN);
+$taskDoneCountQuery = $pdo->prepare("SELECT COUNT(DISTINCT e.task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE (t.manager = :userId OR t.worker = :userId) AND datetime > :firstDay AND action = 'workdone'");
+$taskDoneCountQuery->bindValue(':firstDay', (int) $firstDayOfMonth, PDO::PARAM_INT);
+$taskDoneCountQuery->bindValue(':companyId', (int) $idc, PDO::PARAM_INT);
+$taskDoneCountQuery->bindValue(':userId', (int) $id, PDO::PARAM_INT);
+$taskDoneCountQuery->execute();
+$taskDoneCountCurrentMonth = $taskDoneCountQuery->fetch(PDO::FETCH_COLUMN);
+
+$taskDoneCountQuery->bindValue(':firstDay', 1546300800, PDO::PARAM_INT);
+$taskDoneCountQuery->execute();
+$taskDoneCountOverall = $taskDoneCountQuery->fetch(PDO::FETCH_COLUMN);
 
 $workerTasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.worker AS idworker, t.manager AS idmanager, t.datecreate, t.status, t.view_status, t.name, t.datedone, t.view, u.name AS managerName, u.surname AS managerSurname, LOCATE( :quotedUserId, t.view_status) AS view_order FROM tasks t LEFT JOIN users u ON t.worker = u.id LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId) AND t.status NOT IN ('done', 'canceled') AND (t.status <> 'planned' OR t.manager = :userId) ORDER BY FIELD(t.status, 'pending', 'postpone') DESC, FIELD(view_order, 0) DESC, t.datedone LIMIT 3");
 $workerTasksQuery->execute(array(':companyId' => $idc, ':quotedUserId' => '"' . $id . '"', ':userId' => $id));
@@ -114,7 +118,7 @@ if ($userRegisterDate <= $currentDayPreviousMonth) {
     $taskDoneSamePeriodPreviousMonthQuery->execute();
     $taskDoneSamePeriodCount = $taskDoneSamePeriodPreviousMonthQuery->fetch(PDO::FETCH_COLUMN);
 
-    $taskDoneDelta = $taskDoneCountOverall - $taskDoneSamePeriodCount;
+    $taskDoneDelta = $taskDoneCountCurrentMonth - $taskDoneSamePeriodCount;
 } else {
     $taskDoneDelta = null;
 }
