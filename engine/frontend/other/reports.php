@@ -152,19 +152,27 @@
 
 </div>
 
-<div class="modal fade" id="disabledReportsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade limit-modal" id="disabledReportsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="max-width: 600px;">
         <div class="modal-content">
-            <div class="modal-header border-0 text-center d-block">
+            <div class="modal-header border-0 text-left d-block">
                 <h5 class="modal-title" id="exampleModalLabel">Дополнительные функции</h5>
             </div>
-            <div class="modal-body text-center">
-                Извините, Вы исчерпали все бесплатные использования модуля отчетов.
+            <div class="modal-body text-center position-relative">
+                <div class="text-left text-block">
+                <p class="text-blue">Извините, Вы исчерпали все бесплатные использования модуля отчетов.</p>
+                <p class="text-muted-new">Извините, Вы исчерпали все бесплатные использования модуля отчетов</p>
+                </div>
+                <span class="position-absolute" style="right:0;top: 0;">
+                <i class="fas fa-chart-pie icon-limit-modal"></i>
+            </span>
             </div>
             <div class="modal-footer border-0">
                 <?php if ($isCeo): ?>
-                    <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
+                    <a href="/payment/" id="goToPay" class="btn text-white border-0">
+                        Перейти к тарифам
+                    </a>
                 <?php endif; ?>
             </div>
             <span class="icon-close-modal">
@@ -278,7 +286,7 @@
             var endDate = $('#endReportDate').val();
             var title = $('#createReport').attr('data-original-title');
             if (val == 1) {
-                if (title.indexOf('0/3') != -1) {
+                if (title == undefined || title.indexOf('0/3') != -1) {
                     $('#disabledReportsModal').modal('show');
                 } else {
                     var fd = new FormData();
@@ -306,7 +314,7 @@
                 }
             }
             if (val == 2) {
-                if (title.indexOf('0/3') != -1) {
+                if (title == undefined || title.indexOf('0/3') != -1) {
                     $('#disabledReportsModal').modal('show');
                 } else {
                     if (workerId != undefined) {

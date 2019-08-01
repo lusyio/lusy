@@ -133,10 +133,6 @@ $borderColor = [
                             <?php
                             include __ROOT__ . '/engine/frontend/members/subtask.php';
                             ?>
-                            <!--                            <span class="position-absolute disabledBtnOptions"-->
-                            <!--                                  style="background-color: #000;width: 100%;bottom: 2px; height: 100%;z-index: 100000;opacity: 0;">-->
-                            <!---->
-                            <!--                            </span>-->
                             <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
                                  style="height: 50px;padding-top: 13px !important;">
                                 <div class="placeholder-subtask">Не выбрана</div>
@@ -205,8 +201,7 @@ $borderColor = [
                             Надзадача
                         </div>
                         <div class="card card-tasknew">
-                            <span class="position-absolute disabledBtnOptions"
-                                  style="background-color: #000;width: 100%;bottom: 2px; height: 100%;z-index: 100000;opacity: 0;">
+                            <span class="position-absolute disabledBtnOptions">
                             </span>
                             <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled"
                                  style="height: 50px;padding-top: 13px !important;">
@@ -222,12 +217,11 @@ $borderColor = [
                             Дата старта
                         </div>
                         <div class="card card-tasknew">
-                            <span class="position-absolute disabledBtnOptions"
-                                  style="background-color: #000;width: 100%;bottom: 2px; height: 52%;z-index: 100000;opacity: 0;">
+                            <span class="position-absolute disabledBtnOptions">
 
                         </span>
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
-                                   style="height: 54px;font-size: 14px;" min="<?= $GLOBALS["now"] ?>"
+                                   style="height: 50px;font-size: 14px;" min="<?= $GLOBALS["now"] ?>"
                                    value="<?= $GLOBALS["now"] ?>" required disabled>
                         </div>
                     </div>
@@ -238,8 +232,7 @@ $borderColor = [
                             Подпункты
                         </div>
                         <div class="mb-2 card card-tasknew">
-                            <span class="position-absolute disabledBtnOptions"
-                                         style="background-color: #000;width: 100%;bottom: 2px; height: 100%;z-index: 100000;opacity: 0;">
+                            <span class="position-absolute disabledBtnOptions">
                             </span>
                             <input type="text" id="checklistInput" class="form-control border-0 card-body-tasknew disabled"
                                    style="height: 50px;"
@@ -290,19 +283,27 @@ $borderColor = [
     </div>
 </div>
 
-<div class="modal fade" id="freeOptionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade limit-modal" id="freeOptionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="max-width: 600px;">
         <div class="modal-content">
-            <div class="modal-header border-0 text-center d-block">
+            <div class="modal-header border-0 text-left d-block">
                 <h5 class="modal-title" id="exampleModalLabel">Дополнительные функции</h5>
             </div>
-            <div class="modal-body text-center">
-                Извините, Дополнительные функции доступны только в Premium версии.
+            <div class="modal-body text-center position-relative">
+                <div class="text-left text-block">
+                    <p class="text-blue">Извините, Вы исчерпали все бесплатные использования дополнительных функций в задачач.</p>
+                    <p class="text-muted-new">Извините, Вы исчерпали все бесплатные использования дополнительных функций в задачач</p>
+                </div>
+                <span class="position-absolute" style="right:0;top: 0;">
+                <i class="fas fa-cogs icon-limit-modal"></i>
+            </span>
             </div>
             <div class="modal-footer border-0">
                 <?php if ($isCeo): ?>
-                    <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
+                    <a href="/payment/" id="goToPay" class="btn text-white border-0">
+                        Перейти к тарифам
+                    </a>
                 <?php endif; ?>
             </div>
             <span class="icon-close-modal">
@@ -313,19 +314,27 @@ $borderColor = [
     </div>
 </div>
 
-<div class="modal fade" id="premModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade limit-modal" id="premModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="max-width: 600px;">
         <div class="modal-content">
-            <div class="modal-header border-0 text-center d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Облачные хранилища</h5>
+            <div class="modal-header border-0 text-left d-block">
+                <h5 class="modal-title" id="exampleModalLabel">Дополнительные функции</h5>
             </div>
-            <div class="modal-body text-center">
-                Извините, но функция загрузки файлов из облачных хранилищ доступна только в Premium версии
+            <div class="modal-body text-center position-relative">
+                <div class="text-left text-block">
+                    <p class="text-blue">Извините, Вы исчерпали лимит загрузкок файлов через облачные хранилища.</p>
+                    <p class="text-muted-new">Извините, Вы исчерпали лимит загрузкок файлов через облачные хранилища</p>
+                </div>
+                <span class="position-absolute" style="right:0;top: 0;">
+                <i class="fas fa-cloud icon-limit-modal"></i>
+            </span>
             </div>
             <div class="modal-footer border-0">
                 <?php if ($isCeo): ?>
-                    <a href="/payment/" class="btn btn-primary">Перейти к тарифам</a>
+                    <a href="/payment/" id="goToPay" class="btn text-white border-0">
+                        Перейти к тарифам
+                    </a>
                 <?php endif; ?>
             </div>
             <span class="icon-close-modal">

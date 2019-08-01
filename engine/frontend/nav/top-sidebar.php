@@ -93,7 +93,7 @@
                         <a href="/company/" class="p-0">
                             <div class="p-3 pt-1 pb-1">
                                 <p class="navbar-brand text-uppercase font-weight-bold mb-0 text-dark"><?= $namec ?></p>
-                                <small class="text-secondary"><?= $tariffName ?></small>
+                                <br><small class="text-secondary"><?= $tariffName ?></small>
                             </div>
                         </a>
                         <hr class="mt-0 mb-0">

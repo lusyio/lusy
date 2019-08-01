@@ -121,6 +121,44 @@
     cursor: pointer;
 }
 
+.limit-modal .modal-content{
+    padding: 10px 40px;
+}
+
+.limit-modal .icon-limit-modal{
+    font-size: 150px;
+    color: #003effcc;
+    opacity: 0.05;
+}
+
+.limit-modal .modal-footer{
+    justify-content: flex-start
+}
+
+.limit-modal .text-block{
+    width: 60%;
+}
+
+#goToPay:hover {
+    background: #797efe;
+    color: white;
+    transition: 0.5s all;
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+    box-shadow: 0 17px 30px rgba(14,21,47,.3);
+}
+
+#goToPay {
+    height: 50px;
+    background: #7b81f9;
+    border-radius: 20px;
+    padding: 13px 40px;
+    font-weight: 100;
+    transition: 0.3s all;
+
+    box-shadow: 0 12px 15px rgba(14,21,47,.1);
+}
+
 .report-select{
     overflow-y: scroll;
     overflow-x: hidden;
