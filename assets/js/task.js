@@ -48,7 +48,7 @@ $(document).ready(function () {
                 console.log(true);
                 $('html, body').animate({
                     scrollTop: $('#' + commentIdToScroll).offset().top - 20
-                }, 1500);
+                }, 500);
                 setTimeout(function () {
                     $('#' + commentIdToScroll).removeClass('bg-primary');
                 }, 5000)
