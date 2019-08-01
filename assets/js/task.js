@@ -710,7 +710,7 @@ $(document).ready(function () {
                 console.log(data);
                 if (data == 1){
                     $this.prop('checked', true);
-                    var userName = $('#fullUserName');
+                    var userName = $('#fullUserName').val();
                     $this.parents('.pure-material-checkbox').find('.small').text(userName);
                 } else{
                     $this.prop('checked', false);
