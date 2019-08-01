@@ -178,9 +178,10 @@ if ($id == $worker and $view == 0) {
                                         <textarea name="report" id="reportarea1" class="form-control mb-2" rows="3"
                                                   placeholder="Причина" required></textarea>
                                     <?php endif; ?>
-                                    <input class="form-control form-control-sm mb-2" value="" type="date"
+                                    <input class="form-control form-control-sm mb-2" value="<?= ($task['status'] == 'planned')? date('Y-m-d', strtotime($datecreate)) : $GLOBALS["now"] ?>" type="date"
                                            id="deadlineInput"
-                                           min="" required>
+                                           date-planned="<?= date('Y-m-d', strtotime($datecreate)) ?>"
+                                           min="<?= ($task['status'] == 'planned')? date('Y-m-d', strtotime($datecreate)) : $GLOBALS["now"] ?>" required>
                                     <button type="submit"
                                             id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
                                             class="btn btn-primary btn-sm float-left mb-3"><?= $GLOBALS["_change"] ?></button>

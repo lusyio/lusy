@@ -590,32 +590,6 @@ $(document).ready(function () {
         $('#status-block').addClass('d-none');
     });
 
-
-    var dateControl = document.querySelector('input[type="date"]');
-    var d1 = new Date();
-    var curr_date = d1.getDate();
-    var curr_month = d1.getMonth() + 1;
-    var curr_year = d1.getFullYear();
-    if (curr_month < 10) {
-        curr_month = '0' + curr_month
-    }
-    if (curr_date < 10) {
-        curr_date = '0' + curr_date
-    }
-    dated = curr_year + "-" + curr_month + "-" + curr_date;
-    var element = document.getElementById("example-date-input");
-    var elementt = document.getElementById("deadlineInput");
-    if (!elementt) {
-    } else {
-        dateControl.value = dated;
-        dateControl.min = dated;
-    }
-    if (!element) {
-    } else {
-        dateControl.value = dated;
-        dateControl.min = dated;
-    }
-
     $('.comment-filter').on('click', function () {
         var filter;
         if ($(this).hasClass('active')) {
