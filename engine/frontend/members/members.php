@@ -94,11 +94,13 @@
                     <?php } ?>
                     <?php else: ?>
                     <div class="container-members-responsible-selected coworkers-list">
+                        <?php if(count($coworkersId) != 0): ?>
                         <div class="row" style="padding: 5px;">
                             <div class="col text-justify">
                                 <span class="text-muted">Соисполнители</span>
                             </div>
                         </div>
+                        <?php endif; ?>
                         <?php
                         $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                         foreach ($users as $n): ?>
