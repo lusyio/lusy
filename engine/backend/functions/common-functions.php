@@ -399,6 +399,9 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
     }
 
     if ($action == 'workdone') {
+        if (!isset($idc)) {
+            $idc = DBOnce('idcompany', 'tasks', 'id=' . (int) $taskId);
+        }
         $eventDataForManager = [
             ':action' => $action,
             ':taskId' => $taskId,
