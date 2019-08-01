@@ -127,6 +127,9 @@
                         </div>
                         <?php
                         foreach ($users as $n) { ?>
+                            <?php if ($n['id'] == $id) {
+                                continue;
+                            } ?>
                             <div val="<?php echo $n['id'] ?>"
                                  class="row members-coworker-select <?= (in_array($n['id'], $coworkersId)) ? 'd-none' : '' ?>">
                                 <div class="col-1">
