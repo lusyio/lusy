@@ -156,17 +156,17 @@
 
 <div class="modal fade limit-modal" id="disabledReportsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document" style="max-width: 600px;">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 text-left d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Дополнительные функции</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит использования модуля отчетов в бесплатном тарифе</h5>
             </div>
             <div class="modal-body text-center position-relative">
                 <div class="text-left text-block">
-                <p class="text-blue">Извините, Вы исчерпали все бесплатные использования модуля отчетов.</p>
-                <p class="text-muted-new">Извините, Вы исчерпали все бесплатные использования модуля отчетов</p>
+                    <p class="text-muted-new">Здорово иметь представление о том, кто работает эффективно, а кто нет.</p>
+                    <p class="text-muted-new">Переходи на Premium тариф, строй отчеты без ограничений и получи плетку в подарок <span class="small">(шутка)</span></p>
                 </div>
-                <span class="position-absolute" style="right:0;top: 0;">
+                <span class="position-absolute">
                 <i class="fas fa-chart-pie icon-limit-modal"></i>
             </span>
             </div>

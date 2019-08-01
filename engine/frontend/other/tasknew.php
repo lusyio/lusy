@@ -285,17 +285,17 @@ $borderColor = [
 
 <div class="modal fade limit-modal" id="freeOptionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document" style="max-width: 600px;">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 text-left d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Дополнительные функции</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит использования расширенного функционала задач в бесплатном тарифе</h5>
             </div>
             <div class="modal-body text-center position-relative">
                 <div class="text-left text-block">
-                    <p class="text-blue">Извините, Вы исчерпали все бесплатные использования дополнительных функций в задачач.</p>
-                    <p class="text-muted-new">Извините, Вы исчерпали все бесплатные использования дополнительных функций в задачач</p>
+                    <p class="text-muted-new">Так круто планировать задачи на будущее и тем самым разгружать себе голову для будущих идей</p>
+                    <p class="text-muted-new">Переходи на Premium тариф и тогда у тебя появится шанс обогнать Илона Маска по капитализации</p>
                 </div>
-                <span class="position-absolute" style="right:0;top: 0;">
+                <span class="position-absolute">
                 <i class="fas fa-cogs icon-limit-modal"></i>
             </span>
             </div>
@@ -316,17 +316,17 @@ $borderColor = [
 
 <div class="modal fade limit-modal" id="premModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document" style="max-width: 600px;">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 text-left d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Дополнительные функции</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит загрузкок файлов через облачные хранилища</h5>
             </div>
             <div class="modal-body text-center position-relative">
                 <div class="text-left text-block">
-                    <p class="text-blue">Извините, Вы исчерпали лимит загрузкок файлов через облачные хранилища.</p>
-                    <p class="text-muted-new">Извините, Вы исчерпали лимит загрузкок файлов через облачные хранилища</p>
+                    <p class="text-muted-new">Рады, что вы оценили бесшовную итеграцию с Google Drive и DropBox.</p>
+                    <p class="text-muted-new">Переходи на Premium тариф и использую облака на полную мощность</p>
                 </div>
-                <span class="position-absolute" style="right:0;top: 0;">
+                <span class="position-absolute">
                 <i class="fas fa-cloud icon-limit-modal"></i>
             </span>
             </div>

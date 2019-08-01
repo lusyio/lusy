@@ -2797,6 +2797,15 @@ span.date {
     color: #edc345 !important;
 }
 
+.limit-modal .modal-dialog{
+    max-width: 800px;
+}
+
+.limit-modal .position-absolute{
+    right:-20px;
+    top: 5px
+}
+
 .steps.clearfix{
     margin-right: 10px;
 }
