@@ -1797,3 +1797,17 @@ function updateFreePremiumLimits($companyId, $updatingType)
         $updateLimitsQuery->execute([':companyId' =>$companyId, ':newLimitsJson' => $newLimitsJson]);
     }
 }
+
+function getDisplayUserName($userId)
+{
+    global $pdo;
+    $userFullNameQuery = $pdo->prepare('SELECT name, surname, email FROM users u WHERE id = :userId');
+    $userFullNameQuery->execute([':userId' => $userId]);
+    $userFullNameResult = $userFullNameQuery->fetch(PDO::FETCH_ASSOC);
+    if (trim($userFullNameResult['name'] . ' ' . $userFullNameResult['surname']) == '') {
+        $userFullName = $userFullNameResult['email'];
+    } else {
+        $userFullName = trim($userFullNameResult['name'] . ' ' . $userFullNameResult['surname']);
+    }
+    return $userFullName;
+}

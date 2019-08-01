@@ -1,4 +1,5 @@
 <?php
+global $id;
 global $idc;
 global $roleu;
 global $pdo;

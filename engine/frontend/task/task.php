@@ -207,6 +207,7 @@ if ($id == $worker and $view == 0) {
             <div class="mt-5 mb-5 text-justify"><?= $description ?></div>
             <?php if ($checklist != []): ?>
                 <div class="collapse-checklist">
+                    <input type="hidden" id="fullUserName" value="<?= getDisplayUserName($id) ?>">
                     <?php
                     foreach ($checklist as $k => $n):
                         ?>
