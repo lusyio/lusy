@@ -197,17 +197,6 @@ if ($id == $worker and $view == 0) {
                                 <span class="ml-1 mr-1 text-secondary slash">|</span>
                                 <img src="/<?= getAvatarLink($worker) ?>" class="avatar">
                             <?php endif; ?>
-                            <?php
-                            $i = 1;
-                            foreach ($coworkers as $coworker): ?>
-                                <span class="mb-0"><img src="/<?= getAvatarLink($coworker['worker_id']) ?>"
-                                                        alt="worker image" class="avatar ml-1"></span>
-                                <?php
-                                $i++;
-                                if ($i == 2) break;
-                            endforeach;
-
-                            ?>
                         </div>
                         <?php
                         include __ROOT__ . '/engine/frontend/members/members.php';

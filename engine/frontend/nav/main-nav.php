@@ -103,8 +103,11 @@ if ($companyUsageSpacePercent > 90) {
     if (pathname.indexOf('new') > -1) {
         $('.nav-item').removeClass('active').has('[href="/task/new/"]').addClass('active');
     }
-    if (pathname.indexOf('company') > -1 || pathname.indexOf('profile') > -1 || pathname.indexOf('payment') > -1 || pathname.indexOf('settings') > -1 || pathname.indexOf('mail') > -1 || pathname.indexOf('chat') > -1 || pathname.indexOf('company-settings') > -1 || pathname.indexOf('invite') > -1) {
+    if (pathname.indexOf('company') > -1 || pathname.indexOf('payment') > -1 || pathname.indexOf('mail') > -1 || pathname.indexOf('chat') > -1 || pathname.indexOf('company-settings') > -1 || pathname.indexOf('invite') > -1) {
         $('.nav-item').removeClass('active').has('[href="/company/"]').addClass('active');
+    }
+    if ( pathname.indexOf('profile') > -1 || pathname.indexOf('settings') > -1) {
+        $('.nav-item').removeClass('active');
     }
     if (pathname.indexOf('awards') > -1) {
         $('.nav-item').removeClass('active').has('[href="/awards/"]').addClass('active');

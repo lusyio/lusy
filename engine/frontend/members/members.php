@@ -24,7 +24,7 @@
                     <div class="col text-left">
                         <span class="text-muted">Ответственный</span>
                     </div>
-                    <?php if ($isCeo || $role == 'manager'): ?>
+                    <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'coworker')): ?>
                         <div class="col-2 text-right">
                             <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
                                data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="members-coworkers">
-                <?php if ($isCeo || $role == 'manager'): ?>
+                <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'coworker')): ?>
                 <div class="row" style="padding: 5px;">
                     <div class="col text-justify">
                         <span class="text-muted">Соисполнители</span>
@@ -93,7 +93,7 @@
                         </div>
                     <?php } ?>
                     <?php else: ?>
-                    <div class="container-members-responsible-selected">
+                    <div class="container-members-responsible-selected coworkers-list">
                         <div class="row" style="padding: 5px;">
                             <div class="col text-justify">
                                 <span class="text-muted">Соисполнители</span>
@@ -101,18 +101,21 @@
                         </div>
                         <?php
                         $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
-                        foreach ($users as $n) { ?>
-                            <div val="<?php echo $n['id'] ?>"
-                                 class="row members-responsible-selected">
-                                <div class="col-1">
-                                    <img src="/<?= getAvatarLink($n['id']) ?>"
-                                         class="avatar-added mr-1">
+                        foreach ($users as $n): ?>
+                            <?php
+                            if (in_array($n['id'], $coworkersId)):?>
+                                <div val="<?php echo $n['id'] ?>"
+                                     class="row members-responsible-selected">
+                                    <div class="col-1">
+                                        <img src="/<?= getAvatarLink($n['id']) ?>"
+                                             class="avatar-added mr-1">
+                                    </div>
+                                    <div class="col text-left">
+                                        <span><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+                                    </div>
                                 </div>
-                                <div class="col text-left">
-                                    <span><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
-                                </div>
-                            </div>
-                        <?php } ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
 
                         <?php endif; ?>
                     </div>

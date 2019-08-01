@@ -8,6 +8,10 @@
     z-index: 1;
 }
 
+.container-members-responsible-selected.coworkers-list{
+    background-color: #ffffff !important;
+}
+
 .deadline-block:hover {
     cursor: pointer;
 }
