@@ -34,7 +34,7 @@
                             <?php if ($companyData['site'] == '') :?>
                             Https://
                             <?php else: ?>
-                                <a target="_blank" href="https://<?= $companyData['site'] ?>"> <?= $companyData['site'] ?> </a>
+                                <a target="_blank" href="http://<?= $companyData['site'] ?>"> <?= $companyData['site'] ?> </a>
                             <?php endif; ?>
                         </div>
                     </div>
