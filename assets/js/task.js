@@ -711,7 +711,7 @@ $(document).ready(function () {
                 if (data == 1){
                     $this.prop('checked', true);
                     var userName = $('#fullUserName').val();
-                    $this.parents('.pure-material-checkbox').find('.small').text(userName);
+                    $this.parents('.pure-material-checkbox').find('.small').text('(' + userName + ')');
                 } else{
                     $this.prop('checked', false);
                     $this.parents('.pure-material-checkbox').find('.small').text('');
