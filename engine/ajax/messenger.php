@@ -95,7 +95,7 @@ if ($_POST['module'] == 'sendMessageToChat') {
             'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
-    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'].true);
+    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'],true);
     $dropboxFiles = [];
     foreach ($unsafeDropboxFiles as $k => $v) {
         $dropboxFiles[] = [
