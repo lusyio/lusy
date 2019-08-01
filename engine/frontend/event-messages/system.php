@@ -9,6 +9,14 @@ if ($event['action'] == 'newuser') { // новый пользователь
     $event['link'] = 'profile/' . $event["comment"] . '/';
     $eventText = fiomess($event["comment"]);
 }
+if ($event['action'] == 'userwelcome') { // регистрация компании
+    $bg = 'danger';
+    $icon = 'fas fa-heart';
+    $eventText = 'Добро пожаловать!';
+    $eventDop = 'Вы зарегистрировались в Lusy.io';
+    $action = '';
+    $event['link'] = 'profile/';
+}
 if ($event['action'] == 'newcompany') { // регистрация компании
     $bg = 'danger';
     $icon = 'fas fa-heart';
