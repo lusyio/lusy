@@ -14,17 +14,30 @@ global $cometHash;
 global $cometTrackChannelName;
 global $supportCometHash;
 
-
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 
-$countTaskQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE t.status NOT IN ('planned', 'done', 'canceled') AND (t.worker = :userId OR t.manager = :userId OR tc.worker_id = :userId)");
-$countTaskQuery->execute([':userId' => $id]);
-$all = $countTaskQuery->fetch(PDO::FETCH_COLUMN);
-$inwork = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(status="new" or status="inwork" or status="returned") and (worker='.$id.' or manager='.$id.')');
-$pending = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="pending"');
-$postpone = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="postpone"');
-$overdue = DBOnce('COUNT(DISTINCT t.id)','tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id','(worker='.$id.' or manager='.$id.' or tc.worker_id = '.$id.') and status="overdue"');
+$countStatusQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (worker= :userId OR manager= :userId OR tc.worker_id = :userId) and t.status IN ('new', 'inwork', 'returned', 'pending', 'postpone', 'overdue') GROUP BY t.status");
+$countStatusQuery->execute([':userId' => $id]);
+$countStatus = $countStatusQuery->fetchAll(PDO::FETCH_ASSOC);
+
+$inwork = 0;
+$pending = 0;
+$postpone = 0;
+$overdue = 0;
+$all = 0;
+foreach ($countStatus as $group) {
+    if (in_array($group['status'], ['new', 'inwork', 'returned' ])) {
+    $inwork += $group['count'];
+    } elseif ($group['status'] == 'pending') {
+        $pending = $group['count'];
+    } elseif ($group['status'] == 'postpone') {
+        $postpone = $group['count'];
+    } elseif ($group['status'] == 'overdue') {
+        $overdue = $group['count'];
+    }
+    $all += $group['count'];
+}
 
 $events = getEventsForUser(21);
 prepareEvents($events);

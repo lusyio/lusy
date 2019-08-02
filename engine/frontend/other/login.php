@@ -1,150 +1,125 @@
-<div class="loginPage">
-    <div class="container pt-5">
-        <div id="login">
-            <!-- Heading -->
-            <h1 class="lead-text text-white text-center mb-3 mt-5">
-                <?= $GLOBALS['_authorization'] ?>
-            </h1>
+<div class="container pt-3 pb-5" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <div class="col-4">
 
-            <!-- Subheading -->
-            <p class="lead-text-p text-center">
-                <?= $GLOBALS['_entertext'] ?>
-            </p>
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-5 col-xl-4 mt-3">
+            <a class="navbar-brand-log text-dark text-uppercase font-weight-bold visible-lg mt-1"
+               href="https://lusy.io/"><span
+                        class="logo mr-3">L</span>LUSY</a>
+        </div>
+        <div class="col-8">
+            <a href="https://lusy.io/ru/register/" class="btn btn-outline-violet float-right">Регистрация</a>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-6 mt-5 mb-5">
 
-                    <!-- Form -->
-                    <form action="" method="POST">
+            <div id="login">
+                <!-- Heading -->
+                <h2 class="lead-text text-dark mb-5 mt-5">
+                    <?= $GLOBALS['_authorization'] ?>
+                </h2>
 
-                        <!-- Email address -->
-                        <div class="form-group">
+                <!-- Form -->
+                <form action="" method="POST">
+
+                    <!-- Email address -->
+                    <div class="form-group">
+
+                        <!-- Input -->
+                        <input type="text" name="login" class="form-control"
+                               placeholder="<?= $GLOBALS['_enteremail'] ?>"
+                               value="">
+
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group mb-3">
+
+                        <!-- Input group -->
+                        <div class="input-group input-group-merge">
 
                             <!-- Input -->
-                            <input type="text" name="login" class="form-control" placeholder="<?= $GLOBALS['_enteremail'] ?>"
-                                   value="">
+                            <input type="password" name="password" class="form-control form-control-appended"
+                                   placeholder="<?= $GLOBALS['_enterpassword'] ?>" value="">
+
 
                         </div>
-
-                        <!-- Password -->
-                        <div class="form-group mb-3">
-
-                            <!-- Input group -->
-                            <div class="input-group input-group-merge">
-
-                                <!-- Input -->
-                                <input type="password" name="password" class="form-control form-control-appended"
-                                       placeholder="<?= $GLOBALS['_enterpassword'] ?>" value="">
+                    </div>
 
 
-                            </div>
-                        </div>
-
-
-                        <?php
-                        if ($loginError == true):
-                            ?>
-                            <div class="login-error text-center mb-3">
-                                <h6>
-                                    Вход не удался
-                                </h6>
-                                <span>
+                    <?php
+                    if ($loginError == true):
+                        ?>
+                        <div class="login-error text-center mb-3">
+                            <h6>
+                                Вход не удался
+                            </h6>
+                            <span>
                     Неправильный логин или пароль
                   </span>
-                            </div>
-                        <?php
-                        endif;
-                        ?>
-                        <!-- Submit -->
-                        <button class="btn btn-lg btn-block btn-primary mb-5">
-                            Авторизоваться
-                        </button>
-
-                        <!-- Link -->
-                        <div class="text-center">
-                            <p class="text-white text-center mb-0">
-                                <?= $GLOBALS['_notregistrated'] ?>? <a href="/reg/" class="text-white"><?= $GLOBALS['_registrationreg'] ?></a>
-                            </p>
                         </div>
+                    <?php
+                    endif;
+                    ?>
 
-
-                    </form>
-                    <div id="btn-show-restore" class="text-center">
-                        <small class="text-muted text-center">
-                            <button class="btn" id="btn-show-restore-form"><?= $GLOBALS['_forgotpassword'] ?>?</button>
+                    <!-- Submit -->
+                    <button class="btn btn-lg btn-block text-white btn-violet mb-5">
+                        Войти
+                    </button>
+                    <div id="btn-show-restore">
+                        <small class="text-muted">
+                            <button class="btn pl-0 text-secondary"
+                                    id="btn-show-restore-form"><?= $GLOBALS['_forgotpassword'] ?>?
+                            </button>
                         </small>
                     </div>
-                </div>
+
+                </form>
+
             </div>
-        </div>
-        <div id="restore-password" class="d-none">
-            <h1 class="lead-text text-white text-center mb-3 mt-5">
-                <?= $GLOBALS['_restorePass'] ?>
-            </h1>
+            <div id="restore-password" class="d-none">
+                <h2 class="lead-text text-dark mb-5 mt-5">
+                    <?= $GLOBALS['_restorePass'] ?>
+                </h2>
 
-            <!-- Subheading -->
-            <p class="lead-text-p text-center">
-                <?= $GLOBALS['_enteremail'] ?>
-            </p>
-
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-5 col-xl-4 mt-3">
-                    <!-- Form -->
-                    <form>
+                        <!-- Form -->
+                        <form>
 
 
-                        <!-- E-mail -->
-                        <div class="form-group">
+                            <!-- E-mail -->
+                            <div class="form-group">
 
 
-                            <!-- Input -->
-                            <input id="email-restore" type="text" name="email" class="form-control"
-                                   placeholder="E-mail"
-                                   value="">
+                                <!-- Input -->
+                                <input id="email-restore" type="text" name="email" class="form-control"
+                                       placeholder="E-mail"
+                                       value="">
 
-                        </div>
+                            </div>
 
-                        <!-- Submit -->
-                        <button id="btn-restore" class="btn btn-lg btn-block btn-primary mb-3">
+                            <!-- Submit -->
+                            <button id="btn-restore" class="btn btn-lg btn-block btn-violet text-white mb-3">
                         <span id="spinner-restore" class="spinner-border spinner-border-sm d-none" role="status"
                               aria-hidden="true"></span> <?= $GLOBALS['_restorepassword'] ?>
-                        </button>
+                            </button>
 
 
-                    </form>
-                </div>
+                        </form>
+
             </div>
-
         </div>
-        <p id="restore-result" class="text-center lead-text-p d-none"></p>
+        <div class="col-md-5 offset-md-1 text-center d-none d-md-block">
+            <img src="/upload/mount.jpg" class="mt-5">
+        </div>
     </div>
-</div> <!-- / .row -->
-<p class="text-center position-absolute text-footer"><a href="https://lusy.io/">LUSY.IO</a></p>
+    <p id="restore-result" class="text-center lead-text-p d-none"></p>
+</div>
 <style>
-    html, body {
-        height: 100%;
-    }
-
     .form-control {
         height: calc(2.5em + .75rem + 2px) !important;
         border-radius: 15px !important;
         padding-left: 20px;
-    }
-
-    .btn-primary {
-        background: #284c8e;
-        border: none !important;
-        border-radius: 15px;
-        padding-left: 25px !important;
-        padding-right: 25px !important;
-    }
-
-    .btn-primary:hover {
-        background: #13387c;
-    }
-
-    #btn-show-restore-form {
-        color: #e1e1e1;
     }
 </style>
 <script>
@@ -194,7 +169,7 @@
                             resultArea.text('Данный e-mail отсутствует в базе');
                             console.log('такого e-mail нет в базе');
                             $('#email-restore').val('');
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 $('#restore-result').fadeOut();
 
                             }, 1500);
