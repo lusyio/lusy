@@ -1,8 +1,6 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="/assets/js/jquery.steps.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/js/popper.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.steps.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.validate.min.js"></script>
 <div class="loginPage">
     <div class="container pt-5">
         <h1 class="lead-text text-white text-center mb-3 mt-5">
@@ -258,6 +256,9 @@
 
         var securityPass = 0;
 
+        if (security != 2){
+            $("a[href=\"#finish\"]").addClass('disabled');
+        }
 
         $('#emailAdmin').on('keyup', function () {
             var $this = $(this);

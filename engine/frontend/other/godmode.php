@@ -1,4 +1,4 @@
-<script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+<script type="text/javascript" src="/assets/js/Chart.min.js"></script>
 <div class="card mb-3">
     <div class="card-body">
         <div class="row">
