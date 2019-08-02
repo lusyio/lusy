@@ -1,2 +1,2 @@
-<?php $pdo = NULL;
+<?php
 global $id;
