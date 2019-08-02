@@ -1779,7 +1779,7 @@ function sendActivationLink($companyId)
         $mail->isHTML();
         $mail->Subject = "Подтверждение e-mail";
         $args = [
-            'activationLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/activate/' . $companyId . '/' . $activationCode . '/',
+            'activationLink' => 'https://s.lusy.io/activate/' . $companyId . '/' . $activationCode . '/',
         ];
         $mail->setMessageContent('company-activation', $args);
         $mail->send();
