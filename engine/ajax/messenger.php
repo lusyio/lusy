@@ -120,8 +120,6 @@ if ($_POST['module'] == 'sendMessageToChat') {
         }
 
         $cometSql = $cometPdo->prepare("INSERT INTO pipes_messages (name, event, message) VALUES (:channelName, 'newChat', :jsonMesData)");
-        $messageCometForSender = "<p>Вы (" . $datetime . "):</p><p>" . $mes . "</p>";
-        $messageCometForRecipient = "<p>" . fiomess($id) . " (" . $datetime . "):</p><p>" . $mes . "</p>";
         $mesData = [
             'messageId' => $messageId,
         ];
