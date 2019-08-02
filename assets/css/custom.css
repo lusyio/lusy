@@ -886,11 +886,13 @@ input:checked[type="checkbox"].new-checkbox::before {
     background-color: #fefefe;
 }
 
-.input-group .form-control {
+.login-block .input-group .form-control {
     height: calc(2.5em + .75rem + 2px) !important;
     border-radius: 15px !important;
     padding-left: 20px;
 }
+
+
 .input-settings:focus{
     background-color: #fefefe;
 }
