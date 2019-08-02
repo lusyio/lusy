@@ -13,6 +13,7 @@
 }
 
 body{
+    overflow-x: hidden;
     background-color: #fcfcfc;
     -webkit-font-smoothing: subpixel-antialiased;
     color: #27406a;
@@ -1613,8 +1614,10 @@ input:checked[type="checkbox"].new-checkbox::before {
     color: #121416!important;
 }
 #chatBox {
+    width: 120%;
+    padding-right: 20% !important;
     position: relative;
-    height: calc(100vh - 315px);
+    height: calc(100vh - 320px);
     background-color: #fcfcfc;
 
     overflow: scroll;
@@ -3327,6 +3330,11 @@ span.date {
     }
     .searchDiv {
         display: none;
+    }
+
+    #chatBox{
+        width: 100%;
+        padding-right: 0 !important;
     }
 
     .report-task-text{
