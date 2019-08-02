@@ -3048,11 +3048,11 @@ span.date {
     justify-content: space-between;
 }
 
-.payment-event-card .paymentIcon{
+.payment-event-card .paymentIcon-div{
     width: 80px;
 }
 
-.payment-event-card .text-success{
+.amount-div-payment{
     width: 150px;
 }
 
