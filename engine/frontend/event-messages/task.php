@@ -171,10 +171,8 @@
             $bg = 'primary';
             $icon = 'fas fa-user-check';
             if ($event['author_id'] == '1') {
-                $coworkerName = DBOnce('name', 'users', 'id=' . $event['comment']);
-                $coworkerSurname = DBOnce('surname', 'users', 'id=' . $event['comment']);
                 $eventText = _('You add coworker');
-                $eventDop = _('New coworker is') . ' <span class="text-capitalize">' . $coworkerName . ' ' . $coworkerSurname . '</span>';
+                $eventDop = _('New coworker is') . ' <span class="text-capitalize">' . getDisplayUserName($event['comment']) . '</span>';
             } else {
                 $eventText = _('You are new coworker');
             }
@@ -184,10 +182,8 @@
             $bg = 'danger';
             $icon = 'fas fa-user-slash';
             if ($event['author_id'] == '1') {
-                $coworkerName = DBOnce('name', 'users', 'id=' . $event['comment']);
-                $coworkerSurname = DBOnce('surname', 'users', 'id=' . $event['comment']);
                 $eventText = _('You remove coworker');
-                $eventDop = _('It was') . ' <span class="text-capitalize">' . $coworkerName . ' ' . $coworkerSurname . '</span>';
+                $eventDop = _('It was') . ' <span class="text-capitalize">' . getDisplayUserName($event['comment']) . '</span>';
             } else {
                 $eventText = _('Task reassigned');
             }

@@ -45,9 +45,11 @@ if ($_POST['module'] == 'changeData') {
     if ($instagram != '') {
         $socialNetworks['instagram'] = $instagram;
     }
-
-    $userName = trim(DBOnce('name', 'users', 'id=' . $id));
-    $userSurname = trim(DBOnce('surname', 'users', 'id=' . $id));
+    $userNameQuery = $pdo->prepare("SELECT name, surname FROM users WHERE id = :userId");
+    $userNameQuery->execute([':userId' => $id]);
+    $userNameInDb = $userNameQuery->fetch(PDO::FETCH_ASSOC);
+    $userName = trim($userNameInDb['name']);
+    $userSurname = trim($userNameInDb['surname']);
 
     setNewUserData($name, $surname, $email, $phone, json_encode($socialNetworks), $about, $birthdate);
 

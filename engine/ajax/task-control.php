@@ -13,11 +13,14 @@ $usePremiumTask = false;
 $usePremiumCloud = false;
 if (isset($_POST['it'])) {
     $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
-    $taskAuthorId =  DBOnce('author', 'tasks', 'id='.$idtask);
-    $idTaskManager = DBOnce('manager', 'tasks', 'id='.$idtask);
-    $idTaskWorker = DBOnce('worker', 'tasks', 'id='.$idtask);
-    $taskDatedone = DBOnce('datedone', 'tasks', 'id='.$idtask);
-    $checklist = json_decode(DBOnce('checklist', 'tasks', 'id='.$idtask), true);
+    $taskDataQuery = $pdo->prepare("SELECT author, manager, worker, datedone, checklist, status FROM tasks WHERE id = :taskId");
+    $taskDataQuery->execute([':taskId' => $idtask]);
+    $taskData = $taskDataQuery->fetch(PDO::FETCH_ASSOC);
+    $taskAuthorId =  $taskData['author'];
+    $idTaskManager = $taskData['manager'];
+    $idTaskWorker = $taskData['worker'];
+    $taskDatedone = $taskData['datedone'];
+    $checklist = json_decode($taskData['checklist'], true);
     if ($id == $idTaskManager) {
         $isManager = true;
     }
@@ -27,7 +30,7 @@ if (isset($_POST['it'])) {
     if($id == $idTaskWorker || in_array($id, $coworkers)) {
         $isWorker = true;
     }
-    $taskStatus = DBOnce('status', 'tasks', 'id='.$idtask);
+    $taskStatus = $taskData['status'];
     if (in_array($taskStatus, ['done', 'canceled'])) {
         exit;
     }
