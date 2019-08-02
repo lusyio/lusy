@@ -96,9 +96,12 @@
                                 <br><small class="text-secondary"><?= $tariffName ?></small>
                             </div>
                         </a>
-                        <hr class="mt-0 mb-0">
-                        <a href="/payment/"><img class="svg-icon mr-3"
-                                                 src="/assets/svg/credit-card.svg"><?= _('Payment') ?></a>
+                        <?php if ($isCeo): ?>
+                            <hr class="mt-0 mb-0">
+                            <a href="/payment/">
+                                <img class="svg-icon mr-3" src="/assets/svg/credit-card.svg"><?= _('Payment') ?>
+                            </a>
+                        <?php endif; ?>
                         <hr class="mt-0 mb-0">
                         <a href="/profile/<?= $id ?>/"><img class="svg-icon mr-3"
                                                             src="/assets/svg/user.svg"><?= _('Profile') ?></a>

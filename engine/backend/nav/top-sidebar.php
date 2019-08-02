@@ -8,6 +8,7 @@ global $_history;
 global $_settings;
 global $id;
 global $idc;
+global $roleu;
 global $namec;
 global $_free;
 global $_premium;
@@ -22,4 +23,9 @@ if ($tariff == 1) {
 $GLOBALS['cometHash'] = authorizeComet($id);
 if ($idc == 1) {
     $GLOBALS['supportCometHash'] = authorizeComet(1);
+}
+if ($roleu == 'ceo') {
+    $isCeo = true;
+} else {
+    $isCeo = false;
 }
