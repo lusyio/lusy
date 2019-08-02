@@ -1779,7 +1779,7 @@ function sendActivationLink($companyId)
         $mail->isHTML();
         $mail->Subject = "Подтверждение e-mail";
         $args = [
-            'activationLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/activate/' . $companyId . '/' . $activationCode . '/',
+            'activationLink' => 'https://s.lusy.io/activate/' . $companyId . '/' . $activationCode . '/',
         ];
         $mail->setMessageContent('company-activation', $args);
         $mail->send();
@@ -1830,4 +1830,15 @@ function getDisplayUserName($userId)
         $userFullName = trim($userFullNameResult['name'] . ' ' . $userFullNameResult['surname']);
     }
     return $userFullName;
+}
+
+function addToErrorLog($text)
+{
+    $file = __ROOT__ . '/custom-error.log';
+    $current = file_get_contents($file);
+    $current .= date('d.m.Y H:i:s');
+    $current .= "\n";
+    $current .= $text;
+    $current .= "\n";
+    file_put_contents($file, $current);
 }

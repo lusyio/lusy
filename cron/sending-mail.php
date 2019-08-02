@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 define('__ROOT__', __DIR__ . '/../');
+$cron = true;
 
 include __ROOT__ . '/conf.php'; // подключаем базу данных
 
@@ -16,7 +17,10 @@ require_once __ROOT__ . '/engine/backend/functions/task-functions.php';
 $mailQueueQuery = $pdo->prepare("SELECT mq.queue_id, mq.function_name, mq.args, mq.start_time, mq.user_id, c.timezone, mq.event_id FROM mail_queue mq LEFT JOIN users u ON mq.user_id = u.id LEFT JOIN company c ON u.idcompany = c.id AND mq.user_id > 1");
 $mailQueueQuery->execute();
 $mailQueue = $mailQueueQuery->fetchAll(PDO::FETCH_ASSOC);
-
+ob_start();
+var_dump($mailQueue);
+$mailQueueContent = ob_get_clean();
+addToErrorLog($mailQueueContent);
 foreach ($mailQueue as $mail) {
     if ($mail['function_name'] == 'sendActivationLink') {
         if (function_exists($mail['function_name'])) {

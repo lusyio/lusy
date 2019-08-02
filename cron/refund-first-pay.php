@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 define('__ROOT__', __DIR__ . '/../');
+$cron = true;
 
 include __ROOT__ . '/conf.php'; // подключаем базу данных
 
