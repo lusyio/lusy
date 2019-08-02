@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <!-- Submit -->
-                <button class="btn btn-lg btn-block btn-violet text-white mb-3">
+                <button id="restoreNewPassword" class="btn btn-lg btn-block btn-violet text-white mb-3">
                     Сменить пароль
                 </button>
             </form>
@@ -37,3 +37,28 @@
             <img src="/upload/mount.jpg" class="mt-5 mount">
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $(".btn-violet").addClass('disabled');
+            $('[name=password]').on('keyup', function () {
+                var $this = $(this);
+                var password = $this.val();
+                var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+                var checkPass = reg.exec(password);
+
+                if (checkPass == null) {
+                    $this.css({
+                        'border': '1px solid #fbc2c4',
+                        'color': '#8a1f11'
+                    });
+                    $(".btn-violet").addClass('disabled');
+                } else {
+                    $this.css({
+                        'border': '1px solid #ccc',
+                        'color': '#495057'
+                    });
+                    $(".btn-violet").removeClass('disabled');
+                }
+            });
+        });
+    </script>
