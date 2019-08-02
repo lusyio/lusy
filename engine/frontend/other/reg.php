@@ -263,7 +263,7 @@
             var $this = $(this);
 
             var email = $('#emailAdmin').val();
-            var regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{2,}\.[a-z]{2,}$/i;
+            var regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
             var checkMail = regMail.exec(email);
 
             if (checkMail == null){
