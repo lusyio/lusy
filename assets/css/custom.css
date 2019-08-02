@@ -1790,7 +1790,7 @@ input:checked[type="checkbox"].new-checkbox::before {
     padding: 1rem;
 }
 
-#task .member-block .member-block{
+#task .member-block .members-block{
     padding-left: 35px;
 }
 
