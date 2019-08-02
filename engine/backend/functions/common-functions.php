@@ -1627,9 +1627,12 @@ function addMailToQueue($function, $args, $id, $eventId = null)
     $addToQueueQuery = $pdo->prepare("INSERT INTO mail_queue(function_name, args, user_id, start_time, event_id) VALUES (:functionName, :args, :userId, :startTime, :eventId)");
     if (is_array($id)) {
         foreach ($id as $key => $oneId) {
+            if ($oneId == 1) {
+                continue;
+            }
             $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $oneId, ':startTime' =>time(), ':eventId' => $eventId[$oneId]));
         }
-    } else {
+    } elseif ($id != 1) {
         $addToQueueQuery->execute(array(':functionName' => $function, ':args' => $argsJson, ':userId' => $id, ':startTime' =>time(), ':eventId' => $eventId));
     }
 }
