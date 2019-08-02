@@ -17,6 +17,9 @@ body{
     -webkit-font-smoothing: subpixel-antialiased;
     color: #27406a;
 }
+img {
+    max-width: 100%;
+}
 h5, .ns {
     color: #28416b;
     font-weight: 600;
@@ -117,6 +120,42 @@ h5, .ns {
 
 #logPlug{
     display: none;
+}
+.navbar-brand-log {
+    letter-spacing: 2px;
+    font-size: 20px;
+}
+.btn-violet {
+    background: #5156d8;
+    border: none !important;
+    border-radius: 15px;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
+.btn-violet:hover {
+    background: #353aaf;
+}
+.btn-outline-violet {
+    color: #5156d8;
+    border-color: #5156d8;
+    border-radius: 15px;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
+.btn-outline-violet:hover {
+    background: #353aaf;
+    color: white;
+}
+.logo {
+    color: white;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 9px;
+    background: #4776E6;
+    background: -webkit-linear-gradient(to right, #8E54E9, #4776E6);
+    background: linear-gradient(to right, #8E54E9, #4776E6);
+    border-radius: 5px;
+    box-shadow: rgba(1, 144, 187, 0.12) 0px 9px 5px -2px;
 }
 .top-sidebar h2 {
     color: #27406a;
@@ -1490,7 +1529,6 @@ input:checked[type="checkbox"].new-checkbox::before {
     height: 100%;
 }
 .lead-text {
-    font-size: 52px;
     line-height: 1.2;
     font-weight: 900;
 }
@@ -1499,6 +1537,11 @@ input:checked[type="checkbox"].new-checkbox::before {
     color: #e1e1e1;
     line-height: 1.4;
     margin-top: 20px;
+}
+
+.navbar-brand-log:focus, .navbar-brand-log:hover {
+    text-decoration: none;
+    color: #121416!important;
 }
 #chatBox {
     position: relative;
