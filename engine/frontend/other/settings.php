@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                                 <div class="alert alert-success" role="alert" style="display: none;"></div>
-                                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                                <div class="modal fade" id="modal" data-backdrop="static" tabindex="-1" role="dialog"
                                      aria-labelledby="modalLabel"
                                      style="display: none;"
                                      aria-hidden="true">
@@ -838,6 +838,7 @@
 
                         complete: function () {
                             $spinner.hide();
+                            $("#deleteAvatar").removeClass('d-none');
                         },
                     });
                 }, "image/jpeg", 0.8);
