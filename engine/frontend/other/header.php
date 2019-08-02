@@ -67,8 +67,8 @@ if (empty($title)) {
             $('#counters a').removeClass('d-none');
         });
         subscribeToMessagesNotification(userId);
-        subscribeToOnlineStatusNotification('<?=$cometTrackChannelName?>');
-        subscribeToChatNotification('<?=$cometTrackChannelName?>');
+        subscribeToOnlineStatusNotification('<?=getCometTrackChannelName()?>');
+        subscribeToChatNotification('<?=getCometTrackChannelName()?>');
 
         $('#search').on('keyup', function () {
             var request = $('#search').val();
