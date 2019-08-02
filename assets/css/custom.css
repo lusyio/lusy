@@ -17,7 +17,7 @@ body{
     -webkit-font-smoothing: subpixel-antialiased;
     color: #27406a;
 }
-img {
+.mount {
     max-width: 100%;
 }
 h5, .ns {
@@ -824,6 +824,11 @@ input:checked[type="checkbox"].new-checkbox::before {
     background-color: #fefefe;
 }
 
+.input-group .form-control {
+    height: calc(2.5em + .75rem + 2px) !important;
+    border-radius: 15px !important;
+    padding-left: 20px;
+}
 .input-settings:focus{
     background-color: #fefefe;
 }

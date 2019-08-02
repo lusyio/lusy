@@ -24,7 +24,7 @@
                 <form action="" method="POST">
 
                     <!-- Email address -->
-                    <div class="form-group">
+                    <div class="input-group mb-3">
 
                         <!-- Input -->
                         <input type="text" name="login" class="form-control"
@@ -88,7 +88,7 @@
 
 
                             <!-- E-mail -->
-                            <div class="form-group">
+                            <div class="input-group mb-3">
 
 
                                 <!-- Input -->
@@ -106,23 +106,17 @@
 
 
                         </form>
+                <p id="restore-result" class="text-center text-dark lead-text-p d-none"></p>
 
             </div>
         </div>
         <div class="col-md-5 offset-md-1 text-center d-none d-md-block">
-            <img src="/upload/mount.jpg" class="mt-5">
+            <img src="/upload/mount.jpg" class="mt-5 mount">
         </div>
     </div>
 
-    <p id="restore-result" class="text-center lead-text-p d-none"></p>
+
 </div>
-<style>
-    .form-control {
-        height: calc(2.5em + .75rem + 2px) !important;
-        border-radius: 15px !important;
-        padding-left: 20px;
-    }
-</style>
 <script>
     $(document).ready(function () {
         $('#btn-show-restore-form').on('click', function () {
