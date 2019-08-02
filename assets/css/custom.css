@@ -347,11 +347,73 @@ h5, .ns {
     border-left: none !important;
     border-right: none !important;
     border-radius: 8px !important;
+    background-color: #fcfcfc
 }
 
 .new-dialog-list:hover{
     text-decoration: none;
     background-color: rgba(115, 135, 248, 0.21) !important;
+}
+
+.user-pic-other{
+    margin: 0 auto;
+    width: 85px;
+}
+
+#avatarNew .edit-members .avatar-new{
+    font-size: 17px;
+}
+
+.p-5px{
+    padding: 5px;
+}
+
+.dialog-mail-width{
+    max-width: 83%;
+}
+
+.h2-topsidebar{
+    color: #27406a;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.nav-link .badge.float-left{
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.nav-link .badge.float-right{
+    color: white;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.newitem{
+    opacity: 0;
+    height:0px;
+    margin: 0px;
+}
+
+.text-footer{
+    left: 0;
+    right: 0;
+    bottom: 0
+}
+
+.message p.m-0{
+    color: #000;
+    font-size: 14px;
+    font-weight: 400
+}
+
+.dialog-mail .user-pic.position-relative{
+    width:60px;
+}
+
+.message-width button.delete-message{
+    right: -15px;
+    top: -15px;
 }
 
 .footer{
@@ -1661,6 +1723,7 @@ input:checked[type="checkbox"].new-checkbox::before {
 }
 
 #mes{
+    overflow:hidden;
     border: none !important;
     background-color: #ecf1f7;
     padding: 15px 20px;
@@ -1673,6 +1736,10 @@ input:checked[type="checkbox"].new-checkbox::before {
 .not-my-message {
     border-radius: 10px;
     padding: 1rem;
+}
+
+#task .member-block .member-block{
+    padding-left: 35px;
 }
 
 .noty-m {
@@ -2644,6 +2711,22 @@ span.date {
     cursor: pointer;
 }
 
+.bg-message .file-name.container-files.display-none{
+    padding-left: 34px;
+}
+
+.shadow-none .dialogs .d-inline-block.position-absolute{
+    right: 16px
+}
+
+.user-support .dialog-mail .user-pic{
+    width: 60px;
+}
+
+#collapseUsers a{
+    background-color: #fcfcfc
+}
+
 .container-files {
     min-height: 38px;
     padding: .375rem .75rem;
@@ -2763,10 +2846,41 @@ span.date {
     border-radius: 12px;
 }
 
+.ml-30px{
+    margin-left: 30px;
+}
+
+.text-godmode{
+    font-size: 2.1em;
+    margin-bottom: -10px;
+}
+
 .avatar-mail-list{
     vertical-align: middle;
     width: 35px;
     height: 35px;
+}
+
+.input-group #multiple{
+    position: relative;
+    top: 7px;
+    margin-right: 10px;
+}
+
+.oferta-field .new-checkbox{
+    position: relative;
+    top: 7px;
+    margin-right: 10px;
+}
+
+.mt-10px{
+    margin-top: 10px;
+}
+
+.input-group #used{
+    position: relative;
+    top: 7px;
+    margin-right: 10px;
 }
 
 .anim-show {
@@ -2880,6 +2994,33 @@ span.date {
     top: 9px;
 }
 
+.payment-event-card{
+    justify-content: space-between;
+}
+
+.payment-event-card .paymentIcon{
+    width: 80px;
+}
+
+.payment-event-card .text-success{
+    width: 150px;
+}
+
+.payment-event-card .fa-times{
+    font-size: 20px;
+}
+
+.taskDiv .text-lowercase.font-weight-bold{
+    line-height: 43px;
+}
+
+.mt-1.pb-0 #logDashBoard .timeline{
+    bottom: 0px;
+}
+
+.statusText-line{
+    line-height: 43px;
+}
 
 .chart-content{
     padding-bottom: 0;
@@ -2887,6 +3028,7 @@ span.date {
 .chart {
     position: relative;
     top: -20px;
+    z-index: 2;
 }
 #search:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: rgba(255, 255, 255, 0.5);
@@ -2906,6 +3048,18 @@ span.date {
 .chart-card:hover .percent-chart{
     opacity: 1;
     color: #64a2f0;
+}
+
+.empty-chart .d-flex{
+    justify-content: space-between;
+}
+
+.not-empty-chart{
+    justify-content: space-between;
+}
+
+.chart-card{
+    height: 241px;
 }
 
 #searchButton {
@@ -3946,10 +4100,12 @@ label.error {
     background: #fbe3e4 !important;
 }
 
+
+
 .text-reg {
     font-size: 1.2rem;
     line-height: 1.55;
-    font-weight: 200;
+    font-weight: 300;
     color: #000;
 }
 

@@ -108,7 +108,7 @@ $monthNumber = date("n", strtotime($userData['birthdate']));
                                  href="#collapseFunctions" role="button" aria-expanded="false"
                                  aria-controls="collapseFunctions">
                                 <div class="additional-func">
-                                    <span style="background-color: #fff">Показать всю информацию <i
+                                    <span class="bg-fff">Показать всю информацию <i
                                                 class="fas fa-caret-down"></i></span>
                                 </div>
                             </div>

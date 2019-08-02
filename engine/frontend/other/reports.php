@@ -33,8 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container container-report border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
-                     style="max-height: 50px;">
+                <div class="container container-report border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
                     <div class="placeholder-report"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                     <div val="1" class="add-report">
                         <span class="card-coworker">Отчет по компании</span>
@@ -54,7 +53,6 @@
             </label>
             <div class="mb-2 card card-tasknew">
                 <input type="date" class="input-reports form-control border-0 card-body-reports"
-                       style="height: 50px; font-size: 14px; padding-right: 20px !important;"
                        id="startReportDate"
                        value="<?= date('Y-m-01') ?>" required>
             </div>
@@ -65,21 +63,19 @@
             </label>
             <div class="mb-2 card card-tasknew">
                 <input type="date" class="input-reports form-control border-0 card-body-reports"
-                       style="height: 50px; font-size: 14px;padding-right: 20px !important;"
                        id="endReportDate"
                        value="<?= $GLOBALS["now"] ?>" required>
             </div>
         </div>
     </div>
 
-    <div class="row mt-25-tasknew" id="workerBlockReports" style="display: none">
+    <div class="row mt-25-tasknew display-none" id="workerBlockReports">
         <div class="col-12 col-lg-6 top-block-tasknew">
             <?php
             include __ROOT__ . '/engine/frontend/members/responsible.php';
             ?>
             <div class="card card-tasknew" id="selectWorkerReports">
-                <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
-                     style="max-height: 50px;padding-top: 10px !important;">
+                <div class="container-responsible-reports container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
                     <div class="placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                     <?php
                     foreach ($users as $n) { ?>
@@ -98,10 +94,10 @@
 
     <?php
     if ($tariff == 1 || $tryPremiumLimits['report'] < 3): ?>
-        <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
+        <div class="row mt-40px mb-60px">
             <div class="col-12 position-relative">
                 <div class="report-btn position-relative">
-                    <div style="z-index: 2;position: relative;">
+                    <div class="prem-report">
                         <div class="create-report-btn">
                             <?php if ($tariff == 0): ?>
                                 <button id="createReport"
@@ -128,10 +124,10 @@
     <?php
     else:
         ?>
-        <div class="row" style="margin-top: 40px;margin-bottom: 60px;">
+        <div class="row mt-40px mb-60px">
             <div class="col-12 position-relative">
                 <div class="report-btn position-relative">
-                    <div style="z-index: 2;position: relative;">
+                    <div class="prem-report">
                         <div class="create-report-btn">
                             <button id="createReportDisabled"
                                     class="btn btn-block btn-outline-primary h-100"

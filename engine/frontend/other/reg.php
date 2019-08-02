@@ -159,7 +159,7 @@
                 Уже зарегистрированы? <a href="/login/" class="text-white">Авторизация</a>
             </p>
         </div>
-        <p class="text-center position-absolute" style="left: 0; right: 0; bottom: 0"><a
+        <p class="text-center position-absolute text-footer"><a
                     href="https://lusy.io/">LUSY.IO</a></p>
     </div>
 
@@ -168,9 +168,9 @@
 <div class="modal fade" id="spinnerRegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content border-0" style="margin-top: 60%;background-color: transparent;">
+        <div class="modal-content border-0">
             <div class="modal-body text-center">
-                <div class="spinner-border" style="width: 3rem; height: 3rem;color: #f2f2f2;" role="status">
+                <div class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
             </div>

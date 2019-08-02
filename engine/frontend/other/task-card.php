@@ -31,7 +31,7 @@
                             <?= $n['task']['deadLineDay'] ?> <?= $n['task']['deadLineMonth'] ?>
                         </div>
                         <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars avatars-big">
-                            <div style="float: right">
+                            <div class="float-right">
                                 <?php if ($n['task']['idmanager'] == $n['task']['idworker']): ?>
                                     <img src="/<?= getAvatarLink($n['task']['idmanager']) ?>" class="avatar">
                                 <?php else: ?>
@@ -48,7 +48,7 @@
             <div class="subTaskInList">
             <?php foreach ($n['subTasks'] as $subTask): ?>
             <a href="/task/<?= $subTask['idtask'] ?>/" class="text-decoration-none cust">
-            <div class="tasks card-footer border-0" style="padding: 0.8rem;">
+            <div class="tasks card-footer border-0 taskbox-padding">
                 <div class="d-block" style="margin-left: 8px;">
                     <div class="row">
                         <div class="col-sm-5 col-lg-5 col-md-12 col-12">

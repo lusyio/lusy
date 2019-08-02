@@ -21,28 +21,27 @@
     </div>
 </div>
 
-<div class="card bg-message" style="margin-top: 10px;">
+<div class="card bg-message mt-10px">
     <div class="card-body pb-0 pl-2 pr-2">
         <form>
             <div class="d-flex send-mes-block">
                 <?php $uploadModule = 'chat'; ?>
                 <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
                 <div class="form-group w-100 text-area d-flex">
-                    <textarea style="overflow:hidden;" class="form-control" id="mes"
+                    <textarea class="form-control" id="mes"
                               name="mes" rows="1"
                               placeholder="<?= $GLOBALS['_enterconversation'] ?>"></textarea>
                     <div class="position-relative">
                         <button type="button" class="btn btn-primary rounded-circle" id="sendBtn">
                             <span id="sendMesName"><i class="fas fa-paper-plane"></i></span>
-                            <div class="spinner-border spinner-border-sm text-white" role="status"
-                                 style="display: none;">
+                            <div class="spinner-border spinner-border-sm text-white display-none" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
                         </button>
                         <div class="send-mes-tooltip">
                             <div class="card">
                                 <div class="send-mes-tooltip-body">
-                                    <div style="font-size: 13px">
+                                    <div>
                                         <b>Enter</b>
                                         — Отправить сообщение
                                         <br>
@@ -56,7 +55,7 @@
                 </div>
             </div>
         </form>
-        <div class="file-name container-files" style="display: none;padding-left: 34px;"></div>
+        <div class="file-name container-files display-none"></div>
     </div>
 </div>
 

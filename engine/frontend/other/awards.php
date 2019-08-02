@@ -46,7 +46,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
     <?php
     if ($countUserAchievements == 0):
         ?>
-        <div class="search-container search-container-awards" style="width: 86%;">
+        <div class="search-container search-container-awards search-container-awards-empty">
             <div class="card">
                 <div class="card-body search-empty">
                     <p>Вы ещё не получили достижения</p>
@@ -65,7 +65,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
 <?php if (!key_exists('taskDone_500', $nonMultipleAchievements)): ?>
     <div class="row mb-1">
         <div class="col">
-            <h3 style=" color: #27406a; font-size: 26px; font-weight: 700; ">Путь Ответственного</h3>
+            <h3 class="h3-awards">Путь Ответственного</h3>
             <p class="text-secondary mb-0">Уверены, вы - мастер своего дела! На этом пути вас ждут следующие достижения:</p>
         </div>
     </div>
@@ -85,7 +85,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
 <?php if (!key_exists('taskCreate_500', $nonMultipleAchievements)): ?>
     <div class="row mt-5 mb-1">
         <div class="col">
-            <h3 style=" color: #27406a; font-size: 26px; font-weight: 700; ">Путь Руководителя</h3>
+            <h3 class="h3-awards">Путь Руководителя</h3>
             <p class="text-secondary mb-0">На пути великого руководителя вас ждут следующие достижения:</p>
         </div>
     </div>
@@ -103,7 +103,7 @@ $percentAchieve = $countUserAchievements / count($badges) * 100;
 
 <div class="row mt-5 mb-1">
     <div class="col">
-        <h3 style=" color: #27406a; font-size: 26px; font-weight: 700; ">Разовые достижения</h3>
+        <h3 class="h3-awards">Разовые достижения</h3>
         <p class="text-secondary mb-0">Еще недостигнутые разовые достижения:</p>
     </div>
 </div>

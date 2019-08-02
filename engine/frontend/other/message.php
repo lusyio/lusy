@@ -8,19 +8,19 @@
         <div class="col pl-2 message-width">
             <?php if (!empty($isCeoAndInChat)): ?>
                 <button type="button"
-                        class="btn btn-link text-danger delete-message position-absolute" style="right: -15px; top: -15px;">
+                        class="btn btn-link text-danger delete-message position-absolute">
                     <i class="fas fa-times"></i>
                 </button>
             <?php endif; ?>
                 <span class="date"><?= date('d.m в H:i', $message['datetime']) ?>
                     </span>
-            <p class="m-0" style="color: #000; font-size: 14px; font-weight: 400"><?= link_it(nl2br(htmlspecialchars($message['mes']))) ?></p>
+            <p class="m-0"><?= link_it(nl2br(htmlspecialchars($message['mes']))) ?></p>
             <?php if (count($message['files']) > 0): ?>
                 <?php foreach ($message['files'] as $file): ?>
                     <?php if ($file['is_deleted']): ?>
-                        <p class="m-0" style="color: #000; font-size: 14px; font-weight: 400"><s><?= $file['file_name'] ?></s> <?= $GLOBALS['_deletedconversation'] ?></p>
+                        <p class="m-0"><s><?= $file['file_name'] ?></s> <?= $GLOBALS['_deletedconversation'] ?></p>
                     <?php else: ?>
-                        <p class="m-0" style="color: #000; font-size: 14px; font-weight: 400"><a class=""
+                        <p class="m-0"><a class=""
                                           href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
                         </p>
                     <?php endif; ?>

@@ -4,7 +4,7 @@
             <div class="card-header dialogs p-0">
                 <div class="mb-1 p-3">
                     <div class="d-inline-block"></div>
-                    <div class="d-inline-block position-absolute" style="right: 16px">
+                    <div class="d-inline-block position-absolute">
                         <button id="collapseTrigger" data-toggle="tooltip" data-placement="bottom" title="Начать диалог" class="google-icon-btn min ripple" data-target="#collapseUsers"
                                 aria-expanded="false" aria-controls="collapseExample">+
                         </button>
@@ -16,7 +16,7 @@
                         $isOnline = in_array($user['id'], $onlineUsersList);
                         ?>
                         <a href="./<?= $user['id'] ?>/"
-                           class="list-group-item list-group-item-action new-dialog-list border-0" style="background-color: #fcfcfc">
+                           class="list-group-item list-group-item-action new-dialog-list border-0">
                             <div class="row">
                                 <div class="col-2 pl-2 col-md-1 col-lg-1">
                                     <div class="avatar-mail-list">
@@ -46,7 +46,7 @@
                                 <span class="companyAvatar user-pic position-relative"><i
                                             class="fas fa-headset fa-fw"></i></span>
                                 </div>
-                                <div class="col" style="max-width: 83%;">
+                                <div class="col dialog-mail-width">
                                     <p class="mb-2 font-weight-bold <?= ($newSupportMessages) ? 'text-warning' : ''; ?>">Поддержка пользователей<?= ($newSupportMessages) ? ' +' . $newSupportMessages : ''; ?></p>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                                     <?php if($n == 1): ?>
                                     <span class="companyAvatar user-pic position-relative"><i class="fas fa-headset fa-fw"></i></span>
                                     <?php else: ?>
-                                <div class="user-pic position-relative" style="width:60px">
+                                <div class="user-pic position-relative">
                                 <img src="/<?= getAvatarLink($n) ?>"
                                          class="avatar-img rounded-circle w-100"/>
                                     <span class="online-indicator mobile-online-indicator">
@@ -113,6 +113,10 @@
     </div>
 </div>
 <script>
+    $('#collapseTrigger').on('mouseleave', function () {
+       $(this).tooltip('hide');
+    });
+
     $('#collapseTrigger').on('click', function () {
        $('#collapseUsers').collapse('toggle')
     });

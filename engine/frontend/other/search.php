@@ -8,7 +8,7 @@
     <div class="search-result">
         <div class="card">
             <div class="card-body">
-                <div id="taskSearch" class="resultSet">
+                <div id="taskSearch" class="resultSet <?= (count($result['task']) == 0)? 'd-none': '' ?>">
                     <h5 class="text-search"><?= $GLOBALS['_taskssearchtopsidebar'] ?> (<?= count($result['task']); ?>
                         )</h5>
                     <hr>
@@ -20,7 +20,7 @@
                         </a>
                     <?php endforeach; ?>
                 </div>
-                <div id="fileSearch" class="resultSet mt-2">
+                <div id="fileSearch" class="resultSet mt-2 <?= (count($result['file']) == 0)? 'd-none': '' ?>">
                     <h5 class="text-search"><?= $GLOBALS['_filessearchtopsidebar'] ?> (<?= count($result['file']); ?>
                         )</h5>
                     <hr>
@@ -32,7 +32,7 @@
                         </a>
                     <?php endforeach; ?>
                 </div>
-                <div id="commentSearch" class="resultSet mt-2">
+                <div id="commentSearch" class="resultSet mt-2 <?= (count($result['comment']) == 0)? 'd-none': '' ?>">
                     <h5 class="text-search"><?= $GLOBALS['_commentssearchtopsidebar'] ?>
                         (<?= count($result['comment']); ?>)</h5>
                     <hr>

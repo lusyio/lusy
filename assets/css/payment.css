@@ -47,6 +47,60 @@
     padding-left: 2rem;
 }
 
+#wrongPromoModal .modal-dialog{
+    max-width: 390px;
+}
+
+#refreshModal .modal-dialog{
+    max-width: 390px;
+}
+
+#refreshModal .modal-footer{
+    justify-content: space-between;
+}
+
+.dropdown .dropdown-menu .custom-date{
+    width: 25px;
+    text-align: center;
+}
+
+#paymentInfo .modal-footer{
+    justify-content: center;
+}
+
+.oferta-field .oferta-link{
+    text-decoration: underline;
+}
+
+.ml-mr-24px{
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+#deleteCardModal .modal-dialog{
+    max-width: 390px;
+}
+
+#addCard{
+    height: 38px;
+}
+
+#deleteCardModal .modal-footer{
+    justify-content: space-between;
+}
+
+#pay {
+    height: 50px;
+    background: #7b81f9;
+    border-radius: 20px;
+}
+
+#changeTariff{
+    height: 50px;
+    background: #7b81f9;
+    border-radius: 20px;
+}
+
 .btn-change-tariff:hover {
     color: #ffffff;
     transition: 0.5s all;

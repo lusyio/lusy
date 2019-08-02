@@ -32,6 +32,10 @@
     margin-bottom: 1rem;
 }
 
+.bg-fff{
+    background-color: #ffffff !important;
+}
+
 .accordion-link:hover .small.text-muted{
     text-decoration: underline;
 }
@@ -44,3 +48,15 @@
     opacity: 0.5;
     display: none;
 }
+
+.spinner-settings .spinner-border{
+    width: 3rem;
+    height: 3rem;
+    color: #e4e4e4;
+    margin-top: 35%;
+}
+
+.noty-padding-content-settings.d-flex.noty-padding-content-settings-sleep{
+    justify-content: space-between;
+}
+

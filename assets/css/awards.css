@@ -18,6 +18,16 @@
     z-index: -1;
 }
 
+.search-container-awards-empty{
+    width: 86%;
+}
+
+.h3-awards{
+    color: #27406a;
+    font-size: 26px;
+    font-weight: 700;
+}
+
 .award hr {
     width: 70px;
 }

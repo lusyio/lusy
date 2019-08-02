@@ -36,7 +36,7 @@
             </div>
         </div>
         <div id="log">
-            <ul class="timeline" id="eventBox" style="bottom: 0px;">
+            <ul class="timeline" id="eventBox">
                 <?php foreach ($events as $event): ?>
                     <?php renderEvent($event); ?>
                 <?php endforeach; ?>

@@ -30,3 +30,9 @@
     max-width:90% !important;
 }
 
+.files .file-list .deleteFile {
+    right: 5px;
+    top: 0;
+    z-index: 10;
+}
+

@@ -1,10 +1,10 @@
 <div id="avatarNew">
     <span class="position-absolute edit-members">
-        <i class="fas fa-plus avatar-new" style="font-size: 17px;"></i>
+        <i class="fas fa-plus avatar-new"></i>
     </span>
     <div class="members">
         <div class="members-card position-relative">
-            <div class="row" style="padding: 5px;">
+            <div class="row p-5px">
                 <div class="col text-left text-muted">
                     <span>Постановщик</span>
                 </div>
@@ -20,7 +20,7 @@
                 <?php endif; ?>
             </div>
             <div class="members-responsible">
-                <div class="row" style="padding: 5px;">
+                <div class="row p-5px">
                     <div class="col text-left">
                         <span class="text-muted">Ответственный</span>
                     </div>
@@ -67,7 +67,7 @@
             </div>
             <div class="members-coworkers">
                 <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'coworker')): ?>
-                <div class="row" style="padding: 5px;">
+                <div class="row p-5px">
                     <div class="col text-justify">
                         <span class="text-muted">Соисполнители</span>
                     </div>
@@ -95,7 +95,7 @@
                     <?php else: ?>
                     <div class="container-members-responsible-selected coworkers-list">
                         <?php if(count($coworkersId) != 0): ?>
-                        <div class="row" style="padding: 5px;">
+                        <div class="row p-5px">
                             <div class="col text-justify">
                                 <span class="text-muted">Соисполнители</span>
                             </div>

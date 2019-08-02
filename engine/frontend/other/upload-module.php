@@ -23,8 +23,7 @@ endif;
                     class="icon-paperclip fas fa-paperclip"></i>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item attach-file" href="#"><i class="fas fa-file-upload custom-date mr-2"
-                                                             style="width: 25px;text-align: center;"></i>
+            <a class="dropdown-item attach-file" href="#"><i class="fas fa-file-upload custom-date mr-2"></i>
                 <span>С компьютера</span></a>
             <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i
                         class="custom-date mr-2 fab fa-google-drive"></i>
@@ -70,8 +69,7 @@ endif;
                     class="icon-paperclip fas fa-paperclip"></i>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item attach-file-review" href="#"><i class="fas fa-file-upload custom-date mr-2"
-                                                             style="width: 25px;text-align: center;"></i>
+            <a class="dropdown-item attach-file-review" href="#"><i class="fas fa-file-upload custom-date mr-2"></i>
                 <span>С компьютера</span></a>
             <a class="dropdown-item" id="openGoogleDriveReview" href="#" data-toggle="modal"><i
                         class="custom-date mr-2 fab fa-google-drive"></i>
@@ -87,8 +85,7 @@ endif;
             Прикрепить
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item attach-file" href="#"><i class="fas fa-file-upload custom-date mr-2"
-                                                             style="width: 25px;text-align: center;"></i>
+            <a class="dropdown-item attach-file" href="#"><i class="fas fa-file-upload custom-date mr-2"></i>
                 <span>С компьютера</span></a>
             <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i
                         class="custom-date mr-2 fab fa-google-drive"></i>

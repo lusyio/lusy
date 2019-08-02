@@ -192,3 +192,37 @@
     background-color: #f8f8f8;
     cursor: default !important;
 }
+
+.prem-report{
+    z-index: 2;
+    position: relative;
+}
+
+.mt-40px{
+    margin-top: 40px;
+}
+
+.mb-60px{
+    margin-bottom: 60px;
+}
+
+.container-responsible-reports{
+    max-height: 50px;
+    padding-top: 10px !important;
+}
+
+.container.container-report.border-0.d-flex.flex-wrap.align-content-sm-stretch.card-body-tasknew{
+    max-height: 50px;
+}
+
+#startReportDate{
+    height: 50px;
+    font-size: 14px;
+    padding-right: 20px !important;
+}
+
+#endReportDate{
+    height: 50px;
+    font-size: 14px;
+    padding-right: 20px !important;
+}

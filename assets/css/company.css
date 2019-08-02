@@ -2,6 +2,31 @@
     transition: 200ms;
     color: rgba(198, 199, 200, 0.69);
 }
+
+.about-company-text{
+    color: #c6c9dc;
+}
+
+.sort-company{
+    padding: 0.8rem;
+}
+
+.sort-company-prerow{
+    padding-left: 7px;
+}
+
+.user-pic-company{
+    width: 45px;
+}
+
+.icon-pencil-company{
+    right: 8px;
+}
+
+.mt-company{
+    margin-top: 15%;
+}
+
 .icon-company:hover {
     color: #5d95db;
 }

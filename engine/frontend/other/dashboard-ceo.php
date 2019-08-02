@@ -51,17 +51,17 @@ $statusColor = [
 
 <div class="row">
     <div class="col-12 col-lg-4">
-        <div class="card overflow-hidden chart-card" style="height: 241px">
+        <div class="card overflow-hidden chart-card">
             <div class="card-body chart-content">
-                <div class="empty-chart" style="display: none">
-                    <div class="d-flex" style="justify-content: space-between">
+                <div class="empty-chart display-none">
+                    <div class="d-flex">
                         <div>
                             <b>Завершайте задачи</b>
                             <div class="small text-muted">и здесь появится ваш график</div>
                         </div>
                     </div>
                 </div>
-                <div class="not-empty-chart" style="display: none; justify-content: space-between">
+                <div class="not-empty-chart display-none">
                     <span class="numberSlide">
                         <?= $taskDoneCountCurrentMonth ?>
                     </span>
@@ -72,7 +72,7 @@ $statusColor = [
                 </div>
             </div>
             <canvas class="d-none" id="canvas"></canvas>
-            <div class="chart" style="z-index: 2">
+            <div class="chart">
                 <?php if (!is_null($taskDoneDelta)): ?>
                 <span class="percent-chart" data-toggle="tooltip" data-placement="bottom" title="Разница за аналогичный период в прошлом месяце">
                     <?= $taskDoneDelta; ?>
@@ -101,8 +101,7 @@ $statusColor = [
                         <div class="row">
                             <div class="col-1 mr-3 text-center">
                                 <div>
-                                    <span class="text-lowercase font-weight-bold"
-                                          style="line-height: 43px;">
+                                    <span class="text-lowercase font-weight-bold">
                                         <?= date("j.m", $task['datedone']) ?>
                                     </span>
                                 </div>
@@ -118,8 +117,7 @@ $statusColor = [
                             </div>
                             <div class="col pl-0">
                                 <div class="statusText font-weight-bold text-right text-">
-                                    <span class="<?= $statusColor[$task['status']] ?>"
-                                          style="line-height: 43px;">
+                                    <span class="statusText-line <?= $statusColor[$task['status']] ?>">
                                         <?= $GLOBALS["_{$task['status']}"] ?>
                                     </span>
                                 </div>
@@ -342,7 +340,7 @@ $statusColor = [
 <div class="mt-1 pb-0">
     <span class="font-weight-bold d-none"><?= _('History') ?></span>
     <div id="logDashBoard">
-        <ul class="timeline" style="bottom: 0px;">
+        <ul class="timeline">
             <?php $eventNumber = 1; ?>
             <?php foreach ($events as $event): ?>
                 <?php if ($eventNumber < 21) {

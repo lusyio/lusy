@@ -119,7 +119,7 @@
         <p id="restore-result" class="text-center lead-text-p d-none"></p>
     </div>
 </div> <!-- / .row -->
-<p class="text-center position-absolute" style="left: 0; right: 0; bottom: 0"><a href="https://lusy.io/">LUSY.IO</a></p>
+<p class="text-center position-absolute text-footer"><a href="https://lusy.io/">LUSY.IO</a></p>
 <style>
     html, body {
         height: 100%;
