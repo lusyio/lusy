@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="col-sm-5 d-none d-md-block">
-                <h2 style=" color: #27406a; font-size: 26px; font-weight: 700; "><?= $title ?></h2>
+                <h2 class="h2-topsidebar"><?= $title ?></h2>
             </div>
             <div class="col-sm-4 navbarNav collapse navbar-collapse">
                 <div class="position-relative searchDiv">

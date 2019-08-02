@@ -265,8 +265,74 @@
     display: inline !important;
 }
 
+#startDate{
+    height: 50px;
+    font-size: 14px;
+}
+
 .card-tasknew .add-worker {
     margin-bottom: 7px;
+}
+
+.card-tasknew-minheight{
+    min-height: 87.8%;
+}
+
+#addChecklistBtn{
+    top: 13px;
+}
+
+.createTask-row{
+    margin-top: 50px;
+}
+
+.mt-25-tasknew .spinner-border{
+    color: #28416b;
+}
+
+.pl-20-tasknew{
+    padding-left: 20px;
+}
+
+.mt-25-tasknew .file-name.container-files {
+    padding-left: 30px;
+}
+
+#addChecklistBtn .fa-plus{
+    font-size: 15px;
+    color: #c2c2c4;
+    transition: 200ms
+}
+
+#startDate{
+    height: 50px;
+    font-size: 14px;
+}
+
+#checklistInput{
+    height: 50px;
+}
+
+#checklistInput{
+    height: 50px;
+}
+
+.card-tasknew-minheight .container-responsible{
+    min-height: 38px;
+    padding-top: 10px;
+}
+
+.coworkers-toggle.container.container-coworker.border-0.d-flex.flex-wrap.align-content-sm-stretch.card-body-tasknew{
+    padding-top: 10px;
+}
+
+.container.container-subtask.border-0.d-flex.flex-wrap.align-content-sm-stretch.card-body-tasknew{
+    height: 50px;
+    padding-top: 13px !important;
+}
+.container.container-subtask.border-0.d-flex.flex-wrap.align-content-sm-stretch.card-body-tasknew.disabled{
+    height: 50px;
+    padding-top: 13px !important;
 }
 
 .card-body-tasknew:focus {

@@ -5,7 +5,7 @@
 <div id="taskBox">
     <a href="/task/new/" class="text-decoration-none cust add-newtask-button">
         <div class="card mb-2 add-newtask-tasks">
-            <div class="card-body" style="padding: 0.8rem;">
+            <div class="card-body taskbox-padding">
                 <div class="row">
                     <div class="col text-center">
                         <span class="mr-2">
@@ -16,8 +16,8 @@
             </div>
         </div>
     </a>
-    <div style="padding: 0.8rem;" class="d-none d-sm task-box">
-        <div style="padding-left: 7px;">
+    <div class="d-none d-sm task-box taskbox-padding">
+        <div class="taskbox-padding-left">
             <div class="row sort">
                 <div class="col-sm-6">
                     <span><?= $GLOBALS['_taskname'] ?></span>

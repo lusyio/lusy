@@ -114,8 +114,6 @@
             <img src="/upload/mount.jpg" class="mt-5 mount">
         </div>
     </div>
-
-
 </div>
 <script>
     $(document).ready(function () {

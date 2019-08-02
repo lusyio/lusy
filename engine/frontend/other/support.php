@@ -4,21 +4,21 @@
             <div class="card-header dialogs p-0">
                 <div class="mb-1 p-3">
                     <div class="d-inline-block"></div>
-                    <div class="d-inline-block position-absolute" style="right: 16px">
+                    <div class="d-inline-block position-absolute">
                         <button id="collapseTrigger" data-toggle="tooltip" data-placement="bottom" title="Начать диалог" class="google-icon-btn min ripple" data-target="#collapseUsers"
                                 aria-expanded="false" aria-controls="collapseExample">+
                         </button>
                     </div>
                 </div>
                 <div class="collapse list-group" id="collapseUsers">
-                    <a href="#" class="list-group-item list-group-item-action new-dialog-list border-0 open-send-modal" data-send-to="ceo" style="background-color: #fcfcfc">
+                    <a href="#" class="list-group-item list-group-item-action new-dialog-list border-0 open-send-modal" data-send-to="ceo">
                         <div class="row">
                             <div class="col">
                                 <div class="font-weight-bold mt-1">Отправить руководителям</div>
                             </div>
                         </div>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action new-dialog-list border-0 open-send-modal" data-send-to="all" style="background-color: #fcfcfc">
+                    <a href="#" class="list-group-item list-group-item-action new-dialog-list border-0 open-send-modal" data-send-to="all">
                         <div class="row">
                             <div class="col">
                                 <div class="font-weight-bold mt-1">Отправить всем пользователям</div>
@@ -49,7 +49,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-2 pl-2">
-                                    <div class="user-pic position-relative" style="width:60px">
+                                    <div class="user-pic position-relative">
                                         <img src="/<?= getAvatarLink($userId) ?>" class="avatar-img rounded-circle w-100 <?= ($lastMessage['role'] == 'ceo') ? 'border-warning' : '' ?>"/>
                                     </div>
                                 </div>
@@ -94,6 +94,11 @@
     </div>
 </div>
 <script>
+
+    $('#collapseTrigger').on('mouseleave', function () {
+        $(this).tooltip('hide');
+    });
+
     $('#collapseTrigger').on('click', function () {
         $('#collapseUsers').collapse('toggle')
     });

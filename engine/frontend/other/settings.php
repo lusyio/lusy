@@ -11,7 +11,7 @@
                    aria-controls="collapseProfile">
                     <div class="card-header bg-mail">
                         <div class="position-relative">
-                            <div class="text-reg" style="font-weight: 300;">
+                            <div class="text-reg">
                                 Настройки профиля
                             </div>
                             <span class="position-absolute edit-settings">
@@ -26,7 +26,7 @@
                 <div class="collapse show" id="collapseProfile" aria-labelledby="headingOne"
                      data-parent="#accordionSettings">
                     <div class="text-center position-absolute spinner-settings">
-                        <div class="spinner-border" style="width: 3rem; height: 3rem;color: #e4e4e4;margin-top: 35%;"
+                        <div class="spinner-border"
                              role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
@@ -46,17 +46,8 @@
                                          alt="avatar">
                                     <input type="file" class="sr-only" id="input" name="image" accept="image/*">
                                 </label>
-                                <div id="progress-settings" class="progress" style="display: none;">
-                                    <div class="progress-bar-settings progress-bar-striped progress-bar-animated"
-                                         role="progressbar"
-                                         aria-valuenow="0"
-                                         aria-valuemin="0" aria-valuemax="100" style="width: 100%;">0%
-                                    </div>
-                                </div>
-                                <div class="alert alert-success" role="alert" style="display: none;"></div>
-                                <div class="modal fade" id="modal" data-backdrop="static" tabindex="-1" role="dialog"
+                                <div class="modal fade display-none" id="modal" data-backdrop="static" tabindex="-1" role="dialog"
                                      aria-labelledby="modalLabel"
-                                     style="display: none;"
                                      aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -224,7 +215,7 @@
                    aria-controls="collapsePassword">
                     <div class="card-header border-top bg-mail">
                         <div class="position-relative">
-                            <div class="text-reg" style="font-weight: 300;">
+                            <div class="text-reg">
                                 Смена пароля
                             </div>
                             <span class="position-absolute edit-settings">
@@ -276,7 +267,7 @@
                        aria-controls="collapseNoty">
                         <div class="card-header border-top bg-mail">
                             <div class="position-relative">
-                                <div class="text-reg" style="font-weight: 300;">
+                                <div class="text-reg">
                                     Уведомления
                                 </div>
                                 <span class="position-absolute edit-settings">
@@ -466,8 +457,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="noty-padding-content-settings d-flex noty-padding-content-settings-sleep"
-                                         style="justify-content: space-between;">
+                                    <div class="noty-padding-content-settings d-flex noty-padding-content-settings-sleep">
                                         <span>Не беспокоить</span>
                                         <div class="d-flex sleep-container">
                                             <select class="form-control form-control-sm" id="startSleep">

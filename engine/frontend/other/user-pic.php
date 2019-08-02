@@ -1,5 +1,5 @@
 <div class="user-pic text-center position-relative">
-	<div style="margin: 0 auto;    width: 85px;" class="position-relative">
+	<div class="position-relative user-pic-other">
 		<span class="rounded-circle bg-primary level"><?=$level?></span>
 		<a href="/profile/<?=$id?>/"><?=avatars()?></a>
 	</div>

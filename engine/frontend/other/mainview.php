@@ -17,7 +17,7 @@
 	</div>
 	<div class="col-md-4">
 		<div id="log">
-			<ul class="timeline" style="bottom: -300px"></ul>
+			<ul class="timeline"></ul>
 		</div>
 	</div>
 </div>

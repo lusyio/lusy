@@ -23,14 +23,14 @@
                 <div class="col-12 col-lg-9">
                     <div class="about-company">
                         <div class="mb-1">Описание:</div>
-                        <div style="color: #c6c9dc;"><?= ($companyData['description'] == '') ? 'Отсутствует' : $companyData['description'] ?></div>
+                        <div class="about-company-text"><?= ($companyData['description'] == '') ? 'Отсутствует' : $companyData['description'] ?></div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-3">
                     <div class="site-company">
                         <div class="mb-1">Сайт:</div>
 
-                        <div style="color: #c6c9dc;">
+                        <div class="about-company-text">
                             <?php if ($companyData['site'] == '') :?>
                             Https://
                             <?php else: ?>
@@ -44,8 +44,8 @@
     </div>
 </div>
 
-<div style="padding: 0.8rem;" class="d-sm task-box">
-    <div style="padding-left: 7px;">
+<div class="d-sm task-box sort-company">
+    <div class="sort-company-prerow">
         <div class="row sort">
             <div class="col-5">
                 <span>Имя сотрудника</span>
@@ -88,7 +88,7 @@
         <div class="card-body border-bottom-company <?= ($isFired) ? 'fired d-none text-muted' : '' ?>">
             <div class="row">
                 <div class="col-lg-1 col-md-2 col-2">
-                    <div class="user-pic position-relative" style="width:45px">
+                    <div class="user-pic position-relative user-pic-company">
                         <a href="/profile/<?= $n['id'] ?>/">
                             <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-img rounded-circle w-100"/>
                             <span class="online-indicator-company">
@@ -117,23 +117,23 @@
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-md-4 col-sm-2 col-lg-2 text-center">
-                    <div class="count-company-tasks" style="margin-top: 15%;">
+                    <div class="count-company-tasks mt-company">
                         <?= $inwork ?>
                     </div>
                     <small class="text-muted company-tasks">В работе</small>
                 </div>
                 <div class="col-4 col-md-4 col-sm-2 col-lg-2 text-center">
-                    <div class="count-company-tasks" style="margin-top: 15%;"><?= $overdue ?></div>
+                    <div class="count-company-tasks mt-company"><?= $overdue ?></div>
                     <small class="text-muted company-tasks">Просрочено</small>
                 </div>
                 <div class="col-4 col-md-4 col-sm-2 col-lg-2 text-center">
-                    <div class="count-company-tasks" style="margin-top: 15%;">
+                    <div class="count-company-tasks mt-company">
                         <span class="badge badge-company-primary"><?= $n['doneAsManager'] ?></span>
                         <span class="badge badge-company-dark"><?= $n['doneAsWorker'] ?></span>
                     </div>
                     <small class="text-muted company-tasks">Выполнено</small>
                 </div>
-                <div class="position-absolute" style="right: 8px">
+                <div class="position-absolute icon-pencil-company">
                     <?php if ($isCeo): ?>
                         <div class="d-none">
                             <a href="/settings/">

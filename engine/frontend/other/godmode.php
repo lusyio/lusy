@@ -6,7 +6,7 @@
                 <div class="chart"></div>
             </div>
             <div class="col-sm-4">
-                <p style=" font-size: 2.1em; margin-bottom: -10px; "><?= $activeCompanies; ?></p>
+                <p class="text-godmode"><?= $activeCompanies; ?></p>
                 <small class="text-secondary"><?= ngettext('active company', 'active companies', $activeCompanies); ?></small>
                 <hr>
                 <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countCompanies?></span><small class="text-secondary"><?= ngettext('company', 'companies', $countCompanies); ?> зарегистрировано</small></div>
@@ -295,13 +295,13 @@
                     Срок действия
                 </small>
                 <div class="input-group mt-3 pb-1">
-                    <input class="new-checkbox" type="checkbox" id="multiple" style=" position: relative; top: 7px; margin-right: 10px; ">
+                    <input class="new-checkbox" type="checkbox" id="multiple">
                 </div>
                 <small class="text-muted text-muted-reg">
                     Многопользовательский
                 </small>
                 <div class="input-group mt-3 pb-1">
-                    <input class="new-checkbox" type="checkbox" id="used" style=" position: relative; top: 7px; margin-right: 10px; ">
+                    <input class="new-checkbox" type="checkbox" id="used">
                 </div>
                 <small class="text-muted text-muted-reg">
                     Использован

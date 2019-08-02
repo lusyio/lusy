@@ -16,13 +16,71 @@
     cursor: pointer;
 }
 
+.subTaskInList .taskname{
+    padding-left: 35px;
+    font-weight: 600;
+    color: #353b41;
+}
+
+.display-none{
+    display: none;
+}
+
+#name{
+    height: 50px;
+}
+
+#datedone{
+    height: 50px;
+    font-size: 14px;
+}
+
+#comin {
+    padding-right: 45px;
+}
+
+#backbutton{
+    height: 38px;
+}
+
+.col-md-4 #log .timeline{
+    bottom: -300px;
+}
+
+#log #eventBox{
+    bottom: 0px;
+}
+
 .deadline-block:hover .date-inside span {
     border-bottom: 1px dashed grey;
+}
+
+.send-mes-tooltip-body{
+    font-size: 13px;
+}
+
+#spinnerModal .modal-content{
+    margin-top: 60%;
+    background-color: transparent;
+}
+
+#spinnerModal .spinner-border{
+    width: 3rem;
+    height: 3rem;
+    color: #f2f2f2;
 }
 
 .deadline-block:hover .edit {
     right: -23px;
     transition: 0.3s;
+}
+
+.card-footer-subtask{
+    padding: 0.8rem;
+}
+
+.card-footer-subtask .d-block{
+    height: 24px;
 }
 
 .edit {

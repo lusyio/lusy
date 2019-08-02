@@ -8,7 +8,7 @@ $log = DB('*','log','id='.$lastidnew);
 
 foreach ($log as $l) {
 include 'logfunction.php';?>
-<li id="<?=$lastidnew?>" class="newitem" style="opacity: 0;height:0px;margin: 0px;">
+<li id="<?=$lastidnew?>" class="newitem">
 	<span class="before <?=$iconcolor?> newbefore"><i class="<?=$icon?>"></i></span>
 	<div class="position-relative">
 		<span class="date"><?=$datetime?></span>

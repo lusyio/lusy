@@ -21,7 +21,6 @@ $borderColor = [
         </label>
         <div class="mb-2 card card-tasknew">
             <input type="text" id="name" class="form-control border-0 card-body-tasknew"
-                   style="height: 50px;"
                    placeholder="<?= $GLOBALS['_namenewtask'] ?>"
                    autocomplete="off" autofocus required>
         </div>
@@ -32,7 +31,6 @@ $borderColor = [
         </label>
         <div class="mb-2 card card-tasknew">
             <input type="date" class="form-control border-0 card-body-tasknew"
-                   style="height: 50px; font-size: 14px"
                    id="datedone"
                    min="<?= $GLOBALS["now"] ?>"
                    value="<?= $GLOBALS["now"] ?>" required>
@@ -57,12 +55,11 @@ $borderColor = [
         <?php
         include __ROOT__ . '/engine/frontend/members/responsible.php';
         ?>
-        <div class="mb-2 card card-tasknew" style="min-height: 87.8%">
+        <div class="mb-2 card card-tasknew card-tasknew-minheight">
             <label class="label-responsible">
                 <?= $GLOBALS['_responsiblenewtask'] ?>
             </label>
-            <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
-                 style="min-height: 38px;padding-top: 10px;">
+            <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
                 <div class="placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                 <?php
                 foreach ($users as $n) { ?>
@@ -80,8 +77,7 @@ $borderColor = [
             <label class="label-responsible">
                 <?= $GLOBALS['_coworkersnewtask'] ?>
             </label>
-            <div class="coworkers-toggle container container-coworker border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
-                 style="padding-top: 10px;">
+            <div class="coworkers-toggle container container-coworker border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
                 <?php foreach ($users as $n) { ?>
                     <div val="<?php echo $n['id'] ?>" class="add-worker d-none">
                         <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
@@ -130,8 +126,7 @@ $borderColor = [
                             <?php
                             include __ROOT__ . '/engine/frontend/members/subtask.php';
                             ?>
-                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew"
-                                 style="height: 50px;padding-top: 13px !important;">
+                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
@@ -159,7 +154,7 @@ $borderColor = [
                         </div>
                         <div class="card card-tasknew">
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
-                                   style="height: 50px;font-size: 14px" min="<?= $GLOBALS["now"] ?>"
+                                   min="<?= $GLOBALS["now"] ?>"
                                    value="<?= $GLOBALS["now"] ?>" required>
                         </div>
                     </div>
@@ -178,11 +173,10 @@ $borderColor = [
                         </div>
                         <div class="mb-2 card card-tasknew">
                             <input type="text" id="checklistInput" class="form-control border-0 card-body-tasknew"
-                                   style="height: 50px;"
                                    placeholder="Наименование подпункта"
                                    autocomplete="off">
-                            <div id="addChecklistBtn" class="position-absolute icon-newtask" style="top: 13px;">
-                                <i class="fas fa-plus" style="font-size: 15px;color: #c2c2c4;transition: 200ms"></i>
+                            <div id="addChecklistBtn" class="position-absolute icon-newtask">
+                                <i class="fas fa-plus"></i>
                             </div>
                             <div class="check-list-container card-body-tasknew text-left">
                             </div>
@@ -200,8 +194,7 @@ $borderColor = [
                         <div class="card card-tasknew">
                             <span class="position-absolute disabledBtnOptions">
                             </span>
-                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled"
-                                 style="height: 50px;padding-top: 13px !important;">
+                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled">
                                 <div class="placeholder-subtask">Не выбрана</div>
                                 <div class="position-absolute icon-newtask icon-newtask-change-subtask">
                                     <i class="fas fa-caret-down"></i>
@@ -218,7 +211,7 @@ $borderColor = [
 
                         </span>
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
-                                   style="height: 50px;font-size: 14px;" min="<?= $GLOBALS["now"] ?>"
+                                   min="<?= $GLOBALS["now"] ?>"
                                    value="<?= $GLOBALS["now"] ?>" required disabled>
                         </div>
                     </div>
@@ -232,11 +225,10 @@ $borderColor = [
                             <span class="position-absolute disabledBtnOptions">
                             </span>
                             <input type="text" id="checklistInput" class="form-control border-0 card-body-tasknew disabled"
-                                   style="height: 50px;"
                                    placeholder="Наименование подпункта"
                                    autocomplete="off">
-                            <div id="addChecklistBtn" class="position-absolute icon-newtask" style="top: 13px;">
-                                <i class="fas fa-plus" style="font-size: 15px;color: #c2c2c4;transition: 200ms"></i>
+                            <div id="addChecklistBtn" class="position-absolute icon-newtask">
+                                <i class="fas fa-plus"></i>
                             </div>
                             <div class="check-list-container card-body-tasknew text-left">
                             </div>
@@ -256,14 +248,12 @@ $borderColor = [
         <label class="label-tasknew">
             Прикрепленные файлы
         </label>
-        <div class="spinner-border spinner-border-sm ml-1" role="status"
-             style="color: #28416b; display: none">
+        <div class="spinner-border spinner-border-sm ml-1 display-none" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-        <div style="display: none;padding-left: 30px;"
-             class="file-name container-files">
+        <div class="file-name container-files display-none">
         </div>
-        <div style="padding-left: 20px;">
+        <div class="pl-20-tasknew">
             <?php $uploadModule = 'tasknew'; // Указываем тип дропдауна прикрепления файлов?>
             <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; // Подключаем дропдаун прикрепления файлов?>
         </div>
@@ -273,7 +263,7 @@ $borderColor = [
 </div>
 
 
-<div class="row" style="margin-top: 50px;">
+<div class="row createTask-row">
     <div class="col-12 col-lg-4 create-task">
         <button id="createTask"
                 class="btn btn-block btn-outline-primary h-100"><?= $GLOBALS['_createnewtask'] ?></button>
@@ -369,9 +359,9 @@ $borderColor = [
 <div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content border-0" style="margin-top: 60%;background-color: transparent;">
+        <div class="modal-content border-0">
             <div class="modal-body text-center">
-                <div class="spinner-border" style="width: 3rem; height: 3rem;color: #f2f2f2;" role="status">
+                <div class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
             </div>

@@ -27,7 +27,7 @@
         <div class="card">
             <div class="card-header bg-mail">
                 <div class="position-relative">
-                    <div class="text-reg" style="font-weight: 300;">
+                    <div class="text-reg">
                         <?= $GLOBALS['_companysettings'] ?>
                     </div>
                 </div>

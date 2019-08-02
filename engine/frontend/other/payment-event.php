@@ -44,8 +44,8 @@ if ($event['event'] == 'promocode') {
 }
 ?>
 <div class="card mb-1 payment-card" data-fin-event-id="<?= $event['fin_event_id']; ?>">
-    <div class="card-body d-flex" style="justify-content: space-between">
-        <div style="width: 80px"><i class="<?= $icon; ?> paymentIcon"></i></div>
+    <div class="card-body payment-event-card d-flex">
+        <div><i class="<?= $icon; ?> paymentIcon"></i></div>
         <div class="w-100">
             <div class="row m-0">
                 <?= $text; ?>
@@ -54,10 +54,10 @@ if ($event['event'] == 'promocode') {
                 <?= date('d.m.Y H:i', $event['event_datetime']) ?>
             </div>
         </div>
-        <div class="text-success" style="width: 150px"><?= $amount; ?></div>
+        <div class="text-success"><?= $amount; ?></div>
         <?php if ($canRefunded): ?>
             <span class="position-absolute bg-danger delete-operation" data-refund-amount="<?= $amount; ?>" data-order-date="<?= date('d.m.Y H:i', $orders[$event['order_id']]['create_date']); ?>" data-order-id="<?= $event['order_id']; ?>" data-toggle="tooltip" data-placement="left" title="Отменить операцию">
-                <i class="fas fa-times text-white" style="font-size: 20px"></i>
+                <i class="fas fa-times text-white"></i>
             </span>
         <?php endif; ?>
     </div>

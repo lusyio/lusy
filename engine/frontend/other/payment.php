@@ -201,7 +201,7 @@ endforeach; ?>
                                 <input type="radio" name="tariff" data-price="499" data-price-per-month="499"
                                        data-period="1 месяц" data-tariff-name="Стартовый" data-tariff-id="1" checked>
                                 <span>Стартовый</span>
-                                <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 1 месяц <br>
+                                <p class="text-muted-new ml-30px">Переодичность оплаты - 1 месяц <br>
                                     Стоимость - 499 руб./мес
                                 </p>
                             </label>
@@ -211,7 +211,7 @@ endforeach; ?>
                                 <input type="radio" name="tariff" data-price="1047" data-price-per-month="349"
                                        data-period="3 месяца" data-tariff-name="Уверенный" data-tariff-id="2">
                                 <span>Уверенный</span>
-                                <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 3 месяц <br>
+                                <p class="text-muted-new ml-30px">Переодичность оплаты - 3 месяц <br>
                                     Стоимость - 349 руб./мес
                                 </p>
                             </label>
@@ -221,7 +221,7 @@ endforeach; ?>
                                 <input type="radio" name="tariff" data-price="2988" data-price-per-month="249"
                                        data-period="12 месяцев" data-tariff-name="Босс" data-tariff-id="3">
                                 <span>Босс</span>
-                                <p class="text-muted-new" style="margin-left: 30px;">Переодичность оплаты - 12 месяц
+                                <p class="text-muted-new ml-30px">Переодичность оплаты - 12 месяц
                                     <br>
                                     Стоимость - 249 руб./мес
                                 </p>
@@ -266,13 +266,12 @@ endforeach; ?>
                             <?php endif; ?>
                             <div class="row oferta-field">
                                 <div class="col-2 pl-0">
-                                    <input class="new-checkbox" type="checkbox" id="oferta"
-                                           style=" position: relative; top: 7px; margin-right: 10px; ">
+                                    <input class="new-checkbox" type="checkbox" id="oferta">
                                 </div>
                                 <div class="col pl-0">
                                     Я согласен с
-                                    <a href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
-                                       style="text-decoration: underline" target="_blank">
+                                    <a class="oferta-link" href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
+                                       target="_blank">
                                         Офертой рекуррентных платежей
                                     </a>
                                 </div>
@@ -280,11 +279,9 @@ endforeach; ?>
                             <span class="position-absolute" id="disabledBtn">
                             adasd
                             </span>
-                            <button class="btn text-white w-100 mt-3" id="pay" disabled
-                                    style="height: 50px; background: #7b81f9;border-radius: 20px;">
+                            <button class="btn text-white w-100 mt-3" id="pay" disabled>
                                 Перейти к оплате подписки
-                                <div class="spinner-border spinner-border-sm text-white border-0" role="status"
-                                     style="display: none">
+                                <div class="spinner-border spinner-border-sm text-white border-0 display-none" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </button>
@@ -315,11 +312,10 @@ endforeach; ?>
                                 <p class="text-muted-new small">Для оформления подписки мы спишем с вашей карты 1 рубль
                                     и вернём его</p>
                             <?php endif; ?>
-                            <p class="oferta-field"><input class="new-checkbox" type="checkbox" id="oferta"
-                                                           style=" position: relative; top: 7px; margin-right: 10px; ">
+                            <p class="oferta-field"><input class="new-checkbox" type="checkbox" id="oferta">
                                 Я согласен с
-                                <a href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
-                                   style="text-decoration: underline" target="_blank">
+                                <a class="oferta-link" href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
+                                    target="_blank">
                                     Офертой рекуррентных платежей
                                 </a>
                             </p>
@@ -327,12 +323,9 @@ endforeach; ?>
                             adasd
                             </span>
                             <hr>
-                            <button class="btn text-white w-100 border-0"
-                                    style="height: 50px; background: #7b81f9;border-radius: 20px;" id="changeTariff"
-                                    disabled>
+                            <button class="btn text-white w-100 border-0" id="changeTariff" disabled>
                                 Сменить тариф
-                                <div class="spinner-border spinner-border-sm text-white border-0" role="status"
-                                     style="display: none">
+                                <div class="spinner-border spinner-border-sm text-white border-0 display-none" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
                             </button>
@@ -344,12 +337,12 @@ endforeach; ?>
         <div class="modal-content border-0 modal-bottom">
             <div class="modal-body">
                 <?php if ($companyTariff['tariff'] != 0 && $companyTariff['is_card_binded'] == null): ?>
-                    <p class="text-muted-new small mb-0" style="margin-left: 24px;margin-right: 24px;">
+                    <p class="text-muted-new small mb-0 ml-mr-24px">
                         <b>Внимание!</b> После оплаты ваши неиспользованные дни сохраняются.
                     </p>
                 <?php endif; ?>
-                <hr style="margin-left: 24px; margin-right: 24px;">
-                <p class="text-muted-new small mb-0" style="margin-left: 24px;margin-right: 24px;">
+                <hr class="ml-mr-24px">
+                <p class="text-muted-new small mb-0 ml-mr-24px">
                     <b>Внимание!</b> Оплата тарифного плана происходит путем автоплатежа - автоматического списания
                     суммы
                     средств с периодичностью, соответствующей выбранному тарифу. Подписку можно отменить в любой момент.
@@ -370,7 +363,7 @@ endforeach; ?>
 
 <div class="modal fade" id="deleteCardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document" style="max-width: 390px">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 text-center d-block">
                 <h5 class="modal-title" id="exampleModalLabel">Управление тарифом</h5>
@@ -378,7 +371,7 @@ endforeach; ?>
             <div class="modal-body text-center">
                 Вы действительно хотите Отменить подписку?
             </div>
-            <div class="modal-footer border-0" style="justify-content: space-between">
+            <div class="modal-footer border-0">
                 <i id="deleteCardBtn" class="fas fa-check delete-card"></i>
                 <i class="fas fa-times cancel-delete-card" data-dismiss="modal"></i>
             </div>
@@ -416,8 +409,7 @@ endforeach; ?>
                         </tr>
                     </table>
                     <p>Для привязывания карты мы спишем с вашей карты 1 рубль и вернём его</p>
-                    <p class="oferta-field"><input class="new-checkbox" type="checkbox" id="ofertaAddModal"
-                                                   style=" position: relative; top: 7px; margin-right: 10px; ">Я
+                    <p class="oferta-field"><input class="new-checkbox" type="checkbox" id="ofertaAddModal">Я
                         согласен с <a
                                 href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf"
                                 class="btn-link" target="_blank">Офертой рекуррентных платежей</a>.</p>
@@ -425,10 +417,9 @@ endforeach; ?>
                     <span class="position-absolute" id="disabledBtn">
                             adasd
                         </span>
-                    <button class="btn btn-secondary w-100" id="addCard" disabled style="height: 38px">
+                    <button class="btn btn-secondary w-100" id="addCard" disabled>
                         Привязать карту
-                        <div class="spinner-border spinner-border-sm text-white" role="status"
-                             style="display: none">
+                        <div class="spinner-border spinner-border-sm text-white display-none" role="status">
                             <span class="sr-only">Loading...</span>
                         </div>
                     </button>
@@ -445,7 +436,7 @@ endforeach; ?>
 
 <div class="modal fade" id="wrongPromoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document" style="max-width: 390px">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 text-center d-block">
                 <h5 class="modal-title" id="exampleModalLabel">Промокод</h5>
@@ -485,11 +476,10 @@ endforeach; ?>
                     следующий день изменим ваш тариф на "Бесплатный"</p>
                 <span class="text-muted small">Деньги обычно возвращаются на карту держателя в тот же день, но иногда (зависит от эмитента) могут идти до 3-х дней.</span>
             </div>
-            <div class="modal-footer border-0" style="justify-content: center">
+            <div class="modal-footer border-0">
                 <button class="btn bg-danger text-white w-100" id="refund">
                     Отменить операцию
-                    <div class="spinner-border spinner-border-sm text-white" role="status"
-                         style="display: none">
+                    <div class="spinner-border spinner-border-sm text-white display-none" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
                 </button>
@@ -504,7 +494,7 @@ endforeach; ?>
 
 <div class="modal fade" id="refreshModal" tabindex="-1" role="dialog" aria-labelledby="refreshModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document" style="max-width: 390px">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 text-center d-block">
                 <h5 class="modal-title" id="refreshModalLabel"></h5>
@@ -512,7 +502,7 @@ endforeach; ?>
             <div class="modal-body text-center">
                 Для продолжения работы с Lusy.io необходимо обновить страницу
             </div>
-            <div class="modal-footer border-0" style="justify-content: space-between">
+            <div class="modal-footer border-0">
                 <button type="button" class="form-control btn btn-primary" data-dismiss="modal">Обновить страницу
                 </button>
             </div>

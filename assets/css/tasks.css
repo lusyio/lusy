@@ -21,6 +21,14 @@
     color: #5E5E5E;
 }
 
+.taskbox-padding{
+    padding: 0.8rem;
+}
+
+.taskbox-padding-left{
+    padding-left: 7px;
+}
+
 .avatars-big{
     padding-right: 48px;
 }

@@ -1,7 +1,6 @@
 <div class="container pt-3 pb-5" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="col-4">
-
             <a class="navbar-brand-log text-dark text-uppercase font-weight-bold visible-lg mt-1"
                href="https://lusy.io/"><span
                         class="logo mr-3">L</span>LUSY</a>

@@ -124,7 +124,7 @@ if ($id == $worker and $view == 0) {
 }
 ?>
 <div id="task">
-    <div class="card" style="margin-top: -21px;">
+    <div class="card mt-3">
         <div class="card-body <?= ((count($subTasks) > 0)) ? 'shadow-subtask' : ''; ?>">
             <div class="row">
                 <div class="col-12 subtask-badge-mobile">
@@ -192,7 +192,7 @@ if ($id == $worker and $view == 0) {
                 </div>
                 <div class="col-6 col-lg-8 ">
                     <div class="member-block">
-                        <div class="float-right members-block" style="padding-left: 35px;">
+                        <div class="float-right members-block">
                             <img src="/<?= getAvatarLink($manager) ?>" class="avatar">
                             <?php if ($manager != $worker): ?>
                                 <span class="ml-1 mr-1 text-secondary slash">|</span>
@@ -247,12 +247,12 @@ if ($id == $worker and $view == 0) {
             <div class="subTaskInList subtask-task">
                 <?php foreach ($subTasks as $subTask): ?>
                     <a class="text-decoration-none cust<?= (in_array($subTask['id'], $unfinishedSubTasks)) ? ' not-finished': '';?>" idtask="<?= $subTask['id'] ?>" href="/task/<?= $subTask['id'] ?>/">
-                        <div class="card-footer border-0" style="padding: 0.8rem;">
-                            <div class="d-block" style="height: 24px;">
+                        <div class="card-footer border-0 card-footer-subtask">
+                            <div class="d-block">
                                 <div class="row">
                                     <div class="col-sm-5 col-lg-5 col-md-12 col-12">
                                         <div class="text-area-message">
-                                            <span class="taskname" style="padding-left: 35px;font-weight: 600;color: #353b41;"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
+                                            <span class="taskname"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-1 pl-0">
@@ -294,7 +294,7 @@ if ($id == $worker and $view == 0) {
             <div class="card-body">
                 <div class="d-flex comin">
                 <textarea class="form-control mr-2" id="comin" rows="1" name="comment" type="text" autocomplete="off"
-                          placeholder="<?= $GLOBALS["_writecomment"] ?>..." style="padding-right: 45px;"></textarea>
+                          placeholder="<?= $GLOBALS["_writecomment"] ?>..."></textarea>
 
                     <?php $uploadModule = 'chat'; ?>
                     <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
@@ -302,7 +302,7 @@ if ($id == $worker and $view == 0) {
                     <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>"><i
                                 class="fas fa-paper-plane"></i></button>
                 </div>
-                <div style="display: none" class="bg-white file-name container-files">
+                <div class="bg-white file-name container-files display-none">
                 </div>
             </div>
         </div>
@@ -316,9 +316,9 @@ if ($id == $worker and $view == 0) {
 <div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content border-0" style="margin-top: 60%;background-color: transparent;">
+        <div class="modal-content border-0">
             <div class="modal-body text-center">
-                <div class="spinner-border" style="width: 3rem; height: 3rem;color: #f2f2f2;" role="status">
+                <div class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
             </div>
