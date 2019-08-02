@@ -35,17 +35,17 @@ if (isset($_POST['ajax']) && !empty($_POST['ajax'])) {
             $token = $_COOKIE['token'];
             $id = parseCookie($token)['uid'];
 
+            $userInfoQuery = $pdo->prepare("SELECT u.idcompany, u.role, c.lang, c.tariff FROM users u LEFT JOIN company c ON u.idcompany = c.id WHERE u.id = :userId");
+            $userInfoQuery->execute([':userId' => $id]);
+            $userInfo = $userInfoQuery->fetch(PDO::FETCH_ASSOC);
             // вычисляем id компании пользователя
-            $idc = DBOnce('idcompany', 'users', 'id=' . $id);
-
+            $idc = $userInfo['idcompany'];
             // определяем язык компании
-            $langc = DBOnce('lang', 'company', 'id=' . $idc);
-
+            $langc = $userInfo['lang'];
             // определяем роль пользователя
-            $roleu = DBOnce('role', 'users', 'id=' . $id);
-
+            $roleu = $userInfo['role'];
             // определяем тариф
-            $tariff = DBOnce('tariff', 'company', 'id=' . $idc);
+            $tariff = $userInfo['tariff'];
 
             // подключаем языковой файл
             require_once(realpath(__ROOT__ . '/engine/backend/lang/' . $langc . '.php'));
