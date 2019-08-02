@@ -1831,3 +1831,14 @@ function getDisplayUserName($userId)
     }
     return $userFullName;
 }
+
+function addToErrorLog($text)
+{
+    $file = __ROOT__ . '/custom-error.log';
+    $current = file_get_contents($file);
+    $current .= date('d.m.Y H:i:s');
+    $current .= "\n";
+    $current .= $text;
+    $current .= "\n";
+    file_put_contents($file, $current);
+}
