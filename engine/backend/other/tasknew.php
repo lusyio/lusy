@@ -1,7 +1,6 @@
 <?php
 
-require_once __ROOT__ . '/engine/backend/other/tasks.php';
-
+global $pdo;
 global $id;
 global $idc;
 global $tariff;
