@@ -1,4 +1,4 @@
-<script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+<script type="text/javascript" src="/assets/js/Chart.min.js"></script>
 <div class="row">
     <div class="chart-container col-5">
         <canvas id="myChart"></canvas>
@@ -148,4 +148,4 @@
 
 
 </script>
-<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js"></script>

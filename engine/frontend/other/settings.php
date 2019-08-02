@@ -1,5 +1,3 @@
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/cropper.js"></script>
 <script src="/assets/js/jquery.mask.min.js"></script>
 <link href="/assets/css/cropper.css" rel="stylesheet">

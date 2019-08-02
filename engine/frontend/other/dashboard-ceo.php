@@ -46,8 +46,8 @@ $statusColor = [
 ];
 ?>
 <link rel="stylesheet" href="/assets/css/swiper.min.css">
-<script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
-<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+<script type="text/javascript" src="/assets/js/Chart.min.js"></script>
+<script type="text/javascript" src="/assets/js/utils.js"></script>
 
 <div class="row">
     <div class="col-12 col-lg-4">
