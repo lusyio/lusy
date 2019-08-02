@@ -17,13 +17,22 @@
                                 Настройки профиля
                             </div>
                             <span class="position-absolute edit-settings">
-                        <span class="small text-muted">Изменить
-                    </span>
+                                <span id="editSpan0" class="small text-muted">Изменить</span>
+                                </span>
+                            <span class="position-absolute edit-settings edit-settings-saved" settings-id="1">
+                                <span class="text-muted small">Изменения сохранены</span>
+                            </span>
                         </div>
                     </div>
                 </a>
                 <div class="collapse show" id="collapseProfile" aria-labelledby="headingOne"
                      data-parent="#accordionSettings">
+                    <div class="text-center position-absolute spinner-settings">
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;color: #e4e4e4;margin-top: 35%;"
+                             role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
                     <div class="card-body p-4">
                         <div class="row">
                             <div class="col-5 col-lg-5 text-center">
@@ -722,7 +731,6 @@
                 data: fd,
                 success: function (data) {
                     location.reload();
-                    console.log('success')
                 },
             });
         });
@@ -732,9 +740,7 @@
         var avatar = document.getElementById('avatar');
         var image = document.getElementById('image');
         var input = document.getElementById('input');
-        var $progress = $('#progress-settings');
-        var $progressBar = $('.progress-bar-settings');
-        var $alert = $('.alert');
+        var $spinner = $('.spinner-settings');
         var $modal = $('#modal');
         var cropper;
 
@@ -745,7 +751,9 @@
             var done = function (url) {
                 input.value = '';
                 image.src = url;
-                $alert.hide();
+                $.when($('.edit-settings-saved[settings-id=1]').fadeOut(800)).done(function () {
+                    $('#editSpan0').fadeIn(200);
+                });
                 $modal.modal('show');
             };
             var reader;
@@ -791,9 +799,7 @@
                 });
                 initialAvatarURL = avatar.src;
                 avatar.src = canvas.toDataURL('image/jpeg', 0.8);
-                $progress.show();
-                $alert.removeClass('alert-success alert-warning');
-                $alert.css({'position': 'absolute', 'z-index': '1'});
+                $spinner.show();
                 canvas.toBlob(function (blob) {
                     console.log(blob);
                     var fd = new FormData();
@@ -809,43 +815,29 @@
                         processData: false,
                         contentType: false,
 
-                        xhr: function () {
-                            var xhr = new XMLHttpRequest();
-
-                            xhr.upload.onprogress = function (e) {
-                                var percent = '0';
-                                var percentage = '0%';
-
-                                if (e.lengthComputable) {
-                                    percent = Math.round((e.loaded / e.total) * 100);
-                                    percentage = percent + '%';
-                                    $progressBar.width(percentage).attr('aria-valuenow', percent).text(percentage);
-                                }
-                            };
-
-                            return xhr;
-                        },
-
                         success: function () {
-                            $alert.show().fadeIn().addClass('alert-success').text('Загрузка успешна');
-                            $("#deleteAvatar").removeClass('d-none');
-                            setTimeout(function () {
-                                $alert.fadeOut()
-                            }, 2000);
+                            $('#editSpan0').hide();
+                            $('.edit-settings-saved[settings-id=1]').fadeIn(200);
+                            $('.edit-settings-saved[settings-id=1] .small').text('Аватар загружен');
+                            $.when($('.edit-settings-saved[settings-id=1]').fadeOut(800)).done(function () {
+                                $('#editSpan0').fadeIn(200);
+                            });
                             var newLink = $('.user-img').attr('src').replace('-alter', '').replace('jpg', 'jpg?' + new Date().getTime());
                             $('.user-img').attr('src', newLink);
                         },
 
                         error: function () {
                             avatar.src = initialAvatarURL;
-                            $alert.show().fadeIn().addClass('alert-warning').text('Ошибка при загрузке');
-                            setTimeout(function () {
-                                $alert.fadeOut()
-                            }, 3000)
+                            $('#editSpan0').hide();
+                            $('.edit-settings-saved[settings-id=1]').fadeIn(200);
+                            $('.edit-settings-saved[settings-id=1] .small').text('Ошибка при загрузке');
+                            $.when($('.edit-settings-saved[settings-id=1]').fadeOut(800)).done(function () {
+                                $('#editSpan0').fadeIn(200);
+                            });
                         },
 
                         complete: function () {
-                            $progress.hide();
+                            $spinner.hide();
                         },
                     });
                 }, "image/jpeg", 0.8);

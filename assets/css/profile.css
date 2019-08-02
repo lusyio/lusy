@@ -35,3 +35,12 @@
 .accordion-link:hover .small.text-muted{
     text-decoration: underline;
 }
+
+.spinner-settings{
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background-color: white;
+    opacity: 0.5;
+    display: none;
+}
