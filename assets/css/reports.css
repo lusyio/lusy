@@ -123,6 +123,7 @@
 
 .limit-modal .modal-content{
     padding: 10px 40px;
+    min-height: 350px;
 }
 
 .limit-modal .icon-limit-modal{
