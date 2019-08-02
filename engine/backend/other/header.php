@@ -104,7 +104,7 @@ if ($isAuthorized) {
         }
     }
     if (!empty($_GET['profile'])) {
-        $title = DBOnce('name', 'users', 'id=' . $_GET["profile"]) . ' ' . DBOnce('surname', 'users', 'id=' . $_GET["profile"]);
+        $title = getDisplayUserName($_GET["profile"]);
     }
     require_once __ROOT__ . '/engine/backend/functions/achievement-functions.php';
     checkAchievements($id);

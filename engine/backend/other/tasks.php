@@ -49,7 +49,19 @@ if ($roleu == 'ceo') {
 
 $tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
 $countAllTasks = count($tasks);
-$countArchiveDoneTasks = DBOnce('COUNT(*)', 'tasks t LEFT JOIN task_coworkers tc ON tc.task_id=t.id', "(t.worker='". $id ."' OR t.manager = '". $id . "' OR tc.worker_id = '". $id ."') AND t.status = 'done'");
-$countArchiveCanceledTasks = DBOnce('COUNT(*)', 'tasks t LEFT JOIN task_coworkers tc ON tc.task_id=t.id', "(t.worker='". $id ."' OR t.manager = '". $id . "' OR tc.worker_id = '". $id ."') AND t.status = 'canceled'");
+
+$archiveTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON tc.task_id = t.id WHERE (t.worker= :userId OR t.manager = :userId OR tc.worker_id = :userId) AND t.status IN ('done', 'canceled') GROUP BY t.status");
+$archiveTasksQuery->execute([':userId' => $id]);
+$archiveTasksCount = $archiveTasksQuery->fetchAll(PDO::FETCH_ASSOC);
+$countArchiveDoneTasks = 0;
+$countArchiveCanceledTasks = 0;
+foreach ($archiveTasksCount as $group) {
+    if ($group['status'] == 'done') {
+        $countArchiveDoneTasks = $group['count'];
+    } elseif ($group['status'] == 'canceled') {
+        $countArchiveCanceledTasks = $group['count'];
+    }
+}
+
 prepareTasks($tasks);
 $groupedTasks = groupTasks($tasks);

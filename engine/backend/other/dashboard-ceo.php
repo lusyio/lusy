@@ -42,26 +42,6 @@ require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 $events = getEventsForUser(21);
 prepareEvents($events);
 
-$newtask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "new" and worker='.$id);
-$overduetask = DBOnce('COUNT(*) as count','tasks','view="0" and status = "overdue" and worker='.$id);
-$completetask = DBOnce('COUNT(*) as count','tasks','status = "done" and (worker='.$id.' or manager='.$id.')');
-
-$newtask2 = DB('*','tasks','view="0" and status = "new" and worker='.$id);
-
-
-
-$usertasks = DB('id','tasks','worker='.$id.' or manager='.$id);
-$idtasks = [];
-foreach ($usertasks as $n) {
-    $idtasks[] = $n["id"];
-}
-$ids = join('","',$idtasks);
-$comments2 = DB('*','comments','view="0" and idtask IN ("'.$ids.'") and iduser !='.$id.' order by id desc');
-$comments = DBOnce('COUNT(*) as count','comments','view="0" and idtask IN ("'.$ids.'") and iduser !='.$id);
-
-$overduetask2 = DB('*','tasks','view="0" and status = "overdue" and worker='.$id);
-$completetask2 = DB('*','tasks','view="0" and status = "done" and worker='.$id);
-
 $firstDayOfMonth = strtotime(date('1.m.Y'));
 
 $taskDoneCountQuery = $pdo->prepare("SELECT COUNT(DISTINCT e.task_id) FROM events e LEFT JOIN tasks t ON e.task_id = t.id WHERE company_id = :companyId AND datetime > :firstDay AND action = 'workdone'");
