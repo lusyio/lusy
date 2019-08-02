@@ -159,7 +159,7 @@
             </div>
             <div class="modal-body text-center position-relative">
                 <div class="text-left text-block">
-                    <p class="text-muted-new">Здорово иметь представление о том, кто работает эффективно, а кто нет.</p>
+                    <p class="text-muted-new">Здорово иметь представление о том, кто работает эффективно, а кто — нет.</p>
                     <p class="text-muted-new">Переходи на Premium тариф, строй отчеты без ограничений и получи плетку в подарок <span class="small">(шутка)</span></p>
                 </div>
                 <span class="position-absolute">
