@@ -22,7 +22,7 @@ $borderColor = [
         <div class="mb-2 card card-tasknew">
             <input type="text" id="name" class="form-control border-0 card-body-tasknew"
                    placeholder="<?= $GLOBALS['_namenewtask'] ?>"
-                   autocomplete="off" value="<?=($taskEdit) ? $taskData['name'] : ''?>" autofocus required>
+                   autocomplete="off" value="<?= ($taskEdit) ? $taskData['name'] : '' ?>" autofocus required>
         </div>
     </div>
     <div class="col-12 col-lg-4">
@@ -45,7 +45,7 @@ $borderColor = [
         </label>
         <div class="mb-2 card card-tasknew editor-card">
             <div id="editor" class="border-0">
-                <?=($taskEdit) ? $taskData['description'] : ''?>
+                <?= ($taskEdit) ? $taskData['description'] : '' ?>
             </div>
         </div>
     </div>
@@ -61,45 +61,51 @@ $borderColor = [
                 <?= $GLOBALS['_responsiblenewtask'] ?>
             </label>
             <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
-                <div class="placeholder-responsible" style="<?=($taskEdit) ? 'display: none;' : ''?>"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
+                <div class="placeholder-responsible"
+                     style="<?= ($taskEdit) ? 'display: none;' : '' ?>"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                 <?php
-                foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>" class="add-responsible <?=($taskEdit && $n['id'] == $taskData['worker']) ? '' : 'd-none'?>"">
-                        <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
-                        <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
-                    </div>
-                <?php } ?>
-                <div class="position-absolute icon-newtask icon-newtask-change-responsible">
+                foreach ($users
+
+                as $n) { ?>
+                <div val="<?php echo $n['id'] ?>"
+                     class="add-responsible <?= ($taskEdit && $n['id'] == $taskData['worker']) ? '' : 'd-none' ?>"
+                ">
+                <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
+                <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+            </div>
+            <?php } ?>
+            <div class="position-absolute icon-newtask icon-newtask-change-responsible">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+
+
+        <label class="label-responsible">
+            <?= $GLOBALS['_coworkersnewtask'] ?>
+        </label>
+        <div class="coworkers-toggle container container-coworker border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
+            <?php foreach ($users as $n) { ?>
+                <div val="<?php echo $n['id'] ?>"
+                     class="add-worker <?= ($taskEdit && in_array($n['id'], $taskCoworkers)) ? '' : 'd-none' ?>">
+                    <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
+                    <span class="coworker-fio"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+                    <i class="fas fa-times icon-newtask-delete-coworker"></i>
+                </div>
+            <?php } ?>
+            <div class="placeholder-coworkers position-relative">
+                Добавить
+                <div class="position-absolute icon-newtask icon-newtask-add-coworker">
                     <i class="fas fa-caret-down"></i>
                 </div>
             </div>
-
-
-            <label class="label-responsible">
-                <?= $GLOBALS['_coworkersnewtask'] ?>
-            </label>
-            <div class="coworkers-toggle container container-coworker border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
-                <?php foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>" class="add-worker <?=($taskEdit && in_array($n['id'], $taskCoworkers)) ? '' : 'd-none'?>">
-                        <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
-                        <span class="coworker-fio"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
-                        <i class="fas fa-times icon-newtask-delete-coworker"></i>
-                    </div>
-                <?php } ?>
-                <div class="placeholder-coworkers position-relative">
-                    Добавить
-                    <div class="position-absolute icon-newtask icon-newtask-add-coworker">
-                        <i class="fas fa-caret-down"></i>
-                    </div>
-                </div>
-            </div>
-
         </div>
-        <?php
-        include __ROOT__ . '/engine/frontend/members/coworkers.php';
-        ?>
 
     </div>
+    <?php
+    include __ROOT__ . '/engine/frontend/members/coworkers.php';
+    ?>
+
+</div>
 </div>
 
 <div class="row mt-25-tasknew">
@@ -128,7 +134,10 @@ $borderColor = [
                             include __ROOT__ . '/engine/frontend/members/subtask.php';
                             ?>
                             <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
-                                <div class="placeholder-subtask" style="<?= ($taskEdit && !is_null($taskData['parent_task'])) ? 'display: none;' : '' ?>">Не выбрана</div>
+                                <div class="placeholder-subtask"
+                                     style="<?= ($taskEdit && !is_null($taskData['parent_task'])) ? 'display: none;' : '' ?>">
+                                    Не выбрана
+                                </div>
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
                                     <div val="<?php echo $parentTask['id']; ?>"
@@ -145,7 +154,7 @@ $borderColor = [
                     <div class="col-12 col-lg-4">
                         <div class="label-tasknew text-left">
                             Дата старта
-                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0)  || ($taskEdit && !is_null($taskData['parent_task']))): ?>
+                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
@@ -164,7 +173,7 @@ $borderColor = [
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Подпункты
-                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0)  || ($taskEdit && !is_null($taskData['parent_task']))): ?>
+                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
@@ -257,6 +266,17 @@ $borderColor = [
             <span class="sr-only">Loading...</span>
         </div>
         <div class="file-name container-files display-none">
+            <div id="filenamesExampleCloud" class='filenames attached-source-file d-none' data-name='name' data-link='link'
+                 data-file-size='size'>
+                <i class='fas fa-paperclip mr-1'></i> <i class='icon mr-1'></i>
+                <span>name</span>
+                <i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>
+            </div>
+            <div id="filenamesExample" val='n' class='filenames d-none'>
+                <i class='fas fa-paperclip mr-1'></i>
+                <span>names</span>
+                <i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>
+            </div>
         </div>
         <div class="pl-20-tasknew">
             <?php $uploadModule = 'tasknew'; // Указываем тип дропдауна прикрепления файлов?>
@@ -379,7 +399,7 @@ $borderColor = [
     </div>
 </div>
 <script src="/assets/js/createtask.js?n=2"></script>
-<?php if (($tariff == 1 || $tryPremiumLimits['cloud'] < 3)  || ($taskEdit && !is_null($taskData['parent_task']))): ?>
+<?php if (($tariff == 1 || $tryPremiumLimits['cloud'] < 3) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================
         //=Create object of FilePicker Constructor function function & set Properties===
@@ -487,11 +507,16 @@ $borderColor = [
         });
 
         //===================End of Dropbox=======================
+        var n = 0;
         function addFileToList(name, link, size, source, icon) {
-            $(".file-name").show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "' data-file-size='" + size + "'>" +
-                "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
-                "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
-                "</div>");
+            n++;
+            $('#filenamesExampleCloud').clone().addClass('attached-' + source + '-file').attr('data-name', name).attr('data-link', link).attr('data-file-size', size).attr('data-id', n).removeClass('d-none').appendTo('.file-name');
+            $('[data-id=' + n + ']').find('span').text(name).find('mr-1').addClass(icon);
+            $('.file-name').show();
+            // $(".file-name").show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "' data-file-size='" + size + "'>" +
+            //     "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
+            //     "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+            //     "</div>");
         }
     </script>
     <script src="https://www.google.com/jsapi?key=AIzaSyCC_SbXTsL3nMUdjotHSpGxyZye4nLYssc"></script>
@@ -537,7 +562,7 @@ $borderColor = [
                 $('#datedone').val(val);
             }
         });
-        <?php if (($tariff == 0 && $tryPremiumLimits['cloud'] >= 3)  || ($taskEdit && !is_null($taskData['parent_task']))):?>
+        <?php if (($tariff == 0 && $tryPremiumLimits['cloud'] >= 3) || ($taskEdit && !is_null($taskData['parent_task']))):?>
         $('#openGoogleDrive, #openDropbox').on('click', function () {
             $('#premModal').modal('show');
         });

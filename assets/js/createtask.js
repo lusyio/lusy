@@ -9,7 +9,7 @@ $(document).ready(function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
         fileList.delete(num);
-        if ($('.filenames').length === 0) {
+        if ($('.filenames:visible').length === 0) {
             $('.file-name').hide();
         }
     });
@@ -32,10 +32,9 @@ $(document).ready(function () {
             var sizeLimit = $('.dropdown').attr('empty-space');
             if (size <= sizeLimit) {
                 fileList.set(n, $(this)[0]);
-                $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
-                    "<i class='fas fa-paperclip mr-1'></i>" + names +
-                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
-                    "</div>");
+                $('#filenamesExample').clone().attr('val', n).removeClass('d-none').appendTo('.file-name');
+                $('[val=' + n + ']').find('span').text(names);
+                $('.file-name').show();
                 n++;
             } else {
                 $("#fileSizeLimitModal").modal('show');
@@ -108,6 +107,7 @@ $(document).ready(function () {
             $('.check-list-container').show();
             $('#checkListExample').clone().attr('data-id', numberCheckList).removeClass('d-none').appendTo('.check-list-container');
             $('[data-id=' + numberCheckList + ']').find('.ml-3').text(checkName);
+            $('#checklistInput').val('');
         }
     });
 
