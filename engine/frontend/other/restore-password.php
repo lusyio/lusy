@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <!-- Submit -->
-                <button class="btn btn-lg btn-block btn-violet text-white mb-3">
+                <button id="restoreNewPassword" class="btn btn-lg btn-block btn-violet text-white mb-3">
                     Сменить пароль
                 </button>
             </form>

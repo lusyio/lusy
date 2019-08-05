@@ -106,9 +106,9 @@
 
 
                         </form>
-                <p id="restore-result" class="text-center text-dark lead-text-p d-none"></p>
 
             </div>
+            <p id="restore-result" class="text-center text-dark lead-text-p d-none"></p>
         </div>
         <div class="col-md-5 offset-md-1 text-center d-none d-md-block">
             <img src="/upload/mount.jpg" class="mt-5 mount">
