@@ -252,7 +252,7 @@ if ($id == $worker and $view == 0) {
                                 <div class="row">
                                     <div class="col-sm-5 col-lg-5 col-md-12 col-12">
                                         <div class="text-area-message">
-                                            <span class="taskname"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
+                                            <span class="taskname taskname-subtask-task"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-1 pl-0">

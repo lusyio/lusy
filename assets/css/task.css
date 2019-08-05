@@ -17,6 +17,11 @@
 }
 
 .subTaskInList .taskname{
+    font-weight: 600;
+    color: #353b41;
+}
+
+.subTaskInList .taskname-subtask-task{
     padding-left: 35px;
     font-weight: 600;
     color: #353b41;
