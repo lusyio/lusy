@@ -179,6 +179,11 @@ $borderColor = [
                                 <i class="fas fa-plus"></i>
                             </div>
                             <div class="check-list-container card-body-tasknew text-left">
+                                <div id="checkListExample" class="position-relative check-list-new d-none mb-2">
+                                    <i class="far fa-check-square text-muted-new"></i>
+                                    <span class="ml-3" style="color: #28416b;">  checkName  </span>
+                                    <i class="fas fa-times delete-checklist-item"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -224,7 +229,8 @@ $borderColor = [
                         <div class="mb-2 card card-tasknew">
                             <span class="position-absolute disabledBtnOptions">
                             </span>
-                            <input type="text" id="checklistInput" class="form-control border-0 card-body-tasknew disabled"
+                            <input type="text" id="checklistInput"
+                                   class="form-control border-0 card-body-tasknew disabled"
                                    placeholder="Наименование подпункта"
                                    autocomplete="off">
                             <div id="addChecklistBtn" class="position-absolute icon-newtask">
@@ -270,17 +276,21 @@ $borderColor = [
     </div>
 </div>
 
-<div class="modal fade limit-modal" id="freeOptionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade limit-modal" id="freeOptionsModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 text-left d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит использования расширенного функционала задач в бесплатном тарифе</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит использования расширенного
+                    функционала задач в бесплатном тарифе</h5>
             </div>
             <div class="modal-body text-center position-relative">
                 <div class="text-left text-block">
-                    <p class="text-muted-new">Так круто планировать задачи на будущее и тем самым разгружать себе голову для будущих идей</p>
-                    <p class="text-muted-new">Переходи на Premium тариф и тогда у тебя появится шанс обогнать Илона Маска по капитализации</p>
+                    <p class="text-muted-new">Так круто планировать задачи на будущее и тем самым разгружать себе голову
+                        для будущих идей</p>
+                    <p class="text-muted-new">Переходи на Premium тариф и тогда у тебя появится шанс обогнать Илона
+                        Маска по капитализации</p>
                 </div>
                 <span class="position-absolute">
                 <i class="fas fa-cogs icon-limit-modal"></i>
@@ -306,7 +316,8 @@ $borderColor = [
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 text-left d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит загрузкок файлов через облачные хранилища</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит загрузкок файлов через
+                    облачные хранилища</h5>
             </div>
             <div class="modal-body text-center position-relative">
                 <div class="text-left text-block">

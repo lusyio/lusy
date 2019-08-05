@@ -84,10 +84,14 @@ $(document).ready(function () {
 
 //подпункты
 
+    var numberCheckList = 0;
+
+
     $('.check-list-container').on('click', '.delete-checklist-item', function () {
         $(this).closest('.check-list-new').remove();
         if ($('.check-list-new:visible').length < 1) {
             $('.check-list-container').hide();
+            numberCheckList = 0;
         }
     });
 
@@ -100,14 +104,11 @@ $(document).ready(function () {
     $('#addChecklistBtn').on('click', function () {
         var checkName = $('#checklistInput').val();
         if (checkName != ''){
-            $('.check-list-container').show().append('<div class="position-relative check-list-new mb-2">\n' +
-                '                                    <i class="far fa-check-square text-muted-new"></i>\n' +
-                '                                    <span class="ml-3" style="color: #28416b;"> '+ checkName +' </span>\n' +
-                '                                    <i class="fas fa-times delete-checklist-item"></i>\n' +
-                '                                </div>');
-            $('#checklistInput').val('');
+            numberCheckList++;
+            $('.check-list-container').show();
+            $('#checkListExample').clone().attr('data-id', numberCheckList).removeClass('d-none').appendTo('.check-list-container');
+            $('[data-id=' + numberCheckList + ']').find('.ml-3').text(checkName);
         }
-
     });
 
 //работа с надзадачами
