@@ -22,7 +22,7 @@ $borderColor = [
         <div class="mb-2 card card-tasknew">
             <input type="text" id="name" class="form-control border-0 card-body-tasknew"
                    placeholder="<?= $GLOBALS['_namenewtask'] ?>"
-                   autocomplete="off" autofocus required>
+                   autocomplete="off" value="<?=($taskEdit) ? $taskData['name'] : ''?>" autofocus required>
         </div>
     </div>
     <div class="col-12 col-lg-4">
@@ -33,7 +33,7 @@ $borderColor = [
             <input type="date" class="form-control border-0 card-body-tasknew"
                    id="datedone"
                    min="<?= $GLOBALS["now"] ?>"
-                   value="<?= $GLOBALS["now"] ?>" required>
+                   value="<?= ($taskEdit) ? date('Y-m-d', $taskData['datedone']) : $GLOBALS["now"] ?>" required>
         </div>
     </div>
 </div>
@@ -45,6 +45,7 @@ $borderColor = [
         </label>
         <div class="mb-2 card card-tasknew editor-card">
             <div id="editor" class="border-0">
+                <?=($taskEdit) ? $taskData['description'] : ''?>
             </div>
         </div>
     </div>
@@ -60,10 +61,10 @@ $borderColor = [
                 <?= $GLOBALS['_responsiblenewtask'] ?>
             </label>
             <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
-                <div class="placeholder-responsible"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
+                <div class="placeholder-responsible" style="<?=($taskEdit) ? 'display: none;' : ''?>"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                 <?php
                 foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>" class="add-responsible d-none">
+                    <div val="<?php echo $n['id'] ?>" class="add-responsible <?=($taskEdit && $n['id'] == $taskData['worker']) ? '' : 'd-none'?>"">
                         <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
                         <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                     </div>
@@ -79,7 +80,7 @@ $borderColor = [
             </label>
             <div class="coworkers-toggle container container-coworker border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
                 <?php foreach ($users as $n) { ?>
-                    <div val="<?php echo $n['id'] ?>" class="add-worker d-none">
+                    <div val="<?php echo $n['id'] ?>" class="add-worker <?=($taskEdit && in_array($n['id'], $taskCoworkers)) ? '' : 'd-none'?>">
                         <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
                         <span class="coworker-fio"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                         <i class="fas fa-times icon-newtask-delete-coworker"></i>
@@ -108,13 +109,13 @@ $borderColor = [
                 <span>Дополнительные функции <i class="fas fa-caret-down"></i></span>
             </div>
         </div>
-        <?php if ($tariff == 1 || $tryPremiumLimits['task'] < 3): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
+        <?php if ($tariff == 1 || $tryPremiumLimits['task'] < 3 || $taskEdit): // БЛОК ДЛЯ ПРЕМИУМ ТАРИФА?>
             <div class="collapse mt-25-tasknew" id="collapseFunctions">
                 <div class="row top-block-tasknew">
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Надзадача
-                            <?php if ($tryPremiumLimits['task'] < 3 && $tariff == 0): ?>
+                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
@@ -127,11 +128,11 @@ $borderColor = [
                             include __ROOT__ . '/engine/frontend/members/subtask.php';
                             ?>
                             <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
-                                <div class="placeholder-subtask">Не выбрана</div>
+                                <div class="placeholder-subtask" style="<?= ($taskEdit && !is_null($taskData['parent_task'])) ? 'display: none;' : '' ?>">Не выбрана</div>
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
                                     <div val="<?php echo $parentTask['id']; ?>"
-                                         class="add-subtask text-area-message d-none border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
+                                         class="add-subtask text-area-message <?= ($taskEdit && $parentTask['id'] == $taskData['parent_task']) ? '' : 'd-none' ?> border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
                                         <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
                                 <?php } ?>
@@ -144,7 +145,7 @@ $borderColor = [
                     <div class="col-12 col-lg-4">
                         <div class="label-tasknew text-left">
                             Дата старта
-                            <?php if ($tryPremiumLimits['task'] < 3 && $tariff == 0): ?>
+                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0)  || ($taskEdit && !is_null($taskData['parent_task']))): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
@@ -163,7 +164,7 @@ $borderColor = [
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Подпункты
-                            <?php if ($tryPremiumLimits['task'] < 3 && $tariff == 0): ?>
+                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0)  || ($taskEdit && !is_null($taskData['parent_task']))): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
@@ -242,9 +243,7 @@ $borderColor = [
                     </div>
                 </div>
             </div>
-        <?php
-        endif;
-        ?>
+        <?php endif; ?>
 
     </div>
 </div>
@@ -380,7 +379,7 @@ $borderColor = [
     </div>
 </div>
 <script src="/assets/js/createtask.js?n=2"></script>
-<?php if ($tariff == 1 || $tryPremiumLimits['cloud'] < 3): ?>
+<?php if (($tariff == 1 || $tryPremiumLimits['cloud'] < 3)  || ($taskEdit && !is_null($taskData['parent_task']))): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================
         //=Create object of FilePicker Constructor function function & set Properties===
@@ -538,7 +537,7 @@ $borderColor = [
                 $('#datedone').val(val);
             }
         });
-        <?php if ($tariff == 0 && $tryPremiumLimits['cloud'] >= 3):?>
+        <?php if (($tariff == 0 && $tryPremiumLimits['cloud'] >= 3)  || ($taskEdit && !is_null($taskData['parent_task']))):?>
         $('#openGoogleDrive, #openDropbox').on('click', function () {
             $('#premModal').modal('show');
         });
