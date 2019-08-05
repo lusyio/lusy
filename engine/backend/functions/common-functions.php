@@ -1803,7 +1803,8 @@ function getFreePremiumLimits($companyId)
         $result = [
             'task' => 0,
             'report' => 0,
-            'cloud' => 0
+            'cloud' => 0,
+            'edit' => 0,
         ];
     }
     return $result;

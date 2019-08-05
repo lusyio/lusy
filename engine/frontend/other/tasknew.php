@@ -45,7 +45,7 @@ $borderColor = [
         </label>
         <div class="mb-2 card card-tasknew editor-card">
             <div id="editor" class="border-0">
-                <?= ($taskEdit) ? $taskData['description'] : '' ?>
+                <?= ($taskEdit) ? htmlspecialchars_decode($taskData['description']) : '' ?>
             </div>
         </div>
     </div>
@@ -154,18 +154,23 @@ $borderColor = [
                     <div class="col-12 col-lg-4">
                         <div class="label-tasknew text-left">
                             Дата старта
-                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
+                            <?php if ($taskEdit && $taskData['status'] == 'planned'): ?>
+                                <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
+                                    <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
+                                          title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
+                                                class="fas fa-comment-dollar"></i></span>
+                                <?php endif; ?>
+                            <?php else: ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
-                                      title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
-                                            class="fas fa-comment-dollar"></i></span>
-                            <?php
-                            endif;
-                            ?>
+                                      title="Задача уже в работе"><i
+                                            class="fas fa-comment"></i></span>
+                            <?php endif; ?>
                         </div>
                         <div class="card card-tasknew">
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
                                    min="<?= $GLOBALS["now"] ?>"
-                                   value="<?= $GLOBALS["now"] ?>" required>
+                                   value="<?= ($taskEdit) ? date('Y-m-d', $taskData['datecreate']) : $GLOBALS["now"]?>"
+                                <?= ($taskEdit && $taskData['status'] != 'planned') ? 'disabled': 'required' ?>>
                         </div>
                     </div>
                 </div>
@@ -188,12 +193,21 @@ $borderColor = [
                             <div id="addChecklistBtn" class="position-absolute icon-newtask">
                                 <i class="fas fa-plus"></i>
                             </div>
-                            <div class="check-list-container card-body-tasknew text-left">
+                            <div class="check-list-container card-body-tasknew text-left" style="<?= ($taskEdit && count($checklist) > 0) ? 'display: block;' : ''?>">
                                 <div id="checkListExample" class="position-relative check-list-new d-none mb-2">
                                     <i class="far fa-check-square text-muted-new"></i>
                                     <span class="ml-3" style="color: #28416b;">  checkName  </span>
                                     <i class="fas fa-times delete-checklist-item"></i>
                                 </div>
+                                <?php if ($taskEdit): ?>
+                                <?php foreach ($checklist as $key => $item): ?>
+                                <div class="position-relative check-list-new mb-2" data-id="<?= ++$key ?>">
+                                    <i class="far fa-check-square text-muted-new"></i>
+                                    <span class="ml-3" style="color: #28416b;"><?= $item['text'] ?></span>
+                                    <i class="fas fa-times delete-checklist-item"></i>
+                                </div>
+                                <?php endforeach; ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -265,18 +279,36 @@ $borderColor = [
         <div class="spinner-border spinner-border-sm ml-1 display-none" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-        <div class="file-name container-files display-none">
+        <div class="file-name container-files <?= ($taskEdit && count($taskUploads) > 0) ? '' : 'display-none' ?>">
             <div id="filenamesExampleCloud" class='filenames attached-source-file d-none' data-name='name' data-link='link'
-                 data-file-size='size'>
+                 data-file-size='size' data-file-id="">
                 <i class='fas fa-paperclip mr-1'></i> <i class='icon mr-1'></i>
                 <span>name</span>
                 <i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>
             </div>
             <div id="filenamesExample" val='n' class='filenames d-none'>
                 <i class='fas fa-paperclip mr-1'></i>
-                <span>names</span>
+                <span>filenames</span>
                 <i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>
             </div>
+            <?php if ($taskEdit): ?>
+                <?php foreach ($taskUploads as $file): ?>
+                    <?php if ($file['cloud']): ?>
+                    <div class='filenames attached-source-file' data-name='<?= $file['file_name'] ?>' data-link='<?= $file['file_path'] ?>'
+                         data-file-size='<?= $file['file_size'] ?>' data-file-id="<?= $file['file_id'] ?>">
+                        <i class='fas fa-paperclip mr-1'></i> <i class='icon mr-1'></i>
+                        <span><?= $file['file_name'] ?></span>
+                        <i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>
+                    </div>
+                    <?php else: ?>
+                    <div val='n' data-file-id="<?= $file['file_id'] ?>" class='filenames device-uploaded'>
+                        <i class='fas fa-paperclip mr-1'></i>
+                        <span><?= $file['file_name'] ?></span>
+                        <i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>
+                    </div>
+                    <?php endif;?>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
         <div class="pl-20-tasknew">
             <?php $uploadModule = 'tasknew'; // Указываем тип дропдауна прикрепления файлов?>
@@ -583,6 +615,11 @@ $borderColor = [
         theme: 'snow',
         placeholder: 'Опишите суть задания...',
     });
-
-
+    <?php if ($taskEdit): ?>
+    var taskId = <?= $taskData['id']; ?>;
+    var pageAction = 'edit';
+    <?php else: ?>
+    var taskId = 0;
+    var pageAction = 'create';
+    <?php endif; ?>
 </script>

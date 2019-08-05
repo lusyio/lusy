@@ -209,13 +209,15 @@ $(document).ready(function () {
             attachedGoogleFiles[$(googleFileToSend).data('name')] = {
                 link: $(googleFileToSend).data('link'),
                 size: $(googleFileToSend).data('file-size'),
+                id: $(googleFileToSend).data('file-id'),
             };
         });
         var attachedDropboxFiles = {};
         $('.attached-dropbox-file').each(function (i, dropboxFileToSend) {
             attachedDropboxFiles[$(dropboxFileToSend).data('name')] = {
                 link: $(dropboxFileToSend).data('link'),
-                size: $(dropboxFileToSend).data('file-size')
+                size: $(dropboxFileToSend).data('file-size'),
+                id: $(dropboxFileToSend).data('file-id'),
             };
         });
         var responsible = $('.add-responsible:visible').attr('val');
@@ -237,8 +239,20 @@ $(document).ready(function () {
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
         });
+        if (pageAction === 'create') {
+            fd.append('module', 'createTask');
+        } else {
+            fd.append('module', 'editTask');
+            fd.append('it', taskId);
+            var oldDeviceUploads = [];
+            $('.device-uploaded, .attached-source-file').each(function (i, deviceFile) {
+                if ($(deviceFile).data('file-id') !== '') {
+                    oldDeviceUploads.push($(deviceFile).data('file-id'))
+                }
+            });
+            fd.append('oldUploads', JSON.stringify(oldDeviceUploads));
+        }
         fd.append('ajax', 'task-control');
-        fd.append('module', 'createTask');
         fd.append('name', name);
         fd.append('description', delta);
         fd.append('datedone', datedone);

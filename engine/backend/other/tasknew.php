@@ -41,4 +41,13 @@ if (isset($_GET['edit']) && $_GET['edit'] == 1) {
     $taskCoworkersQuery = $pdo->prepare("SELECT worker_id FROM task_coworkers WHERE task_id = :taskId");
     $taskCoworkersQuery->execute([':taskId' => $_GET['task']]);
     $taskCoworkers = $taskCoworkersQuery->fetchAll(PDO::FETCH_COLUMN);
+
+    $taskUploadsQuery = $pdo->prepare("SELECT file_id, file_name, file_size, file_path, is_deleted, cloud FROM uploads WHERE comment_type = 'task' AND comment_id = :taskId");
+    $taskUploadsQuery->execute([':taskId' => $_GET['task']]);
+    $taskUploads = $taskUploadsQuery->fetchAll(PDO::FETCH_ASSOC);
+
+    $checklist = json_decode($taskData['checklist'], true);
+    if (is_null($checklist)) {
+        $checklist = [];
+    }
 }
