@@ -117,6 +117,8 @@
     border-radius: 8px;
 }
 
+
+
 .member-block:hover .edit-members {
     right: -13px;
     transition: 300ms;

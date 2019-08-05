@@ -37,7 +37,6 @@
             <img src="/upload/mount.jpg" class="mt-5 mount">
         </div>
     </div>
-
     <script>
         $(document).ready(function () {
             $(".btn-violet").addClass('disabled');
@@ -63,3 +62,4 @@
             });
         });
     </script>
+
