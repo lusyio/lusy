@@ -4157,7 +4157,30 @@ label.error {
     background: #fbe3e4 !important;
 }
 
+#spinnerRegModal .modal-content{
+    margin-top: 60%;
+    background-color: transparent;
+}
 
+#spinnerRegModal .spinner-border{
+    width: 3rem;
+    height: 3rem;
+    color: #f2f2f2;
+}
+
+
+#registrationBtn{
+    background: #284c8e;
+    border: none !important;
+    border-radius: 15px;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    height: 50px;
+}
+
+#registrationBtn:disabled{
+    background: #284c8e;
+}
 
 .text-reg {
     font-size: 1.2rem;
