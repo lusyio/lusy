@@ -9,8 +9,6 @@ if (isset($_SESSION['auth']) && $_SESSION['auth']) {
 if (isset($_SESSION['login']) && isset($_SESSION['password'])) { //автоматический вход после регистрации
     $login = $_SESSION['login'];
     $password = $_SESSION['password'];
-    unset($_SESSION['login']);
-    unset($_SESSION['password']);
 } elseif (!empty($_POST['login']) and !empty($_POST['password'])) {
     $login = trim($_POST['login']);
     $login = filter_var($login, FILTER_SANITIZE_STRING);

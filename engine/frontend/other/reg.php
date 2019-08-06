@@ -13,7 +13,7 @@
                             Отлично! Для регистрации введите Ваш email, а пароль мы отправим вам на почту
                         </div>
                         <div class="form-group">
-                            <input id="emailAdmin" type="text" value="<?= $email ?>" name="email"
+                            <input id="emailAdmin" type="text" value="<?= $login ?>" name="email"
                                    class="form-control required email"
                                    placeholder="E-mail">
                         </div>

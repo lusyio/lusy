@@ -1,6 +1,8 @@
 <?php
 session_cache_limiter('none');
-session_start();
+if(!isset($_SESSION)) {
+    session_start();
+}
 ob_start();
 setlocale(LC_ALL, 'ru_RU');
 $locale = 'ru_RU';

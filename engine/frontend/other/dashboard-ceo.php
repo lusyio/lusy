@@ -363,7 +363,7 @@ $statusColor = [
         </ul>
     </div>
 </div>
-
+<?php if ($isFirstLogin): ?>
 <div class="modal fade" id="afterRegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -381,7 +381,7 @@ $statusColor = [
                     </div>
                     <div class="col">
                         <label class="cd-username" for="afterRegCompanyname"><i class="fas fa-user text-muted-new"></i></label>
-                        <input id="afterRegCompanyname" class="form-control" type="text" placeholder="Имя компании">
+                        <input id="afterRegCompanyname" class="form-control" type="text" placeholder="Имя компании" value="<?= $companyName; ?>">
                         <span id="companynameOK" class="position-absolute text-success display-none" style="right: 30px; top: 15px;">
                             <i class="fas fa-check-circle"></i>
                         </span>
@@ -394,7 +394,7 @@ $statusColor = [
                     <div class="col">
                         <label class="cd-username" for="afterRegEmail"><i
                                     class="fas fa-envelope text-muted-new"></i></label>
-                        <input id="afterRegEmail" class="form-control" type="email" placeholder="email">
+                        <input id="afterRegEmail" class="form-control" type="email" placeholder="email" value="<?= $email; ?>">
                         <span id="emailOK" class="position-absolute text-success display-none" style="right: 30px; top: 15px;">
                             <i class="fas fa-check-circle"></i>
                         </span>
@@ -407,8 +407,8 @@ $statusColor = [
                     <div class="col position-relative">
                         <label class="cd-username" for="afterRegPassword"><i
                                     class="fas fa-key text-muted-new"></i></label>
-                        <input id="afterRegPassword" class="form-control" type="text" placeholder="Пароль">
-                        <input id="" class="form-control d-none" type="text" placeholder="Пароль">
+                        <input id="afterRegPassword" class="form-control" type="text" placeholder="Пароль" value="<?= $password; ?>">
+                        <input id="currentPassword" type="hidden" value="<?= $password; ?>">
                         <span class="info-reg position-absolute text-ligther" style="right: 30px; top: 15px;"
                               data-toggle="tooltip" data-placement="bottom"
                               title="Минимальное кол-во символов - 6">
@@ -454,7 +454,7 @@ $statusColor = [
         </div>
     </div>
 </div>
-
+<?php endif; ?>
 <script src="/assets/js/swiper.min.js"></script>
 <script type="text/javascript">
 
@@ -634,6 +634,7 @@ $statusColor = [
         });
     });
 </script>
+<?php if ($isFirstLogin): ?>
 <script>
     $(document).ready(function () {
         $('#afterRegModal').modal('show');
@@ -732,11 +733,13 @@ $statusColor = [
         $('#saveAfterReg').on('click', function () {
             var email = $('#afterRegEmail').val();
             var password = $('#afterRegPassword').val();
+            var currentPassword = $('#currentPassword').val();
             var companyName = $('#afterRegCompanyname').val();
 
             var fd = new FormData();
             fd.append('email', email);
-            fd.append('password', password);
+            fd.append('newPassword', password);
+            fd.append('password', currentPassword);
             fd.append('companyName', companyName);
             fd.append('module', 'initChange');
             fd.append('ajax', 'settings');
@@ -770,3 +773,4 @@ $statusColor = [
         });
     });
 </script>
+<?php endif; ?>

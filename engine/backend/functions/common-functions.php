@@ -1769,7 +1769,7 @@ function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffNam
     }
 }
 
-function sendActivationLink($companyId)
+function sendActivationLink($companyId, $password = null)
 {
     require_once __ROOT__ . '/engine/backend/functions/reg-functions.php';
     $activationCode = createActivationCode($companyId);
@@ -1784,7 +1784,12 @@ function sendActivationLink($companyId)
         $args = [
             'activationLink' => 'https://s.lusy.io/activate/' . $companyId . '/' . $activationCode . '/',
         ];
-        $mail->setMessageContent('company-activation', $args);
+        if (is_null($password)) {
+            $mail->setMessageContent('company-activation', $args);
+        } else {
+            //$args['password'] = $password;
+            //$mail->setMessageContent('company-activation-password', $args);
+        }
         $mail->send();
     } catch (Exception $e) {
         return;

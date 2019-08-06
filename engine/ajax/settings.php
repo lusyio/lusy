@@ -151,7 +151,7 @@ if ($_POST['module'] == 'initChange' && $roleu == 'ceo') {
 
     if (isset($_POST['email'])) {
         $newEmail = trim($_POST['email']);
-        $newEmail = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $newEmail = filter_var($newEmail, FILTER_SANITIZE_EMAIL);
         if ($newEmail == '') {
             $result['error'] = 'email';
             echo json_encode($result);
@@ -193,5 +193,7 @@ if ($_POST['module'] == 'initChange' && $roleu == 'ceo') {
         echo json_encode($result);
         exit();
     }
+    echo json_encode($result);
+    exit();
 }
 

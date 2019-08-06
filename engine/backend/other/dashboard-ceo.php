@@ -122,3 +122,14 @@ if ($userRegisterDate <= $currentDayPreviousMonth) {
 if ($taskDoneDelta > 0) {
     $taskDoneDelta = '+' . $taskDoneDelta;
 }
+$isFirstLogin = false;
+if (isset($_SESSION['isFirstLogin']) && $_SESSION['isFirstLogin']) {
+    $isFirstLogin = true;
+    $companyName = $_SESSION['companyName'];
+    $email = $_SESSION['login'];
+    $password = $_SESSION['password'];
+    unset($_SESSION['isFirstLogin']);
+    unset($_SESSION['companyName']);
+    unset($_SESSION['login']);
+    unset($_SESSION['password']);
+}
