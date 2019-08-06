@@ -146,7 +146,7 @@ if ($_POST['module'] == 'initChange' && $roleu == 'ceo') {
     $oldCompanyName = DBOnce('idcompany', 'company', 'id = ' . $idc);
     if ($newCompanyName != $oldCompanyName) {
         $updateCompanyNameQuery = $pdo->prepare("UPDATE company SET idcompany = :newCompanyName WHERE id = :companyId");
-        $updateCompanyNameQuery->execute([':companyId' => $idc]);
+        $updateCompanyNameQuery->execute([':newCompanyName' => $newCompanyName, ':companyId' => $idc]);
     }
 
     if (isset($_POST['email'])) {
