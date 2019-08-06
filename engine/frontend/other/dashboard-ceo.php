@@ -735,10 +735,10 @@ $statusColor = [
             var companyName = $('#afterRegCompanyname').val();
 
             var fd = new FormData();
-            fd.append('module', 'initChange');
             fd.append('email', email);
             fd.append('password', password);
             fd.append('companyName', companyName);
+            fd.append('module', 'initChange');
             fd.append('ajax', 'settings');
             if (companyName != ''){
             $('.spinner-after-reg').show();
@@ -763,8 +763,6 @@ $statusColor = [
                     'color': '#8a1f11'
                 });
             }
-
-           console.log('asdasd');
         });
 
         $('.carousel').carousel({
