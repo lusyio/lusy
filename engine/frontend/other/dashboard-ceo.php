@@ -792,8 +792,27 @@ $statusColor = [
                 success: function (response) {
                     if (response.error == '') {
                         location.reload();
-                    } else {
-                        console.log(response)
+                    }
+                    if (response.error == 'email'){
+                        $('#afterRegEmail').css({
+                            'border': '1px solid #fbc2c4',
+                            'color': '#8a1f11'
+                        });
+                        $('#emailOK').hide()
+                    }
+                    if (response.error == 'password'){
+                        $('#afterRegPassword').css({
+                            'border': '1px solid #fbc2c4',
+                            'color': '#8a1f11'
+                        });
+                        $('#passwordOK').hide()
+                    }
+                    if (response.error == 'company'){
+                        $('#afterRegCompanyname').css({
+                            'border': '1px solid #fbc2c4',
+                            'color': '#8a1f11'
+                        });
+                        $('#companynameOK').hide()
                     }
                 },
                 complete: function () {
