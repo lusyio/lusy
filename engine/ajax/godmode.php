@@ -1,7 +1,7 @@
 <?php
 global $pdo;
 global $idc;
-if ($idc != 1) {
+if ($idc != 2) {
     exit;
 }
 $uploadDir = '../public_html/public/upload/';

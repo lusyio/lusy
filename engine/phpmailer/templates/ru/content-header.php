@@ -68,10 +68,25 @@
         margin-top: 30px;
     }
 </style>
-<table style="width: 100%;">
+<table style="width: 100%;background-color: #fcfcfc;">
     <tbody>
         <tr>
-            <td style="padding: 0px;"><h3 class="logo" style="color: #202429;font-size: 1.25rem;font-weight: 700;text-align: center;max-width: 600px;margin: 10px auto 20px;border-bottom: 1px solid #e4e4e4;padding-bottom: 20px;letter-spacing: 3px;">LUSY</h3></td>
+            <td align="center" style="padding: 0px;">
+                <div style="max-width: 600px">
+                    <table style="width: 100%;">
+                        <tbody><tr>
+                            <td width="80%" style="padding: 0px;padding-top: 10px;">
+                            <h3 style="text-align:left;color: #202429;font-size: 1.25rem;padding-top: 0;font-weight: 700;max-width: 600px;margin-bottom: 0px;background-color: #ffffff;padding-bottom: 20px;padding-top: 20px;letter-spacing: 3px;">
+                                <img src="/upload/logo.png" style="width: 220px;">
+                            </h3>
+                            </td>
+                            <td width="20%" style="padding-top: 10px;background-color: #ffffff;">
+                                <a class="button" href="https://s.lusy.io/ru/login/" style="background-color: #ffffff;color: #535ad3;border-color: #535ad3;border-radius: 20px;padding-left: 25px;padding-right: 25px;text-align: center;vertical-align: middle;font-size: 1rem;line-height: 1.5;text-decoration: none;">Войти</a>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+            </td>
         </tr>
         <tr>
             <td style="padding: 0px;">
