@@ -4376,6 +4376,56 @@ label.error {
     right: -5px;
 }
 
+#afterRegModal .btn-afterreg {
+    height: 50px;
+}
+#afterRegModal .col-8 {
+    z-index: 2;
+}
+
+#afterRegModal .btn-afterreg.btn-light{
+    border: 0;
+    background-color: #ffffff;
+}
+
+#afterRegModal .btn-light:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
+#afterRegModal .btn-afterreg.btn.btn-light:focus{
+    box-shadow: none;
+}
+
+#afterRegModal .icon-limit-modal{
+    font-size: 20em;
+    color: #003effcc;
+    opacity: 0.05;
+}
+
+#afterRegModal input{
+    padding: 16px 50px 16px 50px;
+    height: 50px;
+}
+
+#afterRegModal .info-reg:hover{
+    color: #999999;
+    cursor: pointer;
+}
+
+#afterRegModal .col{
+    z-index: 2;
+}
+
+.cd-username{
+    display: inline-block;
+    position: absolute;
+    left: 31px;
+    top: 15%;
+    bottom: auto;
+    font-size: 23px;
+}
+
 .google-icon-btn {
     outline: none !important;
     border-radius: 50%;
@@ -4403,6 +4453,16 @@ label.error {
     text-align: center;
     line-height: 0;
     vertical-align: middle;
+}
+
+.spinner-after-reg{
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background-color: white;
+    opacity: 0.5;
+    display: none;
 }
 
 .google-icon-btn:active {
