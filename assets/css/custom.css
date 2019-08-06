@@ -2823,6 +2823,14 @@ span.date {
     cursor: pointer;
 }
 
+.icon-repeat-email{
+    font-size: 20px;
+}
+
+.div-repeat-email{
+    height: 24px;
+}
+
 .after-reg-text{
     color: #28416b;
     font-weight: 700;
