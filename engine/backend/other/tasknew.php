@@ -34,7 +34,7 @@ $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
 
 if (isset($_GET['edit']) && $_GET['edit'] == 1) {
     $taskEdit = true;
-    $taskDataQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone, parent_task, regular, checklist FROM tasks WHERE id = :taskId");
+    $taskDataQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone, parent_task, regular, checklist, with_premium FROM tasks WHERE id = :taskId");
     $taskDataQuery->execute([':taskId' => $_GET['task']]);
     $taskData = $taskDataQuery->fetch(PDO::FETCH_ASSOC);
 
@@ -45,6 +45,14 @@ if (isset($_GET['edit']) && $_GET['edit'] == 1) {
     $taskUploadsQuery = $pdo->prepare("SELECT file_id, file_name, file_size, file_path, is_deleted, cloud FROM uploads WHERE comment_type = 'task' AND comment_id = :taskId");
     $taskUploadsQuery->execute([':taskId' => $_GET['task']]);
     $taskUploads = $taskUploadsQuery->fetchAll(PDO::FETCH_ASSOC);
+
+    $hasCloudUploads = false;
+    foreach ($taskUploads as $file) {
+        if ($file['cloud'] == 1) {
+            $hasCloudUploads = true;
+            break;
+        }
+    }
 
     $checklist = json_decode($taskData['checklist'], true);
     if (is_null($checklist)) {

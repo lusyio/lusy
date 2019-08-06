@@ -121,7 +121,7 @@ $borderColor = [
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Надзадача
-                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
+                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $taskData['with_premium'] == 0)): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
@@ -155,7 +155,7 @@ $borderColor = [
                         <div class="label-tasknew text-left">
                             Дата старта
                             <?php if ($taskEdit && $taskData['status'] == 'planned'): ?>
-                                <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
+                                <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $taskData['with_premium'] == 0)): ?>
                                     <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                           title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                                 class="fas fa-comment-dollar"></i></span>
@@ -178,7 +178,7 @@ $borderColor = [
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Подпункты
-                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
+                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $taskData['with_premium'] == 0)): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
@@ -431,7 +431,7 @@ $borderColor = [
     </div>
 </div>
 <script src="/assets/js/createtask.js?n=2"></script>
-<?php if (($tariff == 1 || $tryPremiumLimits['cloud'] < 3) || ($taskEdit && !is_null($taskData['parent_task']))): ?>
+<?php if (($tariff == 1 || $tryPremiumLimits['cloud'] < 3) || ($taskEdit && $hasCloudUploads)): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================
         //=Create object of FilePicker Constructor function function & set Properties===
@@ -594,7 +594,7 @@ $borderColor = [
                 $('#datedone').val(val);
             }
         });
-        <?php if (($tariff == 0 && $tryPremiumLimits['cloud'] >= 3) || ($taskEdit && !is_null($taskData['parent_task']))):?>
+        <?php if ($tariff == 0 && ($tryPremiumLimits['cloud'] >= 3 && !($taskEdit && !$hasCloudUploads))):?>
         $('#openGoogleDrive, #openDropbox').on('click', function () {
             $('#premModal').modal('show');
         });

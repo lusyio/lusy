@@ -13,7 +13,7 @@ $usePremiumTask = false;
 $usePremiumCloud = false;
 if (isset($_POST['it'])) {
     $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
-    $taskDataQuery = $pdo->prepare("SELECT author, manager, worker, datedone, checklist, status FROM tasks WHERE id = :taskId");
+    $taskDataQuery = $pdo->prepare("SELECT author, manager, worker, datedone, checklist, status, parent_task FROM tasks WHERE id = :taskId");
     $taskDataQuery->execute([':taskId' => $idtask]);
     $taskData = $taskDataQuery->fetch(PDO::FETCH_ASSOC);
     $taskAuthorId =  $taskData['author'];
@@ -283,6 +283,7 @@ if($_POST['module'] == 'createTask') {
         ':status' => $status,
         ':parentTask' => null,
         ':checklist' => json_encode($checklist),
+        ':withPremium' => 0,
     ];
     if ($parentTask != '' && $parentTask != 0 && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
         $parentTaskDataQuery = $pdo->prepare("SELECT manager, worker, idcompany FROM tasks WHERE id = :taskId");
@@ -290,10 +291,11 @@ if($_POST['module'] == 'createTask') {
         $parentTaskData = $parentTaskDataQuery->fetch(PDO::FETCH_ASSOC);
         if ($parentTaskData['manager'] == $id || $parentTaskData['worker'] == $id || ($roleu == 'ceo' && $parentTaskData['idcompany'] == $idc)) {
             $taskCreateQueryData[':parentTask'] = $parentTask;
+            $taskCreateQueryData[':withPremium'] = 1;
             $usePremiumTask = true;
         }
     }
-    $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, checklist) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :checklist)");
+    $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, checklist, with_premium) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :checklist, :withPremium)");
     $taskCreateQuery->execute($taskCreateQueryData);
     if ($taskCreateQuery) {
         $idtask = $pdo->lastInsertId();
@@ -467,3 +469,142 @@ if ($_POST['module'] == 'checklist' && ($isManager || $isWorker) && isset($_POST
     echo $checklist[$checklistRow]['status'];
 }
 
+if($_POST['module'] == 'editTask' && $isManager) {
+    var_dump($_POST);
+    //exit;
+    $isPremiumUsed = false;
+    $result = [
+        'taskId' => '',
+        'error' => '',
+    ];
+
+    if (in_array($taskData['status'], ['done', 'canceled'])) {
+        exit;
+    }
+    if ($tryPremiumLimits['edit'] >= 3) {
+        exit;
+    }
+
+    $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
+    if ($newWorker != $idTaskWorker) {
+        //изменение воркера
+    }
+
+    $unsafeCoworkers = json_decode($_POST['coworkers']);
+    $editedCoworkers = [];
+    foreach ($unsafeCoworkers as $c) {
+        $editedCoworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
+    }
+    $coworkersToAdd = [];
+    foreach ($editedCoworkers as $editedCoworker) {
+        if (in_array($editedCoworker, $coworkers)) {
+            continue;
+        } else {
+            $newCoworkers[] = $editedCoworker;
+        }
+    }
+    $coworkersToRemove = [];
+    foreach ($coworkers as $coworker) {
+        if (in_array($coworker, $editedCoworkers)) {
+            continue;
+        } else {
+            $coworkersToRemove[] = $coworker;
+        }
+    }
+    if (count($coworkersToAdd) > 0) {
+        // добавление в базу
+        if ($taskData['status'] != 'planned') {
+            //события о добавлении соисполнителей
+        }
+    }
+    if (count($coworkersToRemove) > 0) {
+        // Удаление из базы
+        if ($taskData['status'] != 'planned') {
+            //события об удалении соисполнителей
+        }
+    }
+
+    $newDatedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
+    if ($newDatedone != $taskDatedone) {
+        // Обновить дедлайн
+    }
+
+    $name = trim($_POST['name']);
+    $name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $description = trim($_POST['description']);
+    $description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
+    //Обновить в базе название и описание
+
+    $newParentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
+    if ($newParentTask != $taskData['parent_task']) {
+        // Изменение надзадачи
+    }
+
+    $editedChecklist = [];
+    if (isset($_POST['checklist'])) {
+        $unsafeChecklist = json_decode($_POST['checklist'], true);
+        foreach ($unsafeChecklist as $key => $value) {
+            $editedChecklist[$key]['text'] = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+            $editedChecklist[$key]['status'] = 0;
+            $editedChecklist[$key]['checkedBy'] = 0;
+        }
+        //Перезаписать чеклист
+    }
+    $uploadedFilesQuery = $pdo->prepare("SELECT file_id, file_name, file_size, file_path, is_deleted, cloud FROM uploads WHERE comment_type = 'task' AND comment_id = :taskId");
+    $uploadedFilesQuery->execute([':taskId' => $idtask]);
+    $uploadedFiles = $uploadedFilesQuery->fetchAll(PDO::FETCH_ASSOC);
+    $filesToRemove = [
+        'cloud' => [],
+        'storage' => [],
+    ];
+    foreach ($uploadedFiles as $file) {
+        if (!in_array($file['file_id'], $oldUploads)) {
+            if ($file['cloud']) {
+                $filesToRemove['cloud'][] = $file['file_id'];
+            } else {
+                $filesToRemove['storage'][] = $file['file_id'];
+            }
+        }
+    }
+    // Удалить файлы $filesToRemove
+
+    $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
+    $newGoogleFiles = [];
+    foreach ($unsafeGoogleFiles as $k => $v) {
+        $newGoogleFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
+        ];
+    }
+    $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
+    $newDropboxFiles = [];
+    foreach ($unsafeDropboxFiles as $k => $v) {
+        $newDropboxFiles[] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
+        ];
+    }
+
+
+    if (isset($_POST['manager'])) {
+        $managerId = filter_var($_POST['manager'], FILTER_SANITIZE_NUMBER_INT);
+    } else {
+        $managerId = $id;
+    }
+
+    $status = 'new';
+    $dateCreate = time();
+    if (isset($_POST['startdate']) && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
+        $dateCreate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
+        if (date('Y-m-d', $dateCreate) > date('Y-m-d') && date('Y-m-d', $dateCreate) <= date('Y-m-d', $datedone)) {
+            $status = 'planned';
+            $usePremiumTask = true;
+        }
+    }
+    $parentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
+
+
+
+}
