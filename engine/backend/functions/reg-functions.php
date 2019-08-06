@@ -94,7 +94,8 @@ function isEmailExist($email)
     global $pdo;
     $emailQuery = $pdo->prepare('SELECT id FROM users WHERE email=:email');
     $emailQuery->execute(array(':email' => mb_strtolower($email)));
-    return (boolean) $emailQuery->fetch(PDO::FETCH_ASSOC);
+    $result = $emailQuery->fetchAll(PDO::FETCH_ASSOC);
+    return (boolean) count($result);
 }
 
 function createActivationCode($companyId)
