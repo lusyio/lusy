@@ -166,7 +166,7 @@ if ($_POST['module'] == 'initChange' && $roleu == 'ceo') {
     $oldEmail = DBOnce('email', 'users', 'id = ' . $id);
     if ($newEmail != $oldEmail) {
         $updateEmailQuery = $pdo->prepare("UPDATE users SET email = :newEmail WHERE id = :userId");
-        $updateEmailQuery->execute([':userId' => $id]);
+        $updateEmailQuery->execute([':newEmail' => $newEmail, ':userId' => $id]);
     }
     if (isset($_POST['password']) && isset($_POST['newPassword'])) {
         $password = trim($_POST['password']);
