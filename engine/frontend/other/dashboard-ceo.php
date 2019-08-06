@@ -651,8 +651,6 @@ $statusColor = [
         var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
         var checkPass = reg.exec(password);
 
-        security = securityMail + securityPass;
-
         if ($('#afterRegCompanyname').val() != ''){
             $('#afterRegCompanyname').css({
                 'border': '1px solid #ccc',
@@ -679,6 +677,8 @@ $statusColor = [
             $('.info-reg').hide();
             $('#passwordOK').show();
         }
+
+        security = securityMail + securityPass;
 
         if (security != 2) {
             $('#saveAfterReg').prop('disabled', true);
@@ -790,10 +790,11 @@ $statusColor = [
                 contentType: false,
                 data: fd,
                 success: function (response) {
-                    if (response == []){
-                        $('#afterRegModal').modal('hide')
+                    if (response.error == '') {
+                        location.reload();
+                    } else {
+                        console.log(response)
                     }
-                    console.log(response.);
                 },
                 complete: function () {
                     $('.spinner-after-reg').hide();
