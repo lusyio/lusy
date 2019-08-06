@@ -126,3 +126,72 @@ if ($_POST['module'] == 'updateNotifications') {
 
 }
 
+if ($_POST['module'] == 'initChange' && $roleu == 'ceo') {
+    $result = [
+        'error' => ''
+    ];
+    if (isset($_POST['companyName'])) {
+        $newCompanyName = trim($_POST['companyName']);
+        $newCompanyName = filter_var($newCompanyName, FILTER_SANITIZE_STRING);
+        if ($newCompanyName == '') {
+            $result['error'] = 'company';
+            exit();
+        }
+    } else {
+        $result['error'] = 'company';
+        echo json_encode($result);
+        exit();
+    }
+
+    $oldCompanyName = DBOnce('idcompany', 'company', 'id = ' . $idc);
+    if ($newCompanyName != $oldCompanyName) {
+        $updateCompanyNameQuery = $pdo->prepare("UPDATE company SET idcompany = :newCompanyName WHERE id = :companyId");
+        $updateCompanyNameQuery->execute([':companyId' => $idc]);
+    }
+
+    if (isset($_POST['email'])) {
+        $newEmail = trim($_POST['email']);
+        $newEmail = filter_var($email, FILTER_SANITIZE_EMAIL);
+        if ($newEmail == '') {
+            $result['error'] = 'email';
+            echo json_encode($result);
+            exit();
+        }
+    } else {
+        $result['error'] = 'email';
+        echo json_encode($result);
+        exit();
+    }
+
+    $oldEmail = DBOnce('email', 'users', 'id = ' . $id);
+    if ($newEmail != $oldEmail) {
+        $updateEmailQuery = $pdo->prepare("UPDATE users SET email = :newEmail WHERE id = :userId");
+        $updateEmailQuery->execute([':userId' => $id]);
+    }
+    if (isset($_POST['password']) && isset($_POST['newPassword'])) {
+        $password = trim($_POST['password']);
+        $password = filter_var($password, FILTER_SANITIZE_STRING);
+        $hash = DBOnce('password', 'users', 'id=' . $id);
+        if (password_verify($password, $hash)) {
+            if (isset($_POST['newPassword'])) {
+                $newPassword = trim($_POST['newPassword']);
+                $newPassword = filter_var($newPassword, FILTER_SANITIZE_STRING);
+                if ($newPassword != '' && $newPassword != $password)
+                {
+                    $passwordRule = '~^[\w\~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/<>?]{6,64}$~';
+                    if (!preg_match($passwordRule, $newPassword)) {
+                        $result['error'] = 'password';
+                        echo json_encode($result);
+                        exit();
+                    }
+                    setNewPassword($newPassword);
+                }
+            }
+        }
+    } else {
+        $result['error'] = 'password';
+        echo json_encode($result);
+        exit();
+    }
+}
+
