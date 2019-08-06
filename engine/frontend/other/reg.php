@@ -1,6 +1,4 @@
 <script type="text/javascript" src="/assets/js/popper.min.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.steps.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.validate.min.js"></script>
 <div class="loginPage">
     <div class="container pt-5">
         <h1 class="lead-text text-white text-center mb-3 mt-5">
