@@ -790,7 +790,10 @@ $statusColor = [
                 contentType: false,
                 data: fd,
                 success: function (response) {
-                    console.log(response);
+                    if (response == []){
+                        $('#afterRegModal').modal('hide')
+                    }
+                    console.log(response.);
                 },
                 complete: function () {
                     $('.spinner-after-reg').hide();
