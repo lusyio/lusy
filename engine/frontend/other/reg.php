@@ -20,11 +20,9 @@
                     </section>
                     <div class="row mb-3 repeat-email">
                         <div class="col text-center">
-                            <div class="div-repeat-email">
-                                <span class="text-white">
-                                    <i class="fas fa-exclamation-circle mr-3 icon-repeat-email"></i>
-                                    <span>Пользователь с таким email уже существует</span>
-                                </span>
+                            <div class="div-repeat-email text-white">
+                                <i class="fas fa-exclamation-circle mr-3 icon-repeat-email"></i>
+                                <span>Пользователь с таким email уже существует</span>
                             </div>
                         </div>
                     </div>
