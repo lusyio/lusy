@@ -641,9 +641,43 @@ $statusColor = [
         var security = 0;
         var securityMail = 0;
         var securityPass = 0;
+
         var email = $('#afterRegEmail').val();
         var regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
         var checkMail = regMail.exec(email);
+
+        var password = $('#afterRegPassword').val();
+        var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+        var checkPass = reg.exec(password);
+
+        security = securityMail + securityPass;
+
+        if ($('#afterRegCompanyname').val() != ''){
+            $('#afterRegCompanyname').css({
+                'border': '1px solid #ccc',
+                'color': '#495057'
+            });
+            $('#companynameOK').show();
+        } else {
+            $('#companynameOK').hide();
+        }
+
+        if (checkMail == null) {
+            securityMail = 0;
+            $('#emailOK').hide();
+        } else {
+            securityMail = 1;
+            $('#emailOK').show();
+        }
+
+        if (checkPass == null) {
+            $('.info-reg').show();
+            $('#passwordOK').hide();
+        } else {
+            securityPass = 1;
+            $('.info-reg').hide();
+            $('#passwordOK').show();
+        }
 
         if (security != 2) {
             $('#saveAfterReg').prop('disabled', true);
@@ -655,15 +689,17 @@ $statusColor = [
            var $this = $(this);
 
            if ($this.val() != ''){
-               $('#companynameOK').show();
                $this.css({
                    'border': '1px solid #ccc',
                    'color': '#495057'
                });
+               $('#companynameOK').show();
            } else {
                $('#companynameOK').hide();
            }
         });
+
+        console.log(security);
 
         $('#afterRegEmail').on('keyup', function () {
             var $this = $(this);
@@ -698,9 +734,9 @@ $statusColor = [
 
         $('#afterRegPassword').on('keyup', function () {
             var $this = $(this);
-            var password = $this.val();
-            var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
-            var checkPass = reg.exec(password);
+            password = $this.val();
+            reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+            checkPass = reg.exec(password);
 
             if (checkPass == null) {
                 $this.css({
