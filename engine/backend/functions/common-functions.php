@@ -1780,15 +1780,17 @@ function sendActivationLink($companyId, $password = null)
     try {
         $mail->addAddress($seoMail);
         $mail->isHTML();
-        $mail->Subject = "Подтверждение e-mail";
         $args = [
             'activationLink' => 'https://s.lusy.io/activate/' . $companyId . '/' . $activationCode . '/',
         ];
         if (is_null($password)) {
+            $mail->Subject = "Подтверждение e-mail";
             $mail->setMessageContent('company-activation', $args);
         } else {
-            //$args['password'] = $password;
-            //$mail->setMessageContent('company-activation-password', $args);
+            $mail->Subject = "Регистрация в Lusy.io";
+            $args['email'] = $seoMail;
+            $args['password'] = $password;
+            $mail->setMessageContent('company-activation-password', $args);
         }
         $mail->send();
     } catch (Exception $e) {
