@@ -170,7 +170,7 @@
 
         $('#registrationBtn').on('click', function () {
             $('#spinnerRegModal').modal('show');
-            $('#regForm').submit();
+            //$('#regForm').submit();
         });
     });
 </script>
