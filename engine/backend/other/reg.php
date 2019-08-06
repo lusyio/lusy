@@ -6,7 +6,9 @@ require_once __ROOT__ . '/engine/backend/functions/reg-functions.php';
 
 $login = '';
 $userLanguage = getUserLanguage();
-$regErrors = [];
+$regErrors = [
+    'email' => false,
+];
 if (isset($_POST['email'])) {
     $companyTimeZone = 'Europe/Moscow';
     $companyLanguage = 'ru';
@@ -43,7 +45,7 @@ if (isset($_POST['email'])) {
             die;
         }
     } else {
-        $regErrors[] = 'User with this e-mail already exists';
+        $regErrors['email'] = true;
     }
 
 }

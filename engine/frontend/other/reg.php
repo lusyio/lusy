@@ -18,6 +18,7 @@
                                    placeholder="E-mail">
                         </div>
                     </section>
+                    <?php if ($regErrors['email']): ?>
                     <div class="row mb-3 repeat-email">
                         <div class="col text-center">
                             <div class="div-repeat-email text-white">
@@ -26,6 +27,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <div class="row">
                         <div class="col text-center">
                             <button id="registrationBtn" class="btn btn-primary" disabled>
