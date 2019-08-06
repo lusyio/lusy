@@ -367,9 +367,9 @@ $statusColor = [
 <div class="modal fade" id="afterRegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" style="min-width: 700px;padding-left: 20px;padding-right: 20px;">
+        <div class="modal-content">
             <div class="modal-header border-0 text-center d-block">
-                <h4 class="modal-title" id="exampleModalLabel" style="font-weight: 800">Добро пожаловать в Lusy.io</h4>
+                <h4 class="modal-title" id="exampleModalLabel">Добро пожаловать в Lusy.io</h4>
             </div>
             <div class="modal-body text-left">
                 <p class="text-muted-new">
@@ -377,61 +377,61 @@ $statusColor = [
                 </p>
                 <div class="row mb-3">
                     <div class="col-3">
-                        <span style="color: #28416b;font-weight: 700;vertical-align: -50%;">Имя компании</span>
+                        <span class="after-reg-text">Имя компании</span>
                     </div>
                     <div class="col">
                         <label class="cd-username" for="afterRegCompanyname"><i class="fas fa-user text-muted-new"></i></label>
                         <input id="afterRegCompanyname" class="form-control" type="text" placeholder="Имя компании">
-                        <span id="companynameOK" class="position-absolute text-success display-none" style="right: 30px; top: 15px;">
+                        <span id="companynameOK" class="icon-after-reg position-absolute text-success display-none">
                             <i class="fas fa-check-circle"></i>
                         </span>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-3">
-                        <span style="color: #28416b;font-weight: 700;vertical-align: -50%;">Ваш email</span>
+                        <span class="after-reg-text">Ваш email</span>
                     </div>
                     <div class="col">
                         <label class="cd-username" for="afterRegEmail"><i
                                     class="fas fa-envelope text-muted-new"></i></label>
                         <input id="afterRegEmail" class="form-control" type="email" placeholder="email">
-                        <span id="emailOK" class="position-absolute text-success display-none" style="right: 30px; top: 15px;">
+                        <span id="emailOK" class="icon-after-reg  position-absolute text-success display-none">
                             <i class="fas fa-check-circle"></i>
                         </span>
                     </div>
                 </div>
                 <div class="row mb-4">
                     <div class="col-3">
-                        <span style="color: #28416b;font-weight: 700;vertical-align: -50%;">Пароль</span>
+                        <span class="after-reg-text">Пароль</span>
                     </div>
                     <div class="col position-relative">
                         <label class="cd-username" for="afterRegPassword"><i
                                     class="fas fa-key text-muted-new"></i></label>
                         <input id="afterRegPassword" class="form-control" type="text" placeholder="Пароль">
                         <input id="" class="form-control d-none" type="text" placeholder="Пароль">
-                        <span class="info-reg position-absolute text-ligther" style="right: 30px; top: 15px;"
+                        <span class="icon-after-reg  info-reg position-absolute text-ligther"
                               data-toggle="tooltip" data-placement="bottom"
                               title="Минимальное кол-во символов - 6">
                             <i class="fas fa-info-circle"></i>
                         </span>
-                        <span id="passwordOK" class="position-absolute text-success display-none" style="right: 30px; top: 15px;">
+                        <span id="passwordOK" class="icon-after-reg  position-absolute text-success display-none">
                             <i class="fas fa-check-circle"></i>
                         </span>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8 text-right">
+                    <div class="col-12 col-lg-8 text-right">
                         <button id="saveAfterReg" class="btn-afterreg btn btn-violet text-white">
                             Сохранить изменения
                         </button>
                     </div>
-                    <div class="col text-right">
+                    <div class="col-4 text-right">
                         <button class="btn-afterreg btn btn-light text-muted-new" data-dismiss="modal">
                             <span class="small">Пропустить</span>
                         </button>
                     </div>
                 </div>
-                <span class="position-absolute" style="left: 0px; top: 0px">
+                <span class="position-absolute bg-after-reg">
                 <i class="fas fa-sign-in-alt icon-limit-modal"></i>
                 </span>
             </div>
@@ -446,7 +446,7 @@ $statusColor = [
                         class="fas fa-times text-muted"></i></button>
             </span>
             <div class="text-center position-absolute spinner-after-reg">
-                <div class="spinner-border" style="width: 3rem; height: 3rem;color: #e4e4e4;margin-top: 30%;"
+                <div class="spinner-border"
                      role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
