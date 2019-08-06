@@ -2823,6 +2823,47 @@ span.date {
     cursor: pointer;
 }
 
+.after-reg-text{
+    color: #28416b;
+    font-weight: 700;
+    vertical-align: -50%;
+}
+
+#afterRegModal .modal-dialog{
+    max-width: 700px
+}
+
+#afterRegModal .modal-title{
+    font-weight: 800
+}
+
+#afterRegModal .modal-footer{
+    justify-content: start;
+}
+
+#afterRegModal .bg-after-reg{
+    left: 0px;
+    top: 0px;
+}
+
+#afterRegModal .icon-after-reg {
+    right: 30px;
+    top: 15px;
+}
+
+#afterRegModal .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: #e4e4e4;
+    margin-top: 30%;
+}
+
+
+#afterRegModal .modal-content{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 .select-coworker:hover > .row > .col-2 > .icon-add-coworker {
     color: #5d95db;
 }
@@ -3329,6 +3370,22 @@ span.date {
     }
     .searchDiv {
         display: none;
+    }
+
+    #afterRegModal .col-3{
+        display: none;
+    }
+
+    #afterRegModal .col-4{
+        display: none;
+    }
+
+    #afterRegModal .col-12.col-lg-8.text-right{
+        text-align: center !important;
+    }
+
+    #afterRegModal .btn-afterreg.btn.btn-light{
+        height: 100%;
     }
 
     #chatBox{
