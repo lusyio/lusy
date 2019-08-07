@@ -76,7 +76,7 @@
                     <table style="width: 100%;">
                         <tbody><tr>
                             <td width="80%" style="padding: 0px; background-color: #ffffff">
-                                <img src="https://lusy.io/upload/logo.png" style="width: 220px;padding-top: 20px; padding-bottom: 20px;">
+                                <img src="https://lusy.io/public/images/mail/logo.png" style="width: 220px;padding-top: 20px; padding-bottom: 20px;">
                             </td>
                             <td align="center" width="20%" style="padding: 0px;background-color: #ffffff;">
                                 <a class="button" href="https://s.lusy.io/ru/login/" style="background-color: #ffffff;color: #535ad3;border-color: #535ad3;border-radius: 20px;padding-left: 25px;padding-right: 25px;text-align: center;vertical-align: middle;font-size: 1rem;line-height: 1.5;text-decoration: none;">Войти</a>
