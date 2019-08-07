@@ -68,18 +68,18 @@
         margin-top: 30px;
     }
 </style>
-<table style="width: 100%;background-color: #fcfcfc;">
+<table style="width: 100%;background-color: #fcfcfc;" cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>
         <tr>
             <td align="center" style="padding: 0px;">
                 <div style="max-width: 600px">
-                    <table style="width: 100%;">
+                    <table style="width: 100%;" cellpadding="0" cellspacing="0" width="100%" border="0">
                         <tbody><tr>
-                            <td width="80%" style="padding: 0px; background-color: #ffffff">
+                            <td align="left" width="50%" style="padding: 0px; background-color: #ffffff">
                                 <img src="https://lusy.io/public/images/mail/logo.png" style="width: 220px;padding-top: 20px; padding-bottom: 20px;">
                             </td>
-                            <td align="center" width="20%" style="padding: 0px;background-color: #ffffff;">
-                                <a class="button" href="https://s.lusy.io/ru/login/" style="background-color: #ffffff;color: #535ad3;border-color: #535ad3;border-radius: 20px;padding-left: 25px;padding-right: 25px;text-align: center;vertical-align: middle;font-size: 1rem;line-height: 1.5;text-decoration: none;">Войти</a>
+                            <td align="right" width="50%" style="padding: 0px;padding-right: 15px;background-color: #ffffff;">
+                                <a href="https://s.lusy.io/ru/login/" style="padding: .375rem .75rem;background-color: #ffffff;color: #535ad3;border: 1px solid; border-color: #535ad3;border-radius: 20px;padding-left: 25px;padding-right: 25px;text-align: center;vertical-align: middle;font-size: 1rem;line-height: 1.5;text-decoration: none;">Войти</a>
                             </td>
                         </tr>
                         </tbody></table>
