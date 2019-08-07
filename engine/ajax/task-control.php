@@ -13,7 +13,7 @@ $usePremiumTask = false;
 $usePremiumCloud = false;
 if (isset($_POST['it'])) {
     $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
-    $taskDataQuery = $pdo->prepare("SELECT author, manager, worker, datedone, checklist, status, parent_task FROM tasks WHERE id = :taskId");
+    $taskDataQuery = $pdo->prepare("SELECT name, description, author, manager, worker, datecreate, datedone, checklist, status, parent_task FROM tasks WHERE id = :taskId");
     $taskDataQuery->execute([':taskId' => $idtask]);
     $taskData = $taskDataQuery->fetch(PDO::FETCH_ASSOC);
     $taskAuthorId =  $taskData['author'];
@@ -469,27 +469,69 @@ if ($_POST['module'] == 'checklist' && ($isManager || $isWorker) && isset($_POST
     echo $checklist[$checklistRow]['status'];
 }
 
+// *********************** //
+//  Редактирование задачи  //
+// *********************** //
+
 if($_POST['module'] == 'editTask' && $isManager) {
-    var_dump($_POST);
     //exit;
     $isPremiumUsed = false;
     $result = [
         'taskId' => '',
         'error' => '',
     ];
-
+// Не редактировать если задача отменена или завершена
     if (in_array($taskData['status'], ['done', 'canceled'])) {
         exit;
     }
-    if ($tryPremiumLimits['edit'] >= 3) {
+// Не редактировать если не премиум-тариф, не было премиум функций при создании задачи
+// и лимит бесплатного премиума исчерпан
+    if ($tariff == 0 && !$isPremiumUsed && $tryPremiumLimits['edit'] >= 3) {
         exit;
     }
 
-    $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
-    if ($newWorker != $idTaskWorker) {
-        //изменение воркера
+    require_once __ROOT__ . '/engine/backend/functions/storage-functions.php';
+
+    // Изменилось ли название и описание
+    $newName = trim($_POST['name']);
+    $newName = filter_var($newName, FILTER_SANITIZE_SPECIAL_CHARS);
+    $newDescription = trim($_POST['description']);
+    $newDescription = filter_var($newDescription, FILTER_SANITIZE_SPECIAL_CHARS);
+    if (($newName != $taskData['name']) || ($newDescription != $taskData['description'])) {
+        $updateNameAndDescriptionQuery = $pdo->prepare("UPDATE tasks SET name = :name, description = :description WHERE id = :taskId");
+        $updateNameAndDescriptionQuery->execute([':taskId' => $idtask, ':name' => $newName, ':description' => $newDescription]);
     }
 
+    // Изменился ли дедлайн
+    $newDatedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
+    $nowDate = strtotime('midnight');
+    if ($newDatedone != $taskDatedone && $newDatedone >= $nowDate) {
+        $updateDatedoneQuery = $pdo->prepare("UPDATE tasks SET datedone = :datedone, status = :status WHERE id = :taskId");
+        $updateDatedoneQuery->execute([':taskId' => $idtask, ':status' => 'inwork', ':datedone' => $newDatedone]);
+        if ($taskData['status'] != 'planned') {
+            $updateDatedoneQuery->execute([':taskId' => $idtask, ':datedone' => $newDatedone, ':status' => 'inwork']);
+            addChangeDateComments($idtask, 'senddate', $newDatedone);
+            resetViewStatus($idtask);
+            addEvent('senddate', $idtask, $newDatedone);
+        } else {
+            $updateDatedoneQuery->execute(array('datepostpone' => $newDatedone, ':status' => 'planned'));
+        }
+    }
+
+    // Изменился ли ответственный
+    $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
+    if ($taskData['status'] != $taskData['worker']) {
+        $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
+        $changeWorkerQuery->execute(array(':taskId' => $idtask, ':newWorker' => $newWorker));
+        if ($taskStatus != 'planned') {
+            addChangeExecutorsComments($idtask, 'newworker', $newWorker);
+            addEvent('changeworker', $idtask, '', $taskData['worker']);
+            resetViewStatus($idtask);
+        }
+    }
+
+
+    // Изменились ли соисполнители
     $unsafeCoworkers = json_decode($_POST['coworkers']);
     $editedCoworkers = [];
     foreach ($unsafeCoworkers as $c) {
@@ -500,7 +542,7 @@ if($_POST['module'] == 'editTask' && $isManager) {
         if (in_array($editedCoworker, $coworkers)) {
             continue;
         } else {
-            $newCoworkers[] = $editedCoworker;
+            $coworkersToAdd[] = $editedCoworker;
         }
     }
     $coworkersToRemove = [];
@@ -512,34 +554,52 @@ if($_POST['module'] == 'editTask' && $isManager) {
         }
     }
     if (count($coworkersToAdd) > 0) {
-        // добавление в базу
-        if ($taskData['status'] != 'planned') {
-            //события о добавлении соисполнителей
+        $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
+        foreach ($coworkersToAdd as $newCoworker) {
+            $addCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $newCoworker));
+            if ($taskStatus != 'planned') {
+                addChangeExecutorsComments($idtask, 'addcoworker', $newCoworker);
+                addEvent('addcoworker', $idtask, '', $newCoworker);
+            }
         }
     }
     if (count($coworkersToRemove) > 0) {
-        // Удаление из базы
-        if ($taskData['status'] != 'planned') {
-            //события об удалении соисполнителей
+        $deleteCoworkerQuery = $pdo->prepare('DELETE FROM task_coworkers where task_id = :taskId AND worker_id = :coworkerId');
+        foreach ($coworkersToRemove as $oldCoworker) {
+            $deleteCoworkerQuery->execute(array(':taskId' => $idtask, ':coworkerId' => $oldCoworker));
+            if ($taskStatus != 'planned') {
+                addChangeExecutorsComments($idtask, 'removecoworker', $oldCoworker);
+                addEvent('removecoworker', $idtask, '', $oldCoworker);
+            }
         }
     }
 
-    $newDatedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
-    if ($newDatedone != $taskDatedone) {
-        // Обновить дедлайн
-    }
-
-    $name = trim($_POST['name']);
-    $name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);
-    $description = trim($_POST['description']);
-    $description = filter_var($_POST['description'], FILTER_SANITIZE_SPECIAL_CHARS);
-    //Обновить в базе название и описание
-
+    // Редактирование надзадачи
     $newParentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
-    if ($newParentTask != $taskData['parent_task']) {
-        // Изменение надзадачи
+    if (is_null($taskData['parent_task']) && $newParentTask != 0) {
+        //Назначение надзадачи
+        addSubTaskComment($newParentTask, $idtask);
+        addNewSubTaskEvent($newParentTask, $idtask);
     }
-
+    if (!is_null($taskData['parent_task']) && $newParentTask == 0) {
+        // Удаление надзадачи
+    }
+    if (!is_null($taskData['parent_task']) && $newParentTask != 0) {
+        // Смена надзадачи
+    }
+    $updateParentTaskQuery = $pdo->prepare("UPDATE tasks SET parent_task = :parentTask WHERE id = :taskId");
+    if ($newParentTask != 0) {
+        if (is_null($taskData['parent_task']) || $newParentTask != $taskData['parent_task']) {
+            $updateParentTaskQuery->execute([':taskId' => $idtask, ':parentTask' => $newParentTask]);
+            addSubTaskComment($newParentTask, $idtask);
+            addNewSubTaskEvent($newParentTask, $idtask);
+        }
+    } else {
+        if (!is_null($taskData['parent_task'])) {
+            $updateParentTaskQuery->execute([':taskId' => $idtask, ':parentTask' => null]);
+        }
+    }
+    // Перезапись чеклиста
     $editedChecklist = [];
     if (isset($_POST['checklist'])) {
         $unsafeChecklist = json_decode($_POST['checklist'], true);
@@ -548,26 +608,26 @@ if($_POST['module'] == 'editTask' && $isManager) {
             $editedChecklist[$key]['status'] = 0;
             $editedChecklist[$key]['checkedBy'] = 0;
         }
+        $updateChecklistQuery = $pdo->prepare("UPDATE tasks SET checklist = :cheklist WHERE id = :taskId");
+        $checklistJson = json_encode($editedChecklist);
+        $updateChecklistQuery->execute([':taskId' => $idtask, ':cheklist' => $checklistJson]);
         //Перезаписать чеклист
     }
-    $uploadedFilesQuery = $pdo->prepare("SELECT file_id, file_name, file_size, file_path, is_deleted, cloud FROM uploads WHERE comment_type = 'task' AND comment_id = :taskId");
+
+// Удалены ли загруженные файлы
+    $uploadedFilesQuery = $pdo->prepare("SELECT file_id, file_name, file_size, file_path, is_deleted, cloud FROM uploads WHERE comment_type = 'task' AND comment_id = :taskId AND is_deleted = 0");
     $uploadedFilesQuery->execute([':taskId' => $idtask]);
     $uploadedFiles = $uploadedFilesQuery->fetchAll(PDO::FETCH_ASSOC);
-    $filesToRemove = [
-        'cloud' => [],
-        'storage' => [],
-    ];
+    $oldUploadsUnsafe = json_decode($_POST['oldUploads']);
+    $oldUploads = [];
+    foreach ($oldUploadsUnsafe as $olUploadId) {
+        $oldUploads[] = filter_var($olUploadId, FILTER_SANITIZE_NUMBER_INT);
+    }
     foreach ($uploadedFiles as $file) {
         if (!in_array($file['file_id'], $oldUploads)) {
-            if ($file['cloud']) {
-                $filesToRemove['cloud'][] = $file['file_id'];
-            } else {
-                $filesToRemove['storage'][] = $file['file_id'];
-            }
+            removeFile($file['file_id']);
         }
     }
-    // Удалить файлы $filesToRemove
-
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $newGoogleFiles = [];
     foreach ($unsafeGoogleFiles as $k => $v) {
@@ -577,6 +637,8 @@ if($_POST['module'] == 'editTask' && $isManager) {
             'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
+
+// Загрузка новых файлов
     $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
     $newDropboxFiles = [];
     foreach ($unsafeDropboxFiles as $k => $v) {
@@ -586,25 +648,44 @@ if($_POST['module'] == 'editTask' && $isManager) {
             'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
-
-
-    if (isset($_POST['manager'])) {
-        $managerId = filter_var($_POST['manager'], FILTER_SANITIZE_NUMBER_INT);
-    } else {
-        $managerId = $id;
+    if (count($_FILES) > 0) {
+        uploadAttachedFiles('task', $idtask);
+    }
+    if (count($newGoogleFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3 || $isPremiumUsed)) {
+        addGoogleFiles('task', $idtask, $newGoogleFiles);
+        $usePremiumCloud = true;
+    }
+    if (count($newDropboxFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3 || $isPremiumUsed)) {
+        addDropboxFiles('task', $idtask, $newDropboxFiles);
+        $usePremiumCloud = true;
     }
 
     $status = 'new';
-    $dateCreate = time();
-    if (isset($_POST['startdate']) && ($tariff == 1 || $tryPremiumLimits['task'] < 3)) {
-        $dateCreate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
-        if (date('Y-m-d', $dateCreate) > date('Y-m-d') && date('Y-m-d', $dateCreate) <= date('Y-m-d', $datedone)) {
-            $status = 'planned';
-            $usePremiumTask = true;
+    if (isset($_POST['startdate']) && ($tariff != 0 || $tryPremiumLimits['task'] < 3 || $isPremiumUsed)) {
+        $newStartDate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
+        if ($newStartDate != $taskData['datecreate'] && $taskData['status'] == 'planned') {
+            if (date('Y-m-d', $dateCreate) > date('Y-m-d') && date('Y-m-d', $dateCreate) <= date('Y-m-d', $newDatedone)) {
+                $updateStartDateQuery = $pdo->prepare("UPDATE tasks SET datecreate = :startDate WHERE id = :taskId");
+                $updateStartDateQuery->execute([':taskId' =>$idtask, ':startDate' => $newStartDate]);
+                $usePremiumTask = true;
+            }
         }
     }
-    $parentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
 
+    // Обновление лимитов бесплатного премиума
+    if ($tariff == 0) {
+        if ($usePremiumTask && !$isPremiumUsed) {
+            updateFreePremiumLimits($idc, 'task');
+        }
+        if ($usePremiumCloud) {
+            updateFreePremiumLimits($idc, 'cloud');
+        }
+    }
 
+    if ($status != 'planned') {
+        resetViewStatus($idtask);
+    }
 
+    $result['taskId'] = $idtask;
+    echo json_encode($result);
 }

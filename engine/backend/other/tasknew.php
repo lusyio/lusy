@@ -42,7 +42,7 @@ if (isset($_GET['edit']) && $_GET['edit'] == 1) {
     $taskCoworkersQuery->execute([':taskId' => $_GET['task']]);
     $taskCoworkers = $taskCoworkersQuery->fetchAll(PDO::FETCH_COLUMN);
 
-    $taskUploadsQuery = $pdo->prepare("SELECT file_id, file_name, file_size, file_path, is_deleted, cloud FROM uploads WHERE comment_type = 'task' AND comment_id = :taskId");
+    $taskUploadsQuery = $pdo->prepare("SELECT file_id, file_name, file_size, file_path, is_deleted, cloud FROM uploads WHERE comment_type = 'task' AND comment_id = :taskId AND is_deleted = 0");
     $taskUploadsQuery->execute([':taskId' => $_GET['task']]);
     $taskUploads = $taskUploadsQuery->fetchAll(PDO::FETCH_ASSOC);
 

@@ -154,8 +154,8 @@ $borderColor = [
                     <div class="col-12 col-lg-4">
                         <div class="label-tasknew text-left">
                             Дата старта
-                            <?php if ($taskEdit && $taskData['status'] == 'planned'): ?>
-                                <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $taskData['with_premium'] == 0)): ?>
+                            <?php if (($taskEdit && $taskData['status'] == 'planned') || !$taskEdit): ?>
+                                <?php if (!$taskEdit || ($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $taskData['with_premium'] == 0)): ?>
                                     <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                           title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                                 class="fas fa-comment-dollar"></i></span>
@@ -168,7 +168,7 @@ $borderColor = [
                         </div>
                         <div class="card card-tasknew">
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
-                                   min="<?= $GLOBALS["now"] ?>"
+                                   <?= ($taskEdit && $taskData['status'] != 'planned') ? '' : 'min="' . $GLOBALS["now"] . '"' ?>
                                    value="<?= ($taskEdit) ? date('Y-m-d', $taskData['datecreate']) : $GLOBALS["now"]?>"
                                 <?= ($taskEdit && $taskData['status'] != 'planned') ? 'disabled': 'required' ?>>
                         </div>
@@ -323,7 +323,7 @@ $borderColor = [
 <div class="row createTask-row">
     <div class="col-12 col-lg-4 create-task">
         <button id="createTask"
-                class="btn btn-block btn-outline-primary h-100"><?= $GLOBALS['_createnewtask'] ?></button>
+                class="btn btn-block btn-outline-primary h-100"><?= ($taskEdit) ? 'Сохранить' : $GLOBALS['_createnewtask'] ?></button>
     </div>
 </div>
 

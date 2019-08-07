@@ -235,6 +235,9 @@ $(document).ready(function () {
         var datedone = $("#datedone").val();
         var startdate = $("#startDate").val();
         var parentTask = $('.add-subtask:visible').attr('val');
+        if (typeof parentTask == "undefined") {
+            parentTask = '0';
+        }
         var fd = new FormData();
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
