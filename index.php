@@ -1,5 +1,7 @@
 <?php
-//session_cache_limiter('none');
+if ($_SERVER['REQUEST_URI'] != '/login/') {
+    session_cache_limiter('');
+}
 session_start();
 ob_start();
 setlocale(LC_ALL, 'ru_RU');
