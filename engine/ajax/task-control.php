@@ -486,7 +486,7 @@ if($_POST['module'] == 'editTask' && $isManager) {
     }
 // Не редактировать если не премиум-тариф, не было премиум функций при создании задачи
 // и лимит бесплатного премиума исчерпан
-    if ($tariff == 0 && !$isPremiumUsed && $tryPremiumLimits['edit'] >= 3) {
+    if ($tariff == 0 && $tryPremiumLimits['edit'] >= 3) {
         exit;
     }
 
@@ -674,8 +674,11 @@ if($_POST['module'] == 'editTask' && $isManager) {
 
     // Обновление лимитов бесплатного премиума
     if ($tariff == 0) {
+        updateFreePremiumLimits($idc, 'edit');
         if ($usePremiumTask && !$isPremiumUsed) {
             updateFreePremiumLimits($idc, 'task');
+            $updateTaskQuery = $pdo->prepare("UPDATE tasks SET with_premium = 1 WHERE id = :taskId");
+            $updateTaskQuery->execute([':taskId' => $idtask]);
         }
         if ($usePremiumCloud) {
             updateFreePremiumLimits($idc, 'cloud');

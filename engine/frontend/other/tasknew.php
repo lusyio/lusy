@@ -323,6 +323,9 @@ $borderColor = [
 <div class="row createTask-row">
     <div class="col-12 col-lg-4 create-task">
         <button id="createTask"
+                <?php if ($taskEdit && $tariff == 0 && !$taskData['with_premium']): ?>
+                data-toggle="tooltip" data-placement="bottom" title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['edit'] ?>/3)"
+                <?php endif; ?>
                 class="btn btn-block btn-outline-primary h-100"><?= ($taskEdit) ? 'Сохранить' : $GLOBALS['_createnewtask'] ?></button>
     </div>
 </div>
