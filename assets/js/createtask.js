@@ -131,14 +131,16 @@ $(document).ready(function () {
         }
     });
 
+    var idSubtask;
+
     $(".select-subtask").on('click', function () {
         $('.placeholder-subtask').hide();
-        var id = $(this).attr('val');
+        idSubtask = $(this).attr('val');
         var selected = $('.add-subtask:visible').attr('val');
         $('.subtask-card').find("[val = " + selected + "]").removeClass('d-none');
         $(this).addClass('d-none');
         $('.add-subtask').addClass('d-none');
-        $('.container-subtask').find("[val = " + id + "]").removeClass('d-none');
+        $('.container-subtask').find("[val = " + idSubtask + "]").removeClass('d-none');
         subtaskListEmpty();
     });
 
@@ -234,10 +236,11 @@ $(document).ready(function () {
         var delta = quill.root.innerHTML;
         var datedone = $("#datedone").val();
         var startdate = $("#startDate").val();
-        var parentTask = $('.add-subtask:visible').attr('val');
+        var parentTask = idSubtask;
         if (typeof parentTask == "undefined") {
             parentTask = '0';
         }
+        console.log(parentTask);
         var fd = new FormData();
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
