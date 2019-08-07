@@ -124,7 +124,7 @@ if ($id == $worker and $view == 0) {
 }
 ?>
 <div id="task">
-    <div class="card mt-3">
+    <div class="card mt-3 task-container-dragover">
         <div class="card-body <?= ((count($subTasks) > 0)) ? 'shadow-subtask' : ''; ?>">
             <div class="row">
                 <div class="col-12 subtask-badge-mobile">
