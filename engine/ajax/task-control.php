@@ -520,7 +520,7 @@ if($_POST['module'] == 'editTask' && $isManager) {
 
     // Изменился ли ответственный
     $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
-    if ($taskData['status'] != $taskData['worker']) {
+    if ($newWorker != $taskData['worker']) {
         $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
         $changeWorkerQuery->execute(array(':taskId' => $idtask, ':newWorker' => $newWorker));
         if ($taskStatus != 'planned') {
