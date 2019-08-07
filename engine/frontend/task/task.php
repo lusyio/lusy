@@ -289,6 +289,7 @@ if ($id == $worker and $view == 0) {
             </div>
         <?php endif; ?>
     </div>
+    <div class="comment-container-task">
     <?php if ($enableComments): ?>
         <div class="card mt-3">
             <div class="card-body">
@@ -311,6 +312,7 @@ if ($id == $worker and $view == 0) {
         <div class="card-body">
             <?php include __ROOT__ . '/engine/frontend/task/notyfeed.php' ?>
         </div>
+    </div>
     </div>
 </div>
 <div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

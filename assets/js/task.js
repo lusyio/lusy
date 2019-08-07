@@ -102,6 +102,45 @@ $(document).ready(function () {
         marker = false;
     }
 
+    var dropZone = $('.comment-container-task');
+
+    dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function(){
+        return false;
+    });
+
+    dropZone.on('dragover dragenter', function() {
+        $('.comment-container-task').addClass('dragover');
+    });
+
+    dropZone.on('dragleave', function(e) {
+        $('.comment-container-task').removeClass('dragover');
+    });
+
+    dropZone.on('drop', function(e) {
+        $('.comment-container-task').removeClass('dragover');
+        var files = e.originalEvent.dataTransfer.files;
+        console.log(files);
+        sendFiles(files);
+    });
+
+    function sendFiles (files){
+        $(files).each(function () {
+            names = this.name;
+            size = this.size;
+            var sizeLimit = $('.dropdown').attr('empty-space');
+            if (size <= sizeLimit) {
+                fileList.set(n, $(this)[0]);
+                $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
+                    "<i class='fas fa-paperclip mr-1'></i>" + names +
+                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                    "</div>");
+                n++;
+            } else {
+                $("#fileSizeLimitModal").modal('show');
+            }
+        });
+    }
+
     $(".file-name").on('click', '.cancelFile', function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
