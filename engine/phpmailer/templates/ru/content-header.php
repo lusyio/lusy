@@ -75,12 +75,10 @@
                 <div style="max-width: 600px">
                     <table style="width: 100%;">
                         <tbody><tr>
-                            <td width="80%" style="padding: 0px;padding-top: 10px;">
-                            <h3 style="text-align:left;color: #202429;font-size: 1.25rem;padding-top: 0;font-weight: 700;max-width: 600px;margin-bottom: 0px;background-color: #ffffff;padding-bottom: 20px;padding-top: 20px;letter-spacing: 3px;">
-                                <img src="/upload/logo.png" style="width: 220px;">
-                            </h3>
+                            <td width="80%" style="padding: 0px;">
+                                <img src="/upload/logo.png" style="width: 220px;padding-top: 20px; padding-bottom: 20px;">
                             </td>
-                            <td width="20%" style="padding-top: 10px;background-color: #ffffff;">
+                            <td width="20%" style="padding: 0px;background-color: #ffffff;">
                                 <a class="button" href="https://s.lusy.io/ru/login/" style="background-color: #ffffff;color: #535ad3;border-color: #535ad3;border-radius: 20px;padding-left: 25px;padding-right: 25px;text-align: center;vertical-align: middle;font-size: 1rem;line-height: 1.5;text-decoration: none;">Войти</a>
                             </td>
                         </tr>

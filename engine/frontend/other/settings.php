@@ -2,6 +2,10 @@
 <script src="/assets/js/jquery.mask.min.js"></script>
 <link href="/assets/css/cropper.css" rel="stylesheet">
 
+<?php
+sendAchievementEmailNotification(4200002, 'meeting');
+?>
+
 <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-10">
         <div class="accordion" id="accordionSettings">
