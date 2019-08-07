@@ -15,7 +15,7 @@
                 <div class="margin20t" style="margin-top: 20px;background-color: #ffffff">
                     <table style="width: 100%;">
                         <tr>
-                            <td style="padding: 0px;"><img src="/upload/newtask.jpg" style="width: 100%;max-width: 100%;"></td>
+                            <td style="padding: 0px;"><img src="https://s.lusy.io/upload/newtask.jpg" style="width: 100%;max-width: 100%;"></td>
                         </tr>
                         <tr>
                             <td align="center" valign="top" style="padding: 0px;">
@@ -31,7 +31,7 @@
                 <div class="margin20t" style="margin-top: 20px;background-color: #ffffff">
                     <table style="width: 100%;">
                         <tr>
-                            <td style="padding: 0px;"><img src="/upload/mes.jpg" style="width: 100%;max-width: 100%;"></td>
+                            <td style="padding: 0px;"><img src="https://s.lusy.io/upload/mes.jpg" style="width: 100%;max-width: 100%;"></td>
                         </tr>
                         <tr>
                             <td align="center" valign="top" style="padding: 0px;">
