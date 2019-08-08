@@ -14,6 +14,8 @@ $borderColor = [
 ];
 ?>
 
+<div class="dragover-box">
+
 <div class="row">
     <div class="col-12 col-lg-8 top-block-tasknew">
         <label class="label-tasknew">
@@ -275,9 +277,6 @@ $borderColor = [
         <label class="label-tasknew">
             Прикрепленные файлы
         </label>
-        <div class="spinner-border spinner-border-sm ml-1 display-none" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
         <div class="file-name container-files <?= ($taskEdit && count($taskUploads) > 0) ? '' : 'display-none' ?>">
             <div id="filenamesExampleCloud" class='filenames attached-source-file d-none' data-name='name' data-link='link'
                  data-file-size='size' data-file-id="">
@@ -327,6 +326,8 @@ $borderColor = [
                 <?php endif; ?>
                 class="btn btn-block btn-outline-primary h-100"><?= ($taskEdit) ? 'Сохранить' : $GLOBALS['_createnewtask'] ?></button>
     </div>
+</div>
+
 </div>
 
 <div class="modal fade limit-modal" id="freeOptionsModal" tabindex="-1" role="dialog"
@@ -496,7 +497,6 @@ $borderColor = [
                 if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
-                        console.log(file);
                         addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive');
                     });
                 }
@@ -528,7 +528,6 @@ $borderColor = [
         options = {
             success: function (files) {
                 files.forEach(function (file) {
-                    console.log(file);
                     addFileToList(file.name, file.link, file.bytes, 'dropbox', 'fab fa-dropbox');
                 })
             },
