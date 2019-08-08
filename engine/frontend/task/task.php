@@ -158,14 +158,14 @@ if ($id == $worker and $view == 0) {
                 <?php if (($isCeo || $task['manager'] == $id) && !in_array($task['status'], ['done', 'canceled'])): ?>
                     <?php if ($tariff == 1 || $tryPremiumLimits['edit'] < 3): ?>
                         <?php if ($tariff == 0): ?>
-                            <a data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу (Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['edit'] ?>/3)" href="./edit/"><i
+                            <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу (Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['edit'] ?>/3)" href="./edit/"><i
                                         class="fas fa-pencil-alt edit-profile"></i></a>
                         <?php else: ?>
-                            <a data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу" href="./edit/"><i
+                            <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу" href="./edit/"><i
                                         class="fas fa-pencil-alt edit-profile"></i></a>
                         <?php endif; ?>
                     <?php else: ?>
-                            <a data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу" href="#"><i
+                            <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу" href="#"><i
                                         id="editTask" class="fas fa-pencil-alt edit-profile"></i></a>
                     <?php endif; ?>
                 <?php endif; ?>
