@@ -104,6 +104,11 @@ $(document).ready(function () {
 
     if ($('#control').has('.drag-n-drop')){
 
+        var fileList2 = new Map();
+        var names2;
+        var n2 = 0;
+        var size2;
+
     var dropZone2 = $('.drag-n-drop');
 
     dropZone2.on('drag dragstart dragend dragover dragenter dragleave drop', function () {
@@ -127,16 +132,16 @@ $(document).ready(function () {
 
     function sendFiles2(files) {
         $(files).each(function () {
-            names = this.name;
-            size = this.size;
+            names2 = this.name;
+            size2 = this.size;
             var sizeLimit = $('.dropdown').attr('empty-space');
-            if (size <= sizeLimit) {
-                fileList.set(n, $(this)[0]);
-                $(".file-name-review").show().append("<div val='" + n + "' class='filenames'>" +
-                    "<i class='fas fa-paperclip mr-1'></i>" + names +
+            if (size2 <= sizeLimit) {
+                fileList2.set(n2, $(this)[0]);
+                $(".file-name-review").show().append("<div val='" + n2 + "' class='filenames'>" +
+                    "<i class='fas fa-paperclip mr-1'></i>" + names2 +
                     "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
                     "</div>");
-                n++;
+                n2++;
             } else {
                 $("#fileSizeLimitModal").modal('show');
             }
@@ -360,7 +365,7 @@ $(document).ready(function () {
                 size: $(dropboxFileToSend).data('file-size')
             };
         });
-        fileList.forEach(function (file, i) {
+        fileList2.forEach(function (file, i) {
             fd.append('file' + i, file);
         });
         fd.append('module', 'sendonreview');
@@ -583,7 +588,7 @@ $(document).ready(function () {
                 size: $(dropboxFileToSend).data('file-size')
             };
         });
-        fileList.forEach(function (file, i) {
+        fileList2.forEach(function (file, i) {
             fd.append('file' + i, file);
         });
         fd.append('module', 'workreturn');
