@@ -5,7 +5,7 @@
     <tbody>
     <tr>
         <td style="word-break:break-word;" align="center">
-            <div style="vertical-align:top;text-align:left;width:100%;max-width:600px;">
+            <div style="vertical-align:top;text-align:left;max-width:600px;">
                 <div align="center" class="block center" style="padding: 20px;text-align: center;max-width: 600px;background-color: #ffffff;">
                     <h1 style="font-size: 30px;font-weight: 900; color:#000000;">Подтвердите e-mail владельца компании</h1>
                     <p class="margin20t" style="margin-top: 20px;line-height: 2;font-size: 16px;color: #353b41;">Для подтверждения электронной почты нажмите на кнопку</p>
