@@ -15,7 +15,7 @@
 <?php endif; ?>
 <div id="report-block" class="collapse review-block mt-2">
 	<p class="text-ligther mb-2"><?=$GLOBALS["_writereport"]?>:</p>
-	<div class="form-group mb-0">
+	<div class="form-group mb-0 drag-n-drop">
         <div class="row">
             <div class="col">
 		        <textarea name="report" id="reportarea" class="form-control" rows="4" placeholder="<?=$GLOBALS["_report"]?>" required></textarea>

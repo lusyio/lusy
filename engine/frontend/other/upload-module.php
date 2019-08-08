@@ -24,7 +24,7 @@ endif;
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item attach-file" href="#"><i class="fas fa-file-upload custom-date mr-2"></i>
-                <span>С компьютера</span></a>
+                <span>С устройства</span></a>
             <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i
                         class="custom-date mr-2 fab fa-google-drive"></i>
                 <span>Из Google Drive</span></a>
@@ -70,7 +70,7 @@ endif;
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item attach-file-review" href="#"><i class="fas fa-file-upload custom-date mr-2"></i>
-                <span>С компьютера</span></a>
+                <span>С устройства</span></a>
             <a class="dropdown-item" id="openGoogleDriveReview" href="#" data-toggle="modal"><i
                         class="custom-date mr-2 fab fa-google-drive"></i>
                 <span>Из Google Drive</span></a>
@@ -86,7 +86,7 @@ endif;
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item attach-file" href="#"><i class="fas fa-file-upload custom-date mr-2"></i>
-                <span>С компьютера</span></a>
+                <span>С устройства</span></a>
             <a class="dropdown-item" id="openGoogleDrive" href="#" data-toggle="modal"><i
                         class="custom-date mr-2 fab fa-google-drive"></i>
                 <span>Из Google Drive</span></a>

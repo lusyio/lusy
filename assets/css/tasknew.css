@@ -19,6 +19,11 @@
     text-align: -webkit-center;
 }
 
+.dragover-box.dragover{
+    outline: 1px solid #0078d7;
+    outline: -webkit-focus-ring-color dashed 2px;
+}
+
 .remove-parenttask{
     margin-left: 5px;
     color: rgba(188, 0, 0, 0.51);

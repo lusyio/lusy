@@ -102,6 +102,93 @@ $(document).ready(function () {
         marker = false;
     }
 
+    if ($('#control').has('.drag-n-drop')){
+
+        var fileList2 = new Map();
+        var names2;
+        var n2 = 0;
+        var size2;
+
+    var dropZone2 = $('.drag-n-drop');
+
+    dropZone2.on('drag dragstart dragend dragover dragenter dragleave drop', function () {
+        return false;
+    });
+
+    dropZone2.on('dragover dragenter', function () {
+        $('.drag-n-drop').addClass('dragover');
+    });
+
+    dropZone2.on('dragleave', function (e) {
+        $('.drag-n-drop').removeClass('dragover');
+    });
+
+    dropZone2.on('drop', function (e) {
+        $('.drag-n-drop').removeClass('dragover');
+        var files = e.originalEvent.dataTransfer.files;
+        console.log(files);
+        sendFiles2(files);
+    });
+
+    function sendFiles2(files) {
+        $(files).each(function () {
+            names2 = this.name;
+            size2 = this.size;
+            var sizeLimit = $('.dropdown').attr('empty-space');
+            if (size2 <= sizeLimit) {
+                fileList2.set(n2, $(this)[0]);
+                $(".file-name-review").show().append("<div val='" + n2 + "' class='filenames'>" +
+                    "<i class='fas fa-paperclip mr-1'></i>" + names2 +
+                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                    "</div>");
+                n2++;
+            } else {
+                $("#fileSizeLimitModal").modal('show');
+            }
+        });
+    }
+
+    }
+
+    var dropZone = $('.comment-container-task');
+
+    dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function () {
+        return false;
+    });
+
+    dropZone.on('dragover dragenter', function () {
+        $('.comment-container-task').addClass('dragover');
+    });
+
+    dropZone.on('dragleave', function (e) {
+        $('.comment-container-task').removeClass('dragover');
+    });
+
+    dropZone.on('drop', function (e) {
+        $('.comment-container-task').removeClass('dragover');
+        var files = e.originalEvent.dataTransfer.files;
+        console.log(files);
+        sendFiles(files);
+    });
+
+    function sendFiles(files) {
+        $(files).each(function () {
+            names = this.name;
+            size = this.size;
+            var sizeLimit = $('.dropdown').attr('empty-space');
+            if (size <= sizeLimit) {
+                fileList.set(n, $(this)[0]);
+                $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
+                    "<i class='fas fa-paperclip mr-1'></i>" + names +
+                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                    "</div>");
+                n++;
+            } else {
+                $("#fileSizeLimitModal").modal('show');
+            }
+        });
+    }
+
     $(".file-name").on('click', '.cancelFile', function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
@@ -232,7 +319,16 @@ $(document).ready(function () {
             $('#comment').prop('disabled', false);
             $("#comin").val("");
             $(".file-name").empty();
+        } else {
+            $('#comin').css({
+                'border-color': '#dc3545',
+                'transition': '1000ms'
+            });
+            setTimeout(function () {
+                $('#comin').css('border-color', "#ced4da");
+            }, 1000)
         }
+
     });
 
     // перенос срока задачи
@@ -269,7 +365,7 @@ $(document).ready(function () {
                 size: $(dropboxFileToSend).data('file-size')
             };
         });
-        fileList.forEach(function (file, i) {
+        fileList2.forEach(function (file, i) {
             fd.append('file' + i, file);
         });
         fd.append('module', 'sendonreview');
@@ -358,7 +454,7 @@ $(document).ready(function () {
         var sendDate = $("#deadlineInput").val();
         var checkDate = $("#deadlineInput").attr('min');
         var dateDone = $("#deadlineInput").attr('datedone');
-        if (sendDate >= checkDate &&  sendDate != dateDone) {
+        if (sendDate >= checkDate && sendDate != dateDone) {
             $(this).prop('disabled', true);
             $('#spinnerModal').modal('show');
             $.ajax({
@@ -492,7 +588,7 @@ $(document).ready(function () {
                 size: $(dropboxFileToSend).data('file-size')
             };
         });
-        fileList.forEach(function (file, i) {
+        fileList2.forEach(function (file, i) {
             fd.append('file' + i, file);
         });
         fd.append('module', 'workreturn');
@@ -684,11 +780,11 @@ $(document).ready(function () {
             },
             success: function (data) {
                 console.log(data);
-                if (data == 1){
+                if (data == 1) {
                     $this.prop('checked', true);
                     var userName = $('#fullUserName').val();
                     $this.parents('.pure-material-checkbox').find('.small').text('(' + userName + ')');
-                } else{
+                } else {
                     $this.prop('checked', false);
                     $this.parents('.pure-material-checkbox').find('.small').text('');
                 }

@@ -5,6 +5,43 @@ $(document).ready(function () {
         $('#sendFiles').trigger('click');
     });
 
+    var dropZone = $('.anim-show');
+
+    dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function(){
+        return false;
+    });
+
+    dropZone.on('dragover dragenter', function() {
+        $('.dragover-box').addClass('dragover');
+    });
+
+    dropZone.on('dragleave', function(e) {
+        $('.dragover-box').removeClass('dragover');
+    });
+
+    dropZone.on('drop', function(e) {
+        $('.dragover-box').removeClass('dragover');
+        var files = e.originalEvent.dataTransfer.files;
+        sendFiles(files);
+    });
+
+    function sendFiles (files){
+        $(files).each(function () {
+            names = this.name;
+            size = this.size;
+            var sizeLimit = $('.dropdown').attr('empty-space');
+            if (size <= sizeLimit) {
+                fileList.set(n, $(this)[0]);
+                $('#filenamesExample').clone().attr('val', n).removeClass('d-none').appendTo('.file-name');
+                $('[val=' + n + ']').find('span').text(names);
+                $('.file-name').show();
+                n++;
+            } else {
+                $("#fileSizeLimitModal").modal('show');
+            }
+        });
+    }
+
     $(".file-name").on('click', '.cancelFile', function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
@@ -296,9 +333,6 @@ $(document).ready(function () {
                         //     event.returnValue = 'as';
                         // });
                         $('#sendMesName').hide();
-                        if (fileList.size != 0){
-                            $('.spinner-border-sm').show();
-                        }
                     };
                     return xhr;
                 },
@@ -314,7 +348,6 @@ $(document).ready(function () {
 
                 complete: function () {
                     $('#sendMesName').show();
-                    $('.spinner-border-sm').hide();
                     // $(window).unbind('beforeunload');
                 },
             });

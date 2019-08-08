@@ -84,21 +84,9 @@
     padding: 0.8rem;
 }
 
-.edit-task{
-    right: 15px;
-    bottom: 0;
-    position: absolute;
-    opacity: 0.25;
-    transition: 50ms;
-}
-
-.edit-task:hover{
-    cursor: pointer;
-}
-
-.edit-taskname-task:hover .edit-task{
-    opacity: 1;
-
+#task .dragover{
+    outline: 1px solid #0078d7;
+    outline: -webkit-focus-ring-color dashed 2px;
 }
 
 .card-footer-subtask .d-block{

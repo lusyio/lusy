@@ -124,7 +124,7 @@ if ($id == $worker and $view == 0) {
 }
 ?>
 <div id="task">
-    <div class="card mt-3">
+    <div class="card mt-3 task-container-dragover">
         <div class="card-body <?= ((count($subTasks) > 0)) ? 'shadow-subtask' : ''; ?>">
             <div class="row">
                 <div class="col-12 subtask-badge-mobile">
@@ -306,6 +306,7 @@ if ($id == $worker and $view == 0) {
             </div>
         <?php endif; ?>
     </div>
+    <div class="comment-container-task">
     <?php if ($enableComments): ?>
         <div class="card mt-3">
             <div class="card-body">
@@ -328,6 +329,7 @@ if ($id == $worker and $view == 0) {
         <div class="card-body">
             <?php include __ROOT__ . '/engine/frontend/task/notyfeed.php' ?>
         </div>
+    </div>
     </div>
 </div>
 <div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

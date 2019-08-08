@@ -14,9 +14,9 @@
                      class="avatar-added mr-1 mb-0">
                 <?php
                 if ($task['managerName'] != null || $task['managerSurname'] != null): ?>
-                    <a href="#"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
+                    <a class="text-decoration-none" href="/profile/<?= $task['manager'] ?>/"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
                 <?php else: ?>
-                    <a href="#"><?= $task['managerEmail'] ?></a>
+                    <a class="text-decoration-none" href="/profile/<?= $task['manager'] ?>/"><?= $task['managerEmail'] ?></a>
                 <?php endif; ?>
             </div>
             <div class="members-responsible">
