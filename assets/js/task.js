@@ -102,28 +102,48 @@ $(document).ready(function () {
         marker = false;
     }
 
+    if ($('#control').has('.drag-n-drop')){
 
-    var dropZone2 = $('.task-container-dragover');
+    var dropZone2 = $('.drag-n-drop');
 
     dropZone2.on('drag dragstart dragend dragover dragenter dragleave drop', function () {
         return false;
     });
 
     dropZone2.on('dragover dragenter', function () {
-        $('.task-container-dragover').addClass('dragover');
+        $('.drag-n-drop').addClass('dragover');
     });
 
     dropZone2.on('dragleave', function (e) {
-        $('.task-container-dragover').removeClass('dragover');
+        $('.drag-n-drop').removeClass('dragover');
     });
 
     dropZone2.on('drop', function (e) {
-        $('.task-container-dragover').removeClass('dragover');
+        $('.drag-n-drop').removeClass('dragover');
         var files = e.originalEvent.dataTransfer.files;
         console.log(files);
         sendFiles2(files);
     });
 
+    function sendFiles2(files) {
+        $(files).each(function () {
+            names = this.name;
+            size = this.size;
+            var sizeLimit = $('.dropdown').attr('empty-space');
+            if (size <= sizeLimit) {
+                fileList.set(n, $(this)[0]);
+                $(".file-name-review").show().append("<div val='" + n + "' class='filenames'>" +
+                    "<i class='fas fa-paperclip mr-1'></i>" + names +
+                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
+                    "</div>");
+                n++;
+            } else {
+                $("#fileSizeLimitModal").modal('show');
+            }
+        });
+    }
+
+    }
 
     var dropZone = $('.comment-container-task');
 
@@ -145,24 +165,6 @@ $(document).ready(function () {
         console.log(files);
         sendFiles(files);
     });
-
-    function sendFiles2(files) {
-        $(files).each(function () {
-            names = this.name;
-            size = this.size;
-            var sizeLimit = $('.dropdown').attr('empty-space');
-            if (size <= sizeLimit) {
-                fileList.set(n, $(this)[0]);
-                $(".file-name-review").show().append("<div val='" + n + "' class='filenames'>" +
-                    "<i class='fas fa-paperclip mr-1'></i>" + names +
-                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
-                    "</div>");
-                n++;
-            } else {
-                $("#fileSizeLimitModal").modal('show');
-            }
-        });
-    }
 
     function sendFiles(files) {
         $(files).each(function () {
