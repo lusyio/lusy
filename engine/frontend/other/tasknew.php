@@ -140,7 +140,7 @@ $borderColor = [
                                 <?php
                                 foreach ($parentTasks as $parentTask) { ?>
                                     <div val="<?php echo $parentTask['id']; ?>"
-                                         class="add-subtask text-area-message <?= ($taskEdit && $parentTask['id'] == $taskData['parent_task']) ? '' : 'd-none' ?> border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
+                                         class="add-subtask text-area-message <?= ($taskEdit && $parentTask['id'] == $taskData['parent_task']) ? 'subtask-selected' : 'd-none' ?> border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
                                         <span class="card-coworker"><?= $parentTask['name']; ?></span>
                                     </div>
                                 <?php } ?>
@@ -200,7 +200,7 @@ $borderColor = [
                                 </div>
                                 <?php if ($taskEdit): ?>
                                 <?php foreach ($checklist as $key => $item): ?>
-                                <div class="position-relative check-list-new mb-2" data-id="<?= ++$key ?>">
+                                <div class="position-relative check-list-new mb-2 checklist-selected" data-id="<?= ++$key ?>">
                                     <i class="far fa-check-square text-muted-new"></i>
                                     <span class="ml-3" style="color: #28416b;"><?= $item['text'] ?></span>
                                     <i class="fas fa-times delete-checklist-item"></i>

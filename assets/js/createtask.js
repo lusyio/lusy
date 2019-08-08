@@ -142,7 +142,7 @@ $(document).ready(function () {
         subtaskListEmpty();
     });
 
-    $('.subtask-selected').on('click', function () {
+    $('.container-subtask').on('click', '.subtask-selected', function () {
         $(this).addClass('d-none').removeClass('subtask-selected');
     });
 

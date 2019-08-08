@@ -23,6 +23,14 @@
     margin-bottom: 1rem;
 }
 
+.subtask-selected{
+    transition: 100ms;
+}
+
+.subtask-selected:hover{
+    background-color: rgba(188, 0, 0, 0.1);
+}
+
 .tooltip-free{
     color: #c2c2c4;
 }

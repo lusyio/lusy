@@ -175,7 +175,6 @@ $statusColor = [
             </a>
             <?php endif; ?>
         </div>
-        <!--        <div class="bottomGradient"></div>-->
     </div>
 </div>
 <div class="swiper-container" id="mainSwiper">
