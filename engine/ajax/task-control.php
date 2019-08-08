@@ -664,11 +664,10 @@ if($_POST['module'] == 'editTask' && $isManager) {
         $usePremiumCloud = true;
     }
 
-    $status = 'new';
     if (isset($_POST['startdate']) && ($tariff != 0 || $tryPremiumLimits['task'] < 3 || $isPremiumUsed)) {
         $newStartDate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
         if ($newStartDate != $taskData['datecreate'] && $taskData['status'] == 'planned') {
-            if (date('Y-m-d', $dateCreate) > date('Y-m-d') && date('Y-m-d', $dateCreate) <= date('Y-m-d', $newDatedone)) {
+            if (date('Y-m-d', $newStartDate) > date('Y-m-d') && date('Y-m-d', $newStartDate) <= date('Y-m-d', $newDatedone)) {
                 $updateStartDateQuery = $pdo->prepare("UPDATE tasks SET datecreate = :startDate WHERE id = :taskId");
                 $updateStartDateQuery->execute([':taskId' =>$idtask, ':startDate' => $newStartDate]);
                 $usePremiumTask = true;
@@ -689,7 +688,7 @@ if($_POST['module'] == 'editTask' && $isManager) {
         }
     }
 
-    if ($status != 'planned') {
+    if ($taskData['status'] != 'planned') {
         resetViewStatus($idtask);
     }
 

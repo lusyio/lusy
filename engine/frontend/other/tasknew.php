@@ -167,7 +167,7 @@ $borderColor = [
                         </div>
                         <div class="card card-tasknew">
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
-                                   <?= ($taskEdit && $taskData['status'] != 'planned') ? '' : 'min="' . $GLOBALS["now"] . '"' ?>
+                                   min="<?= ($taskEdit && $taskData['status'] == 'planned') ? date('Y-m-d', strtotime('+1 day')) : $GLOBALS["now"] ?>"
                                    value="<?= ($taskEdit) ? date('Y-m-d', $taskData['datecreate']) : $GLOBALS["now"]?>"
                                 <?= ($taskEdit && $taskData['status'] != 'planned') ? 'disabled': 'required' ?>>
                         </div>
