@@ -160,10 +160,10 @@ $(document).ready(function () {
         var selected = $('.add-responsible:visible').attr('val');
         $('.responsible-card').find("[val = " + selected + "]").removeClass('d-none');
         $(this).addClass('d-none');
-        $('.add-responsible').addClass('d-none');
+        $('.add-responsible').addClass('d-none').removeClass('responsible-selected');
         $('.coworker-card').find("[val = " + id + "]").addClass('d-none');
         $('.container-coworker').find("[val = " + id + "]").addClass('d-none');
-        $('.container-responsible').find("[val = " + id + "]").removeClass('d-none');
+        $('.container-responsible').find("[val = " + id + "]").removeClass('d-none').addClass('responsible-selected');
         updateCoworkers();
     });
 
@@ -221,8 +221,9 @@ $(document).ready(function () {
                 id: $(dropboxFileToSend).data('file-id'),
             };
         });
-        var responsible = $('.add-responsible:visible').attr('val');
+        var responsible = $('.add-responsible.responsible-selected').attr('val');
         var coworkers = [];
+        console.log(responsible);
         $('.add-worker:visible').each(function () {
             coworkers.push($(this).attr('val'));
         });
@@ -267,7 +268,7 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('parentTask', parentTask);
-        if (name != null && datedone != null && datedone >= checkDate && responsible != null) {
+        if (name != '' && datedone != null && datedone >= checkDate && responsible != null) {
             $this.prop('disabled', true);
             $('#spinnerModal').modal('show');
             $.ajax({
@@ -318,7 +319,10 @@ $(document).ready(function () {
                 });
                 setTimeout(function () {
                     $('.container-responsible').css('background-color', '#fff');
-                }, 1000)
+                }, 1000);
+                $('html, body').animate({
+                    scrollTop: $(".container-responsible").offset().top
+                }, 500);
             }
             if (name === '') {
                 $('#name').css({
@@ -327,7 +331,10 @@ $(document).ready(function () {
                 });
                 setTimeout(function () {
                     $('#name').css('background-color', '#fff');
-                }, 1000)
+                }, 1000);
+                $('html, body').animate({
+                    scrollTop: $("#name").offset().top
+                }, 500);
             }
             if (datedone <= checkDate) {
                 $('#datedone').css({
@@ -336,7 +343,10 @@ $(document).ready(function () {
                 });
                 setTimeout(function () {
                     $('#datedone').css('background-color', '#fff');
-                }, 1000)
+                }, 1000);
+                $('html, body').animate({
+                    scrollTop: $("#datedone").offset().top
+                }, 500);
             }
             if (datedone === '') {
                 $('#datedone').css({
@@ -345,7 +355,10 @@ $(document).ready(function () {
                 });
                 setTimeout(function () {
                     $('#datedone').css('background-color', '#fff');
-                }, 1000)
+                }, 1000);
+                $('html, body').animate({
+                    scrollTop: $("#datedone").offset().top
+                }, 500);
             }
         }
     });

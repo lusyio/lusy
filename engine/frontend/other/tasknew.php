@@ -163,7 +163,7 @@ $borderColor = [
                             <?php else: ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Задача уже в работе"><i
-                                            class="fas fa-comment"></i></span>
+                                            class="fas fa-info-circle"></i></span>
                             <?php endif; ?>
                         </div>
                         <div class="card card-tasknew">
