@@ -79,7 +79,7 @@ if ($_POST['module'] == 'sendMessage') {
         }
 
         //@sendMessageEmailNotification($recipientId, $id);
-        addMailToQueue('sendMessageEmailNotification', [$recipientId, $id], $recipientId, $messageId);
+        addMailToQueue('sendMessageEmailNotification', [$recipientId, $id, $messageId], $recipientId, $messageId);
     }
 }
 if ($_POST['module'] == 'sendMessageToChat') {

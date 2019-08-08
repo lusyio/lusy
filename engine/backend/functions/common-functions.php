@@ -1341,7 +1341,7 @@ function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
     }
 }
 
-function sendMessageEmailNotification($userId, $authorId)
+function sendMessageEmailNotification($userId, $authorId, $messageId)
 {
     global $pdo;
 
@@ -1363,6 +1363,8 @@ function sendMessageEmailNotification($userId, $authorId)
     $userMailQuery->execute(array(':userId' => $userId));
     $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
 
+    $messageText = DBOnce('mes', 'mail', 'message_id = ' . $messageId);
+
     require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
     require_once __ROOT__ . '/engine/phpmailer/Exception.php';
 
@@ -1375,6 +1377,7 @@ function sendMessageEmailNotification($userId, $authorId)
         $args = [
             'companyName' => $companyName,
             'authorName' => $authorName,
+            'messageText' => $messageText,
         ];
         $mail->setMessageContent('message', $args);
         $mail->send();
