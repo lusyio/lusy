@@ -37,7 +37,7 @@ if (isset($_GET['edit']) && $_GET['edit'] == 1) {
     $taskDataQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone, parent_task, regular, checklist, with_premium FROM tasks WHERE id = :taskId");
     $taskDataQuery->execute([':taskId' => $_GET['task']]);
     $taskData = $taskDataQuery->fetch(PDO::FETCH_ASSOC);
-    if ($idc != $taskData['idcompany'] || ($tariff == 0 && $tryPremiumLimits['edit'] >= 3 || (!$isCeo || $id != $taskData['manager']))) {
+    if ($taskData['manager'] == 1 || $idc != $taskData['idcompany'] || ($tariff == 0 && $tryPremiumLimits['edit'] >= 3 || (!$isCeo || $id != $taskData['manager']))) {
         header('Location: ../');
         exit();
     }

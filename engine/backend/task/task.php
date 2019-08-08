@@ -189,4 +189,8 @@ if ($status == 'done' || $status == 'canceled') {
 $remainingLimits = getRemainingLimits();
 $emptySpace = $remainingLimits['space'];
 
+$enableEdit = false;
+if (($isCeo || $task['manager'] == $id) && !in_array($task['status'], ['done', 'canceled']) && $task['manager'] != 1) {
+    $enableEdit = true;
+}
 
