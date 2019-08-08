@@ -2,7 +2,7 @@
 global $idc;
 global $pdo;
 
-if ($idc != 2) {
+if ($idc != 1) {
     header('Location: /');
 }
 
