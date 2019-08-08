@@ -84,7 +84,6 @@ $(document).ready(function () {
 
     var numberCheckList = 0;
 
-
     $('.check-list-container').on('click', '.delete-checklist-item', function () {
         $(this).closest('.check-list-new').remove();
         if ($('.check-list-new:visible').length < 1) {
@@ -104,7 +103,7 @@ $(document).ready(function () {
         if (checkName != ''){
             numberCheckList++;
             $('.check-list-container').show();
-            $('#checkListExample').clone().attr('data-id', numberCheckList).removeClass('d-none').appendTo('.check-list-container');
+            $('#checkListExample').clone().attr('data-id', numberCheckList).removeClass('d-none').addClass('checklist-selected').appendTo('.check-list-container');
             $('[data-id=' + numberCheckList + ']').find('.ml-3').text(checkName);
             $('#checklistInput').val('');
         }
@@ -223,12 +222,11 @@ $(document).ready(function () {
         });
         var responsible = $('.add-responsible.responsible-selected').attr('val');
         var coworkers = [];
-        console.log(responsible);
         $('.add-worker:visible').each(function () {
             coworkers.push($(this).attr('val'));
         });
         var checkList = [];
-        $('.check-list-new:visible').each(function () {
+        $('.check-list-new.checklist-selected').each(function () {
             checkList.push($(this).text().trim());
         });
         var checkDate = $('#datedone').attr('min');
