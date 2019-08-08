@@ -154,7 +154,7 @@ $borderColor = [
                         <div class="label-tasknew text-left">
                             Дата старта
                             <?php if (($taskEdit && $taskData['status'] == 'planned') || !$taskEdit): ?>
-                                <?php if (!$taskEdit || ($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $taskData['with_premium'] == 0)): ?>
+                                <?php if (!$taskEdit && ($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $taskData['with_premium'] == 0)): ?>
                                     <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                           title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                                 class="fas fa-comment-dollar"></i></span>
@@ -568,6 +568,7 @@ $borderColor = [
         $('.disabledBtnOptions').on('click', function () {
             $('#freeOptionsModal').modal('toggle');
         });
+
         $("#datedone").on('change', function () {
             $(this).css('color', '#353b41');
             var minVal = $(this).attr('min');
@@ -589,13 +590,14 @@ $borderColor = [
         $("#startDate").on('change', function () {
             var val = $(this).val();
             var minVal = $(this).attr('min');
-            if (val > minVal) {
+            if (val >= minVal) {
                 $('#datedone').attr('min', val);
             }
             if (val > $('#datedone').val()) {
                 $('#datedone').val(val);
             }
         });
+
         <?php if ($tariff == 0 && ($tryPremiumLimits['cloud'] >= 3 && !($taskEdit && !$hasCloudUploads))):?>
         $('#openGoogleDrive, #openDropbox').on('click', function () {
             $('#premModal').modal('show');
