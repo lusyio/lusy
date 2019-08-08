@@ -122,7 +122,6 @@ if ($view == 0) {
 if ($id == $worker and $view == 0) {
     $statusBar[$status]['border'] = 'border-primary';
 }
-sendAchievementEmailNotification(4200002, 'meeting')
 ?>
 <div id="task">
     <div class="card mt-3">
