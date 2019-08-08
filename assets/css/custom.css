@@ -4385,11 +4385,15 @@ label.error {
     border-radius: 8px;
 }
 
+.btn-join:disabled{
+    background: #284c8e;
+}
+
 .btn-join {
     text-align: center;
     margin-bottom: 3%;
     width: 20rem;
-    background: #5d94da;
+    background: #284c8e;
     color: #fff;
     padding: 0.5em 1em;
 }
