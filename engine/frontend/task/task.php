@@ -155,7 +155,7 @@ if ($id == $worker and $view == 0) {
             </div>
             <h4 class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5">
                 <?= $nametask ?>
-                <?php if (($isCeo || $task['manager'] == $id) && !in_array($task['status'], ['done', 'canceled'])): ?>
+                <?php if ($enableEdit): ?>
                     <?php if ($tariff == 1 || $tryPremiumLimits['edit'] < 3): ?>
                         <?php if ($tariff == 0): ?>
                             <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу (Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['edit'] ?>/3)" href="./edit/"><i
