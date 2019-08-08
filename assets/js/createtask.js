@@ -298,9 +298,6 @@ $(document).ready(function () {
                     'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
                 });
-                $('html, body').animate({
-                    scrollTop: $(".container-responsible").offset().top
-                }, 500);
                 setTimeout(function () {
                     $('.container-responsible').css('background-color', '#fff');
                 }, 1000)
@@ -310,9 +307,6 @@ $(document).ready(function () {
                     'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
                 });
-                $('html, body').animate({
-                    scrollTop: $("#name").offset().top
-                }, 500);
                 setTimeout(function () {
                     $('#name').css('background-color', '#fff');
                 }, 1000)
@@ -322,9 +316,6 @@ $(document).ready(function () {
                     'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
                 });
-                $('html, body').animate({
-                    scrollTop: $("#datedone").offset().top
-                }, 500);
                 setTimeout(function () {
                     $('#datedone').css('background-color', '#fff');
                 }, 1000)
@@ -334,9 +325,6 @@ $(document).ready(function () {
                     'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
                 });
-                $('html, body').animate({
-                    scrollTop: $("#datedone").offset().top
-                }, 500);
                 setTimeout(function () {
                     $('#datedone').css('background-color', '#fff');
                 }, 1000)
