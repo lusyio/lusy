@@ -2,18 +2,28 @@
 <div>
     <p><a href="#" id="addNewArticle" class="btn btn-outline-primary">Добавить статью</a></p>
 </div>
-<?php foreach ($knowledgeArticles as $article): ?>
-<div>
-    <h2 class="article-title"><?=$article['article_name'] ?></h2>
-    <div class="article-content d-none">
-        <p><?=$article['article_text'] ?></p>
+
+<div class="accordion" id="accordionKnowledge">
+    <?php foreach ($knowledgeArticles as $article): ?>
+    <div class="card">
+        <div class="card-header" id="heading<?=$article['article_id'] ?>">
+            <h2 class="mb-0">
+                <button class="btn btn-link article-title" type="button" data-toggle="collapse" data-target="#collapse<?=$article['article_id'] ?>" aria-expanded="true" aria-controls="collapseOne">
+                    <?=$article['article_name'] ?>
+                </button>
+            </h2>
+        </div>
+        <div id="collapse<?=$article['article_id'] ?>" class="collapse" aria-labelledby="heading<?=$article['article_id'] ?>" data-parent="#accordionKnowledge">
+            <div class="card-body article-content">
+                <?=$article['article_text'] ?>
+            </div>
+            <div class="text-right">
+                <a href="#" class="edit-article text-muted" data-article-id="<?=$article['article_id'] ?>">Редактировать</a>
+            </div>
+        </div>
     </div>
-    <div class="text-right">
-        <a href="#" class="edit-article text-muted" data-article-id="<?=$article['article_id'] ?>">Редактировать</a>
-    </div>
+    <?php endforeach; ?>
 </div>
-<hr>
-<?php endforeach; ?>
 <form class="pt-5">
     <input type="text" id="articleTitle" class="form-control mb-2" placeholder="Заголовок">
     <input type="hidden" id="articleId" class="form-control mb-2">
@@ -30,27 +40,18 @@
 
         $('#addNewArticle').on('click', function (e) {
             e.preventDefault();
-            window.scrollTo(0, $(document).height());
+            $('.collapse').collapse('hide');
             $('#articleId').val('');
             $('#articleTitle').val('');
             $('.ql-editor').html('');
         });
-        $('.article-title').on('click', function (e) {
-            e.preventDefault();
-            var el = $(this).siblings('.article-content');
-            if ($(el).hasClass('d-none')) {
-                $(el).removeClass('d-none');
-            } else {
-                $(el).addClass('d-none')
-            }
-        });
 
         $('.edit-article').on('click', function (e) {
             e.preventDefault();
-            window.scrollTo(0, $(document).height());
+            $('.collapse').collapse('hide');
             $('#articleId').val($(this).data('article-id'));
-            $('#articleTitle').val($(this).closest('div').siblings('.article-title').text().trim());
-            $('.ql-editor').html($(this).closest('div').siblings('.article-content').html().trim());
+            $('#articleTitle').val($(this).closest('.card').find('.article-title').text().trim());
+            $('.ql-editor').html($(this).closest('.card').find('.article-content').html().trim());
         });
         $('#saveArticle').on('click', function (e) {
             e.preventDefault();
