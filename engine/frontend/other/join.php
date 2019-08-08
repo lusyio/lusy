@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-12 col-lg-6">
                                 <input type="password" id="invitee-password" class="form-control"
-                                       placeholder="Пароль не менее 8 символов"
+                                       placeholder="Пароль не менее 6 символов"
                                        required>
                             </div>
                         </div>
@@ -76,8 +76,128 @@
 
 <script>
     $(document).ready(function () {
+
+        var security = 0;
+        var securityMail = 0;
+        var securityPass = 0;
+
+        var password = $('#invitee-password').val();
+        var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+        var checkPass = reg.exec(password);
+
+        var email = $('#invitee-mail').val();
+        var regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
+        var checkMail = regMail.exec(email);
+
+        if (checkMail == null) {
+            securityMail = 0;
+        } else {
+            securityMail = 1;
+        }
+
+        if (checkPass == null) {
+            securityPass = 0;
+        } else {
+            securityPass = 1;
+        }
+
+        security = securityMail + securityPass;
+
+        if (security != 2) {
+            $('[type=submit]').prop('disabled', true);
+        } else {
+            $('[type=submit]').prop('disabled', false);
+        }
+
+        $('#invitee-name').on('change', function () {
+            var $this = $(this);
+
+            if ($this.val() != ''){
+                $this.css({
+                    'border': '1px solid #ccc',
+                    'color': '#495057'
+                });
+            } else {
+                $this.css({
+                    'border': '2px solid #fbc2c4',
+                    'color': '#8a1f11'
+                });
+            }
+        });
+
+        $('#invitee-surname').on('change', function () {
+            var $this = $(this);
+
+            if ($this.val() != ''){
+                $this.css({
+                    'border': '1px solid #ccc',
+                    'color': '#495057'
+                });
+            } else {
+                $this.css({
+                    'border': '2px solid #fbc2c4',
+                    'color': '#8a1f11'
+                });
+            }
+        });
+
+        $('#invitee-mail').on('keyup', function () {
+            var $this = $(this);
+
+            email = $this.val();
+            regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
+            checkMail = regMail.exec(email);
+
+            if (checkMail == null) {
+                $this.css({
+                    'border': '2px solid #fbc2c4',
+                    'color': '#8a1f11'
+                });
+                securityMail = 0;
+            } else {
+                $this.css({
+                    'border': '1px solid #ccc',
+                    'color': '#495057'
+                });
+                securityMail = 1;
+            }
+            security = securityMail + securityPass;
+            if (security == 2) {
+                $("[type=submit]").prop('disabled', false);
+            } else {
+                $("[type=submit]").prop('disabled', true);
+            }
+        });
+
+        $('#invitee-password').on('keyup', function () {
+            var $this = $(this);
+            password = $this.val();
+            reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+            checkPass = reg.exec(password);
+
+            if (checkPass == null) {
+                $this.css({
+                    'border': '2px solid #fbc2c4',
+                    'color': '#8a1f11'
+                });
+                securityPass = 0;
+            } else {
+                $this.css({
+                    'border': '1px solid #ccc',
+                    'color': '#495057'
+                });
+                securityPass = 1;
+                $('[type=submit]').prop('disabled', false);
+            }
+            security = securityMail + securityPass;
+            if (security == 2) {
+                $("[type=submit]").prop('disabled', false);
+            } else {
+                $("[type=submit]").prop('disabled', true);
+            }
+        });
+
         $('#join-form').on('submit', function (e) {
-            console.log('clicked');
             e.preventDefault();
             var inviteCode = $('#invite-code').val();
             var inviteeMail = $('#invitee-mail').val();
@@ -102,7 +222,6 @@
                     contentType: false,
                     data: fd,
                     success: function (data) {
-                        console.log(data);
                         if (!data) {
                             location.href = '/../login/';
                         }
