@@ -76,10 +76,15 @@
                     <table style="width: 100%;" cellpadding="0" cellspacing="0" width="100%" border="0">
                         <tbody><tr>
                             <td align="left" width="50%" style="padding: 0px; background-color: #ffffff">
+                                <a href="https://lusy.io/ru/">
                                 <img src="https://lusy.io/public/images/mail/logo.png" style="width: 220px;padding-top: 20px; padding-bottom: 20px;">
+                                </a>
                             </td>
                             <td align="right" width="50%" style="padding: 0px;padding-right: 15px;background-color: #ffffff;">
-                                <a href="https://s.lusy.io/ru/login/" style="padding: .375rem .75rem;background-color: #ffffff;color: #535ad3;border: 1px solid; border-color: #535ad3;border-radius: 20px;padding-left: 25px;padding-right: 25px;text-align: center;vertical-align: middle;font-size: 1rem;line-height: 1.5;text-decoration: none;">Войти</a>
+                                <a href="https://s.lusy.io/ru/login/" style="padding: .375rem .75rem;background-color: #ffffff;color: #535ad3;border: 1px solid; border-color: #535ad3;border-radius: 20px;padding-left: 25px;padding-right: 25px;text-align: center;vertical-align: middle;font-size: 1rem;line-height: 1.5;text-decoration: none;">
+                                    <img src="https://lusy.io/public/images/mail/login.png" style="width: 220px;padding-top: 20px; padding-bottom: 20px;">
+
+                                </a>
                             </td>
                         </tr>
                         </tbody></table>
