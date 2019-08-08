@@ -130,3 +130,28 @@ if ($_POST['module'] == 'activatePromocode') {
         activatePromocode($companyId, $promocode);
     }
 }
+
+if ($_POST['module'] == 'addKnowledgeArticle') {
+
+    $query = $pdo->prepare('INSERT INTO knowledge_articles(article_name, article_text) values (:articleName, :articleText)');
+    $data = [
+        ':articleName' => $_POST['articleTitle'],
+        ':articleText' => $_POST['articleText'],
+    ];
+    if ($query->execute($data)) {
+        echo '1';
+    }
+}
+
+if ($_POST['module'] == 'updateKnowledgeArticle') {
+
+    $query = $pdo->prepare('UPDATE knowledge_articles SET article_name = :articleName, article_text = :articleText WHERE article_id = :articleId');
+    $data = [
+        ':articleId' => $_POST['articleId'],
+        ':articleName' => $_POST['articleTitle'],
+        ':articleText' => $_POST['articleText'],
+    ];
+    if ($query->execute($data)) {
+        echo '1';
+    }
+}

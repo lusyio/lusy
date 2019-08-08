@@ -106,6 +106,9 @@ if ($isAuthorized) {
     if (!empty($_GET['profile'])) {
         $title = getDisplayUserName($_GET["profile"]);
     }
+    if (isset($_GET['folder']) && $_GET['folder'] == 'knowledge') {
+        $title = 'База знаний';
+    }
     require_once __ROOT__ . '/engine/backend/functions/achievement-functions.php';
     checkAchievements($id);
 } else {

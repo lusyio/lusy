@@ -79,6 +79,9 @@
             aria-controls="feedback" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
                 class="fas fa-user-tie h3 mb-0 mt-2"></i>
         <p class="mb-0">Компании</p></button>
+    <a  href="/knowledge/" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
+                class="fas fa-book h3 mb-0 mt-2"></i>
+        <p class="mb-0">База знаний</p></a>
 </div>
 <div class="card mt-3 collapse" id="articles">
     <div class="card-body">
