@@ -4,9 +4,12 @@ $url = $GLOBALS["url"];
 if (!empty($_GET['task'])) {
     $id_task = $_GET['task']; // принимаем id задачи
     if (!empty($id_task)) { //проверяем не пустой ли id, и если так, то показываем рабочий стол
-        if ($id_task != 'new') {
+        if ($id_task != 'new' && (!isset($_GET['edit']) || $_GET['edit'] != 1)) {
             inc('task', 'task');
         }
+    }
+    if (isset($_GET['edit'])) {
+        inc('other', 'tasknew');
     }
 }
 

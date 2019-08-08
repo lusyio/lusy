@@ -153,7 +153,24 @@ if ($id == $worker and $view == 0) {
                     </div>
                 </div>
             </div>
-            <h4 class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5"><?= $nametask ?></h4>
+            <h4 class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5">
+                <?= $nametask ?>
+                <?php if ($enableEdit): ?>
+                    <?php if ($tariff == 1 || $tryPremiumLimits['edit'] < 3): ?>
+                        <?php if ($tariff == 0): ?>
+                            <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу (Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['edit'] ?>/3)" href="./edit/"><i
+                                        class="fas fa-pencil-alt edit-profile"></i></a>
+                        <?php else: ?>
+                            <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу" href="./edit/"><i
+                                        class="fas fa-pencil-alt edit-profile"></i></a>
+                        <?php endif; ?>
+                    <?php else: ?>
+                            <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу" href="#"><i
+                                        id="editTask" class="fas fa-pencil-alt edit-profile"></i></a>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </h4>
+
             <hr>
             <div class="row">
                 <div class="col-6 col-lg-4">
@@ -322,6 +339,36 @@ if ($id == $worker and $view == 0) {
                     <span class="sr-only">Loading...</span>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade limit-modal" id="disabledEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0 text-left d-block">
+                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит редактирования задач в бесплатном тарифе</h5>
+            </div>
+            <div class="modal-body text-center position-relative">
+                <div class="text-left text-block">
+                    <p class="text-muted-new">Все ошибаются, но не все исправляют ошибки</p>
+                    <p class="text-muted-new">Переходи на Premium тариф, и получи безграничные возможности редактирования созданных задач</p>
+                </div>
+                <span class="position-absolute">
+                <i class="fas fa-chart-pie icon-limit-modal"></i>
+            </span>
+            </div>
+            <div class="modal-footer border-0">
+                <?php if ($isCeo): ?>
+                    <a href="/payment/" id="goToPay" class="btn text-white border-0">
+                        Перейти к тарифам
+                    </a>
+                <?php endif; ?>
+            </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
         </div>
     </div>
 </div>
@@ -554,6 +601,11 @@ if ($id == $worker and $view == 0) {
 
         $(".deadline-block").on('click', function () {
             $("#change-date").fadeIn(200);
+        });
+
+        $('#editTask').on('click', function (e) {
+            e.preventDefault();
+            $('#disabledEditModal').modal('show');
         });
     });
 </script>

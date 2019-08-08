@@ -549,6 +549,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             ':recipientId' => $recipientId,
             ':companyId' => $idc,
             ':datetime' => time(),
+            ':viewStatus' => 0,
         ];
         $addEventQuery->execute($eventDataForWorker);
         $workerEventId = $pdo->lastInsertId();
@@ -557,6 +558,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             'type' => 'task',
             'eventId' => $workerEventId,
         ];
+        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
 
     }
@@ -1804,14 +1806,17 @@ function getFreePremiumLimits($companyId)
     $tryPremiumLimitsQuery = $pdo->prepare("SELECT premium_free_access FROM company WHERE id = :companyId");
     $tryPremiumLimitsQuery->execute([':companyId' =>$companyId]);
     $tryPremiumLimits = $tryPremiumLimitsQuery->fetch(PDO::FETCH_COLUMN);
+    $result = [
+        'task' => 0,
+        'report' => 0,
+        'cloud' => 0,
+        'edit' => 0,
+    ];
     if (!is_null($tryPremiumLimits)) {
-        $result = json_decode($tryPremiumLimits, true);
-    } else {
-        $result = [
-            'task' => 0,
-            'report' => 0,
-            'cloud' => 0
-        ];
+        $limits = json_decode($tryPremiumLimits, true);
+        foreach ($limits as $key => $value) {
+            $result[$key] = $value;
+        }
     }
     return $result;
 }

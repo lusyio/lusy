@@ -22,7 +22,7 @@ if ($roleu == 'ceo') {
 $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 $id = $GLOBALS["id"];
 
-$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, t.checklist, u1.name AS managerName, u1.surname AS managerSurname, u1.email AS managerEmail,
+$taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, t.idcompany, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, t.checklist, t.with_premium, u1.name AS managerName, u1.surname AS managerSurname, u1.email AS managerEmail,
        u2.name AS workerName, u2.surname AS workerSurname, u2.email AS workerEmail, u3.name AS authorName, u3.surname AS authorSurname, u3.email AS authorEmail FROM tasks t 
   LEFT JOIN users u1 ON t.manager = u1.id 
   LEFT JOIN users u2 ON t.worker = u2.id 
@@ -88,6 +88,9 @@ $workername = $task['workerName'];
 $workersurname = $task['workerSurname'];
 $workerEmail = $task['workerEmail'];
 
+$tryPremiumLimits = getFreePremiumLimits($idc);
+$isPremiumUsed = (boolean) $task['with_premium'];
+
 $datecreate = date("d.m.Y", $task['datecreate']);
 $datedone = date("d.m", $task['datedone']);
 $actualDeadline = $task['datedone'];
@@ -147,7 +150,7 @@ if ($worker == $id && $view == '0') {
     }
 }
 
-if ($id == $manager || $isCeo || $manager == 1) {
+if ($idc == $task['idcompany'] && ($id == $manager || $isCeo || $manager == 1)) {
     $role = 'manager';
 } elseif ((in_array($id,$coworkersId) || $worker == $id || $hasOwnSubTask) && $status != 'planned'){
     $role = 'worker';
@@ -186,4 +189,8 @@ if ($status == 'done' || $status == 'canceled') {
 $remainingLimits = getRemainingLimits();
 $emptySpace = $remainingLimits['space'];
 
+$enableEdit = false;
+if (($isCeo || $task['manager'] == $id) && !in_array($task['status'], ['done', 'canceled']) && $task['manager'] != 1) {
+    $enableEdit = true;
+}
 

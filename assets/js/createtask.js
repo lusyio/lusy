@@ -9,7 +9,7 @@ $(document).ready(function () {
         $(this).closest(".filenames").remove();
         var num = parseInt($(this).closest(".filenames").attr('val'));
         fileList.delete(num);
-        if ($('.filenames').length === 0) {
+        if ($('.filenames:visible').length === 0) {
             $('.file-name').hide();
         }
     });
@@ -32,10 +32,9 @@ $(document).ready(function () {
             var sizeLimit = $('.dropdown').attr('empty-space');
             if (size <= sizeLimit) {
                 fileList.set(n, $(this)[0]);
-                $(".file-name").show().append("<div val='" + n + "' class='filenames'>" +
-                    "<i class='fas fa-paperclip mr-1'></i>" + names +
-                    "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
-                    "</div>");
+                $('#filenamesExample').clone().attr('val', n).removeClass('d-none').appendTo('.file-name');
+                $('[val=' + n + ']').find('span').text(names);
+                $('.file-name').show();
                 n++;
             } else {
                 $("#fileSizeLimitModal").modal('show');
@@ -49,7 +48,6 @@ $(document).ready(function () {
             var list = $(this).attr('val');
             listArr.push(list);
         });
-        console.log(listArr);
         if (listArr.length === 0) {
             $('.placeholder-coworkers').show();
         }
@@ -84,10 +82,13 @@ $(document).ready(function () {
 
 //подпункты
 
+    var numberCheckList = 0;
+
     $('.check-list-container').on('click', '.delete-checklist-item', function () {
         $(this).closest('.check-list-new').remove();
         if ($('.check-list-new:visible').length < 1) {
             $('.check-list-container').hide();
+            numberCheckList = 0;
         }
     });
 
@@ -100,14 +101,12 @@ $(document).ready(function () {
     $('#addChecklistBtn').on('click', function () {
         var checkName = $('#checklistInput').val();
         if (checkName != ''){
-            $('.check-list-container').show().append('<div class="position-relative check-list-new mb-2">\n' +
-                '                                    <i class="far fa-check-square text-muted-new"></i>\n' +
-                '                                    <span class="ml-3" style="color: #28416b;"> '+ checkName +' </span>\n' +
-                '                                    <i class="fas fa-times delete-checklist-item"></i>\n' +
-                '                                </div>');
+            numberCheckList++;
+            $('.check-list-container').show();
+            $('#checkListExample').clone().attr('data-id', numberCheckList).removeClass('d-none').addClass('checklist-selected').appendTo('.check-list-container');
+            $('[data-id=' + numberCheckList + ']').find('.ml-3').text(checkName);
             $('#checklistInput').val('');
         }
-
     });
 
 //работа с надзадачами
@@ -130,15 +129,21 @@ $(document).ready(function () {
         }
     });
 
+    var idSubtask;
+
     $(".select-subtask").on('click', function () {
         $('.placeholder-subtask').hide();
-        var id = $(this).attr('val');
+        idSubtask = $(this).attr('val');
         var selected = $('.add-subtask:visible').attr('val');
         $('.subtask-card').find("[val = " + selected + "]").removeClass('d-none');
         $(this).addClass('d-none');
-        $('.add-subtask').addClass('d-none');
-        $('.container-subtask').find("[val = " + id + "]").removeClass('d-none');
+        $('.add-subtask').addClass('d-none').removeClass('subtask-selected');
+        $('.container-subtask').find("[val = " + idSubtask + "]").removeClass('d-none').addClass('subtask-selected');
         subtaskListEmpty();
+    });
+
+    $('.container-subtask').on('click', '.subtask-selected', function () {
+        $(this).addClass('d-none').removeClass('subtask-selected');
     });
 
 //работа с ответственными
@@ -158,10 +163,10 @@ $(document).ready(function () {
         var selected = $('.add-responsible:visible').attr('val');
         $('.responsible-card').find("[val = " + selected + "]").removeClass('d-none');
         $(this).addClass('d-none');
-        $('.add-responsible').addClass('d-none');
+        $('.add-responsible').addClass('d-none').removeClass('responsible-selected');
         $('.coworker-card').find("[val = " + id + "]").addClass('d-none');
         $('.container-coworker').find("[val = " + id + "]").addClass('d-none');
-        $('.container-responsible').find("[val = " + id + "]").removeClass('d-none');
+        $('.container-responsible').find("[val = " + id + "]").removeClass('d-none').addClass('responsible-selected');
         updateCoworkers();
     });
 
@@ -208,22 +213,24 @@ $(document).ready(function () {
             attachedGoogleFiles[$(googleFileToSend).data('name')] = {
                 link: $(googleFileToSend).data('link'),
                 size: $(googleFileToSend).data('file-size'),
+                id: $(googleFileToSend).data('file-id'),
             };
         });
         var attachedDropboxFiles = {};
         $('.attached-dropbox-file').each(function (i, dropboxFileToSend) {
             attachedDropboxFiles[$(dropboxFileToSend).data('name')] = {
                 link: $(dropboxFileToSend).data('link'),
-                size: $(dropboxFileToSend).data('file-size')
+                size: $(dropboxFileToSend).data('file-size'),
+                id: $(dropboxFileToSend).data('file-id'),
             };
         });
-        var responsible = $('.add-responsible:visible').attr('val');
+        var responsible = $('.add-responsible.responsible-selected').attr('val');
         var coworkers = [];
         $('.add-worker:visible').each(function () {
             coworkers.push($(this).attr('val'));
         });
         var checkList = [];
-        $('.check-list-new:visible').each(function () {
+        $('.check-list-new.checklist-selected').each(function () {
             checkList.push($(this).text().trim());
         });
         var checkDate = $('#datedone').attr('min');
@@ -231,13 +238,28 @@ $(document).ready(function () {
         var delta = quill.root.innerHTML;
         var datedone = $("#datedone").val();
         var startdate = $("#startDate").val();
-        var parentTask = $('.add-subtask:visible').attr('val');
+        var parentTask = $('.add-subtask.subtask-selected').attr('val');
+        if (typeof parentTask == "undefined") {
+            parentTask = '0';
+        }
         var fd = new FormData();
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
         });
+        if (pageAction === 'create') {
+            fd.append('module', 'createTask');
+        } else {
+            fd.append('module', 'editTask');
+            fd.append('it', taskId);
+            var oldDeviceUploads = [];
+            $('.device-uploaded, .attached-source-file').each(function (i, deviceFile) {
+                if ($(deviceFile).data('file-id') !== '') {
+                    oldDeviceUploads.push($(deviceFile).data('file-id'))
+                }
+            });
+            fd.append('oldUploads', JSON.stringify(oldDeviceUploads));
+        }
         fd.append('ajax', 'task-control');
-        fd.append('module', 'createTask');
         fd.append('name', name);
         fd.append('description', delta);
         fd.append('datedone', datedone);
@@ -248,7 +270,7 @@ $(document).ready(function () {
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         fd.append('parentTask', parentTask);
-        if (name != null && datedone != null && datedone >= checkDate && responsible != null) {
+        if (name != '' && datedone != null && datedone >= checkDate && responsible != null) {
             $this.prop('disabled', true);
             $('#spinnerModal').modal('show');
             $.ajax({
@@ -277,7 +299,6 @@ $(document).ready(function () {
                 },
 
                 success: function (data) {
-                    console.log(data);
                     if (data.error === 'taskLimit') {
                         $('#spinnerModal').modal('hide');
                         $("#taskLimitModal").modal('show');
@@ -303,7 +324,10 @@ $(document).ready(function () {
                 }, 500);
                 setTimeout(function () {
                     $('.container-responsible').css('background-color', '#fff');
-                }, 1000)
+                }, 1000);
+                $('html, body').animate({
+                    scrollTop: $(".container-responsible").offset().top
+                }, 500);
             }
             if (name === '') {
                 $('#name').css({
@@ -315,9 +339,12 @@ $(document).ready(function () {
                 }, 500);
                 setTimeout(function () {
                     $('#name').css('background-color', '#fff');
-                }, 1000)
+                }, 1000);
+                $('html, body').animate({
+                    scrollTop: $("#name").offset().top
+                }, 500);
             }
-            if (datedone <= checkDate) {
+            if (datedone < checkDate) {
                 $('#datedone').css({
                     'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'
@@ -327,7 +354,10 @@ $(document).ready(function () {
                 }, 500);
                 setTimeout(function () {
                     $('#datedone').css('background-color', '#fff');
-                }, 1000)
+                }, 1000);
+                $('html, body').animate({
+                    scrollTop: $("#datedone").offset().top
+                }, 500);
             }
             if (datedone === '') {
                 $('#datedone').css({
@@ -339,7 +369,10 @@ $(document).ready(function () {
                 }, 500);
                 setTimeout(function () {
                     $('#datedone').css('background-color', '#fff');
-                }, 1000)
+                }, 1000);
+                $('html, body').animate({
+                    scrollTop: $("#datedone").offset().top
+                }, 500);
             }
         }
     });
@@ -350,7 +383,6 @@ $(document).ready(function () {
             $(this).find('i').removeClass('fa-plus');
             $(this).find('i').addClass('fa-minus');
             $(this).attr('button-action', 'remove');
-            console.log($(this).attr('button-action'));
         } else if ($(this).attr('button-action') == 'remove') {
             $(this).parents('.coworker-item').remove();
         }
