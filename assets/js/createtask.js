@@ -48,7 +48,6 @@ $(document).ready(function () {
             var list = $(this).attr('val');
             listArr.push(list);
         });
-        console.log(listArr);
         if (listArr.length === 0) {
             $('.placeholder-coworkers').show();
         }
@@ -139,8 +138,8 @@ $(document).ready(function () {
         var selected = $('.add-subtask:visible').attr('val');
         $('.subtask-card').find("[val = " + selected + "]").removeClass('d-none');
         $(this).addClass('d-none');
-        $('.add-subtask').addClass('d-none');
-        $('.container-subtask').find("[val = " + idSubtask + "]").removeClass('d-none');
+        $('.add-subtask').addClass('d-none').removeClass('subtask-selected');
+        $('.container-subtask').find("[val = " + idSubtask + "]").removeClass('d-none').addClass('subtask-selected');
         subtaskListEmpty();
     });
 
@@ -236,11 +235,10 @@ $(document).ready(function () {
         var delta = quill.root.innerHTML;
         var datedone = $("#datedone").val();
         var startdate = $("#startDate").val();
-        var parentTask = idSubtask;
+        var parentTask = $('.add-subtask.subtask-selected').attr('val');
         if (typeof parentTask == "undefined") {
             parentTask = '0';
         }
-        console.log(parentTask);
         var fd = new FormData();
         fileList.forEach(function (file, i) {
             fd.append('file' + i, file);
@@ -298,7 +296,6 @@ $(document).ready(function () {
                 },
 
                 success: function (data) {
-                    console.log(data);
                     if (data.error === 'taskLimit') {
                         $('#spinnerModal').modal('hide');
                         $("#taskLimitModal").modal('show');
@@ -359,7 +356,6 @@ $(document).ready(function () {
             $(this).find('i').removeClass('fa-plus');
             $(this).find('i').addClass('fa-minus');
             $(this).attr('button-action', 'remove');
-            console.log($(this).attr('button-action'));
         } else if ($(this).attr('button-action') == 'remove') {
             $(this).parents('.coworker-item').remove();
         }
