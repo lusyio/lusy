@@ -144,6 +144,11 @@ $(document).ready(function () {
 
     $('.container-subtask').on('click', '.subtask-selected', function () {
         $(this).addClass('d-none').removeClass('subtask-selected');
+        $('.placeholder-subtask').show();
+        setTimeout(function () {
+            $('.subtask').fadeOut();
+
+        }, 100);
     });
 
 //работа с ответственными

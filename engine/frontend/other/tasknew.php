@@ -141,7 +141,7 @@ $borderColor = [
                                 foreach ($parentTasks as $parentTask) { ?>
                                     <div val="<?php echo $parentTask['id']; ?>"
                                          class="add-subtask text-area-message <?= ($taskEdit && $parentTask['id'] == $taskData['parent_task']) ? 'subtask-selected' : 'd-none' ?> border-left-tasks <?= $borderColor[$parentTask['status']] ?>">
-                                        <span class="card-coworker"><?= $parentTask['name']; ?></span>
+                                        <span class="card-coworker"><?= $parentTask['name']; ?></span><i class="fas fa-times remove-parenttask"></i>
                                     </div>
                                 <?php } ?>
                                 <div class="position-absolute icon-newtask icon-newtask-change-subtask">
