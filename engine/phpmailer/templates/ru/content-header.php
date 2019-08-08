@@ -68,10 +68,27 @@
         margin-top: 30px;
     }
 </style>
-<table style="width: 100%;">
+<table style="width: 100%;background-color: #fcfcfc;" cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>
         <tr>
-            <td style="padding: 0px;"><h3 class="logo" style="color: #202429;font-size: 1.25rem;font-weight: 700;text-align: center;max-width: 600px;margin: 10px auto 20px;border-bottom: 1px solid #e4e4e4;padding-bottom: 20px;letter-spacing: 3px;">LUSY</h3></td>
+            <td align="center" style="padding: 0px;">
+                <div style="max-width: 600px">
+                    <table style="width: 100%;" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody><tr>
+                            <td align="left" width="50%" style="padding: 0px; background-color: #ffffff">
+                                <a href="https://lusy.io/ru/">
+                                <img src="https://lusy.io/public/images/mail/logo.png" style="width: 220px;padding-top: 20px; padding-bottom: 20px;">
+                                </a>
+                            </td>
+                            <td align="right" width="50%" style="padding: 0px;padding-right: 15px;background-color: #ffffff;">
+                                <a href="https://s.lusy.io/ru/login/">
+                                    <img src="https://lusy.io/public/images/mail/login.png" style="width: 105px;padding-top: 20px; padding-bottom: 20px;">
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody></table>
+                </div>
+            </td>
         </tr>
         <tr>
             <td style="padding: 0px;">

@@ -1242,11 +1242,10 @@ function sendTaskManagerEmailNotification($taskId, $action)
     $managerMailQuery->execute(array(':taskId' => $taskId));
     $managerMail = $managerMailQuery->fetch(PDO::FETCH_COLUMN);
 
-    $workerNameQuery = $pdo->prepare("SELECT u.name, u.surname FROM tasks t LEFT JOIN users u ON t.worker = u.id WHERE t.id = :taskId");
-    $workerNameQuery->execute(array(':taskId' => $taskId));
-    $workerNameResult = $workerNameQuery->fetch(PDO::FETCH_ASSOC);
-    $workerName = trim($workerNameResult['name'] . ' ' . $workerNameResult['surname']);
-
+    $workerIdQuery = $pdo->prepare("SELECT t.worker FROM tasks t WHERE t.id = :taskId");
+    $workerIdQuery->execute(array(':taskId' => $taskId));
+    $workerId = $workerIdQuery->fetch(PDO::FETCH_COLUMN);
+    $workerName = getDisplayUserName($workerId);
     $taskName = DBOnce('name', 'tasks', 'id=' . $taskId);
 
     try {
@@ -1261,10 +1260,13 @@ function sendTaskManagerEmailNotification($taskId, $action)
         ];
 
         if ($action == 'review') {
+            $report = DBOnce('comment', 'comments', "idtask=" . $taskId . " and status = 'report' order by `datetime` desc");
+            $args['report'] = nl2br($report);
             $mail->Subject = "Вам отправлена на рассмотрение задача в Lusy.io";
             $mail->setMessageContent('task-review', $args);
-
         } elseif ($action == 'postpone') {
+            $request = DBOnce('comment', 'comments', "idtask=" . $taskId . " and status like 'request%' order by `datetime` desc");
+            $args['request'] = nl2br($request);
             $mail->Subject = "У Вас запрашивают перенос срока задачи в Lusy.io";
             $mail->setMessageContent('task-postpone', $args);
         }
@@ -1311,20 +1313,16 @@ function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
     $companyNameQuery = $pdo->prepare("SELECT c.idcompany FROM tasks t LEFT JOIN company c ON t.idcompany = c.id WHERE t.id = :taskId");
     $companyNameQuery->execute(array(':taskId' => $taskId));
     $companyName = $companyNameQuery->fetch(PDO::FETCH_COLUMN);
-
-    $authorNameQuery = $pdo->prepare("SELECT name, surname FROM users WHERE  id = :authorId");
-    $authorNameQuery->execute(array(':authorId' => $authorId));
-    $authorNameResult = $authorNameQuery->fetch(PDO::FETCH_ASSOC);
-    $authorName = trim($authorNameResult['name'] . ' ' . $authorNameResult['surname']);
-
+    $authorName = getDisplayUserName($authorId);
     $taskName = DBOnce('name', 'tasks', 'id=' . $taskId);
-
+    $comment = DBOnce('comment', 'comments', 'id=' . $commentId);
     $args = [
         'companyName' => $companyName,
         'taskId' => $taskId,
         'authorName' => $authorName,
         'taskName' => $taskName,
         'commentId' => $commentId,
+        'commentText' => $comment,
     ];
 
     foreach ($userMails as $userMail) {
@@ -1345,7 +1343,7 @@ function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
     }
 }
 
-function sendMessageEmailNotification($userId, $authorId)
+function sendMessageEmailNotification($userId, $authorId, $messageId)
 {
     global $pdo;
 
@@ -1367,6 +1365,8 @@ function sendMessageEmailNotification($userId, $authorId)
     $userMailQuery->execute(array(':userId' => $userId));
     $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
 
+    $messageText = DBOnce('mes', 'mail', 'message_id = ' . $messageId);
+
     require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
     require_once __ROOT__ . '/engine/phpmailer/Exception.php';
 
@@ -1379,6 +1379,7 @@ function sendMessageEmailNotification($userId, $authorId)
         $args = [
             'companyName' => $companyName,
             'authorName' => $authorName,
+            'messageText' => $messageText,
         ];
         $mail->setMessageContent('message', $args);
         $mail->send();
@@ -1417,6 +1418,7 @@ function sendAchievementEmailNotification($userId, $achievementName)
         $args = [
             'companyName' => $companyName,
             'achievementName' => $GLOBALS['_' . $achievementName],
+            'achievementText' => $GLOBALS['_' . $achievementName . '_text'],
         ];
         $mail->setMessageContent('achievement', $args);
         $mail->send();
