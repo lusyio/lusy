@@ -305,11 +305,13 @@
             $('#chatBox').removeClass('dragover');
             var files = e.originalEvent.dataTransfer.files;
             console.log(files);
-            for (var i = 0; i < files.length; i++){
-                names = files[i].name;
-                console.log(names);
-                size = files[i].size;
-                console.log(size);
+            sendFiles(files);
+        });
+
+        function sendFiles (files){
+            $(files).each(function () {
+                names = this.name;
+                size = this.size;
                 var sizeLimit = $('.dropdown').attr('empty-space');
                 if (size <= sizeLimit) {
                     fileList.set(n, $(this)[0]);
@@ -321,8 +323,8 @@
                 } else {
                     $("#fileSizeLimitModal").modal('show');
                 }
-            }
-        });
+            });
+        }
 
         $(".file-name").on('click', '.cancelFile', function () {
             $(this).closest(".filenames").remove();

@@ -84,6 +84,11 @@
     padding: 0.8rem;
 }
 
+#task .dragover{
+    outline: 1px solid #0078d7;
+    outline: -webkit-focus-ring-color dashed 2px;
+}
+
 .card-footer-subtask .d-block{
     height: 24px;
 }

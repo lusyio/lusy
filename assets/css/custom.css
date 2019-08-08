@@ -1613,6 +1613,7 @@ input:checked[type="checkbox"].new-checkbox::before {
     color: #121416!important;
 }
 #chatBox {
+    padding: 0;
     width: 120%;
     padding-right: 20% !important;
     position: relative;
@@ -1628,6 +1629,12 @@ input:checked[type="checkbox"].new-checkbox::before {
 #chatBox.dragover{
     outline: 1px solid #0078d7;
     outline: -webkit-focus-ring-color dashed 2px;
+    width: 100% !important;
+    padding-right: 0 !important;
+}
+
+#chatBox.dragover .no-messages{
+    width: 100%;
 }
 
 #chatBox::-webkit-scrollbar {
@@ -1762,7 +1769,6 @@ input:checked[type="checkbox"].new-checkbox::before {
     order: 2;
 }
 
-
 .no-messages{
     font-size: 20px;
     text-align: center;
@@ -1771,7 +1777,7 @@ input:checked[type="checkbox"].new-checkbox::before {
     position: absolute;
     font-weight: 200;
     padding: 0!important;
-    width: 100%;
+    width: 85%;
 }
 
 #mes{
