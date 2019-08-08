@@ -1,5 +1,5 @@
 <div style="display: none;font-size: 1px;color: #333333;line-height: 1px;max-height: 0px;opacity: 0;overflow: hidden">
-    Запрос на восстановление пароля
+    Вы запросили восстановление пароля. Для продолжения перейдите по ссылке из письма.
 </div>
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>

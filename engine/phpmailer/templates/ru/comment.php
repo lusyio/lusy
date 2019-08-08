@@ -1,5 +1,5 @@
 <div style="display: none;font-size: 1px;color: #333333;line-height: 1px;max-height: 0px;opacity: 0;overflow: hidden">
-    {$authorName} оставил комментарий к задаче - {$taskName} : {$comment}
+    {$authorName} оставил комментарий к задаче - {$taskName} : {$comment}. Перейти к нему можно по ссылкe из письма.
 </div>
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>

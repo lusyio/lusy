@@ -1,5 +1,5 @@
 <div style="display: none;font-size: 1px;color: #333333;line-height: 1px;max-height: 0px;opacity: 0;overflow: hidden">
-    Мы не смогли произвести оплату подписки с вашей карты {$cardDigits}.
+    Не удалось произвести оплату подписки на тариф {$tariffName}. Мы пробуем произвести списание дважды в сутки.
 </div>
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>

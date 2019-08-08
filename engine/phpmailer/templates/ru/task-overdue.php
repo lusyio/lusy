@@ -1,5 +1,5 @@
 <div style="display: none;font-size: 1px;color: #333333;line-height: 1px;max-height: 0px;opacity: 0;overflow: hidden">
-    Прошел срок исполнения задачи - {$taskName}
+    Упс, назначенная Вам задача просрочена. Впредь будьте внимательнее. Перенести срок можно на странице задачи.
 </div>
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>

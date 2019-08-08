@@ -1,5 +1,5 @@
 <div style="display: none;font-size: 1px;color: #333333;line-height: 1px;max-height: 0px;opacity: 0;overflow: hidden">
-    Вы получили новое достижение - {$achievementName}
+     Новое достижение - {$achievementName}: {$achievementText}. Отлично! Двигайтесь дальше навстречу новым испытаниям.
 </div>
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>

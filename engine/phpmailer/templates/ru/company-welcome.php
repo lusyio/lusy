@@ -1,5 +1,5 @@
 <div style="display: none;font-size: 1px;color: #333333;line-height: 1px;max-height: 0px;opacity: 0;overflow: hidden">
-    Подтвердите e-mail владельца компании
+    Поздравляем! Вы создали и подтвердили аккаунт компании в Lusy.io. Перейти в систему можно по ссылкe из письма.
 </div>
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
     <tbody>
