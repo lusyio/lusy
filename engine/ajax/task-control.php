@@ -21,7 +21,7 @@ if (isset($_POST['it'])) {
     $idTaskWorker = $taskData['worker'];
     $taskDatedone = $taskData['datedone'];
     $checklist = json_decode($taskData['checklist'], true);
-    if ($id == $idTaskManager) {
+    if ($id == $idTaskManager || $idTaskManager == 1) {
         $isManager = true;
     }
     $coworkersQuery = $pdo->prepare("SELECT worker_id FROM task_coworkers WHERE task_id = :taskId");

@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="members-coworkers">
-                <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'coworker')): ?>
+                <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'manager') && $manager != 1): ?>
                 <div class="row p-5px">
                     <div class="col text-justify">
                         <span class="text-muted">Соисполнители</span>
