@@ -153,14 +153,7 @@ if ($id == $worker and $view == 0) {
                     </div>
                 </div>
             </div>
-            <div class="row edit-taskname-task">
-                <div class="col-11">
-                    <h4 class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-0 mt-5"><?= $nametask ?></h4>
-                </div>
-                <div class="col position-relative">
-                    <span class="text-muted-new edit-task"><i class="fas fa-pencil-alt"></i></span>
-                </div>
-            </div>
+            <h4 class="<?= $statusBar[$status]['border'] ?> font-weight-bold mb-3 mt-5"><?= $nametask ?></h4>
             <hr>
             <div class="row">
                 <div class="col-6 col-lg-4">
