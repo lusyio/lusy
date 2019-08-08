@@ -82,7 +82,7 @@
                             </td>
                             <td align="right" width="50%" style="padding: 0px;padding-right: 15px;background-color: #ffffff;">
                                 <a href="https://s.lusy.io/ru/login/">
-                                    <img src="https://lusy.io/public/images/mail/login.png" style="width: 220px;padding-top: 20px; padding-bottom: 20px;">
+                                    <img src="https://lusy.io/public/images/mail/login.png" style="width: 105px;padding-top: 20px; padding-bottom: 20px;">
                                 </a>
                             </td>
                         </tr>
