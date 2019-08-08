@@ -142,6 +142,10 @@ $(document).ready(function () {
         subtaskListEmpty();
     });
 
+    $('.subtask-selected').on('click', function () {
+        $(this).addClass('d-none').removeClass('subtask-selected');
+    });
+
 //работа с ответственными
     $(".container-responsible").on('click', function () {
         $(".responsible").fadeToggle(200);
@@ -334,7 +338,7 @@ $(document).ready(function () {
                     scrollTop: $("#name").offset().top
                 }, 500);
             }
-            if (datedone <= checkDate) {
+            if (datedone < checkDate) {
                 $('#datedone').css({
                     'background-color': 'rgba(255, 242, 242, 1)',
                     'transition': '1000ms'

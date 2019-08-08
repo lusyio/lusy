@@ -68,8 +68,7 @@ $borderColor = [
 
                 as $n) { ?>
                 <div val="<?php echo $n['id'] ?>"
-                     class="add-responsible <?= ($taskEdit && $n['id'] == $taskData['worker']) ? '' : 'd-none' ?>"
-                ">
+                     class="add-responsible <?= ($taskEdit && $n['id'] == $taskData['worker']) ? 'responsible-selected' : 'd-none' ?>">
                 <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
                 <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
             </div>
