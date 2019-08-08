@@ -7,7 +7,7 @@
         <td style="word-break:break-word;" align="center">
             <div class="main" style="vertical-align:top;text-align:left;width:100%;max-width:600px;background-color: #ffffff;">
                 <div class="block center" style="vertical-align:top;text-align:left;width:100%;max-width:600px;background-color: #ffffff;">
-                    <h1 style="font-weight: 900">Добро пожаловать в Lusy.io</h1>
+                    <h1 style="font-size: 30px;font-weight: 900; color:#000000;">Добро пожаловать в Lusy.io</h1>
                     <p class="margin20t" style="margin-top: 20px;line-height: 2;font-size: 16px;color: #353b41;">Вы создали и подтвердили аккаунт компании {$companyName}.</p>
                     <p class="margin30t" style="text-align:center;margin-top: 30px;line-height: 2;"><a class="button" href="https://s.lusy.io/" style="padding: .375rem .75rem;background-color: #535ad3;border-color: #535ad3;color: #fff;font-weight: 400;text-align: center;vertical-align: middle;border: 1px solid transparent;padding-left: 25px;padding-right: 25px;font-size: 1rem;line-height: 1.5;border-radius: 20px;text-decoration: none;">Перейти в систему</a></p>
                 </div>
