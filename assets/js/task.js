@@ -314,7 +314,16 @@ $(document).ready(function () {
             $('#comment').prop('disabled', false);
             $("#comin").val("");
             $(".file-name").empty();
+        } else {
+            $('#comin').css({
+                'border-color': '#dc3545',
+                'transition': '1000ms'
+            });
+            setTimeout(function () {
+                $('#comin').css('border-color', "#ced4da");
+            }, 1000)
         }
+
     });
 
     // перенос срока задачи
