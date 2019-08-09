@@ -258,6 +258,8 @@ $(document).ready(function () {
         });
     });
 
+    $("#comin").tooltip('disable');
+
     $("#comment").on('click', function () {
         var text = $("#comin").val();
         console.log(attachedFile);
@@ -320,13 +322,15 @@ $(document).ready(function () {
             $("#comin").val("");
             $(".file-name").empty();
         } else {
+            $("#comin").tooltip('enable').tooltip('show');
             $('#comin').css({
                 'border-color': '#dc3545',
                 'transition': '1000ms'
             });
             setTimeout(function () {
                 $('#comin').css('border-color', "#ced4da");
-            }, 1000)
+                $("#comin").tooltip('disable').tooltip('hide');
+            }, 1500)
         }
 
     });

@@ -30,6 +30,8 @@
                 <div class="form-group w-100 text-area d-flex">
                     <textarea class="form-control" id="mes"
                               name="mes" rows="1"
+                              data-toggle="tooltip" data-placement="bottom"
+                              title="Введите сообщение"
                               placeholder="<?= $GLOBALS['_enterconversation'] ?>"></textarea>
                     <div class="position-relative">
                         <button type="button" class="btn btn-primary rounded-circle" id="sendBtn">
@@ -380,6 +382,8 @@
             marker = false;
         }
 
+        $("#mes").tooltip('disable');
+
         $('#sendBtn').on('click', function () {
             var mes = $("#mes").val();
             var fd = new FormData();
@@ -448,10 +452,11 @@
                         // $(window).unbind('beforeunload');
                     },
                 });
-                $("#mes").removeClass('border-danger');
-
             } else {
-                $("#mes").addClass('border-danger');
+                $("#mes").tooltip('enable').tooltip('show');
+                setTimeout(function () {
+                    $("#mes").tooltip('disable').tooltip('hide');
+                }, 1500);
             }
         });
         $('#chatBox').on('mouseover', '.message', function () {

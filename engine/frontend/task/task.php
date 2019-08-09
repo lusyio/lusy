@@ -311,7 +311,8 @@ if ($id == $worker and $view == 0) {
         <div class="card mt-3">
             <div class="card-body">
                 <div class="d-flex comin">
-                <textarea class="form-control mr-2" id="comin" rows="1" name="comment" type="text" autocomplete="off"
+                <textarea class="form-control mr-2" id="comin" rows="1" name="comment" type="text"data-toggle="tooltip" data-placement="bottom"
+                          title="Введите сообщение" autocomplete="off"
                           placeholder="<?= $GLOBALS["_writecomment"] ?>..."></textarea>
 
                     <?php $uploadModule = 'chat'; ?>
@@ -577,6 +578,7 @@ if ($id == $worker and $view == 0) {
     });
 
     $(document).ready(function () {
+
         <?= ($worker == $id && $view == '0') ? 'decreaseTaskCounter();' : '' ?>
         $(document).on('click', function (e) { // событие клика по веб-документу
             var div = $(".deadline-block"); // тут указываем ID элемента
