@@ -617,6 +617,15 @@ $borderColor = [
     var quill = new Quill('#editor', {
         theme: 'snow',
         placeholder: 'Опишите суть задания...',
+        modules: {
+            toolbar: [
+                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                ['bold', 'italic', 'underline', 'link'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                ['code'],
+                ['clean'],
+            ]
+        },
     });
     <?php if ($taskEdit): ?>
     var taskId = <?= $taskData['id']; ?>;
