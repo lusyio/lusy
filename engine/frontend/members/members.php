@@ -24,7 +24,7 @@
                     <div class="col text-left">
                         <span class="text-muted">Ответственный</span>
                     </div>
-                    <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'coworker')): ?>
+                    <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'manager')): ?>
                         <div class="col-2 text-right">
                             <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
                                data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
