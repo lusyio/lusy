@@ -12,7 +12,7 @@
                         <?php else: ?>
                             <p class="payZag">Попробуйте<br><span>Premium</span> доступ</p>
                         <?php endif; ?>
-                        <button class="btn btn-light choose-tariff" data-price="299" data-price-per-month="299"
+                        <button class="btn btn-light choose-tariff" data-price="499" data-price-per-month="499"
                                 data-period="1 месяц" data-tariff-name="Стартовый" data-tariff-id="1">Подробнее
                         </button>
                     <?php endif; ?>
