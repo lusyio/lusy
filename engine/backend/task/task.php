@@ -21,17 +21,17 @@ if ($roleu == 'ceo') {
 }
 $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 
-$taskClass = new Task($id_task);
+$task = new Task($id_task);
 
-$author = $taskClass->get('author');
-$manager = $taskClass->get('manager');
-$worker = $taskClass->get('worker');
-$managerName = $taskClass->get('managerDisplayName');
-$workerName = $taskClass->get('workerDisplayName');
-$coworkersId = $taskClass->get('coworkers');
-$files = $taskClass->get('files');
+$author = $task->get('author');
+$manager = $task->get('manager');
+$worker = $task->get('worker');
+$managerName = $task->get('managerDisplayName');
+$workerName = $task->get('workerDisplayName');
+$coworkersId = $task->get('coworkers');
+$files = $task->get('files');
 
-$subTasks = $taskClass->get('subTasks');
+$subTasks = $task->get('subTasks');
 $unfinishedSubTasks = [];
 foreach ($subTasks as $subTask) {
     if (!in_array($subTask->get('status'), ['done', 'canceled', 'planned'])) {
@@ -45,10 +45,10 @@ $hasOwnSubTaskQuery = $pdo->prepare("SELECT COUNT(*) FROM tasks t LEFT JOIN task
 $hasOwnSubTaskQuery->execute([':taskId' => $id_task, ':userId' => $id]);
 $hasOwnSubTask = $hasOwnSubTaskQuery->fetch(PDO::FETCH_COLUMN);
 
-$report = $taskClass->get('report');
-$idtask = $taskClass->get('id');
-$nametask = $taskClass->get('name');
-$status = $taskClass->get('status');
+$report = $task->get('report');
+$idtask = $task->get('id');
+$nametask = $task->get('name');
+$status = $task->get('status');
 if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
     $status = 'inwork';
 }
@@ -56,30 +56,30 @@ $enableComments = true;
 if ($status == 'done' || $status == 'canceled') {
     $enableComments = false;
 }
-$description = nl2br($taskClass->get('description'));
+$description = nl2br($task->get('description'));
 $description = htmlspecialchars_decode($description);
 
 $tryPremiumLimits = getFreePremiumLimits($idc);
-$isPremiumUsed = (boolean)$taskClass->get('with_premium');
+$isPremiumUsed = (boolean)$task->get('with_premium');
 
-$actualDeadline = $taskClass->get('datedone');
+$actualDeadline = $task->get('datedone');
 $datedone = date("d.m", $actualDeadline);
 $dayDone = date('j', $actualDeadline);
 $monthDone = $_months[date('n', $actualDeadline) - 1];
-$datecreateSeconds = $taskClass->get('datecreate');
+$datecreateSeconds = $task->get('datecreate');
 $dayost = (strtotime($datedone) - strtotime('midnight')) / (60 * 60 * 24);
-$dateProgress = $taskClass->getDateProgress();
+$dateProgress = $task->getDateProgress();
 
-$checklist = $taskClass->getCheckList();
+$checklist = $task->getCheckList();
 
-$view = $taskClass->get('view');
+$view = $task->get('view');
 if ($worker == $id && $view == '0') {
-    $taskClass->markTaskAsRead();
+    $task->markTaskAsRead();
 }
-$taskClass->markTaskEventsAsRead();
+$task->markTaskEventsAsRead();
 
 
-if ($idc == $taskClass->get('idcompany') && ($id == $manager || $isCeo || $manager == 1)) {
+if ($idc == $task->get('idcompany') && ($id == $manager || $isCeo || $manager == 1)) {
     $role = 'manager';
 } elseif ((in_array($id, $coworkersId) || $worker == $id || $hasOwnSubTask) && $status != 'planned') {
     $role = 'worker';
@@ -95,7 +95,7 @@ $viewer->execute();
 
 //измменяем статус "в работе"
 if ($id == $worker and $status == 'new' || $status == 'returned') {
-    $taskClass->updateTaskStatus('inwork');
+    $task->updateTaskStatus('inwork');
 }
 
 ob_end_flush();
@@ -105,7 +105,7 @@ $emptySpace = $remainingLimits['space'];
 
 $enableEdit = ($isCeo || $manager == $id) && !in_array($status, ['done', 'canceled']) && $manager != 1;
 
-$parentTaskId = $taskClass->get('parent_task');
+$parentTaskId = $task->get('parent_task');
 if (!is_null($parentTaskId)) {
     $parentTaskName = DBOnce('name', 'tasks', 'id= ' . $parentTaskId);
 }
