@@ -1,7 +1,7 @@
 <div id="status-block">
     <div class="postpone-manager">
         <p class="text-ligther">
-        <?=$workername?> <?=$workersurname?> запрашивает перенос срока на дату <?=$postponedate?>
+        <?=$workerName?> запрашивает перенос срока на дату <?=$postponedate?>
         </p>
         <div>
             <h5>Причина:</h5>

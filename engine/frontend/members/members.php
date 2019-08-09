@@ -10,21 +10,15 @@
                 </div>
             </div>
             <div class="text-justify owner">
-                <img src="/<?= getAvatarLink($manager) ?>"
-                     class="avatar-added mr-1 mb-0">
-                <?php
-                if ($task['managerName'] != null || $task['managerSurname'] != null): ?>
-                    <a class="text-decoration-none" href="/profile/<?= $task['manager'] ?>/"><?= $task['managerName'] ?> <?= $task['managerSurname'] ?></a>
-                <?php else: ?>
-                    <a class="text-decoration-none" href="/profile/<?= $task['manager'] ?>/"><?= $task['managerEmail'] ?></a>
-                <?php endif; ?>
+                <img src="/<?= getAvatarLink($manager) ?>" class="avatar-added mr-1 mb-0">
+                <a class="text-decoration-none" href="/profile/<?= $manager ?>/"></a>
             </div>
             <div class="members-responsible">
                 <div class="row p-5px">
                     <div class="col text-left">
                         <span class="text-muted">Ответственный</span>
                     </div>
-                    <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'coworker')): ?>
+                    <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'coworker')): ?>
                         <div class="col-2 text-right">
                             <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
                                data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
@@ -34,24 +28,20 @@
                 <div class="container-members-responsible-selected">
                     <?php
                     $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
-                    foreach ($users as $n) { ?>
-                        <div val="<?php echo $n['id'] ?>"
-                             class="row members-responsible-selected <?= ($n['id'] == $worker) ? '' : 'd-none' ?>">
+                    foreach ($users as $n): ?>
+                        <div val="<?php echo $n['id'] ?>" class="row members-responsible-selected <?= ($n['id'] == $worker) ? '' : 'd-none' ?>">
                             <div class="col-1">
-                                <img src="/<?= getAvatarLink($n['id']) ?>"
-                                     class="avatar-added mr-1">
+                                <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added mr-1">
                             </div>
                             <div class="col text-left">
                                 <span><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                             </div>
                         </div>
-                    <?php } ?>
-                </div>
+                    <?php endforeach; ?>
+                    </div>
                 <div class="text-left collapse" id="responsibleList">
-                    <?php
-                    foreach ($users as $n) { ?>
-                        <div val="<?php echo $n['id'] ?>"
-                             class="row members-select-responsible <?= ($n['id'] == $worker) ? 'd-none' : '' ?>">
+                <?php foreach ($users as $n): ?>
+                        <div val="<?php echo $n['id'] ?>" class="row members-select-responsible <?= ($n['id'] == $worker) ? 'd-none' : '' ?>">
                             <div class="col-1">
                                 <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
                             </div>
@@ -62,16 +52,15 @@
                                 <i class="fas fa-exchange-alt icon-change-responsible"></i>
                             </div>
                         </div>
-                    <?php } ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="members-coworkers">
-                <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'manager') && $manager != 1): ?>
+            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager') && $manager != 1): ?>
                 <div class="row p-5px">
                     <div class="col text-justify">
                         <span class="text-muted">Соисполнители</span>
                     </div>
-
                     <div class="col-2 text-right">
                         <i class="fas fa-pencil-alt icon-members-change-coworker" data-toggle="collapse"
                            data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList"></i>
@@ -82,77 +71,70 @@
                          data-target="#coworkersList" aria-expanded="false" aria-controls="coworkersList">Нажмите,
                         чтобы добавить
                     </div>
-                    <?php
-                    foreach ($users as $n) { ?>
-                        <div val="<?php echo $n['id'] ?>"
-                             class="add-worker <?= (in_array($n['id'], $coworkersId)) ? '' : 'd-none' ?>">
-                            <img src="/<?= getAvatarLink($n['id']) ?>"
-                                 class="avatar-added mr-1">
-                            <span class="coworker-fio"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
-                            <i class="fas fa-times icon-newtask-delete-coworker"></i>
-                        </div>
-                    <?php } ?>
-                    <?php else: ?>
-                    <div class="container-members-responsible-selected coworkers-list">
-                        <?php if(count($coworkersId) != 0): ?>
-                        <div class="row p-5px">
-                            <div class="col text-justify">
-                                <span class="text-muted">Соисполнители</span>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                        <?php
-                        $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
-                        foreach ($users as $n): ?>
-                            <?php
-                            if (in_array($n['id'], $coworkersId)):?>
-                                <div val="<?php echo $n['id'] ?>"
-                                     class="row members-responsible-selected">
-                                    <div class="col-1">
-                                        <img src="/<?= getAvatarLink($n['id']) ?>"
-                                             class="avatar-added mr-1">
-                                    </div>
-                                    <div class="col text-left">
-                                        <span><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-
-                        <?php endif; ?>
+                    <?php foreach ($users as $n): ?>
+                    <div val="<?php echo $n['id'] ?>"
+                         class="add-worker <?= (in_array($n['id'], $coworkersId)) ? '' : 'd-none' ?>">
+                        <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added mr-1">
+                        <span class="coworker-fio"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+                        <i class="fas fa-times icon-newtask-delete-coworker"></i>
                     </div>
-                    <div class="text-left collapse" id="coworkersList">
-                        <div class="empty-list text-muted text-center">
-                            Список пуст
-                        </div>
-                        <?php
-                        foreach ($users as $n) { ?>
-                            <?php if ($n['id'] == $id) {
-                                continue;
-                            } ?>
-                            <div val="<?php echo $n['id'] ?>"
-                                 class="row members-coworker-select <?= (in_array($n['id'], $coworkersId)) ? 'd-none' : '' ?>">
-                                <div class="col-1">
-                                    <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
-                                </div>
-                                <div class="col">
-                                    <span class="add-coworker-text"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
-                                </div>
-                                <div class="col-2 text-right">
-                                    <i class="fas fa-plus icon-add-coworker"></i>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    </div>
-                    <?php if (($task['status'] != 'done' && $task['status'] != 'canceled') && ($isCeo || $role == 'coworker')): ?>
-                        <div class="mt-3 text-center">
-                            <button class="btn btn-primary btn-sm" id="confirmMembers" type="button">Сохранить</button>
-                        </div>
-                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
+            <?php else: ?>
+                <div class="container-members-responsible-selected coworkers-list">
+                <?php if(count($coworkersId) != 0): ?>
+                    <div class="row p-5px">
+                        <div class="col text-justify">
+                            <span class="text-muted">Соисполнители</span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php foreach ($users as $n): ?>
+                    <?php if (in_array($n['id'], $coworkersId)):?>
+                    <div val="<?php echo $n['id'] ?>" class="row members-responsible-selected">
+                        <div class="col-1">
+                            <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added mr-1">
+                        </div>
+                        <div class="col text-left">
+                            <span><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
             </div>
+            <div class="text-left collapse" id="coworkersList">
+                <div class="empty-list text-muted text-center">
+                    Список пуст
+                </div>
+                <?php foreach ($users as $n): ?>
+                <?php
+                if ($n['id'] == $id) {
+                    continue;
+                } ?>
+                <div val="<?php echo $n['id'] ?>"
+                     class="row members-coworker-select <?= (in_array($n['id'], $coworkersId)) ? 'd-none' : '' ?>">
+                    <div class="col-1">
+                        <img src="/<?= getAvatarLink($n['id']) ?>" class="avatar-added">
+                    </div>
+                    <div class="col">
+                        <span class="add-coworker-text"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
+                    </div>
+                    <div class="col-2 text-right">
+                        <i class="fas fa-plus icon-add-coworker"></i>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager')): ?>
+            <div class="mt-3 text-center">
+                <button class="btn btn-primary btn-sm" id="confirmMembers" type="button">Сохранить</button>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
+</div>
 
     <script>
         $(document).ready(function () {

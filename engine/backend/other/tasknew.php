@@ -25,7 +25,9 @@ if ($isCeo) {
     $ceoParentTasksQuery->execute([':companyId' => $idc]);
     $parentTasks = $ceoParentTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    $parentTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone FROM tasks WHERE (manager = :managerId OR worker = :managerId) AND status NOT IN ('done', 'canceled') AND (status NOT IN ('planned') AND worker = :managerId) AND parent_task IS NULL");
+    $parentTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone 
+FROM tasks 
+WHERE (manager = :managerId OR worker = :managerId) AND ((status NOT IN ('done', 'canceled', 'planned')) OR (status = 'planned' AND (manager = :managerId OR worker = :managerId))) AND parent_task IS NULL");
     $parentTasksQuery->execute([':managerId' => $id]);
     $parentTasks = $parentTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 }

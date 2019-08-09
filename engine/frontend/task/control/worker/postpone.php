@@ -8,7 +8,7 @@
         <?php if ($worker == $id): ?>
     Вы запросили перенос срока на дату <?=$postponedate?>
         <?php else: ?>
-    <?=$workername?> <?=$workersurname?> запрашивает перенос срока на дату <?=$postponedate?>
+    <?=$workerName?> запрашивает перенос срока на дату <?=$postponedate?>
         <?php endif; ?>
     </p>
     <div>
