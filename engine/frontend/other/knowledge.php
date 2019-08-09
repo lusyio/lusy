@@ -1,4 +1,9 @@
 <link href="/assets/css/quill.snow.css" rel="stylesheet">
+<style>
+    .article-content p {
+        margin-bottom: 0.4rem!important;
+    }
+</style>
 <div>
     <p><a href="#" id="addNewArticle" class="btn btn-outline-primary">Добавить статью</a></p>
 </div>
