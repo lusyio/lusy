@@ -268,6 +268,62 @@ $statusColor = [
     </div>
 </div>
 
+<div class="row mt-3 mb-3">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body text-center" style="height: 115px">
+                <p>Всего задач</p>
+                <span class="text-blue" style="font-size: 20px; font-weight: 300"><?= $all ?></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+            <div class="swiper-container" id="swiperNewDash" style="width: 100%; height: 115px;">
+                <div class="swiper-wrapper" style="width: 100%">
+                    <div class="swiper-slide w-100">
+            <div class="row">
+            <?php
+            $i = 0;
+            global $idc;
+            $sql = DB('*','users','idcompany='.$idc . ' ORDER BY is_fired, id');
+            foreach ($sql
+            as $n):
+                $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')');
+//                if ($i++ == 4) break;
+            ?>
+            <div class="col-6 mb-2">
+                <a class="text-decoration-none" href="/profile/<?= $n['id'] ?>/">
+                <div class="card" style="box-shadow: none">
+                    <div class="card-body" style="padding: 5px 25px">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="/<?= getAvatarLink($n["id"]) ?>" class="rounded-circle" style="width: 30px;vertical-align: -80%;">
+                                <span style="top: -3px;right: 8px;z-index: 3;position: absolute;">
+                                    <i class="fas fa-circle mr-1 ml-1 <?= ($n['online']) ? 'text-success' : '' ?>" style="font-size: 10px;vertical-align: middle;color: #dcdcdc;"></i>
+                                </span>
+                            </div>
+                            <div class="col-8 text-area-message pl-0 pr-0">
+                                <p class="mb-0 text-area-message text-blue" style="font-weight: 500"><?= $n["name"] ?> <?= $n["surname"] ?></p>
+                                <p class="text-muted-new mb-0 small"><?= $inwork ?> задач в работе</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <?php
+                if ($i++ == 4){
+                    echo '</div></div><div class="swiper-slide w-100"><div class="row">';
+                }
+            endforeach; ?>
+            </div>
+            </div>
+            </div>
+                <div class="swiper-pagination"></div>
+            </div>
+    </div>
+</div>
+
 <div class="row mt-3">
     <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash">
         <a href="/tasks/" class="text-decoration-none">
@@ -610,6 +666,12 @@ $statusColor = [
 <script>
     var swiper = new Swiper('.swiper-container', {
         loop: true,
+    });
+    var swiper1 = new Swiper('#swiperNewDash', {
+      pagination: {
+        el: '.swiper-pagination',
+        dynamicBullets: true,
+      },
     });
 </script>
 <script>
