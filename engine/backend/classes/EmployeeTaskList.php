@@ -45,12 +45,11 @@ class EmployeeTaskList extends TaskList
             $parentTasksString = implode(', ', $parentTasks);
         }
         $this->queryArgs['parentTasks'] = $parentTasksString;
-        $tasksStmt = $pdo->prepare($this->query . $this->queryStatusFilterString);
+        $tasksStmt = $pdo->prepare($this->query . $this->queryStatusFilterString . $this->tasksQueryOrderString . $this->tasksQueryLimitString . $this->tasksQueryOffsetString);
         $tasksStmt->execute($this->queryArgs);
         $tasksResult = $tasksStmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($tasksResult as $taskData) {
             $this->tasks[] = new Task($taskData['id'], $taskData, $this->subTaskFilterString);
         }
-        var_dump($parentTaskStmt);
     }
 }

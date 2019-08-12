@@ -8,8 +8,10 @@ abstract class TaskList
     protected $queryStatusFilterString = '';
     protected $subTaskFilterString = '';
     protected $parentTaskNullFilterString = '';
-
     protected $tasksQueryResult = [];
+    protected $tasksQueryLimitString = '';
+    protected $tasksQueryOffsetString = '';
+    protected $tasksQueryOrderString = '';
 
     public function __construct()
     {
@@ -149,8 +151,26 @@ abstract class TaskList
         }
     }
 
-    public function countActualTasks()
+    public function countTasks()
     {
         return count($this->tasksQueryResult);
+    }
+
+    public function setTasksQueryLimitString($limit)
+    {
+        $this->tasksQueryLimitString = ' LIMIT ' . $limit;
+    }
+    public function setTasksQueryOffsetString($offset)
+    {
+        $this->tasksQueryOffsetString = ' OFFSET ' . $offset;
+    }
+
+    public function addOrderByDate($asc = true)
+    {
+        if ($asc) {
+            $this->tasksQueryOrderString = ' ORDER BY t.datedone';
+        } else {
+            $this->tasksQueryOrderString = ' ORDER BY t.datedone DESC';
+        }
     }
 }

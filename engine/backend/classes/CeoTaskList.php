@@ -25,7 +25,7 @@ class CeoTaskList extends TaskList
     public function executeQuery()
     {
         global $pdo;
-        $tasksStmt = $pdo->prepare($this->query . $this->queryStatusFilterString . $this->parentTaskNullFilterString);
+        $tasksStmt = $pdo->prepare($this->query . $this->queryStatusFilterString . $this->parentTaskNullFilterString . $this->tasksQueryOrderString . $this->tasksQueryLimitString . $this->tasksQueryOffsetString);
         $tasksStmt->execute($this->queryArgs);
         $this->tasksQueryResult = $tasksStmt->fetchAll(PDO::FETCH_ASSOC);
     }

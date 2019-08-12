@@ -51,7 +51,7 @@ $taskList->executeQuery();
 $taskList->instantiateTasks();
 $taskList->sortActualTasks();
 $tasks = $taskList->getTasks();
-$countAllTasks = $taskList->countActualTasks();
+$countAllTasks = $taskList->countTasks();
 
 
 $archiveTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON tc.task_id = t.id WHERE (t.worker= :userId OR t.manager = :userId OR tc.worker_id = :userId) AND t.status IN ('done', 'canceled') GROUP BY t.status");
