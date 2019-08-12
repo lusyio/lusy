@@ -220,7 +220,12 @@ h5, .ns {
     margin: 5px;
     border: 0;
     height: 35px;
+}
 
+.new-dashblock-card:hover {
+    transition: all 0.1s;
+    cursor: pointer;
+    box-shadow: rgba(197, 197, 201, 0.3) 0px 6px 8px 3px;
 }
 
 #minMaxExample:focus {
