@@ -270,15 +270,7 @@ $statusColor = [
 <?php
 $sql = DB('*', 'users', 'idcompany=' . $idc . ' ORDER BY is_fired, id');
 if (count($sql) >= 3): ?>
-    <div class="row mt-3 new-dashblock-row">
-        <div class="col-4 dashblock-task-counter-col">
-            <div class="card">
-                <div class="card-body dashblock-task-counter text-center">
-                    <p>Всего задач</p>
-                    <span class="text-blue"><?= $all ?></span>
-                </div>
-            </div>
-        </div>
+    <div class="row mt-4 new-dashblock-row">
         <div class="col-12 col-lg-8">
             <div class="swiper-container" id="swiperNewDash">
                 <div class="swiper-wrapper">
@@ -297,7 +289,7 @@ if (count($sql) >= 3): ?>
                                                 <div class="row">
                                                     <div class="col-4 col-lg-3">
                                                         <img src="/<?= getAvatarLink($n["id"]) ?>"
-                                                             class="rounded-circle new-dashblock-img">
+                                                             class="new-dashblock-img">
                                                         <span class="new-dashblock-indicator">
                                                             <i class="fas fa-circle mr-1 ml-1 <?= ($n['online']) ? 'text-success' : '' ?>"></i>
                                                         </span>
@@ -326,9 +318,27 @@ if (count($sql) >= 3): ?>
                 <div class="swiper-pagination"></div>
             </div>
         </div>
+        <div class="col-4 dashblock-task-counter-col">
+            <div class="card premiumCard">
+                <div class="card-body dashblock-task-counter text-center">
+                    <div class="row mt-2">
+                        <div class="col-5">
+                            <span class="dashblock-task-counter-all"><?= $all ?></span>
+
+                        </div>
+                        <div class="col">
+                            <p class="mb-0 ml-2 text-left">Актуальные задачи</p>
+                        </div>
+                    </div>
+                </div>
+                <span class="dashblock-task-counter-bg">
+                    <i class="fas fa-tasks text-white"></i>
+                </span>
+            </div>
+        </div>
     </div>
 <?php else: ?>
-    <div class="row mt-3">
+    <div class="row mt-4">
         <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash">
             <a href="/tasks/" class="text-decoration-none">
                 <div class="card">
@@ -400,7 +410,7 @@ if (count($sql) >= 3): ?>
     </div>
 <?php endif; ?>
 
-    <div class="mt-1 pb-0">
+    <div class="mt-3 pb-0">
         <span class="font-weight-bold d-none"><?= _('History') ?></span>
         <div id="logDashBoard">
             <ul class="timeline">
