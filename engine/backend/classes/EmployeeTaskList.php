@@ -31,6 +31,10 @@ class EmployeeTaskList extends TaskList
             ':userId' => $userId,
         ];
 
+        $this->countQuery = "SELECT COUNT(DISTINCT t.id) FROM tasks t 
+                    LEFT JOIN task_coworkers tc ON tc.task_id = t.id
+                    WHERE (t.id IN (:parentTasks) OR (t.manager=:userId OR t.worker=:userId OR tc.worker_id=:userId)) AND (t.status <> 'planned' OR t.manager = :userId)";
+
     }
 
     public function executeQuery()
@@ -51,5 +55,21 @@ class EmployeeTaskList extends TaskList
         foreach ($tasksResult as $taskData) {
             $this->tasks[] = new Task($taskData['id'], $taskData, $this->subTaskFilterString);
         }
+    }
+    public function executeCountQuery()
+    {
+        global $pdo;
+        $parentTaskStmt = $pdo->prepare($this->parentTaskQuery . $this->parentTaskNullFilterString);
+        $parentTaskStmt->execute($this->parentTaskQueryArgs);
+        $parentTasks = $parentTaskStmt->fetchAll(PDO::FETCH_COLUMN);
+        if (count($parentTasks) == 0) {
+            $parentTasksString = 0;
+        } else {
+            $parentTasksString = implode(', ', $parentTasks);
+        }
+        $this->queryArgs['parentTasks'] = $parentTasksString;
+        $tasksStmt = $pdo->prepare($this->countQuery . $this->queryStatusFilterString);
+        $tasksStmt->execute($this->queryArgs);
+        $this->countResult = $tasksStmt->fetch(PDO::FETCH_COLUMN);
     }
 }

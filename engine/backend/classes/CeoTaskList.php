@@ -16,8 +16,12 @@ class CeoTaskList extends TaskList
                    (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
                     FROM tasks t
                     WHERE t.idcompany = :companyId";
+        $this->countQuery = "SELECT COUNT(DISTINCT t.id) FROM tasks t WHERE t.idcompany = :companyId";
         $this->queryArgs = [
             ':userId' => $userId,
+            ':companyId' => $companyId
+        ];
+        $this->countQueryArgs = [
             ':companyId' => $companyId
         ];
     }
@@ -28,5 +32,12 @@ class CeoTaskList extends TaskList
         $tasksStmt = $pdo->prepare($this->query . $this->queryStatusFilterString . $this->parentTaskNullFilterString . $this->tasksQueryOrderString . $this->tasksQueryLimitString . $this->tasksQueryOffsetString);
         $tasksStmt->execute($this->queryArgs);
         $this->tasksQueryResult = $tasksStmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function executeCountQuery()
+    {
+        global $pdo;
+        $tasksStmt = $pdo->prepare($this->countQuery . $this->queryStatusFilterString . $this->parentTaskNullFilterString);
+        $tasksStmt->execute($this->countQueryArgs);
+        $this->countResult = $tasksStmt->fetch(PDO::FETCH_COLUMN);
     }
 }

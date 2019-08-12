@@ -12,6 +12,9 @@ abstract class TaskList
     protected $tasksQueryLimitString = '';
     protected $tasksQueryOffsetString = '';
     protected $tasksQueryOrderString = '';
+    protected $countQuery;
+    protected $countQueryArgs;
+    protected $countResult;
 
     public function __construct()
     {
@@ -24,6 +27,7 @@ abstract class TaskList
     }
 
     public abstract function executeQuery();
+    public abstract function executeCountQuery();
 
     public function setParentTaskNullFilterString($is)
     {
@@ -172,5 +176,10 @@ abstract class TaskList
         } else {
             $this->tasksQueryOrderString = ' ORDER BY t.datedone DESC';
         }
+    }
+
+    public function getCountResult()
+    {
+        return $this->countResult;
     }
 }

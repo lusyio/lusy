@@ -46,23 +46,25 @@ $taskList = TaskListStrategy::createTaskList($id, $idc, $roleu == 'ceo');
 
 $taskList->setQueryStatusFilter(['done', 'canceled'], false);
 $taskList->setSubTaskFilterString(['done', 'canceled'], false);
-$taskList->setParentTaskNullFilterString(false);
+$taskList->setParentTaskNullFilterString(true);
 $taskList->executeQuery();
 $taskList->instantiateTasks();
 $taskList->sortActualTasks();
 $tasks = $taskList->getTasks();
 $countAllTasks = $taskList->countTasks();
+unset($taskList);
 
+$doneTaskList = TaskListStrategy::createTaskList($id, $idc, $roleu == 'ceo');
+$doneTaskList->setQueryStatusFilter(['done'], true);
+$doneTaskList->setSubTaskFilterString(['done'], true);
+$doneTaskList->executeCountQuery();
+$countArchiveDoneTasks = $doneTaskList->getCountResult();
+unset($doneTaskList);
 
-$archiveTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON tc.task_id = t.id WHERE (t.worker= :userId OR t.manager = :userId OR tc.worker_id = :userId) AND t.status IN ('done', 'canceled') GROUP BY t.status");
-$archiveTasksQuery->execute([':userId' => $id]);
-$archiveTasksCount = $archiveTasksQuery->fetchAll(PDO::FETCH_ASSOC);
-$countArchiveDoneTasks = 0;
-$countArchiveCanceledTasks = 0;
-foreach ($archiveTasksCount as $group) {
-    if ($group['status'] == 'done') {
-        $countArchiveDoneTasks = $group['count'];
-    } elseif ($group['status'] == 'canceled') {
-        $countArchiveCanceledTasks = $group['count'];
-    }
-}
+$canceledTaskList = TaskListStrategy::createTaskList($id, $idc, $roleu == 'ceo');
+$canceledTaskList->setQueryStatusFilter(['canceled'], true);
+$canceledTaskList->setSubTaskFilterString(['canceled'], true);
+$canceledTaskList->executeCountQuery();
+$countArchiveCanceledTasks = $canceledTaskList->getCountResult();
+unset($canceledTaskList);
+
