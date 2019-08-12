@@ -104,6 +104,9 @@ if ($_POST['module'] == 'updateNotifications') {
         $key = filter_var($k, FILTER_SANITIZE_STRING);
         $notifications[$key] = (int) $v;
     }
+    if (!isset($notifications['payment'])) {
+        $notifications['payment'] = 0;
+    }
     if (!$notifications['sleepTime']) {
         $notifications['startSleep'] = -1;
     }
