@@ -228,6 +228,61 @@ h5, .ns {
     box-shadow: rgba(197, 197, 201, 0.3) 0px 6px 8px 3px;
 }
 
+.new-dashblock-swiper-row{
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 0px;
+}
+
+.new-dashblock-indicator{
+    top: -3px;
+    right: 8px;
+    z-index: 3;
+    position: absolute;
+}
+
+.new-dashblock-indicator .fa-circle{
+    font-size: 10px;
+    vertical-align: middle;
+    color: #dcdcdc;
+}
+
+.new-dashblock-card-body .text-area-message.text-blue{
+    font-weight: 500
+}
+
+.new-dashblock-img{
+    width: 30px;
+    vertical-align: -80%;
+}
+
+.new-dashblock-row{
+    margin-bottom: -5px;
+}
+
+#swiperNewDash{
+    width: 100%;
+    height: 140px;
+}
+
+.new-dashblock-row .col-12.col-lg-8{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.new-dashblock-row .dashblock-task-counter{
+    height: 115px;
+}
+
+.new-dashblock-row .dashblock-task-counter .text-blue{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.new-dashblock-card-body{
+    padding: 5px 25px;
+}
+
 #minMaxExample:focus {
     outline: none;
 }
@@ -3391,7 +3446,15 @@ span.date {
         display: none;
     }
 
+    .new-dashblock-card-body{
+        padding: 5px 10px;
+    }
+
     #afterRegModal .col-3{
+        display: none;
+    }
+
+    .dashblock-task-counter-col{
         display: none;
     }
 

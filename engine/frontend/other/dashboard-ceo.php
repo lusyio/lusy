@@ -270,21 +270,20 @@ $statusColor = [
 <?php
 $sql = DB('*', 'users', 'idcompany=' . $idc . ' ORDER BY is_fired, id');
 if (count($sql) >= 3): ?>
-    <div class="row mt-3" style="margin-bottom: -5px;">
-        <div class="col-4">
+    <div class="row mt-3 new-dashblock-row">
+        <div class="col-4 dashblock-task-counter-col">
             <div class="card">
-                <div class="card-body text-center" style="height: 115px">
+                <div class="card-body dashblock-task-counter text-center">
                     <p>Всего задач</p>
-                    <span class="text-blue" style="font-size: 20px; font-weight: 700"><?= $all ?></span>
+                    <span class="text-blue"><?= $all ?></span>
                 </div>
             </div>
         </div>
-        <div class="col-8" style="padding-left: 5px;padding-right: 5px;">
-            <div class="swiper-container" id="swiperNewDash" style="width: 100%; height: 140px;">
+        <div class="col-12 col-lg-8">
+            <div class="swiper-container" id="swiperNewDash">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="row"
-                             style="padding-right: 10px;padding-left: 10px;margin-right: 0px;">
+                        <div class="row new-dashblock-swiper-row">
                             <?php
                             $i = 0;
                             foreach ($sql
@@ -294,21 +293,19 @@ if (count($sql) >= 3): ?>
                                 <div class="col-6 mb-2 pr-0">
                                     <a class="text-decoration-none" href="/profile/<?= $n['id'] ?>/">
                                         <div class="card new-dashblock-card">
-                                            <div class="card-body" style="padding: 5px 25px">
+                                            <div class="card-body new-dashblock-card-body">
                                                 <div class="row">
-                                                    <div class="col-3">
+                                                    <div class="col-4 col-lg-3">
                                                         <img src="/<?= getAvatarLink($n["id"]) ?>"
-                                                             class="rounded-circle"
-                                                             style="width: 30px;vertical-align: -80%;">
-                                                        <span style="top: -3px;right: 8px;z-index: 3;position: absolute;">
-                                                            <i class="fas fa-circle mr-1 ml-1 <?= ($n['online']) ? 'text-success' : '' ?>"
-                                                               style="font-size: 10px;vertical-align: middle;color: #dcdcdc;"></i>
+                                                             class="rounded-circle new-dashblock-img">
+                                                        <span class="new-dashblock-indicator">
+                                                            <i class="fas fa-circle mr-1 ml-1 <?= ($n['online']) ? 'text-success' : '' ?>"></i>
                                                         </span>
                                                     </div>
-                                                    <div class="col-8 text-area-message pl-0 pr-0">
-                                                        <p class="mb-0 text-area-message text-blue"
-                                                           style="font-weight: 500"><?= $n["name"] ?> <?= $n["surname"] ?></p>
-                                                        <p class="text-muted-new mb-0 small"><?= $inwork ?> задач в
+                                                    <div class="col-7 col-lg-8 text-area-message pl-0 pr-0">
+                                                        <p class="mb-0 text-area-message text-blue"><?= $n["name"] ?> <?= $n["surname"] ?></p>
+                                                        <p class="mb-0 text-muted small text-area-message"><?= $inwork ?>
+                                                            задач в
                                                             работе</p>
                                                     </div>
                                                 </div>
@@ -320,7 +317,7 @@ if (count($sql) >= 3): ?>
                                 $i++;
                                 if ($i == 4) {
                                     $i = 0;
-                                    echo '</div></div><div class="swiper-slide"><div class="row" style="    padding-right: 10px;padding-left: 10px;margin-right: 0px;">';
+                                    echo '</div></div><div class="swiper-slide"><div class="row new-dashblock-swiper-row">';
                                 }
                             endforeach; ?>
                         </div>
