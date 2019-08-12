@@ -397,7 +397,7 @@ endforeach; ?>
                         </tr>
                         <tr>
                             <td>Стоимость в месяц</td>
-                            <td><?= $tariffInfo['price'] / (100 * $tariffInfo['period_in_months']); ?> руб.</td>
+                            <td><?= ($tariffInfo['period_in_months'] == 0) ? '0' : $tariffInfo['price'] / (100 * $tariffInfo['period_in_months']); ?> руб.</td>
                         </tr>
                         <tr>
                             <td>Дата следующего платежа</td>
