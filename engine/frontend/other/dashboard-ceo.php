@@ -284,12 +284,10 @@ $statusColor = [
             <div class="row">
             <?php
             $i = 0;
-            global $idc;
             $sql = DB('*','users','idcompany='.$idc . ' ORDER BY is_fired, id');
             foreach ($sql
             as $n):
                 $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')');
-//                if ($i++ == 4) break;
             ?>
             <div class="col-6 mb-2">
                 <a class="text-decoration-none" href="/profile/<?= $n['id'] ?>/">
