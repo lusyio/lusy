@@ -9,6 +9,7 @@ global $cometTrackChannelName;
 global $supportCometHash;
 global $roleu;
 global $now;
+global $_months;
 $cometTrackChannelName = getCometTrackChannelName();
 
 $otbor = '(worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ') and status!="done"';
@@ -39,16 +40,19 @@ LEFT JOIN task_coworkers tc ON tc.task_id = t.id
 WHERE (t.id IN (SELECT DISTINCT t.parent_task FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND t.status NOT IN ('done', 'canceled'))
 OR (t.manager=:userId OR t.worker=:userId OR tc.worker_id=:userId)) AND t.status NOT IN ('done', 'canceled') AND (t.status <> 'planned' OR t.manager = :userId) ORDER BY FIELD(status, 'pending', 'postpone') DESC, FIELD(view_order, 0) DESC, datedone";
 
-if ($roleu == 'ceo') {
-    $dbh = $pdo->prepare($ceoTasksQuery);
-    $dbh->execute(array(':userId' => $id, ':companyId' => $idc, ':quotedUserId' => '"' . $id . '"'));
-} else {
-    $dbh = $pdo->prepare($tasksQuery);
-    $dbh->execute(array(':userId' => $id, ':quotedUserId' => '"' . $id . '"'));
-}
 
-$tasks = $dbh->fetchAll(PDO::FETCH_ASSOC);
-$countAllTasks = count($tasks);
+require_once __ROOT__ . '/engine/backend/classes/TaskListStrategy.php';
+$taskList = TaskListStrategy::createTaskList($id, $idc, $roleu == 'ceo');
+
+$taskList->setQueryStatusFilter(['done', 'canceled'], false);
+$taskList->setSubTaskFilterString(['done', 'canceled'], false);
+$taskList->setParentTaskNullFilterString(false);
+$taskList->executeQuery();
+$taskList->instantiateTasks();
+$taskList->sortActualTasks();
+$tasks = $taskList->getTasks();
+$countAllTasks = $taskList->countActualTasks();
+
 
 $archiveTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON tc.task_id = t.id WHERE (t.worker= :userId OR t.manager = :userId OR tc.worker_id = :userId) AND t.status IN ('done', 'canceled') GROUP BY t.status");
 $archiveTasksQuery->execute([':userId' => $id]);
@@ -62,6 +66,3 @@ foreach ($archiveTasksCount as $group) {
         $countArchiveCanceledTasks = $group['count'];
     }
 }
-
-prepareTasks($tasks);
-$groupedTasks = groupTasks($tasks);

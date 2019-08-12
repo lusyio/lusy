@@ -69,6 +69,17 @@
             'canceled' => $GLOBALS['_canceledlist'],
             'planned' => $GLOBALS['_plannedlist'],
         ],
+        'ceo' => [
+            'new' => $GLOBALS['_tasknewmanager'],
+            'inwork' => $GLOBALS['_inprogresslist'],
+            'overdue' => $GLOBALS['_overduelist'],
+            'postpone' => $GLOBALS['_postponelist'],
+            'pending' => $GLOBALS['_pendinglist'],
+            'returned' => $GLOBALS['_returnedlist'],
+            'done' => $GLOBALS['_donelist'],
+            'canceled' => $GLOBALS['_canceledlist'],
+            'planned' => $GLOBALS['_plannedlist'],
+        ],
         'worker' => [
             'new' => $GLOBALS['_tasknewworker'],
             'inwork' => $GLOBALS['_inprogresslist'],
@@ -81,19 +92,24 @@
             'planned' => $GLOBALS['_plannedlist'],
         ],
     ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
-    foreach ($groupedTasks as $n):
-        if (!is_null($n['task']['viewStatus']) && isset($n['task']['viewStatus'][$n['task']['idmanager']])) {
-            $viewStatusTitleManager = 'Просмотрено ' . $n['task']['viewStatus'][$n['task']['idmanager']]['datetime'];
-        } else {
-            $viewStatusTitleManager = 'Не просмотрено';
-        }
-        if (is_null($n['task']['viewStatus']) || !isset($n['task']['viewStatus'][$id])) {
-            $isTaskRead = false;
-        } else {
-            $isTaskRead = true;
-        }
+
+    foreach ($tasks as $task) {
+        $status = $task->get('status');
+        $taskId = $task->get('id');
+        $mainRole = $task->get('mainRole');
+        $subTasks = $task->get('subTasks');
+        $name = $task->get('name');
+        $countComments = $task->get('countComments');
+        $countNewComments = $task->get('countNewComments');
+        $countAttachedFiles = $task->get('countAttachedFiles');
+        $countNewFiles = $task->get('countNewFiles');
+        $datedone = $task->get('datedone');
+        $manager = $task->get('manager');
+        $worker = $task->get('worker');
+        $viewStatus = $task->get('viewStatus');
         include __ROOT__ . '/engine/frontend/other/task-card.php';
-    endforeach; ?>
+    }
+    ?>
 </div>
 <script>
     $(document).ready(function () {

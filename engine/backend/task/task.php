@@ -78,6 +78,20 @@ if ($worker == $id && $view == '0') {
 }
 $task->markTaskEventsAsRead();
 
+$viewStatus = json_decode($task->get('view_status'), true);
+
+if(is_null($viewStatus) || !isset($viewStatus[$id]['datetime'])) {
+    $viewStatus[$id]['datetime'] = time();
+    $viewStatusJson = json_encode($viewStatus);
+    $viewQuery = $pdo->prepare('UPDATE `tasks` SET view_status = :viewStatus where id=:taskId');
+    $viewQuery->execute(array(':viewStatus' => $viewStatusJson, ':taskId' => $id_task));
+}
+
+if (!is_null($viewStatus) && isset($viewStatus[$manager]['datetime'])) {
+    $viewStatusTitleManager = 'Просмотрено ' . $viewStatus[$manager]['datetime'];
+} else {
+    $viewStatusTitleManager = 'Не просмотрено';
+}
 
 if ($idc == $task->get('idcompany') && ($id == $manager || $isCeo || $manager == 1)) {
     $role = 'manager';

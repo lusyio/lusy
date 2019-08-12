@@ -263,7 +263,6 @@ if ($id == $worker and $view == 0) {
         <?php if (count($subTasks) > 0): ?>
             <div class="subTaskInList subtask-task">
                 <?php foreach ($subTasks as $subTask): ?>
-                <?php var_dump($subTask); ?>
                     <a class="text-decoration-none cust<?= (in_array($subTask->get('id'), $unfinishedSubTasks)) ? ' not-finished': '';?>" idtask="<?= $subTask->get('id') ?>" href="/task/<?= $subTask->get('id') ?>/">
                         <div class="card-footer border-0 card-footer-subtask">
                             <div class="d-block">
