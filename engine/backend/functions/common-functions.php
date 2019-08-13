@@ -1859,3 +1859,25 @@ function addToErrorLog($text)
     $current .= "\n";
     file_put_contents($file, $current);
 }
+
+function sanitizeCloudUploads($googleFiles, $dropboxFiles) {
+    $cloudFiles = [
+        'google' => [],
+        'dropbox' => [],
+    ];
+    foreach ($googleFiles as $k => $v) {
+        $cloudFiles['google'][] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
+        ];
+    }
+    foreach ($dropboxFiles as $k => $v) {
+        $cloudFiles['dropbox'][] = [
+            'name' => filter_var($k, FILTER_SANITIZE_STRING),
+            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
+            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
+        ];
+    }
+    return $cloudFiles;
+}

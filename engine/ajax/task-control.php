@@ -56,25 +56,9 @@ if($_POST['module'] == 'sendonreview') {
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
 
     //Обработка прикрепленных из облака файлов
-    $cloudFiles = [
-        'google' => [],
-        'dropbox' => [],
-    ];
-    foreach ($unsafeGoogleFiles as $k => $v) {
-        $cloudFiles['google'][] = [
-            'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
-            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
-        ];
-    }
+    $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
     $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
-    foreach ($unsafeDropboxFiles as $k => $v) {
-        $cloudFiles['dropbox'][] = [
-            'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
-            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
-        ];
-    }
+    $cloudFiles = sanitizeCloudUploads($unsafeGoogleFiles, $unsafeDropboxFiles);
 
     // Возможность прикрепления файлов: 1 - премиум-тариф, 0 - бесплатный тариф, есть бесплатные попытки,
     // -1 - бесплатный тариф, нет бесплатных попыток
@@ -133,26 +117,10 @@ if($_POST['module'] == 'workreturn') {
     $text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
     //Обработка прикрепленных из облака файлов
-    $cloudFiles = [
-        'google' => [],
-        'dropbox' => [],
-    ];
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
-    foreach ($unsafeGoogleFiles as $k => $v) {
-        $cloudFiles['google'][] = [
-            'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
-            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
-        ];
-    }
     $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
-    foreach ($unsafeDropboxFiles as $k => $v) {
-        $cloudFiles['dropbox'][] = [
-            'name' => filter_var($k, FILTER_SANITIZE_STRING),
-            'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
-            'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
-        ];
-    }
+
+    $cloudFiles = sanitizeCloudUploads($unsafeGoogleFiles, $unsafeDropboxFiles);
 
     // Возможность прикрепления файлов: 1 - премиум-тариф, 0 - бесплатный тариф, есть бесплатные попытки,
     // -1 - бесплатный тариф, нет бесплатных попыток
