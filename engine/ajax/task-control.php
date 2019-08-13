@@ -179,13 +179,6 @@ if($_POST['module'] == 'workreturn' && $isManager) {
 
 }
 
-// Кнопка В работу для worker'a
-
-if($_POST['module'] == 'inwork') {
-    $sql = $pdo->prepare('UPDATE `tasks` SET `status` = "new" WHERE id='.$idtask);
-    $sql->execute();
-}
-
 // создание новой задачи
 
 if($_POST['module'] == 'createTask') {
