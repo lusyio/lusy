@@ -256,8 +256,8 @@ class Task
         global $pdo;
         $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
         $changeWorkerQuery->execute([':taskId' => $this->get('id'), ':newWorker' => $newWorker]);
+        addChangeExecutorsComments($this->get('id'), 'newworker', $newWorker);
         if ($this->get('status') != 'planned') {
-            addChangeExecutorsComments($this->get('id'), 'newworker', $newWorker);
             addEvent('changeworker', $this->get('id'), '', $this->get('worker'));
             $isChanged = true;
         }
