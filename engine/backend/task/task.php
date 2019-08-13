@@ -108,7 +108,7 @@ $viewer = $pdo->prepare('UPDATE `comments` SET view = "1" where idtask="' . $id_
 $viewer->execute();
 
 //измменяем статус "в работе"
-if ($id == $worker and $status == 'new' || $status == 'returned') {
+if ($id == $worker && in_array($task->get('status'), ['new', 'returned'])) {
     $task->updateTaskStatus('inwork');
 }
 
