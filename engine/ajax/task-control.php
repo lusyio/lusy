@@ -91,16 +91,13 @@ if($_POST['module'] == 'sendonreview') {
 }
 
 //TODO Запрос на перенос срока
-if($_POST['module'] == 'sendpostpone' && $isWorker) {
+if($_POST['module'] == 'sendpostpone') {
+    if (!$isWorker) {
+        exit;
+    }
     $text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-    $datepostpone = filter_var($_POST['datepostpone'],FILTER_SANITIZE_SPECIAL_CHARS);
-    $status = 'request:' . strtotime($datepostpone);
-
-    setStatus($idtask, 'postpone');
-    addPostponeComments($idtask, strtotime($datepostpone), $text);
-    resetViewStatus($idtask);
-    addEvent('postpone', $idtask, strtotime($datepostpone), $idTaskManager);
-
+    $datePostpone = strtotime(filter_var($_POST['datepostpone'],FILTER_SANITIZE_SPECIAL_CHARS));
+    $task->sendPostpone($datePostpone, $text);
 }
 
 // Завершение задачи - есть метод в классе
@@ -127,7 +124,7 @@ if($_POST['module'] == 'cancelTask') {
     echo json_encode($unfinishedSubTasks);
 }
 
-// Отклонение после рассмотрения задачи
+// TODO Отклонение после рассмотрения задачи
 if($_POST['module'] == 'workreturn') {
     if (!$isManager) {
         exit;

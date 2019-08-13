@@ -330,4 +330,12 @@ class Task
             addEvent('canceltask', $this->get('id'), '');
         }
     }
+
+    public function sendPostpone($datePostpone, $text)
+    {
+        setStatus($this->get('id'), 'postpone');
+        addPostponeComments($this->get('id'), $datePostpone, $text);
+        resetViewStatus($this->get('id'));
+        addEvent('postpone', $this->get('id'), $datePostpone, $this->get('manager'));
+    }
 }
