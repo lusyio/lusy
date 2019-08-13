@@ -388,13 +388,16 @@ if ($_POST['module'] == 'sendDate') {
 
 if ($_POST['module'] == 'changeStartDate' && $isManager) {
     $newDate = strtotime(filter_var($_POST['startDate'], FILTER_SANITIZE_NUMBER_INT));
-    if ($task->get('status') != 'planned') {
+    if ($task->get('status') != 'planned' || !$task->hasEditAccess) {
         exit;
     }
     $task->changeStartDate($newDate);
 }
 
 if ($_POST['module'] == 'addCoworker' && $isManager) {
+    if (!$task->hasEditAccess) {
+        exit;
+    }
     $unsafeCoworkers = json_decode($_POST['coworkers']);
     $newCoworkers = [];
     $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
