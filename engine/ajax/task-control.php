@@ -397,21 +397,20 @@ if ($_POST['module'] == 'changeStartDate' && $isManager) {
 if ($_POST['module'] == 'addCoworker' && $isManager) {
     $unsafeCoworkers = json_decode($_POST['coworkers']);
     $newCoworkers = [];
+    $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
+
     foreach ($unsafeCoworkers as $c) {
+        if ($c == $newWorker) {
+            continue;
+        }
         $newCoworkers[] = filter_var($c, FILTER_SANITIZE_NUMBER_INT);
     }
-    $task->changeCoworkers($newCoworkers);
-
-    $newWorker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
-    if ($newWorker != $idTaskWorker && $newWorker != $idTaskManager) {
-        $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
-        $changeWorkerQuery->execute(array(':taskId' => $idtask, ':newWorker' => $newWorker));
-        if ($taskStatus != 'planned') {
-            addChangeExecutorsComments($idtask, 'newworker', $newWorker);
-            addEvent('changeworker', $idtask, '', $idTaskWorker);
-        }
+    $isCoworkersChanged = $task->changeCoworkers($newCoworkers);
+    $isWorkerChanged = false;
+    if ($newWorker != $task->get('worker') && $newWorker != $task->get('manager') && !in_array($newWorker, $newCoworkers)) {
+        $isWorkerChanged = $task->changeWorker($newWorker);
     }
-    if ($taskStatus != 'planned') {
+    if ($task->get('status') != 'planned' && ($isCoworkersChanged || $isWorkerChanged)) {
         resetViewStatus($idtask);
     }
 }

@@ -59,7 +59,7 @@ class Task
         }
 
         if ($isCeo || $this->get('manager') == $id) {
-           $this->hasEditAccess = true;
+            $this->hasEditAccess = true;
         }
 
         $this->taskData['viewStatus'] = json_decode($this->taskData['view_status'], true);
@@ -80,7 +80,7 @@ class Task
             $this->taskData['mainRole'] = 'worker';
         }
 
-        if(is_array($this->taskData['subTasks'])) {
+        if (is_array($this->taskData['subTasks'])) {
             usort($this->taskData['subTasks'], ['TaskList', 'compareWithoutSubTasks']);
         }
     }
@@ -93,7 +93,7 @@ class Task
         } else {
             $appendix .= ' NOT IN ';
         }
-        if(is_array($status)) {
+        if (is_array($status)) {
             $appendix .= "('" . implode("', '", $status) . "')";
         } else {
             $appendix .= "('" . $status . "')";
@@ -198,7 +198,7 @@ class Task
         $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datedone = :newDate, `view` = 0 WHERE id = :taskId");
 
         if ($this->get('status') != 'planned') {
-            $sql->execute(array(':taskId' => $this->get('id'),':newDate' => $newDate, ':status' => 'inwork'));
+            $sql->execute(array(':taskId' => $this->get('id'), ':newDate' => $newDate, ':status' => 'inwork'));
             addChangeDateComments($this->get('id'), 'senddate', $newDate);
             resetViewStatus($this->get('id'));
             addEvent('senddate', $this->get('id'), $newDate);
@@ -212,7 +212,7 @@ class Task
         global $pdo;
         $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datecreate = :startDate, `view` = 0 WHERE id = :taskId");
 
-        if ($newDate <= time()){
+        if ($newDate <= time()) {
             $sql->execute(array(':startDate' => $newDate, ':status' => 'new'));
             resetViewStatus($this->get('id'));
             addTaskCreateComments($this->get('id'), $this->get('worker'), $this->get('coworkers'));
@@ -225,14 +225,15 @@ class Task
     function changeCoworkers($newCoworkers)
     {
         global $pdo;
+        $isChanged = false;
         $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
-
         foreach ($newCoworkers as $newCoworker) {
             if (!in_array($newCoworker, $this->get('coworkers'))) { //добавляем соисполнителя, если его еще нет в таблице
                 $addCoworkerQuery->execute([':taskId' => $this->get('id'), ':coworkerId' => $newCoworker]);
                 if ($this->get('status') != 'planned') {
                     addChangeExecutorsComments($this->get('id'), 'addcoworker', $newCoworker);
                     addEvent('addcoworker', $this->get('id'), '', $newCoworker);
+                    $isChanged = true;
                 }
             }
         }
@@ -243,13 +244,23 @@ class Task
                 if ($this->get('status') != 'planned') {
                     addChangeExecutorsComments($this->get('id'), 'removecoworker', $oldCoworker);
                     addEvent('removecoworker', $this->get('id'), '', $oldCoworker);
+                    $isChanged = true;
                 }
             }
         }
+        return $isChanged;
     }
 
     function changeWorker($newWorker)
     {
-
+        global $pdo;
+        $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
+        $changeWorkerQuery->execute([':taskId' => $this->get('id'), ':newWorker' => $newWorker]);
+        if ($this->get('status') != 'planned') {
+            addChangeExecutorsComments($this->get('id'), 'newworker', $newWorker);
+            addEvent('changeworker', $this->get('id'), '', $this->get('worker'));
+            $isChanged = true;
+        }
+        return $isChanged;
     }
 }
