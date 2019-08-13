@@ -188,7 +188,7 @@ class Task
             return;
         }
         global $pdo;
-        $viewer = $pdo->prepare('UPDATE `tasks` SET status = "inwork" where id = :taskId');
+        $viewer = $pdo->prepare("UPDATE `tasks` SET status = 'inwork' where id = :taskId");
         $viewer->execute([':taskId' => $this->get('id')]);
     }
 
@@ -203,7 +203,22 @@ class Task
             resetViewStatus($this->get('id'));
             addEvent('senddate', $this->get('id'), $newDate);
         } elseif ($newDate > strtotime('midnight')) {
-            $sql->execute(array(':taskId' => $this->get('id'), ':newDate' => $newDate, ':status' => 'planned'));
+            $sql->execute([':taskId' => $this->get('id'), ':newDate' => $newDate, ':status' => 'planned']);
+        }
+    }
+
+    function changeStartDate($newDate)
+    {
+        global $pdo;
+        $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datecreate = :startDate, `view` = 0 WHERE id = :taskId");
+
+        if ($newDate <= time()){
+            $sql->execute(array(':startDate' => $newDate, ':status' => 'new'));
+            resetViewStatus($this->get('id'));
+            addTaskCreateComments($this->get('id'), $this->get('worker'), $this->get('coworkers'));
+            addEvent('createtask', $this->get('id'), $this->get('datedone'), $this->get('worker'));
+        } else {
+            $sql->execute([':taskId' => $this->get('id'), ':startDate' => $newDate, ':status' => 'planned']);
         }
     }
 }

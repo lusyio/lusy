@@ -387,17 +387,11 @@ if ($_POST['module'] == 'sendDate') {
 }
 
 if ($_POST['module'] == 'changeStartDate' && $isManager) {
-    $startDate = strtotime(filter_var($_POST['startDate'], FILTER_SANITIZE_SPECIAL_CHARS));
-    $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datecreate = :startDate, `view` = 0 WHERE id=".$idtask);
-
-    if ($startDate <= time()){
-        $sql->execute(array(':startDate' => $startDate, ':status' => 'new'));
-        resetViewStatus($idtask);
-        addTaskCreateComments($idtask, $idTaskWorker, $coworkers);
-        addEvent('createtask', $idtask, $datedone, $idTaskWorker);
-    } else {
-        $sql->execute(array(':startDate' => $startDate, ':status' => 'planned'));
+    $newDate = strtotime(filter_var($_POST['startDate'], FILTER_SANITIZE_NUMBER_INT));
+    if ($task->get('status') != 'planned') {
+        exit;
     }
+    $task->changeStartDate($newDate);
 }
 
 if ($_POST['module'] == 'addCoworker' && $isManager) {
