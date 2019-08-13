@@ -47,52 +47,46 @@ if ($roleu == 'ceo') {
     $isManager = true;
 }
 
-if($_POST['module'] == 'sendonreview' && $isWorker) {
+if($_POST['module'] == 'sendonreview') {
+    if (!$isWorker) {
+        exit;
+    }
     $report = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
-    $googleFiles = [];
+
+    //Обработка прикрепленных из облака файлов
+    $cloudFiles = [
+        'google' => [],
+        'dropbox' => [],
+    ];
     foreach ($unsafeGoogleFiles as $k => $v) {
-        $googleFiles[] = [
+        $cloudFiles['google'][] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
             'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
             'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
     $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
-    $dropboxFiles = [];
     foreach ($unsafeDropboxFiles as $k => $v) {
-        $dropboxFiles[] = [
+        $cloudFiles['dropbox'][] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
             'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
             'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
 
-    setStatus($idtask, 'pending');
-    $commentId = addSendOnReviewComments($idtask, $report);
+    // Возможность прикрепления файлов: 1 - премиум-тариф, 0 - бесплатный тариф, есть бесплатные попытки,
+    // -1 - бесплатный тариф, нет бесплатных попыток
+    if ($tariff == 1) {
+        $premiumType = 1;
+    } elseif ($tryPremiumLimits['cloud'] < 3) {
+        $premiumType = 0;
+    } else {
+        $premiumType = -1;
+    }
 
-    if (count($_FILES) > 0) {
-        uploadAttachedFiles('comment', $commentId);
-    }
-    if (count($googleFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
-        addGoogleFiles('comment', $commentId, $googleFiles);
-        $usePremiumCloud = true;
-    }
-    if (count($dropboxFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
-        addDropboxFiles('comment', $commentId, $dropboxFiles);
-        $usePremiumCloud = true;
-    }
-    if ($tariff == 0) {
-        if ($usePremiumCloud) {
-            updateFreePremiumLimits($idc, 'cloud');
-        }
-    }
-    resetViewStatus($idtask);
-    addEvent('review', $idtask, $commentId);
-    if ($idTaskManager == 1) {
-        checkSystemTask($idtask);
-    }
+    $task->sendOnReview($report, $cloudFiles, $premiumType);
+
 }
 
 if($_POST['module'] == 'sendpostpone' && $isWorker) {

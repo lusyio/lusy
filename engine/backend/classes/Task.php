@@ -263,4 +263,32 @@ class Task
         }
         return $isChanged;
     }
+
+    function sendOnReview($reportText, $files, $premiumType)
+    {
+        $usePremiumCloud = false;
+
+        setStatus($this->get('id'), 'pending');
+        $commentId = addSendOnReviewComments($this->get('id'), $reportText);
+
+        if (count($_FILES) > 0) {
+            uploadAttachedFiles('comment', $commentId);
+        }
+        if (count($files['google']) > 0 && ($premiumType >= 0)) {
+            addGoogleFiles('comment', $commentId, $files['google']);
+            $usePremiumCloud = true;
+        }
+        if (count($files['dropbox']) > 0 && ($premiumType >= 0)) {
+            addDropboxFiles('comment', $commentId, $files['dropbox']);
+            $usePremiumCloud = true;
+        }
+        if ($premiumType < 0 && $usePremiumCloud) {
+            updateFreePremiumLimits($this->get('idcompany'), 'cloud');
+        }
+        resetViewStatus($this->get('id'));
+        addEvent('review', $this->get('id'), $commentId);
+        if ($this->get('manager') == 1) {
+            checkSystemTask($this->get('id'));
+        }
+    }
 }
