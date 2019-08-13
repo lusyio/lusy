@@ -11,7 +11,7 @@
             </div>
             <div class="text-justify owner">
                 <img src="/<?= getAvatarLink($manager) ?>" class="avatar-added mr-1 mb-0">
-                <a class="text-decoration-none" href="/profile/<?= $manager ?>/"></a>
+                <a class="text-decoration-none" href="/profile/<?= $manager ?>/"><?= $managerName ?></a>
             </div>
             <div class="members-responsible">
                 <div class="row p-5px">
