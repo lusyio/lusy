@@ -291,4 +291,43 @@ class Task
             checkSystemTask($this->get('id'));
         }
     }
+
+    public function checkSubTasksForFinish()
+    {
+        $subTasks = $this->get('subTasks');
+        $result = [
+            'status' => true,
+            'tasks' => [],
+        ];
+        foreach ($subTasks as $subTask) {
+            if (!in_array($subTask->get('status'), ['canceled', 'done'])) {
+                $result['status'] = false;
+                $result['tasks'][] = [
+                    'id' => $subTask['id'],
+                    'name' => $subTask['name'],
+                ];
+            }
+        }
+        return $result;
+    }
+
+    public function workDone()
+    {
+        setFinalStatus($this->get('id'), 'done');
+        addFinalComments($this->get('id'), 'done');
+        resetViewStatus($this->get('id'));
+        if ($this->get('status') != 'planned') {
+            addEvent('workdone', $this->get('id'), '');
+        }
+    }
+
+    public function cancelTask()
+    {
+        setFinalStatus($this->get('id'), 'canceled');
+        addFinalComments($this->get('id'), 'canceled');
+        resetViewStatus($this->get('id'));
+        if ($this->get('status') != 'planned') {
+            addEvent('canceltask', $this->get('id'), '');
+        }
+    }
 }

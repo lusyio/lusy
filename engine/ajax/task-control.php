@@ -101,41 +101,22 @@ if($_POST['module'] == 'sendpostpone' && $isWorker) {
 
 }
 
-
 // Завершение задачи
-
 if($_POST['module'] == 'workdone' && $isManager) {
-    $subTasks = checkSubTasksForFinish($idtask);
-    if ($subTasks['status']) {
-        setFinalStatus($idtask, 'done');
-        addFinalComments($idtask, 'done');
-        resetViewStatus($idtask);
-        if ($taskStatus != 'planned') {
-            addEvent('workdone', $idtask, '');
-            echo json_encode($subTasks);
-        }
-    } else {
-        echo json_encode($subTasks);
+    $unfinishedSubTasks = $task->checkSubTasksForFinish();
+    if ($unfinishedSubTasks['status']) {
+        $task->workDone();
     }
+    echo json_encode($unfinishedSubTasks);
 }
 
 // Отмена задачи
-
 if($_POST['module'] == 'cancelTask' && $isManager) {
-    $subTasks = checkSubTasksForFinish($idtask);
-    if ($subTasks['status']) {
-        setFinalStatus($idtask, 'canceled');
-        addFinalComments($idtask, 'canceled');
-        resetViewStatus($idtask);
-        if ($taskStatus != 'planned') {
-            addEvent('canceltask', $idtask, '');
-            echo json_encode($subTasks);
-        }
-    } else {
-        echo json_encode($subTasks);
+    $unfinishedSubTasks = $task->checkSubTasksForFinish();
+    if ($unfinishedSubTasks['status']) {
+        $task->cancelTask();
     }
-
-
+    echo json_encode($unfinishedSubTasks);
 }
 
 // Кнопка вернуть для worker'a
