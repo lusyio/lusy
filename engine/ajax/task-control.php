@@ -128,7 +128,10 @@ if($_POST['module'] == 'cancelTask') {
 }
 
 // Отклонение после рассмотрения задачи
-if($_POST['module'] == 'workreturn' && $isManager) {
+if($_POST['module'] == 'workreturn') {
+    if (!$isManager) {
+        exit;
+    }
     $datepostpone = filter_var($_POST['datepostpone'], FILTER_SANITIZE_SPECIAL_CHARS);
     $text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
@@ -359,7 +362,10 @@ if ($_POST['module'] == 'sendDate') {
 }
 
 // Перенос старта задачи - есть метод в классе
-if ($_POST['module'] == 'changeStartDate' && $isManager) {
+if ($_POST['module'] == 'changeStartDate') {
+    if (!$isManager) {
+        exit;
+    }
     $newDate = strtotime(filter_var($_POST['startDate'], FILTER_SANITIZE_NUMBER_INT));
     if ($task->get('status') != 'planned' || !$task->hasEditAccess) {
         exit;
@@ -368,7 +374,7 @@ if ($_POST['module'] == 'changeStartDate' && $isManager) {
 }
 
 // Изменение исполнителя и соисполнителей - есть метод в классе
-if ($_POST['module'] == 'addCoworker' && $isManager) {
+if ($_POST['module'] == 'addCoworker') {
     if (!$task->hasEditAccess) {
         exit;
     }
@@ -392,6 +398,7 @@ if ($_POST['module'] == 'addCoworker' && $isManager) {
     }
 }
 
+// TODO - Отметка в чеклисте
 if ($_POST['module'] == 'checklist' && ($isManager || $isWorker) && isset($_POST['checklistRow'])) {
     $checklistRow = filter_var($_POST['checklistRow'], FILTER_SANITIZE_STRING);
     if ($checklist[$checklistRow]['status'] == 0 ) {
