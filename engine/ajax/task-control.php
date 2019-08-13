@@ -47,6 +47,7 @@ if ($roleu == 'ceo') {
     $isManager = true;
 }
 
+// Отправка на рассмотрение - есть метод в классе
 if($_POST['module'] == 'sendonreview') {
     if (!$isWorker) {
         exit;
@@ -89,6 +90,7 @@ if($_POST['module'] == 'sendonreview') {
 
 }
 
+//TODO Запрос на перенос срока
 if($_POST['module'] == 'sendpostpone' && $isWorker) {
     $text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $datepostpone = filter_var($_POST['datepostpone'],FILTER_SANITIZE_SPECIAL_CHARS);
@@ -101,7 +103,7 @@ if($_POST['module'] == 'sendpostpone' && $isWorker) {
 
 }
 
-// Завершение задачи
+// Завершение задачи - есть метод в классе
 if($_POST['module'] == 'workdone') {
     if (!$isManager) {
         exit;
@@ -113,7 +115,7 @@ if($_POST['module'] == 'workdone') {
     echo json_encode($unfinishedSubTasks);
 }
 
-// Отмена задачи
+// Отмена задачи - есть метод в классе
 if($_POST['module'] == 'cancelTask') {
     if (!$isManager) {
         exit;
@@ -125,8 +127,7 @@ if($_POST['module'] == 'cancelTask') {
     echo json_encode($unfinishedSubTasks);
 }
 
-// Кнопка вернуть для worker'a
-
+// Отклонение после рассмотрения задачи
 if($_POST['module'] == 'workreturn' && $isManager) {
     $datepostpone = filter_var($_POST['datepostpone'], FILTER_SANITIZE_SPECIAL_CHARS);
     $text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -179,8 +180,7 @@ if($_POST['module'] == 'workreturn' && $isManager) {
 
 }
 
-// создание новой задачи
-
+// TODO создание новой задачи
 if($_POST['module'] == 'createTask') {
     $result = [
         'taskId' => '',
@@ -323,9 +323,7 @@ if($_POST['module'] == 'createTask') {
     }
 }
 
-
-//отклонение запроса на перенос срока
-
+// TODO отклонение запроса на перенос срока
 if ($_POST['module'] == 'cancelDate' && $isManager) {
     $sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork' WHERE id=" . $idtask); //TODO нужно разобраться со статусами
     $sql->execute();
@@ -336,8 +334,7 @@ if ($_POST['module'] == 'cancelDate' && $isManager) {
 
 }
 
-//одобрение запроса на перенос срока
-
+// TODO одобрение запроса на перенос срока
 if ($_POST['module'] == 'confirmDate' && $isManager) {
     $statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
     $datepostpone = preg_split('~:~', $statusWithDate)[1];
@@ -352,6 +349,7 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 
 }
 
+// Перенос срока по инициативе менеджера - есть метод в классе
 if ($_POST['module'] == 'sendDate') {
     $newDate = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_NUMBER_INT));
     if ($newDate == $task->get('datedone') || !$task->hasEditAccess) {
@@ -360,6 +358,7 @@ if ($_POST['module'] == 'sendDate') {
     $task->sendDate($newDate);
 }
 
+// Перенос старта задачи - есть метод в классе
 if ($_POST['module'] == 'changeStartDate' && $isManager) {
     $newDate = strtotime(filter_var($_POST['startDate'], FILTER_SANITIZE_NUMBER_INT));
     if ($task->get('status') != 'planned' || !$task->hasEditAccess) {
@@ -368,6 +367,7 @@ if ($_POST['module'] == 'changeStartDate' && $isManager) {
     $task->changeStartDate($newDate);
 }
 
+// Изменение исполнителя и соисполнителей - есть метод в классе
 if ($_POST['module'] == 'addCoworker' && $isManager) {
     if (!$task->hasEditAccess) {
         exit;
@@ -413,7 +413,7 @@ if ($_POST['module'] == 'checklist' && ($isManager || $isWorker) && isset($_POST
 }
 
 // *********************** //
-//  Редактирование задачи  //
+//  TODO Редактирование задачи  //
 // *********************** //
 
 if($_POST['module'] == 'editTask' && $isManager) {
