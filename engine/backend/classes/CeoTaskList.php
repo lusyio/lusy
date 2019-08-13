@@ -15,13 +15,14 @@ class CeoTaskList extends TaskList
                    (SELECT c.datetime FROM comments c WHERE c.status='comment' AND c.idtask = t.id ORDER BY c.datetime DESC LIMIT 1) AS lastCommentTime,
                    (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
                     FROM tasks t
-                    WHERE t.idcompany = :companyId";
-        $this->countQuery = "SELECT COUNT(DISTINCT t.id) FROM tasks t WHERE t.idcompany = :companyId";
+                    WHERE t.idcompany = :companyId AND ((t.manager = 1 AND t.worker = :userId) OR (t.manager > 1))";
+        $this->countQuery = "SELECT COUNT(DISTINCT t.id) FROM tasks t WHERE t.idcompany = :companyId  AND ((t.manager = 1 AND t.worker = :userId) OR (t.manager > 1))";
         $this->queryArgs = [
             ':userId' => $userId,
             ':companyId' => $companyId
         ];
         $this->countQueryArgs = [
+            ':userId' => $userId,
             ':companyId' => $companyId
         ];
     }
