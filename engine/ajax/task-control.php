@@ -12,7 +12,14 @@ $isWorker = false;
 $usePremiumTask = false;
 $usePremiumCloud = false;
 if (isset($_POST['it'])) {
+
+    require_once __ROOT__ . '/engine/backend/classes/Task.php';
+
+
     $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+
+    $task = new Task($idtask);
+
     $taskDataQuery = $pdo->prepare("SELECT name, description, author, manager, worker, datecreate, datedone, checklist, status, parent_task FROM tasks WHERE id = :taskId");
     $taskDataQuery->execute([':taskId' => $idtask]);
     $taskData = $taskDataQuery->fetch(PDO::FETCH_ASSOC);
@@ -371,27 +378,12 @@ if ($_POST['module'] == 'confirmDate' && $isManager) {
 
 }
 
-if ($_POST['module'] == 'sendDate' && $isManager) {
-    $datepostpone = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_SPECIAL_CHARS));
-    if ($datepostpone == $taskDatedone) {
+if ($_POST['module'] == 'sendDate') {
+    $newDate = strtotime(filter_var($_POST['sendDate'], FILTER_SANITIZE_NUMBER_INT));
+    if ($newDate == $task->get('datedone') || !$task->hasEditAccess) {
         exit;
     }
-    $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datedone = :datepostpone, `view` = 0 WHERE id=".$idtask);
-
-    if ($taskStatus != 'planned') {
-        $sql->execute(array('datepostpone' => $datepostpone, ':status' => 'inwork'));
-        addChangeDateComments($idtask, 'senddate', $datepostpone);
-        resetViewStatus($idtask);
-        addEvent('senddate', $idtask, $datepostpone);
-    } else {
-        if (date('d-m-Y', $datepostpone) == date('d-m-Y')) {
-            resetViewStatus($idtask);
-            addTaskCreateComments($idtask, $worker, $coworkers);
-            addEvent('createtask', $idtask, $datedone, $worker);
-        }else {
-            $sql->execute(array('datepostpone' => $datepostpone, ':status' => 'planned'));
-        }
-    }
+    $task->sendDate($newDate);
 }
 
 if ($_POST['module'] == 'changeStartDate' && $isManager) {

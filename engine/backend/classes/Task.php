@@ -3,6 +3,7 @@
 class Task
 {
     private $taskData;
+    public $hasEditAccess = false;
 
     public function __construct($taskId, $taskData = null, $subTaskFilterString = '')
     {
@@ -55,6 +56,10 @@ class Task
         $subTasks = $subTasksQuery->fetchAll(PDO::FETCH_COLUMN);
         foreach ($subTasks as $subtaskId) {
             $this->taskData['subTasks'][] = new Task($subtaskId);
+        }
+
+        if ($isCeo || $this->get('manager') == $id) {
+           $this->hasEditAccess = true;
         }
 
         $this->taskData['viewStatus'] = json_decode($this->taskData['view_status'], true);
@@ -187,8 +192,18 @@ class Task
         $viewer->execute([':taskId' => $this->get('id')]);
     }
 
-    function renderCard()
+    function sendDate($newDate)
     {
+        global $pdo;
+        $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datedone = :newDate, `view` = 0 WHERE id = :taskId");
 
+        if ($this->get('status') != 'planned') {
+            $sql->execute(array(':taskId' => $this->get('id'),':newDate' => $newDate, ':status' => 'inwork'));
+            addChangeDateComments($this->get('id'), 'senddate', $newDate);
+            resetViewStatus($this->get('id'));
+            addEvent('senddate', $this->get('id'), $newDate);
+        } elseif ($newDate > strtotime('midnight')) {
+            $sql->execute(array(':taskId' => $this->get('id'), ':newDate' => $newDate, ':status' => 'planned'));
+        }
     }
 }
