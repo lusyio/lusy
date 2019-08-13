@@ -102,7 +102,10 @@ if($_POST['module'] == 'sendpostpone' && $isWorker) {
 }
 
 // Завершение задачи
-if($_POST['module'] == 'workdone' && $isManager) {
+if($_POST['module'] == 'workdone') {
+    if (!$isManager) {
+        exit;
+    }
     $unfinishedSubTasks = $task->checkSubTasksForFinish();
     if ($unfinishedSubTasks['status']) {
         $task->workDone();
@@ -111,7 +114,10 @@ if($_POST['module'] == 'workdone' && $isManager) {
 }
 
 // Отмена задачи
-if($_POST['module'] == 'cancelTask' && $isManager) {
+if($_POST['module'] == 'cancelTask') {
+    if (!$isManager) {
+        exit;
+    }
     $unfinishedSubTasks = $task->checkSubTasksForFinish();
     if ($unfinishedSubTasks['status']) {
         $task->cancelTask();
