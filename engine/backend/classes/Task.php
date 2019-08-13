@@ -213,7 +213,7 @@ class Task
         $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datecreate = :startDate, `view` = 0 WHERE id = :taskId");
 
         if ($newDate <= time()) {
-            $sql->execute(array(':startDate' => $newDate, ':status' => 'new'));
+            $sql->execute(array(':taskId' => $this->get('id'), ':startDate' => $newDate, ':status' => 'new'));
             resetViewStatus($this->get('id'));
             addTaskCreateComments($this->get('id'), $this->get('worker'), $this->get('coworkers'));
             addEvent('createtask', $this->get('id'), $this->get('datedone'), $this->get('worker'));
