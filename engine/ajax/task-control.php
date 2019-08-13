@@ -90,7 +90,7 @@ if($_POST['module'] == 'sendonreview') {
 
 }
 
-//TODO Запрос на перенос срока
+//Запрос на перенос срока - есть метод в классе
 if($_POST['module'] == 'sendpostpone') {
     if (!$isWorker) {
         exit;
@@ -124,59 +124,47 @@ if($_POST['module'] == 'cancelTask') {
     echo json_encode($unfinishedSubTasks);
 }
 
-// TODO Отклонение после рассмотрения задачи
+// Отклонение после рассмотрения задачи - есть метод в классе
 if($_POST['module'] == 'workreturn') {
     if (!$isManager) {
         exit;
     }
-    $datepostpone = filter_var($_POST['datepostpone'], FILTER_SANITIZE_SPECIAL_CHARS);
+    $datePostpone = strtotime(filter_var($_POST['datepostpone'], FILTER_SANITIZE_SPECIAL_CHARS));
     $text = filter_var($_POST['text'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
+    //Обработка прикрепленных из облака файлов
+    $cloudFiles = [
+        'google' => [],
+        'dropbox' => [],
+    ];
     $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
-    $googleFiles = [];
     foreach ($unsafeGoogleFiles as $k => $v) {
-        $googleFiles[] = [
+        $cloudFiles['google'][] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
             'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
             'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
     $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
-    $dropboxFiles = [];
     foreach ($unsafeDropboxFiles as $k => $v) {
-        $dropboxFiles[] = [
+        $cloudFiles['dropbox'][] = [
             'name' => filter_var($k, FILTER_SANITIZE_STRING),
             'path' => filter_var($v['link'], FILTER_SANITIZE_STRING),
             'size' => filter_var($v['size'], FILTER_SANITIZE_NUMBER_INT),
         ];
     }
 
-    setStatus($idtask, 'returned', strtotime($datepostpone));
-    $commentId = addWorkReturnComments($idtask, strtotime($datepostpone), $text);
-
-    if (count($_FILES) > 0) {
-        uploadAttachedFiles('comment', $commentId);
-    }
-    if (count($googleFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
-        addGoogleFiles('comment', $commentId, $googleFiles);
-        $usePremiumCloud = true;
-    }
-    if (count($dropboxFiles) > 0 && ($tariff == 1 || $tryPremiumLimits['cloud'] < 3)) {
-        addDropboxFiles('comment', $commentId, $dropboxFiles);
-        $usePremiumCloud = true;
+    // Возможность прикрепления файлов: 1 - премиум-тариф, 0 - бесплатный тариф, есть бесплатные попытки,
+    // -1 - бесплатный тариф, нет бесплатных попыток
+    if ($tariff == 1) {
+        $premiumType = 1;
+    } elseif ($tryPremiumLimits['cloud'] < 3) {
+        $premiumType = 0;
+    } else {
+        $premiumType = -1;
     }
 
-    if ($tariff == 0) {
-        if ($usePremiumTask) {
-            updateFreePremiumLimits($idc, 'task');
-        }
-        if ($usePremiumCloud) {
-            updateFreePremiumLimits($idc, 'cloud');
-        }
-    }
-
-    resetViewStatus($idtask);
-    addEvent('workreturn', $idtask, strtotime($datepostpone));
+    $task->sendOnReview($datePostpone, $report, $cloudFiles, $premiumType);
 
 }
 
