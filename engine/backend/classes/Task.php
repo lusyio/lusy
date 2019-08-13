@@ -221,4 +221,35 @@ class Task
             $sql->execute([':taskId' => $this->get('id'), ':startDate' => $newDate, ':status' => 'planned']);
         }
     }
+
+    function changeCoworkers($newCoworkers)
+    {
+        global $pdo;
+        $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
+
+        foreach ($newCoworkers as $newCoworker) {
+            if (!in_array($newCoworker, $this->get('coworkers'))) { //добавляем соисполнителя, если его еще нет в таблице
+                $addCoworkerQuery->execute([':taskId' => $this->get('id'), ':coworkerId' => $newCoworker]);
+                if ($this->get('status') != 'planned') {
+                    addChangeExecutorsComments($this->get('id'), 'addcoworker', $newCoworker);
+                    addEvent('addcoworker', $this->get('id'), '', $newCoworker);
+                }
+            }
+        }
+        $deleteCoworkerQuery = $pdo->prepare('DELETE FROM task_coworkers where task_id = :taskId AND worker_id = :coworkerId');
+        foreach ($this->get('coworkers') as $oldCoworker) {
+            if (!in_array($oldCoworker, $newCoworkers)) { // удаляем соисполнителя, если его нет в новом списке соисполнителей
+                $deleteCoworkerQuery->execute([':taskId' => $this->get('id'), ':coworkerId' => $oldCoworker]);
+                if ($this->get('status') != 'planned') {
+                    addChangeExecutorsComments($this->get('id'), 'removecoworker', $oldCoworker);
+                    addEvent('removecoworker', $this->get('id'), '', $oldCoworker);
+                }
+            }
+        }
+    }
+
+    function changeWorker($newWorker)
+    {
+
+    }
 }
