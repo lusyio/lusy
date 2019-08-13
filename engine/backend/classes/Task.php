@@ -291,12 +291,13 @@ class Task
             checkSystemTask($this->get('id'));
         }
     }
+
     function workReturn($datePostpone, $reportText, $files, $premiumType)
     {
         $usePremiumCloud = false;
 
         setStatus($this->get('id'), 'returned', $datePostpone);
-        $commentId = addWorkReturnComments($this->get('id'),$datePostpone, $reportText);
+        $commentId = addWorkReturnComments($this->get('id'), $datePostpone, $reportText);
 
         if (count($_FILES) > 0) {
             uploadAttachedFiles('comment', $commentId);
@@ -383,5 +384,32 @@ class Task
         addChangeDateComments($this->get('id'), 'canceldate');
         resetViewStatus($this->get('id'));
         addEvent('canceldate', $this->get('id'), $this->get('datedone'));
+    }
+
+    public function updateChecklist($checkListRow, $userId)
+    {
+        global $pdo;
+        $checkList = $this->getCheckList();
+        if ($checkList[$checkListRow]['status'] == 0) {
+            $checkList[$checkListRow]['status'] = 1;
+            $checkList[$checkListRow]['checkedBy'] = $userId;
+            $checkList[$checkListRow]['checkTime'] = time();
+        } elseif ($userId == $this->hasEditAccess || ($checkList[$checkListRow]['checkedBy'] == $userId && $checkList[$checkListRow]['checkTime'] > time() - 300)) {
+            $checklist[$checkListRow]['status'] = 0;
+            $checklist[$checkListRow]['checkTime'] = 0;
+        } else {
+            return -1;
+        }
+        $updateCheckListQuery = $pdo->prepare('UPDATE `tasks` SET checklist = :checklist WHERE id= :taskId');
+        $updateCheckListData = [
+            ':checklist' => json_encode($checkList),
+            ':taskId' => $this->get('id'),
+        ];
+        $updateStatus = $updateCheckListQuery->execute($updateCheckListData);
+        if ($updateStatus) {
+            return $checkList[$checkListRow]['status'];
+        } else {
+            return -1;
+        }
     }
 }

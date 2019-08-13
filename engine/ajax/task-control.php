@@ -373,25 +373,18 @@ if ($_POST['module'] == 'addCoworker') {
     }
 }
 
-// TODO - Отметка в чеклисте
-if ($_POST['module'] == 'checklist' && ($isManager || $isWorker) && isset($_POST['checklistRow'])) {
-    $checklistRow = filter_var($_POST['checklistRow'], FILTER_SANITIZE_STRING);
-    if ($checklist[$checklistRow]['status'] == 0 ) {
-        $checklist[$checklistRow]['status'] = 1;
-        $checklist[$checklistRow]['checkedBy'] = $id;
-        $checklist[$checklistRow]['checkTime'] = time();
-    } elseif ($isManager || ($checklist[$checklistRow]['checkedBy'] == $id && $checklist[$checklistRow]['checkTime'] > time() - 300)) {
-        $checklist[$checklistRow]['status'] = 0;
-        $checklist[$checklistRow]['checkTime'] = 0;
-    } else {
+// Отметка в чеклисте - есть метод в классе
+if ($_POST['module'] == 'checklist') {
+    if (!$isManager && !$isWorker && !isset($_POST['checklistRow'])) {
         exit;
     }
-    $updateChecklistQuery = $pdo->prepare('UPDATE `tasks` SET checklist = :checklist WHERE id='.$idtask);
-    $updateChecklistData = [
-        ':checklist' => json_encode($checklist)
-    ];
-    $updateChecklistQuery->execute($updateChecklistData);
-    echo $checklist[$checklistRow]['status'];
+    $checklistRow = filter_var($_POST['checklistRow'], FILTER_SANITIZE_STRING);
+    $checkListRowStatus = $task->updateCheckList($checklistRow, $id);
+    if ($checkListRowStatus == -1) {
+        exit;
+    } else {
+        echo $checkListRowStatus;
+    }
 }
 
 // *********************** //
