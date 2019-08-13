@@ -164,7 +164,7 @@ if($_POST['module'] == 'workreturn') {
         $premiumType = -1;
     }
 
-    $task->sendOnReview($datePostpone, $report, $cloudFiles, $premiumType);
+    $task->workReturn($datePostpone, $report, $cloudFiles, $premiumType);
 
 }
 
@@ -311,30 +311,20 @@ if($_POST['module'] == 'createTask') {
     }
 }
 
-// TODO отклонение запроса на перенос срока
-if ($_POST['module'] == 'cancelDate' && $isManager) {
-    $sql = $pdo->prepare("UPDATE `tasks` SET `status` = 'inwork' WHERE id=" . $idtask); //TODO нужно разобраться со статусами
-    $sql->execute();
-
-    addChangeDateComments($idtask, 'canceldate');
-    resetViewStatus($idtask);
-    addEvent('canceldate', $idtask, $taskDatedone);
-
-}
-
-// TODO одобрение запроса на перенос срока
-if ($_POST['module'] == 'confirmDate' && $isManager) {
-    $statusWithDate = DBOnce('status', 'comments', "idtask=" . $idtask . " and status like 'request%' order by `datetime` desc");
-    $datepostpone = preg_split('~:~', $statusWithDate)[1];
-    if ($datepostpone == $taskDatedone) {
+// отклонение запроса на перенос срока - есть метод в классе
+if ($_POST['module'] == 'cancelDate') {
+    if (!$isManager) {
         exit;
     }
-    setStatus($idtask, 'inwork', $datepostpone);
+    $task->cancelDate();
+}
 
-    addChangeDateComments($idtask, 'confirmdate', $datepostpone);
-    resetViewStatus($idtask);
-    addEvent('confirmdate', $idtask, $datepostpone);
-
+// одобрение запроса на перенос срока - есть метод в классе
+if ($_POST['module'] == 'confirmDate') {
+    if (!$isManager) {
+        exit;
+    }
+    $task->confirmDate();
 }
 
 // Перенос срока по инициативе менеджера - есть метод в классе

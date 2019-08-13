@@ -362,4 +362,26 @@ class Task
         resetViewStatus($this->get('id'));
         addEvent('postpone', $this->get('id'), $datePostpone, $this->get('manager'));
     }
+
+    public function confirmDate()
+    {
+        $statusWithDate = DBOnce('status', 'comments', "idtask=" . $this->get('id') . " and status like 'request%' order by `datetime` desc");
+        $datePostpone = preg_split('~:~', $statusWithDate)[1];
+        if ($datePostpone == $this->get('datedone')) {
+            exit;
+        }
+        setStatus($this->get('id'), 'inwork', $datePostpone);
+
+        addChangeDateComments($this->get('id'), 'confirmdate', $datePostpone);
+        resetViewStatus($this->get('id'));
+        addEvent('confirmdate', $this->get('id'), $datePostpone);
+    }
+
+    public function cancelDate()
+    {
+        $this->updateTaskStatus('inwork');
+        addChangeDateComments($this->get('id'), 'canceldate');
+        resetViewStatus($this->get('id'));
+        addEvent('canceldate', $this->get('id'), $this->get('datedone'));
+    }
 }
