@@ -422,9 +422,8 @@ if ($_POST['module'] == 'createTask') {
     $startDate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
     $parentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
 
-    $task = Task::createTask($name, $description, $startDate, $id, $worker, $coworkers, $datedone, $parentTask, $taskPremiumType);
+    $task = Task::createTask($name, $description, $startDate, $id, $worker, $coworkers, $datedone, $checklist, $parentTask, $taskPremiumType);
     if ($task) {
-        $task->updateCheckList($checklist);
         $task->attachDeviceFilesToTask();
         $task->attachCloudFilesToTask($cloudFiles, $cloudPremiumType);
         $result['taskId'] = $task->get('id');

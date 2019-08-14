@@ -405,7 +405,7 @@ class Task
         }
     }
 
-    public static function createTask($name, $description, $dateCreate, $manager, $worker, $coworkers, $dateDone, $parentTaskId, $taskPremiumType)
+    public static function createTask($name, $description, $dateCreate, $manager, $worker, $coworkers, $dateDone, $checkList, $parentTaskId, $taskPremiumType)
     {
         global $pdo;
         global $id;
@@ -435,6 +435,7 @@ class Task
             ':companyId' => $idc,
             ':datedone' => $dateDone,
             ':status' => 'new',
+            ':checkList' => json_encode($checkList),
             ':parentTask' => null,
             ':withPremium' => 0,
         ];
@@ -448,6 +449,9 @@ class Task
                     $usePremiumTask = true;
                 }
             }
+        }
+        if (count($checkList) > 0) {
+            $usePremiumTask = true;
         }
         if ($dateCreate > time() && $dateCreate <= $dateDone && ($taskPremiumType >= 0)) {
             $taskCreateQueryData[':status'] = 'planned';
