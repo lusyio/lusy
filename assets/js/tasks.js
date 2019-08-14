@@ -135,7 +135,6 @@ $(document).ready(function () {
             success: function (data) {
                 if (data) {
                     $('#taskBox').append(data);
-                    countAll();
                     if ($('.done:visible').length === 20) {
                         $(".load-done").show();
                     }
@@ -169,7 +168,6 @@ $(document).ready(function () {
             success: function (data) {
                 if (data) {
                     $('#taskBox').append(data);
-                    countAll();
                     if ($('.canceled:visible').length === 20) {
                         $(".load-canceled").show();
                     }
@@ -186,7 +184,9 @@ $(document).ready(function () {
     });
 
     $(".search-done").on('click', function () {
+        var $this = $(this);
         if ($(this).hasClass('active')) {
+            var count = $this.find('.done-count').text();
             resetSearch();
             $('#actualSearch').removeClass('active');
             $(".archive").html($(this).find('.archive-name').text());
@@ -195,6 +195,7 @@ $(document).ready(function () {
             $("#resetSearch").show();
             $('.search-done').addClass('active');
             $('.actual').hide();
+            $('.count-all').text(count)
         } else {
             resetSearch();
             countAll();
@@ -202,7 +203,10 @@ $(document).ready(function () {
     });
 
     $(".search-cancel").on('click', function () {
+        var $this = $(this);
+
         if ($(this).hasClass('active')) {
+            var count = $this.find('.done-count').text();
             resetSearch();
             $('#actualSearch').removeClass('active');
             $(".archive").html($(this).find('.archive-name').text());
@@ -211,6 +215,7 @@ $(document).ready(function () {
             $("#resetSearch").show();
             $('.search-cancel').addClass('active');
             $('.actual').hide();
+            $('.count-all').text(count)
         } else {
             resetSearch();
             countAll();
