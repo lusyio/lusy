@@ -55,9 +55,7 @@ $borderColor = [
         <label class="label-tasknew">
             Участники
         </label>
-        <?php
-        include __ROOT__ . '/engine/frontend/members/responsible.php';
-        ?>
+        <?php include __ROOT__ . '/engine/frontend/members/responsible.php'; ?>
         <div class="mb-2 card card-tasknew card-tasknew-minheight">
             <label class="label-responsible">
                 <?= $GLOBALS['_responsiblenewtask'] ?>
@@ -99,9 +97,7 @@ $borderColor = [
         </div>
 
     </div>
-    <?php
-    include __ROOT__ . '/engine/frontend/members/coworkers.php';
-    ?>
+    <?php include __ROOT__ . '/engine/frontend/members/coworkers.php'; ?>
 
 </div>
 </div>
@@ -119,24 +115,29 @@ $borderColor = [
                     <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                         <div class="label-tasknew text-left">
                             Надзадача
-                            <?php if (($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $withPremium == 0)): ?>
+                            <?php if ((($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $withPremium == 0))): ?>
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
                             <?php endif; ?>
                         </div>
                         <div class="card card-tasknew">
-                            <?php
-                            include __ROOT__ . '/engine/frontend/members/parent-task.php';
-                            ?>
-                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
+                            <?php if ($taskEdit && $hasSubTasks): ?>
+                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled">
                                 <div class="placeholder-subtask"
                                      style="<?= ($taskEdit && !is_null($parentTask)) ? 'display: none;' : '' ?>">
+                                    Недоступно - у этой задачи есть подзадачи
+                                </div>
+                            </div>
+                            <?php else: ?>
+                            <?php include __ROOT__ . '/engine/frontend/members/parent-task.php'; ?>
+                            <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
+                                <div class="placeholder-subtask" style="<?= ($taskEdit && !is_null($parentTask)) ? 'display: none;' : '' ?>">
                                     Не выбрана
                                 </div>
                                 <?php foreach ($parentTasks as $parentTaskItem): ?>
                                 <div val="<?php echo $parentTaskItem['id']; ?>"
-                                     class="add-subtask text-area-message <?= ($taskEdit && $parentTaskItem['id'] == $parentTaskItem) ? 'subtask-selected' : 'd-none' ?> border-left-tasks <?= $borderColor[$parentTaskItem['status']] ?>">
+                                     class="add-subtask text-area-message <?= ($taskEdit && $parentTaskItem['id'] == $parentTask) ? 'subtask-selected' : 'd-none' ?> border-left-tasks <?= $borderColor[$parentTaskItem['status']] ?>">
                                     <span class="card-coworker"><?= $parentTaskItem['name']; ?></span><i class="fas fa-times remove-parenttask"></i>
                                 </div>
                                 <?php endforeach; ?>
@@ -144,11 +145,12 @@ $borderColor = [
                                     <i class="fas fa-caret-down"></i>
                                 </div>
                             </div>
+                            <?php endif;?>
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="label-tasknew text-left">
-                            Дата старта
+                            Отложенный старт
                             <?php if (($taskEdit && $taskStatus == 'planned') || !$taskEdit): ?>
                                 <?php if (!$taskEdit && ($tryPremiumLimits['task'] < 3 && $tariff == 0) || ($taskEdit && $tariff == 0 && $withPremium == 0)): ?>
                                     <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
@@ -162,10 +164,18 @@ $borderColor = [
                             <?php endif; ?>
                         </div>
                         <div class="card card-tasknew">
+                        <?php if ($taskEdit && $taskStatus != 'planned'): ?>
+                            <input type="text" class="form-control border-0 card-body-tasknew" id="startDate"
+                                   value="Задача уже в работе" disabled>
+                        <?php elseif ($taskEdit && $taskStatus == 'planned'): ?>
                             <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
-                                   min="<?= ($taskEdit && $taskStatus == 'planned') ? date('Y-m-d', strtotime('+1 day')) : $GLOBALS["now"] ?>"
-                                   value="<?= ($taskEdit) ? date('Y-m-d', $startDate) : $GLOBALS["now"]?>"
+                                   min="<?= date('Y-m-d', strtotime('+1 day'))?>"
+                                   value="<?= date('Y-m-d', $startDate) ?>"
                                 <?= ($taskEdit && $taskStatus != 'planned') ? 'disabled': 'required' ?>>
+                        <?php else: ?>
+                            <input type="date" class="form-control border-0 card-body-tasknew" id="startDate"
+                                   min="<?= $GLOBALS["now"] ?>" value="<?= $GLOBALS["now"] ?>" required>
+                        <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -177,9 +187,7 @@ $borderColor = [
                                 <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
                                       title="Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['task'] ?>/3"><i
                                             class="fas fa-comment-dollar"></i></span>
-                            <?php
-                            endif;
-                            ?>
+                            <?php endif; ?>
                         </div>
                         <div class="mb-2 card card-tasknew">
                             <input type="text" id="checklistInput" class="form-control border-0 card-body-tasknew"

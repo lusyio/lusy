@@ -31,7 +31,6 @@ WHERE (manager = :managerId OR worker = :managerId) AND ((status NOT IN ('done',
     $parentTasksQuery->execute([':managerId' => $id]);
     $parentTasks = $parentTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 }
-
 $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
 
 if (isset($_GET['edit']) && $_GET['edit'] == 1) {
@@ -62,6 +61,10 @@ if (isset($_GET['edit']) && $_GET['edit'] == 1) {
     $taskStatus = $task->get('status');
     $withPremium = $task->get('with_premium');
     $taskEdit = true;
+    $hasSubTasks = false;
+    if (count($task->get('subTasks')) > 0) {
+        $hasSubTasks = true;
+    }
 
     if (in_array($taskStatus, ['done', 'canceled'])) {
         header('Location: ../');
