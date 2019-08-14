@@ -271,48 +271,21 @@ class Task
         setStatus($this->get('id'), 'pending');
         $commentId = addSendOnReviewComments($this->get('id'), $reportText);
 
-        if (count($_FILES) > 0) {
-            uploadAttachedFiles('comment', $commentId);
-        }
-        if (count($files['google']) > 0 && ($premiumType >= 0)) {
-            addGoogleFiles('comment', $commentId, $files['google']);
-            $usePremiumCloud = true;
-        }
-        if (count($files['dropbox']) > 0 && ($premiumType >= 0)) {
-            addDropboxFiles('comment', $commentId, $files['dropbox']);
-            $usePremiumCloud = true;
-        }
-        if ($premiumType == 0 && $usePremiumCloud) {
-            updateFreePremiumLimits($this->get('idcompany'), 'cloud');
-        }
+        $this->attachDeviceFilesToComment($commentId);
+        $this->attachCloudFilesToComment($files, $commentId, $premiumType);
+
         resetViewStatus($this->get('id'));
         addEvent('review', $this->get('id'), $commentId);
-        if ($this->get('manager') == 1) {
-            checkSystemTask($this->get('id'));
-        }
     }
 
     function workReturn($datePostpone, $reportText, $files, $premiumType)
     {
-        $usePremiumCloud = false;
-
         setStatus($this->get('id'), 'returned', $datePostpone);
         $commentId = addWorkReturnComments($this->get('id'), $datePostpone, $reportText);
 
-        if (count($_FILES) > 0) {
-            uploadAttachedFiles('comment', $commentId);
-        }
-        if (count($files['google']) > 0 && ($premiumType >= 0)) {
-            addGoogleFiles('comment', $commentId, $files['google']);
-            $usePremiumCloud = true;
-        }
-        if (count($files['dropbox']) > 0 && ($premiumType >= 0)) {
-            addDropboxFiles('comment', $commentId, $files['dropbox']);
-            $usePremiumCloud = true;
-        }
-        if ($premiumType == 0 && $usePremiumCloud) {
-            updateFreePremiumLimits($this->get('idcompany'), 'cloud');
-        }
+        $this->attachDeviceFilesToComment($commentId);
+        $this->attachCloudFilesToComment($files, $commentId, $premiumType);
+
         resetViewStatus($this->get('id'));
         addEvent('workreturn', $this->get('id'), $commentId);
     }
@@ -410,6 +383,121 @@ class Task
             return $checkList[$checkListRow]['status'];
         } else {
             return -1;
+        }
+    }
+
+    public static function createTask($name, $description, $dateCreate, $manager, $worker, $coworkers, $dateDone, $parentTaskId, $checklist, $taskPremiumType)
+    {
+        global $pdo;
+        global $id;
+        global $idc;
+        global $roleu;
+
+        $usePremiumTask = false;
+        $taskCreateQueryData = [
+            ':name' => $name,
+            ':description' => $description,
+            ':dateCreate' => $dateCreate,
+            ':author' => $id,
+            ':manager' => $manager,
+            ':worker' => $worker,
+            ':companyId' => $idc,
+            ':datedone' => $dateDone,
+            ':status' => 'new',
+            ':parentTask' => null,
+            ':checklist' => json_encode($checklist),
+            ':withPremium' => 0,
+        ];
+
+        if ($parentTaskId != 0 && ($taskPremiumType >= 0)) {
+            $parentTask = new Task($parentTaskId);
+            if (in_array($id, [$parentTask->get('manager'), $parentTask->get('worker')]) || ($roleu == 'ceo' && $parentTask->get('idcompany') == $idc)) {
+                if (is_null($parentTask->get('parent_task'))) {
+                    $taskCreateQueryData[':parentTask'] = $parentTask->get('id');
+                    $taskCreateQueryData[':withPremium'] = 1;
+                    $usePremiumTask = true;
+                }
+            }
+        }
+        if ($dateCreate > time() && $dateCreate <= $dateDone && ($taskPremiumType >= 0)) {
+            $taskCreateQueryData[':status'] = 'planned';
+            $usePremiumTask = true;
+        }
+        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, checklist, with_premium) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :checklist, :withPremium)");
+        $taskCreateQuery->execute($taskCreateQueryData);
+        if ($taskCreateQuery) {
+            $taskId = $pdo->lastInsertId();
+            if (!empty($taskId)) {
+                $coworkersQuery = "INSERT INTO task_coworkers(task_id, worker_id) VALUES (:taskId, :workerId)";
+                $sql = $pdo->prepare($coworkersQuery);
+                foreach ($coworkers as $workerId) {
+                    $sql->execute(array(':taskId' => $taskId, ':workerId' => $workerId));
+                }
+            }
+            if ($taskCreateQueryData[':status'] != 'planned') {
+                resetViewStatus($taskId);
+                addTaskCreateComments($taskId, $worker, $coworkers);
+                addEvent('createtask', $taskId, $dateDone, $worker);
+            } else {
+                addEvent('createplantask', $taskId, $dateCreate, $worker);
+            }
+            if (!is_null($taskCreateQueryData[':parentTask'])) {
+                addSubTaskComment($taskCreateQueryData[':parentTask'], $taskId);
+                addNewSubTaskEvent($taskCreateQueryData[':parentTask'], $taskId);
+            }
+
+            if ($taskPremiumType == 0 && $usePremiumTask) {
+                updateFreePremiumLimits($idc, 'task');
+            }
+            return new Task($taskId);
+        } else {
+            return false;
+        }
+    }
+
+    public function attachCloudFilesToTask($files, $cloudPremiumType)
+    {
+        $usePremiumCloud = false;
+        if (count($files['google']) > 0 && ($cloudPremiumType >= 0)) {
+            addGoogleFiles('task', $this->get('id'), $files['google']);
+            $usePremiumCloud = true;
+        }
+        if (count($files['dropbox']) > 0 && ($cloudPremiumType >= 0)) {
+            addDropboxFiles('task', $this->get('id'), $files['dropbox']);
+            $usePremiumCloud = true;
+        }
+        if ($cloudPremiumType == 0 && $usePremiumCloud) {
+            updateFreePremiumLimits($this->get('idcompany'), 'cloud');
+        }
+    }
+
+    public function attachDeviceFilesToTask()
+    {
+        if (count($_FILES) > 0) {
+            uploadAttachedFiles('task', $this->get('id'));
+        }
+    }
+
+    private function attachCloudFilesToComment($files, $commentId, $cloudPremiumType)
+    {
+        $usePremiumCloud = false;
+        if (count($files['google']) > 0 && ($cloudPremiumType >= 0)) {
+            addGoogleFiles('comment', $commentId, $files['google']);
+            $usePremiumCloud = true;
+        }
+        if (count($files['dropbox']) > 0 && ($cloudPremiumType >= 0)) {
+            addDropboxFiles('comment', $commentId, $files['dropbox']);
+            $usePremiumCloud = true;
+        }
+        if ($cloudPremiumType == 0 && $usePremiumCloud) {
+            updateFreePremiumLimits($this->get('idcompany'), 'cloud');
+        }
+    }
+
+    private function attachDeviceFilesToComment($commentId)
+    {
+        if (count($_FILES) > 0) {
+            uploadAttachedFiles('task', $commentId);
         }
     }
 }
