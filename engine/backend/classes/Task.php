@@ -4,6 +4,7 @@ class Task
 {
     private $taskData;
     public $hasEditAccess = false;
+    private $companyUsers = [];
 
     public function __construct($taskId, $taskData = null, $subTaskFilterString = '')
     {
@@ -22,7 +23,6 @@ class Task
         } else {
             $this->taskData = $taskData;
         }
-
 
         $coworkersQuery = $pdo->prepare("SELECT tc.worker_id FROM task_coworkers tc LEFT JOIN users u ON tc.worker_id = u.id WHERE tc.task_id = :taskId");
         $coworkersQuery->execute(array(':taskId' => $taskId));
@@ -83,6 +83,8 @@ class Task
         if (is_array($this->taskData['subTasks'])) {
             usort($this->taskData['subTasks'], ['TaskList', 'compareWithoutSubTasks']);
         }
+
+        $this->setCompanyUsers();
     }
 
     public function setQueryStatusFilter($status, $in = true)
@@ -107,6 +109,16 @@ class Task
             return $this->taskData[$param];
         }
         return null;
+    }
+
+    private function setCompanyUsers()
+    {
+        global $pdo;
+        global $idc;
+
+        $usersQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND is_fired = 0");
+        $usersQuery->execute([':companyId' => $idc]);
+        $this->companyUsers = $usersQuery->fetchAll(PDO::FETCH_COLUMN);
     }
 
     function getDateProgress()
@@ -212,23 +224,27 @@ class Task
         global $pdo;
         $sql = $pdo->prepare("UPDATE `tasks` SET `status` = :status, datecreate = :startDate, `view` = 0 WHERE id = :taskId");
 
-        if ($newDate <= time()) {
-            $sql->execute(array(':taskId' => $this->get('id'), ':startDate' => $newDate, ':status' => 'new'));
-            resetViewStatus($this->get('id'));
-            addTaskCreateComments($this->get('id'), $this->get('worker'), $this->get('coworkers'));
-            addEvent('createtask', $this->get('id'), $this->get('datedone'), $this->get('worker'));
-        } else {
-            $sql->execute([':taskId' => $this->get('id'), ':startDate' => $newDate, ':status' => 'planned']);
+        if ($this->get('status') == 'planned' && $newDate != $this->get('datecreate')) {
+            if ($newDate <= time() && $newDate >= strtotime('midnight')) {
+                $sql->execute(array(':taskId' => $this->get('id'), ':startDate' => $newDate, ':status' => 'new'));
+                resetViewStatus($this->get('id'));
+                addTaskCreateComments($this->get('id'), $this->get('worker'), $this->get('coworkers'));
+                addEvent('createtask', $this->get('id'), $this->get('datedone'), $this->get('worker'));
+            } else {
+                $sql->execute([':taskId' => $this->get('id'), ':startDate' => $newDate, ':status' => 'planned']);
+            }
+            return true;
         }
+        return false;
     }
 
     function changeCoworkers($newCoworkers)
     {
         global $pdo;
         $isChanged = false;
-        $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id=:coworkerId");
+        $addCoworkerQuery = $pdo->prepare("INSERT INTO task_coworkers SET task_id =:taskId, worker_id = :coworkerId");
         foreach ($newCoworkers as $newCoworker) {
-            if (!in_array($newCoworker, $this->get('coworkers'))) { //добавляем соисполнителя, если его еще нет в таблице
+            if (!in_array($newCoworker, $this->get('coworkers')) && in_array($newCoworker, $this->companyUsers)) { //добавляем соисполнителя, если его еще нет в таблице
                 $addCoworkerQuery->execute([':taskId' => $this->get('id'), ':coworkerId' => $newCoworker]);
                 if ($this->get('status') != 'planned') {
                     addChangeExecutorsComments($this->get('id'), 'addcoworker', $newCoworker);
@@ -254,12 +270,15 @@ class Task
     function changeWorker($newWorker)
     {
         global $pdo;
-        $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
-        $changeWorkerQuery->execute([':taskId' => $this->get('id'), ':newWorker' => $newWorker]);
-        addChangeExecutorsComments($this->get('id'), 'newworker', $newWorker);
-        if ($this->get('status') != 'planned') {
-            addEvent('changeworker', $this->get('id'), '', $this->get('worker'));
-            $isChanged = true;
+        $isChanged = false;
+        if ($newWorker != $this->get('worker') && in_array($newWorker, $this->companyUsers)) {
+            $changeWorkerQuery = $pdo->prepare('UPDATE tasks SET worker = :newWorker WHERE id = :taskId');
+            $changeWorkerQuery->execute([':taskId' => $this->get('id'), ':newWorker' => $newWorker]);
+            addChangeExecutorsComments($this->get('id'), 'newworker', $newWorker);
+            if ($this->get('status') != 'planned') {
+                addEvent('changeworker', $this->get('id'), '', $this->get('worker'));
+                $isChanged = true;
+            }
         }
         return $isChanged;
     }
@@ -359,7 +378,7 @@ class Task
         addEvent('canceldate', $this->get('id'), $this->get('datedone'));
     }
 
-    public function updateChecklist($checkListRow, $userId)
+    public function checkRowInCheckList($checkListRow, $userId)
     {
         global $pdo;
         $checkList = $this->getCheckList();
@@ -386,7 +405,7 @@ class Task
         }
     }
 
-    public static function createTask($name, $description, $dateCreate, $manager, $worker, $coworkers, $dateDone, $parentTaskId, $checklist, $taskPremiumType)
+    public static function createTask($name, $description, $dateCreate, $manager, $worker, $coworkers, $dateDone, $parentTaskId, $taskPremiumType)
     {
         global $pdo;
         global $id;
@@ -405,7 +424,6 @@ class Task
             ':datedone' => $dateDone,
             ':status' => 'new',
             ':parentTask' => null,
-            ':checklist' => json_encode($checklist),
             ':withPremium' => 0,
         ];
 
@@ -423,7 +441,7 @@ class Task
             $taskCreateQueryData[':status'] = 'planned';
             $usePremiumTask = true;
         }
-        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, checklist, with_premium) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :checklist, :withPremium)");
+        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, with_premium) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :withPremium)");
         $taskCreateQuery->execute($taskCreateQueryData);
         if ($taskCreateQuery) {
             $taskId = $pdo->lastInsertId();
@@ -453,6 +471,42 @@ class Task
         } else {
             return false;
         }
+    }
+
+    public static function createSanitizedCheckList($jsonCheckListString)
+    {
+        $checklist = [];
+        $unsafeChecklist = json_decode($jsonCheckListString, true);
+        foreach ($unsafeChecklist as $key => $value) {
+            $checklist[$key]['text'] = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+            $checklist[$key]['status'] = 0;
+            $checklist[$key]['checkedBy'] = 0;
+        }
+        return $checklist;
+    }
+
+    public function updateCheckList($checkList)
+    {
+        global $pdo;
+        //сравнить старый и новый чеклисты
+        $isCheckListChanged = false;
+        $oldCheckList = json_decode($this->get('checklist'), true);
+        if (count($oldCheckList) != count($checkList)) {
+            $isCheckListChanged = true;
+        } else {
+            foreach ($checkList as $key => $value) {
+                if ($checkList[$key]['text'] != $oldCheckList[$key]['text']) {
+                    $isCheckListChanged = true;
+                    break;
+                }
+            }
+        }
+        if ($isCheckListChanged) {
+            $checkListJson = json_encode($checkList);
+            $updateCheckListQuery = $pdo->prepare("UPDATE tasks SET checklist = :checkList WHERE id = :taskId");
+            $updateCheckListQuery->execute([':checkList' => $checkListJson, ':taskId' => $this->get('id')]);
+        }
+        return $isCheckListChanged;
     }
 
     public function attachCloudFilesToTask($files, $cloudPremiumType)
@@ -499,5 +553,60 @@ class Task
         if (count($_FILES) > 0) {
             uploadAttachedFiles('task', $commentId);
         }
+    }
+
+    public function updateTaskNameAndDescription($newName, $newDescription)
+    {
+        global $pdo;
+        if (($newName != $this->get('name')) || ($newDescription != $this->get('description'))) {
+            $updateNameAndDescriptionQuery = $pdo->prepare("UPDATE tasks SET name = :name, description = :description WHERE id = :taskId");
+            $updateNameAndDescriptionQuery->execute([':taskId' => $this->get('id'), ':name' => $newName, ':description' => $newDescription]);
+            return true;
+        }
+        return false;
+    }
+
+    public function updateDatedone($newDatedone)
+    {
+        if ($newDatedone != $this->get('datedone') && $newDatedone >= strtotime('midnight')) {
+            $this->sendDate($newDatedone);
+            return true;
+        }
+        return false;
+    }
+
+    public function addParentTask($parentTaskId)
+    {
+        global $idc;
+        global $pdo;
+        $parentTaskCompanyId = self::getCompanyIdByTask($parentTaskId);
+        if ($parentTaskCompanyId == $idc && $parentTaskId != $this->get('parent_task')) {
+            $addParentTaskQuery = $pdo->prepare("UPDATE tasks SET parent_task = :parentTaskId WHERE id = :taskId");
+            $addParentTaskQuery->execute([':taskId' => $this->get('id'), ':parentTaskId' => $parentTaskId]);
+            addSubTaskComment($parentTaskId, $this->get('id'));
+            addNewSubTaskEvent($parentTaskId, $this->get('id'));
+            return true;
+        }
+        return false;
+    }
+
+    public function removeParentTask()
+    {
+        global $pdo;
+        if (!is_null($this->get('parent_task'))) {
+            $addParentTaskQuery = $pdo->prepare("UPDATE tasks SET parent_task = NULL WHERE id = :taskId");
+            $addParentTaskQuery->execute([':taskId' => $this->get('id')]);
+            return true;
+        }
+        return false;
+    }
+
+    public static function getCompanyIdByTask($taskId)
+    {
+        global $pdo;
+        $query = $pdo->prepare("SELECT idcompany FROM tasks WHERE id = :taskId");
+        $query->execute([':taskId' => $taskId]);
+        $companyId = $query->fetch(PDO::FETCH_COLUMN);
+        return $companyId;
     }
 }
