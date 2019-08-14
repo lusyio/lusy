@@ -595,8 +595,8 @@ class Task
     {
         global $idc;
         global $pdo;
-        $parentTaskCompanyId = self::getCompanyIdByTask($parentTaskId);
-        if ($parentTaskCompanyId == $idc && $parentTaskId != $this->get('parent_task')) {
+        $parentTask = new Task($parentTaskId);
+        if ($parentTask->get('idcompany') == $idc && $parentTaskId != $this->get('parent_task') && is_null($parentTask->get('parent_task')) && count($this->get('subTasks')) == 0) {
             $addParentTaskQuery = $pdo->prepare("UPDATE tasks SET parent_task = :parentTaskId WHERE id = :taskId");
             $addParentTaskQuery->execute([':taskId' => $this->get('id'), ':parentTaskId' => $parentTaskId]);
             addSubTaskComment($parentTaskId, $this->get('id'));
