@@ -412,6 +412,18 @@ class Task
         global $idc;
         global $roleu;
 
+        $companyUsersQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND is_fired = 0");
+        $companyUsersQuery->execute([':companyId' => $idc]);
+        $companyUsers = $companyUsersQuery->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array($manager, $companyUsers) || !in_array($worker, $companyUsers)) {
+            return false;
+        }
+        foreach ($coworkers as $coworkerId) {
+            if (!in_array($coworkerId, $companyUsers)) {
+                return false;
+            }
+        }
+
         $usePremiumTask = false;
         $taskCreateQueryData = [
             ':name' => $name,
