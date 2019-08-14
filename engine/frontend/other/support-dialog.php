@@ -271,9 +271,6 @@
                         if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }
-                        if (e.data.senderId == $userId) {
-                            $("#mes").val('');
-                        }
                         $('#chatBox').append(response).scrollTop($("#chatBox")[0].scrollHeight);
                         getCounters(function (data) {
                             updateCounters(data);
@@ -399,6 +396,7 @@
             fd.append('ajax', 'messenger');
             fd.append('recipientId', '<?=$recipientId;?>');
             fd.append('mes', mes);
+            $("#mes").val('');
             if (mes.trim() !== '' && typeof mes.trim() !== undefined) {
                 $(this).prop('disabled', true);
                 $.ajax({
@@ -414,11 +412,7 @@
                         var xhr = new XMLHttpRequest();
 
                         xhr.upload.onprogress = function () {
-                            // $(window).bind('beforeunload', function () {
-                            //     event.preventDefault();
-                            //     event.returnValue = 'as';
-                            // });
-                            $('#sendMesName').hide();
+                            $('.spinner-border-sm').removeClass('display-none');
                             $('.spinner-border-sm').show();
                         };
 
@@ -430,18 +424,16 @@
                         if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }
-                        $("#mes").val('');
                         $(".filenames").remove();
                         fileList = new Map();
                         $('.file-name').hide();
                         $('#sendBtn').prop('disabled', false);
-
                     },
 
                     complete: function () {
                         $('#sendMesName').show();
-                        $('.spinner-border-sm').hide();
-                        // $(window).unbind('beforeunload');
+                        $('.spinner-border-sm').addClass('display-none');
+                        $("#mes").css('height', '54px');
                     },
                 });
             } else {

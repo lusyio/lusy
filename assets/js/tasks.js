@@ -61,27 +61,6 @@ $(document).ready(function () {
     nameStatus();
 
 
-    // function statuses() {
-    //     var statusNames = [];
-    //     $('.status-search').each(function () {
-    //         if ($(this).hasClass('active')) {
-    //             statusNames.push($(this).find('.status-name').text());
-    //         }
-    //         if (statusNames.length > 0) {
-    //             $(statusNames).each(function () {
-    //                 $(".selected-status").html("<span class=\"filter-select text-primary\">" + statusNames + "</span>" + ", ");
-    //                 $("#resetSearch").show();
-    //
-    //             });
-    //         } else {
-    //             $(".selected-status").html("Актуальные");
-    //             $("#resetSearch").show();
-    //         }
-    //     });
-    //     console.log(statusNames);
-    // }
-
-
     function nameStatus() {
         $('.status-search').on('click', function () {
             $("#resetSearch").show();
@@ -136,7 +115,7 @@ $(document).ready(function () {
                 if (data) {
                     $('#taskBox').append(data);
                     countAll();
-                    if ($('.done:visible').length === 20) {
+                    if ($('.done:visible').length % 20 == 0) {
                         $(".load-done").show();
                     }
                 } else {
@@ -170,7 +149,7 @@ $(document).ready(function () {
                 if (data) {
                     $('#taskBox').append(data);
                     countAll();
-                    if ($('.canceled:visible').length === 20) {
+                    if ($('.canceled:visible').length % 20 == 0) {
                         $(".load-canceled").show();
                     }
                 } else {

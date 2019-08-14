@@ -279,9 +279,6 @@
                         if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }
-                        if (e.data.senderId == $userId) {
-                            $("#mes").val('');
-                        }
                         $('#chatBox').append(response).scrollTop($("#chatBox")[0].scrollHeight);
                         getCounters(function (data) {
                             updateCounters(data);
@@ -411,6 +408,7 @@
             fd.append('ajax', 'messenger');
             fd.append('recipientId', '<?=$recipientId;?>');
             fd.append('mes', mes);
+            $("#mes").val('');
             if (mes.trim() !== '' && typeof mes.trim() !== undefined) {
                 $(this).prop('disabled', true);
                 $.ajax({
@@ -431,7 +429,7 @@
                             //     event.returnValue = 'as';
                             // });
                             $('#sendMesName').hide();
-                            $('.spinner-border-sm').show();
+                            $('.spinner-border-sm').removeClass('display-none');
                         };
 
                         return xhr;
@@ -442,7 +440,6 @@
                         if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }
-                        $("#mes").val('');
                         $(".filenames").remove();
                         fileList = new Map();
                         $('.file-name').hide();
@@ -451,7 +448,8 @@
 
                     complete: function () {
                         $('#sendMesName').show();
-                        $('.spinner-border-sm').hide();
+                        $('.spinner-border-sm').addClass('display-none');
+                        $("#mes").css('height', '54px');
                         // $(window).unbind('beforeunload');
                     },
                 });
