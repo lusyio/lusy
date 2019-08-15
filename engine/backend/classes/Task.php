@@ -15,10 +15,15 @@ class Task
         global $roleu;
 
         if (is_null($taskData)) {
-            $taskQuery = $pdo->prepare('SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, 
-          t.idcompany, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, t.checklist, t.with_premium
-          FROM tasks t WHERE t.id = :taskId');
-            $taskQuery->execute(array(':taskId' => $taskId));
+            $taskQuery = $pdo->prepare("SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, 
+          t.idcompany, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, t.checklist, t.with_premium,
+          (SELECT COUNT(*) FROM comments c WHERE c.status='comment' AND c.idtask = t.id) AS countComments,
+          (SELECT COUNT(*) FROM events e WHERE e.action='comment' AND e.task_id = t.id AND recipient_id = :userId AND e.view_status = 0) AS countNewComments,
+          (SELECT COUNT(DISTINCT u.file_id) FROM uploads u LEFT JOIN events e ON u.comment_id = e.comment WHERE u.comment_type='comment' AND (e.action='comment' OR e.action='review') AND e.task_id = t.id AND recipient_id = :userId AND e.view_status = 0) AS countNewFiles,
+          (SELECT c.datetime FROM comments c WHERE c.status='comment' AND c.idtask = t.id ORDER BY c.datetime DESC LIMIT 1) AS lastCommentTime,
+          (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
+          FROM tasks t WHERE t.id = :taskId");
+            $taskQuery->execute(array(':taskId' => $taskId, ':userId' => $id));
             $this->taskData = $taskQuery->fetch(PDO::FETCH_ASSOC);
         } else {
             $this->taskData = $taskData;

@@ -274,12 +274,14 @@ if ($id == $worker and $view == 0) {
                                     </div>
                                     <div class="col-sm-1 pl-0">
                                         <div class="d-flex fc">
-<!--                                            <div class="informer d-flex mr-3"><i class="fas fa-comments">-->
-<!--                                                </i><span class="ml-1">1</span>-->
-<!--                                            </div>-->
-<!--                                            <div class="informer d-flex">-->
-<!--                                                <i class="fas fa-file"></i><span class="ml-1">1</span>-->
-<!--                                            </div>-->
+                                            <div class="informer d-flex mr-3"><i class="fas fa-comments">
+                                                </i><span class="ml-1"><?= $subTask->get('countComments') ?></span>
+                                                <span class="ml-1 text-primary"><?= ($subTask->get('countNewComments') > 0) ? '+' . $subTask->get('countNewComments') : '' ?></span>
+                                            </div>
+                                            <div class="informer d-flex">
+                                                <i class="fas fa-file"></i><span class="ml-1"><?= $subTask->get('countAttachedFiles') ?></span>
+                                                <span class="ml-1 text-primary"><?= ($subTask->get('countNewFiles') > 0) ? '+' . $subTask->get('countNewFiles') : '' ?></span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-lg-2 col-md-5 col-5 pr-0">
