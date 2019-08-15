@@ -36,7 +36,7 @@ class Task
         } else {
             $isCeo = false;
         }
-        if ($isCeo || $this->get('manager') == $id || $this->taskData['worker'] == $id || in_array($id, $this->taskData['coworkers'])) {
+        if ($isCeo || $this->get('manager') == $id) {
             $subTasksQueryString = "SELECT t.id FROM tasks t WHERE t.parent_task = :taskId";
             $subTasksQueryData = [
                 ':taskId' => $this->get('id')
@@ -387,8 +387,8 @@ class Task
             $checkList[$checkListRow]['checkedBy'] = $userId;
             $checkList[$checkListRow]['checkTime'] = time();
         } elseif ($userId == $this->hasEditAccess || ($checkList[$checkListRow]['checkedBy'] == $userId && $checkList[$checkListRow]['checkTime'] > time() - 300)) {
-            $checklist[$checkListRow]['status'] = 0;
-            $checklist[$checkListRow]['checkTime'] = 0;
+            $checkList[$checkListRow]['status'] = 0;
+            $checkList[$checkListRow]['checkTime'] = 0;
         } else {
             return -1;
         }
@@ -507,6 +507,9 @@ class Task
         //сравнить старый и новый чеклисты
         $isCheckListChanged = false;
         $oldCheckList = json_decode($this->get('checklist'), true);
+        if (!$oldCheckList) {
+            $oldCheckList = [];
+        }
         if (count($oldCheckList) != count($checkList)) {
             $isCheckListChanged = true;
         } else {
