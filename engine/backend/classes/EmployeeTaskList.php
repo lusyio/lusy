@@ -20,27 +20,26 @@ class EmployeeTaskList extends TaskList
                    (SELECT COUNT(*) FROM `uploads` u LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment' WHERE (u.comment_type='task' AND u.comment_id=t.id) OR c.idtask=t.id) as countAttachedFiles
                     FROM tasks t 
                     LEFT JOIN task_coworkers tc ON tc.task_id = t.id
-                    WHERE (t.id IN (:parentTasks) OR (t.manager=:userId OR t.worker=:userId OR tc.worker_id=:userId)) AND (t.status <> 'planned' OR t.manager = :userId)";
+                    WHERE (t.id IN (:parentTasks) OR ((t.manager=:userId OR t.worker=:userId OR tc.worker_id=:userId) AND t.parent_task IS NULL)) AND (t.status <> 'planned' OR t.manager = :userId)";
         $this->queryArgs = [
             ':userId' => $userId,
-            'parentTasks' => ''
         ];
 
-        $this->parentTaskQuery = "SELECT DISTINCT t.parent_task FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId)";
+        $this->parentTaskQuery = "SELECT DISTINCT t.parent_task FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (manager=:userId OR worker=:userId OR tc.worker_id=:userId) AND (t.status <> 'planned' OR t.manager = :userId) AND t.parent_task IS NOT NULL";
         $this->parentTaskQueryArgs = [
             ':userId' => $userId,
         ];
 
         $this->countQuery = "SELECT COUNT(DISTINCT t.id) FROM tasks t 
                     LEFT JOIN task_coworkers tc ON tc.task_id = t.id
-                    WHERE (t.id IN (:parentTasks) OR (t.manager=:userId OR t.worker=:userId OR tc.worker_id=:userId)) AND (t.status <> 'planned' OR t.manager = :userId)";
+                    WHERE (t.id IN (:parentTasks) OR (t.manager=:userId OR t.worker=:userId OR tc.worker_id=:userId) AND t.parent_task IS NULL) AND (t.status <> 'planned' OR t.manager = :userId)";
 
     }
 
     public function executeQuery()
     {
         global $pdo;
-        $parentTaskStmt = $pdo->prepare($this->parentTaskQuery . $this->parentTaskNullFilterString);
+        $parentTaskStmt = $pdo->prepare($this->parentTaskQuery . $this->parentTaskNullFilterString . $this->subTaskFilterString);
         $parentTaskStmt->execute($this->parentTaskQueryArgs);
         $parentTasks = $parentTaskStmt->fetchAll(PDO::FETCH_COLUMN);
 
@@ -49,8 +48,9 @@ class EmployeeTaskList extends TaskList
         } else {
             $parentTasksString = implode(', ', $parentTasks);
         }
-        $this->queryArgs['parentTasks'] = $parentTasksString;
-        $tasksStmt = $pdo->prepare($this->query . $this->queryStatusFilterString . $this->tasksQueryOrderString . $this->tasksQueryLimitString . $this->tasksQueryOffsetString);
+        $pattern = '~:parentTasks~';
+        $queryWithInArray = preg_replace($pattern, $parentTasksString, $this->query);
+        $tasksStmt = $pdo->prepare($queryWithInArray . $this->queryStatusFilterString . $this->tasksQueryOrderString . $this->tasksQueryLimitString . $this->tasksQueryOffsetString);
         $tasksStmt->execute($this->queryArgs);
         $tasksResult = $tasksStmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($tasksResult as $taskData) {
@@ -68,8 +68,9 @@ class EmployeeTaskList extends TaskList
         } else {
             $parentTasksString = implode(', ', $parentTasks);
         }
-        $this->queryArgs['parentTasks'] = $parentTasksString;
-        $tasksStmt = $pdo->prepare($this->countQuery . $this->queryStatusFilterString);
+        $pattern = '~:parentTasks~';
+        $countQueryWithInArray = preg_replace($pattern, $parentTasksString, $this->countQuery);
+        $tasksStmt = $pdo->prepare($countQueryWithInArray . $this->queryStatusFilterString);
         $tasksStmt->execute($this->queryArgs);
         $this->countResult = $tasksStmt->fetch(PDO::FETCH_COLUMN);
     }
