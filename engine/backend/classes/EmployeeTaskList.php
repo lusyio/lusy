@@ -43,6 +43,7 @@ class EmployeeTaskList extends TaskList
         $parentTaskStmt = $pdo->prepare($this->parentTaskQuery . $this->parentTaskNullFilterString);
         $parentTaskStmt->execute($this->parentTaskQueryArgs);
         $parentTasks = $parentTaskStmt->fetchAll(PDO::FETCH_COLUMN);
+
         if (count($parentTasks) == 0) {
             $parentTasksString = 0;
         } else {
@@ -71,5 +72,10 @@ class EmployeeTaskList extends TaskList
         $tasksStmt = $pdo->prepare($this->countQuery . $this->queryStatusFilterString);
         $tasksStmt->execute($this->queryArgs);
         $this->countResult = $tasksStmt->fetch(PDO::FETCH_COLUMN);
+    }
+
+    public function setParentTaskNullFilterString($is)
+    {
+        parent::setParentTaskNullFilterString(!$is);
     }
 }

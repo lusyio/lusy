@@ -196,7 +196,7 @@ if (isset($_POST['it'])) {
         }
         $isCoworkersChanged = $task->changeCoworkers($newCoworkers);
         $isWorkerChanged = false;
-        if ($newWorker != $task->get('worker') && $newWorker != $task->get('manager') && !in_array($newWorker, $newCoworkers)) {
+        if ($newWorker != $task->get('worker') && !in_array($newWorker, $newCoworkers)) {
             $isWorkerChanged = $task->changeWorker($newWorker);
         }
         if ($task->get('status') != 'planned' && ($isCoworkersChanged || $isWorkerChanged)) {
