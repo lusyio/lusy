@@ -293,7 +293,12 @@ $borderColor = [
             </div>
             <?php if ($taskEdit): ?>
                 <?php foreach ($taskUploads as $file): ?>
-                    <?php if ($file['cloud']): ?>
+                    <?php if ($file['is_deleted']): ?>
+                    <div class='filenames attached-source-file'>
+                        <i class='fas fa-paperclip mr-1'></i><i class='icon mr-1'></i>
+                        <span><s><?= $file['file_name'] ?></s> (удален)</span>
+                    </div>
+                    <?php elseif ($file['cloud']): ?>
                     <div class='filenames attached-source-file' data-name='<?= $file['file_name'] ?>' data-link='<?= $file['file_path'] ?>'
                          data-file-size='<?= $file['file_size'] ?>' data-file-id="<?= $file['file_id'] ?>">
                         <i class='fas fa-paperclip mr-1'></i> <i class='icon mr-1'></i>
