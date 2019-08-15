@@ -120,6 +120,10 @@ $(document).ready(function () {
 //подпункты
 
     var numberCheckList = 0;
+    var existingCheckList = $('.checklist-selected');
+    if (existingCheckList.length > 0){
+        numberCheckList = $($(existingCheckList)[existingCheckList.length - 1]).data('id');
+    }
 
     $('.check-list-container').on('click', '.delete-checklist-item', function () {
         $(this).closest('.check-list-new').remove();

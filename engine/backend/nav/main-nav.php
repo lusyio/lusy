@@ -36,7 +36,7 @@ $menu = [
 ];
 
 // количество задач
-$worker = DBOnce('COUNT(*)', 'tasks', 'worker=' . $id . ' AND status NOT IN (\'canceled\', \'done\') AND worker <> manager');
+$worker = DBOnce('COUNT(*)', 'tasks', 'worker=' . $id . ' AND status NOT IN (\'canceled\', \'done\', \'planned\') AND worker <> manager');
 $manager = DBOnce('COUNT(*)', 'tasks', 'manager=' . $id . ' AND status NOT IN (\'canceled\', \'done\')');
 
 // файловый прогресс бар

@@ -25,31 +25,32 @@ if ($isCeo) {
     $ceoParentTasksQuery->execute([':companyId' => $idc]);
     $parentTasks = $ceoParentTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    $parentTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone FROM tasks WHERE (manager = :managerId OR worker = :managerId) AND status NOT IN ('done', 'canceled') AND (status NOT IN ('planned') AND worker = :managerId) AND parent_task IS NULL");
+    $parentTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone 
+FROM tasks 
+WHERE (manager = :managerId OR worker = :managerId) AND ((status NOT IN ('done', 'canceled', 'planned')) OR (status = 'planned' AND (manager = :managerId OR worker = :managerId))) AND parent_task IS NULL");
     $parentTasksQuery->execute([':managerId' => $id]);
     $parentTasks = $parentTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 }
-
 $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
 
 if (isset($_GET['edit']) && $_GET['edit'] == 1) {
-    $taskEdit = true;
-    $taskDataQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone, parent_task, regular, checklist, with_premium FROM tasks WHERE id = :taskId");
-    $taskDataQuery->execute([':taskId' => $_GET['task']]);
-    $taskData = $taskDataQuery->fetch(PDO::FETCH_ASSOC);
-    if ($taskData['manager'] == 1 || $idc != $taskData['idcompany'] || ($tariff == 0 && $tryPremiumLimits['edit'] >= 3 || (!$isCeo && $id != $taskData['manager']))) {
-        header('Location: ../');
-        exit();
+    require_once __ROOT__ . '/engine/backend/classes/Task.php';
+    $task = new Task($_GET['task']);
+    $taskId = $task->get('id');
+    $taskName = $task->get('name');
+    $taskDescription = $task->get('description');
+    $taskAuthorId = $task->get('author');
+    $manager = $task->get('manager');
+    $worker = $task->get('worker');
+    $startDate = $task->get('datecreate');
+    $taskDatedone = $task->get('datedone');
+    $parentTask = $task->get('parent_task');
+    $checklist = json_decode($task->get('checklist'), true);
+    if (is_null($checklist)) {
+        $checklist = [];
     }
-
-    $taskCoworkersQuery = $pdo->prepare("SELECT worker_id FROM task_coworkers WHERE task_id = :taskId");
-    $taskCoworkersQuery->execute([':taskId' => $_GET['task']]);
-    $taskCoworkers = $taskCoworkersQuery->fetchAll(PDO::FETCH_COLUMN);
-
-    $taskUploadsQuery = $pdo->prepare("SELECT file_id, file_name, file_size, file_path, is_deleted, cloud FROM uploads WHERE comment_type = 'task' AND comment_id = :taskId AND is_deleted = 0");
-    $taskUploadsQuery->execute([':taskId' => $_GET['task']]);
-    $taskUploads = $taskUploadsQuery->fetchAll(PDO::FETCH_ASSOC);
-
+    $taskCoworkers = $task->get('coworkers');
+    $taskUploads = $task->get('files');
     $hasCloudUploads = false;
     foreach ($taskUploads as $file) {
         if ($file['cloud'] == 1) {
@@ -57,9 +58,21 @@ if (isset($_GET['edit']) && $_GET['edit'] == 1) {
             break;
         }
     }
-
-    $checklist = json_decode($taskData['checklist'], true);
-    if (is_null($checklist)) {
-        $checklist = [];
+    $taskStatus = $task->get('status');
+    $withPremium = $task->get('with_premium');
+    $taskEdit = true;
+    $hasSubTasks = false;
+    if (count($task->get('subTasks')) > 0) {
+        $hasSubTasks = true;
     }
+
+    if (in_array($taskStatus, ['done', 'canceled'])) {
+        header('Location: ../');
+        exit;
+    }
+    if ($manager == 1 || $idc != $task->get('idcompany') || ($tariff == 0 && $tryPremiumLimits['edit'] >= 3 || (!$isCeo && $id != $manager))) {
+        header('Location: ../');
+        exit();
+    }
+
 }

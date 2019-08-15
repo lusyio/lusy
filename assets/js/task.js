@@ -621,29 +621,6 @@ $(document).ready(function () {
         }
     });
 
-// Кнопка "В работу" для worker'a (на странице "возвращен")
-
-    $("#inwork").click(function () {
-        $(this).prop('disabled', true);
-        // var report = $("#reportarea").val();
-        // if (report) {
-        $('#spinnerModal').modal('show');
-        $.ajax({
-            url: '/ajax.php',
-            type: 'POST',
-
-            data: {
-                module: 'inwork',
-                it: $it,
-                ajax: 'task-control',
-            },
-            success: controlUpdate,
-        });
-
-        // } else {
-        // 	$("#reportarea").addClass('border-danger');
-    });
-
     //Отмена таска
     $("#cancelTask").click(function () {
         if ($(this).hasClass('continue-none')) {

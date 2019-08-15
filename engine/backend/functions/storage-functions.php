@@ -108,7 +108,7 @@ function removeFile($fileId) {
     $dbh = $pdo->prepare($query);
     $dbh->execute(array(':companyId' => $idc, ':fileId' => $fileId));
     $result = $dbh->fetch(PDO::FETCH_ASSOC);
-    if ($result['cloud'] == 0) {
+    if ($result['cloud'] == 0 && realpath($result['file_path'])) {
         unlink($result['file_path']);
     }
 }

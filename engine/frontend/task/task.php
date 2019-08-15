@@ -128,28 +128,28 @@ if ($id == $worker and $view == 0) {
         <div class="card-body <?= ((count($subTasks) > 0)) ? 'shadow-subtask' : ''; ?>">
             <div class="row">
                 <div class="col-12 subtask-badge-mobile">
-                    <?php if (!is_null($task['parent_task'])): ?>
-                        <a href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom"
+                    <?php if (!is_null($parentTaskId)): ?>
+                        <a href="/task/<?= $parentTaskId ?>/"><span data-toggle="tooltip" data-placement="bottom"
                                                                            title="Перейти к надзадаче"
-                                                                           class="badge badge-info"><i class="fas fa-clipboard mr-2"></i><?=DBOnce('name','tasks','id='.$task['parent_task'])?></span></a>
+                                                                           class="badge badge-info"><i class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-8 col-lg-8">
-                    <span class="badge <?= $statusBar[$task['status']]['bg'] ?>"><?= $GLOBALS["_{$task['status']}"] ?></span>
-                    <?php if (!is_null($task['parent_task'])): ?>
-                        <a class="subtask-badge-desktop" href="/task/<?= $task['parent_task'] ?>/"><span data-toggle="tooltip" data-placement="bottom"
+                    <span class="badge <?= $statusBar[$status]['bg'] ?>"><?= $GLOBALS["_{$status}"] ?></span>
+                    <?php if (!is_null($parentTaskId)): ?>
+                        <a class="subtask-badge-desktop" href="/task/<?= $parentTaskId ?>/"><span data-toggle="tooltip" data-placement="bottom"
                                                                            title="Перейти к надзадаче"
-                                                                           class="badge badge-info"><i class="fas fa-clipboard mr-2"></i><?=DBOnce('name','tasks','id='.$task['parent_task'])?></span></a>
+                                                                           class="badge badge-info"><i class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-lg-4">
                     <div class="float-right" title="<?= $GLOBALS["_$status"] ?>">
-                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$task['status']]['bg1'] ?>"><i
-                                    class="<?= $statusBar[$task['status']]['ic1'] ?> custom"></i></span>
-                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$task['status']]['bg2'] ?>"><i
-                                    class="<?= $statusBar[$task['status']]['ic2'] ?> custom"></i></span>
-                        <span class="status-icon-last rounded-circle noty-m <?= $statusBar[$task['status']]['bg3'] ?>"><i
-                                    class="<?= $statusBar[$task['status']]['ic3'] ?> custom"></i></span>
+                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$status]['bg1'] ?>"><i
+                                    class="<?= $statusBar[$status]['ic1'] ?> custom"></i></span>
+                        <span class="status-icon rounded-circle noty-m <?= $statusBar[$status]['bg2'] ?>"><i
+                                    class="<?= $statusBar[$status]['ic2'] ?> custom"></i></span>
+                        <span class="status-icon-last rounded-circle noty-m <?= $statusBar[$status]['bg3'] ?>"><i
+                                    class="<?= $statusBar[$status]['ic3'] ?> custom"></i></span>
                     </div>
                 </div>
             </div>
@@ -187,7 +187,7 @@ if ($id == $worker and $view == 0) {
                                 </div>
                             </medium>
                         </div>
-                        <?php if (($isCeo || !$isCoworker) && !in_array($task['status'], ['done', 'canceled'])): ?>
+                        <?php if (($isCeo || !$isCoworker) && !in_array($status, ['done', 'canceled'])): ?>
                             <span class="position-absolute edit"><i class="fas fa-pencil-alt"></i></span>
                             <div id="change-date">
                                 <div class="form-group mb-0 p-3">
@@ -195,10 +195,10 @@ if ($id == $worker and $view == 0) {
                                         <textarea name="report" id="reportarea1" class="form-control mb-2" rows="3"
                                                   placeholder="Причина" required></textarea>
                                     <?php endif; ?>
-                                    <input class="form-control form-control-sm mb-2" value="<?= ($task['status'] == 'planned')? date('Y-m-d', strtotime($datecreate)) : date("Y-m-d", $task['datedone']); ?>" type="date"
+                                    <input class="form-control form-control-sm mb-2" value="<?= ($status == 'planned')? date('Y-m-d', $datecreateSeconds) : date("Y-m-d", $actualDeadline); ?>" type="date"
                                            id="deadlineInput"
-                                           datedone="<?= date("Y-m-d", $task['datedone']) ?>"
-                                           min="<?= ($task['status'] == 'planned')? date('Y-m-d', strtotime($datecreate)) : $GLOBALS["now"] ?>" required>
+                                           datedone="<?= date("Y-m-d", $actualDeadline) ?>"
+                                           min="<?= ($status == 'planned')? date('Y-m-d', $datecreateSeconds) : $GLOBALS["now"] ?>" required>
                                     <button type="submit"
                                             id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
                                             class="btn btn-primary btn-sm float-left mb-3"><?= $GLOBALS["_change"] ?></button>
@@ -230,7 +230,7 @@ if ($id == $worker and $view == 0) {
                     foreach ($checklist as $k => $n):
                         ?>
                         <label class="pure-material-checkbox d-block">
-                            <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?> <?= (($role != 'manager' && $n['status'] == 1 && ($n['checkedBy'] != $id || $n['checkTime'] < time() - 300 )) || ($task['status'] == 'done' || $task['status'] == 'canceled')) ? 'disabled': '' ?>>
+                            <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?> <?= (($role != 'manager' && $n['status'] == 1 && ($n['checkedBy'] != $id || $n['checkTime'] < time() - 300 )) || ($status == 'done' || $status == 'canceled')) ? 'disabled': '' ?>>
                             <span class="text-area-message"> <span class="text-checklist"><?= $n['text'] ?></span> <span class="small text-muted-new"><?= ($n['status'] == 1)? ' (' . $n['name'] . ')' :'' ?></span></span>
                         </label>
                     <?php
@@ -263,13 +263,13 @@ if ($id == $worker and $view == 0) {
         <?php if (count($subTasks) > 0): ?>
             <div class="subTaskInList subtask-task">
                 <?php foreach ($subTasks as $subTask): ?>
-                    <a class="text-decoration-none cust<?= (in_array($subTask['id'], $unfinishedSubTasks)) ? ' not-finished': '';?>" idtask="<?= $subTask['id'] ?>" href="/task/<?= $subTask['id'] ?>/">
+                    <a class="text-decoration-none cust<?= (in_array($subTask->get('id'), $unfinishedSubTasks)) ? ' not-finished': '';?>" idtask="<?= $subTask->get('id') ?>" href="/task/<?= $subTask->get('id') ?>/">
                         <div class="card-footer border-0 card-footer-subtask">
                             <div class="d-block">
                                 <div class="row">
                                     <div class="col-sm-5 col-lg-5 col-md-12 col-12">
                                         <div class="text-area-message">
-                                            <span class="taskname taskname-subtask-task"><span class="<?= $textColor[$subTask['status']] ?> pr-1">—</span> <?= $subTask['name']; ?></span>
+                                            <span class="taskname taskname-subtask-task"><span class="<?= $textColor[$subTask->get('status')] ?> pr-1">—</span> <?= $subTask->get('name'); ?></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-1 pl-0">
@@ -283,19 +283,15 @@ if ($id == $worker and $view == 0) {
                                         </div>
                                     </div>
                                     <div class="col-sm-2 col-lg-2 col-md-5 col-5 pr-0">
-                                        <span class="subtask-status"><?= $taskStatusText[$subTask['status']] ?></span>
+                                        <span class="subtask-status"><?= $taskStatusText[$subTask->get('status')] ?></span>
                                     </div>
-                                    <div class="col-sm-2 col-lg-2 col-md-3 subtask-status col-3 <?= ($subTask['status'] == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask['status'], ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask['datedone']) == $GLOBALS["now"]) ? 'text-warning font-weight-bold' : ''; ?>">
-                                            <?php
-                                            $subTask['deadLineDay'] = date('j', $subTask['datedone']);
-                                            $subTask['deadLineMonth'] = $_months[date('n', $subTask['datedone']) - 1];
-                                            ?>
-                                            <?= $subTask['deadLineDay'] ?> <?= $subTask['deadLineMonth'] ?>
+                                    <div class="col-sm-2 col-lg-2 col-md-3 subtask-status col-3 <?= ($subTask->get('status') == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask->get('status'), ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask->get('datedone')) == $GLOBALS["now"]) ? 'text-warning font-weight-bold' : ''; ?>">
+                                            <?= date('j', $subTask->get('datedone')) ?> <?= $_months[date('n', $subTask->get('datedone')) - 1] ?>
                                     </div>
                                     <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
                                         <div class="avatar-subtask-task">
-                                            <img src="/<?= getAvatarLink($subTask['manager']) ?>" class="avatar"> |
-                                            <img src="/<?= getAvatarLink($subTask['worker']) ?>" class="avatar">
+                                            <img src="/<?= getAvatarLink($subTask->get('manager')) ?>" class="avatar"> |
+                                            <img src="/<?= getAvatarLink($subTask->get('worker')) ?>" class="avatar">
                                         </div>
                                     </div>
                                 </div>

@@ -14,6 +14,6 @@ if ($dayost < 0) {
 $request = DBOnce('comment', 'comments', "idtask=" . $idtask . " and (status = 'returned' or status = 'postpone') order by `datetime` desc");
 $messageStatus = DBOnce('status', 'comments', "idtask=" . $idtask . " and (status = 'returned' or status = 'postpone') order by `datetime` desc");
 
-$note = 'Старт задачи: ' . $datecreate;
+$note = 'Старт задачи: ' . date("d.m.Y", $datecreateSeconds);
 
 ?>

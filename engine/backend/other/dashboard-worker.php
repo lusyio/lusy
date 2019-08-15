@@ -122,4 +122,5 @@ if ($userRegisterDate <= $currentDayPreviousMonth) {
 if ($taskDoneDelta > 0) {
     $taskDoneDelta = '+' . $taskDoneDelta;
 }
+
 $isFirstLogin = false;
