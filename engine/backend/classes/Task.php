@@ -337,7 +337,6 @@ class Task
     {
         setFinalStatus($this->get('id'), 'done');
         addFinalComments($this->get('id'), 'done');
-        resetViewStatus($this->get('id'));
         if ($this->get('status') != 'planned') {
             addEvent('workdone', $this->get('id'), '');
         }
@@ -347,7 +346,6 @@ class Task
     {
         setFinalStatus($this->get('id'), 'canceled');
         addFinalComments($this->get('id'), 'canceled');
-        resetViewStatus($this->get('id'));
         if ($this->get('status') != 'planned') {
             addEvent('canceltask', $this->get('id'), '');
         }
