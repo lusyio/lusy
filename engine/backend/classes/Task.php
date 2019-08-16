@@ -47,7 +47,7 @@ class Task
                 ':taskId' => $this->get('id')
             ];
         } else {
-            $subTasksQueryString = "SELECT DISTINCT t.id FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE t.parent_task = :taskId AND (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId)";
+            $subTasksQueryString = "SELECT DISTINCT t.id FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE t.parent_task = :taskId AND (t.manager = :userId OR t.worker = :userId OR tc.worker_id = :userId) AND (t.status <> 'planned' OR t.manager = :userId)";
             $subTasksQueryData = [
                 ':taskId' => $taskId,
                 ':userId' => $id
