@@ -19,7 +19,7 @@ if ($_POST['module'] == 'loadDoneTasks') {
     $taskList = TaskListStrategy::createTaskList($id, $idc, $roleu == 'ceo');
 
     $taskList->setQueryStatusFilter(['done'], true);
-    $taskList->setSubTaskFilterString(['done'], true);
+    $taskList->setSubTaskFilterString([-1], true);
     $taskList->setTasksQueryLimitString($limit);
     $taskList->setTasksQueryOffsetString($offset);
     $taskList->addOrderByDate(false);
@@ -77,7 +77,7 @@ if ($_POST['module'] == 'loadCanceledTasks') {
     $taskList = TaskListStrategy::createTaskList($id, $idc, $roleu == 'ceo');
 
     $taskList->setQueryStatusFilter(['canceled'], true);
-    $taskList->setSubTaskFilterString(['canceled'], true);
+    $taskList->setSubTaskFilterString(['-1'], true);
     $taskList->setTasksQueryLimitString($limit);
     $taskList->setTasksQueryOffsetString($offset);
     $taskList->addOrderByDate(false);
