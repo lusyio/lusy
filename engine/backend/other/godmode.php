@@ -7,6 +7,16 @@ if ($idc != 1) {
 }
 
 $countCompanies = DBOnce('count(*)','company','');
+$now = timestamp(date("Y-m-d 00:00:00"));
+$countCompaniesRegToday = DBOnce('count(*)','company','datareg > '.$now);
+$companyRegsDays = [];
+for ($i = 1; $i <= 7; $i++) {
+    $dateShow = date("d.m",strtotime("-$i day"));
+    $newdayStart = timestamp(date("Y-m-d 00:00:00",strtotime("-$i day")));
+    $newdayEnd = timestamp(date("Y-m-d 23:59:59",strtotime("-$i day")));
+    $countCompaniesReg = DBOnce('count(*)','company','datareg > '.$newdayStart.' and datareg < '.$newdayEnd);
+    array_push($companyRegsDays, ['date' => $dateShow,'count' => $countCompaniesReg, ]);
+}
 $countUsers = DBOnce('count(*)','users','');
 $countTasks = DBOnce('count(*)','tasks','');
 $countComments = DBOnce('count(*)','comments','status="comment"');
@@ -65,3 +75,8 @@ $companiesInfoQuery = $pdo->prepare("SELECT c.id, c.idcompany, c.tariff, c.lang,
 FROM company c ORDER BY datareg DESC");
 $companiesInfoQuery->execute();
 $companiesInfo = $companiesInfoQuery->fetchAll(PDO::FETCH_ASSOC);
+
+function timestamp($date) {
+    $timestamp = strtotime($date);
+    return $timestamp;
+}

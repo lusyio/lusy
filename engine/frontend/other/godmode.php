@@ -1,5 +1,31 @@
 <script type="text/javascript" src="/assets/js/Chart.min.js"></script>
-<div class="card mb-3">
+<div class="card premiumCard mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="d-flex">
+                    <h2 class="mb-0 mr-3" style="font-size: 48px;font-weight: 700;line-height: 1;"><?= $countCompaniesRegToday ?></h2>
+
+                    <div>
+                        <small class="mb-0 d-block">регистраций</small>
+                        <small class="mb-0">за сегодня</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="d-flex text-center">
+                    <?php foreach ($companyRegsDays as $n) :?>
+                        <div class="mr-5">
+                            <small class="mb-0 d-block"><?=$n['date'];?></small>
+                            <small class="mb-0 font-weight-bold"><?=$n['count'];?></small>
+                        </div>
+                    <?php endforeach;?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3 pt-4">
     <div class="card-body">
         <div class="row">
             <div class="col-sm-8">
@@ -9,8 +35,14 @@
                 <p class="text-godmode"><?= $activeCompanies; ?></p>
                 <small class="text-secondary"><?= ngettext('active company', 'active companies', $activeCompanies); ?></small>
                 <hr>
-                <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countCompanies?></span><small class="text-secondary"><?= ngettext('company', 'companies', $countCompanies); ?> зарегистрировано</small></div>
-                <div class="mb-1"><span class="font-weight-bold mr-1"><?=$countUsers?></span><small class="text-secondary"><?= ngettext('user', 'users', $countUsers); ?></small></div>
+                <div class="mb-1"><span class="font-weight-bold mr-1"><?= $countCompanies ?></span>
+                    <small class="text-secondary"><?= ngettext('company', 'companies', $countCompanies); ?>
+                        зарегистрировано
+                    </small>
+                </div>
+                <div class="mb-1"><span class="font-weight-bold mr-1"><?= $countUsers ?></span>
+                    <small class="text-secondary"><?= ngettext('user', 'users', $countUsers); ?></small>
+                </div>
             </div>
         </div>
     </div>
@@ -20,7 +52,7 @@
     <div class="col-sm-4">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-0"><?=$countTasks?></h4>
+                <h4 class="mb-0"><?= $countTasks ?></h4>
                 <small class="text-secondary"><?= ngettext('task', 'tasks', $countTasks); ?></small>
             </div>
         </div>
@@ -28,7 +60,7 @@
     <div class="col-sm-4">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-0"><?=$countComments?></h4>
+                <h4 class="mb-0"><?= $countComments ?></h4>
                 <small class="text-secondary"><?= ngettext('comment', 'comments', $countComments); ?></small>
             </div>
         </div>
@@ -36,7 +68,7 @@
     <div class="col-sm-4">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-0"><?=$countMail?></h4>
+                <h4 class="mb-0"><?= $countMail ?></h4>
                 <small class="text-secondary"><?= ngettext('message', 'messages', $countMail); ?></small>
             </div>
         </div>
@@ -79,7 +111,7 @@
             aria-controls="feedback" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
                 class="fas fa-user-tie h3 mb-0 mt-2"></i>
         <p class="mb-0">Компании</p></button>
-    <a  href="/knowledge/" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
+    <a href="/knowledge/" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
                 class="fas fa-book h3 mb-0 mt-2"></i>
         <p class="mb-0">База знаний</p></a>
 </div>
@@ -165,7 +197,8 @@
                 <input id="bodyFileName" class="body-filename" value="" hidden>
                 <input class="form-control mb-1 body-filename" value="" disabled>
                 <textarea class="form-control mb-1" id="mailBody" rows="8"></textarea>
-                <button type="button" class="show-preview-modal form-control btn btn-outline-primary" data-preview-type="mail">
+                <button type="button" class="show-preview-modal form-control btn btn-outline-primary"
+                        data-preview-type="mail">
                     Предварительный просмотр
                 </button>
                 <button class="form-control btn btn-outline-warning">Сохранить</button>
@@ -187,7 +220,8 @@
                 <div class="mail-template mt-3">
                     <h4><?= $message['message_id'] ?>. <?= $message['message_title'] ?></h4>
                     <h5><?= $message['cause'] ?></h5>
-                    <h6><?= $message['name'] ?> <?= $message['surname'] ?> (id <?= $message['user_id'] ?>) из компании <?= $message['idcompany'] ?> (id <?= $message['company_id'] ?>)</h6>
+                    <h6><?= $message['name'] ?> <?= $message['surname'] ?> (id <?= $message['user_id'] ?>) из
+                        компании <?= $message['idcompany'] ?> (id <?= $message['company_id'] ?>)</h6>
                     <p><?= date('d.m.Y H:i', $message['datetime']) ?></p>
                     <p><?= $message['page_link'] ?></p>
                     <p><?= nl2br($message['message_text']) ?></p>
@@ -213,15 +247,17 @@
                 </thead>
                 <tbody>
                 <?php foreach ($promocodes as $code): ?>
-                <tr class="promo-row" data-promo-id="<?= $code['promocode_id']; ?>" data-date="<?= date('Y-m-d', $code['valid_until']); ?>"
-                data-multiple="<?= $code['is_multiple']; ?>" data-used="<?= $code['used']; ?>" data-days="<?= $code['days_to_add']; ?>"
-                data-promo-name="<?= $code['promocode_name']; ?>">
-                    <th scope="row"><?= $code['promocode_name']; ?></th>
-                    <td><?= $code['days_to_add']; ?></td>
-                    <td><?= date('d.m.Y', $code['valid_until']); ?></td>
-                    <td><?= ($code['is_multiple']) ? 'Да' : 'Нет'; ?></td>
-                    <td><?= ($code['used']) ? 'Да' : 'Нет'; ?></td>
-                </tr>
+                    <tr class="promo-row" data-promo-id="<?= $code['promocode_id']; ?>"
+                        data-date="<?= date('Y-m-d', $code['valid_until']); ?>"
+                        data-multiple="<?= $code['is_multiple']; ?>" data-used="<?= $code['used']; ?>"
+                        data-days="<?= $code['days_to_add']; ?>"
+                        data-promo-name="<?= $code['promocode_name']; ?>">
+                        <th scope="row"><?= $code['promocode_name']; ?></th>
+                        <td><?= $code['days_to_add']; ?></td>
+                        <td><?= date('d.m.Y', $code['valid_until']); ?></td>
+                        <td><?= ($code['is_multiple']) ? 'Да' : 'Нет'; ?></td>
+                        <td><?= ($code['used']) ? 'Да' : 'Нет'; ?></td>
+                    </tr>
                 <?php endforeach; ?>
                 </tbody>
             </table>
@@ -237,10 +273,13 @@
         <?php foreach ($companiesInfo as $company): ?>
             <div class="border-bottom">
                 <h6><?= $company['idcompany']; ?></h6>
-                <p><?= ($company['full_company_name'] != '') ? 'Полное название: ' . $company['full_company_name'] . ', ' : ''?>id: <?= $company['id']; ?></p>
+                <p><?= ($company['full_company_name'] != '') ? 'Полное название: ' . $company['full_company_name'] . ', ' : '' ?>
+                    id: <?= $company['id']; ?></p>
                 <p>Описание компании: <?= $company['description']; ?></p>
                 <p>Сайт: <?= $company['site']; ?></p>
-                <p>Зарегистрирована: <?= date('d.m.Y', $company['datareg']); ?> (<?= floor((time() - $company['datareg']) / (3600 * 24)) ?> <?= ngettext('day', 'days', floor((time() - $company['datareg']) / (3600 * 24))) ?>)</p>
+                <p>Зарегистрирована: <?= date('d.m.Y', $company['datareg']); ?>
+                    (<?= floor((time() - $company['datareg']) / (3600 * 24)) ?> <?= ngettext('day', 'days', floor((time() - $company['datareg']) / (3600 * 24))) ?>
+                    )</p>
                 <p>Задач создано: <?= $company['allTasks']; ?></p>
                 <p>Задач в работе: <?= $company['activeTasks']; ?></p>
                 <p>Сотрудников: <?= $company['activeUsers']; ?></p>
@@ -250,7 +289,8 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -267,7 +307,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="promoModal" tabindex="-1" role="dialog" aria-labelledby="promoModalLabel" aria-hidden="true">
+<div class="modal fade" id="promoModal" tabindex="-1" role="dialog" aria-labelledby="promoModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -321,14 +362,15 @@
                     <option value="" hidden></option>
                     <option value="0">Все компании</option>
                     <?php foreach ($companiesList as $company): ?>
-                        <option value="<?= $company['id']; ?>"><?= $company['idcompany']; ?>, <?= $company['full_company_name']; ?></option>
+                        <option value="<?= $company['id']; ?>"><?= $company['idcompany']; ?>
+                            , <?= $company['full_company_name']; ?></option>
                     <?php endforeach; ?>
                 </select>
                 <button type="button" class="btn btn-primary" id="activatePromo">Активировать</button>
             </div>
-            </div>
         </div>
     </div>
+</div>
 </div>
 <script>
     function createConfig(details, data) {
@@ -369,7 +411,7 @@
     }
 
 
-    window.onload = function() {
+    window.onload = function () {
         var container = document.querySelector('.chart');
 
         var data = [
@@ -387,7 +429,7 @@
             color: window.chartColors.red
         }];
 
-        steppedLineSettings.forEach(function(details) {
+        steppedLineSettings.forEach(function (details) {
             var div = document.createElement('div');
             div.classList.add('chart-container');
 
@@ -439,14 +481,16 @@
 
         $('#savePromo').on('click', function () {
             var promoId = $('#promocodeId').val();
-            var promoName = $('#promocodeName').val();;
-            var promoDays = $('#promoDays').val();;
+            var promoName = $('#promocodeName').val();
+            ;
+            var promoDays = $('#promoDays').val();
+            ;
             var promoDate = $('#validUntilDate').val();
             var promoMultiple = +$('#multiple').prop('checked');
             var promoUsed = +$('#used').prop('checked');
 
             var fd = new FormData;
-            fd.append('ajax','godmode');
+            fd.append('ajax', 'godmode');
             fd.append('promocodeId', promoId);
             fd.append('promocodeName', promoName);
             fd.append('promocodeDays', promoDays);
@@ -485,7 +529,7 @@
             var companyId = $('#activatePromoCompany').val();
 
             var fd = new FormData;
-            fd.append('ajax','godmode');
+            fd.append('ajax', 'godmode');
             fd.append('module', 'activatePromocode');
             fd.append('promocodeName', promocodeNameHidden);
             fd.append('companyId', companyId);

@@ -81,8 +81,8 @@ if ($companyUsageSpacePercent > 90) {
                         <div class="float-right badge-godmode">
                             <span class="badge badge-primary float-left"
                                   data-toggle="tooltip" data-placement="bottom"
-                                  title="Кол-во активных компаний"><?= $activeCompanies ?></span>
-                            <span class="badge float-right"
+                                  title="Кол-во активных компаний"><?= $countCompanies ?></span>
+                            <span class="badge badge-dark float-right"
                                   data-toggle="tooltip" data-placement="bottom"
                                   title="Кол-во пользователей"><?= $countUsers ?></span>
                         </div>
