@@ -997,9 +997,9 @@ input:checked[type="checkbox"].new-checkbox::before {
 .vertical-line {
     border-left: 1px solid #e4e4e4;
 }
-.vertical-line span {
+.vertical-line span.bullet {
     left: -8.5px;
-    top: 2px;
+    top: 1px;
     background-color: #ffffff;
     padding-bottom: 2px;
     padding-top: 2px;

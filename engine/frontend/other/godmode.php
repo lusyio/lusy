@@ -54,7 +54,7 @@
                 <div class="col-6">
                     <p><i class="fas fa-user mr-2"></i><?=$u['name'];?></p>
                 </div>
-                <div class="col-6 text-right">
+                <div class="col-6 text-right text-secondary small">
                     был в сети <?=$u['activity'];?>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 <div class="vertical-line">
                     <?php $events = lastEvents($n['id']);
                     foreach ($events as $e) :?>
-                    <p><span><i class="far fa-dot-circle icon-not-complete"></i></span><?=$e['action'];?></p>
+                    <p><span class="bullet"><i class="far fa-dot-circle icon-not-complete text-secondary"></i></span><?=$e['action'];?><span class="text-secondary small ml-3"><?=$e['date'];?></span></p>
                     <?php endforeach; ?>
                 </div>
             </div>
