@@ -100,6 +100,11 @@ function lastEvents($idc)
             $action = 'Создана задача <strong>' . $task . '</strong>';
         }
 
+        if ($action == 'workdone') {
+            $task = DBOnce('name', 'tasks', 'id=' . $n['task_id']);
+            $action = 'Завершена задача <strong>' . $task . '</strong>';
+        }
+
         if ($action == 'viewtask') {
             $task = DBOnce('name', 'tasks', 'id=' . $n['task_id']);
             $action = 'Просмотрена задача <strong>' . $task . '</strong>';

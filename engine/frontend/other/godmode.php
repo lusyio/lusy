@@ -14,9 +14,9 @@
                 </div>
             </div>
             <div class="col-sm-9">
-                <div class="d-flex text-center">
+                <div class="d-flex text-center companyRegBlock">
                     <?php foreach ($companyRegsDays as $n) : ?>
-                        <div class="mr-5">
+                        <div>
                             <small class="mb-0 d-block"><?= $n['date']; ?></small>
                             <small class="mb-0 font-weight-bold"><?= $n['count']; ?></small>
                         </div>
@@ -31,17 +31,17 @@
     <button class="btn btn-light bg-white w-100 text-left mb-2" type="button" data-toggle="collapse"
             data-target="#collapseCompany<?= $n['id']; ?>" aria-expanded="false"
             aria-controls="collapseCompany<?= $n['id']; ?>">
-        <div class="row">
-            <div class="col-7 font-weight-bold">
+        <div class="row companyesList">
+            <div class="col-sm-7 col-6 font-weight-bold">
                 <?= $n['idcompany']; ?>
             </div>
-            <div class="col-1 text-secondary">
+            <div class="col-sm-1 text-secondary">
                 <i class="fas fa-users mr-2"></i><?=countUsers($n['id']);?>
             </div>
-            <div class="col-1 text-secondary">
+            <div class="col-sm-1 text-secondary">
                 <i class="fas fa-clipboard mr-2"></i><?=countTasks($n['id']);?>
             </div>
-            <div class="col-3 text-right text-secondary">
+            <div class="col-sm-3 col-6 text-right text-secondary">
                 <?= date("d.m в H:i",$n['datareg']); ?>
             </div>
         </div>
@@ -95,7 +95,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-4 mb-3">
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-0"><?= $countTasks ?></h4>
@@ -104,7 +104,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-body">
                 <h4 class="mb-0"><?= $countComments ?></h4>
                 <small class="text-secondary"><?= ngettext('comment', 'comments', $countComments); ?></small>
@@ -112,7 +112,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-body">
                 <h4 class="mb-0"><?= $countMail ?></h4>
                 <small class="text-secondary"><?= ngettext('message', 'messages', $countMail); ?></small>
@@ -136,7 +136,7 @@
         </ul>
     </div>
 </div>
-<div class="d-flex mt-3">
+<div class="d-flex companyRegBlock">
     <button type="button" data-toggle="collapse" href="#articles" role="button" aria-expanded="false"
             aria-controls="articles" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
                 class="fas fa-file-alt h3 mb-0 mt-2"></i>

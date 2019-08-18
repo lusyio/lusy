@@ -3112,6 +3112,10 @@ span.date {
     top: 9px;
 }
 
+.companyRegBlock div {
+    margin-right: 45px;
+}
+
 .payment-event-card{
     justify-content: space-between;
 }
@@ -3447,6 +3451,28 @@ span.date {
         display: block;
     }
 
+    .companyRegBlock {
+        margin-top: 20px;
+        display: block !important;
+    }
+    .companyRegBlock div {
+        margin-right: 6px;
+        float: left;
+    }
+    .companyRegBlock button, .companyRegBlock a {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .companyRegBlock button i, .companyRegBlock a i {
+        float: left;
+    }
+    .companyRegBlock button p, .companyRegBlock a p {
+        margin-top: 3px;
+        font-weight: bold;
+    }
+    .companyesList .col-sm-1 {
+        display: none;
+    }
     .promocode-block{
         margin-top: 3rem;
     }
