@@ -4,7 +4,8 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="d-flex">
-                    <h2 class="mb-0 mr-3" style="font-size: 48px;font-weight: 700;line-height: 1;"><?= $countCompaniesRegToday ?></h2>
+                    <h2 class="mb-0 mr-3"
+                        style="font-size: 48px;font-weight: 700;line-height: 1;"><?= $countCompaniesRegToday ?></h2>
 
                     <div>
                         <small class="mb-0 d-block">регистраций</small>
@@ -14,19 +15,64 @@
             </div>
             <div class="col-sm-9">
                 <div class="d-flex text-center">
-                    <?php foreach ($companyRegsDays as $n) :?>
+                    <?php foreach ($companyRegsDays as $n) : ?>
                         <div class="mr-5">
-                            <small class="mb-0 d-block"><?=$n['date'];?></small>
-                            <small class="mb-0 font-weight-bold"><?=$n['count'];?></small>
+                            <small class="mb-0 d-block"><?= $n['date']; ?></small>
+                            <small class="mb-0 font-weight-bold"><?= $n['count']; ?></small>
                         </div>
-                    <?php endforeach;?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<?php foreach ($lastTenCompanyes as $n) : ?>
+    <button class="btn btn-light bg-white w-100 text-left mb-2" type="button" data-toggle="collapse"
+            data-target="#collapseCompany<?= $n['id']; ?>" aria-expanded="false"
+            aria-controls="collapseCompany<?= $n['id']; ?>">
+        <div class="row">
+            <div class="col-7 font-weight-bold">
+                <?= $n['idcompany']; ?>
+            </div>
+            <div class="col-1 text-secondary">
+                <i class="fas fa-users mr-2"></i><?=countUsers($n['id']);?>
+            </div>
+            <div class="col-1 text-secondary">
+                <i class="fas fa-clipboard mr-2"></i><?=countTasks($n['id']);?>
+            </div>
+            <div class="col-3 text-right text-secondary">
+                <?= date("d.m в H:i",$n['datareg']); ?>
+            </div>
+        </div>
+    </button>
+    <div class="collapse mb-3" id="collapseCompany<?= $n['id']; ?>">
+        <div class="card card-body">
+            <?php $users = getUsersFromCompany($n['id']);
+            foreach ($users as $u) :?>
+            <div class="row">
+                <div class="col-6">
+                    <p><i class="fas fa-user mr-2"></i><?=$u['name'];?></p>
+                </div>
+                <div class="col-6 text-right">
+                    был в сети <?=$u['activity'];?>
+                </div>
+            </div>
+            <?php endforeach;?>
+            <div class="pl-4">
+                <div class="vertical-line">
+                    <?php $events = lastEvents($n['id']);
+                    foreach ($events as $e) :?>
+                    <p><span><i class="far fa-dot-circle icon-not-complete"></i></span><?=$e['action'];?></p>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
 <div class="card mb-3 pt-4">
-    <div class="card-body">
+    <div class="card-body pb-0">
         <div class="row">
             <div class="col-sm-8">
                 <div class="chart"></div>
@@ -99,10 +145,6 @@
             aria-controls="emails" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
                 class="fas fa-envelope h3 mb-0 mt-2"></i>
         <p class="mb-0">Письма</p></button>
-    <button type="button" data-toggle="collapse" href="#feedback" role="button" aria-expanded="false"
-            aria-controls="feedback" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
-                class="fas fa-lightbulb h3 mb-0 mt-2"></i>
-        <p class="mb-0">Обратная связь</p></button>
     <button type="button" data-toggle="collapse" href="#promocodes" role="button" aria-expanded="false"
             aria-controls="feedback" class="btn btn-link bg-white border pr-3 pl-3 mr-3"><i
                 class="fas fa-percentage h3 mb-0 mt-2"></i>
