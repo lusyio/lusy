@@ -18,7 +18,7 @@ $taskQuery = $pdo->prepare("SELECT id, description FROM tasks");
 $taskQuery->execute();
 $tasks = $taskQuery->fetchAll(PDO::FETCH_ASSOC);
 
-$taskUpdateQuery = $pdo->prepare("UPDATE tasks SET newdescription = :newDescription WHERE id = :taskId");
+$taskUpdateQuery = $pdo->prepare("UPDATE tasks SET description = :newDescription WHERE id = :taskId");
 foreach ($tasks as $task) {
     $description = nl2br($task['description']);
 

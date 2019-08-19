@@ -58,6 +58,8 @@ if ($status == 'done' || $status == 'canceled') {
 }
 $description = nl2br($task->get('description'));
 $description = htmlspecialchars_decode($description);
+$description = htmlspecialchars($description);
+$description = decodeTextTags($description);
 
 $tryPremiumLimits = getFreePremiumLimits($idc);
 $isPremiumUsed = (boolean)$task->get('with_premium');

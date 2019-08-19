@@ -411,6 +411,7 @@ if ($_POST['module'] == 'createTask') {
     $name = trim($_POST['name']);
     $name = filter_var($name, FILTER_SANITIZE_SPECIAL_CHARS);
     $description = trim($_POST['description']);
+    $description = encodeTextTags($description);
     $description = filter_var($description, FILTER_SANITIZE_SPECIAL_CHARS);
     $datedone = strtotime(filter_var($_POST['datedone'], FILTER_SANITIZE_SPECIAL_CHARS));
     $worker = filter_var($_POST['worker'], FILTER_SANITIZE_NUMBER_INT);
