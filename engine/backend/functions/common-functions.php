@@ -1881,3 +1881,18 @@ function sanitizeCloudUploads($googleFiles, $dropboxFiles) {
     }
     return $cloudFiles;
 }
+
+function generateRandomString($numberOfWords) {
+    $characters = 'abcdefghijklmnopqrstuvwxyz';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($n = 0; $n < $numberOfWords; $n++) {
+        $word = '';
+        $length = rand(2,14);
+        for ($i = 0; $i < $length; $i++) {
+            $word .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $randomString .= ucfirst($word) . ' ';
+    }
+    return $randomString;
+}

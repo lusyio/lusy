@@ -223,6 +223,7 @@
                         </div>
                     </div>
                     <button class="btn btn-outline-warning edit-mail-body">Редактировать</button>
+                    <button data-template="<?= $template ?>" class="btn btn-outline-primary enter-email">Отправить</button>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -331,6 +332,27 @@
     </div>
 </div>
 <!-- Modal -->
+<div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Отправить письмо со случайными данными</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="emailTemplate">
+                <input type="email" class="form-control" id="emailForSend" placeholder="e-mail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="sendTemplate">Отправить</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -588,6 +610,31 @@
                 }
             });
         });
+
+        $('.enter-email').on('click', function (e) {
+            e.preventDefault();
+            $('#emailTemplate').val($(this).data('template'));
+            $('#sendEmailModal').modal('show');
+        });
+        $('#sendTemplate').on('click', function () {
+            var fd = new FormData;
+            fd.append('ajax', 'godmode');
+            fd.append('module', 'sendMail');
+            fd.append('email', $('#emailForSend').val());
+            fd.append('template', $('#emailTemplate').val());
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function (response) {
+                    console.log(response);
+                    $('#sendEmailModal').modal('hide');
+                }
+            });
+        })
     });
 </script>
 <script src="/assets/js/godmode.js"></script>
