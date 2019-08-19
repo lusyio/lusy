@@ -231,7 +231,7 @@ if ($id == $worker and $view == 0) {
                         ?>
                         <label class="pure-material-checkbox d-block">
                             <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?> <?= (($role != 'manager' && $n['status'] == 1 && ($n['checkedBy'] != $id || $n['checkTime'] < time() - 300 )) || ($status == 'done' || $status == 'canceled')) ? 'disabled': '' ?>>
-                            <span class="text-area-message"> <span class="text-checklist"><?= $n['text'] ?></span> <span class="small text-muted-new"><?= ($n['status'] == 1)? ' (' . $n['name'] . ')' :'' ?></span></span>
+                            <span class=""> <span class="text-checklist"><?= $n['text'] ?></span> <span class="small text-muted-new"><?= ($n['status'] == 1)? ' (' . $n['name'] . ')' :'' ?></span></span>
                         </label>
                     <?php
                     endforeach;

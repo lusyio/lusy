@@ -1454,7 +1454,7 @@ function createInitTask($userId, $companyId, $forCeo = false)
 
     // Создание задачи Заполнить профиль
     $name = 'Заполнить профиль';
-    $description = '&#60;p class=&#34;ql-align-justify&#34;&#62;В настройках профиля&#38;nbsp;&#60;a href=&#34;https://s.lusy.io/settings/&#34; target=&#34;_blank&#34; style=&#34;color: rgb(32, 36, 41);&#34;&#62;https://s.lusy.io/settings/&#60;/a&#62;&#38;nbsp;Вы можете указать контактную информацию, рассказать о себе или добавить ссылки на Ваши социальные сети!&#60;/p&#62;&#60;p class=&#34;ql-align-justify&#34;&#62;&#60;br&#62;&#60;/p&#62;&#60;p&#62;&#60;br&#62;&#60;/p&#62;';
+    $description = '((parag))В настройках профиля ((link:https://s.lusy.io/settings/))https://s.lusy.io/settings/((link_end)) Вы можете указать контактную информацию, рассказать о себе или добавить ссылки на Ваши социальные сети!((parag_end))((parag))((breakline))((parag_end))((parag))((breakline))((parag_end))';
     $datedone = strtotime('midnight');
     $addTaskQueryData = [
         ':name' => $name,
@@ -1522,7 +1522,7 @@ function createInitTask($userId, $companyId, $forCeo = false)
         // Создание задачи Пригласить сотрудника
         $name = 'Пригласите сотрудника';
         $datedone = strtotime('midnight +1 day');
-        $description = '&#60;p&#62;Пригласите сотрудника, отправив ему приглашение на странице Компания - &#60;a href=&#34;https://s.lusy.io/invite/&#34; target=&#34;_blank&#34;&#62;Пригласить сотрудников&#60;/a&#62;&#60;/p&#62;';
+        $description = '((parag))Пригласите сотрудника, отправив ему приглашение на странице Компания - ((link:https://s.lusy.io/invite/))Пригласить сотрудников((link_end))((parag_end))';
         $addInviteTaskData = [
             ':name' => $name,
             ':description' => $description,
@@ -1895,4 +1895,88 @@ function generateRandomString($numberOfWords) {
         $randomString .= ucfirst($word) . ' ';
     }
     return $randomString;
+}
+
+function encodeTextTags($text) {
+    //<code>code</code></p>
+    $encoder = [
+        '~<h1>~' => '((head1))',
+        '~</h1>~' => '((head1_end))',
+        '~<h2>~' => '((head2))',
+        '~</h2>~' => '((head2_end))',
+        '~<h3>~' => '((head3))',
+        '~</h3>~' => '((head3_end))',
+        '~<h4>~' => '((head4))',
+        '~</h4>~' => '((head4_end))',
+        '~<h5>~' => '((head5))',
+        '~</h5>~' => '((head5_end))',
+        '~<h6>~' => '((head6))',
+        '~</h6>~' => '((head6_end))',
+        '~<p>~' => '((parag))',
+        '~<p class="ql-align-justify">~' => '((parag))',
+        '~&nbsp;~' => ' ',
+        '~</p>~' => '((parag_end))',
+        '~<strong>~' => '((strong))',
+        '~</strong>~' => '((strong_end))',
+        '~<em>~' => '((italic))',
+        '~</em>~' => '((italic_end))',
+        '~<u>~' => '((underl))',
+        '~</u>~' => '((underl_end))',
+        '~<a href="(.+?)" target="_blank">~' => '((link:$1))',
+        '~<a href="https://s.lusy.io/settings/" target="_blank" style="color\: rgb\(32, 36, 41\);">~' => '((link:https://s.lusy.io/settings/))',
+        '~</a>~' => '((link_end))',
+        '~<ol>~' => '((orderlist))',
+        '~</ol>~' => '((orderlist_end))',
+        '~<ul>~' => '((unorderlist))',
+        '~</ul>~' => '((unorderlist_end))',
+        '~<li>~' => '((listelem))',
+        '~</li>~' => '((listelem_end))',
+        '~<code>~' => '((codeinside))',
+        '~</code>~' => '((codeinside_end))',
+        '~<br>~' => '((breakline))',
+    ];
+    $needles = array_keys($encoder);
+    $replacements = array_values($encoder);
+    $result = preg_replace($needles, $replacements, $text);
+    return $result;
+}
+
+function decodeTextTags($text) {
+    $encoder = [
+        '<h1>' => '~\(\(head1\)\)~',
+        '</h1>' => '~\(\(head1_end\)\)~',
+        '<h2>' => '~\(\(head2\)\)~',
+        '</h2>' => '~\(\(head2_end\)\)~',
+        '<h3>' => '~\(\(head3\)\)~',
+        '</h3>' => '~\(\(head3_end\)\)~',
+        '<h4>' => '~\(\(head4\)\)~',
+        '</h4>' => '~\(\(head4_end\)\)~',
+        '<h5>' => '~\(\(head5\)\)~',
+        '</h5>' => '~\(\(head5_end\)\)~',
+        '<h6>' => '~\(\(head6\)\)~',
+        '</h6>' => '~\(\(head6_end\)\)~',
+        '<p>' => '~\(\(parag\)\)~',
+        '</p>' => '~\(\(parag_end\)\)~',
+        '<strong>' => '~\(\(strong\)\)~',
+        '</strong>' => '~\(\(strong_end\)\)~',
+        '<em>' => '~\(\(italic\)\)~',
+        '</em>' => '~\(\(italic_end\)\)~',
+        '<u>' => '~\(\(underl\)\)~',
+        '</u>' => '~\(\(underl_end\)\)~',
+        '<a href="$1" target="_blank">' => '~\(\(link:(.+?)\)\)~',
+        '</a>' => '~\(\(link_end\)\)~',
+        '<ol>' => '~\(\(orderlist\)\)~',
+        '</ol>' => '~\(\(orderlist_end\)\)~',
+        '<ul>' => '~\(\(unorderlist\)\)~',
+        '</ul>' => '~\(\(unorderlist_end\)\)~',
+        '<li>' => '~\(\(listelem\)\)~',
+        '</li>' => '~\(\(listelem_end\)\)~',
+        '<code>' => '~\(\(codeinside\)\)~',
+        '</code>' => '~\(\(codeinside_end\)\)~',
+        '<br>' => '~\(\(breakline\)\)~',
+    ];
+    $needles = array_values($encoder);
+    $replacements = array_keys($encoder);
+    $result = preg_replace($needles, $replacements, $text);
+    return $result;
 }
