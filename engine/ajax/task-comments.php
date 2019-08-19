@@ -1,5 +1,11 @@
 <?php
+global $idc;
+
 $idtask = filter_var($_POST['it'], FILTER_SANITIZE_NUMBER_INT);
+$taskCompany = DBOnce('idcompany', 'tasks', 'id = ' . $idtask);
+if ($taskCompany != $idc) {
+    exit;
+}
 if(isset($_POST['lastVisit'])) {
     $lastVisit = filter_var($_POST['lastVisit'], FILTER_SANITIZE_NUMBER_INT);
 } else {
