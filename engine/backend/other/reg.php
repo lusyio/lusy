@@ -29,7 +29,7 @@ if (isset($_POST['email'])) {
         $password = str_shuffle($password);
     } while (!preg_match('~^[a-zA-Z0-9].+[a-zA-Z0-9]+$~', $password));
     $isLoginGood = !isEmailExist($login);
-    if ($isLoginGood) {
+    if ($isLoginGood && $login != '') {
         $companyId = addCompany($companyName, $companyLanguage, $companyTimeZone);
         if ($companyId) {
             $ceoId = addUser($login, $password, $companyId, 'ceo');

@@ -6,7 +6,7 @@ require_once __ROOT__ . '/engine/backend/functions/invite-functions.php';
 
 if ($_POST['module'] == 'joinUser') {
     $inviteCode = filter_var(trim($_POST['inviteCode']), FILTER_SANITIZE_STRING);
-    $inviteeMail = filter_var(trim($_POST['inviteeMail']), FILTER_SANITIZE_STRING);
+    $inviteeMail = filter_var(trim($_POST['inviteeMail']), FILTER_SANITIZE_EMAIL);
     $inviteeName = filter_var(trim($_POST['inviteeName']), FILTER_SANITIZE_STRING);
     $inviteeSurname = filter_var(trim($_POST['inviteeSurname']), FILTER_SANITIZE_STRING);
     $inviteePassword = trim($_POST['inviteePassword']);
@@ -20,7 +20,7 @@ if ($_POST['module'] == 'joinUser') {
     if (!$inviteData || $inviteData['status']) {
         die("Invite doesnt't exist or expired");
     }
-    if (isEmailExist($inviteeMail)) {
+    if (isEmailExist($inviteeMail) || $inviteeMail == '') {
         die('User with this e-mail already exists');
     }
     $newUserId = addUser($inviteeMail, $inviteePassword, $inviteData['company_id'], $inviteData['invitee_position'], $inviteeName, $inviteeSurname);
