@@ -7,8 +7,11 @@
  * [author] [surname] [name] - ID, фамилия и имя пользователя, загрузившего файл, [taskName] - имя задачи,
  * [uploadDate] - дата загрузки файла
  */
-function getFileList($availableTasks = [0])
+function getFileList($availableTasks = [0], $isCeo = false)
 {
+    if ($isCeo) {
+        return getCompanyFileList();
+    }
     global $id;
     global $idc;
     global $pdo;
@@ -198,4 +201,3 @@ function getProvidedStorageSpace()
     }
     return $providedSpace;
 }
-

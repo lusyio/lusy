@@ -28,6 +28,5 @@ if ($userUsageSpacePercent == 0 && $userTotalFilesSize > 0) {
 }
 require_once __ROOT__ . '/engine/backend/classes/TaskListStrategy.php';
 $AvailableTasksList = TaskListStrategy::getAvailableTasks($id, $idc, $roleu == 'ceo');
-$fileList = getFileList($AvailableTasksList);
+$fileList = getFileList($AvailableTasksList, $roleu == 'ceo');
 prepareFileList($fileList);
-
