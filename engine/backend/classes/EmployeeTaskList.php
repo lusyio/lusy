@@ -79,4 +79,16 @@ class EmployeeTaskList extends TaskList
     {
         parent::setParentTaskNullFilterString(!$is);
     }
+
+    public static function getAvailableTasksId($userId, $companyId)
+    {
+        global $pdo;
+        $tasksQuery = $pdo->prepare("SELECT DISTINCT t.id, t.parent_task FROM tasks t left join task_coworkers tc ON t.id = tc.task_id 
+WHERE t.manager = :ouserId OR t.worker = :userId OR tc.worker_id = :userId");
+        $tasksQuery->execute([':userId' => $userId]);
+        $tasks = $tasksQuery->fetchAll(PDO::FETCH_ASSOC);
+        $result = array_merge(array_column($tasks,'id'), array_column($tasks,'parent_task'));
+        $result = array_unique($result);
+        return $result;
+    }
 }

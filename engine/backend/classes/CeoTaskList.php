@@ -41,4 +41,13 @@ class CeoTaskList extends TaskList
         $tasksStmt->execute($this->countQueryArgs);
         $this->countResult = $tasksStmt->fetch(PDO::FETCH_COLUMN);
     }
+
+    public static function getAvailableTasksId($userId, $companyId)
+    {
+        global $pdo;
+        $tasksQuery = $pdo->prepare("SELECT DISTINCT t.id FROM tasks t WHERE idcompany = :companyId");
+        $tasksQuery->execute([':companyId' => $companyId]);
+        $result = $tasksQuery->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
