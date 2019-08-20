@@ -706,6 +706,19 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
         $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
 
+        //Сообщение в чат
+        $message = getDisplayUserName($id) . ' получил новое достижение - ' . $GLOBALS['_' . $comment] . '!';
+        $addMessageToChatQuery = $pdo->prepare("INSERT INTO chat (text, author_id, datetime, company_id) VALUES (:message, :authorId, :datetime, :companyId)");
+        $addMessageToChatQuery->execute(array(':message' => $message, ':authorId' => 1, ':datetime' => time(), ':companyId' => $idc));
+        $messageId = $pdo->lastInsertId();
+
+        $cometSql = $cometPdo->prepare("INSERT INTO pipes_messages (name, event, message) VALUES (:channelName, 'newChat', :jsonMesData)");
+        $mesData = [
+            'messageId' => $messageId,
+        ];
+        $jsonMesData = json_encode($mesData);
+        $cometSql->execute(array(':channelName' => getCometTrackChannelName($idc), ':jsonMesData' => $jsonMesData));
+
         //sendAchievementEmailNotification($id, $comment);
         addMailToQueue('sendAchievementEmailNotification', [$id, $comment], $id, $eventId);
     }
