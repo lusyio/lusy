@@ -248,6 +248,7 @@ if (isset($_POST['it'])) {
         $newName = trim($_POST['name']);
         $newName = filter_var($newName, FILTER_SANITIZE_SPECIAL_CHARS);
         $newDescription = trim($_POST['description']);
+        $newDescription = encodeTextTags($newDescription);
         $newDescription = filter_var($newDescription, FILTER_SANITIZE_SPECIAL_CHARS);
         $isNameAndDescriptionEdited = $task->updateTaskNameAndDescription($newName, $newDescription);
         if ($isNameAndDescriptionEdited) {

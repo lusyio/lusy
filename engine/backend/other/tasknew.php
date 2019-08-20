@@ -39,7 +39,7 @@ if (isset($_GET['edit']) && $_GET['edit'] == 1) {
     $taskId = $task->get('id');
     $taskName = $task->get('name');
     $taskDescription = htmlspecialchars($task->get('description'));
-    $taskDescription = encodeTextTags($taskDescription);
+    $taskDescription = decodeTextTags($taskDescription);
     $taskAuthorId = $task->get('author');
     $manager = $task->get('manager');
     $worker = $task->get('worker');
