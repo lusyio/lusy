@@ -37,7 +37,7 @@ if ($companyUsageSpacePercent > 90) {
 if ($normalizedCompanyFilesSize['size'] > 0) {
     include __ROOT__ . '/engine/frontend/other/searchbarfile.php';
 }
-if ($userTotalFilesSize == 0): ?>
+if (count($fileList) == 0): ?>
     <hr>
     <div class="search-container">
         <div id="searchResult">
@@ -51,12 +51,14 @@ if ($userTotalFilesSize == 0): ?>
     </div>
 <?php endif; ?>
 <?php foreach ($fileList as $file): ?>
-    <div class="card files">
+    <div class="card files <?= ($file['author'] == $id) ? 'my-file' : '' ?>">
         <div class="card-body file-list">
-                <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
-                      class="text-ligther deleteFile float-right position-absolute">
-                    <i val="<?= $file['file_id'] ?>" class="fas fa-times-circle delete-file-icon"></i>
-                </span>
+            <?php if ($file['author'] == $id || $roleu == 'ceo'): ?>
+            <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
+                  class="text-ligther deleteFile float-right position-absolute">
+                <i val="<?= $file['file_id'] ?>" class="fas fa-times-circle delete-file-icon"></i>
+            </span>
+            <?php endif;?>
             <div class="row">
                 <div class="col-2 col-lg-1 iconFiles">
                     <i class="far <?= key_exists($file['extension'], $fileIcon) ? $fileIcon[$file['extension']] : "fa-file" ?> custom-file"></i>
@@ -97,7 +99,11 @@ if ($userTotalFilesSize == 0): ?>
 
             var value = $(this).val();
             $(".files").hide();
-            $(".file-name:contains(" + value + ")").closest('.files').show();
+            var ownFilter = '';
+            if ($('#myFiles').hasClass('active')) {
+                ownFilter = '.my-file ';
+            }
+            $(ownFilter + ".file-name:contains(" + value + ")").closest('.files').show();
         });
 
         $('.files').on('click', function () {
@@ -125,6 +131,17 @@ if ($userTotalFilesSize == 0): ?>
                     }
                 }
             });
+        })
+
+        $('#allFiles').on('click', function () {
+            $(this).addClass('active');
+            $('#myFiles').removeClass('active');
+            $('#searchFile').keyup();
+        });
+        $('#myFiles').on('click', function () {
+            $(this).addClass('active');
+            $('#allFiles').removeClass('active');
+            $('#searchFile').keyup();
         })
     });
 </script>

@@ -47,7 +47,7 @@ class CeoTaskList extends TaskList
         global $pdo;
         $tasksQuery = $pdo->prepare("SELECT DISTINCT t.id FROM tasks t WHERE idcompany = :companyId");
         $tasksQuery->execute([':companyId' => $companyId]);
-        $result = $tasksQuery->fetchAll(PDO::FETCH_ASSOC);
+        $result = $tasksQuery->fetchAll(PDO::FETCH_COLUMN);
         return $result;
     }
 }
