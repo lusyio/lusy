@@ -128,7 +128,6 @@ if (count($fileList) == 0): ?>
         $(".deleteFile").on('click', function () {
             var fileId = $(this).find('.delete-file-icon').attr('val');
             var file = $(this).parents(".files");
-            console.log(fileId);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -140,7 +139,6 @@ if (count($fileList) == 0): ?>
                 },
                 success: function (data) {
                     if (data) {
-                        console.log(data);
                     } else {
                         file.fadeOut(350);
                     }
