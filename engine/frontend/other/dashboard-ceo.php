@@ -48,7 +48,6 @@ $statusColor = [
 <link rel="stylesheet" href="/assets/css/swiper.min.css">
 <script type="text/javascript" src="/assets/js/Chart.min.js"></script>
 <script type="text/javascript" src="/assets/js/utils.js"></script>
-
 <div class="row">
     <div class="col-12 col-lg-4">
         <div class="card overflow-hidden chart-card">
@@ -180,6 +179,57 @@ $statusColor = [
         </div>
     </div>
 </div>
+<?php if ($roleu == 'ceo') : ?>
+    <div class="card premiumCard mb-3 mt-3 progressBlock">
+        <div class="card-body">
+            <div class="row ">
+                <div class="col-3">
+                    <a href="/settings/">
+                        <div class="d-flex <?php if (!empty($nameu)) : ?>doneStep<?php endif; ?>">
+                            <div class="iconDiv mr-3">
+                                <i class="fas fa-user fa-fw"></i>
+                            </div>
+                            <p class="mb-0 small">Заполнить профиль</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-3 plusBlock">
+                    <a href="/task/new/">
+                    <div class="d-flex">
+                        <div class="iconDiv mr-3">
+                            <i class="fas fa-clipboard fa-fw"></i>
+                        </div>
+                        <p class="mb-0 small">Создать<br/>задачу</p>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-3 plusBlock equallyBlock">
+                    <a href="/tasks/">
+                    <div class="d-flex">
+                        <div class="iconDiv mr-3">
+                            <i class="fas fa-clipboard-check fa-fw"></i>
+                        </div>
+                        <p class="mb-0 small">Завершить задачу</p>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-3 premiumAcountActivate <?php if (!empty($nameu)) : ?>doneStep<?php endif; ?>">
+                    <button class="btn btn-outline-light">
+                        Активировать Premium-аккаунт
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-9">
+                    <div class="progress mt-0">
+                        <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <div class="swiper-container" id="mainSwiper">
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
@@ -363,96 +413,100 @@ $statusColor = [
     </div>
 </div>
 <?php if ($isFirstLogin): ?>
-<div class="modal fade" id="afterRegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-0 text-center d-block">
-                <h4 class="modal-title" id="exampleModalLabel">Добро пожаловать в Lusy.io</h4>
-            </div>
-            <div class="modal-body text-left">
-                <p class="text-muted-new">
-                    Мы создали для вас аккаунт со следующими параметрами:
-                </p>
-                <div class="row mb-3">
-                    <div class="col-3">
-                        <span class="after-reg-text">Имя компании</span>
-                    </div>
-                    <div class="col">
-                        <label class="cd-username" for="afterRegCompanyname"><i class="fas fa-user text-muted-new"></i></label>
-                        <input id="afterRegCompanyname" class="form-control" type="text" placeholder="Имя компании" value="<?= $companyName; ?>">
-                        <span id="companynameOK" class="icon-after-reg position-absolute text-success display-none">
+    <div class="modal fade" id="afterRegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 text-center d-block">
+                    <h4 class="modal-title" id="exampleModalLabel">Добро пожаловать в Lusy.io</h4>
+                </div>
+                <div class="modal-body text-left">
+                    <p class="text-muted-new">
+                        Мы создали для вас аккаунт со следующими параметрами:
+                    </p>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <span class="after-reg-text">Имя компании</span>
+                        </div>
+                        <div class="col">
+                            <label class="cd-username" for="afterRegCompanyname"><i
+                                        class="fas fa-user text-muted-new"></i></label>
+                            <input id="afterRegCompanyname" class="form-control" type="text" placeholder="Имя компании"
+                                   value="<?= $companyName; ?>">
+                            <span id="companynameOK" class="icon-after-reg position-absolute text-success display-none">
                             <i class="fas fa-check-circle"></i>
                         </span>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-3">
-                        <span class="after-reg-text">Ваш email</span>
-                    </div>
-                    <div class="col">
-                        <label class="cd-username" for="afterRegEmail"><i
-                                    class="fas fa-envelope text-muted-new"></i></label>
-                        <input id="afterRegEmail" class="form-control" type="email" placeholder="email" value="<?= $email; ?>">
-                        <span id="emailOK" class="icon-after-reg  position-absolute text-success display-none">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <span class="after-reg-text">Ваш email</span>
+                        </div>
+                        <div class="col">
+                            <label class="cd-username" for="afterRegEmail"><i
+                                        class="fas fa-envelope text-muted-new"></i></label>
+                            <input id="afterRegEmail" class="form-control" type="email" placeholder="email"
+                                   value="<?= $email; ?>">
+                            <span id="emailOK" class="icon-after-reg  position-absolute text-success display-none">
                             <i class="fas fa-check-circle"></i>
                         </span>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-3">
-                        <span class="after-reg-text">Пароль</span>
-                    </div>
-                    <div class="col position-relative">
-                        <label class="cd-username" for="afterRegPassword"><i
-                                    class="fas fa-key text-muted-new"></i></label>
-                        <input id="afterRegPassword" class="form-control" type="text" placeholder="Пароль" value="<?= $password; ?>">
-                        <input id="currentPassword" type="hidden" value="<?= $password; ?>">
-                        <span class="icon-after-reg  info-reg position-absolute text-ligther"
-                              data-toggle="tooltip" data-placement="bottom"
-                              title="Минимальное кол-во символов - 6">
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            <span class="after-reg-text">Пароль</span>
+                        </div>
+                        <div class="col position-relative">
+                            <label class="cd-username" for="afterRegPassword"><i
+                                        class="fas fa-key text-muted-new"></i></label>
+                            <input id="afterRegPassword" class="form-control" type="text" placeholder="Пароль"
+                                   value="<?= $password; ?>">
+                            <input id="currentPassword" type="hidden" value="<?= $password; ?>">
+                            <span class="icon-after-reg  info-reg position-absolute text-ligther"
+                                  data-toggle="tooltip" data-placement="bottom"
+                                  title="Минимальное кол-во символов - 6">
                             <i class="fas fa-info-circle"></i>
                         </span>
-                        <span id="passwordOK" class="icon-after-reg  position-absolute text-success display-none">
+                            <span id="passwordOK" class="icon-after-reg  position-absolute text-success display-none">
                             <i class="fas fa-check-circle"></i>
                         </span>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-lg-8 text-right">
-                        <button id="saveAfterReg" class="btn-afterreg btn btn-violet text-white">
-                            Сохранить изменения
-                        </button>
+                    <div class="row">
+                        <div class="col-12 col-lg-8 text-right">
+                            <button id="saveAfterReg" class="btn-afterreg btn btn-violet text-white">
+                                Сохранить изменения
+                            </button>
+                        </div>
+                        <div class="col-4 text-right">
+                            <button class="btn-afterreg btn btn-light text-muted-new" data-dismiss="modal">
+                                <span class="small">Пропустить</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-4 text-right">
-                        <button class="btn-afterreg btn btn-light text-muted-new" data-dismiss="modal">
-                            <span class="small">Пропустить</span>
-                        </button>
-                    </div>
-                </div>
-                <span class="position-absolute bg-after-reg">
+                    <span class="position-absolute bg-after-reg">
                 <i class="fas fa-sign-in-alt icon-limit-modal"></i>
                 </span>
-            </div>
-            <div class="modal-footer" style="justify-content: start">
-                <p class="text-muted-new small mb-0">
-                    Вы в любой момент можете поменять данные в
-                    <a class="btn-link" href="https://s.lusy.io/settings/">настройках</a>
-                </p>
-            </div>
-            <span class="icon-close-modal">
+                </div>
+                <div class="modal-footer" style="justify-content: start">
+                    <p class="text-muted-new small mb-0">
+                        Вы в любой момент можете поменять данные в
+                        <a class="btn-link" href="https://s.lusy.io/settings/">настройках</a>
+                    </p>
+                </div>
+                <span class="icon-close-modal">
             <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
                         class="fas fa-times text-muted"></i></button>
             </span>
-            <div class="text-center position-absolute spinner-after-reg">
-                <div class="spinner-border"
-                     role="status">
-                    <span class="sr-only">Loading...</span>
+                <div class="text-center position-absolute spinner-after-reg">
+                    <div class="spinner-border"
+                         role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 <script src="/assets/js/swiper.min.js"></script>
 <script type="text/javascript">
@@ -634,201 +688,201 @@ $statusColor = [
     });
 </script>
 <?php if ($isFirstLogin): ?>
-<script>
-    $(document).ready(function () {
-        $('#afterRegModal').modal('show');
+    <script>
+        $(document).ready(function () {
+            $('#afterRegModal').modal('show');
 
-        var security = 0;
-        var securityMail = 0;
-        var securityPass = 0;
+            var security = 0;
+            var securityMail = 0;
+            var securityPass = 0;
 
-        var email = $('#afterRegEmail').val();
-        var regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
-        var checkMail = regMail.exec(email);
+            var email = $('#afterRegEmail').val();
+            var regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
+            var checkMail = regMail.exec(email);
 
-        var password = $('#afterRegPassword').val();
-        var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
-        var checkPass = reg.exec(password);
+            var password = $('#afterRegPassword').val();
+            var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+            var checkPass = reg.exec(password);
 
-        if ($('#afterRegCompanyname').val() != ''){
-            $('#afterRegCompanyname').css({
-                'border': '1px solid #ccc',
-                'color': '#495057'
-            });
-            $('#companynameOK').show();
-        } else {
-            $('#companynameOK').hide();
-        }
-
-        if (checkMail == null) {
-            securityMail = 0;
-            $('#emailOK').hide();
-        } else {
-            securityMail = 1;
-            $('#emailOK').show();
-        }
-
-        if (checkPass == null) {
-            $('.info-reg').show();
-            $('#passwordOK').hide();
-        } else {
-            securityPass = 1;
-            $('.info-reg').hide();
-            $('#passwordOK').show();
-        }
-
-        security = securityMail + securityPass;
-
-        if (security != 2) {
-            $('#saveAfterReg').prop('disabled', true);
-        } else {
-            $('#saveAfterReg').prop('disabled', false);
-        }
-
-        $('#afterRegCompanyname').on('change', function () {
-           var $this = $(this);
-
-           if ($this.val() != ''){
-               $this.css({
-                   'border': '1px solid #ccc',
-                   'color': '#495057'
-               });
-               $('#companynameOK').show();
-           } else {
-               $('#companynameOK').hide();
-           }
-        });
-
-        console.log(security);
-
-        $('#afterRegEmail').on('keyup', function () {
-            var $this = $(this);
-
-            email = $this.val();
-            regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
-            checkMail = regMail.exec(email);
+            if ($('#afterRegCompanyname').val() != '') {
+                $('#afterRegCompanyname').css({
+                    'border': '1px solid #ccc',
+                    'color': '#495057'
+                });
+                $('#companynameOK').show();
+            } else {
+                $('#companynameOK').hide();
+            }
 
             if (checkMail == null) {
-                $this.css({
-                    'border': '1px solid #fbc2c4',
-                    'color': '#8a1f11'
-                });
                 securityMail = 0;
                 $('#emailOK').hide();
             } else {
-                $this.css({
-                    'border': '1px solid #ccc',
-                    'color': '#495057'
-                });
                 securityMail = 1;
                 $('#emailOK').show();
             }
-            security = securityMail + securityPass;
-            if (security == 2) {
-                $("#saveAfterReg").prop('disabled', false);
-            } else {
-                $("#saveAfterReg").prop('disabled', true);
-            }
-            console.log(security)
-        });
-
-        $('#afterRegPassword').on('keyup', function () {
-            var $this = $(this);
-            password = $this.val();
-            reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
-            checkPass = reg.exec(password);
 
             if (checkPass == null) {
-                $this.css({
-                    'border': '1px solid #fbc2c4',
-                    'color': '#8a1f11'
-                });
-                securityPass = 0;
                 $('.info-reg').show();
                 $('#passwordOK').hide();
             } else {
-                $this.css({
-                    'border': '1px solid #ccc',
-                    'color': '#495057'
-                });
                 securityPass = 1;
                 $('.info-reg').hide();
                 $('#passwordOK').show();
             }
+
             security = securityMail + securityPass;
-            if (security == 2) {
-                $("#saveAfterReg").prop('disabled', false);
+
+            if (security != 2) {
+                $('#saveAfterReg').prop('disabled', true);
             } else {
-                $("#saveAfterReg").prop('disabled', true);
+                $('#saveAfterReg').prop('disabled', false);
             }
-            console.log(security)
 
-        });
+            $('#afterRegCompanyname').on('change', function () {
+                var $this = $(this);
 
-        $('#saveAfterReg').on('click', function () {
-            var email = $('#afterRegEmail').val();
-            var password = $('#afterRegPassword').val();
-            var currentPassword = $('#currentPassword').val();
-            var companyName = $('#afterRegCompanyname').val();
-
-            var fd = new FormData();
-            fd.append('email', email);
-            fd.append('newPassword', password);
-            fd.append('password', currentPassword);
-            fd.append('companyName', companyName);
-            fd.append('module', 'initChange');
-            fd.append('ajax', 'settings');
-            if (companyName != ''){
-            $('.spinner-after-reg').show();
-            $.ajax({
-                url: '/ajax.php',
-                type: 'POST',
-                dataType: 'json',
-                cache: false,
-                processData: false,
-                contentType: false,
-                data: fd,
-                success: function (response) {
-                    if (response.error == '') {
-                        location.reload();
-                    }
-                    if (response.error == 'email'){
-                        $('#afterRegEmail').css({
-                            'border': '1px solid #fbc2c4',
-                            'color': '#8a1f11'
-                        });
-                        $('#emailOK').hide()
-                    }
-                    if (response.error == 'password'){
-                        $('#afterRegPassword').css({
-                            'border': '1px solid #fbc2c4',
-                            'color': '#8a1f11'
-                        });
-                        $('#passwordOK').hide()
-                    }
-                    if (response.error == 'company'){
-                        $('#afterRegCompanyname').css({
-                            'border': '1px solid #fbc2c4',
-                            'color': '#8a1f11'
-                        });
-                        $('#companynameOK').hide()
-                    }
-                },
-                complete: function () {
-                    $('.spinner-after-reg').hide();
+                if ($this.val() != '') {
+                    $this.css({
+                        'border': '1px solid #ccc',
+                        'color': '#495057'
+                    });
+                    $('#companynameOK').show();
+                } else {
+                    $('#companynameOK').hide();
                 }
             });
-            } else {
-                $('#afterRegCompanyname').css({
-                    'border': '1px solid #fbc2c4',
-                    'color': '#8a1f11'
-                });
-            }
-        });
 
-        $('.carousel').carousel({
-            interval: 10000
+            console.log(security);
+
+            $('#afterRegEmail').on('keyup', function () {
+                var $this = $(this);
+
+                email = $this.val();
+                regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
+                checkMail = regMail.exec(email);
+
+                if (checkMail == null) {
+                    $this.css({
+                        'border': '1px solid #fbc2c4',
+                        'color': '#8a1f11'
+                    });
+                    securityMail = 0;
+                    $('#emailOK').hide();
+                } else {
+                    $this.css({
+                        'border': '1px solid #ccc',
+                        'color': '#495057'
+                    });
+                    securityMail = 1;
+                    $('#emailOK').show();
+                }
+                security = securityMail + securityPass;
+                if (security == 2) {
+                    $("#saveAfterReg").prop('disabled', false);
+                } else {
+                    $("#saveAfterReg").prop('disabled', true);
+                }
+                console.log(security)
+            });
+
+            $('#afterRegPassword').on('keyup', function () {
+                var $this = $(this);
+                password = $this.val();
+                reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+                checkPass = reg.exec(password);
+
+                if (checkPass == null) {
+                    $this.css({
+                        'border': '1px solid #fbc2c4',
+                        'color': '#8a1f11'
+                    });
+                    securityPass = 0;
+                    $('.info-reg').show();
+                    $('#passwordOK').hide();
+                } else {
+                    $this.css({
+                        'border': '1px solid #ccc',
+                        'color': '#495057'
+                    });
+                    securityPass = 1;
+                    $('.info-reg').hide();
+                    $('#passwordOK').show();
+                }
+                security = securityMail + securityPass;
+                if (security == 2) {
+                    $("#saveAfterReg").prop('disabled', false);
+                } else {
+                    $("#saveAfterReg").prop('disabled', true);
+                }
+                console.log(security)
+
+            });
+
+            $('#saveAfterReg').on('click', function () {
+                var email = $('#afterRegEmail').val();
+                var password = $('#afterRegPassword').val();
+                var currentPassword = $('#currentPassword').val();
+                var companyName = $('#afterRegCompanyname').val();
+
+                var fd = new FormData();
+                fd.append('email', email);
+                fd.append('newPassword', password);
+                fd.append('password', currentPassword);
+                fd.append('companyName', companyName);
+                fd.append('module', 'initChange');
+                fd.append('ajax', 'settings');
+                if (companyName != '') {
+                    $('.spinner-after-reg').show();
+                    $.ajax({
+                        url: '/ajax.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        data: fd,
+                        success: function (response) {
+                            if (response.error == '') {
+                                location.reload();
+                            }
+                            if (response.error == 'email') {
+                                $('#afterRegEmail').css({
+                                    'border': '1px solid #fbc2c4',
+                                    'color': '#8a1f11'
+                                });
+                                $('#emailOK').hide()
+                            }
+                            if (response.error == 'password') {
+                                $('#afterRegPassword').css({
+                                    'border': '1px solid #fbc2c4',
+                                    'color': '#8a1f11'
+                                });
+                                $('#passwordOK').hide()
+                            }
+                            if (response.error == 'company') {
+                                $('#afterRegCompanyname').css({
+                                    'border': '1px solid #fbc2c4',
+                                    'color': '#8a1f11'
+                                });
+                                $('#companynameOK').hide()
+                            }
+                        },
+                        complete: function () {
+                            $('.spinner-after-reg').hide();
+                        }
+                    });
+                } else {
+                    $('#afterRegCompanyname').css({
+                        'border': '1px solid #fbc2c4',
+                        'color': '#8a1f11'
+                    });
+                }
+            });
+
+            $('.carousel').carousel({
+                interval: 10000
+            });
         });
-    });
-</script>
+    </script>
 <?php endif; ?>

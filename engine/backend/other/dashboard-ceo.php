@@ -13,6 +13,7 @@ global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
 global $supportCometHash;
+global $nameu;
 
 $countStatusQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (worker= :userId OR manager= :userId OR tc.worker_id = :userId) and t.status IN ('new', 'inwork', 'returned', 'pending', 'postpone', 'overdue') GROUP BY t.status");
 $countStatusQuery->execute([':userId' => $id]);
