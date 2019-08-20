@@ -37,9 +37,8 @@ if ($companyUsageSpacePercent > 90) {
 if ($normalizedCompanyFilesSize['size'] > 0) {
     include __ROOT__ . '/engine/frontend/other/searchbarfile.php';
 }
-if ($userTotalFilesSize == 0): ?>
-    <hr>
-    <div class="search-container">
+if (count($fileList) == 0): ?>
+    <div id="noFiles" class="search-container">
         <div id="searchResult">
             <div class="card">
                 <div class="card-body search-empty">
@@ -50,13 +49,24 @@ if ($userTotalFilesSize == 0): ?>
         </div>
     </div>
 <?php endif; ?>
+    <div id="filesNotFound" class="search-container d-none">
+        <div id="searchResult">
+            <div class="card">
+                <div class="card-body search-empty">
+                    <p>Нет файлов</p>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php foreach ($fileList as $file): ?>
-    <div class="card files">
+    <div class="card files <?= ($file['author'] == $id) ? 'my-file' : '' ?>">
         <div class="card-body file-list">
-                <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
-                      class="text-ligther deleteFile float-right position-absolute">
-                    <i val="<?= $file['file_id'] ?>" class="fas fa-times-circle delete-file-icon"></i>
-                </span>
+            <?php if ($file['author'] == $id || $roleu == 'ceo'): ?>
+            <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
+                  class="text-ligther deleteFile float-right position-absolute">
+                <i val="<?= $file['file_id'] ?>" class="fas fa-times-circle delete-file-icon"></i>
+            </span>
+            <?php endif;?>
             <div class="row">
                 <div class="col-2 col-lg-1 iconFiles">
                     <i class="far <?= key_exists($file['extension'], $fileIcon) ? $fileIcon[$file['extension']] : "fa-file" ?> custom-file"></i>
@@ -87,17 +97,28 @@ if ($userTotalFilesSize == 0): ?>
     });
     $(document).ready(function () {
         $("#searchFile").on("keyup", function () {
+            if ($('#noFiles').length === 0) {
+                // переопределяем метод contains для регистроНЕзависимого поиска
+                $.expr[":"].contains = $.expr.createPseudo(function (arg) {
+                    return function (elem) {
+                        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+                    };
+                });
 
-            // переопределяем метод contains для регистроНЕзависимого поиска
-            $.expr[":"].contains = $.expr.createPseudo(function (arg) {
-                return function (elem) {
-                    return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
-                };
-            });
-
-            var value = $(this).val();
-            $(".files").hide();
-            $(".file-name:contains(" + value + ")").closest('.files').show();
+                var value = $(this).val();
+                $(".files").hide();
+                var ownFilter = '';
+                if ($('#myFiles').hasClass('active')) {
+                    ownFilter = '.my-file ';
+                }
+                var filesToShow = $(ownFilter + ".file-name:contains(" + value + ")").closest('.files');
+                if (filesToShow.length) {
+                    $('#filesNotFound').addClass('d-none');
+                    filesToShow.show();
+                } else {
+                    $('#filesNotFound').removeClass('d-none');
+                }
+            }
         });
 
         $('.files').on('click', function () {
@@ -107,7 +128,6 @@ if ($userTotalFilesSize == 0): ?>
         $(".deleteFile").on('click', function () {
             var fileId = $(this).find('.delete-file-icon').attr('val');
             var file = $(this).parents(".files");
-            console.log(fileId);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -119,12 +139,22 @@ if ($userTotalFilesSize == 0): ?>
                 },
                 success: function (data) {
                     if (data) {
-                        console.log(data);
                     } else {
                         file.fadeOut(350);
                     }
                 }
             });
+        })
+
+        $('#allFiles').on('click', function () {
+            $(this).addClass('active');
+            $('#myFiles').removeClass('active');
+            $('#searchFile').keyup();
+        });
+        $('#myFiles').on('click', function () {
+            $(this).addClass('active');
+            $('#allFiles').removeClass('active');
+            $('#searchFile').keyup();
         })
     });
 </script>
