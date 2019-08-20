@@ -311,7 +311,7 @@ class Task
         $this->attachCloudFilesToComment($files, $commentId, $premiumType);
 
         resetViewStatus($this->get('id'));
-        addEvent('workreturn', $this->get('id'), $commentId);
+        addEvent('workreturn', $this->get('id'), $datePostpone);
     }
 
     public function checkSubTasksForFinish()

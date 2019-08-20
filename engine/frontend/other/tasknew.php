@@ -621,6 +621,8 @@ $borderColor = [
             }
         });
     });
+
+    var Delta = Quill.import('delta');
     var quill = new Quill('#editor', {
         theme: 'snow',
         placeholder: 'Опишите суть задания...',
@@ -634,6 +636,11 @@ $borderColor = [
             ]
         },
     });
+    quill.clipboard.addMatcher(Node.ELEMENT_NODE, function (node, delta) {
+        var plaintext = $(node).text();
+        return new Delta().insert(plaintext);
+    });
+
     <?php if ($taskEdit): ?>
     var taskId = <?= $taskId; ?>;
     var pageAction = 'edit';

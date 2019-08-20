@@ -149,9 +149,8 @@ if (isset($_POST['it'])) {
         //Обработка прикрепленных из облака файлов
         $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
         $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
-
         $cloudFiles = sanitizeCloudUploads($unsafeGoogleFiles, $unsafeDropboxFiles);
-        $task->workReturn($datePostpone, $report, $cloudFiles, $cloudPremiumType);
+        $task->workReturn($datePostpone, $text, $cloudFiles, $cloudPremiumType);
 
     }
 

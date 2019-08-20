@@ -88,8 +88,8 @@
                         <div class="col-sm-2 col-lg-2 col-md-3 col-3 <?= ($subStatus == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subStatus, ['inwork', 'new', 'returned']) && date("Y-m-d", $subDatedone) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
                             <?= date('j', $subDatedone) ?> <?= $_months[date('n', $subDatedone) - 1] ?>
                         </div>
-                        <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
-                            <div>
+                        <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars avatars-big">
+                            <div class="float-right">
                                 <?php if ($subManager == $subWorker): ?>
                                 <img src="/<?= getAvatarLink($subManager) ?>" class="avatar">
                                 <?php else: ?>
