@@ -44,7 +44,7 @@ function numberOfNewChatMessages()
     global $pdo;
 
     $lastViewedMessage = DBOnce('last_viewed_chat_message', 'users', 'id = ' . $id);
-    $numberQuery = $pdo->prepare("SELECT COUNT(DISTINCT message_id) FROM chat WHERE company_id = :companyId AND datetime > :lastViewedMessage");
+    $numberQuery = $pdo->prepare("SELECT COUNT(DISTINCT message_id) FROM chat WHERE company_id = :companyId AND message_id > :lastViewedMessage");
     $numberQuery->execute(array(':companyId' => $idc, ':lastViewedMessage' => $lastViewedMessage));
     $result = $numberQuery->fetch(PDO::FETCH_COLUMN);
     return $result;
