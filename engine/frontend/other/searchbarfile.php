@@ -8,6 +8,10 @@
                 <span>Все файлы</span>
                 <span class="count"></span>
             </div>
+            <div id="relatedFiles" class="btn btn-light">
+                <span>Доступные файлы</span>
+                <span class="count"></span>
+            </div>
             <div id="myFiles" class="btn btn-light">
                 <span>Мои файлы</span>
                 <span class="count"></span>

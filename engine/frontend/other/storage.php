@@ -59,7 +59,7 @@ if (count($fileList) == 0): ?>
         </div>
     </div>
 <?php foreach ($fileList as $file): ?>
-    <div class="card files <?= ($file['author'] == $id) ? 'my-file' : '' ?>">
+    <div class="card files <?= ($file['author'] == $id) ? 'my-file' : '' ?> <?= (in_array($file['file_id'], $relatedFilesId)) ? 'available-file' : '' ?>">
         <div class="card-body file-list">
             <?php if ($file['author'] == $id || $roleu == 'ceo'): ?>
             <span data-toggle="tooltip" data-placement="bottom" title="Удалить файл"
@@ -110,6 +110,8 @@ if (count($fileList) == 0): ?>
                 var ownFilter = '';
                 if ($('#myFiles').hasClass('active')) {
                     ownFilter = '.my-file ';
+                } else if ($('#relatedFiles').hasClass('active')) {
+                    ownFilter = '.available-file:not(.my-file) ';
                 }
                 var filesToShow = $(ownFilter + ".file-name:contains(" + value + ")").closest('.files');
                 if (filesToShow.length) {
@@ -149,11 +151,19 @@ if (count($fileList) == 0): ?>
         $('#allFiles').on('click', function () {
             $(this).addClass('active');
             $('#myFiles').removeClass('active');
+            $('#relatedFiles').removeClass('active');
             $('#searchFile').keyup();
         });
+        $('#relatedFiles').on('click', function () {
+            $(this).addClass('active');
+            $('#allFiles').removeClass('active');
+            $('#myFiles').removeClass('active');
+            $('#searchFile').keyup();
+        })
         $('#myFiles').on('click', function () {
             $(this).addClass('active');
             $('#allFiles').removeClass('active');
+            $('#relatedFiles').removeClass('active');
             $('#searchFile').keyup();
         })
     });
