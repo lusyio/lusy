@@ -38,8 +38,7 @@ if ($normalizedCompanyFilesSize['size'] > 0) {
     include __ROOT__ . '/engine/frontend/other/searchbarfile.php';
 }
 if (count($fileList) == 0): ?>
-    <hr>
-    <div class="search-container">
+    <div id="noFiles" class="search-container">
         <div id="searchResult">
             <div class="card">
                 <div class="card-body search-empty">
@@ -50,6 +49,15 @@ if (count($fileList) == 0): ?>
         </div>
     </div>
 <?php endif; ?>
+    <div id="filesNotFound" class="search-container d-none">
+        <div id="searchResult">
+            <div class="card">
+                <div class="card-body search-empty">
+                    <p>Нет файлов</p>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php foreach ($fileList as $file): ?>
     <div class="card files <?= ($file['author'] == $id) ? 'my-file' : '' ?>">
         <div class="card-body file-list">
@@ -89,21 +97,28 @@ if (count($fileList) == 0): ?>
     });
     $(document).ready(function () {
         $("#searchFile").on("keyup", function () {
+            if ($('#noFiles').length === 0) {
+                // переопределяем метод contains для регистроНЕзависимого поиска
+                $.expr[":"].contains = $.expr.createPseudo(function (arg) {
+                    return function (elem) {
+                        return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+                    };
+                });
 
-            // переопределяем метод contains для регистроНЕзависимого поиска
-            $.expr[":"].contains = $.expr.createPseudo(function (arg) {
-                return function (elem) {
-                    return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
-                };
-            });
-
-            var value = $(this).val();
-            $(".files").hide();
-            var ownFilter = '';
-            if ($('#myFiles').hasClass('active')) {
-                ownFilter = '.my-file ';
+                var value = $(this).val();
+                $(".files").hide();
+                var ownFilter = '';
+                if ($('#myFiles').hasClass('active')) {
+                    ownFilter = '.my-file ';
+                }
+                var filesToShow = $(ownFilter + ".file-name:contains(" + value + ")").closest('.files');
+                if (filesToShow.length) {
+                    $('#filesNotFound').addClass('d-none');
+                    filesToShow.show();
+                } else {
+                    $('#filesNotFound').removeClass('d-none');
+                }
             }
-            $(ownFilter + ".file-name:contains(" + value + ")").closest('.files').show();
         });
 
         $('.files').on('click', function () {
