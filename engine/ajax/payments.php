@@ -295,7 +295,7 @@ if($_POST['module'] == 'bindCard') {
 
 if($_POST['module'] == 'gamePromo') {
     $nameu = DBOnce('name', 'users', 'id = '. $id);
-    if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'lusygame')) {
+    if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'welcome')) {
         $stepProfile = false;
         $stepTaskCreate = false;
         $stepTaskDone = false;
@@ -314,7 +314,7 @@ if($_POST['module'] == 'gamePromo') {
             }
         }
         if ($stepProfile && $stepTaskCreate && $stepTaskDone) {
-            activatePromocode($idc, 'lusygame');
+            activatePromocode($idc, 'welcome');
         }
     }
 }

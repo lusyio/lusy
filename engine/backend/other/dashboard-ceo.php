@@ -141,7 +141,7 @@ if (isset($_SESSION['isFirstLogin']) && $_SESSION['isFirstLogin']) {
 }
 
 //Блок данных для мини-игры за промокод
-if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'lusygame')) {
+if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'welcome')) {
     $showGame = true;
     $stepProfile = false;
     $stepTaskCreate = false;
