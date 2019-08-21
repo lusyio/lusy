@@ -149,6 +149,8 @@
                 $eventText = _('You changed worker');
                 $eventDop = _('New worker is') . ' <span class="text-capitalize">' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>';
             } else {
+                $bg = 'danger';
+                $icon = 'fas fa-user-slash';
                 $eventText = _('Task reassigned');
             }
         }

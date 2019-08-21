@@ -281,7 +281,7 @@ class Task
             $changeWorkerQuery->execute([':taskId' => $this->get('id'), ':newWorker' => $newWorker]);
             addChangeExecutorsComments($this->get('id'), 'newworker', $newWorker);
             if ($this->get('status') != 'planned') {
-                addEvent('changeworker', $this->get('id'), '', $this->get('worker'));
+                addEvent('changeworker', $this->get('id'), $this->get('datedone'), $this->get('worker'));
                 $isChanged = true;
             }
         }
