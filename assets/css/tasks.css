@@ -8,11 +8,11 @@
 }
 .task-card .card {
     transition: 0.2s all;
-    box-shadow: rgba(13, 28, 60, 0.06) 0px 4px 12px 1px;
+    box-shadow: rgba(197, 197, 201, 0.6) 0px 3px 9px -2px;
 }
 .task-card:hover .card {
-    transition: 0.2s all;
-    box-shadow: rgba(13, 28, 60, 0.16) 0px 7px 12px 1px;
+    transition: 0s all;
+    box-shadow: rgba(197, 197, 201, 0.7) 0px 6px 9px -2px;
 }
 .task-card h5 {
     font-weight: 400;
@@ -64,8 +64,4 @@
 
 .shadow-subtask{
     box-shadow: 0px 6px 3px -3px rgba(20,23,28,.1);
-}
-
-.taskname-subtask{
-    padding-left: 9px;
 }

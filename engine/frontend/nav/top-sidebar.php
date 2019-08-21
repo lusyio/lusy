@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <a class="navbar-brand visible-lg" href="/"><?= $namec ?></a>
+                <a class="navbar-brand visible-lg" href="/"><span class="logo mr-3">L</span> <?= $namec ?></a>
                 <button class="navbar-toggler float-right position-relative" type="button" data-toggle="collapse"
                         data-target=".navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><i

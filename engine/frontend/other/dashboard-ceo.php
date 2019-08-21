@@ -120,7 +120,7 @@ $statusColor = [
                             </div>
                             <div class="col pl-0">
                                 <div class="statusText font-weight-bold text-right text-">
-                                    <span class="statusText-line <?= $statusColor[$task['status']] ?>">
+                                    <span class="statusText-line">
                                         <?= $GLOBALS["_{$task['status']}"] ?>
                                     </span>
                                 </div>
@@ -520,8 +520,8 @@ $statusColor = [
                     data: data,
                     fill: false,
                     backgroundColor: gradient,
-                    borderColor: '#61a0f4',
-                    colors: ['', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#e4e4e4'],
+                    borderColor: '#718dff',
+                    colors: ['', '#718dff', '#718dff', '#718dff', '#718dff', '#718dff', '#e4e4e4'],
                     borderWidth: 5,
                 }]
             },
