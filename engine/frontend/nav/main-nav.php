@@ -22,7 +22,7 @@ if ($companyUsageSpacePercent > 90) {
                     <a class="nav-link" href="/tasks/">
                         <img class="svg-icon mr-3" src="/assets/svg/check-list.svg">
                         <?= _('Tasks') ?>
-                        <div class="float-right">
+                        <div class="float-right badge-hover">
                             <span class="badge badge-primary float-left"
                                   data-toggle="tooltip" data-placement="bottom"
                                   title="<?= $GLOBALS['_outbox'] ?>"><?= $manager ?></span>
@@ -40,9 +40,12 @@ if ($companyUsageSpacePercent > 90) {
                 <hr>
             <?php endif; ?>
             <?php if (in_array('company', $menu[$roleu])): ?>
-                <li class="nav-item pb-2"><a class="nav-link" href="/company/">
+                <li class="nav-item pb-2">
+                    <a class="nav-link position-relative" href="/company/">
                         <img class="svg-icon mr-3" src="/assets/svg/users.svg">
-                        <?= _('Company') ?></a></li>
+                        <?= _('Company') ?>
+                    </a>
+                </li>
             <?php endif; ?>
             <li class="nav-item pb-2"><a class="nav-link" href="/awards/">
                     <img class="svg-icon mr-3" src="/assets/svg/cup.svg">
@@ -78,7 +81,7 @@ if ($companyUsageSpacePercent > 90) {
                         <img class="svg-icon mr-3" src="/assets/svg/settings.svg">
                         <?= _('GodMode') ?>
 
-                        <div class="float-right badge-godmode">
+                        <div class="float-right badge-hover">
                             <span class="badge badge-primary float-left"
                                   data-toggle="tooltip" data-placement="bottom"
                                   title="Кол-во пользователей"><?= $countUsers ?></span>
@@ -103,7 +106,7 @@ if ($companyUsageSpacePercent > 90) {
     if (pathname.indexOf('company') > -1 || pathname.indexOf('payment') > -1 || pathname.indexOf('mail') > -1 || pathname.indexOf('chat') > -1 || pathname.indexOf('company-settings') > -1 || pathname.indexOf('invite') > -1) {
         $('.nav-item').removeClass('active').has('[href="/company/"]').addClass('active');
     }
-    if ( pathname.indexOf('profile') > -1 || pathname.indexOf('settings') > -1) {
+    if (pathname.indexOf('profile') > -1 || pathname.indexOf('settings') > -1) {
         $('.nav-item').removeClass('active');
     }
     if (pathname.indexOf('awards') > -1) {

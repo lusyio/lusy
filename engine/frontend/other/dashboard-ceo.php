@@ -92,7 +92,7 @@ $statusColor = [
                 <?php endif; ?>
             </div>
             <span class="bg-icon-achieve">
-                <i class="fas fa-trophy bg-chart-trophy"></i>
+                <img src="/assets/svg/trophy2.svg" class="svg-icon bg-chart-trophy"/>
             </span>
         </div>
     </div>
@@ -268,7 +268,7 @@ $statusColor = [
     </div>
 </div>
 
-<div class="row mt-3">
+<div class="row mt-4 mb-3">
     <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash">
         <a href="/tasks/" class="text-decoration-none">
             <div class="card">
@@ -281,7 +281,7 @@ $statusColor = [
             </div>
         </a>
     </div>
-    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($inwork == 0) ? "no-events" : ''; ?>">
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($inwork == 0) ? "no-events-no" : ''; ?>">
         <div>
             <a href="/tasks/#inwork" class="text-decoration-none">
                 <div class="card">
@@ -295,7 +295,7 @@ $statusColor = [
             </a>
         </div>
     </div>
-    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($overdue == 0) ? "no-events" : ''; ?>">
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($overdue == 0) ? "no-events-no" : ''; ?>">
         <div>
             <a href="/tasks/#overdue" class="text-decoration-none">
                 <div class="card">
@@ -309,7 +309,7 @@ $statusColor = [
             </a>
         </div>
     </div>
-    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($pending == 0) ? "no-events" : ''; ?>">
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($pending == 0) ? "no-events-no" : ''; ?>">
         <div>
             <a href="/tasks/#pending" class="text-decoration-none">
                 <div class="card">
@@ -323,7 +323,7 @@ $statusColor = [
             </a>
         </div>
     </div>
-    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($postpone == 0) ? "no-events" : ''; ?>">
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($postpone == 0) ? "no-events-no" : ''; ?>">
         <div>
             <a href="/tasks/#postpone" class="text-decoration-none">
                 <div class="card">
@@ -332,6 +332,20 @@ $statusColor = [
                                     class="fas fa-clock text-warning fa-fw mr-1"></i></span>
                         <p class="mb-0"><span class="font-weight-bold"><?= $postpone ?></span> <span
                                     class="text-lowercase"><?= _('Postponement') ?></span></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($postpone == 0) ? "no-events-no" : ''; ?>">
+        <div>
+            <a href="/tasks/#postpone" class="text-decoration-none">
+                <div class="card">
+                    <div class="card-body pb-2 pt-2">
+                        <span class="font-weight-bold float-left mr-2"><i
+                                    class="fas fa-clock text-info fa-fw mr-1"></i></span>
+                        <p class="mb-0"><span class="font-weight-bold"><?= $planned ?></span> <span
+                                    class="text-lowercase"><?= _('Planned') ?></span></p>
                     </div>
                 </div>
             </a>
@@ -520,8 +534,8 @@ $statusColor = [
                     data: data,
                     fill: false,
                     backgroundColor: gradient,
-                    borderColor: '#718dff',
-                    colors: ['', '#718dff', '#718dff', '#718dff', '#718dff', '#718dff', '#e4e4e4'],
+                    borderColor: '#799cfe',
+                    colors: ['', '#799cfe', '#799cfe', '#799cfe', '#799cfe', '#799cfe', '#e9ecf3'],
                     borderWidth: 5,
                 }]
             },

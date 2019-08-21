@@ -2,7 +2,7 @@
 <?php if ($showNote): ?>
 <div class="postpone-manager <?=$displayNote?>" id="inwork-postpone-manager">
     <div class="report">
-        <h4 class="text-ligther"><?=$note?></h4>
+        <h4 class="text-ligther mb-3"><?=$note?></h4>
         <p><?=htmlspecialchars_decode($request)?></p>
         <?php if (count($files) > 0): ?>
             <p class="">Прикрепленнные файлы:</p>
@@ -14,7 +14,7 @@
 </div>
 <?php endif; ?>
 <div id="report-block" class="collapse review-block mt-2">
-	<p class="text-ligther mb-2"><?=$GLOBALS["_writereport"]?>:</p>
+	<p class="font-weight-bold mb-3"><?=$GLOBALS["_writereport"]?>:</p>
 	<div class="form-group mb-0 drag-n-drop">
         <div class="row">
             <div class="col">
@@ -23,17 +23,18 @@
         </div>
         <div class="bg-white file-name-review container-files display-none">
         </div>
-        <div class="row mb-1">
-            <div class="col-2 col-lg-1 mt-2">
+        <div class="d-flex mt-3">
+            <div class="mr-3">
+                <button type="submit" id="sendonreview" class="btn btn-primary w-100 text-center"><i class="fas fa-file-import mr-3"></i>Отправить на рассмотрение</button>
+            </div>
+            <div class="mr-3">
                 <?php $uploadModule = 'task'; ?>
                 <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
             </div>
-            <div class="col-4 col-lg-2 mt-2">
-                <button type="button" id="backbutton" class="btn btn-secondary w-100 text-center" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><?=$GLOBALS["_back"]?></button>
+            <div>
+                <button type="button" id="backbutton" class="btn btn-outline-secondary w-100 text-center" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><i class="fas fa-angle-double-left mr-3"></i><?= $GLOBALS["_back"] ?></button>
             </div>
-            <div class="col-6 col-lg-5 pl-0 mt-2">
-                <button type="submit" id="sendonreview" class="btn btn-outline-primary w-100 text-center">На рассмотрение</button>
-            </div>
+
         </div>
 
 	</div>
