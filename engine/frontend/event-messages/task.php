@@ -210,9 +210,9 @@
             $bg = 'warning';
             $icon = 'fas fa-pen';
             if ($event['author_id'] == '1') {
-                $eventText = _('You edited the task');
+                $eventText = _('You have edited the task description');
             } else {
-                $eventText = _('The task was edited');
+                $eventText = _('The task description was edited');
                 $eventDop = _('View the task');
             }
         }

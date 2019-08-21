@@ -83,7 +83,7 @@ if ($comment[0] == 'addsubtask') {
     $text = '<a href="/task/' . $comment[1] .'/">Создана подзадача</a>';
 }
 if ($comment[0] == 'edittask') {
-    $text = _('The task was edited');
+    $text = _('The task description was edited');
 }
 ?>
 <div class="mt-5 mb-5 system text-center text-secondary position-relative" id="<?= $c['id'] ?>">
