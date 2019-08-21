@@ -1,5 +1,4 @@
 <?php
-
 $bgColor = [
     'new' => 'bg-primary',
     'inwork' => 'bg-primary',
@@ -179,41 +178,23 @@ $statusColor = [
         </div>
     </div>
 </div>
-<?php if ($roleu == 'ceo') : ?>
+<?php if (isset($showGame) && $showGame) : ?>
     <div class="card premiumCard mb-3 mt-3 progressBlock">
         <div class="card-body">
             <div class="row ">
-                <div class="col-3">
-                    <a href="/settings/">
-                        <div class="d-flex <?php if (!empty($nameu)) : ?>doneStep<?php endif; ?>">
+                <?php foreach ($stepContent as $step): ?>
+                    <div class="col-3">
+                    <a href="<?= $step['link'] ?>">
+                        <div class="d-flex <?=$step['doneStep']?>">
                             <div class="iconDiv mr-3">
-                                <i class="fas fa-user fa-fw"></i>
+                                <i class="<?= $step['icon'] ?>"></i>
                             </div>
-                            <p class="mb-0 small">Заполнить профиль</p>
+                            <p class="mb-0 small"><?= $step['text'] ?></p>
                         </div>
                     </a>
                 </div>
-                <div class="col-3 plusBlock">
-                    <a href="/task/new/">
-                    <div class="d-flex">
-                        <div class="iconDiv mr-3">
-                            <i class="fas fa-clipboard fa-fw"></i>
-                        </div>
-                        <p class="mb-0 small">Создать<br/>задачу</p>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-3 plusBlock equallyBlock">
-                    <a href="/tasks/">
-                    <div class="d-flex">
-                        <div class="iconDiv mr-3">
-                            <i class="fas fa-clipboard-check fa-fw"></i>
-                        </div>
-                        <p class="mb-0 small">Завершить задачу</p>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-3 premiumAcountActivate <?php if (!empty($nameu)) : ?>doneStep<?php endif; ?>">
+            <?php endforeach; ?>
+                <div class="col-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : ''?>">
                     <button class="btn btn-outline-light">
                         Активировать Premium-аккаунт
                     </button>
@@ -222,7 +203,7 @@ $statusColor = [
             <div class="row">
                 <div class="col-9">
                     <div class="progress mt-0">
-                        <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33"
+                        <div class="progress-bar" role="progressbar" style="width: <?= $stepProgressBar ?>%" aria-valuenow="<?= $stepProgressBar ?>"
                              aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>

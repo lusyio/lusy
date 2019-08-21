@@ -38,6 +38,7 @@ foreach ($countStatus as $group) {
 
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
 
 
 $events = getEventsForUser(21);
@@ -137,4 +138,60 @@ if (isset($_SESSION['isFirstLogin']) && $_SESSION['isFirstLogin']) {
     unset($_SESSION['companyName']);
     unset($_SESSION['login']);
     unset($_SESSION['password']);
+}
+
+//Блок данных для мини-игры за промокод
+if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'lusygame')) {
+    $showGame = true;
+    $stepProfile = false;
+    $stepTaskCreate = false;
+    $stepTaskDone = false;
+    if (isset($nameu) && $nameu != '') {
+        $stepProfile = true;
+    }
+    $taskGameQuery = $pdo->prepare("SELECT COUNT(DISTINCT id) AS count, status FROM tasks WHERE manager = :userId GROUP BY status");
+    $taskGameQuery->execute([':userId' => $id]);
+    $taskGame = $taskGameQuery->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($taskGame as $taskGroup) {
+        if ($taskGroup['count'] > 0) {
+            $stepTaskCreate = true;
+        }
+        if ($taskGroup['status'] == 'done' && $taskGroup['count'] > 0) {
+            $stepTaskDone = true;
+        }
+    }
+    $stepProgress = (int)$stepProfile + (int)$stepTaskCreate + (int)$stepTaskDone;
+    $isGameCompleted = ($stepProgress == 3) ? true : false;
+    $stepProgressBar = 100 * $stepProgress / 3;
+    var_dump($stepProgress);
+    $stepContent = [
+        'create' => [
+            'link' => '/task/new/',
+            'icon' => 'fas fa-clipboard fa-fw',
+            'text' => 'Создать<br/>задачу',
+            'doneStep' => ($stepTaskCreate)? 'doneStep' : '',
+        ],
+        'done' => [
+            'link' => '/tasks/',
+            'icon' => 'fas fa-clipboard-check fa-fw',
+            'text' => 'Завершить задачу',
+            'doneStep' => ($stepTaskDone)? 'doneStep' : '',
+        ],
+    ];
+    $stepProfileContent = [
+        'profile' => [
+            'link' => '/settings/',
+            'icon' => 'fas fa-user fa-fw',
+            'text' => 'Заполнить профиль',
+            'doneStep' => ($stepProfile)? 'doneStep' : '',
+        ],
+    ];
+
+    if ($stepTaskCreate && !$stepProfile) {
+        $stepOrder = ['create', 'done', 'profile'];
+        $stepContent = $stepContent + $stepProfileContent;
+    } else {
+        $stepOrder = ['profile', 'create', 'done'];
+        $stepContent = $stepProfileContent + $stepContent;
+    }
 }
