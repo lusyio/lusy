@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-08-21 14:28+0300\n"
-"PO-Revision-Date: 2019-08-21 14:28+0300\n"
+"POT-Creation-Date: 2019-08-21 14:42+0300\n"
+"PO-Revision-Date: 2019-08-21 14:42+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: engine/ajax/frontend/comment-system.php:86
-#: engine/frontend/event-messages/task.php:215
+#: engine/frontend/event-messages/task.php:219
 msgid "The task description was edited"
 msgstr "Изменено описание задачи"
 
@@ -31,84 +31,84 @@ msgstr[2] "месяцев"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "January"
 msgstr "Января"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "February"
 msgstr "Февраля"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "March"
 msgstr "Марта"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "April"
 msgstr "Апреля"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "May"
 msgstr "Мая"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "June"
 msgstr "Июня"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "July"
 msgstr "Июля"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "August"
 msgstr "Августа"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "September"
 msgstr "Сентября"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "October"
 msgstr "Октября"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "November"
 msgstr "Ноября"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
-#: engine/frontend/event-messages/task.php:220
+#: engine/frontend/event-messages/task.php:224
 #: engine/frontend/other/profile.php:30
 msgid "December"
 msgstr "Декабря"
@@ -118,7 +118,7 @@ msgid "Wrote comment"
 msgstr "Оставил комментарий"
 
 #: engine/frontend/event-messages/system.php:98
-#: engine/frontend/event-messages/task.php:242
+#: engine/frontend/event-messages/task.php:246
 msgid "System message"
 msgstr "Системное сообщение"
 
@@ -192,14 +192,14 @@ msgstr "Вы вернули задачу"
 
 #: engine/frontend/event-messages/task.php:90
 #: engine/frontend/event-messages/task.php:95
-#: engine/frontend/event-messages/task.php:166
+#: engine/frontend/event-messages/task.php:170
 msgid "New deadline"
 msgstr "Новый срок выполнения"
 
 #: engine/frontend/event-messages/task.php:90
 #: engine/frontend/event-messages/task.php:95
-#: engine/frontend/event-messages/task.php:163
 #: engine/frontend/event-messages/task.php:167
+#: engine/frontend/event-messages/task.php:171
 msgid "To the"
 msgstr "До"
 
@@ -252,44 +252,48 @@ msgstr "Перенос срока отклонен"
 msgid "You changed worker"
 msgstr "Вы сменили ответственного"
 
-#: engine/frontend/event-messages/task.php:150
+#: engine/frontend/event-messages/task.php:151
+msgid "You have appointed yourself a manager"
+msgstr "Вы назначили себя ответственным"
+
+#: engine/frontend/event-messages/task.php:153
 msgid "New worker is"
 msgstr "Назначен"
 
-#: engine/frontend/event-messages/task.php:154
-#: engine/frontend/event-messages/task.php:190
+#: engine/frontend/event-messages/task.php:158
+#: engine/frontend/event-messages/task.php:194
 msgid "Task reassigned"
 msgstr "Задача переназначена"
 
-#: engine/frontend/event-messages/task.php:162
+#: engine/frontend/event-messages/task.php:166
 msgid "You edit deadline"
 msgstr "Вы изменили срок выполнения"
 
-#: engine/frontend/event-messages/task.php:176
+#: engine/frontend/event-messages/task.php:180
 msgid "You add coworker"
 msgstr "Вы добавили соисполнителя"
 
-#: engine/frontend/event-messages/task.php:177
+#: engine/frontend/event-messages/task.php:181
 msgid "New coworker is"
 msgstr "Назначен"
 
-#: engine/frontend/event-messages/task.php:179
+#: engine/frontend/event-messages/task.php:183
 msgid "You are new coworker"
 msgstr "Вас назначили соисполнителем"
 
-#: engine/frontend/event-messages/task.php:187
+#: engine/frontend/event-messages/task.php:191
 msgid "You remove coworker"
 msgstr "Вы удалили соисполнителя"
 
-#: engine/frontend/event-messages/task.php:188
+#: engine/frontend/event-messages/task.php:192
 msgid "It was"
 msgstr "Это был"
 
-#: engine/frontend/event-messages/task.php:213
+#: engine/frontend/event-messages/task.php:217
 msgid "You have edited the task description"
 msgstr "Вы изменили описание задачи"
 
-#: engine/frontend/event-messages/task.php:216
+#: engine/frontend/event-messages/task.php:220
 msgid "View the task"
 msgstr "Ознакомьтесь с задачей"
 

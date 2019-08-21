@@ -147,7 +147,11 @@
             $icon = 'fas fa-user-edit';
             if ($event['author_id'] == '1') {
                 $eventText = _('You changed worker');
-                $eventDop = _('New worker is') . ' <span class="text-capitalize">' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>';
+                if ($event['worker'] == $id) {
+                    $eventDop = _('You have appointed yourself a manager');
+                } else {
+                    $eventDop = _('New worker is') . ' <span class="text-capitalize">' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>';
+                }
             } else {
                 $bg = 'danger';
                 $icon = 'fas fa-user-slash';
