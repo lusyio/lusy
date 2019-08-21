@@ -583,6 +583,12 @@ class Task
         if (($newName != $this->get('name')) || ($newDescription != $this->get('description'))) {
             $updateNameAndDescriptionQuery = $pdo->prepare("UPDATE tasks SET name = :name, description = :description WHERE id = :taskId");
             $updateNameAndDescriptionQuery->execute([':taskId' => $this->get('id'), ':name' => $newName, ':description' => $newDescription]);
+
+            if ($this->get('status') != 'planned') {
+                addEditTaskComments($this->get('id'));
+                resetViewStatus($this->get('id'));
+                addEvent('edittask', $this->get('id'), '');
+            }
             return true;
         }
         return false;

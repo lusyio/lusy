@@ -204,6 +204,17 @@
             }
         }
 
+        if ($event['action'] == 'edittask') { // назначен новый срок
+            $bg = 'warning';
+            $icon = 'fas fa-pen';
+            if ($event['author_id'] == '1') {
+                $eventText = _('You edited the task');
+            } else {
+                $eventText = _('The task was edited');
+                $eventDop = _('View the task');
+            }
+        }
+
         $month = ['', _("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")];
         $monthNumber = date("n", $event['datetime']);
         ?>

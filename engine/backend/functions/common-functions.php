@@ -172,7 +172,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
 
     $possibleActions = ['createtask', 'createplantask', 'viewtask', 'comment', 'overdue', 'review', 'postpone', 'confirmdate', 'canceldate',
         'senddate', 'workreturn', 'workdone', 'canceltask', 'changeworker', 'addcoworker', 'removecoworker', 'newuser', 'userwelcome',
-        'newcompany', 'newachievement'];
+        'newcompany', 'newachievement', 'edittask'];
 
     if (!in_array($action, $possibleActions)) {
         return false;
@@ -223,6 +223,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             addMailToQueue('sendTaskWorkerEmailNotification', [$taskId, 'createtask'], $recipientId, $workerEventId);
         }
     }
+
     if ($action == 'createplantask') {
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment, view_status) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment, :viewStatus)');
@@ -668,7 +669,6 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $addEventQuery->execute($eventData);
     }
 
-
     if ($action == 'newcompany') {
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
@@ -721,6 +721,43 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
 
         //sendAchievementEmailNotification($id, $comment);
         addMailToQueue('sendAchievementEmailNotification', [$id, $comment], $id, $eventId);
+    }
+
+    if ($action == 'edittask') {
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment, view_status) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment, :viewStatus)');
+        $eventDataForAuthor = [
+            ':action' => $action,
+            ':taskId' => $taskId,
+            ':authorId' => 1,
+            ':recipientId' => $id,
+            ':companyId' => $idc,
+            ':datetime' => time(),
+            ':comment' => $comment,
+            ':viewStatus' => 1,
+        ];
+        $eventDataForWorker = [
+            ':action' => $action,
+            ':taskId' => $taskId,
+            ':authorId' => $id,
+            ':recipientId' => $taskWorker,
+            ':companyId' => $idc,
+            ':datetime' => time(),
+            ':comment' => $comment,
+            ':viewStatus' => 0,
+        ];
+        $addEventQuery->execute($eventDataForAuthor);
+        if (!$isSelfTask) {
+            $addEventQuery->execute($eventDataForWorker);
+            $workerEventId = $pdo->lastInsertId();
+
+            $pushData = [
+                'type' => 'task',
+                'eventId' => $workerEventId,
+            ];
+            $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
+            $sendToCometQuery->execute(array(':id' => $taskWorker, ':type' => json_encode($pushData)));
+        }
     }
 }
 

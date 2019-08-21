@@ -276,3 +276,22 @@ function checkSubTasksForFinish($taskId)
     }
     return $result;
 }
+
+function addEditTaskComments($taskId)
+{
+    global $id;
+    global $pdo;
+
+    $sql = $pdo->prepare("INSERT INTO `comments` SET `comment` = :commentText, `iduser` = :iduser, `idtask` = :idtask, `status` = :status, `view`=0, `datetime` = :datetime");
+
+    $commentData = [
+        ':status' => 'system',
+        ':commentText' => 'edittask',
+        ':iduser' => $id,
+        ':idtask' => $taskId,
+        ':datetime' => time(),
+
+    ];
+    $sql->execute($commentData);
+
+}

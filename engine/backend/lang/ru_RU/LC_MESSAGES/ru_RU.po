@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-07-29 10:31+0300\n"
-"PO-Revision-Date: 2019-07-29 10:36+0300\n"
+"POT-Creation-Date: 2019-08-21 12:44+0300\n"
+"PO-Revision-Date: 2019-08-21 12:44+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -15,9 +15,14 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: engine/ajax/frontend/comment-system.php:86
+#: engine/frontend/event-messages/task.php:214
+msgid "The task was edited"
+msgstr "Задача изменена"
+
 #: engine/ajax/payments.php:148
 #: engine/backend/functions/payment-functions.php:719
-#: engine/frontend/other/payment.php:284
+#: engine/frontend/other/payment.php:396
 msgid "month"
 msgid_plural "months"
 msgstr[0] "месяц"
@@ -25,85 +30,85 @@ msgstr[1] "месяца"
 msgstr[2] "месяцев"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "January"
 msgstr "Января"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "February"
 msgstr "Февраля"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "March"
 msgstr "Марта"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "April"
 msgstr "Апреля"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "May"
 msgstr "Мая"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "June"
 msgstr "Июня"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "July"
 msgstr "Июля"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "August"
 msgstr "Августа"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "September"
 msgstr "Сентября"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "October"
 msgstr "Октября"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "November"
 msgstr "Ноября"
 
 #: engine/frontend/event-messages/comment.php:2
-#: engine/frontend/event-messages/system.php:62
-#: engine/frontend/event-messages/task.php:211
+#: engine/frontend/event-messages/system.php:70
+#: engine/frontend/event-messages/task.php:220
 #: engine/frontend/other/profile.php:30
 msgid "December"
 msgstr "Декабря"
@@ -112,8 +117,8 @@ msgstr "Декабря"
 msgid "Wrote comment"
 msgstr "Оставил комментарий"
 
-#: engine/frontend/event-messages/system.php:90
-#: engine/frontend/event-messages/task.php:233
+#: engine/frontend/event-messages/system.php:98
+#: engine/frontend/event-messages/task.php:242
 msgid "System message"
 msgstr "Системное сообщение"
 
@@ -252,7 +257,7 @@ msgid "New worker is"
 msgstr "Назначен"
 
 #: engine/frontend/event-messages/task.php:152
-#: engine/frontend/event-messages/task.php:192
+#: engine/frontend/event-messages/task.php:188
 msgid "Task reassigned"
 msgstr "Задача переназначена"
 
@@ -260,25 +265,33 @@ msgstr "Задача переназначена"
 msgid "You edit deadline"
 msgstr "Вы изменили срок выполнения"
 
-#: engine/frontend/event-messages/task.php:176
+#: engine/frontend/event-messages/task.php:174
 msgid "You add coworker"
 msgstr "Вы добавили соисполнителя"
 
-#: engine/frontend/event-messages/task.php:177
+#: engine/frontend/event-messages/task.php:175
 msgid "New coworker is"
 msgstr "Назначен"
 
-#: engine/frontend/event-messages/task.php:179
+#: engine/frontend/event-messages/task.php:177
 msgid "You are new coworker"
 msgstr "Вас назначили соисполнителем"
 
-#: engine/frontend/event-messages/task.php:189
+#: engine/frontend/event-messages/task.php:185
 msgid "You remove coworker"
 msgstr "Вы удалили соисполнителя"
 
-#: engine/frontend/event-messages/task.php:190
+#: engine/frontend/event-messages/task.php:186
 msgid "It was"
 msgstr "Это был"
+
+#: engine/frontend/event-messages/task.php:211
+msgid "You edited the task"
+msgstr "Вы изменили задачу"
+
+#: engine/frontend/event-messages/task.php:215
+msgid "View the task"
+msgstr "Ознакомьтесь с задачей"
 
 #: engine/frontend/nav/main-nav.php:18
 msgid "Dashboard"
@@ -288,23 +301,23 @@ msgstr "Рабочий стол"
 msgid "Tasks"
 msgstr "Задачи"
 
-#: engine/frontend/nav/main-nav.php:41
+#: engine/frontend/nav/main-nav.php:39
 msgid "Create task"
 msgstr "Новая задача"
 
-#: engine/frontend/nav/main-nav.php:47
+#: engine/frontend/nav/main-nav.php:45
 msgid "Company"
 msgstr "Компания"
 
-#: engine/frontend/nav/main-nav.php:51
+#: engine/frontend/nav/main-nav.php:49
 msgid "Awards"
 msgstr "Достижения"
 
-#: engine/frontend/nav/main-nav.php:62
+#: engine/frontend/nav/main-nav.php:60
 msgid "Storage"
 msgstr "Файлы"
 
-#: engine/frontend/nav/main-nav.php:81
+#: engine/frontend/nav/main-nav.php:79
 msgid "GodMode"
 msgstr "GodMode"
 
@@ -312,134 +325,137 @@ msgstr "GodMode"
 msgid "Search on tasks, comments and files"
 msgstr "Поиск"
 
-#: engine/frontend/nav/top-sidebar.php:101
+#: engine/frontend/nav/top-sidebar.php:102
 msgid "Payment"
 msgstr "Оплата"
 
-#: engine/frontend/nav/top-sidebar.php:104
+#: engine/frontend/nav/top-sidebar.php:107
 msgid "Profile"
 msgstr "Профиль"
 
-#: engine/frontend/nav/top-sidebar.php:105
-#: engine/frontend/other/dashboard-ceo.php:344
+#: engine/frontend/nav/top-sidebar.php:108
+#: engine/frontend/other/dashboard-ceo.php:343
 msgid "History"
 msgstr "Журнал"
 
-#: engine/frontend/nav/top-sidebar.php:107
+#: engine/frontend/nav/top-sidebar.php:110
 msgid "Settings"
 msgstr "Настройки"
 
-#: engine/frontend/nav/top-sidebar.php:108
+#: engine/frontend/nav/top-sidebar.php:111
 msgid "Log Out"
 msgstr "Выход"
 
-#: engine/frontend/other/dashboard-ceo.php:170
-#: engine/frontend/other/dashboard-ceo.php:238
+#: engine/frontend/other/dashboard-ceo.php:168
+#: engine/frontend/other/dashboard-ceo.php:237
 msgid "You have no tasks yet, create the first task."
 msgstr "У вас пока нет задач, создайте первую задачу."
 
-#: engine/frontend/other/dashboard-ceo.php:197
-#: engine/frontend/other/dashboard-ceo.php:220
+#: engine/frontend/other/dashboard-ceo.php:196
+#: engine/frontend/other/dashboard-ceo.php:219
 msgid "Done"
 msgstr "Завершено"
 
-#: engine/frontend/other/dashboard-ceo.php:224
+#: engine/frontend/other/dashboard-ceo.php:223
 msgid "Show all tasks"
 msgstr "Показать все задачи"
 
-#: engine/frontend/other/dashboard-ceo.php:252
+#: engine/frontend/other/dashboard-ceo.php:251
 msgid "Completed tasks"
 msgstr "Завершено задач"
 
-#: engine/frontend/other/dashboard-ceo.php:257
+#: engine/frontend/other/dashboard-ceo.php:256
 msgid "Was overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:262
+#: engine/frontend/other/dashboard-ceo.php:261
 msgid "Postpone requested"
 msgstr "Запрошен перенос срока"
 
-#: engine/frontend/other/dashboard-ceo.php:280
-#: engine/frontend/other/godmode.php:24 engine/frontend/other/payment.php:59
+#: engine/frontend/other/dashboard-ceo.php:279
+#: engine/frontend/other/godmode.php:102 engine/frontend/other/payment.php:77
 msgid "task"
 msgid_plural "tasks"
 msgstr[0] "задача"
 msgstr[1] "задачи"
 msgstr[2] "задач"
 
-#: engine/frontend/other/dashboard-ceo.php:293
+#: engine/frontend/other/dashboard-ceo.php:292
 msgid "In work"
 msgstr "В работе"
 
-#: engine/frontend/other/dashboard-ceo.php:307
+#: engine/frontend/other/dashboard-ceo.php:306
 msgid "Overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:321
+#: engine/frontend/other/dashboard-ceo.php:320
 msgid "Pending"
 msgstr "На рассмотрении"
 
-#: engine/frontend/other/dashboard-ceo.php:335
+#: engine/frontend/other/dashboard-ceo.php:334
 msgid "Postponement"
 msgstr "Перенос срока"
 
-#: engine/frontend/other/godmode.php:10
+#: engine/frontend/other/godmode.php:82
 msgid "active company"
 msgid_plural "active companies"
 msgstr[0] "активная компания"
 msgstr[1] "активных компании"
 msgstr[2] "активных компаний"
 
-#: engine/frontend/other/godmode.php:12
+#: engine/frontend/other/godmode.php:85
 msgid "company"
 msgid_plural "companies"
 msgstr[0] "компания"
 msgstr[1] "компании"
 msgstr[2] "компаний"
 
-#: engine/frontend/other/godmode.php:13
+#: engine/frontend/other/godmode.php:90
 msgid "user"
 msgid_plural "users"
 msgstr[0] "пользователь"
 msgstr[1] "пользователя"
 msgstr[2] "пользователей"
 
-#: engine/frontend/other/godmode.php:32
+#: engine/frontend/other/godmode.php:110
 msgid "comment"
 msgid_plural "comments"
 msgstr[0] "комментарий"
 msgstr[1] "комментария"
 msgstr[2] "комментариев"
 
-#: engine/frontend/other/godmode.php:40
+#: engine/frontend/other/godmode.php:118
 msgid "message"
 msgid_plural "messages"
 msgstr[0] "сообщение"
 msgstr[1] "сообщения"
 msgstr[2] "сообщений"
 
-#: engine/frontend/other/godmode.php:240
+#: engine/frontend/other/godmode.php:324
 #: engine/frontend/other/payment-event.php:43
-#: engine/frontend/other/payment.php:25
+#: engine/frontend/other/payment.php:25 engine/frontend/other/payment.php:29
 msgid "day"
 msgid_plural "days"
 msgstr[0] "день"
 msgstr[1] "дня"
 msgstr[2] "дней"
 
-#: engine/frontend/other/payment.php:61
+#: engine/frontend/other/payment.php:87
 msgid "report"
 msgid_plural "reports"
 msgstr[0] "отчет"
 msgstr[1] "отчета"
 msgstr[2] "отчетов"
 
-#: engine/frontend/other/payment.php:62
+#: engine/frontend/other/payment.php:96
 msgid "time"
 msgid_plural "times"
 msgstr[0] "раз"
 msgstr[1] "раза"
 msgstr[2] "раз"
+
+#~ msgid "Read the task"
+#~ msgstr "Ознакомьтесь с задачей"
 
 #~ msgid "Tasks done per month"
 #~ msgstr "Завершено задач за месяц"
