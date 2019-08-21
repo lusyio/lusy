@@ -293,3 +293,28 @@ if($_POST['module'] == 'bindCard') {
     echo json_encode($result);
 }
 
+if($_POST['module'] == 'gamePromo') {
+    $nameu = DBOnce('name', 'users', 'id = '. $id);
+    if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'lusygame')) {
+        $stepProfile = false;
+        $stepTaskCreate = false;
+        $stepTaskDone = false;
+        if ($nameu != '') {
+            $stepProfile = true;
+        }
+        $taskGameQuery = $pdo->prepare("SELECT COUNT(DISTINCT id) AS count, status FROM tasks WHERE manager = :userId GROUP BY status");
+        $taskGameQuery->execute([':userId' => $id]);
+        $taskGame = $taskGameQuery->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($taskGame as $taskGroup) {
+            if ($taskGroup['count'] > 0) {
+                $stepTaskCreate = true;
+            }
+            if ($taskGroup['status'] == 'done' && $taskGroup['count'] > 0) {
+                $stepTaskDone = true;
+            }
+        }
+        if ($stepProfile && $stepTaskCreate && $stepTaskDone) {
+            activatePromocode($idc, 'lusygame');
+        }
+    }
+}

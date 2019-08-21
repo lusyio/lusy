@@ -160,22 +160,22 @@ if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'lusygame')) {
             $stepTaskDone = true;
         }
     }
+
     $stepProgress = (int)$stepProfile + (int)$stepTaskCreate + (int)$stepTaskDone;
     $isGameCompleted = ($stepProgress == 3) ? true : false;
     $stepProgressBar = 100 * $stepProgress / 3;
-    var_dump($stepProgress);
     $stepContent = [
         'create' => [
             'link' => '/task/new/',
             'icon' => 'fas fa-clipboard fa-fw',
             'text' => 'Создать<br/>задачу',
-            'doneStep' => ($stepTaskCreate)? 'doneStep' : '',
+            'doneStep' => ($stepTaskCreate)? 'doneStep' : 'not-finished',
         ],
         'done' => [
             'link' => '/tasks/',
             'icon' => 'fas fa-clipboard-check fa-fw',
             'text' => 'Завершить задачу',
-            'doneStep' => ($stepTaskDone)? 'doneStep' : '',
+            'doneStep' => ($stepTaskDone)? 'doneStep' : 'not-finished',
         ],
     ];
     $stepProfileContent = [
@@ -183,7 +183,7 @@ if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'lusygame')) {
             'link' => '/settings/',
             'icon' => 'fas fa-user fa-fw',
             'text' => 'Заполнить профиль',
-            'doneStep' => ($stepProfile)? 'doneStep' : '',
+            'doneStep' => ($stepProfile)? 'doneStep' : 'not-finished',
         ],
     ];
 

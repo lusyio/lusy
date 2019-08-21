@@ -195,7 +195,7 @@ $statusColor = [
                 </div>
             <?php endforeach; ?>
                 <div class="col-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : ''?>">
-                    <button class="btn btn-outline-light">
+                    <button id="finishSteps" class="btn btn-outline-light">
                         Активировать Premium-аккаунт
                     </button>
                 </div>
@@ -613,7 +613,6 @@ $statusColor = [
 
     var emptyData = [0, 0, 0, 0, 0, 0, 0];
     if ([<?=$taskCountString?>].length === emptyData.length && [<?=$taskCountString?>].every((value, index) => value === emptyData[index])) {
-        console.log('asdasd');
         data = [
             randomScalingFactor(),
             randomScalingFactor(),
@@ -666,6 +665,37 @@ $statusColor = [
             var eventId = $(this).data('event-id');
             markAsRead(eventId);
         });
+
+        $('#finishSteps').on('click', function () {
+            if ($('.not-finished').length > 0) {
+                var time = 0;
+                $('.not-finished').each(function () {
+                    var that = $(this);
+                    setTimeout(function () {
+                        that.css('opacity', '1');
+                        setTimeout(function () {
+                            that.css('opacity', '');
+                        }, 500);
+                    }, time);
+                    time += 500;
+                })
+            } else {
+                var fd = new FormData();
+                fd.append('module', 'gamePromo');
+                fd.append('ajax', 'payments');
+                    $.ajax({
+                        url: '/ajax.php',
+                        type: 'POST',
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        data: fd,
+                        success: function () {
+                            window.location.href = '/payment/';
+                        },
+                    });
+                }
+        })
     });
 </script>
 <?php if ($isFirstLogin): ?>
@@ -734,7 +764,6 @@ $statusColor = [
                 }
             });
 
-            console.log(security);
 
             $('#afterRegEmail').on('keyup', function () {
                 var $this = $(this);
@@ -764,7 +793,6 @@ $statusColor = [
                 } else {
                     $("#saveAfterReg").prop('disabled', true);
                 }
-                console.log(security)
             });
 
             $('#afterRegPassword').on('keyup', function () {
@@ -796,7 +824,6 @@ $statusColor = [
                 } else {
                     $("#saveAfterReg").prop('disabled', true);
                 }
-                console.log(security)
 
             });
 
