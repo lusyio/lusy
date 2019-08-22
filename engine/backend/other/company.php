@@ -30,7 +30,7 @@ $taskDoneWorker = $taskDoneWorkerQuery->fetchAll(PDO::FETCH_ASSOC);
 
 $doneAsWorker = array_column($taskDoneWorker, 'count', 'worker');
 $namecompany = DBOnce('idcompany','company','id='.$idc);
-$onlineUsers = getOnlineUsersList();
+$onlineUsers = $cometPdo->getOnlineUsers(getCometTrackChannelName());
 
 $sql = DB('*','users','idcompany='.$idc . ' ORDER BY is_fired, id');
 foreach ($sql as &$user) {

@@ -256,8 +256,7 @@ function sendMessageToAllCeo($messageText)
     $ceoList = $ceoListQuery->fetchAll(PDO::FETCH_COLUMN);
 
     $sendMessageQuery = $pdo->prepare("INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:message, :sender, :recipient, :datetime)");
-    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
-
+    $cometData = [];
     foreach ($ceoList as $ceoId) {
         $sendMessageQuery->execute(array(':message' => $messageText, ':sender' => 1, ':recipient' => $ceoId, ':datetime' => time()));
         $messageId = $pdo->lastInsertId();
@@ -266,9 +265,10 @@ function sendMessageToAllCeo($messageText)
             'recipientId' => $ceoId,
             'messageId' => $messageId,
         ];
-        $jsonMesData = json_encode($mesData);
-        $sendToCometQuery->execute(array(':jsonMesData' => $jsonMesData, ':id' => $ceoId));
+        $cometData[$ceoId] = $mesData;
     }
+    $cometPdo->multipleSendNewMailMessage($cometData);
+
 }
 
 function sendMessageToAllUsers($messageText)
@@ -280,8 +280,7 @@ function sendMessageToAllUsers($messageText)
     $ceoList = $ceoListQuery->fetchAll(PDO::FETCH_COLUMN);
 
     $sendMessageQuery = $pdo->prepare("INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:message, :sender, :recipient, :datetime)");
-    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
-
+    $cometData = [];
     foreach ($ceoList as $ceoId) {
         $sendMessageQuery->execute(array(':message' => $messageText, ':sender' => 1, ':recipient' => $ceoId, ':datetime' => time()));
         $messageId = $pdo->lastInsertId();
@@ -290,7 +289,7 @@ function sendMessageToAllUsers($messageText)
             'recipientId' => $ceoId,
             'messageId' => $messageId,
         ];
-        $jsonMesData = json_encode($mesData);
-        $sendToCometQuery->execute(array(':jsonMesData' => $jsonMesData, ':id' => $ceoId));
+        $cometData[$ceoId] = $mesData;
     }
+    $cometPdo->multipleSendNewMailMessage($cometData);
 }

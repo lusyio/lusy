@@ -54,29 +54,27 @@ if ($_POST['module'] == 'sendMessage') {
             addDropboxFiles('conversation', $messageId, $dropboxFiles);
         }
 
-        $cometSql = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
         $supportAdmins = [2, 3, 4];
         $mesData = [
             'senderId' => $id,
             'recipientId' => $recipientId,
             'messageId' => $messageId,
         ];
-        $jsonMesData = json_encode($mesData);
-
+        $cometData = [];
         if ($id == 1) {
             foreach ($supportAdmins as $admin) {
-                $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $admin));
+                $cometData[$admin] = $mesData;
             }
-            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
         } elseif ($recipientId == 1) {
             foreach ($supportAdmins as $admin) {
-                $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $admin));
+                $cometData[$admin] = $mesData;
             }
-            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
+            $cometData[$id] = $mesData;
         } else {
-            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $recipientId));
-            $cometSql->execute(array(':jsonMesData' => $jsonMesData, ':id' => $id));
+            $cometData[$recipientId] = $mesData;
+            $cometData[$id] = $mesData;
         }
+        $cometPdo->multipleSendNewMailMessage($cometData);
 
         //@sendMessageEmailNotification($recipientId, $id);
         addMailToQueue('sendMessageEmailNotification', [$recipientId, $id, $messageId], $recipientId, $messageId);
@@ -118,13 +116,10 @@ if ($_POST['module'] == 'sendMessageToChat') {
         if (count($dropboxFiles) > 0) {
             addDropboxFiles('chat', $messageId, $dropboxFiles);
         }
-
-        $cometSql = $cometPdo->prepare("INSERT INTO pipes_messages (name, event, message) VALUES (:channelName, 'newChat', :jsonMesData)");
         $mesData = [
             'messageId' => $messageId,
         ];
-        $jsonMesData = json_encode($mesData);
-        $cometSql->execute(array(':channelName' => getCometTrackChannelName(), ':jsonMesData' => $jsonMesData));
+        $cometPdo->sendNewChatMessage(getCometTrackChannelName(), $mesData);
         markChatMessageAsRead($messageId);
     }
 }

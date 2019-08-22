@@ -26,20 +26,16 @@ foreach ($birthdayUsers AS $user) {
         $addMessageToChatQuery = $pdo->prepare("INSERT INTO chat (text, author_id, datetime, company_id) VALUES (:message, :authorId, :datetime, :companyId)");
         $addMessageToChatQuery->execute(array(':message' => $message, ':authorId' => 1, ':datetime' => time(), ':companyId' => $idc));
         $messageId = $pdo->lastInsertId();
-
-        $cometSql = $cometPdo->prepare("INSERT INTO pipes_messages (name, event, message) VALUES (:channelName, 'newChat', :jsonMesData)");
         $mesData = [
             'messageId' => $messageId,
         ];
-        $jsonMesData = json_encode($mesData);
-        $cometSql->execute(array(':channelName' => getCometTrackChannelName($user['idcompany']), ':jsonMesData' => $jsonMesData));
-
+        $cometPdo->sendNewChatMessage(getCometTrackChannelName($user['idcompany']), $mesData);
         // Сообщение в лог
         $companyUsersQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND is_fired = 0");
         $companyUsersQuery->execute([':companyId' => $user['idcompany']]);
         $companyUsers = $companyUsersQuery->fetchAll(PDO::FETCH_ASSOC);
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
-        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
+        $cometData = [];
         foreach ($companyUsers as $companyUser) {
             $eventData = [
                 ':action' => 'birthday',
@@ -56,7 +52,8 @@ foreach ($birthdayUsers AS $user) {
                 'type' => 'comment',
                 'eventId' => $eventId,
             ];
-            $sendToCometQuery->execute(array(':id' => $companyUser['id'], ':type' => json_encode($pushData)));
+            $cometData[$companyUser['id']] = $pushData;
         }
+        $cometPdo->multipleSendLogMessage($cometData);
     }
 }

@@ -15,10 +15,7 @@ $lastChatMessage = lastChatMessage();
 $newChatMessages = numberOfNewChatMessages();
 $messages = DB('*','mail','sender = '.$id.' or recipient = '.$id. ' ORDER BY `datetime` DESC');
 $userList = DB('id, name, surname', 'users', 'idcompany = '. $idc . ' AND id !=' . $id);
-$onlineUsersQuery = $cometPdo->prepare('SELECT * FROM users_in_pipes WHERE name = :channelName');
-$onlineUsersQuery->execute(array(':channelName' => getCometTrackChannelName()));
-$onlineUsers = $onlineUsersQuery ->fetchAll(PDO::FETCH_ASSOC);
-$onlineUsersList = array_column($onlineUsers, 'user_id');
+$onlineUsersList = $cometPdo->getOnlineUsers(getCometTrackChannelName());
 
 $dialog = [];
 
