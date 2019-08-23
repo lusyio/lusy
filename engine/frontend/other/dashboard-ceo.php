@@ -342,24 +342,43 @@ $statusColor = [
 <div class="mt-1 pb-0">
     <span class="font-weight-bold d-none"><?= _('History') ?></span>
     <div id="logDashBoard">
-        <ul class="timeline">
-            <?php $eventNumber = 1; ?>
-            <?php foreach ($events as $event): ?>
-                <?php if ($eventNumber < 21) {
-                    renderEvent($event);
-                    $eventNumber++;
-                } ?>
+        <div id="newEventsTitle" class="text-center position-relative mt-3 mb-3 <?= (count($newEvents) > 0) ? '' : 'd-none' ?>">
+            <span>Новые события</i></span>
+        </div>
+        <ul id="newEventsTimeline" class="timeline">
+            <?php foreach ($newEvents as $event): ?>
+                <?php  renderEvent($event); ?>
             <?php endforeach; ?>
-            <?php if (count($events) > 20): ?>
-                <a href="/log/">
-                    <div class="load-log-dashboard">
-                        <div id="loadLogDashboard" class="rounded-circle btn btn-light">
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                    </div>
-                </a>
-            <?php endif; ?>
         </ul>
+        <div class="row mt-25-tasknew">
+            <div class="col-12 position-relative">
+                <div class="text-center position-relative mb-3">
+                    <div id="oldEventsCollapse">
+                        <span>Просмотренные события <i class="fas fa-caret-down"></i></span>
+                    </div>
+                </div>
+                <div class="collapse" id="oldEvents">
+                    <ul class="timeline" id="oldEventTimeline">
+                        <?php $eventNumber = 1; ?>
+                        <?php foreach ($oldEvents as $event): ?>
+                            <?php if ($eventNumber < 21) {
+                                renderEvent($event);
+                                $eventNumber++;
+                            } ?>
+                        <?php endforeach; ?>
+                        <?php if (count($oldEvents) > 20): ?>
+                            <a href="/log/">
+                                <div class="load-log-dashboard">
+                                    <div id="loadLogDashboard" class="rounded-circle btn btn-light">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <?php if ($isFirstLogin): ?>
@@ -630,6 +649,23 @@ $statusColor = [
             $(this).removeClass('new-event');
             var eventId = $(this).data('event-id');
             markAsRead(eventId);
+            $(this).on('mouseleave', function () {
+                var el = $(this);
+                el.css("transform", "translateX(1000px)");
+                setTimeout(function () {
+                    $('#oldEventTimeline').prepend(el);
+                    el.css("transform", "");
+                    if ($('.new-event').length === 0) {
+                        $('#newEventsTitle').addClass('d-none');
+                    }
+                }, 500);
+                $(this).off('mouseleave')
+
+            });
+        });
+
+        $('#oldEventsCollapse').on('click', function () {
+            $('#oldEvents').collapse('toggle');
         });
     });
 </script>

@@ -24,7 +24,6 @@ function showToolTip() {
         if ($('#searchForm').is(':hidden')) {
             $('#searchBtn').find('.topsidebar-noty').tooltip('enable').removeClass('search-button-top');
             $('#search').val('');
-            console.log('hidden');
         }
     });
 }
@@ -32,13 +31,11 @@ function showToolTip() {
 function hideSearchForm() {
     $("#searchForm").show();
     var input = $('#search').val();
-    console.log(input);
     if ($('#searchForm').is(':visible')) {
         $('#searchBtn').find('.topsidebar-noty').tooltip('disable').addClass('search-button-top');
         if (input !== '') {
             $('#searchForm').submit();
         }
-        console.log('visible');
         $(document).on('click', function (e) { // событие клика по веб-документу
             var div = $("#searchForm"); // тут указываем ID элемента
             var dov = $("#searchBtn"); //
@@ -50,10 +47,7 @@ function hideSearchForm() {
 }
 
 function subscribeToMessagesNotification(userId) {
-    console.log('подписыаемся на новые сообщения');
     cometApi.subscription("msg.new", function (e) {
-        console.log('получено сообщение');
-        console.log(e);
         getCounters(function (data) {
             updateCounters(data);
         });
@@ -61,27 +55,19 @@ function subscribeToMessagesNotification(userId) {
         //     checkNotifications('newMessage', e.data.messageId);
         // }
     });
-    console.log('подписыаемся на новые задачи');
 
     cometApi.subscription("msg.newTask", function (e) {
-        console.log(e);
         getCounters(function (data) {
             updateCounters(data);
         });
     });
-    console.log('подписыаемся на новые события в логе');
 
     cometApi.subscription("msg.newLog", function (e) {
-        console.log('newlogmessage');
-        console.log(e);
-        console.log(window.pageName);
         var eventId = e.data.eventId;
         getCounters(function (data) {
             updateCounters(data);
         });
         if (window.pageName && (pageName === 'log' || pageName === 'dashboard')) {
-            console.log('start event request');
-
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -93,7 +79,12 @@ function subscribeToMessagesNotification(userId) {
                 },
                 success: function (event) {
                     if (event) {
-                        $('.timeline').prepend(event);
+                        if (pageName === 'log') {
+                            $('.timeline').prepend(event);
+                        } else if (pageName === 'dashboard') {
+                            $('#newEventsTitle').removeClass('d-none');
+                            $('#newEventsTimeline').prepend(event);
+                        }
                     }
                 }
             })
@@ -101,7 +92,6 @@ function subscribeToMessagesNotification(userId) {
 
         }
     });
-    console.log('подписки пройдены');
 
 }
 
@@ -126,7 +116,6 @@ function decreaseCommentCounter() {
 
 function decreaseTaskCounter() {
     var taskCount = +$('#notificationCount').text();
-    console.log(taskCount);
     taskCount--;
     if (taskCount < 1) {
         $('#notificationCount').text('');
@@ -155,7 +144,6 @@ function subscribeToOnlineStatusNotification(channelName) {
     CometServer().subscription(channelName + ".subscription", function (msg) {
         var id = msg.data.user_id;
         justLeftUsers.add(id);
-        console.log(msg);
         $('#dialog-' + id).removeClass('d-none');
         setTimeout(function () {
             justLeftUsers.delete(id)
@@ -164,7 +152,6 @@ function subscribeToOnlineStatusNotification(channelName) {
     });
     CometServer().subscription(channelName + ".unsubscription", function (msg) {
         var id = msg.data.user_id;
-        console.log(msg);
         setTimeout(function () {
             if (!justLeftUsers.has(id)) {
                 $('#dialog-' + id).addClass('d-none');
@@ -176,12 +163,8 @@ function subscribeToOnlineStatusNotification(channelName) {
 }
 
 function updateMessagesCounter() {
-    console.log('парсим текущее число непрочитанных');
     var messagesCount = +$('#messagesCount').text();
-    console.log(messagesCount);
-    console.log('инкремент');
     messagesCount++;
-    console.log(messagesCount);
 
     $('#messagesCount').text(messagesCount);
     $('#messagesIcon').addClass('text-success');
@@ -189,9 +172,7 @@ function updateMessagesCounter() {
 
 function updateNotificationsCounter() {
     var notificationCount = +$('#notificationCount').text();
-    console.log(notificationCount);
     notificationCount++;
-    console.log(notificationCount);
     $('#notificationCount').text(notificationCount);
     $('#notificationIcon').addClass('text-primary');
 }
@@ -215,7 +196,6 @@ function setCounters(counts) {
     setHotCounter(counts.hot);
     setCommentCounter(counts.comment);
     setMailCounter(counts.mail);
-    console.log(counts);
     setMobileIndicator(counts);
 }
 
@@ -225,18 +205,13 @@ function updateCounters(counts) {
     oldCounts.hot = parseInt($('#overdueCount').text() || 0);
     oldCounts.comment = parseInt($('#commentCount').text() || 0);
     oldCounts.mail = parseInt($('#messagesCount').text() || 0);
-    console.log(oldCounts);
     if (counts.task > oldCounts.task) {
-        console.log('new task');
     }
     if (counts.hot > oldCounts.hot) {
-        console.log('new hot');
     }
     if (counts.comment > oldCounts.comment) {
-        console.log('new comment');
     }
     if (counts.mail > oldCounts.mail) {
-        console.log('new mail');
     }
     setCounters(counts);
 }

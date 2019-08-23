@@ -37,10 +37,16 @@ foreach ($countStatus as $group) {
 
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
+require_once __ROOT__ . '/engine/backend/classes/EventList.php';
 
-
-$events = getEventsForUser(21);
-prepareEvents($events);
+$eventList = new EventList($id, $idc);
+$eventList->setViewStatus(0);
+$newEvents = $eventList->getEvents();
+$eventList->setViewStatus(1);
+$eventList->setLimit(21);
+$oldEvents = $eventList->getEvents();
+prepareEvents($newEvents);
+prepareEvents($oldEvents);
 
 $firstDayOfMonth = strtotime(date('1.m.Y'));
 
