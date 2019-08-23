@@ -2424,6 +2424,10 @@ table.dataTable thead .sorting_desc_disabled:before {
     border-radius: 8px;
     padding: 7px;
     display: inline-block;
+    margin-right: 1rem;
+}
+.text-game-step{
+    display: block;
 }
 .progressBlock i {
     font-size: 20px;
@@ -3464,8 +3468,25 @@ span.date {
         display: none;
     }
 
+    .premiumAcountActivate{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .d-flex.doneStep{
+        justify-content: center;
+    }
+
     #afterRegModal .col-3{
         display: none;
+    }
+
+    .text-game-step{
+        display: none;
+    }
+
+    .progressBlock .iconDiv {
+        margin-right: 0;
     }
 
     #afterRegModal .col-4{

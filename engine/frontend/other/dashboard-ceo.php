@@ -183,25 +183,25 @@ $statusColor = [
         <div class="card-body">
             <div class="row ">
                 <?php foreach ($stepContent as $step): ?>
-                    <div class="col-3">
+                    <div class="col-4 col-lg-3">
                     <a href="<?= $step['link'] ?>">
                         <div class="d-flex <?=$step['doneStep']?>">
-                            <div class="iconDiv mr-3">
+                            <div class="iconDiv">
                                 <i class="<?= $step['icon'] ?>"></i>
                             </div>
-                            <p class="mb-0 small"><?= $step['text'] ?></p>
+                            <p class="mb-0 small text-game-step"><?= $step['text'] ?></p>
                         </div>
                     </a>
                 </div>
             <?php endforeach; ?>
-                <div class="col-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : ''?>">
+                <div class="col-12 col-lg-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : ''?>">
                     <button id="finishSteps" class="btn btn-outline-light">
                         Активировать Premium-аккаунт
                     </button>
                 </div>
             </div>
             <div class="row">
-                <div class="col-9">
+                <div class="col-12 col-lg-9">
                     <div class="progress mt-0">
                         <div class="progress-bar" role="progressbar" style="width: <?= $stepProgressBar ?>%" aria-valuenow="<?= $stepProgressBar ?>"
                              aria-valuemin="0" aria-valuemax="100"></div>
