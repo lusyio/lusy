@@ -23,20 +23,18 @@
         </div>
         <div class="bg-white file-name-review container-files display-none">
         </div>
-        <div class="d-flex mt-3">
-            <div class="mr-3">
-                <button type="submit" id="sendonreview" class="btn btn-primary w-100 text-center"><i class="fas fa-file-import mr-3"></i>Отправить на рассмотрение</button>
-            </div>
-            <div class="mr-3">
+        <div class="row">
+            <div class="col-3 col-lg-1 mt-2">
                 <?php $uploadModule = 'task'; ?>
                 <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
             </div>
-            <div>
-                <button type="button" id="backbutton" class="btn btn-outline-secondary w-100 text-center" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><i class="fas fa-angle-double-left mr-3"></i><?= $GLOBALS["_back"] ?></button>
+            <div class="col-4 col-lg-4 mt-2 pr-0">
+                <button type="button" id="backbutton" class="btn btn-outline-secondary w-100 text-center" data-toggle="collapse" data-target="#report-block" aria-expanded="true" aria-controls="report-block"><i class="fas fa-angle-double-left mr-3 icon-btn-taskblock"></i><?= $GLOBALS["_back"] ?></button>
             </div>
-
+            <div class="col-5 col-lg-6 mt-2">
+                <button type="submit" id="sendonreview" class="btn btn-primary w-100 text-center"><i class="fas fa-file-import mr-3 icon-btn-taskblock"></i>Отправить на рассмотрение</button>
+            </div>
         </div>
-
 	</div>
 </div>
 
