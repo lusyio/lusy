@@ -665,6 +665,12 @@ $statusColor = [
 
         $('#oldEventsCollapse').on('click', function () {
             $('#oldEvents').collapse('toggle');
+            var arrowIcon = $('#oldEventsCollapse i');
+            if (arrowIcon.css("transform") === 'none') {
+                arrowIcon.css("transform", "scaleY(-1)");
+            } else {
+                arrowIcon.css("transform", "");
+            }
         });
     });
 </script>
