@@ -239,17 +239,39 @@ if ($id == $worker and $view == 0) {
                 </div>
             <?php endif; ?>
             <?php if (count($files) > 0): ?>
+            <div class="d-flex flex-wrap">
                 <?php foreach ($files as $file): ?>
                     <?php if ($file['is_deleted']): ?>
                         <p class="text-secondary"><s><i class="fas fa-paperclip"></i> <?= $file['file_name'] ?></s>
                             (удален)</p>
                     <?php else: ?>
-                        <p class="text-secondary"><a class="text-secondary"
+                    <?php if (in_array($file['extension'],['png', 'jpeg', 'jpg', 'bmp'])): ?>
+                    <div class="photo-preview-container-task-hover mr-2">
+                        <div data-target=".bd-example-modal-xl" data-toggle="modal" class="text-secondary photo-preview-container mb-4 photo-preview-container-task clear_fix">
+                            <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="pointer-events: none;background-image: url('/<?= $file['file_path']; ?>')"
                                                      href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
-                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a></p>
+                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
+                        <p class="small text-muted-new text-center photo-preview-area-message m-0">
+                            <?= $file['file_name'] ?>
+                        </p>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                    <div class="photo-preview-container-task-hover mr-2">
+                        <div class="text-secondary photo-preview-container mb-4 photo-preview-container-task clear_fix">
+                            <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="background-size: contain;background-image: url('/upload/file.png')"
+                               href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
+                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
+                            <p class="small text-muted-new text-center photo-preview-area-message m-0">
+                                <?= $file['file_name'] ?>
+                            </p>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
+            </div>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
                     <?php
@@ -365,6 +387,30 @@ if ($id == $worker and $view == 0) {
                         Перейти к тарифам
                     </a>
                 <?php endif; ?>
+            </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="photo-preview-name m-0"></h5>
+            </div>
+            <img class="image-modal" src="">
+            <div class="modal-footer" style="justify-content: space-between">
+                <span class="text-muted-new small d-none">
+                    Дата загрузки : 15-09-2019
+                </span>
+                <span class="text-muted-new small">
+                    Размер файла : <span class="image-preview-file-size">15 мб</span>
+                    |
+                    <a class="image-preview-open text-muted-new " href="">Открыть оригинал</a>
+                </span>
             </div>
             <span class="icon-close-modal">
             <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i

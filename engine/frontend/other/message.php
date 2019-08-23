@@ -20,12 +20,63 @@
                     <?php if ($file['is_deleted']): ?>
                         <p class="m-0"><s><?= $file['file_name'] ?></s> <?= $GLOBALS['_deletedconversation'] ?></p>
                     <?php else: ?>
-                        <p class="m-0"><a class=""
-                                          href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
-                        </p>
+                        <?php if (in_array($file['extension'],['png', 'jpeg', 'jpg', 'bmp'])): ?>
+                            <p data-target=".bd-example-modal-xl" data-toggle="modal" class="m-0 photo-preview-container photo-preview-container-messages clear_fix"><a sizeFile="<?= $file['file_size'] ?>" target="_blank" class="photo-preview" style="pointer-events: none;background-image: url('/<?= $file['file_path']; ?>')"
+                                                                                                                                       href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
+                            </p>
+                        <?php else: ?>
+                        <div class="pb-4">
+                            <div class="photo-preview-container photo-preview-container-files clear_fix"><a sizeFile="<?= $file['file_size'] ?>" target="_blank" class="photo-preview" style="background-image: url('/upload/file.png')"
+                                                                                                                                       href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
+                            <p class="small text-muted-new text-center photo-preview-area-message m-0">
+                                <?= $file['file_name'] ?>
+                            </p>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
     </div>
 </div>
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="photo-preview-name m-0"></h5>
+            </div>
+            <img class="image-modal" src="">
+            <div class="modal-footer" style="justify-content: space-between">
+                <span class="text-muted-new small d-none">
+                    Дата загрузки : 15-09-2019
+                </span>
+                <span class="text-muted-new small">
+                    Размер файла : <span class="image-preview-file-size">15 мб</span>
+                    |
+                    <a class="image-preview-open text-muted-new " href="">Открыть оригинал</a>
+                </span>
+            </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.photo-preview-container').on('click', function () {
+        $this = $(this);
+        var name = $this.find('.photo-preview').text();
+        var src = $this.find('.photo-preview').attr('href');
+        var size = ($this.find('.photo-preview').attr('sizeFile')/1024/1024).toFixed(2);
+        $('.image-modal').attr('src', src);
+        $('.image-preview-open').attr('href', src);
+        $('.photo-preview-name').text(name);
+        $('.image-preview-file-size').text(size + 'мб');
+    });
+</script>
+
+

@@ -191,6 +191,10 @@ function prepareMessages(&$messages, $userId, $forChat = false)
         $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
         $filesQuery->execute(array(':messageId' => $message['message_id'], ':commentType' => $commentType));
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($files as $key => $file) {
+            $fileNameParts = explode('.', $file['file_name']);
+            $files[$key]['extension'] = mb_strtolower(array_pop($fileNameParts));
+        }
         if (count($files) > 0) {
             $message['files'] = $files;
         } else {
