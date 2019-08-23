@@ -356,7 +356,7 @@ $statusColor = [
             <div class="col-12 position-relative">
                 <div class="text-center other-func position-relative text-secondary mb-4">
                     <div id="oldEventsCollapse" class="additional-func">
-                        <span>Просмотренные события <i class="fas fa-caret-down"></i></span>
+                        <span>Просмотренные события<i class="fas fa-caret-down ml-3"></i></span>
                     </div>
                 </div>
                 <div class="collapse" id="oldEvents">
