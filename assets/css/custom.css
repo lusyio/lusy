@@ -557,7 +557,7 @@ list-group:hover {
     text-align: center;
     left: -15px;
 }
-#searchBtn:hover {
+#searchBtn:hover, #oldEventsCollapse span:hover {
     cursor: pointer;
 }
 .icon-reset-searchbar {
