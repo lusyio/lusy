@@ -597,7 +597,6 @@ $statusColor = [
 
     var emptyData = [0, 0, 0, 0, 0, 0, 0];
     if ([<?=$taskCountString?>].length === emptyData.length && [<?=$taskCountString?>].every((value, index) => value === emptyData[index])) {
-        console.log('asdasd');
         data = [
             randomScalingFactor(),
             randomScalingFactor(),
@@ -735,7 +734,6 @@ $statusColor = [
            }
         });
 
-        console.log(security);
 
         $('#afterRegEmail').on('keyup', function () {
             var $this = $(this);
@@ -765,7 +763,6 @@ $statusColor = [
             } else {
                 $("#saveAfterReg").prop('disabled', true);
             }
-            console.log(security)
         });
 
         $('#afterRegPassword').on('keyup', function () {
@@ -797,7 +794,6 @@ $statusColor = [
             } else {
                 $("#saveAfterReg").prop('disabled', true);
             }
-            console.log(security)
 
         });
 

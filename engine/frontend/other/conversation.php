@@ -137,7 +137,6 @@
                 if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
-                        console.log(file);
                         addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive');
                     });
                 }
@@ -260,7 +259,6 @@
         cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?= $cometHash; ?>', node: "app.comet-server.ru"});
 
         cometApi.subscription("msg.new", function (e) {
-            console.log(e);
             if (e.data.senderId == $recipientId && e.data.recipientId == $userId || e.data.senderId == $userId && e.data.recipientId == $recipientId) {
                 var fd = new FormData();
                 fd.append('messageId', e.data.messageId);
@@ -275,7 +273,6 @@
                     contentType: false,
                     data: fd,
                     success: function (response) {
-                        console.log(response);
                         if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }
@@ -312,7 +309,6 @@
         dropZone.on('drop', function(e) {
             $('#chatBox').removeClass('dragover');
             var files = e.originalEvent.dataTransfer.files;
-            console.log(files);
             sendFiles(files);
         });
 
@@ -436,7 +432,6 @@
                     },
 
                     success: function (data) {
-                        console.log(data);
                         if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }
