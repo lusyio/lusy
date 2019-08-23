@@ -342,8 +342,10 @@ $statusColor = [
 <div class="mt-1 pb-0">
     <span class="font-weight-bold d-none"><?= _('History') ?></span>
     <div id="logDashBoard">
-        <div id="newEventsTitle" class="text-center position-relative mt-3 mb-3 <?= (count($newEvents) > 0) ? '' : 'd-none' ?>">
-            <span>Новые события</i></span>
+        <div id="newEventsTitle" class="text-center other-func text-secondary position-relative mt-3 mb-4 <?= (count($newEvents) > 0) ? '' : 'd-none' ?>">
+            <div class="additional-func">
+                <span>Новые события</i></span>
+            </div>
         </div>
         <ul id="newEventsTimeline" class="timeline">
             <?php foreach ($newEvents as $event): ?>
@@ -352,8 +354,8 @@ $statusColor = [
         </ul>
         <div class="row mt-25-tasknew">
             <div class="col-12 position-relative">
-                <div class="text-center position-relative mb-3">
-                    <div id="oldEventsCollapse">
+                <div class="text-center other-func position-relative text-secondary mb-4">
+                    <div id="oldEventsCollapse" class="additional-func">
                         <span>Просмотренные события <i class="fas fa-caret-down"></i></span>
                     </div>
                 </div>
