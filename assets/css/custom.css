@@ -3477,7 +3477,7 @@ span.date {
         width: 50%;
         margin: auto;
     }
-    .d-flex.doneStep{
+    .progressBlock .d-flex {
         justify-content: center;
     }
 
