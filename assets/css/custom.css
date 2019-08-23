@@ -1579,9 +1579,6 @@ input:checked[type="checkbox"].new-checkbox::before {
     box-shadow: 2px 2px 15px rgba(0, 0, 0, .06);
     padding: 0;
 }
-.no-events {
-    background: #fdfdfd !important;
-}
 .no-events i, .no-events p {
     color: #e8e8e8 !important;
 }
@@ -2414,7 +2411,77 @@ table.dataTable thead .sorting_desc_disabled:before {
     font-weight: bold;
     line-height: 41px;
 }
+.progressBlock .d-flex {
+    opacity: 0.7;
+    transition: 0.1s all;
+}
+.progressBlock .d-flex:hover {
+    opacity: 1;
+    transition: 0.2s all;
+}
+.progressBlock .iconDiv {
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 7px;
+    display: inline-block;
+    margin-right: 1rem;
+}
+.text-game-step{
+    display: block;
+}
+.progressBlock i {
+    font-size: 20px;
+}
+.progressBlock a {
+    text-decoration: none !important;
+    color: inherit;
+}
+.progressBlock .doneStep {
+    opacity: 1 !important;
+}
+.progressBlock .doneStep .iconDiv {
+    background: white;
+    color: #797efe;
+}
+.progressBlock .doneStep p {
+    font-weight: bold;
+}
+.progressBlock .plusBlock::before {
 
+}
+.progressBlock .progress {
+    background-color: #6d6bf5;
+    height: 2px;
+}
+.progressBlock .progress-bar {
+    background: white;
+}
+.premiumAcountActivate .btn-outline-light {
+    border-radius: 20px;
+    font-size: 14px;
+    opacity: 0.7;
+    transition: 0.1s all;
+}
+.doneStep .btn-outline-light {
+    background: white;
+    transition: 0.2s all;
+    opacity: 1 !important;
+    font-weight: bold;
+    color: #787ffd;
+    box-shadow: 0 7px 5px -3px rgba(14,21,47,.1);
+}
+.doneStep .btn-outline-light:hover {
+    transition: 0.3s all;
+    -webkit-transform: translateY(-3px);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 15px -3px rgba(14,21,47,.3);
+}
+.premiumAcountActivate .btn-outline-light:hover {
+    background: white;
+    color: #6d6af5;
+    opacity: 1;
+    transition: 0.2s all;
+}
 .bg-icon-achieve{
     position: absolute;
     top: 25%;
@@ -3401,8 +3468,29 @@ span.date {
         display: none;
     }
 
+    .premiumAcountActivate{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .progressBlock .progress {
+        width: 50%;
+        margin: auto;
+    }
+    .progressBlock .d-flex {
+        justify-content: center;
+    }
+
     #afterRegModal .col-3{
         display: none;
+    }
+
+    .text-game-step{
+        display: none;
+    }
+
+    .progressBlock .iconDiv {
+        margin-right: 0;
     }
 
     #afterRegModal .col-4{

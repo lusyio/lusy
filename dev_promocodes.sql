@@ -1,0 +1,1 @@
+INSERT INTO promocodes (promocode_id, promocode_name, days_to_add, is_multiple, valid_until, used) VALUES (1, 'welcome', 10, 1, 1577826000, 0);
