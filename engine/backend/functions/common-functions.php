@@ -145,10 +145,9 @@ function authorizeComet($id)
     global $cometPdo;
     $hash = md5($id . 'salt-pepper');
     //Очищаем очередь личных сообщений с комет-сервера, т.к. они подгрузятся напрямую из базы
-    $cometSql = $cometPdo->prepare("DELETE FROM users_messages WHERE id =:id");
-    $cometSql->execute(array(':id' => $id));
-    $cometSql = $cometPdo->prepare("INSERT INTO users_auth (id, hash )VALUES (:id, :hash)");
-    $cometSql->execute(array(':id' => $id, ':hash' => $hash));
+    $cometPdo->clearMessages($id);
+
+    $cometPdo->authorizeUser($id, $hash);
     return $hash;
 }
 

@@ -440,6 +440,9 @@
                         fileList = new Map();
                         $('.file-name').hide();
                         $('#sendBtn').prop('disabled', false);
+                        if (data === 'reload') {
+                            location.reload();
+                        }
                     },
 
                     complete: function () {

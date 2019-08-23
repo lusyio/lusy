@@ -78,6 +78,9 @@ if ($_POST['module'] == 'sendMessage') {
 
         //@sendMessageEmailNotification($recipientId, $id);
         addMailToQueue('sendMessageEmailNotification', [$recipientId, $id, $messageId], $recipientId, $messageId);
+        if (!$cometPdo->getStatus()) {
+            echo 'reload';
+        }
     }
 }
 if ($_POST['module'] == 'sendMessageToChat') {
@@ -121,6 +124,9 @@ if ($_POST['module'] == 'sendMessageToChat') {
         ];
         $cometPdo->sendNewChatMessage(getCometTrackChannelName(), $mesData);
         markChatMessageAsRead($messageId);
+    }
+    if (!$cometPdo->getStatus()) {
+        echo 'reload';
     }
 }
 

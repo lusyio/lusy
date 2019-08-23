@@ -2,6 +2,7 @@
 global $idc;
 global $id;
 global $pdo;
+global $cometPdo;
 global $roleu;
 global $_buttonInvateNew;
 global $tariff;
