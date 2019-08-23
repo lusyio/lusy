@@ -3471,8 +3471,12 @@ span.date {
     .premiumAcountActivate{
         margin-top: 1rem;
         margin-bottom: 1rem;
+        text-align: center;
     }
-
+    .progressBlock .progress {
+        width: 50%;
+        margin: auto;
+    }
     .d-flex.doneStep{
         justify-content: center;
     }
