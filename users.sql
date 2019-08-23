@@ -1,1 +1,0 @@
-alter table users add birthdate date null;
