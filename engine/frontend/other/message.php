@@ -75,6 +75,17 @@
 </div>
 
 <script>
+
+    $('.photo-preview-container').on('click', function () {
+        $this = $(this);
+        var name = $this.find('.photo-preview').text();
+        var src = $this.find('.photo-preview').attr('href');
+        var size = ($this.find('.photo-preview').attr('sizeFile')/1024/1024).toFixed(2);
+        $('.image-modal').attr('src', src);
+        $('.image-preview-open').attr('href', src);
+        $('.photo-preview-name').text(name);
+        $('.image-preview-file-size').text(size + 'мб');
+    });
     $('.photo-preview-background').on('click', function () {
         $this = $(this).siblings('.photo-preview-container');
         var name = $this.find('.photo-preview').text();
