@@ -170,7 +170,8 @@ if ($_POST['module'] == 'sendMail') {
     try {
         $mailSender->addAddress($email);
         $mailSender->isHTML();
-
+        $unsubscribeCode = generateUnsubscribeCode(1);
+        $unsubscribeLink = '1/' . $unsubscribeCode . '/';
         $args = [
             'achievementName' => generateRandomString(rand(1,2)),
             'achievementText' => generateRandomString(rand(8,16)),
@@ -194,6 +195,7 @@ if ($_POST['module'] == 'sendMail') {
             'request' => date('d.m.Y', strtotime('+' . rand(1,12) . ' day')),
             'freeDays' => rand(5, 30),
             'inviteLink' => generateRandomString(1),
+            'unsubscribeLink' => $unsubscribeLink,
         ];
 
             $mailSender->Subject = "Тестовое письмо";

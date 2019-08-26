@@ -21,6 +21,13 @@ if (isset($_GET['folder']) && $_GET['folder'] == 'paymentnotification') {
 }
 //=============КОНЕЦ БЛОКА ДЛЯ НОТИФИКАЦИЙ ОПЛАТЫ=============
 
+//=============БЛОК ОТМЕНЫ ПОДПИСКИ НА УВЕДОМЛЕНИЯ=============
+if (isset($_GET['folder']) && $_GET['folder'] == 'unsubscribe') {
+    inc('other', 'unsubscribe');
+    exit;
+}
+//=============КОНЕЦ БЛОКА ОТМЕНЫ ПОДПИСКИ НА УВЕДОМЛЕНИЯ=============
+
 //addTimeZoneToCompany();
 //makeTimeStampInComments();
 //makeTimeStampInCompany();

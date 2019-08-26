@@ -19,6 +19,7 @@ if ($_POST['module'] == 'sendActivation' && $roleu == 'ceo') {
     $activationCode = getActivationCode($idc);
     var_dump($activationCode);
     $ceoEmail = DBOnce('email', 'users', 'id = ' . $id);
+    $ceoId = DBOnce('id', 'users', 'id = ' . $id);
 
     require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
     require_once __ROOT__ . '/engine/phpmailer/Exception.php';
@@ -27,8 +28,11 @@ if ($_POST['module'] == 'sendActivation' && $roleu == 'ceo') {
         $mail->addAddress($ceoEmail);
         $mail->isHTML();
         $mail->Subject = "Подтверждение e-mail";
+        $unsubscribeCode = generateUnsubscribeCode($ceoId);
+        $unsubscribeLink = $ceoId . '/' . $unsubscribeCode . '/';
         $args = [
             'activationLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/activate/' . $idc . '/' . $activationCode . '/',
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('company-activation', $args);
         $mail->send();

@@ -44,7 +44,12 @@ class LusyMailer extends PHPMailer
         ob_start();
         include __ROOT__ . '/engine/phpmailer/templates/' . $language . '/content-footer.php';
         $contentFooter = ob_get_clean();
-
+        foreach ($args as $key => $value) {
+            if (!is_array($value) && !is_object($value)) {
+                $search = '{$' . $key . '}';
+                $contentFooter = str_replace($search, $value, $contentFooter);
+            }
+        }
         $this->Body = $contentHeader . $content . $contentFooter;
     }
 }

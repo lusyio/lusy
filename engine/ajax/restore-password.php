@@ -21,8 +21,11 @@ if ($userId) {
         $mail->addAddress($requestEmail);
         $mail->isHTML();
         $mail->Subject = "Восстановление пароля в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($userId);
+        $unsubscribeLink = $userId . '/' . $unsubscribeCode . '/';
         $args = [
             'restoreLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/restore/' . $userId . '/' . $restoreCode . '/',
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('password-restore', $args);
         $mail->send();
