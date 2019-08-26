@@ -14,6 +14,7 @@ $cometTrackChannelName = getCometTrackChannelName();
 
 $otbor = '(worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ') and status!="done"';
 $usedStatuses = DB('DISTINCT `status`', 'tasks', $otbor);
+$statuses = array_column($usedStatuses, 'status');
 $sortedUsedStatuses = getSortedStatuses($usedStatuses);
 
 $isManager = DBOnce('id', 'tasks', 'manager=' . $GLOBALS["id"]);
@@ -58,3 +59,7 @@ foreach ($tasks as $task) {
 }
 $workersId = array_unique($workersId);
 sort($workersId);
+$workersName = [];
+foreach ($workersId as $workerId) {
+    $workersName[$workerId] = getDisplayUserName($workerId);
+}

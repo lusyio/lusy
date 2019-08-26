@@ -321,6 +321,12 @@ h5, .ns {
     color: #c6c9dc;
 }
 
+.sort.btn {
+    color: #c6c9dc;
+    background-color: rgba(0,0,0,0);
+    font-size: 1rem;
+}
+
 /*.noty2.custom2 {*/
 /*    display: flex;*/
 /*    background: #f7f7f7;*/
