@@ -29,7 +29,7 @@
         </table>
         <div align="center" style="background-color: #f5f5f5;padding-top: 16px;padding-bottom: 16px;">
             <div style="margin: 0 auto;max-width: 600px;">
-                <a href="https://s.lusy.io/settings/" style="font-size: 12px;font-weight: 400;color: #27406a;">Нажмите сюда, если хотите отписаться от рассылки</a>
+                <a href="https://s.lusy.io/settings/#collapseNoty" style="font-size: 12px;font-weight: 400;color: #27406a;">Нажмите сюда, если хотите отписаться от рассылки</a>
             </div>
         </div>
     </td>
