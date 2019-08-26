@@ -46,3 +46,15 @@ $canceledTaskList->executeCountQuery();
 $countArchiveCanceledTasks = $canceledTaskList->getCountResult();
 unset($canceledTaskList);
 
+$workersId = [];
+foreach ($tasks as $task) {
+    $workersId[] = $task->get('worker');
+    if (count($task->get('subTasks')) > 0) {
+        $subTasks = $task->get('subTasks');
+        foreach ($subTasks as $subTask) {
+            $workersId[] = $subTask->get('worker');
+        }
+    }
+}
+$workersId = array_unique($workersId);
+sort($workersId);

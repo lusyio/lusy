@@ -20,16 +20,42 @@
         <div class="taskbox-padding-left">
             <div class="row sort">
                 <div class="col-sm-6">
-                    <span><?= $GLOBALS['_taskname'] ?></span>
+                    <span id="nameOrder">
+                        <span id="nameOrderText"><?= $GLOBALS['_taskname'] ?> <i id="nameOrderIcon" class="fas fa-sort"></i></span>
+                    </span>
+                </div>
+                <div class="col-sm-2 dropdown status-dropdown">
+                    <button id="statusDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-name="<?= $GLOBALS['_statustasks'] ?>">
+                        <?= $GLOBALS['_statustasks'] ?>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="statusDropdownButton">
+                        <?php foreach ($sortedUsedStatuses as $status => $statusName): ?>
+                            <a class="dropdown-item status-dropdown-item" href="#" data-status="<?= $status ?>"><?= $statusName ?></a>
+                        <?php endforeach; ?>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item status-dropdown-item" href="#" data-status="0">Очистить фильтр</a>
+
+                    </div>
                 </div>
                 <div class="col-sm-2">
-                    <span><?= $GLOBALS['_statustasks'] ?></span>
+                    <span id="dateOrder">
+                        <span id="dateOrderText"><?= $GLOBALS['_deadlinetasks'] ?> <i id="dateOrderIcon" class="fas fa-sort"></i></span>
+                    </span>
                 </div>
-                <div class="col-sm-2">
-                    <span><?= $GLOBALS['_deadlinetasks'] ?></span>
-                </div>
-                <div class="col-sm-2">
-                    <span><?= $GLOBALS['_memberstasks'] ?></span>
+                <div class="col-sm-2 dropdown worker-dropdown">
+                        <button id="workerDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-name="<?= $GLOBALS['_memberstasks'] ?>">
+                            <?= $GLOBALS['_memberstasks'] ?>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="workerDropdownButton">
+                            <?php foreach ($workersId as $wId): ?>
+                                <a class="dropdown-item worker-dropdown-item" href="#" data-worker-id="<?= $wId ?>"><?= getDisplayUserName($wId) ?></a>
+                            <?php endforeach; ?>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item worker-dropdown-item" href="#" data-worker-id="0">Очистить фильтр</a>
+
+                        </div>
                 </div>
             </div>
         </div>
@@ -92,7 +118,7 @@
             'planned' => $GLOBALS['_plannedlist'],
         ],
     ]; //for example: $taskStatusText[$n['mainRole']][$n['status']]
-
+    $orderPosition = 1;
     foreach ($tasks as $task) {
         $status = $task->get('status');
         $taskId = $task->get('id');
@@ -148,5 +174,201 @@
             "order": [[3, "asc"]]
         });
 
+        $('.worker-dropdown-item').on('click', function (e) {
+            e.preventDefault();
+            var workerId = $(this).data('worker-id');
+            $('.worker-dropdown-item').removeClass('active');
+            if (workerId == 0) {
+                $('#workerDropdownButton').text($('#workerDropdownButton').data('default-name'));
+            } else {
+                $(this).addClass('active');
+                var workerName = $(this).text();
+                $('#workerDropdownButton').text(workerName);
+            }
+            filterTaskByStatusAndWorker();
+        });
+
+        $('.status-dropdown-item').on('click', function (e) {
+            e.preventDefault();
+            var status = $(this).data('status');
+            $('.status-dropdown-item').removeClass('active');
+            if (status == 0) {
+                $('#statusDropdownButton').text($('#statusDropdownButton').data('default-name'));
+            } else {
+                $(this).addClass('active');
+                var statusName = $(this).text();
+                $('#statusDropdownButton').text(statusName);
+            }
+            filterTaskByStatusAndWorker();
+        });
     });
+
+    $('#nameOrder').on('click', function (e) {
+        e.preventDefault();
+
+        if ($(this).hasClass('asc')) {
+            $(this).removeClass('asc').addClass('desc');
+            $('#nameOrderIcon').removeClass('fas fa-sort-up').addClass('fas fa-sort-down')
+        } else {
+            $(this).removeClass('desc').addClass('asc');
+            $('#nameOrderIcon').removeClass('fas fa-sort-down').addClass('fas fa-sort-up')
+        }
+        orderByName();
+    });
+
+    $('#dateOrder').on('click', function (e) {
+        e.preventDefault();
+        $('#nameOrder').removeClass('asc').removeClass('desc');
+        $('#nameOrderIcon').removeClass('fas fa-sort-down').removeClass('fas fa-sort-up').addClass('fas fa-sort');
+
+        if ($(this).hasClass('asc')) {
+            $(this).removeClass('asc').addClass('desc');
+            $('#dateOrderIcon').removeClass('fas fa-sort-up').addClass('fas fa-sort-down')
+
+        } else {
+            $(this).removeClass('desc').addClass('asc');
+            $('#dateOrderIcon').removeClass('fas fa-sort-down').addClass('fas fa-sort-up')
+        }
+        orderByDate();
+    });
+
+    function filterTaskByStatusAndWorker() {
+        var status = 0;
+        if ($('.status-dropdown-item.active').length) {
+            status = $('.status-dropdown-item.active').data('status');
+        }
+        var workerId = 0;
+        if ($('.worker-dropdown-item.active').length) {
+            workerId = $('.worker-dropdown-item.active').data('worker-id');
+        }
+        var taskFilter = '.task-card';
+        var subTaskFilter = '.sub-task-card';
+        $('.task-card, .sub-task-card').hide();
+        if (status) {
+            taskFilter = taskFilter + '[data-status=' + status + ']';
+            subTaskFilter = subTaskFilter + '[data-status=' + status + ']';
+        }
+        if (workerId) {
+            taskFilter = taskFilter + '[data-worker-id=' + workerId + ']';
+            subTaskFilter = subTaskFilter + '[data-worker-id=' + workerId + ']';
+        }
+        console.log(status);
+        console.log(workerId);
+        $(taskFilter).show();
+        $(subTaskFilter).show();
+        $(subTaskFilter).parents('.task-card').show();
+    }
+    function orderByName() {
+        if ($('#nameOrder').hasClass('asc')) {
+            var ascOrder = true
+        } else if ($('#nameOrder').hasClass('desc')) {
+            var ascOrder = false
+        }
+        orderSubTaskByName(ascOrder);
+        
+        var elements = $('.task-card');
+        var target = $('#taskBox');
+
+        elements.sort(function (a, b) {
+            var an = $(a).find('.taskname').text(),
+                bn = $(b).find('.taskname').text();
+
+            if (an && bn) {
+                if (ascOrder) {
+                    return an.toUpperCase().localeCompare(bn.toUpperCase());
+                } else {
+                    return bn.toUpperCase().localeCompare(an.toUpperCase());
+                }
+            }
+            return 0;
+        });
+        elements.detach().appendTo(target);
+    }
+
+    function orderSubTaskByName(ascOrder) {
+
+        $('.subTaskInList').each(function () {
+            var elements = $(this).find('.sub-task-card');
+            var target = $(this);
+
+            elements.sort(function (a, b) {
+                var an = $(a).find('.taskname').text(),
+                    bn = $(b).find('.taskname').text();
+
+                if (an && bn) {
+                    if (ascOrder) {
+                        return an.toUpperCase().localeCompare(bn.toUpperCase());
+                    } else {
+                        return bn.toUpperCase().localeCompare(an.toUpperCase());
+                    }
+                }
+                return 0;
+            });
+            elements.detach().appendTo(target);
+        })
+    }
+
+    function orderByDate() {
+        if ($('#dateOrder').hasClass('asc')) {
+            var ascOrder = true
+        } else if ($('#dateOrder').hasClass('desc')) {
+            var ascOrder = false
+        }
+        orderSubTasksByDate(ascOrder);
+
+        var elements = $('.task-card');
+        var target = $('#taskBox');
+
+        elements.sort(function (a, b) {
+            var an = $(a).data('deadline'),
+                bn = $(b).data('deadline');
+            if ($(a).find('.sub-task-card').length) {
+                var aFirstSubTask = $(a).find('.sub-task-card')[0];
+                if (ascOrder && $(aFirstSubTask).data('deadline') < an) {
+                    an = $(aFirstSubTask).data('deadline');
+                }else if (!ascOrder && $(aFirstSubTask).data('deadline') > an) {
+                    an = $(aFirstSubTask).data('deadline');
+                }
+            }
+            if ($(b).find('.sub-task-card').length) {
+                var bFirstSubTask = $(b).find('.sub-task-card')[0];
+                if (ascOrder && $(bFirstSubTask).data('deadline') < bn) {
+                    bn = $(bFirstSubTask).data('deadline');
+                } else if (!ascOrder && $(bFirstSubTask).data('deadline') > bn) {
+                    bn = $(bFirstSubTask).data('deadline');
+                }
+            }
+
+            if (an && bn) {
+                if (ascOrder) {
+                    return an.toUpperCase().localeCompare(bn.toUpperCase());
+                } else {
+                    return bn.toUpperCase().localeCompare(an.toUpperCase());
+                }
+            }
+            return 0;
+        });
+        elements.detach().appendTo(target);
+    }
+
+    function orderSubTasksByDate(ascOrder) {
+        $('.subTaskInList').each(function () {
+            var elements = $(this).find('.sub-task-card');
+            var target = $(this);
+
+            elements.sort(function (a, b) {
+                var an = $(a).data('deadline'),
+                    bn = $(b).data('deadline');
+                if (an && bn) {
+                    if (ascOrder) {
+                        return an.toUpperCase().localeCompare(bn.toUpperCase());
+                    } else {
+                        return bn.toUpperCase().localeCompare(an.toUpperCase());
+                    }
+                }
+                return 0;
+            });
+            elements.detach().appendTo(target);
+        })
+    }
 </script>
