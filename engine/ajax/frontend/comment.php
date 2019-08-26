@@ -73,8 +73,8 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                                     (удален)</p>
                             <?php else: ?>
                                 <?php if (in_array($file['extension'],['png', 'jpeg', 'jpg', 'bmp'])): ?>
-                                    <div class="photo-preview-container-task-hover">
-                                        <div data-target=".bd-example-modal-xl" data-toggle="modal" class="text-secondary photo-preview-container mt-2 mb-2 text-secondary file mr-3 mb-4 photo-preview-container-task clear_fix">
+                                    <div class="photo-preview-container-task-hover mr-2 mb-2">
+                                        <div data-target=".bd-example-modal-xl" data-toggle="modal" class="mb-4 text-secondary photo-preview-container text-secondary file photo-preview-container-task clear_fix">
                                             <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="pointer-events: none;background-image: url('/<?= $file['file_path']; ?>')"
                                                href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
                                                         class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
@@ -82,9 +82,13 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                                                 <?= $file['file_name'] ?>
                                             </p>
                                         </div>
+                                        <div class="photo-preview-background text-center" data-target=".bd-example-modal-xl" data-toggle="modal">
+                                            <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
+                                            <span class="text-white small photo-preview-area-message mt-2"><?= $file['file_name'] ?></span>
+                                        </div>
                                     </div>
                                 <?php else: ?>
-                                    <div class="photo-preview-container-task-hover mr-2">
+                                    <div class="photo-preview-container-task-hover mr-2 mb-2">
                                         <div class="text-secondary photo-preview-container mb-4 photo-preview-container-task clear_fix">
                                             <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="background-size: contain;background-image: url('/upload/file.png')"
                                                href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
@@ -93,6 +97,12 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                                                 <?= $file['file_name'] ?>
                                             </p>
                                         </div>
+                                        <a target="_blank" href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>">
+                                            <div class="photo-preview-background text-center">
+                                                <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
+                                                <span class="text-white small photo-preview-area-message mt-2"><?= $file['file_name'] ?></span>
+                                            </div>
+                                        </a>
                                     </div>
                                 <?php endif; ?>
                             <?php endif; ?>
@@ -105,8 +115,8 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
 </div>
 
 <script>
-    $('.photo-preview-container').on('click', function () {
-        $this = $(this);
+    $('.photo-preview-background').on('click', function () {
+        $this = $(this).siblings('.photo-preview-container');
         var name = $this.find('.photo-preview').text();
         var src = $this.find('.photo-preview').attr('href');
         var size = ($this.find('.photo-preview').attr('sizeFile')/1024/1024).toFixed(2);

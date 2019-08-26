@@ -16,6 +16,7 @@
                     </span>
             <p class="m-0"><?= link_it(nl2br(htmlspecialchars($message['mes']))) ?></p>
             <?php if (count($message['files']) > 0): ?>
+            <div class="d-flex flex-wrap justify-content-center">
                 <?php foreach ($message['files'] as $file): ?>
                     <?php if ($file['is_deleted']): ?>
                         <p class="m-0"><s><?= $file['file_name'] ?></s> <?= $GLOBALS['_deletedconversation'] ?></p>
@@ -25,17 +26,24 @@
                                                                                                                                        href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
                             </p>
                         <?php else: ?>
-                        <div class="pb-4">
+                        <div class="pb-4 photo-preview-container-task-hover border-0">
                             <div class="photo-preview-container photo-preview-container-files clear_fix"><a sizeFile="<?= $file['file_size'] ?>" target="_blank" class="photo-preview" style="background-image: url('/upload/file.png')"
                                                                                                                                        href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
                             <p class="small text-muted-new text-center photo-preview-area-message m-0">
                                 <?= $file['file_name'] ?>
                             </p>
                             </div>
+                            <a target="_blank" href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>">
+                                <div class="photo-preview-background text-center">
+                                    <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
+                                    <span class="text-white small photo-preview-area-message mt-2"><?= $file['file_name'] ?></span>
+                                </div>
+                            </a>
                         </div>
                         <?php endif; ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
+            </div>
             <?php endif; ?>
         </div>
     </div>
@@ -48,7 +56,7 @@
                 <h5 class="photo-preview-name m-0"></h5>
             </div>
             <img class="image-modal" src="">
-            <div class="modal-footer" style="justify-content: space-between">
+            <div class="modal-footer" style="justify-content: flex-end">
                 <span class="text-muted-new small d-none">
                     Дата загрузки : 15-09-2019
                 </span>
@@ -67,8 +75,8 @@
 </div>
 
 <script>
-    $('.photo-preview-container').on('click', function () {
-        $this = $(this);
+    $('.photo-preview-background').on('click', function () {
+        $this = $(this).siblings('.photo-preview-container');
         var name = $this.find('.photo-preview').text();
         var src = $this.find('.photo-preview').attr('href');
         var size = ($this.find('.photo-preview').attr('sizeFile')/1024/1024).toFixed(2);
