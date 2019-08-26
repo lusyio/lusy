@@ -533,7 +533,7 @@ h5, .ns {
     border-radius: 8px;
     border: none;
     z-index: 5;
-    background-color: #fcfcfc;
+    background-color: #fafafa;
 }
 
 .new-dialog-list{
@@ -1683,6 +1683,7 @@ input:checked[type="checkbox"].new-checkbox::before {
     color: #121416!important;
 }
 #chatBox {
+    background-color: #fafafa;
     padding: 0;
     width: 120%;
     padding-right: 20% !important;
@@ -1826,7 +1827,7 @@ input:checked[type="checkbox"].new-checkbox::before {
 }
 
 .bg-message{
-    background-color: #fcfcfc;
+    background-color: #fafafa;
     box-shadow: none !important;
 }
 
@@ -3342,6 +3343,7 @@ span.date {
     max-height: 32px;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    border-top: 1px solid #e5e5e5;
 }
 
 .photo-preview-container-task-hover{
@@ -3349,6 +3351,7 @@ span.date {
     padding-bottom: 10px;
     width: 110px;
     border-radius: 4px;
+    border: 1px solid #e5e5e5;
 }
 
 .photo-preview-container-task-hover:hover{

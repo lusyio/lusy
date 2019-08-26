@@ -404,10 +404,10 @@ if ($id == $worker and $view == 0) {
             <img class="image-modal" src="">
             <div class="modal-footer" style="justify-content: space-between">
                 <span class="text-muted-new small d-none">
-                    Дата загрузки : 15-09-2019
+                    Дата загрузки : <span class="image-preview-date-upload">xx-xx-xxxx</span>
                 </span>
                 <span class="text-muted-new small">
-                    Размер файла : <span class="image-preview-file-size">15 мб</span>
+                    Размер файла : <span class="image-preview-file-size">xx мб</span>
                     |
                     <a class="image-preview-open text-muted-new " href="">Открыть оригинал</a>
                 </span>
