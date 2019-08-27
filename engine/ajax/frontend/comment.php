@@ -84,7 +84,6 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                                         </div>
                                         <div class="photo-preview-background text-center" data-target=".bd-example-modal-xl" data-toggle="modal">
                                             <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
-                                            <span class="text-white small photo-preview-area-message mt-2"><?= $file['file_name'] ?></span>
                                         </div>
                                     </div>
                                 <?php else: ?>
@@ -100,7 +99,6 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                                         <a target="_blank" href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>">
                                             <div class="photo-preview-background text-center">
                                                 <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
-                                                <span class="text-white small photo-preview-area-message mt-2"><?= $file['file_name'] ?></span>
                                             </div>
                                         </a>
                                     </div>

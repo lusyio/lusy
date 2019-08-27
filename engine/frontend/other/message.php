@@ -27,7 +27,7 @@
                             </p>
                         <?php else: ?>
                         <div class="pb-4 photo-preview-container-task-hover border-0">
-                            <div class="photo-preview-container photo-preview-container-files clear_fix"><a sizeFile="<?= $file['file_size'] ?>" target="_blank" class="photo-preview" style="background-image: url('/upload/file.png')"
+                            <div class="photo-preview-container photo-preview-container-files mb-3 clear_fix"><a sizeFile="<?= $file['file_size'] ?>" target="_blank" class="photo-preview" style="background-image: url('/upload/file.png')"
                                                                                                                                        href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
                             <p class="small text-muted-new text-center photo-preview-area-message m-0">
                                 <?= $file['file_name'] ?>
@@ -36,7 +36,6 @@
                             <a target="_blank" href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>">
                                 <div class="photo-preview-background text-center">
                                     <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
-                                    <span class="text-white small photo-preview-area-message mt-2"><?= $file['file_name'] ?></span>
                                 </div>
                             </a>
                         </div>
