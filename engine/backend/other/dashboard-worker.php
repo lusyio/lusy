@@ -19,7 +19,7 @@ require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
 require_once __ROOT__ . '/engine/backend/classes/EventList.php';
 
 
-$countStatusQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (worker= :userId OR manager= :userId OR tc.worker_id = :userId) and t.status IN ('new', 'inwork', 'returned', 'pending', 'postpone', 'overdue') GROUP BY t.status");
+$countStatusQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (worker= :userId OR manager= :userId OR tc.worker_id = :userId) and t.status IN ('new', 'inwork', 'returned', 'pending', 'postpone', 'overdue', 'planned') GROUP BY t.status");
 $countStatusQuery->execute([':userId' => $id]);
 $countStatus = $countStatusQuery->fetchAll(PDO::FETCH_ASSOC);
 
@@ -38,6 +38,8 @@ foreach ($countStatus as $group) {
         $postpone = $group['count'];
     } elseif ($group['status'] == 'overdue') {
         $overdue = $group['count'];
+    } elseif ($group['status'] == 'planned') {
+        $planned = $group['count'];
     }
     $all += $group['count'];
 }
