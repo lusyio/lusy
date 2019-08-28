@@ -19,7 +19,7 @@
                                 </p>
                             </div>
                         <?php else: ?>
-                            <div class="pb-4 photo-preview-container-task-hover border-0">
+                            <div class="pb-4 photo-preview-container-task-hover">
                                 <div class="photo-preview-container photo-preview-container-files mb-3 clear_fix"><a
                                             sizeFile="<?= $file['file_size'] ?>" target="_blank"
                                             class="photo-preview" style="background-image: url('/upload/file.png')"
