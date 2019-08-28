@@ -278,8 +278,8 @@ if ($id == $worker and $view == 0) {
                     <?php endif; ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
-            <?php endif; ?>
             </div>
+            <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
                     <?php
