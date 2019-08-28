@@ -51,12 +51,10 @@ $(document).ready(function () {
             $('#comments').html(data).fadeIn();
             countComments();
             var commentIdToScroll = window.location.hash.substr(1);
-            console.log(commentIdToScroll);
             if (commentIdToScroll > 0) {
                 $('#' + commentIdToScroll).addClass('bg-primary');
                 location.hash = '';
 
-                console.log(true);
                 $('html, body').animate({
                     scrollTop: $('#' + commentIdToScroll).offset().top - 20
                 }, 500);
@@ -137,7 +135,6 @@ $(document).ready(function () {
     dropZone2.on('drop', function (e) {
         $('.drag-n-drop').removeClass('dragover');
         var files = e.originalEvent.dataTransfer.files;
-        console.log(files);
         sendFiles2(files);
     });
 
@@ -178,7 +175,6 @@ $(document).ready(function () {
     dropZone.on('drop', function (e) {
         $('.comment-container-task').removeClass('dragover');
         var files = e.originalEvent.dataTransfer.files;
-        console.log(files);
         sendFiles(files);
     });
 
@@ -273,7 +269,6 @@ $(document).ready(function () {
 
     $("#comment").on('click', function () {
         var text = $("#comin").val();
-        console.log(attachedFile);
         var fd = new FormData();
         var attachedGoogleFiles = {};
         $('.attached-google-drive-file').each(function (i, googleFileToSend) {
@@ -300,7 +295,6 @@ $(document).ready(function () {
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
         if (text) {
             $(this).prop('disabled', true);
-            console.log(fd.get('googleAttach'));
             $("#comin").attr("disabled", true);
             $('#comment').html('<i class="fas fa-spinner fa-spin"></i>');
             $('#comments').fadeOut();
@@ -756,8 +750,6 @@ $(document).ready(function () {
     });
 
     $('.checkbox-checklist').on('change', function () {
-        // var isChecked = $(this).prop('checked');
-        // console.log(isChecked);
         var $this = $(this);
         var idCheckList = $(this).attr('idChecklist');
         $.ajax({
@@ -771,7 +763,6 @@ $(document).ready(function () {
                 checklistRow: idCheckList
             },
             success: function (data) {
-                console.log(data);
                 if (data == 1) {
                     $this.prop('checked', true);
                     var userName = $('#fullUserName').val();
