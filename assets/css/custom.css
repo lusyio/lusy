@@ -5025,6 +5025,11 @@ and (min-width: 576px) {
         flex: unset;
         max-width: unset;
     }
+    .col-sm-4.navbarNav.navbar-collapse{
+        -ms-flex: unset;
+         flex: unset;
+         max-width: unset;
+    }
 }
 
 label.error {
