@@ -164,6 +164,9 @@ muted - #B6BAC6
 .text-muted {
     color: #B6BAC6 !important;
 }
+.badge-dark.text-gold{
+    background-color: #343a40 !important;
+}
 
 .badge-dark {
     background-color: #4d71d8;
