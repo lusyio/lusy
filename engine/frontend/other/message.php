@@ -120,5 +120,3 @@
         $('.image-preview-file-size').text(size + 'мб');
     });
 </script>
-
-

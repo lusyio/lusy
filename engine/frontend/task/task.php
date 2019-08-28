@@ -507,7 +507,6 @@ if ($id == $worker and $view == 0) {
                 if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
-                        console.log(file);
                         if ($('#openGoogleDrive').data('clicked')) {
                             addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive', 'file-name');
                         }
@@ -572,7 +571,6 @@ if ($id == $worker and $view == 0) {
 
         //===================End of Dropbox=======================
         function addFileToList(name, link, size, source, icon, cont) {
-            console.log(cont);
             $('.' + cont).show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "' data-file-size='" + size + "'>" +
                 "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
                 "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
