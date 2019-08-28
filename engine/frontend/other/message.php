@@ -22,11 +22,11 @@
                         <p class="m-0"><s><?= $file['file_name'] ?></s> <?= $GLOBALS['_deletedconversation'] ?></p>
                     <?php else: ?>
                         <?php if (in_array($file['extension'],['png', 'jpeg', 'jpg', 'bmp'])): ?>
-                            <p data-target=".bd-example-modal-xl" data-toggle="modal" class="m-0 photo-preview-container photo-preview-container-messages clear_fix"><a sizeFile="<?= $file['file_size'] ?>" target="_blank" class="photo-preview" style="pointer-events: none;background-image: url('/<?= $file['file_path']; ?>')"
+                            <p data-target=".bd-example-modal-xl" data-toggle="modal" class="m-0 mb-2 photo-preview-container photo-preview-container-messages clear_fix"><a sizeFile="<?= $file['file_size'] ?>" target="_blank" class="photo-preview" style="pointer-events: none;background-image: url('/<?= $file['file_path']; ?>')"
                                                                                                                                        href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
                             </p>
                         <?php else: ?>
-                        <div class="pb-4 photo-preview-container-task-hover border-0">
+                        <div class="pb-4 photo-preview-container-task-hover border-0 mr-2 mb-2">
                             <div class="photo-preview-container photo-preview-container-files mb-3 clear_fix"><a sizeFile="<?= $file['file_size'] ?>" target="_blank" class="photo-preview" style="background-image: url('/upload/file.png')"
                                                                                                                                        href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><?= $file['file_name'] ?></a>
                             <p class="small text-muted-new text-center photo-preview-area-message m-0">
