@@ -507,23 +507,6 @@
 
     $(document).ready(function () {
 
-        var anchor = window.location.hash.split('#');
-        if(anchor[1] == "collapseNoty"){
-            $("#collapseProfile").collapse('hide');
-            $('#'+anchor[1]).slideDown();
-            $('html, body').animate({
-                scrollTop: $('#' + anchor[1]).offset().top - 20
-            }, 1000);
-            setTimeout(function () {
-                $('.new-checkbox').each(function () {
-                    if ($(this).is(':checked')){
-                        $(this).trigger('click');
-                    } else{
-                    }
-                });
-            }, 1500);
-        }
-
         $('#bDayDate').mask('0000-00-00');
         $('#settingsPhoneNumber').mask('0 (000) 000-00-00');
 
