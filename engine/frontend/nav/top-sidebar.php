@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <a class="navbar-brand visible-lg" href="/"><?= $namec ?></a>
+                <a class="navbar-brand visible-lg" href="/"><span class="logo mr-3">L</span><?= $namec ?></a>
                 <button class="navbar-toggler float-right position-relative" type="button" data-toggle="collapse"
                         data-target=".navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><i
@@ -129,7 +129,7 @@
             var submenu = $(this).parent().find('.submenu');
             submenu.fadeToggle(300);
             i++;
-            i % 2 === 0 ? $('.new-menu-trigger').css('background-color', 'white') : $('.new-menu-trigger').css('background-color', 'rgba(95, 99, 104, 0.1)');
+            i % 2 === 0 ? $('.new-menu-trigger').css('background-color', '#fafafa') : $('.new-menu-trigger').css('background-color', 'rgba(95, 99, 104, 0.1)');
         });
         $(document).on('click', function (e) {
             if (!$(e.target).closest(".new-menu-trigger").length) {

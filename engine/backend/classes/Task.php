@@ -77,6 +77,10 @@ class Task
         $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
         $filesQuery->execute(array(':commentId' => $taskId, ':commentType' => 'task'));
         $this->taskData['files'] = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($this->taskData['files'] as $key => $file) {
+            $fileNameParts = explode('.', $file['file_name']);
+            $this->taskData['files'][$key]['extension'] = mb_strtolower(array_pop($fileNameParts));
+        }
         if ($isCeo && $id != $this->taskData['manager'] && $id != $this->taskData['worker'] && !in_array($id, $this->taskData['coworkers'])) {
             $this->taskData['mainRole'] = 'ceo';
         } else if ($id == $this->taskData['manager']) {

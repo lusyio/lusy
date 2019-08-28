@@ -15,13 +15,14 @@ global $cometTrackChannelName;
 global $supportCometHash;
 global $nameu;
 
-$countStatusQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (worker= :userId OR manager= :userId OR tc.worker_id = :userId) and t.status IN ('new', 'inwork', 'returned', 'pending', 'postpone', 'overdue') GROUP BY t.status");
+$countStatusQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (worker= :userId OR manager= :userId OR tc.worker_id = :userId) and t.status IN ('new', 'inwork', 'returned', 'pending', 'postpone', 'overdue', 'planned') GROUP BY t.status");
 $countStatusQuery->execute([':userId' => $id]);
 $countStatus = $countStatusQuery->fetchAll(PDO::FETCH_ASSOC);
 $inwork = 0;
 $pending = 0;
 $postpone = 0;
 $overdue = 0;
+$planned = 0;
 $all = 0;
 foreach ($countStatus as $group) {
     if (in_array($group['status'], ['new', 'inwork', 'returned' ])) {
@@ -32,6 +33,8 @@ foreach ($countStatus as $group) {
         $postpone = $group['count'];
     } elseif ($group['status'] == 'overdue') {
         $overdue = $group['count'];
+    } elseif ($group['status'] == 'planned') {
+        $planned = $group['count'];
     }
     $all += $group['count'];
 }

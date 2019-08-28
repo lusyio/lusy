@@ -1,4 +1,4 @@
-<div id="status-block">
+<div id="status-block" class="mt-3">
     <div class="postpone-manager">
         <p class="text-ligther">
         <?=$workerName?> запрашивает перенос срока на дату <?=$postponedate?>

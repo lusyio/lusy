@@ -27,6 +27,7 @@ $inwork = 0;
 $pending = 0;
 $postpone = 0;
 $overdue = 0;
+$planned = 0;
 $all = 0;
 foreach ($countStatus as $group) {
     if (in_array($group['status'], ['new', 'inwork', 'returned' ])) {

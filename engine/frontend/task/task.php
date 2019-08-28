@@ -239,17 +239,47 @@ if ($id == $worker and $view == 0) {
                 </div>
             <?php endif; ?>
             <?php if (count($files) > 0): ?>
+            <div class="d-flex flex-wrap">
                 <?php foreach ($files as $file): ?>
                     <?php if ($file['is_deleted']): ?>
                         <p class="text-secondary"><s><i class="fas fa-paperclip"></i> <?= $file['file_name'] ?></s>
                             (удален)</p>
                     <?php else: ?>
-                        <p class="text-secondary"><a class="text-secondary"
+                    <?php if (in_array($file['extension'],['png', 'jpeg', 'jpg', 'bmp'])): ?>
+                    <div class="photo-preview-container-task-hover mr-2 mb-2">
+                        <div class="text-secondary photo-preview-container photo-preview-container-task clear_fix mb-4">
+                            <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="pointer-events: none;background-image: url('/<?= $file['file_path']; ?>')"
                                                      href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
-                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a></p>
+                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
+                            <p class="small text-muted-new text-center photo-preview-area-message m-0">
+                                <?= $file['file_name'] ?>
+                            </p>
+                        </div>
+                        <div class="photo-preview-background text-center" data-target=".bd-example-modal-xl" data-toggle="modal">
+                            <span class="photo-preview-background-icon"><i class="fas fa-search text-white"></i></span>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                    <div class="photo-preview-container-task-hover mr-2 mb-2">
+                        <div class="text-secondary photo-preview-container photo-preview-container-task clear_fix mb-4">
+                            <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="background-size: contain;background-image: url('/upload/file.png')"
+                               href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
+                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
+                            <p class="small text-muted-new text-center photo-preview-area-message m-0">
+                                <?= $file['file_name'] ?>
+                            </p>
+                        </div>
+                        <a target="_blank" href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>">
+                            <div class="photo-preview-background text-center">
+                                <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                    <?php endif; ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
+            </div>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
                     <?php
@@ -373,6 +403,30 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>
 </div>
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="photo-preview-name m-0"></h5>
+            </div>
+            <img class="image-modal" src="">
+            <div class="modal-footer" style="justify-content: flex-end">
+                <span class="text-muted-new small d-none">
+                    Дата загрузки : <span class="image-preview-date-upload">xx-xx-xxxx</span>
+                </span>
+                <span class="text-muted-new small">
+                    Размер файла : <span class="image-preview-file-size">xx мб</span>
+                    |
+                    <a class="image-preview-open text-muted-new " href="">Открыть оригинал</a>
+                </span>
+            </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
+        </div>
+    </div>
+</div>
 <?php if ($tariff == 1 || $tryPremiumLimits['cloud'] < 3): ?>
     <script type="text/javascript">
         $('#openGoogleDrive').click(function () {
@@ -453,7 +507,6 @@ if ($id == $worker and $view == 0) {
                 if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
-                        console.log(file);
                         if ($('#openGoogleDrive').data('clicked')) {
                             addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive', 'file-name');
                         }
@@ -518,7 +571,6 @@ if ($id == $worker and $view == 0) {
 
         //===================End of Dropbox=======================
         function addFileToList(name, link, size, source, icon, cont) {
-            console.log(cont);
             $('.' + cont).show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "' data-file-size='" + size + "'>" +
                 "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
                 "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +

@@ -8,6 +8,10 @@
     z-index: 1;
 }
 
+.report h4 {
+    font-weight: 700 !important;
+    color: black;
+}
 .container-members-responsible-selected.coworkers-list{
     background-color: #ffffff !important;
 }
@@ -44,9 +48,6 @@
     padding-right: 45px;
 }
 
-#backbutton{
-    height: 38px;
-}
 
 .col-md-4 #log .timeline{
     bottom: -300px;
@@ -149,10 +150,10 @@
 .postpone-manager {
     background-color: #f7f7f7;
     display: block;
-    border-radius: 10px;
-    padding: 15px;
-    color: rgba(0, 0, 0, 1);
+    border-radius: 7px;
+    padding: 20px;
     font-weight: 500;
+    margin-bottom: 20px;
 }
 
 #comments {

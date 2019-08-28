@@ -400,6 +400,10 @@ msgstr "На рассмотрении"
 msgid "Postponement"
 msgstr "Перенос срока"
 
+#: engine/frontend/other/dashboard-ceo.php:348
+msgid "Planned"
+msgstr "Запланировано"
+
 #: engine/frontend/other/godmode.php:82
 msgid "active company"
 msgid_plural "active companies"
