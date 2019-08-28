@@ -3345,11 +3345,9 @@ span.date {
     -webkit-box-orient: vertical;
 }
 
-.photo-preview-container-messages:hover{
-    transform: translateY(-3px);
-}
-
 .photo-preview-container-messages{
+    overflow: hidden;
+    position: relative;
     box-shadow: rgba(197, 197, 201, 0.8) 0px 3px 3px -2px;
     -webkit-transition: box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
     transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s;
@@ -3397,6 +3395,25 @@ span.date {
     left: 0;
     position: absolute;
     right: 0;
+}
+
+.disable-transform{
+    transform: unset !important;
+}
+
+.photo-preview-background-mes{
+    height: 200px;
+    top: 200px;
+    border-radius: 4px;
+}
+
+.photo-preview-background-mes .photo-preview-background-icon{
+    left: 46%;
+    top: 38%;
+}
+
+.photo-preview-container-messages:hover .photo-preview-background-mes{
+    top: 0;
 }
 
 .photo-preview-background-icon{

@@ -17,9 +17,13 @@
                                 <p class="small text-muted-new text-center photo-preview-area-message m-0">
                                     <?= $file['file_name'] ?>
                                 </p>
+                                <div class="photo-preview-background photo-preview-background-mes text-center" data-target=".bd-example-modal-xl" data-toggle="modal">
+                                    <span class="photo-preview-background-icon"><i class="fas fa-search text-white"></i></span>
+                                </div>
                             </div>
+
                         <?php else: ?>
-                            <div class="pb-4 photo-preview-container-task-hover">
+                            <div class="pb-4 photo-preview-container-task-hover disable-transform">
                                 <div class="photo-preview-container photo-preview-container-files mb-3 clear_fix"><a
                                             sizeFile="<?= $file['file_size'] ?>" target="_blank"
                                             class="photo-preview" style="background-image: url('/upload/file.png')"
