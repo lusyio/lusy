@@ -28,11 +28,8 @@ if ($_POST['module'] == 'sendActivation' && $roleu == 'ceo') {
         $mail->addAddress($ceoEmail);
         $mail->isHTML();
         $mail->Subject = "Подтверждение e-mail";
-        $unsubscribeCode = generateUnsubscribeCode($ceoId);
-        $unsubscribeLink = $ceoId . '/' . $unsubscribeCode . '/';
         $args = [
             'activationLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/activate/' . $idc . '/' . $activationCode . '/',
-            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('company-activation', $args);
         $mail->send();

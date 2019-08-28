@@ -1813,10 +1813,8 @@ function sendActivationLink($companyId, $password = null)
         $mail->addAddress($seoMail);
         $mail->isHTML();
         $unsubscribeCode = generateUnsubscribeCode($seoId);
-        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
         $args = [
             'activationLink' => 'https://s.lusy.io/activate/' . $companyId . '/' . $activationCode . '/',
-            'unsubscribeLink' => $unsubscribeLink,
         ];
         if (is_null($password)) {
             $mail->Subject = "Подтверждение e-mail";
