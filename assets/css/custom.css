@@ -3345,6 +3345,21 @@ span.date {
     -webkit-box-orient: vertical;
 }
 
+.photo-preview-container-messages:hover{
+    transform: translateY(-3px);
+}
+
+.photo-preview-container-messages{
+    box-shadow: rgba(197, 197, 201, 0.8) 0px 3px 3px -2px;
+    -webkit-transition: box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
+    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s;
+    transition: transform .15s ease-out,box-shadow .15s ease-out,opacity .15s ease-out,.15s margin-left .15s ease-out,.15s visibility .15s,-webkit-transform .15s ease-out;
+}
+
+.photo-preview-container-messages .photo-preview-area-message{
+    -webkit-line-clamp: 1;
+}
+
 .photo-preview-background .photo-preview-area-message{
     font-weight: 700;
 }
@@ -3382,17 +3397,6 @@ span.date {
     left: 0;
     position: absolute;
     right: 0;
-}
-
-p.photo-preview-container a{
-    transition: 200ms;
-}
-
-p.photo-preview-container:hover a{
-    transform: translateY(-3px);
-    -webkit-box-shadow: 0px 3px 4px -1px rgba(0,0,0,0.55);
-    -moz-box-shadow: 0px 3px 4px -1px rgba(0,0,0,0.55);
-    box-shadow: 0px 3px 4px -1px rgba(0,0,0,0.55);
 }
 
 .photo-preview-background-icon{
