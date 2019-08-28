@@ -83,7 +83,7 @@ if (!is_null($commentViewStatus) && isset($commentViewStatus[$c['manager']])) {
                                             </p>
                                         </div>
                                         <div class="photo-preview-background text-center" data-target=".bd-example-modal-xl" data-toggle="modal">
-                                            <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
+                                            <span class="photo-preview-background-icon"><i class="fas fa-search text-white"></i></span>
                                         </div>
                                     </div>
                                 <?php else: ?>
