@@ -417,7 +417,7 @@ if ($id == $worker and $view == 0) {
                 <span class="text-muted-new small">
                     Размер файла : <span class="image-preview-file-size">xx мб</span>
                     |
-                    <a class="image-preview-open text-muted-new " href="">Открыть оригинал</a>
+                    <a class="image-preview-open text-muted-new " target="_blank" href="">Открыть оригинал</a>
                 </span>
             </div>
             <span class="icon-close-modal">
