@@ -4145,8 +4145,7 @@ span.date {
 /* iPads (portrait) ----------- */
 @media only screen
 and (max-width: 1024px)
-and (min-width: 768px)
-and (orientation: portrait) {
+and (min-width: 768px) {
 
     .alerts {
         display: flex;
@@ -4290,6 +4289,7 @@ and (orientation: landscape) {
 @media only screen
 and (min-width: 1025px)
 and (max-width: 1200px) {
+
     .bg-icon-achieve {
         position: absolute;
         top: 25%;
@@ -4313,6 +4313,9 @@ and (max-width: 1200px) {
 
     .subtask-badge-mobile{
         display: none;
+    }
+    .label-tasknew {
+        padding-left: 0px;
     }
 
 }
@@ -4346,6 +4349,681 @@ and (max-width: 1366px) {
     }
     .task-card .col-4, .task-card .col-3 {
         font-size: 14px;
+    }
+}
+
+@media only screen
+and (max-width: 991px)
+and (min-width: 768px) {
+    .count-company-tasks{
+        color: black !important;
+    }
+    .searchDiv {
+        display: none;
+    }
+
+    #afterRegModal .col-3{
+        display: none;
+    }
+
+    #afterRegModal .col-4{
+        display: none;
+    }
+
+    #afterRegModal .col-12.col-lg-8.text-right{
+        text-align: center !important;
+    }
+
+    #afterRegModal .btn-afterreg.btn.btn-light{
+        height: 100%;
+    }
+
+    #report-block .icon-btn-taskblock{
+        display: none;
+    }
+
+    #control .btn{
+        padding: .375rem .75rem;
+        height: 38px;
+    }
+
+    #chatBox{
+        width: 100%;
+        padding-right: 0 !important;
+    }
+
+    .report-task-text{
+        vertical-align: unset;
+    }
+
+    .limit-modal .text-block{
+        width: 100%;
+    }
+
+    .limit-modal .modal-footer{
+        justify-content: center;
+    }
+
+    .top-block-tasknew{
+        margin-bottom: 13px;
+    }
+
+    .limit-modal .modal-content{
+        padding: 0;
+    }
+
+    .create-report-btn {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .modal-dialog-tariff .flex-modal{
+        display: block;
+    }
+
+    .companyRegBlock {
+        margin-top: 20px;
+        display: block !important;
+    }
+    .companyRegBlock div {
+        margin-right: 6px;
+        float: left;
+    }
+    .companyRegBlock button, .companyRegBlock a {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .companyRegBlock button i, .companyRegBlock a i {
+        float: left;
+    }
+    .companyRegBlock button p, .companyRegBlock a p {
+        margin-top: 3px;
+        font-weight: bold;
+    }
+    .companyesList .col-sm-1 {
+        display: none;
+    }
+    .promocode-block{
+        margin-top: 3rem;
+    }
+
+    .subtask-badge-desktop{
+        display: none;
+    }
+
+    #sendBtn{
+        left: -45px;
+    }
+
+    .edit-tariff-block{
+        position: unset;
+    }
+
+    .card-header.text-center.bg-message.border-0{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #mes{
+        padding-left: 70px;
+        padding-right: 40px;
+    }
+
+    .task-report{
+        padding-left: 15px;
+    }
+
+    .worker-name-reports{
+        margin-bottom: 25px;
+    }
+
+    #sendonreview{
+        padding: 6px 9px;
+        height: 38px;
+    }
+
+    .subtask-task .col-3 {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .task-card .taskname-subtask{
+        padding-left: 0;
+    }
+
+    .subtask-task .taskname {
+        padding-left: 1px !important;
+    }
+
+    .subtask-task .avatar-subtask-task {
+        padding-left: 0;
+        padding-right: 18px;
+    }
+
+    .border-bottom-company .col-4.col-sm-2{
+        padding-left: 0 !important;
+    }
+
+    .border-bottom-company .col-lg-1.col-2{
+        padding-left: 0.5rem !important;
+    }
+
+    .taskDiv .text-lowercase.font-weight-bold{
+        line-height: unset !important;
+    }
+
+    .taskDiv .col-7.col-lg-5.p-0.pl-2{
+        padding-right: 0.5rem !important;
+    }
+
+    .taskDiv .col-1.mr-3.text-center{
+        padding-right: 0;
+    }
+
+    .subtask-task .col-12 {
+        margin-bottom: 10px;
+    }
+
+    .subtask-task .avatars {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    #task .col-6.col-lg-8{
+        padding-left: 0;
+    }
+
+    .subtask-task .d-block {
+        height: unset !important;
+        padding-left: 2px;
+    }
+
+    .ql-editor:after {
+        width: 79.5%;
+    }
+
+    .card-tariff-right>.card-body{
+        padding-top: 0;
+    }
+
+    .lead-text {
+        font-size: 38px;
+    }
+    #mainSwiper {
+        display: none;
+        margin-left: -50vw;
+        left: 50%;
+        width: 100vw;
+        height: calc(100% + 10px);
+        padding-top: 10px;
+    }
+    #mainSwiper .task-card {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .bg-icon-achieve{
+        left: 27%;
+        width: 47%;
+    }
+
+    .price-card:last-of-type{
+        margin-top: 15px;
+    }
+
+    .bg-icon-ruble{
+        top: 20px;
+    }
+
+    .noty-padding-content-settings-sleep{
+        display: block !important;
+    }
+
+    .text-area{
+        margin: 0px;
+    }
+
+    .left-modal .modal-body.text-left{
+        margin-left: 0;
+    }
+
+    .radio-body{
+        padding-left: 0;
+    }
+
+    .left-modal{
+        padding-bottom: 0;
+        min-width: 100%;
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .right-modal{
+        padding-top: 0;
+        min-width: 100%;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+        padding-right: 0;
+    }
+
+    #disabledBtn{
+        width: 92%;
+        height: 16%;
+        z-index: 100000;
+        opacity: 0;
+        bottom: 0;
+    }
+
+    #disabledBtnChange{
+        width: 92%;
+        height: 16%;
+        z-index: 100000;
+        opacity: 0;
+        bottom: 0;
+    }
+
+    .right-modal .modal-body.text-left{
+        margin-left: 0px;
+    }
+
+    .modal-bottom{
+        display: none;
+    }
+
+    .card-tasks-dash:last-of-type{
+        margin-bottom: 0!important;
+    }
+
+    .change-plan-date{
+        width: 76% !important;;
+    }
+
+    .info-company{
+        display: none;
+    }
+
+    .noty-invite{
+        top: 49px;
+        left: 25px;
+    }
+
+    .text-invite{
+        display: none !important;
+    }
+    .invite-card-content{
+        margin-bottom: 8px;
+    }
+    .invite-card-text{
+        color: #6c757d!important;
+    }
+    .btn-invite{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .search-container-awards {
+        width: 100% !important;
+    }
+    .counters-topsidebar {
+        margin-left: -15px;
+    }
+    [data-trigger="dropdown"] {
+        padding: 0;
+    }
+
+    .send-mes-tooltip{
+        display: none !important;
+    }
+
+    .chart-card{
+        margin-bottom: 10px;
+    }
+
+    .bg-mail > .card-body{
+        padding-bottom: 1.25rem!important;
+    }
+
+    .send-mes-block{
+        display: block!important;
+    }
+
+    .noty-padding-content-settings{
+        padding-top: 0px;
+    }
+    #chatBox {
+        height: calc(100vh - 100px);
+    }
+
+    .chart-content{
+        padding-bottom: 1.25rem;
+    }
+
+    .badge-company-dark{
+        background-color: #343a40 !important;
+        color: white;
+    }
+
+
+    .badge-company-primary{
+        background-color: #5d95db !important;
+        color: white;
+    }
+
+    .deadline-block-word{
+        display: none;
+    }
+
+    .right-report{
+        order: 1;
+        border-left: none;
+    }
+
+    .right-report>.count-tasks-reports, .count-info-reports{
+        margin-left: 0;
+    }
+
+    .my-message{
+        margin-left: 15%;
+    }
+    .not-my-message{
+        margin-right: 15%;
+    }
+
+
+    .left-report{
+        order: 2;
+    }
+
+    .add-newtask-button{
+        display: inline !important;
+    }
+
+    .company-tasks{
+        display: inline;
+    }
+    #workzone {
+        margin-top: 10px;
+    }
+    .no-events, .no-events-no {
+        display: none;
+    }
+    [role="menuitem"]{
+        width: 17rem !important;
+    }
+
+    .avatar-settings{
+        width: 100px !important;
+    }
+
+    .bottomGradient {
+        width: 92%;
+        bottom: -15px;
+    }
+
+    .mobile-online-indicator{
+        top: -5px;
+        right: 0;
+    }
+
+    .dialog-list{
+        right: 0px;
+    }
+
+    .message-width{
+        min-width: 40%;
+        max-width: fit-content;
+    }
+
+    .not-my-message .col-2 {
+        margin-left: 10px;
+        margin-right: 8px;
+        padding-left: 0!important;
+    }
+
+    .header-profile::after{
+        display: block;
+        clear: both;
+        content: "";
+    }
+
+    .dialog-list{
+        top: -9px;
+        right: -1px;
+    }
+
+    .wizard > .content {
+        min-height: 19rem !important;
+    }
+    .wizard > .actions > ul {
+        margin-bottom: 20px;
+    }
+    .user-pic{
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 1em;
+    }
+
+    .avatar-profile{
+        width: 70px !important;
+    }
+
+    .task-box{
+        display: none !important;
+    }
+
+    .fio-profile{
+        font-size: 17px;
+    }
+
+    .members{
+        width: 340px;
+    }
+
+    .text-award{
+        max-width: 160px;
+        word-wrap: break-word;
+        font-size: 80%
+    }
+    .award:nth-child(3n){
+        margin-right: 12px;
+    }
+    .award:nth-child(2n){
+        margin-right: 0;
+    }
+    .award{
+        min-width: 43.4vw;
+        max-width: 43.4vw;
+        margin-right: 12px;
+    }
+
+    .left-report .col-6.col-lg-6{
+        padding: 0 !important;
+    }
+
+    .load-log{
+        left: 45%;
+    }
+
+    .eventDiv .col-5{
+        padding-right: 0;
+    }
+
+    .right-report {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .award:last-of-type{
+        margin-right: 0 !important;
+    }
+
+    .award-sm{
+        min-width: 43.4vw;
+        max-width: 43.4vw;
+        margin-right: 10px;
+    }
+
+
+    .award-sm:nth-child(3n){
+        margin-right: 10px !important;
+    }
+
+    #accordionSettings .position-absolute.edit-settings{
+        top: 4px;
+    }
+
+    .award-sm:nth-child(2n){
+        margin-right: 0!important;
+    }
+
+    #taskListSlide .taskDiv.create-new-task.search-empty-new-task{
+        display: none;
+    }
+
+    .profile-body .additional-func span{
+        padding: 0 3%;
+    }
+
+    .text-decoration-none.cust .taskDiv.create-new-task.mb-2{
+        display: none;
+    }
+
+    #comments .comment {
+        margin-bottom: 1.5rem !important;
+    }
+
+    #comments .col-10.col-lg-11{
+        padding-top: 18px;
+    }
+
+    #comments .date {
+        left: 0;
+        top: -17px;
+    }
+
+    .mt-5.mb-5.system.text-center.text-secondary.position-relative .system-text span{
+        padding: 0;
+    }
+
+    .user-img {
+        width: 35px;
+    }
+
+    #task .card-body {
+        padding: 1rem 1rem;
+    }
+    .task-card .col-sm-5 {
+        margin-bottom: 10px;
+    }
+    .task-card .col-3 {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    .avatars div {
+        float: right;
+    }
+
+    .avatars-big{
+        padding-right: 15px;
+    }
+
+
+    .fc {
+        display: none !important;
+    }
+
+    .taskDiv .mr-3 {
+        flex: auto;
+        max-width: none;
+        position: absolute;
+        right: 0px;
+    }
+
+    .taskDiv .col div {
+        float: left !important;
+        text-align: left !important;
+        border-top: 1px solid #f5f5f6;
+        width: 100%;
+        padding-top: 10px;
+        margin-top: 5px;
+    }
+
+    .taskDiv .col {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-top: 10px;
+        padding-left: 30px !important;
+        display: none;
+    }
+
+    .taskDiv .col-1 span {
+        float: right !important;
+    }
+
+    .list-group .dialog-list {
+        top: -9px;
+        right: 9px;
+    }
+
+    .icon-more-tasks{
+        display: none;
+    }
+
+    .eventDiv .col-1 {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+        padding-left: 30px;
+        padding-right: 0px;
+    }
+    .eventDiv .col-2 {
+        -ms-flex: auto;
+        flex: auto;
+        max-width: none;
+        position: absolute;
+        right: 0px;
+    }
+    .eventDiv .col-4 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-top: 10px;
+        padding-left: 30px !important;
+    }
+    .eventDiv .col-4 div {
+        float: left !important;
+        text-align: left !important;
+        border-top: 1px solid #f5f5f6;
+        width: 100%;
+        padding-top: 10px;
+        margin-top: 5px;
+    }
+    .award-sm {
+        min-width: 20.4vw;
+        max-width: 20.4vw;
+        margin-right: 10px;
+    }
+    .award {
+        min-width: 24.4vw;
+        max-width: 24.4vw;
+        margin-right: 12px;
+    }
+}
+@media only screen
+and (max-width: 767px)
+and (min-width: 576px) {
+    .col-sm-3 {
+        -ms-flex: unset;
+        flex: unset;
+        max-width: unset;
+    }
+    .col-sm-9 {
+        -ms-flex: unset;
+        flex: unset;
+        max-width: unset;
     }
 }
 
