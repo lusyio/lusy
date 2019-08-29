@@ -53,9 +53,7 @@ class EmployeeTaskList extends TaskList
         $tasksStmt = $pdo->prepare($queryWithInArray . $this->queryStatusFilterString . $this->tasksQueryOrderString . $this->tasksQueryLimitString . $this->tasksQueryOffsetString);
         $tasksStmt->execute($this->queryArgs);
         $tasksResult = $tasksStmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($tasksResult as $taskData) {
-            $this->tasks[] = new Task($taskData['id'], $taskData, $this->subTaskFilterString);
-        }
+        $this->tasksQueryResult = $tasksResult;
     }
     public function executeCountQuery()
     {

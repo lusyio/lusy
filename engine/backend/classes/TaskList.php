@@ -177,9 +177,39 @@ abstract class TaskList
             $this->tasksQueryOrderString = ' ORDER BY t.datedone DESC';
         }
     }
+    public function addOrderByName($asc = true)
+    {
+        if ($asc) {
+            $this->tasksQueryOrderString = ' ORDER BY LCASE(t.name)';
+        } else {
+            $this->tasksQueryOrderString = ' ORDER BY LCASE(t.name) DESC';
+        }
+    }
 
     public function getCountResult()
     {
         return $this->countResult;
+    }
+
+    public function setWorkerFilter($workerId)
+    {
+        if ($workerId > 1) {
+            $appendix = ' AND t.worker = ' . $workerId;
+            $this->queryStatusFilterString .= $appendix;
+        }
+    }
+    public function setManagerFilter($managerId)
+    {
+        if ($managerId > 1) {
+            $appendix = ' AND t.manager = ' . $managerId;
+            $this->queryStatusFilterString .= $appendix;
+        }
+    }
+    public function setSelfTaskFilter($showSelfTasks)
+    {
+        if (!$showSelfTasks) {
+            $appendix = ' AND t.manager <> t.worker';
+            $this->queryStatusFilterString .= $appendix;
+        }
     }
 }

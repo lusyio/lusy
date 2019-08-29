@@ -1,5 +1,19 @@
-
-    <div class="task-card" data-worker-id="<?= $worker ?>" data-status="<?= $status ?>" data-deadline="<?= date('Y-m-d', $datedone) ?>" data-order-position="<?=(isset($orderPosition))? $orderPosition++ : '0' ?>">
+<?php
+if ($manager == $id) {
+    if ($worker == $id) {
+        $taskType = 'self';
+    } else {
+        $taskType = 'out';
+    }
+} elseif ($worker == $id) {
+    $taskType = 'in';
+} else {
+    $taskType = 'another';
+}
+?>
+    <div class="task-card" data-worker-id="<?= $worker ?>" data-status="<?= $status ?>" data-deadline="<?= date('Y-m-d', $datedone) ?>"
+         data-order-position="<?=(isset($orderPosition))? $orderPosition++ : '0' ?>"
+         data-task-type="<?= $taskType ?>">
         <div class="card mb-2 tasks <?= $status ?> <?= $mainRole ?>">
             <a href="/task/<?= $taskId ?>/" class="text-decoration-none cust">
                 <div class="card-body tasks-list <?= (count($subTasks)) ? 'shadow-subtask' : '';?> ">
@@ -59,8 +73,21 @@
                 $subManager = $subTask->get('manager');
                 $subWorker = $subTask->get('worker');
                 $subViewStatus = $subTask->get('viewStatus');
+                if ($subManager == $id) {
+                    if ($subWorker == $id) {
+                        $subTaskType = 'self';
+                    } else {
+                        $subTaskType = 'out';
+                    }
+                } elseif ($subWorker == $id) {
+                    $subTaskType = 'in';
+                } else {
+                    $subTaskType = 'another';
+                }
                 ?>
-                <div class="sub-task-card" data-worker-id="<?= $subWorker ?>" data-status="<?= $subStatus ?>" data-deadline="<?= date('Y-m-d', $subDatedone) ?>" data-order-position="<?=(isset($orderPosition))? $orderPosition++ : '0' ?>">
+                <div class="sub-task-card" data-worker-id="<?= $subWorker ?>" data-status="<?= $subStatus ?>"
+                     data-deadline="<?= date('Y-m-d', $subDatedone) ?>" data-order-position="<?=(isset($orderPosition))? $orderPosition++ : '0' ?>"
+                     data-task-type="<?= $subTaskType ?>">
                     <a href="/task/<?= $subTaskId ?>/" class="text-decoration-none cust">
                         <div class="tasks card-footer border-0 taskbox-padding">
                             <div class="d-block" style="margin-left: 8px;">
