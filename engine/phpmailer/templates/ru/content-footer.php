@@ -9,12 +9,9 @@
                     <td style="word-break:break-word;background-color: #ffffff;" align="center">
                         <div class="margin30t" style="margin-top: 30px;padding-top: 30px;padding-bottom: 30px;background-color: #f9f9f9;">
                             <div class="main" style="max-width: 600px;margin: 0 auto;">
-                                <div style="font-size: 13px;font-weight: 400;color: #353b41;">Вы получили это письмо, потому что являетесь пользователем
-                                    <a href="https://lusy.io/" style="font-size: 13px;letter-spacing: 0px;line-height: 1.4;font-weight: 900;color: #353b41;">
-                                        Lusy.io
-                                    </a>
+                                <div style="font-size: 13px;font-weight: 400;color: #353b41;">
+                                    <a href="https://lusy.io/" style="font-size: 13px;letter-spacing: 0px;line-height: 1.4;font-weight: 900;color: #353b41;">Lusy.io</a>
                                 </div>
-
                                     <hr style="border-top: 1px solid #e4e4e4;border-bottom: none;">
                                 <a href="https://s.lusy.io/" style="font-size: 13px;font-weight: 500;color: #27406a;">Рабочий стол</a>
                                 |
