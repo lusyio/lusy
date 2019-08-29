@@ -222,18 +222,6 @@ function checkForEmptyTaskList() {
 }
 
 $(document).ready(function () {
-
-    $(".progress-bar ").each(function () {
-        var danger = $(this).attr('aria-valuenow');
-        var danger1 = Number.parseInt(danger);
-        if (danger1 >= 95) {
-            $(this).next("medium").addClass('progress-danger');
-        }
-        if ($(this).parents("div").hasClass('done')) {
-            $(this).next("medium").html('<i class="fas fa-check p-1"></i>' + '<?=$GLOBALS["_donelist"]?>').addClass('progress-done p-2');
-        }
-    });
-
     $('.worker-dropdown-item').on('click', function (e) {
         e.preventDefault();
         var workerId = $(this).data('worker-id');
