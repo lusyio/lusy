@@ -53,7 +53,17 @@ $monthNumber = date("n", strtotime($userData['birthdate']));
                     <?php
                     endif;
                     ?>
-                    <span class="text-muted-reg"><?= ($userData['online']) ? $GLOBALS['_online'] : ((isset($userData['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $userData['activity']) : '') ?></span>
+                    <?php
+                    if (isset($userData['activity'])) {
+                        if (date('Y-m-d', $userData['activity']) == date('Y-m-d')) {
+                            $lastVisit = _('today at') . ' ' . date('H:i', $userData['activity']);
+                        } else {
+                            $lastVisit = date('d.m H:i', $userData['activity']);
+                        }
+                    } else {
+                        $lastVisit = '';
+                    }?>
+                    <span class="text-muted-reg"><?= ($userData['online']) ? $GLOBALS['_online'] : $lastVisit ?></span>
                     <?php if ($id === $profileId): ?>
                         <div class="icon-edit-profile">
                             <a data-toggle="tooltip" data-placement="bottom" title="Изменить профиль" href="/settings/"><i
@@ -72,8 +82,7 @@ $monthNumber = date("n", strtotime($userData['birthdate']));
                         </a>
                     <?php endif; ?>
                     <a href="mailto:<?= $userData['email'] ?>" class="text-secondary mb-2 d-block">
-                        <i class="fas fa-envelope mr-3"></i> <?= $userData['email'] ?>
-                    </a>
+                        <i class="fas fa-envelope mr-3"></i><?= $userData['email'] ?></a>
 
                     <?php if (!is_null($socialNetworks) && count($socialNetworks)): ?>
                         <div class="row">
