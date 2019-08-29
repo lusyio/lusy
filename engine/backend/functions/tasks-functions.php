@@ -53,6 +53,7 @@ function getSortedStatuses($usedStatuses)
         'overdue' => $GLOBALS["_overduefilter"],
         'postpone' => $GLOBALS["_postponefilter"],
         'pending' => $GLOBALS["_pendingfilter"],
+        'planned' => $GLOBALS["_plannedfilter"],
     ];
 
     foreach ($sortedStatuses as $k => $v) {
