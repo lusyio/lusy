@@ -43,8 +43,11 @@ if ($_POST['module'] == 'joinUser') {
         $mail->isHTML();
         $mail->Subject = "Добро пожаловать в Lusy.io";
         $companyName = DBOnce('idcompany', 'company', 'id='.$inviteData['company_id']);
+        $unsubscribeCode = generateUnsubscribeCode($newUserId);
+        $unsubscribeLink = $newUserId . '/' . $unsubscribeCode . '/';
         $args = [
             'companyName' => $companyName,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('user-welcome', $args);
         $mail->send();

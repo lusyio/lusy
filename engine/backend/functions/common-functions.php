@@ -1219,6 +1219,10 @@ function sendTaskWorkerEmailNotification($taskId, $action)
     $workerMailQuery->execute(array(':taskId' => $taskId));
     $workerMail = $workerMailQuery->fetch(PDO::FETCH_COLUMN);
 
+    $workerIdQuery = $pdo->prepare("SELECT u.id FROM tasks t LEFT JOIN users u ON t.worker = u.id WHERE t.id = :taskId");
+    $workerIdQuery->execute(array(':taskId' => $taskId));
+    $workerId = $workerIdQuery->fetch(PDO::FETCH_COLUMN);
+
     $managerNameQuery = $pdo->prepare("SELECT u.name, u.surname FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE t.id = :taskId");
     $managerNameQuery->execute(array(':taskId' => $taskId));
     $managerNameResult = $managerNameQuery->fetch(PDO::FETCH_ASSOC);
@@ -1229,12 +1233,14 @@ function sendTaskWorkerEmailNotification($taskId, $action)
     try {
         $mail->addAddress($workerMail);
         $mail->isHTML();
-
+        $unsubscribeCode = generateUnsubscribeCode($workerId);
+        $unsubscribeLink = $workerId . '/' . $unsubscribeCode . '/';
         $args = [
             'companyName' => $companyName,
             'taskId' => $taskId,
             'managerName' => $managerName,
             'taskName' => $taskName,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
 
         if ($action == 'createtask') {
@@ -1278,6 +1284,9 @@ function sendTaskManagerEmailNotification($taskId, $action)
     $managerMailQuery = $pdo->prepare("SELECT u.email FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE t.id = :taskId");
     $managerMailQuery->execute(array(':taskId' => $taskId));
     $managerMail = $managerMailQuery->fetch(PDO::FETCH_COLUMN);
+    $managerIdQuery = $pdo->prepare("SELECT u.id FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE t.id = :taskId");
+    $managerIdQuery->execute(array(':taskId' => $taskId));
+    $managerId = $managerIdQuery->fetch(PDO::FETCH_COLUMN);
 
     $workerIdQuery = $pdo->prepare("SELECT t.worker FROM tasks t WHERE t.id = :taskId");
     $workerIdQuery->execute(array(':taskId' => $taskId));
@@ -1288,12 +1297,14 @@ function sendTaskManagerEmailNotification($taskId, $action)
     try {
         $mail->addAddress($managerMail);
         $mail->isHTML();
-
+        $unsubscribeCode = generateUnsubscribeCode($managerId);
+        $unsubscribeLink = $managerId . '/' . $unsubscribeCode . '/';
         $args = [
             'companyName' => $companyName,
             'taskId' => $taskId,
             'workerName' => $workerName,
             'taskName' => $taskName,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
 
         if ($action == 'review') {
@@ -1413,10 +1424,13 @@ function sendMessageEmailNotification($userId, $authorId, $messageId)
         $mail->addAddress($userMail);
         $mail->isHTML();
         $mail->Subject = "Вам отправили личное сообщение в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($userId);
+        $unsubscribeLink = $userId . '/' . $unsubscribeCode . '/';
         $args = [
             'companyName' => $companyName,
             'authorName' => $authorName,
             'messageText' => $messageText,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('message', $args);
         $mail->send();
@@ -1452,10 +1466,13 @@ function sendAchievementEmailNotification($userId, $achievementName)
         $mail->addAddress($userMail);
         $mail->isHTML();
         $mail->Subject = "Вы получили новое достижение в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($userId);
+        $unsubscribeLink = $userId . '/' . $unsubscribeCode . '/';
         $args = [
             'companyName' => $companyName,
             'achievementName' => $GLOBALS['_' . $achievementName],
             'achievementText' => $GLOBALS['_' . $achievementName . '_text'],
+            '$unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('achievement', $args);
         $mail->send();
@@ -1734,10 +1751,13 @@ function sendSubscribePremiumEmailNotification($companyId, $tariffName, $subscri
         $mail->addAddress($seoMail);
         $mail->isHTML();
         $mail->Subject = "Успешная оплата подписки в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
+        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
         $args = [
             'tariffName' => $tariffName,
             'subscribeUntil' => $subscribeUntil,
             'nextChargeDate' => $nextChargeDate,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         if ($freePeriod) {
             $mail->setMessageContent('subscribe-premium-free', $args);
@@ -1771,9 +1791,12 @@ function sendSubscribePromoEmailNotification($companyId, $tariffName, $promocode
         $mail->addAddress($seoMail);
         $mail->isHTML();
         $mail->Subject = "Подключение тарифа в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
+        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
         $args = [
             'tariffName' => $tariffName,
-            '$freeDays' => $promocodeInfo['days_to_add'],
+            'freeDays' => $promocodeInfo['days_to_add'],
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('subscribe-promo-free', $args);
         $mail->send();
@@ -1799,9 +1822,12 @@ function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffNam
         $mail->addAddress($seoMail);
         $mail->isHTML();
         $mail->Subject = "Успешная оплата подписки в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
+        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
         $args = [
             'tariffName' => $tariffName,
             'cardDigits' => $cardDigits,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('premium-prolongation-failed.php', $args);
         $mail->send();
@@ -1816,11 +1842,14 @@ function sendActivationLink($companyId, $password = null)
     $activationCode = createActivationCode($companyId);
     require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
     $seoMail = getCeoMail($companyId);
+    $seoId = getCeoId($companyId);
+
     require_once __ROOT__ . '/engine/phpmailer/Exception.php';
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
     try {
         $mail->addAddress($seoMail);
         $mail->isHTML();
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
         $args = [
             'activationLink' => 'https://s.lusy.io/activate/' . $companyId . '/' . $activationCode . '/',
         ];
@@ -2016,4 +2045,24 @@ function decodeTextTags($text) {
     $replacements = array_keys($encoder);
     $result = preg_replace($needles, $replacements, $text);
     return $result;
+}
+
+function generateUnsubscribeCode($userId)
+{
+    $code = md5($userId . 'unsub');
+    return $code;
+}
+function unsubscribeEmail($userId, $code)
+{
+    global $pdo;
+
+    if (generateUnsubscribeCode($userId) != $code) {
+        return false;
+    } else {
+        $unsubscribeQuery = $pdo->prepare("UPDATE user_notifications SET task_create = 0, task_overdue = 0,
+            comment = 0, task_review = 0, task_postpone = 0, message = 0, achievement = 0, payment = 0
+            WHERE user_id = :userId");
+        $status = $unsubscribeQuery->execute([':userId' => $userId]);
+        return $status;
+    }
 }

@@ -500,6 +500,7 @@
 
 
 <script>
+
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     });
@@ -511,7 +512,6 @@
 
         $('#sleepTime').on('change', function () {
             if ($(this).is(':checked')) {
-                console.log('asd');
                 $('.sleep-container').css('opacity', '1');
                 $('#endSleep').attr('disabled', false);
                 $('#startSleep').attr('disabled', false);
@@ -523,7 +523,6 @@
         });
 
         if ($('#sleepTime').is(':checked')) {
-            console.log('asd');
             $('.sleep-container').css('opacity', '1');
             $('#endSleep').attr('disabled', false);
             $('#startSleep').attr('disabled', false);
@@ -549,7 +548,6 @@
 
             var objCheck = checkInput();
             var fd = new FormData();
-            console.log(objCheck);
             fd.append('ajax', 'settings');
             fd.append('module', 'updateNotifications');
             fd.append('notifications', JSON.stringify(objCheck));
@@ -693,7 +691,6 @@
             var phoneNumber = $("#settingsPhoneNumber").val();
             var bDayDate = $("#bDayDate").val();
 
-            console.log(bDayDate);
             social[socialVk] = vk;
             social[socialFacebook] = facebook;
             var fd = new FormData();
@@ -789,7 +786,6 @@
                 avatar.src = canvas.toDataURL('image/jpeg', 0.8);
                 $spinner.show();
                 canvas.toBlob(function (blob) {
-                    console.log(blob);
                     var fd = new FormData();
                     fd.append('module', 'changeAvatar');
                     fd.append('ajax', 'settings');
