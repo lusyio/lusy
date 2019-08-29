@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-08-28 17:27+0300\n"
-"PO-Revision-Date: 2019-08-28 17:27+0300\n"
+"POT-Creation-Date: 2019-08-29 17:43+0300\n"
+"PO-Revision-Date: 2019-08-29 17:43+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -349,6 +349,10 @@ msgstr "Настройки"
 #: engine/frontend/nav/top-sidebar.php:111
 msgid "Log Out"
 msgstr "Выход"
+
+#: engine/frontend/other/company.php:80 engine/frontend/other/profile.php:59
+msgid "today at"
+msgstr "сегодня в"
 
 #: engine/frontend/other/dashboard-ceo.php:166
 #: engine/frontend/other/dashboard-ceo.php:268
