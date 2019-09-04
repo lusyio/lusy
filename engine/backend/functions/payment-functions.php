@@ -608,7 +608,7 @@ function activatePromocode($companyId, $promocodeName)
         changeTariff($companyId, $newTariff);
         $newTariffInfo = getTariffInfo($newTariff);
         $payday = strtotime('+' . $promocodeInfo['days_to_add'] . ' days midnight');
-        $mailData = [$companyId, $newTariffInfo['tariff_name'], $promocodeInfo['days_to_add']];
+        $mailData = [$companyId, $newTariffInfo['tariff_name'], $promocodeName];
         addMailToQueue('sendSubscribePromoEmailNotification', $mailData, $ceoId);
     } else {
         $payday = strtotime('+' . $promocodeInfo['days_to_add'] . ' days midnight', $companyTariff['payday']);
