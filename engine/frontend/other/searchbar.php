@@ -1,7 +1,7 @@
 <div class="card tasks-search-bar">
-    <div class="card-body pb-1">
+    <div class="card-body">
         <div class="input-group">
-            <input id="searchInput" autocomplete="off" class="form-control form-control-sm form-control-borderless mb-2"
+            <input id="searchInput" autocomplete="off" class="form-control form-control-sm form-control-borderless"
                    type="text" placeholder="<?= $GLOBALS["_searchbar"] ?>...">
             <span class="icon-searchbar"><i class="fas fa-search"></i></span>
         </div>
