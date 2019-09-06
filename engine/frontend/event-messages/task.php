@@ -227,7 +227,7 @@
 
         <div class="eventDiv">
             <div class="row">
-                <div class="col-2">
+                <div class="col-2 pr-lg-0 pr-xl-3 pr-md-3 pr-3">
                     <div class="text-right float-right">
                         <p class="mb-0 font-weight-bold"><?= date("j", $event['datetime']); ?> <span
                                     class="text-lowercase"><?= _($month[$monthNumber]) ?></span></p>

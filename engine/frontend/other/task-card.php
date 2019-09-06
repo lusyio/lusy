@@ -6,7 +6,7 @@
                 <div class="d-block border-left-tasks <?= $borderColor[$status] ?> ">
                     <p class="font-weight-light text-ligther d-none"><?= $taskStatusText[$mainRole][$status] ?></p>
                     <div class="row">
-                        <div class="col-sm-5 col-lg-5 col-md-12 col-12">
+                        <div class="col-sm-12 col-lg-5 col-md-12 col-12">
                             <div class="text-area-message">
                                 <span class="taskname"><?= ($viewStatus) ? '' : '<span class="text-danger font-weight-bold mr-1">!</span>'; ?><?= $name; ?></span>
                             </div>
@@ -24,13 +24,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2 col-lg-2 col-md-5 col-5">
+                        <div class="col-sm col-lg-2 col-md-5 col-5">
                             <?= $taskStatusText[$mainRole][$status] ?>
                         </div>
-                        <div class="col-sm-2 col-lg-2 col-md-3 col-3 <?= ($status == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($status, ['inwork', 'new', 'returned']) && date("Y-m-d", $datedone) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
+                        <div class="col-sm col-lg-2 col-md-3 col-3 text-area-message <?= ($status == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($status, ['inwork', 'new', 'returned']) && date("Y-m-d", $datedone) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
                             <?= date('j', $datedone) ?> <?= $_months[date('n', $datedone) - 1] ?>
                         </div>
-                        <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars avatars-big">
+                        <div class="col-sm col-lg-2 col-md-4 col-4 avatars avatars-big">
                             <div class="float-right">
                                 <?php if ($manager == $worker): ?>
                                     <img src="/<?= getAvatarLink($manager) ?>" class="avatar">

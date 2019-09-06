@@ -3636,6 +3636,19 @@ span.date {
     .card-tariff-left{
         padding-right: 0 !important;
     }
+    .avatars-big {
+        padding-right: 15px;
+    }
+
+    .tasks-list .col-sm.col-lg-2.col-md-3.col-3{
+        padding-left: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .avatars-big {
+        padding-right: 48px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -4492,10 +4505,6 @@ and (min-width: 768px) {
         flex-basis: auto;
     }
 
-    #taskBox .col-sm-1.pl-0{
-        display: none;
-    }
-
     .subtask-badge-mobile{
         display: block;
     }
@@ -4632,6 +4641,10 @@ and (min-width: 768px) {
         color: black !important;
     }
     .searchDiv {
+        display: none;
+    }
+
+    #taskBox .col-sm-1.pl-0{
         display: none;
     }
 
@@ -5298,6 +5311,9 @@ and (min-width: 576px) {
         -ms-flex: unset;
         flex: unset;
         max-width: unset;
+    }
+    #taskBox .col-sm-1.pl-0{
+        display: none;
     }
     .col-sm-9 {
         -ms-flex: unset;
