@@ -3544,9 +3544,45 @@ span.date {
     font-weight: 500;
 }
 
+.task-box button{
+    height: 36px;
+}
+
 .swiper-container {
     width: 345px;
     height: 213px;
+}
+
+.sort-task{
+    background-color: #fafafa;
+    color: #898989;
+    font-size: 14px;
+    border-radius: 0;
+    margin-bottom: 4px;
+    border: 0;
+    height: 36px;
+}
+
+.sort-task span{
+    color: #898989;
+}
+
+.sort-task:not(:disabled):not(.disabled).active:focus, .sort-task:not(:disabled):not(.disabled):active:focus, .show>.sort-task.dropdown-toggle:focus{
+    box-shadow: none;
+}
+
+.sort-task:not(:disabled):not(.disabled).active, .sort-task:not(:disabled):not(.disabled):active, .show>.sort-task.dropdown-toggle {
+    background-color: rgba(20,23,28,.05);
+    color: #898989;
+    box-shadow: 0 2px 5px rgba(0,0,0, .2);
+    border: 0;
+
+}
+
+.sort-task:hover{
+    background-color: rgba(20,23,28,.05);
+    color: #898989;
+    border: 0;
 }
 
 @keyframes show {

@@ -21,13 +21,13 @@
     <div class="d-sm task-box taskbox-padding">
         <div class="taskbox-padding-left">
             <div class="row sort">
-                <div class="col-sm-6">
-                    <span id="nameOrder" class="btn btn-secondary sort">
+                <div class="col-sm-4 col-lg-4 col-xl-6">
+                    <span id="nameOrder" class="btn btn-secondary sort-task">
                         <span id="nameOrderText"><?= $GLOBALS['_taskname'] ?> <i id="nameOrderIcon" class="fas fa-sort"></i></span>
                     </span>
                 </div>
-                <div class="col-sm-2 dropdown status-dropdown d-flex justify-content-center">
-                    <button id="statusDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort" type="button"
+                <div class="col-sm-3 text-center col-lg-3 col-xl-2 p-0 dropdown status-dropdown d-flex justify-content-center">
+                    <button id="statusDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort-task" type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-name="<?= $GLOBALS['_statustasks'] ?>">
                         <?= $GLOBALS['_statustasks'] ?>
                     </button>
@@ -50,13 +50,13 @@
 
                     </div>
                 </div>
-                <div class="col-sm-2">
-                    <span id="dateOrder" class="btn btn-secondary sort">
+                <div class="col-sm-2 text-center p-0">
+                    <span id="dateOrder" class="btn btn-secondary sort-task">
                         <span id="dateOrderText"><?= $GLOBALS['_deadlinetasks'] ?> <i id="dateOrderIcon" class="fas fa-sort"></i></span>
                     </span>
                 </div>
-                <div class="col-sm-2 dropdown worker-dropdown">
-                        <button id="workerDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort" type="button"
+                <div class="col-sm-3 col-lg-3 text-center col-xl-2 p-0 dropdown worker-dropdown">
+                        <button id="workerDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort-task" type="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-name="<?= $GLOBALS['_memberstasks'] ?>">
                             <?= $GLOBALS['_memberstasks'] ?>
                         </button>
