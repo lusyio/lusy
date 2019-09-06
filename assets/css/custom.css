@@ -3588,8 +3588,9 @@ button.sort-task:after{
     text-rendering: auto;
     line-height: 1;
     font-weight: 900;
-    border-top: 0;
     vertical-align: unset;
+    border: 0;
+    margin: 0;
 }
 
 .sort-task-dropdown{
