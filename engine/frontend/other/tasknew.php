@@ -198,14 +198,14 @@ $borderColor = [
                             </div>
                             <div class="check-list-container card-body-tasknew text-left" style="<?= ($taskEdit && count($checklist) > 0) ? 'display: block;' : ''?>">
                                 <div id="checkListExample" class="position-relative check-list-new d-none mb-2">
-                                    <i class="far fa-check-square text-muted-new"></i>
+                                    <i class="far fa-square text-muted-new"></i>
                                     <span class="ml-3" style="color: #28416b;">  checkName  </span>
                                     <i class="fas fa-times delete-checklist-item"></i>
                                 </div>
                                 <?php if ($taskEdit): ?>
                                 <?php foreach ($checklist as $key => $item): ?>
-                                <div class="position-relative check-list-new mb-2 checklist-selected" data-id="<?= ++$key ?>">
-                                    <i class="far fa-check-square text-muted-new"></i>
+                                <div class="position-relative check-list-new mb-2 checklist-selected" data-row-id="<?= isset($item['rowId']) ? $item['rowId'] : 0 ?>" data-id="<?= ++$key ?>">
+                                    <i class="<?= ($item['status']) ? 'far fa-check-square' : 'far fa-square'?> text-muted-new"></i>
                                     <span class="ml-3" style="color: #28416b;"><?= $item['text'] ?></span>
                                     <i class="fas fa-times delete-checklist-item"></i>
                                 </div>

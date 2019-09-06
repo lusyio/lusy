@@ -464,7 +464,7 @@ class Task
             $taskCreateQueryData[':status'] = 'planned';
             $usePremiumTask = true;
         }
-        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, with_premium) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :withPremium)");
+        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, with_premium, checklist) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :withPremium, :checkList)");
         $taskCreateQuery->execute($taskCreateQueryData);
         if ($taskCreateQuery) {
             $taskId = $pdo->lastInsertId();
@@ -500,35 +500,54 @@ class Task
     {
         $checklist = [];
         $unsafeChecklist = json_decode($jsonCheckListString, true);
+        $rowId = 1;
         foreach ($unsafeChecklist as $key => $value) {
             $checklist[$key]['text'] = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
             $checklist[$key]['status'] = 0;
             $checklist[$key]['checkedBy'] = 0;
+            $checklist[$key]['rowId'] = $rowId;
+            $rowId++;
         }
         return $checklist;
     }
 
-    public function updateCheckList($checkList)
+    public function updateCheckList($checkList, $oldChecklistRows)
     {
         global $pdo;
         //сравнить старый и новый чеклисты
         $isCheckListChanged = false;
+        if (count($checkList) > 0) {
+            $isCheckListChanged = true;
+        }
         $oldCheckList = json_decode($this->get('checklist'), true);
         if (!$oldCheckList) {
             $oldCheckList = [];
         }
-        if (count($oldCheckList) != count($checkList)) {
-            $isCheckListChanged = true;
+
+
+        if (count($oldCheckList) == 0 || count($oldChecklistRows) == 0) {
+            $nextRowId = 1;
         } else {
-            foreach ($checkList as $key => $value) {
-                if ($checkList[$key]['text'] != $oldCheckList[$key]['text']) {
-                    $isCheckListChanged = true;
-                    break;
-                }
+            $nextRowId = max($oldChecklistRows) + 1;
+        }
+
+        $newCheckList = [];
+        foreach ($oldCheckList as $key => $value) {
+            if (in_array($value['rowId'], $oldChecklistRows)) {
+                $newCheckList[] = $oldCheckList[$key];
             }
         }
+        if (count($newCheckList) != count($oldCheckList)) {
+            $isCheckListChanged = true;
+        }
+        foreach ($checkList as $key => $value) {
+            $checkList[$key]['rowId'] = $nextRowId;
+            $newCheckList[] = $checkList[$key];
+            $nextRowId++;
+        }
+
         if ($isCheckListChanged) {
-            $checkListJson = json_encode($checkList);
+            $checkListJson = json_encode($newCheckList);
             $updateCheckListQuery = $pdo->prepare("UPDATE tasks SET checklist = :checkList WHERE id = :taskId");
             $updateCheckListQuery->execute([':checkList' => $checkListJson, ':taskId' => $this->get('id')]);
         }
