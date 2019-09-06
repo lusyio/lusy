@@ -26,7 +26,7 @@
                                                                                  class="fas fa-sort"></i></span>
                     </span>
                 </div>
-                <div class="col-sm-3 col-lg-3 col-xl-2 text-lg-right pl-sort pr-0 dropdown status-dropdown">
+                <div class="col-sm-3 col-lg-3 col-xl-2 text-lg-right text-xl-left pl-sort pr-0 dropdown status-dropdown">
                     <button id="statusDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort-task"
                             type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
