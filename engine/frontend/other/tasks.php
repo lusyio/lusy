@@ -42,7 +42,7 @@
                         <a class="dropdown-item status-dropdown-item<?= (in_array('overdue', $statuses)) ? '' : ' disabled' ?>" href="#"  id="overdueLink" data-status="overdue"><?= $GLOBALS["_overduefilter"] ?></a>
                         <a class="dropdown-item status-dropdown-item<?= (in_array('postpone', $statuses)) ? '' : ' disabled' ?>" href="#" id="postponeLink" data-status="postpone"><?= $GLOBALS["_postponefilter"] ?></a>
                         <a class="dropdown-item status-dropdown-item<?= (in_array('pending', $statuses)) ? '' : ' disabled' ?>" href="#" id="pendingLink" data-status="pending"><?= $GLOBALS["_pendingfilter"] ?></a>
-                        <a class="dropdown-item status-dropdown-item<?= (in_array('planned', $statuses)) ? '' : ' disabled' ?>" href="#" data-status="planned"><?= $GLOBALS["_plannedfilter"] ?></a>
+                        <a class="dropdown-item status-dropdown-item<?= (in_array('planned', $statuses)) ? '' : ' disabled' ?>" href="#" id="plannedLink" data-status="planned"><?= $GLOBALS["_plannedfilter"] ?></a>
                         <a class="dropdown-item status-dropdown-item<?= ($countArchiveDoneTasks > 0) ? '' : ' disabled' ?>" href="#" id="doneLink" data-status="done"><?= $GLOBALS["_completesearchbar"] ?></a>
                         <a class="dropdown-item status-dropdown-item<?= ($countArchiveCanceledTasks > 0) ? '' : ' disabled' ?>" href="#" id="canceledLink" data-status="canceled"><?= $GLOBALS["_canceledsearchbar"] ?></a>
 
