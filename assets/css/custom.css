@@ -3580,6 +3580,8 @@ span.date {
 
 .sort-task-dropdown{
     font-size: 85%;
+    border: 0;
+    box-shadow: rgba(197, 197, 201, 0.15) 0px 14px 15px 2px;
 }
 
 .sort-task-dropdown a{
@@ -3592,6 +3594,8 @@ span.date {
 
 .sort-task-dropdown a:hover{
     color: #282829;
+    background-color: #f1f3f4;
+
 }
 
 .sort-task span{
