@@ -301,11 +301,21 @@ if (isset($_POST['it'])) {
         }
 
 // Перезапись чеклиста
+        $newCheckList = [];
         if (isset($_POST['checklist'])) {
             $newCheckList = Task::createSanitizedCheckList($_POST['checklist']);
-            if ($taskPremiumType >= 0 || $isTaskWithPremium)
-                $isCheckListChanged = $task->updateCheckList($newCheckList);
         }
+        $oldChecklistRows = [];
+        if (isset($_POST['oldChecklistRows'])) {
+            $unsafeOldChecklistRows = json_decode($_POST['oldChecklistRows']);
+            foreach ($unsafeOldChecklistRows as $row) {
+                $oldChecklistRows[] = filter_var($row, FILTER_SANITIZE_NUMBER_INT);
+            }
+        }
+        if ($taskPremiumType >= 0 || $isTaskWithPremium) {
+            $isCheckListChanged = $task->updateCheckList($newCheckList, $oldChecklistRows);
+        }
+
         if ($isCheckListChanged) {
             $isEditUsed = true;
             $usePremiumTask = true;
