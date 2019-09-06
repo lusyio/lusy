@@ -3599,6 +3599,11 @@ button.sort-task:after{
     box-shadow: rgba(197, 197, 201, 0.15) 0px 14px 15px 2px;
 }
 
+.sort-task-dropdown a:not(:disabled):not(.disabled).active, .sort-task-dropdown a:not(:disabled):not(.disabled):active, .show>.sort-task-dropdown a.dropdown-toggle{
+    background-color: #e8eaed;
+    color: #999999;
+}
+
 .sort-task-dropdown a{
     color: #999999;
 }
@@ -3610,7 +3615,6 @@ button.sort-task:after{
 .sort-task-dropdown a:hover{
     color: #282829;
     background-color: #f1f3f4;
-
 }
 
 .sort-task span{
