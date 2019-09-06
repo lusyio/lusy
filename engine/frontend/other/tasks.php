@@ -89,7 +89,7 @@
     <div class="card mb-2  d-none" id="emptyTasksFilter">
         <div class="card-body taskbox-padding">
             <div class="row">
-                <div class="col text-center">
+                <div class="col text-center search-empty">
                         <span class="mr-2">
                             Нет задач по выбранным фильтрам
                         </span>
