@@ -3578,6 +3578,20 @@ span.date {
     display: none;
 }
 
+button.sort-task:after{
+    font-family: "Font Awesome 5 Free";
+    content: '\f0b0';
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    font-weight: 900;
+    border-top: 0;
+    vertical-align: unset;
+}
+
 .sort-task-dropdown{
     font-size: 85%;
     border: 0;

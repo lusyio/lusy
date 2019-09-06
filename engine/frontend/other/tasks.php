@@ -30,7 +30,6 @@
                     <button id="statusDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort-task" type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-name="<?= $GLOBALS['_statustasks'] ?>">
                         <?= $GLOBALS['_statustasks'] ?>
-                        <i class="fas fa-filter"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right sort-task-dropdown" aria-labelledby="statusDropdownButton">
                         <a class="dropdown-item task-type-dropdown-item<?= ($hasIncomeTasks) ? '' : '' ?>" href="#" id="taskIn" data-task-type="in"><?= $GLOBALS["_workerfilter"] ?></a>
@@ -60,7 +59,6 @@
                         <button id="workerDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort-task" type="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-name="<?= $GLOBALS['_memberstasks'] ?>">
                             <?= $GLOBALS['_memberstasks'] ?>
-                            <i class="fas fa-filter"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right sort-task-dropdown" aria-labelledby="workerDropdownButton">
                             <?php foreach ($workersName as $wId => $wName): ?>
