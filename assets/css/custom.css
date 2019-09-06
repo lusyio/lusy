@@ -3435,6 +3435,32 @@ span.date {
     font-weight: 700;
 }
 
+.deleted-files-container{
+    padding: 5px;
+    padding-bottom: 5px;
+    width: 110px;
+    border-radius: 6px;
+    background-color: #f5f5f5;
+    position: relative;
+    overflow: hidden;
+    box-shadow: rgba(197, 197, 201, 0.8) 0px 3px 3px -2px;
+}
+
+.message-width .deleted-file-icon{
+    height: 65px;
+}
+
+.deleted-file-icon{
+    height: 62px;
+    margin-bottom: 13px;
+    padding: 25px;
+}
+
+.deleted-file-icon i{
+    color: #c8c9ca;
+    font-size: 2rem;
+}
+
 .photo-preview-container-task-hover {
     padding: 5px;
     padding-bottom: 10px;

@@ -6,7 +6,16 @@
                 <div class="col-2 col-lg-1"></div>
                 <div class="col pl-2 message-width">
                     <?php if ($file['is_deleted']): ?>
-                        <p class="m-0"><s><?= $file['file_name'] ?></s> <?= $GLOBALS['_deletedconversation'] ?></p>
+                        <div class="deleted-files-container mr-2 mb-2">
+                            <div class="deleted-file-icon text-center">
+                                <i class="far fa-times-circle"></i>
+                            </div>
+                            <p class="photo-preview-area-message m-0 text-center text-muted-new small file">
+                                <s>
+                                    <?= $file['file_name'] ?>
+                                </s>
+                            </p>
+                        </div>
                     <?php else: ?>
                         <?php if (in_array($file['extension'], ['png', 'jpeg', 'jpg', 'bmp'])): ?>
                             <div data-target=".bd-example-modal-xl" data-toggle="modal"

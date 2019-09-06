@@ -254,8 +254,16 @@ if ($id == $worker and $view == 0) {
             <div class="d-flex flex-wrap">
                 <?php foreach ($files as $file): ?>
                     <?php if ($file['is_deleted']): ?>
-                        <p class="text-secondary"><s><i class="fas fa-paperclip"></i> <?= $file['file_name'] ?></s>
-                            (удален)</p>
+                        <div class="deleted-files-container mr-2 mb-2">
+                            <div class="deleted-file-icon text-center">
+                                <i class="far fa-times-circle"></i>
+                            </div>
+                            <p class="photo-preview-area-message m-0 text-center text-muted-new small file">
+                                <s>
+                                    <?= $file['file_name'] ?>
+                                </s>
+                            </p>
+                        </div>
                     <?php else: ?>
                     <?php if (in_array($file['extension'],['png', 'jpeg', 'jpg', 'bmp'])): ?>
                     <div class="photo-preview-container-task-hover mr-2 mb-2">
