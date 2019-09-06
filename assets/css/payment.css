@@ -231,7 +231,7 @@
 }
 
 .pure-material-radio > input:focus {
-    opacity: 0.12;
+    opacity: 0;
 }
 
 .pure-material-radio:hover > input:focus {

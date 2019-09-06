@@ -3574,6 +3574,10 @@ span.date {
     height: 36px;
 }
 
+.sort-task::after{
+    display: none;
+}
+
 .sort-task-dropdown{
     font-size: 85%;
 }
