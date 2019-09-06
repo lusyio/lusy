@@ -3563,6 +3563,22 @@ span.date {
     height: 36px;
 }
 
+.sort-task-dropdown{
+    font-size: 85%;
+}
+
+.sort-task-dropdown a{
+    color: #999999;
+}
+
+.sort-task-dropdown a.disabled{
+    color: #b6bac5;
+}
+
+.sort-task-dropdown a:hover{
+    color: #282829;
+}
+
 .sort-task span{
     color: #898989;
 }

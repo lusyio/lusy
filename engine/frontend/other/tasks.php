@@ -31,7 +31,7 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-name="<?= $GLOBALS['_statustasks'] ?>">
                         <?= $GLOBALS['_statustasks'] ?>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="statusDropdownButton">
+                    <div class="dropdown-menu dropdown-menu-right sort-task-dropdown" aria-labelledby="statusDropdownButton">
                         <a class="dropdown-item task-type-dropdown-item<?= ($hasIncomeTasks) ? '' : '' ?>" href="#" id="taskIn" data-task-type="in"><?= $GLOBALS["_workerfilter"] ?></a>
                         <a class="dropdown-item task-type-dropdown-item<?= ($hasOutcomeTasks) ? '' : '' ?>" href="#" id="taskOut" data-task-type="out"><?= $GLOBALS["_managerfilter"] ?></a>
                         <div class="dropdown-divider"></div>
@@ -60,7 +60,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-default-name="<?= $GLOBALS['_memberstasks'] ?>">
                             <?= $GLOBALS['_memberstasks'] ?>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="workerDropdownButton">
+                        <div class="dropdown-menu dropdown-menu-right sort-task-dropdown" aria-labelledby="workerDropdownButton">
                             <?php foreach ($workersName as $wId => $wName): ?>
                                 <a class="dropdown-item worker-dropdown-item" href="#" data-worker-id="<?= $wId ?>"><?= $wName ?></a>
                             <?php endforeach; ?>
