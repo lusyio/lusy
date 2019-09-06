@@ -387,6 +387,10 @@ $(document).ready(function () {
         $('#postponeLink').trigger('click');
         location.hash = '';
     }
+    if (action === 'planned') {
+        $('#plannedLink').trigger('click');
+        location.hash = '';
+    }
 
     $('#searchInput').on('keyup', function () {
         filterTasks();

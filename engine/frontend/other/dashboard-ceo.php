@@ -370,7 +370,7 @@ $statusColor = [
     </div>
     <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($postpone == 0) ? "no-events-no" : ''; ?>">
         <div>
-            <a href="/tasks/#postpone" class="text-decoration-none">
+            <a href="/tasks/#planned" class="text-decoration-none">
                 <div class="card">
                     <div class="card-body pb-2 pt-2">
                         <span class="font-weight-bold float-left mr-2"><i
