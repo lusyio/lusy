@@ -4705,10 +4705,6 @@ and (max-width: 1200px) {
         z-index: 1;
     }
 
-    #taskBox .col-sm-1.pl-0 {
-        display: none;
-    }
-
     .award {
         min-width: 18vw;
         max-width: 18vw;
