@@ -20,14 +20,14 @@
     <?php if (count($tasks) > 0): ?>
         <div class="d-sm task-box taskbox-padding">
             <div class="row sort">
-                <div class="col-sm-4 col-lg-4 col-xl-6 pl-sort">
-                    <span id="nameOrder" class="btn btn-secondary sort-task">
+                <div class="col-6 col-sm-6 col-lg-4 col-xl-6 order-1 order-md-1 order-lg-0 order-xl-0 order-sm-1 pr-0 pl-sort">
+                    <span id="nameOrder" class="btn btn-sm btn-secondary sort-task align-text-top">
                         <span id="nameOrderText"><?= $GLOBALS['_taskname'] ?> <i id="nameOrderIcon"
                                                                                  class="fas fa-sort"></i></span>
                     </span>
                 </div>
-                <div class="col-sm-3 col-lg-3 col-xl-2 text-lg-right text-xl-left pl-sort pr-0 dropdown status-dropdown">
-                    <button id="statusDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort-task"
+                <div class="col-6 col-sm-6 col-lg-3 col-xl-2 order-3 order-sm-3 order-md-3 order-lg-0 order-xl-0 text-lg-right text-xl-left pl-sort pr-0 dropdown status-dropdown">
+                    <button id="statusDropdownButton" class="btn btn-sm btn-secondary w-100 text-area-message dropdown-toggle sort-task"
                             type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             data-default-name="<?= $GLOBALS['_statustasks'] ?>">
@@ -64,14 +64,14 @@
 
                     </div>
                 </div>
-                <div class="col-sm-2 pr-0 pl-2">
-                    <span id="dateOrder" class="btn btn-secondary sort-task">
+                <div class="col-6 col-sm-6 col-lg-2 col-xl-2 pr-0 order-2 order-md-2 order-lg-0 order-xl-0 pl-2">
+                    <span id="dateOrder" class="btn btn-sm btn-secondary sort-task align-text-top">
                         <span id="dateOrderText"><?= $GLOBALS['_deadlinetasks'] ?> <i id="dateOrderIcon"
                                                                                       class="fas fa-sort"></i></span>
                     </span>
                 </div>
-                <div class="col-sm-3 col-lg-3 col-xl-2 pr-0 pl-sort dropdown worker-dropdown">
-                    <button id="workerDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort-task"
+                <div class="col-6 col-sm-6 col-lg-3 col-xl-2 order-sm-4 order-4 order-md-4 order-lg-0 order-xl-0  pr-0 pl-sort dropdown worker-dropdown">
+                    <button id="workerDropdownButton" class="btn btn-sm btn-secondary w-100 text-area-message dropdown-toggle sort-task"
                             type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             data-default-name="<?= $GLOBALS['_memberstasks'] ?>">

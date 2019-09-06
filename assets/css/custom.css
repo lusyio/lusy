@@ -4308,10 +4308,6 @@ button.sort-task:not(.active):after{
         width: 70px !important;
     }
 
-    .task-box{
-        display: none !important;
-    }
-
     .fio-profile{
         font-size: 17px;
     }
@@ -4672,6 +4668,10 @@ and (max-width: 1200px) {
         top: 25%;
         left: 10%;
         z-index: 1;
+    }
+
+    #taskBox .col-sm-1.pl-0 {
+        display: none;
     }
 
     .award {
@@ -5190,10 +5190,6 @@ and (min-width: 768px) {
 
     .avatar-profile{
         width: 70px !important;
-    }
-
-    .task-box{
-        display: none !important;
     }
 
     .fio-profile{
