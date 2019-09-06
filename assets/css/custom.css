@@ -3566,7 +3566,7 @@ span.date {
 
 .sort-task{
     background-color: #fafafa;
-    color: #898989;
+    color: #b6bac5;
     font-size: 14px;
     border-radius: 0;
     margin-bottom: 4px;
@@ -3603,7 +3603,7 @@ span.date {
 }
 
 .sort-task span{
-    color: #898989;
+    color: #b6bac5;
 }
 
 .sort-task i{
@@ -3626,7 +3626,7 @@ span.date {
 
 button.sort-task:not(.active):after{
     font-family: "Font Awesome 5 Free";
-    content: '\f078';
+    content: '\f013';
     -webkit-font-smoothing: antialiased;
     display: inline-block;
     font-style: normal;
@@ -3637,6 +3637,14 @@ button.sort-task:not(.active):after{
     vertical-align: inherit;
     margin: 0;
     border-top: 0;
+    position: relative;
+    left: 7px;
+    top: -1px;
+    padding-right: 5px;
+}
+
+.pl-sort{
+    padding-left: 0.6rem;
 }
 
 .sort-task.desc i{
@@ -3655,9 +3663,13 @@ button.sort-task:not(.active):after{
 
 }
 
+.sort-task:hover span{
+    color: #282829;
+}
+
 .sort-task:hover{
     background-color: rgba(20,23,28,.05);
-    color: #898989;
+    color: #282829;
     border: 0;
 }
 
