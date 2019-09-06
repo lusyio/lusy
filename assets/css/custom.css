@@ -3771,7 +3771,7 @@ button.sort-task:not(.active):after{
     }
 
     .tasks-list .col-sm.col-lg-2.col-md-3.col-3{
-        padding-left: 0;
+        padding-right: 0;
     }
 }
 
