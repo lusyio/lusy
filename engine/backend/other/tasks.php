@@ -14,6 +14,7 @@ $cometTrackChannelName = getCometTrackChannelName();
 
 $otbor = '(worker=' . $GLOBALS["id"] . ' or manager = ' . $GLOBALS["id"] . ') and status!="done"';
 $usedStatuses = DB('DISTINCT `status`', 'tasks', $otbor);
+$statuses = array_column($usedStatuses, 'status');
 $sortedUsedStatuses = getSortedStatuses($usedStatuses);
 
 $isManager = DBOnce('id', 'tasks', 'manager=' . $GLOBALS["id"]);
@@ -46,3 +47,34 @@ $canceledTaskList->executeCountQuery();
 $countArchiveCanceledTasks = $canceledTaskList->getCountResult();
 unset($canceledTaskList);
 
+$workersId = [];
+$hasOutcomeTasks = false;
+$hasIncomeTasks = false;
+foreach ($tasks as $task) {
+    if ($task->get('worker') == $id && $task->get('worker') != $task->get('manager')) {
+        $hasIncomeTasks = true;
+    }
+    if ($task->get('manager') == $id) {
+        $hasOutcomeTasks = true;
+    }
+    $workersId[] = $task->get('worker');
+
+    if (count($task->get('subTasks')) > 0) {
+        $subTasks = $task->get('subTasks');
+        foreach ($subTasks as $subTask) {
+            if ($subTask->get('worker') == $id && $subTask->get('worker') != $subTask->get('manager')) {
+                $hasIncomeTasks = true;
+            }
+            if ($subTask->get('manager') == $id) {
+                $hasOutcomeTasks = true;
+            }
+            $workersId[] = $subTask->get('worker');
+        }
+    }
+}
+$workersId = array_unique($workersId);
+sort($workersId);
+$workersName = [];
+foreach ($workersId as $workerId) {
+    $workersName[$workerId] = getDisplayUserName($workerId);
+}

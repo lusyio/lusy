@@ -1,371 +1,417 @@
-$(document).ready(function () {
+var archiveTasksOffset = 0;
 
-    $(".words-search").click(function () {
-        var vol = $(this).attr("rol");
-        if ($(this).hasClass('active')) {
-            $(this).removeClass('active');
-            if ($(this).hasClass('active-manager')) {
-                $(this).removeClass('active-manager');
-            }
-            if ($(this).hasClass('active-worker')) {
-                $(this).removeClass('active-worker');
-            }
-        } else {
-            $(this).addClass('active');
-        }
-    });
-
-    function updateResults(data) {
-
-        $('div #taskBox').empty();
-        data.forEach(function (item) {
-            var $task = '<div class="col-md-12 p-0"  id="taskstop">' +
-                '<div class="card mb-2 tasks' + item.status + '">' +
-                '<div class="card-body tasks-list" onclick="window.location="' + item.idtask + '">' +
-                '<div class="d-block mb-1 border-left-tasks <?= $borderColor[$status] ?>">' +
-                '<a><h6 class="card-title mb-2"><span>' + item.name + '</span></h6></a>' +
-                '<img src="/upload/avatar/2.jpg" class="avatar mr-1">' +
-                '<a href="/profile/' + item.idmanager + '/">' + item.namem + ' ' + item.surnamem + '</a>' +
-                '</div>' +
-                '<div class="d-inline-block">' +
-                '<img src="/upload/avatar/1.jpg" class="avatar mr-1">' +
-                '<a class="name-manager-tasks" href="/profile/' + item.idworker + '/">' + item.namew + ' ' + item.surnamew + '</a>' +
-                '</div>' +
-                '<div class="d-inline-block">' +
-                '<span class="icons-tasks"><i class="fas fa-comments custom-date"></i> </span>' +
-                '<span class="icons-tasks"><i class="fas fa-file custom-date"></i> </span>' +
-                '</div>' +
-                '<div class="position-absolute date-status">' +
-                '<span class="text-ligther"><i class="far fa-calendar-times custom"></i>' + item.datedone + '</span>' +
-                '</div></div></div></div>';
-            $('#taskBox').append($task);
-        });
+function loadArchiveTasks(status, orderField, order, workerId, taskType) {
+    var fd = new FormData();
+    fd.append('ajax', 'tasks');
+    fd.append('module', 'loadArchiveTasks');
+    if (status === 'done') {
+        fd.append('status', 'done');
+    } else if (status === 'canceled') {
+        fd.append('status', 'canceled');
     }
+    if (taskType === 'in') {
+        fd.append('taskType', 'in');
+    } else if (taskType === 'out') {
+        fd.append('taskType', 'out');
+    }
+    fd.append('offset', archiveTasksOffset.toString());
+    fd.append('orderField', orderField);
+    fd.append('order', order);
+    fd.append('workerId', workerId);
+    $.ajax({
+        url: '/ajax.php',
+        type: 'POST',
 
-    $("#actualSearch").on('click', function () {
-        resetSearch();
-        countAll();
-    });
-
-    $('.role-search, .status-search').on('click', function () {
-        $('.actual').hide();
-        $('div.done').remove();
-        $('div.canceled').remove();
-        $(".archive").html('');
-        $(".archive-search").removeClass('active');
-        filterRole();
-        filterTasks();
-        countAll();
-        pasteComma();
-    });
-    nameStatus();
-
-
-    function nameStatus() {
-        $('.status-search').on('click', function () {
-            $("#resetSearch").show();
-            var statusName = $(this).find('.status-name').text();
-            if ($(this).hasClass('active')) {
-                if (statusName === 'В работе') {
-                    $(".inwork-status").html("<span class=\"filter-select text-primary\"><span>" + statusName + "</span></span>");
+        cache: false,
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        data: fd,
+        success: function (response) {
+            if (response) {
+                if (response['tasks'] !== '') {
+                    $('#taskBox').append(response['tasks']);
                 }
-                if (statusName === 'Просрочено') {
-                    $(".overdue-status").html("<span class=\"filter-select  text-danger\"><span>" + statusName + "</span></span>");
-                }
-                if (statusName === 'Перенос срока') {
-                    $(".postpone-status").html("<span class=\"filter-select  text-warning\"><span>" + statusName + "</span></span>");
-                }
-                if (statusName === 'На рассмотрении') {
-                    $(".pending-status").html("<span class=\"filter-select  text-secondary\"><span>" + statusName + "</span></span>");
+                if (response['hasNextPage']) {
+                    $(".load-done").show();
+                } else {
+                    $(".load-done").hide();
                 }
             } else {
-                if (statusName === 'На рассмотрении') {
-                    $(".pending-status").html('');
-                }
-                if (statusName === 'Перенос срока') {
-                    $(".postpone-status").html('');
-                }
-                if (statusName === 'Просрочено') {
-                    $(".overdue-status").html('');
-                }
-                if (statusName === 'В работе') {
-                    $(".inwork-status").html('');
+                $(".load-archive-page").hide()
+            }
+        },
+    });
+}
+
+function filterTaskByStatusWorkerAndType() {
+    var status = 0;
+    if ($('.status-dropdown-item.active').length) {
+        status = $('.status-dropdown-item.active').data('status');
+    }
+    var workerId = 0;
+    if ($('.worker-dropdown-item.active').length) {
+        workerId = $('.worker-dropdown-item.active').data('worker-id');
+    }
+    var type = 0;
+    if ($('.task-type-dropdown-item.active').length) { // здесь условие активного элемента фильтра
+        type = $('.task-type-dropdown-item.active').data('task-type'); // здесь получаем значение - оно дложно быть из списка: 'in', 'out', 'self', 'another'
+    }
+    var taskFilter = '.task-card';
+    var subTaskFilter = '.sub-task-card';
+    $('.task-card, .sub-task-card').hide();
+    if (status) {
+        taskFilter = taskFilter + '[data-status=' + status + ']';
+        subTaskFilter = subTaskFilter + '[data-status=' + status + ']';
+    }
+    if (workerId) {
+        taskFilter = taskFilter + '[data-worker-id=' + workerId + ']';
+        subTaskFilter = subTaskFilter + '[data-worker-id=' + workerId + ']';
+    }
+    if (type) {
+        taskFilter = taskFilter + '[data-task-type=' + type + ']';
+        subTaskFilter = subTaskFilter + '[data-task-type=' + type + ']';
+        if (type === 'out') {
+            taskFilter = taskFilter + ',' + taskFilter + '[data-task-type=self]';
+            subTaskFilter = subTaskFilter + ',' + subTaskFilter + '[data-task-type=self]';
+        }
+    }
+    $(taskFilter).show();
+    $(subTaskFilter).show();
+    $(subTaskFilter).parents('.task-card').show();
+}
+
+function orderByName() {
+    if ($('#nameOrder').hasClass('asc')) {
+        var ascOrder = true
+    } else if ($('#nameOrder').hasClass('desc')) {
+        var ascOrder = false
+    }
+    orderSubTaskByName(ascOrder);
+
+    var elements = $('.task-card');
+    var target = $('#taskBox');
+
+    elements.sort(function (a, b) {
+        var an = $(a).find('.taskname').text(),
+            bn = $(b).find('.taskname').text();
+
+        if (an && bn) {
+            if (ascOrder) {
+                return an.toUpperCase().localeCompare(bn.toUpperCase());
+            } else {
+                return bn.toUpperCase().localeCompare(an.toUpperCase());
+            }
+        }
+        return 0;
+    });
+    elements.detach().appendTo(target);
+}
+
+function orderSubTaskByName(ascOrder) {
+
+    $('.subTaskInList').each(function () {
+        var elements = $(this).find('.sub-task-card');
+        var target = $(this);
+
+        elements.sort(function (a, b) {
+            var an = $(a).find('.taskname').text(),
+                bn = $(b).find('.taskname').text();
+
+            if (an && bn) {
+                if (ascOrder) {
+                    return an.toUpperCase().localeCompare(bn.toUpperCase());
+                } else {
+                    return bn.toUpperCase().localeCompare(an.toUpperCase());
                 }
             }
-            pasteComma();
-        })
-    }
-
-    var doneTasksOffset = 0;
-
-    function loadDoneTasks() {
-        var fd = new FormData();
-        fd.append('ajax', 'tasks');
-        fd.append('module', 'loadDoneTasks');
-        fd.append('offset', doneTasksOffset.toString());
-        $.ajax({
-            url: '/ajax.php',
-            type: 'POST',
-
-            cache: false,
-            processData: false,
-            contentType: false,
-            data: fd,
-            success: function (data) {
-                if (data) {
-                    $('#taskBox').append(data);
-                    countAll();
-                    if ($('.done:visible').length % 20 == 0) {
-                        $(".load-done").show();
-                    }
-                } else {
-                    $(".load-archive-page").hide()
-                }
-            },
+            return 0;
         });
+        elements.detach().appendTo(target);
+    })
+}
+
+function orderByDate() {
+    if ($('#dateOrder').hasClass('asc')) {
+        var ascOrder = true
+    } else if ($('#dateOrder').hasClass('desc')) {
+        var ascOrder = false
     }
+    orderSubTasksByDate(ascOrder);
 
-    $("#workzone").on('click', '#loadArchiveDone', function () {
-        doneTasksOffset++;
-        loadDoneTasks();
+    var elements = $('.task-card');
+    var target = $('#taskBox');
+
+    elements.sort(function (a, b) {
+        var an = $(a).data('deadline'),
+            bn = $(b).data('deadline');
+        if ($(a).find('.sub-task-card').length) {
+            var aFirstSubTask = $(a).find('.sub-task-card')[0];
+            if (ascOrder && $(aFirstSubTask).data('deadline') < an) {
+                an = $(aFirstSubTask).data('deadline');
+            } else if (!ascOrder && $(aFirstSubTask).data('deadline') > an) {
+                an = $(aFirstSubTask).data('deadline');
+            }
+        }
+        if ($(b).find('.sub-task-card').length) {
+            var bFirstSubTask = $(b).find('.sub-task-card')[0];
+            if (ascOrder && $(bFirstSubTask).data('deadline') < bn) {
+                bn = $(bFirstSubTask).data('deadline');
+            } else if (!ascOrder && $(bFirstSubTask).data('deadline') > bn) {
+                bn = $(bFirstSubTask).data('deadline');
+            }
+        }
+
+        if (an && bn) {
+            if (ascOrder) {
+                return an.toUpperCase().localeCompare(bn.toUpperCase());
+            } else {
+                return bn.toUpperCase().localeCompare(an.toUpperCase());
+            }
+        }
+        return 0;
     });
+    elements.detach().appendTo(target);
+}
 
-    var canceledTasksOffset = 0;
+function orderSubTasksByDate(ascOrder) {
+    $('.subTaskInList').each(function () {
+        var elements = $(this).find('.sub-task-card');
+        var target = $(this);
 
-    function loadCanceledTasks() {
-        var fd = new FormData();
-        fd.append('ajax', 'tasks');
-        fd.append('module', 'loadCanceledTasks');
-        fd.append('offset', canceledTasksOffset.toString());
-        $.ajax({
-            url: '/ajax.php',
-            type: 'POST',
-
-            cache: false,
-            processData: false,
-            contentType: false,
-            data: fd,
-            success: function (data) {
-                if (data) {
-                    $('#taskBox').append(data);
-                    countAll();
-                    if ($('.canceled:visible').length % 20 == 0) {
-                        $(".load-canceled").show();
-                    }
+        elements.sort(function (a, b) {
+            var an = $(a).data('deadline'),
+                bn = $(b).data('deadline');
+            if (an && bn) {
+                if (ascOrder) {
+                    return an.toUpperCase().localeCompare(bn.toUpperCase());
                 } else {
-                    $(".load-archive-page").hide();
+                    return bn.toUpperCase().localeCompare(an.toUpperCase());
                 }
-            },
+            }
+            return 0;
         });
-    }
+        elements.detach().appendTo(target);
+    })
+}
 
-    $("#workzone").on('click', '#loadArchiveCanceled', function () {
-        canceledTasksOffset++;
-        loadCanceledTasks();
-    });
-
-    $(".search-done").on('click', function () {
-        if ($(this).hasClass('active')) {
-            resetSearch();
-            $('#actualSearch').removeClass('active');
-            $(".archive").html($(this).find('.archive-name').text());
-            $(".tasks").hide();
-            loadDoneTasks();
-            $("#resetSearch").show();
-            $('.search-done').addClass('active');
-            $('.actual').hide();
+function filterTasks() {
+    $(".load-archive-page").hide();
+    var text = $('#searchInput').val();
+    var textRegex = new RegExp(text, 'i');
+    $('.tasks').each(function () {
+        var $el = $(this);
+        var $hasText = false;
+        if ($el.find('span').text().search(textRegex) !== -1) {
+            $hasText = true;
+        }
+        if ($hasText) {
+            $el.show()
         } else {
-            resetSearch();
-            countAll();
+            $el.hide();
+        }
+    });
+}
+
+function checkForEmptyTaskList() {
+    if ($('.task-card:visible').length > 0) {
+        $('#emptyTasksFilter').addClass('d-none');
+    } else {
+        $('#emptyTasksFilter').removeClass('d-none');
+    }
+}
+
+$(document).ready(function () {
+    $('.worker-dropdown-item').on('click', function (e) {
+        e.preventDefault();
+        var workerId = $(this).data('worker-id');
+        if (workerId == 0 || $(this).hasClass('active')) {
+            $('#workerDropdownButton').text($('#workerDropdownButton').data('default-name'));
+            $('#workerDropdownButton').removeClass('active');
+            $('.worker-dropdown-item').removeClass('active');
+        } else {
+            $('.worker-dropdown-item').removeClass('active');
+            $(this).addClass('active');
+            var workerName = $(this).text();
+            $('#workerDropdownButton').text(workerName);
+            $('#workerDropdownButton').addClass('active');
+
+        }
+        filterTaskByStatusWorkerAndType();
+        checkForEmptyTaskList();
+    });
+
+    $('.status-dropdown-item').on('click', function (e) {
+        e.preventDefault();
+
+        $('.task-card[data-status="done"], .sub-task-card[data-status="done"]').remove();
+        $('.task-card[data-status="canceled"], .sub-task-card[data-status="canceled"]').remove();
+
+        var status = $(this).data('status');
+        if (status == 0 || $(this).hasClass('active')) {
+            $('#statusDropdownButton').text($('#statusDropdownButton').data('default-name'));
+            $('#statusDropdownButton').removeClass('active');
+            $('.status-dropdown-item').removeClass('active');
+            if (status == 0) {
+                $('.task-type-dropdown-item').removeClass('active');
+            }
+        } else {
+            $('.status-dropdown-item').removeClass('active');
+            $(this).addClass('active');
+            var statusName = $(this).text();
+            $('#statusDropdownButton').text(statusName);
+            $('#statusDropdownButton').addClass('active');
+        }
+
+        filterTaskByStatusWorkerAndType();
+        if ($('#dateOrder').hasClass('asc') || $('#dateOrder').hasClass('desc')) {
+            orderByDate();
+        } else if ($('#nameOrder').hasClass('asc') || $('#nameOrder').hasClass('desc')) {
+            orderByName();
+        }
+
+        if ((status === 'done' || status === 'canceled') && $(this).hasClass('active')) {
+            archiveTasksOffset = 0;
+            var order = '';
+            var orderField = '';
+            if ($('#dateOrder').hasClass('asc')) {
+                order = 'asc';
+                orderField = 'date';
+            } else if ($('#dateOrder').hasClass('desc')) {
+                order = 'desc';
+                orderField = 'date';
+            } else if ($('#nameOrder').hasClass('asc')) {
+                order = 'asc';
+                orderField = 'name';
+            } else if ($('#nameOrder').hasClass('desc')) {
+                order = 'desc';
+                orderField = 'name';
+            }
+            var workerId = 0;
+            if ($('.worker-dropdown-item.active').length) {
+                workerId = $('.worker-dropdown-item.active').data('worker-id');
+            }
+            var taskType = 0;
+            if ($('#taskIn').hasClass('active')) {
+                taskType = 'in';
+            } else if ($('#taskOut').hasClass('active')) {
+                taskType = 'out';
+            }
+            if (status === 'done' || status === 'canceled') {
+                $(".task-card").hide();
+                loadArchiveTasks(status, orderField, order, workerId, taskType);
+            }
+        } else {
+            checkForEmptyTaskList();
         }
     });
 
-    $(".search-cancel").on('click', function () {
+    $('.task-type-dropdown-item').on('click', function (e) {
+        e.preventDefault();
+        var taskType = $(this).data('task-type');
         if ($(this).hasClass('active')) {
-            resetSearch();
-            $('#actualSearch').removeClass('active');
-            $(".archive").html($(this).find('.archive-name').text());
-            $(".tasks").hide();
-            loadCanceledTasks();
-            $("#resetSearch").show();
-            $('.search-cancel').addClass('active');
-            $('.actual').hide();
+            $(this).removeClass('active');
+            if ($('.status-dropdown-item.active').length == 0) {
+                $('#statusDropdownButton').removeClass('active');
+            }
         } else {
-            resetSearch();
-            countAll();
+            $('.task-type-dropdown-item').removeClass('active');
+            $(this).addClass('active');
+        }
+        filterTaskByStatusWorkerAndType();
+        checkForEmptyTaskList();
+    });
+
+    $('#nameOrder').on('click', function (e) {
+        e.preventDefault();
+        $('#dateOrder').removeClass('asc').removeClass('desc');
+        $('#dateOrderIcon').removeClass('fas fa-sort-down').removeClass('fas fa-sort-up').addClass('fas fa-sort');
+
+        if ($(this).hasClass('asc')) {
+            $(this).removeClass('asc').addClass('desc');
+            $('#nameOrderIcon').removeClass('fas fa-sort-up').addClass('fas fa-sort-down')
+        } else {
+            $(this).removeClass('desc').addClass('asc');
+            $('#nameOrderIcon').removeClass('fas fa-sort-down').addClass('fas fa-sort-up')
+        }
+        if ($('#doneLink').hasClass('active')) {
+            $('#doneLink').removeClass('active');
+            $('#doneLink').trigger('click');
+        } else if ($('#canceledLink').hasClass('active')) {
+            $('#canceledLink').removeClass('active');
+            $('#canceledLink').trigger('click');
+        } else {
+            orderByName();
+        }
+
+    });
+
+    $('#dateOrder').on('click', function (e) {
+        e.preventDefault();
+        $('#nameOrder').removeClass('asc').removeClass('desc');
+        $('#nameOrderIcon').removeClass('fas fa-sort-down').removeClass('fas fa-sort-up').addClass('fas fa-sort');
+
+        if ($(this).hasClass('asc')) {
+            $(this).removeClass('asc').addClass('desc');
+            $('#dateOrderIcon').removeClass('fas fa-sort-up').addClass('fas fa-sort-down')
+
+        } else {
+            $(this).removeClass('desc').addClass('asc');
+            $('#dateOrderIcon').removeClass('fas fa-sort-down').addClass('fas fa-sort-up')
+        }
+        if ($('#doneLink').hasClass('active')) {
+            $('#doneLink').removeClass('active');
+            $('#doneLink').trigger('click');
+        } else if ($('#canceledLink').hasClass('active')) {
+            $('#canceledLink').removeClass('active');
+            $('#canceledLink').trigger('click');
+        } else {
+            orderByDate();
         }
     });
+
+    var action = window.location.hash.substr(1);
+    if (action === 'overdue') {
+        $('#overdueLink').trigger('click');
+        location.hash = '';
+    }
+    if (action === 'inwork') {
+        $('#inworkLink').trigger('click');
+        location.hash = '';
+    }
+    if (action === 'pending') {
+        $('#pendingLink').trigger('click');
+        location.hash = '';
+    }
+    if (action === 'postpone') {
+        $('#postponeLink').trigger('click');
+        location.hash = '';
+    }
+    if (action === 'planned') {
+        $('#plannedLink').trigger('click');
+        location.hash = '';
+    }
 
     $('#searchInput').on('keyup', function () {
         filterTasks();
-        countRoles();
-        countStatuses();
-        countAll();
     });
 
-    var rolesNames = {};
+    $('#clearAllFilters').on('click', function (e) {
+        e.preventDefault();
+        $('#workerDropdownButton').text($('#workerDropdownButton').data('default-name'));
+        $('#workerDropdownButton').removeClass('active');
+        $('.worker-dropdown-item').removeClass('active');
 
-    function pasteComma() {
-        $('.comma').remove();
-        $('.filter-select:visible:not(:empty):not(:last)').append('<span class="comma">, </span>')
-    }
-
-    function filterRole() {
-        var rolename;
-        $('.role-search').each(function (i) {
-            var role = 'role' + i;
-            if ($(this).hasClass('active')) {
-                rolename = $(this).find('.role-name').text();
-                rolesNames[role] = rolename;
-            } else {
-                delete rolesNames[role];
-            }
-        });
-        if (Object.keys(rolesNames).length > 0) {
-            $('.in').show();
-            $('.out').show();
-            $("#actualSearch").removeClass('active');
-            $('.actual').hide();
-            if ("role0" in rolesNames) {
-                $(".in").html("<span>Входящие</span>");
-                $("#resetSearch").show();
-            } else {
-                $('.in').html('');
-            }
-            if ("role1" in rolesNames) {
-                $(".out").html("<span>Исходящие</span>");
-                $("#resetSearch").show();
-            } else {
-                $('.out').html('');
-            }
-        } else {
-            $('.in').hide();
-            $('.out').hide();
-            $("#resetSearch").show();
+        $('#statusDropdownButton').removeClass('active');
+        $('#statusDropdownButton').text($('#statusDropdownButton').data('default-name'));
+        $('.status-dropdown-item').removeClass('active');
+        $('.task-type-dropdown-item').removeClass('active');
+        filterTaskByStatusWorkerAndType();
+        if ($('#dateOrder').hasClass('asc') || $('#dateOrder').hasClass('desc')) {
+            orderByDate();
+        } else if ($('#nameOrder').hasClass('asc') || $('#nameOrder').hasClass('desc')) {
+            orderByName();
         }
-    }
-
-    function filterTasks() {
-        $(".load-archive-page").hide();
-        var text = $('#searchInput').val();
-        var textRegex = new RegExp(text, 'i');
-        var statuses = [];
-        var statusesNames = [];
-        var roles = [];
-        $('.status-search').each(function () {
-            if ($(this).hasClass('active')) {
-                statuses.push($(this).attr('rel'));
-            }
-        });
-
-        $('.role-search').each(function () {
-            if ($(this).hasClass('active')) {
-                roles.push($(this).attr('rol'));
-            }
-        });
-        $('.tasks').each(function () {
-            var $el = $(this);
-            var $hasStatus = false;
-            var $hasText = false;
-            var $hasRole = false;
-            if ($el.find('span').text().search(textRegex) !== -1) {
-                $hasText = true;
-            }
-            if (statuses.length === 0) {
-                $hasStatus = true
-            } else {
-                statuses.forEach(function ($status) {
-                    if ($el.hasClass($status)) {
-                        $hasStatus = true;
-                    }
-                })
-            }
-            if (roles.length === 0) {
-                $hasRole = true
-            } else {
-                roles.forEach(function ($role) {
-                    if ($el.hasClass($role)) {
-                        $hasRole = true;
-                    }
-                })
-            }
-            if ($hasStatus && $hasText && $hasRole) {
-                $el.show()
-            } else {
-                $el.hide();
-            }
-        });
-        if (Object.keys(rolesNames).length === 0 && statuses.length === 0 && text === '') {
-            resetSearch();
-            countAll();
-            $("#actualSearch").addClass('active');
-        } else {
-            $("#actualSearch").removeClass('active')
-        }
-    }
-
-    function resetSearch() {
-        doneTasksOffset = 0;
-        canceledTasksOffset = 0;
-        $('.status').html('');
-        $('div.canceled').remove();
-        $('div.done').remove();
-        $(".archive").html('');
-        $(".in").hide();
-        $(".out").hide();
-        $(".words-search").each(function () {
-            var status = $(this);
-            $(".load-archive-page").hide();
-            $("#searchInput").val('');
-            $("#resetSearch").hide();
-            countRoles();
-            countStatuses();
-            if (status.hasClass('active')) {
-                $(".words-search").removeClass('active');
-                $('.archive-search').removeClass('active');
-                $(".selected-status").html('');
-            }
-            $(".tasks").show();
-        });
-        $(".actual").show();
-        $('#actualSearch').addClass('active');
-    }
-
-    $("#resetSearch").on('click', function () {
-        resetSearch();
-        countAll();
+        checkForEmptyTaskList();
     });
-
-    function countStatuses() {
-        $('.status-search').each(function () {
-            var $status = $(this).attr('rel');
-            var taskCount = $('.' + $status + ':visible').length;
-            $(this).find('.count').text(' (' + taskCount + ')');
-        })
-    }
-
-    function countRoles() {
-        $('.role-search').each(function () {
-            var $status = $(this).attr('rol');
-            var roleCount = $('.' + $status + ':visible').length;
-            $(this).find('.count').text(' (' + roleCount + ')');
-        })
-    }
-
-    function countAll() {
-        $(".load-archive-page").hide();
-        var count = $('.tasks' + ':visible').length;
-        if (count === 0) {
-            $('.task-box').addClass('d-none');
-            $('.tasks-search-container').show();
-        } else {
-            $('.tasks-search-container').hide();
-            $('.task-box').removeClass('d-none');
-        }
-        $('.count-all').html(' (' + count + ')');
-    }
-
-    countAll();
-    countRoles();
-    countStatuses();
 });
