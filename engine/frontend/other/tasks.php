@@ -70,7 +70,7 @@
                     </span>
                 </div>
                 <div class="col-6 col-sm-6 col-lg-2 col-xl-2 order-sm-4 order-4 order-md-4 order-lg-0 order-xl-0  pr-0 pl-sort dropdown worker-dropdown">
-                    <button id="workerDropdownButton" class="btn btn-sm btn-secondary text-area-message dropdown-toggle sort-task"
+                    <button id="workerDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort-task"
                             type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             data-default-name="<?= $GLOBALS['_memberstasks'] ?>">

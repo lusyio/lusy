@@ -3640,6 +3640,11 @@ span.date {
     text-overflow: ellipsis;
 }
 
+#workerDropdownButton{
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .sort-task i{
     border-right: .3em solid transparent;
     border-bottom: 0;
