@@ -21,7 +21,7 @@
         <div class="d-sm task-box taskbox-padding">
             <div class="row sort">
                 <div class="col-6 col-sm-6 col-lg-6 col-xl-6 order-1 order-md-1 order-lg-0 order-xl-0 order-sm-1 pr-0 pl-sort">
-                    <span id="nameOrder" class="btn btn-sm btn-secondary sort-task align-text-top">
+                    <span id="nameOrder" class="btn btn-sm btn-secondary sort-task">
                         <span id="nameOrderText"><?= $GLOBALS['_taskname'] ?> <i id="nameOrderIcon"
                                                                                  class="fas fa-sort"></i></span>
                     </span>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-lg-2 col-xl-2 pr-0 order-2 order-md-2 order-lg-0 order-xl-0 pl-2">
-                    <span id="dateOrder" class="btn btn-sm btn-secondary sort-task align-text-top">
+                    <span id="dateOrder" class="btn btn-sm btn-secondary sort-task">
                         <span id="dateOrderText"><?= $GLOBALS['_deadlinetasks'] ?> <i id="dateOrderIcon"
                                                                                       class="fas fa-sort"></i></span>
                     </span>
