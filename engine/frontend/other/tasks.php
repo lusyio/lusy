@@ -31,8 +31,7 @@
                             type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             data-default-name="<?= $GLOBALS['_statustasks'] ?>">
-                        <?= $GLOBALS['_statustasks'] ?>
-                    </button>
+                        <?= $GLOBALS['_statustasks'] ?></button>
                     <div class="dropdown-menu dropdown-menu-right sort-task-dropdown"
                          aria-labelledby="statusDropdownButton">
                         <a class="dropdown-item task-type-dropdown-item<?= ($hasIncomeTasks) ? '' : '' ?>" href="#"
@@ -75,8 +74,7 @@
                             type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             data-default-name="<?= $GLOBALS['_memberstasks'] ?>">
-                        <?= $GLOBALS['_memberstasks'] ?>
-                    </button>
+                        <?= $GLOBALS['_memberstasks'] ?></button>
                     <div class="dropdown-menu dropdown-menu-right sort-task-dropdown"
                          aria-labelledby="workerDropdownButton">
                         <?php foreach ($workersName as $wId => $wName): ?>
@@ -85,7 +83,6 @@
                         <?php endforeach; ?>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item worker-dropdown-item" href="#" data-worker-id="0">Очистить фильтр</a>
-
                     </div>
                 </div>
             </div>
