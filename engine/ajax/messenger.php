@@ -68,6 +68,7 @@ if ($_POST['module'] == 'sendMessage') {
         } elseif ($recipientId == 1) {
             foreach ($supportAdmins as $admin) {
                 $cometData[$admin] = $mesData;
+                addMailToQueue('sendMessageEmailNotification', [$admin, $id, $messageId], $admin, $messageId);
             }
             $cometData[$id] = $mesData;
         } else {
