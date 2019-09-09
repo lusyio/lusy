@@ -232,17 +232,7 @@
                      data-parent="#accordionSettings">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12 col-lg-6">
-                                <div class="input-group mt-3">
-                                    <input id="password" name="password" type="password"
-                                           class="form-control input-settings password"
-                                           required>
-                                </div>
-                                <small class="text-muted text-muted-reg">
-                                    <?= $GLOBALS['_passwordsettings'] ?>
-                                </small>
-                            </div>
-                            <div class="col-12 col-lg-6">
+                            <div class="col-12 col-lg-6 offset-lg-3">
                                 <div class="input-group mt-3">
                                     <input id="settingsNewPassword" name="settingsNewPassword" type="password"
                                            class="form-control input-settings new-password">
@@ -462,10 +452,6 @@
                                         <div class="d-flex sleep-container">
                                             <select class="form-control form-control-sm" id="startSleep">
                                                 <option hidden></option>
-                                                <!--                                                <option value="-1" -->
-                                                <? //= ($notifications['silence_start'] == '-1') ? 'selected' : '' ?><!-- >-->
-                                                <!--                                                    Присылать всегда-->
-                                                <!--                                                </option>-->
                                                 <?php for ($i = 0; $i < 24; $i++): ?>
                                                     <option value="<?= $i ?>" <?= ($notifications['silence_start'] == $i || ($notifications['silence_start'] == -1 && $i == 21)) ? 'selected' : '' ?>><?= $i ?>
                                                         :00
@@ -620,8 +606,7 @@
             fd.append('ajax', 'settings');
             fd.append('module', 'changePassword');
             fd.append('newPassword', newPassword);
-            fd.append('password', password);
-            if (password && newPassword) {
+            if (newPassword) {
                 $.ajax({
                     url: '/ajax.php',
                     type: 'POST',
@@ -631,40 +616,20 @@
                     contentType: false,
                     data: fd,
                     success: function (data) {
-                        if (data.status){
-                        $('#editSpan1').hide();
-                        $('.edit-settings-saved[settings-id=2]').fadeIn(200);
-                        $('.edit-settings-saved[settings-id=2] .small').text('Изменения сохранены');
-                        $.when($('.edit-settings-saved[settings-id=2]').fadeOut(800)).done(function () {
-                            $('#editSpan1').fadeIn(200);
-                        });
-                        } else {
+                        if (data == ''){
+                            $("#settingsNewPassword").val('');
                             $('#editSpan1').hide();
-                            $('#password').css({
-                                'border-color': '#dc3545',
-                                'transition': '1000ms'
-                            });
+                            $('.edit-settings-saved[settings-id=2]').fadeIn(800);
+                            $('.edit-settings-saved[settings-id=2] .small').text('Изменения сохранены');
                             setTimeout(function () {
-                                $('#password').css('border-color', "#ced4da");
-                            }, 1000);
-                            $('.edit-settings-saved[settings-id=2] .small').text('Неверный пароль');
-                            $('.edit-settings-saved[settings-id=2]').fadeIn(200);
-                            $.when($('.edit-settings-saved[settings-id=2]').fadeOut(800)).done(function () {
-                                $('#editSpan1').fadeIn(200);
-                            });
+                                $.when($('.edit-settings-saved[settings-id=2]').fadeOut(800)).done(function () {
+                                    $('#editSpan1').fadeIn(200);
+                                });
+                            }, 1500)
                         }
                     },
                 });
             } else {
-                if (password == ''){
-                    $('#password').css({
-                        'border-color': '#dc3545',
-                        'transition': '1000ms'
-                    });
-                    setTimeout(function () {
-                        $('#password').css('border-color', "#ced4da");
-                    }, 1000);
-                }
                 if (newPassword == '') {
                     $('#settingsNewPassword').css({
                         'border-color': '#dc3545',
