@@ -3633,6 +3633,13 @@ span.date {
     color: #b6bac5;
 }
 
+.sort-task.active{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .sort-task i{
     border-right: .3em solid transparent;
     border-bottom: 0;

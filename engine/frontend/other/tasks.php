@@ -27,7 +27,7 @@
                     </span>
                 </div>
                 <div class="col-6 col-sm-6 col-lg-2 col-xl-2 order-3 order-sm-3 order-md-3 order-lg-0 order-xl-0 text-lg-right text-xl-left pl-sort pr-0 dropdown status-dropdown">
-                    <button id="statusDropdownButton" class="btn btn-sm btn-secondary text-area-message dropdown-toggle sort-task"
+                    <button id="statusDropdownButton" class="btn btn-sm btn-secondary dropdown-toggle sort-task"
                             type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             data-default-name="<?= $GLOBALS['_statustasks'] ?>">
