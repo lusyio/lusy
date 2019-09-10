@@ -6,11 +6,22 @@ if ($idc != 1) {
     header('Location: /');
 }
 
-$countCompanies = DBOnce('count(*)','company','');
-$countUsers = DBOnce('count(*)','users','');
-$countTasks = DBOnce('count(*)','tasks','');
-$countComments = DBOnce('count(*)','comments','status="comment"');
-$countMail = DBOnce('count(*)','mail','');
+$countCompanies = DBOnce('count(*)', 'company', '');
+$now = timestamp(date("Y-m-d 00:00:00"));
+$countCompaniesRegToday = DBOnce('count(*)', 'company', 'datareg > ' . $now);
+$companyRegsDays = [];
+for ($i = 0; $i <= 6; $i++) {
+    $dateShow = date("d.m", strtotime("-$i day"));
+    $newdayStart = timestamp(date("Y-m-d 00:00:00", strtotime("-$i day")));
+    $newdayEnd = timestamp(date("Y-m-d 23:59:59", strtotime("-$i day")));
+    $countCompaniesReg = DBOnce('count(*)', 'company', 'datareg > ' . $newdayStart . ' and datareg < ' . $newdayEnd);
+    array_push($companyRegsDays, ['date' => $dateShow, 'count' => $countCompaniesReg,]);
+}
+$lastTenCompanyes = DB('id,idcompany,datareg', 'company', 'id != "3" order by datareg DESC limit 10');
+$countUsers = DBOnce('count(*)', 'users', '');
+$countTasks = DBOnce('count(*)', 'tasks', '');
+$countComments = DBOnce('count(*)', 'comments', 'status="comment"');
+$countMail = DBOnce('count(*)', 'mail', '');
 $currentDatetime = time();
 $activeCompaniesQuery = $pdo->prepare('SELECT COUNT(*) FROM (SELECT count(*) AS eventsCount FROM events WHERE datetime > :datetime group by company_id) as e WHERE eventsCount > :eventsToBeActive');
 $activeCompaniesQuery->bindValue(':datetime', $currentDatetime - (3600 * 24 * 30), PDO::PARAM_INT);
@@ -21,8 +32,8 @@ $activeCompanies = $activeCompaniesQuery->fetch(PDO::FETCH_COLUMN);
 $startTime = strtotime(date('Y-m-d'));
 $endTime = time();
 $eventsCountSql = $pdo->prepare('SELECT COUNT(ALL *) as count, datetime - datetime%(60*60) as period FROM events WHERE datetime between :startTime AND :endTime GROUP BY datetime - datetime%(60*60)');
-$eventsCountSql->bindValue(':startTime', (int) $startTime, PDO::PARAM_INT);
-$eventsCountSql->bindValue(':endTime', (int) $endTime, PDO::PARAM_INT);
+$eventsCountSql->bindValue(':startTime', (int)$startTime, PDO::PARAM_INT);
+$eventsCountSql->bindValue(':endTime', (int)$endTime, PDO::PARAM_INT);
 $eventsCountSql->execute();
 $eventsCountResult = $eventsCountSql->fetchAll(PDO::FETCH_ASSOC);
 $eventsCount = [];
@@ -32,7 +43,7 @@ foreach ($eventsCountResult as $count) {
         $eventsCount[] = 0;
         $t += 60 * 60;
     }
-    $eventsCount[] = (int) $count['count'];
+    $eventsCount[] = (int)$count['count'];
     $t += 60 * 60;
 }
 while (count($eventsCount) < 24 && $t <= $endTime) {
@@ -65,3 +76,87 @@ $companiesInfoQuery = $pdo->prepare("SELECT c.id, c.idcompany, c.tariff, c.lang,
 FROM company c ORDER BY datareg DESC");
 $companiesInfoQuery->execute();
 $companiesInfo = $companiesInfoQuery->fetchAll(PDO::FETCH_ASSOC);
+
+function timestamp($date)
+{
+    $timestamp = strtotime($date);
+    return $timestamp;
+}
+
+function lastEvents($idc)
+{
+    $events = [];
+    $lastevents = DB('*', 'events', 'company_id = "' . $idc . '" order by datetime DESC limit 10');
+    foreach ($lastevents as $n) :
+
+        $action = $n['action'];
+        if ($action == 'createinittask') {
+            $task = DBOnce('name', 'tasks', 'id=' . $n['task_id']);
+            $action = 'Создана приветственная задача <strong>' . $task . '</strong>';
+        }
+
+        if ($action == 'createtask') {
+            $task = DBOnce('name', 'tasks', 'id=' . $n['task_id']);
+            $action = 'Создана задача <strong>' . $task . '</strong>';
+        }
+
+        if ($action == 'workdone') {
+            $task = DBOnce('name', 'tasks', 'id=' . $n['task_id']);
+            $action = 'Завершена задача <strong>' . $task . '</strong>';
+        }
+
+        if ($action == 'viewtask') {
+            $task = DBOnce('name', 'tasks', 'id=' . $n['task_id']);
+            $action = 'Просмотрена задача <strong>' . $task . '</strong>';
+        }
+
+        if ($action == 'newachievement') {
+            $action = 'Получена ачивка';
+        }
+
+        if ($action == 'newuser') {
+            $action = 'Новый пользователь';
+        }
+
+        if ($action == 'comment') {
+            $action = 'Оставлен комментарий';
+        }
+
+        $date = date('d.m в H:i',$n['datetime']);
+
+        array_push($events, ['action' => $action, 'date' => $date,]);
+
+
+    endforeach;
+    return $events;
+}
+
+function countUsers($idc)
+{
+    $countUsers = DBOnce('count(*)', 'users', 'idcompany = ' . $idc);
+    return $countUsers;
+}
+
+function countTasks($idc)
+{
+    $countTasks = DBOnce('count(*)', 'tasks', 'idcompany = ' . $idc);
+    return $countTasks;
+}
+
+function getUsersFromCompany($idc)
+{
+    $users = [];
+    $getUsers = DB('name,surname,email,activity', 'users', 'idcompany=' . $idc . ' order by activity DESC');
+    foreach ($getUsers as $u) :
+
+        if (!empty($u['name']) or !empty($u['surname'])) {
+            $name = $u['name'] . ' ' . $u['surname'];
+        } else {
+            $name = $u['email'];
+        }
+        $activityDate = date("d.m в H:i", $u['activity']);
+
+        array_push($users, ['name' => $name, 'activity' => $activityDate,]);
+    endforeach;
+    return $users;
+}

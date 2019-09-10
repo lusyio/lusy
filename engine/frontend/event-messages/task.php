@@ -147,8 +147,14 @@
             $icon = 'fas fa-user-edit';
             if ($event['author_id'] == '1') {
                 $eventText = _('You changed worker');
-                $eventDop = _('New worker is') . ' <span class="text-capitalize">' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>';
+                if ($event['worker'] == $id) {
+                    $eventDop = _('You have appointed yourself a manager');
+                } else {
+                    $eventDop = _('New worker is') . ' <span class="text-capitalize">' . $event['workerName'] . ' ' . $event['workerSurname'] . '</span>';
+                }
             } else {
+                $bg = 'danger';
+                $icon = 'fas fa-user-slash';
                 $eventText = _('Task reassigned');
             }
         }
@@ -204,13 +210,24 @@
             }
         }
 
+        if ($event['action'] == 'edittask') { // назначен новый срок
+            $bg = 'warning';
+            $icon = 'fas fa-pen';
+            if ($event['author_id'] == '1') {
+                $eventText = _('You have edited the task description');
+            } else {
+                $eventText = _('The task description was edited');
+                $eventDop = _('View the task');
+            }
+        }
+
         $month = ['', _("January"), _("February"), _("March"), _("April"), _("May"), _("June"), _("July"), _("August"), _("September"), _("October"), _("November"), _("December")];
         $monthNumber = date("n", $event['datetime']);
         ?>
 
         <div class="eventDiv">
             <div class="row">
-                <div class="col-2">
+                <div class="col-2 pr-lg-0 pr-xl-3 pr-md-3 pr-3">
                     <div class="text-right float-right">
                         <p class="mb-0 font-weight-bold"><?= date("j", $event['datetime']); ?> <span
                                     class="text-lowercase"><?= _($month[$monthNumber]) ?></span></p>

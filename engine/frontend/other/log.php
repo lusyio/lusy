@@ -2,7 +2,7 @@
     <div class="pb-2">
         <div class="row">
             <div class="col-sm-12">
-                <div class="d-inline-block">
+                <div class="d-inline-block sort-log">
                     <div id="allSearch" class="btn btn-light view-status-search active mb-2">
                         <span><i class="fas fa-align-justify mr-2"></i> <?= $_buttonLogShowAll ?></span>
                         <span class="count"></span>

@@ -144,7 +144,7 @@ $(document).ready(function () {
         if (checkName != ''){
             numberCheckList++;
             $('.check-list-container').show();
-            $('#checkListExample').clone().attr('data-id', numberCheckList).removeClass('d-none').addClass('checklist-selected').appendTo('.check-list-container');
+            $('#checkListExample').clone().attr('data-id', numberCheckList).attr('data-row-id', 0).removeClass('d-none').addClass('checklist-selected').appendTo('.check-list-container');
             $('[data-id=' + numberCheckList + ']').find('.ml-3').text(checkName);
             $('#checklistInput').val('');
         }
@@ -276,9 +276,15 @@ $(document).ready(function () {
             coworkers.push($(this).attr('val'));
         });
         var checkList = [];
+        var oldChecklistRows = [];
         $('.check-list-new.checklist-selected').each(function () {
-            checkList.push($(this).text().trim());
+            if ($(this).data('row-id') > 0) {
+                oldChecklistRows.push($(this).data('row-id'));
+            } else {
+                checkList.push($(this).text().trim());
+            }
         });
+
         var checkDate = $('#datedone').attr('min');
         var name = $("#name").val();
         var delta = quill.root.innerHTML;
@@ -297,6 +303,7 @@ $(document).ready(function () {
         } else {
             fd.append('module', 'editTask');
             fd.append('it', taskId);
+            fd.append('oldChecklistRows', JSON.stringify(oldChecklistRows));
             var oldDeviceUploads = [];
             $('.device-uploaded, .attached-source-file').each(function (i, deviceFile) {
                 if ($(deviceFile).data('file-id') !== '') {

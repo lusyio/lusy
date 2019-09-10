@@ -19,6 +19,7 @@ if ($_POST['module'] == 'sendActivation' && $roleu == 'ceo') {
     $activationCode = getActivationCode($idc);
     var_dump($activationCode);
     $ceoEmail = DBOnce('email', 'users', 'id = ' . $id);
+    $ceoId = DBOnce('id', 'users', 'id = ' . $id);
 
     require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
     require_once __ROOT__ . '/engine/phpmailer/Exception.php';

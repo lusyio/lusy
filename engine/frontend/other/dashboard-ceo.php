@@ -1,5 +1,4 @@
 <?php
-
 $bgColor = [
     'new' => 'bg-primary',
     'inwork' => 'bg-primary',
@@ -48,7 +47,6 @@ $statusColor = [
 <link rel="stylesheet" href="/assets/css/swiper.min.css">
 <script type="text/javascript" src="/assets/js/Chart.min.js"></script>
 <script type="text/javascript" src="/assets/js/utils.js"></script>
-
 <div class="row">
     <div class="col-12 col-lg-4">
         <div class="card overflow-hidden chart-card">
@@ -92,7 +90,7 @@ $statusColor = [
                 <?php endif; ?>
             </div>
             <span class="bg-icon-achieve">
-                <i class="fas fa-trophy bg-chart-trophy"></i>
+                <img src="/assets/svg/trophy2.svg" class="svg-icon bg-chart-trophy"/>
             </span>
         </div>
     </div>
@@ -120,7 +118,7 @@ $statusColor = [
                             </div>
                             <div class="col pl-0">
                                 <div class="statusText font-weight-bold text-right text-">
-                                    <span class="statusText-line <?= $statusColor[$task['status']] ?>">
+                                    <span class="statusText-line">
                                         <?= $GLOBALS["_{$task['status']}"] ?>
                                     </span>
                                 </div>
@@ -180,6 +178,39 @@ $statusColor = [
         </div>
     </div>
 </div>
+<?php if (isset($showGame) && $showGame) : ?>
+    <div class="card premiumCard mb-3 mt-3 progressBlock">
+        <div class="card-body">
+            <div class="row ">
+                <?php foreach ($stepContent as $step): ?>
+                    <div class="col-4 col-lg-3">
+                    <a href="<?= $step['link'] ?>">
+                        <div class="d-flex <?=$step['doneStep']?>">
+                            <div class="iconDiv">
+                                <i class="<?= $step['icon'] ?>"></i>
+                            </div>
+                            <p class="mb-0 small text-game-step"><?= $step['text'] ?></p>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+                <div class="col-12 col-lg-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : ''?>">
+                    <button id="finishSteps" class="btn btn-outline-light">
+                        Активировать Premium-аккаунт
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-9">
+                    <div class="progress mt-0">
+                        <div class="progress-bar" role="progressbar" style="width: <?= $stepProgressBar ?>%" aria-valuenow="<?= $stepProgressBar ?>"
+                             aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <div class="swiper-container" id="mainSwiper">
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
@@ -268,7 +299,7 @@ $statusColor = [
     </div>
 </div>
 
-<div class="row mt-3">
+<div class="row mt-4 mb-3">
     <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash">
         <a href="/tasks/" class="text-decoration-none">
             <div class="card">
@@ -281,7 +312,7 @@ $statusColor = [
             </div>
         </a>
     </div>
-    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($inwork == 0) ? "no-events" : ''; ?>">
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($inwork == 0) ? "no-events-no" : ''; ?>">
         <div>
             <a href="/tasks/#inwork" class="text-decoration-none">
                 <div class="card">
@@ -295,7 +326,7 @@ $statusColor = [
             </a>
         </div>
     </div>
-    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($overdue == 0) ? "no-events" : ''; ?>">
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($overdue == 0) ? "no-events-no" : ''; ?>">
         <div>
             <a href="/tasks/#overdue" class="text-decoration-none">
                 <div class="card">
@@ -309,7 +340,7 @@ $statusColor = [
             </a>
         </div>
     </div>
-    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($pending == 0) ? "no-events" : ''; ?>">
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($pending == 0) ? "no-events-no" : ''; ?>">
         <div>
             <a href="/tasks/#pending" class="text-decoration-none">
                 <div class="card">
@@ -323,7 +354,7 @@ $statusColor = [
             </a>
         </div>
     </div>
-    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($postpone == 0) ? "no-events" : ''; ?>">
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($postpone == 0) ? "no-events-no" : ''; ?>">
         <div>
             <a href="/tasks/#postpone" class="text-decoration-none">
                 <div class="card">
@@ -337,122 +368,161 @@ $statusColor = [
             </a>
         </div>
     </div>
+    <div class="col-sm-4 col-lg-4 col-md-6 mb-3 card-tasks-dash <?= ($postpone == 0) ? "no-events-no" : ''; ?>">
+        <div>
+            <a href="/tasks/#planned" class="text-decoration-none">
+                <div class="card">
+                    <div class="card-body pb-2 pt-2">
+                        <span class="font-weight-bold float-left mr-2"><i
+                                    class="fas fa-clock text-info fa-fw mr-1"></i></span>
+                        <p class="mb-0"><span class="font-weight-bold"><?= $planned ?></span> <span
+                                    class="text-lowercase"><?= _('Planned') ?></span></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>
 
 <div class="mt-1 pb-0">
     <span class="font-weight-bold d-none"><?= _('History') ?></span>
     <div id="logDashBoard">
-        <ul class="timeline">
-            <?php $eventNumber = 1; ?>
-            <?php foreach ($events as $event): ?>
-                <?php if ($eventNumber < 21) {
-                    renderEvent($event);
-                    $eventNumber++;
-                } ?>
+        <div id="newEventsTitle" class="text-center other-func text-secondary position-relative mt-3 mb-4 <?= (count($newEvents) > 0) ? '' : 'd-none' ?>">
+            <div class="additional-func">
+                <span>Новые события</i></span>
+            </div>
+        </div>
+        <ul id="newEventsTimeline" class="timeline">
+            <?php foreach ($newEvents as $event): ?>
+                <?php  renderEvent($event); ?>
             <?php endforeach; ?>
-            <?php if (count($events) > 20): ?>
-                <a href="/log/">
-                    <div class="load-log-dashboard">
-                        <div id="loadLogDashboard" class="rounded-circle btn btn-light">
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                    </div>
-                </a>
-            <?php endif; ?>
         </ul>
-    </div>
-</div>
-<?php if ($isFirstLogin): ?>
-<div class="modal fade" id="afterRegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-0 text-center d-block">
-                <h4 class="modal-title" id="exampleModalLabel">Добро пожаловать в Lusy.io</h4>
-            </div>
-            <div class="modal-body text-left">
-                <p class="text-muted-new">
-                    Мы создали для вас аккаунт со следующими параметрами:
-                </p>
-                <div class="row mb-3">
-                    <div class="col-3">
-                        <span class="after-reg-text">Имя компании</span>
-                    </div>
-                    <div class="col">
-                        <label class="cd-username" for="afterRegCompanyname"><i class="fas fa-user text-muted-new"></i></label>
-                        <input id="afterRegCompanyname" class="form-control" type="text" placeholder="Имя компании" value="<?= $companyName; ?>">
-                        <span id="companynameOK" class="icon-after-reg position-absolute text-success display-none">
-                            <i class="fas fa-check-circle"></i>
-                        </span>
+        <div class="row mt-25-tasknew">
+            <div class="col-12 position-relative">
+                <div class="text-center other-func position-relative text-secondary mb-4">
+                    <div id="oldEventsCollapse" class="additional-func">
+                        <span>Просмотренные события<i class="fas fa-caret-down ml-3"></i></span>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <div class="col-3">
-                        <span class="after-reg-text">Ваш email</span>
-                    </div>
-                    <div class="col">
-                        <label class="cd-username" for="afterRegEmail"><i
-                                    class="fas fa-envelope text-muted-new"></i></label>
-                        <input id="afterRegEmail" class="form-control" type="email" placeholder="email" value="<?= $email; ?>">
-                        <span id="emailOK" class="icon-after-reg  position-absolute text-success display-none">
-                            <i class="fas fa-check-circle"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-3">
-                        <span class="after-reg-text">Пароль</span>
-                    </div>
-                    <div class="col position-relative">
-                        <label class="cd-username" for="afterRegPassword"><i
-                                    class="fas fa-key text-muted-new"></i></label>
-                        <input id="afterRegPassword" class="form-control" type="text" placeholder="Пароль" value="<?= $password; ?>">
-                        <input id="currentPassword" type="hidden" value="<?= $password; ?>">
-                        <span class="icon-after-reg  info-reg position-absolute text-ligther"
-                              data-toggle="tooltip" data-placement="bottom"
-                              title="Минимальное кол-во символов - 6">
-                            <i class="fas fa-info-circle"></i>
-                        </span>
-                        <span id="passwordOK" class="icon-after-reg  position-absolute text-success display-none">
-                            <i class="fas fa-check-circle"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-lg-8 text-right">
-                        <button id="saveAfterReg" class="btn-afterreg btn btn-violet text-white">
-                            Сохранить изменения
-                        </button>
-                    </div>
-                    <div class="col-4 text-right">
-                        <button class="btn-afterreg btn btn-light text-muted-new" data-dismiss="modal">
-                            <span class="small">Пропустить</span>
-                        </button>
-                    </div>
-                </div>
-                <span class="position-absolute bg-after-reg">
-                <i class="fas fa-sign-in-alt icon-limit-modal"></i>
-                </span>
-            </div>
-            <div class="modal-footer" style="justify-content: start">
-                <p class="text-muted-new small mb-0">
-                    Вы в любой момент можете поменять данные в
-                    <a class="btn-link" href="https://s.lusy.io/settings/">настройках</a>
-                </p>
-            </div>
-            <span class="icon-close-modal">
-            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
-                        class="fas fa-times text-muted"></i></button>
-            </span>
-            <div class="text-center position-absolute spinner-after-reg">
-                <div class="spinner-border"
-                     role="status">
-                    <span class="sr-only">Loading...</span>
+                <div class="collapse" id="oldEvents">
+                    <ul class="timeline" id="oldEventTimeline">
+                        <?php $eventNumber = 1; ?>
+                        <?php foreach ($oldEvents as $event): ?>
+                            <?php if ($eventNumber < 21) {
+                                renderEvent($event);
+                                $eventNumber++;
+                            } ?>
+                        <?php endforeach; ?>
+                        <?php if (count($oldEvents) > 20): ?>
+                            <a href="/log/">
+                                <div class="load-log-dashboard">
+                                    <div id="loadLogDashboard" class="rounded-circle btn btn-light">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        <?php endif; ?>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<?php if ($isFirstLogin): ?>
+    <div class="modal fade" id="afterRegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0 text-center d-block">
+                    <h4 class="modal-title" id="exampleModalLabel">Добро пожаловать в Lusy.io</h4>
+                </div>
+                <div class="modal-body text-left">
+                    <p class="text-muted-new">
+                        Мы создали для вас аккаунт со следующими параметрами:
+                    </p>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <span class="after-reg-text">Имя компании</span>
+                        </div>
+                        <div class="col">
+                            <label class="cd-username" for="afterRegCompanyname"><i
+                                        class="fas fa-user text-muted-new"></i></label>
+                            <input id="afterRegCompanyname" class="form-control" type="text" placeholder="Имя компании"
+                                   value="<?= $companyName; ?>">
+                            <span id="companynameOK" class="icon-after-reg position-absolute text-success display-none">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <span class="after-reg-text">Ваш email</span>
+                        </div>
+                        <div class="col">
+                            <label class="cd-username" for="afterRegEmail"><i
+                                        class="fas fa-envelope text-muted-new"></i></label>
+                            <input id="afterRegEmail" class="form-control" type="email" placeholder="email"
+                                   value="<?= $email; ?>">
+                            <span id="emailOK" class="icon-after-reg  position-absolute text-success display-none">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            <span class="after-reg-text">Пароль</span>
+                        </div>
+                        <div class="col position-relative">
+                            <label class="cd-username" for="afterRegPassword"><i
+                                        class="fas fa-key text-muted-new"></i></label>
+                            <input id="afterRegPassword" class="form-control" type="text" placeholder="Пароль"
+                                   value="<?= $password; ?>">
+                            <input id="currentPassword" type="hidden" value="<?= $password; ?>">
+                            <span class="icon-after-reg  info-reg position-absolute text-ligther"
+                                  data-toggle="tooltip" data-placement="bottom"
+                                  title="Минимальное кол-во символов - 6">
+                            <i class="fas fa-info-circle"></i>
+                        </span>
+                            <span id="passwordOK" class="icon-after-reg  position-absolute text-success display-none">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-8 text-right">
+                            <button id="saveAfterReg" class="btn-afterreg btn btn-violet text-white">
+                                Сохранить изменения
+                            </button>
+                        </div>
+                        <div class="col-4 text-right">
+                            <button class="btn-afterreg btn btn-light text-muted-new" data-dismiss="modal">
+                                <span class="small">Пропустить</span>
+                            </button>
+                        </div>
+                    </div>
+                    <span class="position-absolute bg-after-reg">
+                <i class="fas fa-sign-in-alt icon-limit-modal"></i>
+                </span>
+                </div>
+                <div class="modal-footer" style="justify-content: start">
+                    <p class="text-muted-new small mb-0">
+                        Вы в любой момент можете поменять данные в
+                        <a class="btn-link" href="https://s.lusy.io/settings/">настройках</a>
+                    </p>
+                </div>
+                <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
+                <div class="text-center position-absolute spinner-after-reg">
+                    <div class="spinner-border"
+                         role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php endif; ?>
 <script src="/assets/js/swiper.min.js"></script>
 <script type="text/javascript">
@@ -520,8 +590,8 @@ $statusColor = [
                     data: data,
                     fill: false,
                     backgroundColor: gradient,
-                    borderColor: '#61a0f4',
-                    colors: ['', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#61a0f4', '#e4e4e4'],
+                    borderColor: '#799cfe',
+                    colors: ['', '#799cfe', '#799cfe', '#799cfe', '#799cfe', '#799cfe', '#e9ecf3'],
                     borderWidth: 5,
                 }]
             },
@@ -578,7 +648,6 @@ $statusColor = [
 
     var emptyData = [0, 0, 0, 0, 0, 0, 0];
     if ([<?=$taskCountString?>].length === emptyData.length && [<?=$taskCountString?>].every((value, index) => value === emptyData[index])) {
-        console.log('asdasd');
         data = [
             randomScalingFactor(),
             randomScalingFactor(),
@@ -630,7 +699,61 @@ $statusColor = [
             $(this).removeClass('new-event');
             var eventId = $(this).data('event-id');
             markAsRead(eventId);
+            $(this).on('mouseleave', function () {
+                var el = $(this);
+                el.css("transform", "translateX(1000px)");
+                setTimeout(function () {
+                    $('#oldEventTimeline').prepend(el);
+                    el.css("transform", "");
+                    if ($('.new-event').length === 0) {
+                        $('#newEventsTitle').addClass('d-none');
+                    }
+                }, 500);
+                $(this).off('mouseleave')
+
+            });
         });
+
+        $('#oldEventsCollapse').on('click', function () {
+            $('#oldEvents').collapse('toggle');
+            var arrowIcon = $('#oldEventsCollapse i');
+            if (arrowIcon.css("transform") === 'none') {
+                arrowIcon.css("transform", "scaleY(-1)");
+            } else {
+                arrowIcon.css("transform", "");
+            }
+        });
+
+        $('#finishSteps').on('click', function () {
+            if ($('.not-finished').length > 0) {
+                var time = 0;
+                $('.not-finished').each(function () {
+                    var that = $(this);
+                    setTimeout(function () {
+                        that.css('opacity', '1');
+                        setTimeout(function () {
+                            that.css('opacity', '');
+                        }, 500);
+                    }, time);
+                    time += 500;
+                })
+            } else {
+                var fd = new FormData();
+                fd.append('module', 'gamePromo');
+                fd.append('ajax', 'payments');
+                    $.ajax({
+                        url: '/ajax.php',
+                        type: 'POST',
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        data: fd,
+                        success: function () {
+                            window.location.href = '/payment/';
+                        },
+                    });
+                }
+        })
     });
 </script>
 <?php if ($isFirstLogin): ?>
@@ -699,7 +822,6 @@ $statusColor = [
            }
         });
 
-        console.log(security);
 
         $('#afterRegEmail').on('keyup', function () {
             var $this = $(this);
@@ -729,7 +851,6 @@ $statusColor = [
             } else {
                 $("#saveAfterReg").prop('disabled', true);
             }
-            console.log(security)
         });
 
         $('#afterRegPassword').on('keyup', function () {
@@ -761,7 +882,6 @@ $statusColor = [
             } else {
                 $("#saveAfterReg").prop('disabled', true);
             }
-            console.log(security)
 
         });
 

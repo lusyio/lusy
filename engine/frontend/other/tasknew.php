@@ -62,13 +62,19 @@ $borderColor = [
             </label>
             <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
                 <div class="placeholder-responsible"
-                     style="<?= ($taskEdit) ? 'display: none;' : '' ?>"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
+                     style="<?= ($taskEdit || count($users) == 1) ? 'display: none;' : '' ?>"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                 <?php foreach ($users as $n): ?>
+                <?php if (!$taskEdit && count($users) == 1): ?>
+                <div val="<?php echo $n['id'] ?>"
+                     class="add-responsible responsible-selected">
+                <?php else: ?>
                 <div val="<?php echo $n['id'] ?>"
                      class="add-responsible <?= ($taskEdit && $n['id'] == $worker) ? 'responsible-selected' : 'd-none' ?>">
+                    <?php endif; ?>
                     <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
                 <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                 </div>
+
                 <?php endforeach; ?>
             <div class="position-absolute icon-newtask icon-newtask-change-responsible">
                 <i class="fas fa-caret-down"></i>
@@ -198,14 +204,14 @@ $borderColor = [
                             </div>
                             <div class="check-list-container card-body-tasknew text-left" style="<?= ($taskEdit && count($checklist) > 0) ? 'display: block;' : ''?>">
                                 <div id="checkListExample" class="position-relative check-list-new d-none mb-2">
-                                    <i class="far fa-check-square text-muted-new"></i>
+                                    <i class="far fa-square text-muted-new"></i>
                                     <span class="ml-3" style="color: #28416b;">  checkName  </span>
                                     <i class="fas fa-times delete-checklist-item"></i>
                                 </div>
                                 <?php if ($taskEdit): ?>
                                 <?php foreach ($checklist as $key => $item): ?>
-                                <div class="position-relative check-list-new mb-2 checklist-selected" data-id="<?= ++$key ?>">
-                                    <i class="far fa-check-square text-muted-new"></i>
+                                <div class="position-relative check-list-new mb-2 checklist-selected" data-row-id="<?= isset($item['rowId']) ? $item['rowId'] : 0 ?>" data-id="<?= ++$key ?>">
+                                    <i class="<?= ($item['status']) ? 'far fa-check-square' : 'far fa-square'?> text-muted-new"></i>
                                     <span class="ml-3" style="color: #28416b;"><?= $item['text'] ?></span>
                                     <i class="fas fa-times delete-checklist-item"></i>
                                 </div>
@@ -440,7 +446,7 @@ $borderColor = [
         </div>
     </div>
 </div>
-<script src="/assets/js/createtask.js?n=3"></script>
+<script src="/assets/js/createtask.js?n=4"></script>
 <?php if (($tariff == 1 || $tryPremiumLimits['cloud'] < 3) || ($taskEdit && $hasCloudUploads)): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================
@@ -621,6 +627,8 @@ $borderColor = [
             }
         });
     });
+
+    var Delta = Quill.import('delta');
     var quill = new Quill('#editor', {
         theme: 'snow',
         placeholder: 'Опишите суть задания...',
@@ -634,6 +642,11 @@ $borderColor = [
             ]
         },
     });
+    quill.clipboard.addMatcher(Node.ELEMENT_NODE, function (node, delta) {
+        var plaintext = $(node).text();
+        return new Delta().insert(plaintext);
+    });
+
     <?php if ($taskEdit): ?>
     var taskId = <?= $taskId; ?>;
     var pageAction = 'edit';

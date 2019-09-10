@@ -111,6 +111,10 @@ function prepareChatMessages(&$messages, $userId)
         $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
         $filesQuery->execute(array(':messageId' => $message['message_id'], ':commentType' => $commentType));
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($files as $key => $file) {
+            $fileNameParts = explode('.', $file['file_name']);
+            $files[$key]['extension'] = mb_strtolower(array_pop($fileNameParts));
+        }
         if (count($files) > 0) {
             $message['files'] = $files;
         } else {
@@ -191,6 +195,10 @@ function prepareMessages(&$messages, $userId, $forChat = false)
         $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE (comment_id = :messageId) AND comment_type = :commentType');
         $filesQuery->execute(array(':messageId' => $message['message_id'], ':commentType' => $commentType));
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($files as $key => $file) {
+            $fileNameParts = explode('.', $file['file_name']);
+            $files[$key]['extension'] = mb_strtolower(array_pop($fileNameParts));
+        }
         if (count($files) > 0) {
             $message['files'] = $files;
         } else {
@@ -235,6 +243,10 @@ function deleteMessageFromChat($messageId)
     $filesQuery =  $pdo->prepare("SELECT file_id, file_path FROM `uploads` WHERE comment_id = :messageId and comment_type = 'chat'");
     $filesQuery->execute(array(':messageId' => $messageId));
     $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($files as $key => $file) {
+        $fileNameParts = explode('.', $file['file_name']);
+        $files[$key]['extension'] = mb_strtolower(array_pop($fileNameParts));
+    }
     if (count($files) > 0) {
         $deleteQuery = 'DELETE FROM `uploads` WHERE file_id = :fileId';
         $deleteDbh = $pdo->prepare($deleteQuery);
@@ -256,8 +268,7 @@ function sendMessageToAllCeo($messageText)
     $ceoList = $ceoListQuery->fetchAll(PDO::FETCH_COLUMN);
 
     $sendMessageQuery = $pdo->prepare("INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:message, :sender, :recipient, :datetime)");
-    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
-
+    $cometData = [];
     foreach ($ceoList as $ceoId) {
         $sendMessageQuery->execute(array(':message' => $messageText, ':sender' => 1, ':recipient' => $ceoId, ':datetime' => time()));
         $messageId = $pdo->lastInsertId();
@@ -266,9 +277,10 @@ function sendMessageToAllCeo($messageText)
             'recipientId' => $ceoId,
             'messageId' => $messageId,
         ];
-        $jsonMesData = json_encode($mesData);
-        $sendToCometQuery->execute(array(':jsonMesData' => $jsonMesData, ':id' => $ceoId));
+        $cometData[$ceoId] = $mesData;
     }
+    $cometPdo->multipleSendNewMailMessage($cometData);
+
 }
 
 function sendMessageToAllUsers($messageText)
@@ -280,8 +292,7 @@ function sendMessageToAllUsers($messageText)
     $ceoList = $ceoListQuery->fetchAll(PDO::FETCH_COLUMN);
 
     $sendMessageQuery = $pdo->prepare("INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:message, :sender, :recipient, :datetime)");
-    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'new', :jsonMesData)");
-
+    $cometData = [];
     foreach ($ceoList as $ceoId) {
         $sendMessageQuery->execute(array(':message' => $messageText, ':sender' => 1, ':recipient' => $ceoId, ':datetime' => time()));
         $messageId = $pdo->lastInsertId();
@@ -290,7 +301,7 @@ function sendMessageToAllUsers($messageText)
             'recipientId' => $ceoId,
             'messageId' => $messageId,
         ];
-        $jsonMesData = json_encode($mesData);
-        $sendToCometQuery->execute(array(':jsonMesData' => $jsonMesData, ':id' => $ceoId));
+        $cometData[$ceoId] = $mesData;
     }
+    $cometPdo->multipleSendNewMailMessage($cometData);
 }

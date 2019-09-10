@@ -67,15 +67,22 @@
 </div>
 <div class="card">
     <?php
-    foreach ($sql
-
-             as $n):
+    foreach ($sql as $n):
         $overdue = DBOnce('COUNT(*) as count', 'tasks', '(worker=' . $n['id'] . ' or manager=' . $n['id'] . ') and status="overdue"');
         $inwork = DBOnce('COUNT(*) as count', 'tasks', '(status="new" or status="inwork" or status="returned") and (worker=' . $n['id'] . ' or manager=' . $n['id'] . ')');
         if ($n['is_fired'] != 0) {
             $isFired = true;
         } else {
             $isFired = false;
+        }
+        if (isset($n['activity'])) {
+            if (date('Y-m-d', $n['activity']) == date('Y-m-d')) {
+                $lastVisit = _('today at') . ' ' . date('H:i', $n['activity']);
+            } else {
+                $lastVisit = date('d.m H:i', $n['activity']);
+            }
+        } else {
+            $lastVisit = '';
         }
         if ($isFired && !$isFiredShown):
             $isFiredShown = true; ?>
@@ -103,7 +110,7 @@
                         <p class="h5 mb-0 company-profile-fio text-area-message">
                             <a href="/profile/<?= $n["id"] ?>/"><?= $n["name"] ?> <?= $n["surname"] ?></a>
                         </p>
-                        <span class="text-muted-reg activity-company"><?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?></span>
+                        <span class="text-muted-reg activity-company"><?= ($n['online']) ? $GLOBALS['_online'] : $lastVisit ?></span>
                     <?php
                     else: ?>
                         <p class="h5 mb-0 company-profile-fio text-area-message">
@@ -112,7 +119,7 @@
                             </a>
                         </p>
                         <span class="text-muted-reg activity-company">
-                            <?= ($n['online']) ? $GLOBALS['_online'] : ((isset($n['activity'])) ? $GLOBALS['_wasOnline'] . ' ' . date('d.m H:i', $n['activity']) : '') ?>
+                            <?= ($n['online']) ? $GLOBALS['_online'] : $lastVisit ?>
                         </span>
                     <?php endif; ?>
                 </div>

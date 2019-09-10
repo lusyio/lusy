@@ -1,6 +1,7 @@
 <?php
 
 global $id;
+global $idc;
 global $cometHash;
 global $cometTrackChannelName;
 global $roleu;
@@ -25,10 +26,8 @@ $userUsageSpacePercent = round($userTotalFilesSize * 100 / $providedSpace);
 if ($userUsageSpacePercent == 0 && $userTotalFilesSize > 0) {
     $userUsageSpacePercent = 1;
 }
-if ($roleu == 'ceo') {
-    $fileList = getCompanyFileList();
-} else {
-    $fileList = getFileList();
-}
+require_once __ROOT__ . '/engine/backend/classes/TaskListStrategy.php';
+$availableTasksList = TaskListStrategy::getAvailableTasks($id, $idc, $roleu == 'ceo');
+$relatedFilesId = getFileIdList($availableTasksList);
+$fileList = getFileList($availableTasksList, $roleu == 'ceo');
 prepareFileList($fileList);
-

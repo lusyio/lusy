@@ -11,15 +11,15 @@ $textColor = [
     'planned' => 'text-info',
 ];
 $taskStatusText = [
-        'new' => $GLOBALS['_inprogresslist'],
-        'inwork' => $GLOBALS['_inprogresslist'],
-        'overdue' => $GLOBALS['_overduelist'],
-        'postpone' => $GLOBALS['_postponelist'],
-        'pending' => $GLOBALS['_pendinglist'],
-        'returned' => $GLOBALS['_returnedlist'],
-        'done' => $GLOBALS['_donelist'],
-        'canceled' => $GLOBALS['_canceledlist'],
-        'planned' => $GLOBALS['_plannedlist'],
+    'new' => $GLOBALS['_inprogresslist'],
+    'inwork' => $GLOBALS['_inprogresslist'],
+    'overdue' => $GLOBALS['_overduelist'],
+    'postpone' => $GLOBALS['_postponelist'],
+    'pending' => $GLOBALS['_pendinglist'],
+    'returned' => $GLOBALS['_returnedlist'],
+    'done' => $GLOBALS['_donelist'],
+    'canceled' => $GLOBALS['_canceledlist'],
+    'planned' => $GLOBALS['_plannedlist'],
 ];
 $statusBar = [
     'new' => [
@@ -130,16 +130,19 @@ if ($id == $worker and $view == 0) {
                 <div class="col-12 subtask-badge-mobile">
                     <?php if (!is_null($parentTaskId)): ?>
                         <a href="/task/<?= $parentTaskId ?>/"><span data-toggle="tooltip" data-placement="bottom"
-                                                                           title="Перейти к надзадаче"
-                                                                           class="badge badge-info"><i class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
+                                                                    title="Перейти к надзадаче"
+                                                                    class="badge badge-info"><i
+                                        class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-8 col-lg-8">
                     <span class="badge <?= $statusBar[$status]['bg'] ?>"><?= $GLOBALS["_{$status}"] ?></span>
                     <?php if (!is_null($parentTaskId)): ?>
-                        <a class="subtask-badge-desktop" href="/task/<?= $parentTaskId ?>/"><span data-toggle="tooltip" data-placement="bottom"
-                                                                           title="Перейти к надзадаче"
-                                                                           class="badge badge-info"><i class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
+                        <a class="subtask-badge-desktop" href="/task/<?= $parentTaskId ?>/"><span data-toggle="tooltip"
+                                                                                                  data-placement="bottom"
+                                                                                                  title="Перейти к надзадаче"
+                                                                                                  class="badge badge-info"><i
+                                        class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-lg-4">
@@ -158,15 +161,19 @@ if ($id == $worker and $view == 0) {
                 <?php if ($enableEdit): ?>
                     <?php if ($tariff == 1 || $tryPremiumLimits['edit'] < 3): ?>
                         <?php if ($tariff == 0): ?>
-                            <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу (Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['edit'] ?>/3)" href="./edit/"><i
+                            <a class="float-right" data-toggle="tooltip" data-placement="bottom"
+                               title="Редактировать задачу (Осталось использований в бесплатном тарифе <?= 3 - $tryPremiumLimits['edit'] ?>/3)"
+                               href="./edit/"><i
                                         class="fas fa-pencil-alt edit-profile"></i></a>
                         <?php else: ?>
-                            <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу" href="./edit/"><i
+                            <a class="float-right" data-toggle="tooltip" data-placement="bottom"
+                               title="Редактировать задачу" href="./edit/"><i
                                         class="fas fa-pencil-alt edit-profile"></i></a>
                         <?php endif; ?>
                     <?php else: ?>
-                            <a class="float-right" data-toggle="tooltip" data-placement="bottom" title="Редактировать задачу" href="#"><i
-                                        id="editTask" class="fas fa-pencil-alt edit-profile"></i></a>
+                        <a class="float-right" data-toggle="tooltip" data-placement="bottom"
+                           title="Редактировать задачу" href="#"><i
+                                    id="editTask" class="fas fa-pencil-alt edit-profile"></i></a>
                     <?php endif; ?>
                 <?php endif; ?>
             </h4>
@@ -195,10 +202,13 @@ if ($id == $worker and $view == 0) {
                                         <textarea name="report" id="reportarea1" class="form-control mb-2" rows="3"
                                                   placeholder="Причина" required></textarea>
                                     <?php endif; ?>
-                                    <input class="form-control form-control-sm mb-2" value="<?= ($status == 'planned')? date('Y-m-d', $datecreateSeconds) : date("Y-m-d", $actualDeadline); ?>" type="date"
+                                    <input class="form-control form-control-sm mb-2"
+                                           value="<?= ($status == 'planned') ? date('Y-m-d', $datecreateSeconds) : date("Y-m-d", $actualDeadline); ?>"
+                                           type="date"
                                            id="deadlineInput"
                                            datedone="<?= date("Y-m-d", $actualDeadline) ?>"
-                                           min="<?= ($status == 'planned')? date('Y-m-d', $datecreateSeconds) : $GLOBALS["now"] ?>" required>
+                                           min="<?= ($status == 'planned') ? date('Y-m-d', $datecreateSeconds) : $GLOBALS["now"] ?>"
+                                           required>
                                     <button type="submit"
                                             id="<?= ($role == 'manager') ? 'sendDate' : 'sendpostpone'; ?>"
                                             class="btn btn-primary btn-sm float-left mb-3"><?= $GLOBALS["_change"] ?></button>
@@ -230,8 +240,10 @@ if ($id == $worker and $view == 0) {
                     foreach ($checklist as $k => $n):
                         ?>
                         <label class="pure-material-checkbox d-block">
-                            <input type="checkbox" class="checkbox-checklist" idChecklist="<?= $k ?>" <?= ($n['status'] == 1)? 'checked': '' ?> <?= (($role != 'manager' && $n['status'] == 1 && ($n['checkedBy'] != $id || $n['checkTime'] < time() - 300 )) || ($status == 'done' || $status == 'canceled')) ? 'disabled': '' ?>>
-                            <span class=""> <span class="text-checklist"><?= $n['text'] ?></span> <span class="small text-muted-new"><?= ($n['status'] == 1)? ' (' . $n['name'] . ')' :'' ?></span></span>
+                            <input type="checkbox" class="checkbox-checklist"
+                                   idChecklist="<?= $k ?>" <?= ($n['status'] == 1) ? 'checked' : '' ?> <?= (($role != 'manager' && $n['status'] == 1 && ($n['checkedBy'] != $id || $n['checkTime'] < time() - 300)) || ($status == 'done' || $status == 'canceled')) ? 'disabled' : '' ?>>
+                            <span class=""> <span class="text-checklist"><?= $n['text'] ?></span> <span
+                                        class="small text-muted-new"><?= ($n['status'] == 1) ? ' (' . $n['name'] . ')' : '' ?></span></span>
                         </label>
                     <?php
                     endforeach;
@@ -239,16 +251,54 @@ if ($id == $worker and $view == 0) {
                 </div>
             <?php endif; ?>
             <?php if (count($files) > 0): ?>
+            <div class="d-flex flex-wrap">
                 <?php foreach ($files as $file): ?>
                     <?php if ($file['is_deleted']): ?>
-                        <p class="text-secondary"><s><i class="fas fa-paperclip"></i> <?= $file['file_name'] ?></s>
-                            (удален)</p>
+                        <div class="deleted-files-container mr-2 mb-2">
+                            <div class="deleted-file-icon text-center">
+                                <i class="far fa-times-circle"></i>
+                            </div>
+                            <p class="photo-preview-area-message m-0 text-center text-muted-new small file">
+                                <s>
+                                    <?= $file['file_name'] ?>
+                                </s>
+                            </p>
+                        </div>
                     <?php else: ?>
-                        <p class="text-secondary"><a class="text-secondary"
+                    <?php if (in_array($file['extension'],['png', 'jpeg', 'jpg', 'bmp'])): ?>
+                    <div class="photo-preview-container-task-hover mr-2 mb-2">
+                        <div class="text-secondary photo-preview-container photo-preview-container-task clear_fix mb-4">
+                            <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="pointer-events: none;background-image: url('/<?= $file['file_path']; ?>')"
                                                      href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
-                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a></p>
+                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
+                            <p class="small text-muted-new text-center photo-preview-area-message m-0">
+                                <?= $file['file_name'] ?>
+                            </p>
+                        </div>
+                        <div class="photo-preview-background text-center" data-target=".bd-example-modal-xl" data-toggle="modal">
+                            <span class="photo-preview-background-icon"><i class="fas fa-search text-white"></i></span>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                    <div class="photo-preview-container-task-hover mr-2 mb-2">
+                        <div class="text-secondary photo-preview-container photo-preview-container-task clear_fix mb-4">
+                            <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="background-size: contain;background-image: url('/upload/file.png')"
+                               href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
+                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
+                            <p class="small text-muted-new text-center photo-preview-area-message m-0">
+                                <?= $file['file_name'] ?>
+                            </p>
+                        </div>
+                        <a target="_blank" href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>">
+                            <div class="photo-preview-background text-center">
+                                <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                    <?php endif; ?>
                     <?php endif; ?>
                 <?php endforeach; ?>
+            </div>
             <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
@@ -263,13 +313,15 @@ if ($id == $worker and $view == 0) {
         <?php if (count($subTasks) > 0): ?>
             <div class="subTaskInList subtask-task">
                 <?php foreach ($subTasks as $subTask): ?>
-                    <a class="text-decoration-none cust<?= (in_array($subTask->get('id'), $unfinishedSubTasks)) ? ' not-finished': '';?>" idtask="<?= $subTask->get('id') ?>" href="/task/<?= $subTask->get('id') ?>/">
+                    <a class="text-decoration-none cust<?= (in_array($subTask->get('id'), $unfinishedSubTasks)) ? ' not-finished' : ''; ?>"
+                       idtask="<?= $subTask->get('id') ?>" href="/task/<?= $subTask->get('id') ?>/">
                         <div class="card-footer border-0 card-footer-subtask">
                             <div class="d-block">
                                 <div class="row">
                                     <div class="col-sm-5 col-lg-5 col-md-12 col-12">
                                         <div class="text-area-message">
-                                            <span class="taskname taskname-subtask-task"><span class="<?= $textColor[$subTask->get('status')] ?> pr-1">—</span> <?= $subTask->get('name'); ?></span>
+                                            <span class="taskname taskname-subtask-task"><span
+                                                        class="<?= $textColor[$subTask->get('status')] ?> pr-1">—</span> <?= $subTask->get('name'); ?></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-1 pl-0">
@@ -279,7 +331,8 @@ if ($id == $worker and $view == 0) {
                                                 <span class="ml-1 text-primary"><?= ($subTask->get('countNewComments') > 0) ? '+' . $subTask->get('countNewComments') : '' ?></span>
                                             </div>
                                             <div class="informer d-flex">
-                                                <i class="fas fa-file"></i><span class="ml-1"><?= $subTask->get('countAttachedFiles') ?></span>
+                                                <i class="fas fa-file"></i><span
+                                                        class="ml-1"><?= $subTask->get('countAttachedFiles') ?></span>
                                                 <span class="ml-1 text-primary"><?= ($subTask->get('countNewFiles') > 0) ? '+' . $subTask->get('countNewFiles') : '' ?></span>
                                             </div>
                                         </div>
@@ -288,7 +341,7 @@ if ($id == $worker and $view == 0) {
                                         <span class="subtask-status"><?= $taskStatusText[$subTask->get('status')] ?></span>
                                     </div>
                                     <div class="col-sm-2 col-lg-2 col-md-3 subtask-status col-3 <?= ($subTask->get('status') == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subTask->get('status'), ['inwork', 'new', 'returned']) && date("Y-m-d", $subTask->get('datedone')) == $GLOBALS["now"]) ? 'text-warning font-weight-bold' : ''; ?>">
-                                            <?= date('j', $subTask->get('datedone')) ?> <?= $_months[date('n', $subTask->get('datedone')) - 1] ?>
+                                        <?= date('j', $subTask->get('datedone')) ?> <?= $_months[date('n', $subTask->get('datedone')) - 1] ?>
                                     </div>
                                     <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars">
                                         <div class="avatar-subtask-task">
@@ -305,30 +358,31 @@ if ($id == $worker and $view == 0) {
         <?php endif; ?>
     </div>
     <div class="comment-container-task">
-    <?php if ($enableComments): ?>
-        <div class="card mt-3">
-            <div class="card-body">
-                <div class="d-flex comin">
-                <textarea class="form-control mr-2" id="comin" rows="1" name="comment" type="text"data-toggle="tooltip" data-placement="bottom"
+        <?php if ($enableComments): ?>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="d-flex comin">
+                <textarea class="form-control mr-2" id="comin" rows="1" name="comment" type="text" data-toggle="tooltip"
+                          data-placement="bottom"
                           title="Введите сообщение" autocomplete="off"
                           placeholder="<?= $GLOBALS["_writecomment"] ?>..."></textarea>
 
-                    <?php $uploadModule = 'chat'; ?>
-                    <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
+                        <?php $uploadModule = 'chat'; ?>
+                        <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
 
-                    <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>"><i
-                                class="fas fa-paper-plane"></i></button>
-                </div>
-                <div class="bg-white file-name container-files display-none">
+                        <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>"><i
+                                    class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <div class="bg-white file-name container-files display-none">
+                    </div>
                 </div>
             </div>
+        <?php endif; ?>
+        <div class="card mt-3">
+            <div class="card-body">
+                <?php include __ROOT__ . '/engine/frontend/task/notyfeed.php' ?>
+            </div>
         </div>
-    <?php endif; ?>
-    <div class="card mt-3">
-        <div class="card-body">
-            <?php include __ROOT__ . '/engine/frontend/task/notyfeed.php' ?>
-        </div>
-    </div>
     </div>
 </div>
 <div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -343,17 +397,20 @@ if ($id == $worker and $view == 0) {
         </div>
     </div>
 </div>
-<div class="modal fade limit-modal" id="disabledEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade limit-modal" id="disabledEditModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-0 text-left d-block">
-                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит редактирования задач в бесплатном тарифе</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Похоже, вы исчерпали лимит редактирования задач в
+                    бесплатном тарифе</h5>
             </div>
             <div class="modal-body text-center position-relative">
                 <div class="text-left text-block">
                     <p class="text-muted-new">Все ошибаются, но не все исправляют ошибки</p>
-                    <p class="text-muted-new">Переходи на Premium тариф, и получи безграничные возможности редактирования созданных задач</p>
+                    <p class="text-muted-new">Переходи на Premium тариф, и получи безграничные возможности
+                        редактирования созданных задач</p>
                 </div>
                 <span class="position-absolute">
                 <i class="fas fa-chart-pie icon-limit-modal"></i>
@@ -365,6 +422,31 @@ if ($id == $worker and $view == 0) {
                         Перейти к тарифам
                     </a>
                 <?php endif; ?>
+            </div>
+            <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="photo-preview-name m-0"></h5>
+            </div>
+            <img class="image-modal" src="">
+            <div class="modal-footer" style="justify-content: flex-end">
+                <span class="text-muted-new small d-none">
+                    Дата загрузки : <span class="image-preview-date-upload">xx-xx-xxxx</span>
+                </span>
+                <span class="text-muted-new small">
+                    Размер файла : <span class="image-preview-file-size">xx мб</span>
+                    |
+                    <a class="image-preview-open text-muted-new " target="_blank" href="">Открыть оригинал</a>
+                </span>
             </div>
             <span class="icon-close-modal">
             <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
@@ -453,7 +535,6 @@ if ($id == $worker and $view == 0) {
                 if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
-                        console.log(file);
                         if ($('#openGoogleDrive').data('clicked')) {
                             addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive', 'file-name');
                         }
@@ -518,7 +599,6 @@ if ($id == $worker and $view == 0) {
 
         //===================End of Dropbox=======================
         function addFileToList(name, link, size, source, icon, cont) {
-            console.log(cont);
             $('.' + cont).show().append("<div class='filenames attached-" + source + "-file' data-name='" + name + "' data-link='" + link + "' data-file-size='" + size + "'>" +
                 "<i class='fas fa-paperclip mr-1'></i> <i class='" + icon + " mr-1'></i>" + name +
                 "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +

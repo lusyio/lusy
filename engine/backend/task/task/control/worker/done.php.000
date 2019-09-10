@@ -3,7 +3,7 @@
 <h3 class="mt-4 mb-4"><?=$GLOBALS["_done"]?></h3>
 
 
-<!-- <div id="status-block"> -->
+<!-- <div id="status-block" class="mt-3"> -->
 
 	<!-- <p class="text-ligther"><?=$text?></p>
 	<h1 class="mt-4"><?=$head?></h1> -->

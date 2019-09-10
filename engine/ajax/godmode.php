@@ -155,3 +155,54 @@ if ($_POST['module'] == 'updateKnowledgeArticle') {
         echo '1';
     }
 }
+
+if ($_POST['module'] == 'sendMail') {
+    if (!isset($_POST['email']) || $_POST['email'] == '') {
+        exit;
+    }
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $template = filter_var($_POST['template'], FILTER_SANITIZE_STRING);
+    $template = preg_replace('~.php~', '', $template);
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+
+    $mailSender = new \PHPMailer\PHPMailer\LusyMailer();
+    try {
+        $mailSender->addAddress($email);
+        $mailSender->isHTML();
+        $unsubscribeCode = generateUnsubscribeCode(1);
+        $unsubscribeLink = '1/' . $unsubscribeCode . '/';
+        $args = [
+            'achievementName' => generateRandomString(rand(1,2)),
+            'achievementText' => generateRandomString(rand(8,16)),
+            'taskName' => generateRandomString(rand(2,6)),
+            'commentText' => generateRandomString(rand(5,20)),
+            'messageText' => generateRandomString(rand(5,20)),
+            'report' => generateRandomString(rand(5,20)),
+            'commentId' => rand(25000,30000),
+            'email' => $email,
+            'password' => generateRandomString(1),
+            'activationLink' => generateRandomString(1),
+            'restoreLink' => generateRandomString(1),
+            'authorName' => generateRandomString(2),
+            'managerName' => generateRandomString(2),
+            'companyName' => generateRandomString(rand(1,2)),
+            'taskId' => rand(15000,20000),
+            'tariffName' => array_rand(['Стартовый', 'Уверенный', 'Босс']),
+            'cardDigits' => rand(4000,5000) . rand(1000,9999) . rand(1000,9999) . rand(1000,9999),
+            'subscribeUntil' => date('d.m.Y', strtotime('+' . rand(1,12) . ' month')),
+            'nextChargeDate' => date('d.m.Y', strtotime('+' . rand(1,12) . ' month')),
+            'request' => date('d.m.Y', strtotime('+' . rand(1,12) . ' day')),
+            'freeDays' => rand(5, 30),
+            'inviteLink' => generateRandomString(1),
+            'unsubscribeLink' => $unsubscribeLink,
+        ];
+
+            $mailSender->Subject = "Тестовое письмо";
+            $mailSender->setMessageContent($template, $args);
+
+        $mailSender->send();
+    } catch (Exception $e) {
+        return;
+    }
+}

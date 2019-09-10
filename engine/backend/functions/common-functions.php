@@ -145,10 +145,9 @@ function authorizeComet($id)
     global $cometPdo;
     $hash = md5($id . 'salt-pepper');
     //Очищаем очередь личных сообщений с комет-сервера, т.к. они подгрузятся напрямую из базы
-    $cometSql = $cometPdo->prepare("DELETE FROM users_messages WHERE id =:id");
-    $cometSql->execute(array(':id' => $id));
-    $cometSql = $cometPdo->prepare("INSERT INTO users_auth (id, hash )VALUES (:id, :hash)");
-    $cometSql->execute(array(':id' => $id, ':hash' => $hash));
+    $cometPdo->clearMessages($id);
+
+    $cometPdo->authorizeUser($id, $hash);
     return $hash;
 }
 
@@ -172,7 +171,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
 
     $possibleActions = ['createtask', 'createplantask', 'viewtask', 'comment', 'overdue', 'review', 'postpone', 'confirmdate', 'canceldate',
         'senddate', 'workreturn', 'workdone', 'canceltask', 'changeworker', 'addcoworker', 'removecoworker', 'newuser', 'userwelcome',
-        'newcompany', 'newachievement'];
+        'newcompany', 'newachievement', 'edittask'];
 
     if (!in_array($action, $possibleActions)) {
         return false;
@@ -217,12 +216,12 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
                 'type' => 'task',
                 'eventId' => $workerEventId,
             ];
-            $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-            $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
+            $cometPdo->sendLogMessage($recipientId, $pushData);
             //sendTaskWorkerEmailNotification($taskId, 'createtask');
             addMailToQueue('sendTaskWorkerEmailNotification', [$taskId, 'createtask'], $recipientId, $workerEventId);
         }
     }
+
     if ($action == 'createplantask') {
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment, view_status) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment, :viewStatus)');
@@ -256,8 +255,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             'type' => 'task',
             'eventId' => $eventId,
         ];
-        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-        $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
+        $cometPdo->sendLogMessage($recipientId, $pushData);
     }
 
     if ($action == 'canceltask') {
@@ -290,8 +288,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
                 'type' => 'task',
                 'eventId' => $workerEventId,
             ];
-            $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-            $sendToCometQuery->execute(array(':id' => $taskWorker, ':type' => json_encode($pushData)));
+            $cometPdo->sendLogMessage($taskWorker, $pushData);
         }
     }
 
@@ -356,8 +353,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             'type' => 'task',
             'eventId' => $managerEventId,
         ];
-        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-        $sendToCometQuery->execute(array(':id' => $taskManager, ':type' => json_encode($pushData)));
+        $cometPdo->sendLogMessage($taskManager, $pushData);
 
         //sendTaskManagerEmailNotification($taskId, 'review');
         addMailToQueue('sendTaskManagerEmailNotification', [$taskId, 'review'], $taskManager, $managerEventId);
@@ -394,8 +390,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             'type' => 'task',
             'eventId' => $workerEventId,
         ];
-        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-        $sendToCometQuery->execute(array(':id' => $taskWorker, ':type' => json_encode($pushData)));
+        $cometPdo->sendLogMessage($taskWorker, $pushData);
     }
 
     if ($action == 'workdone') {
@@ -431,8 +426,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
                 'type' => 'task',
                 'eventId' => $workerEventId,
             ];
-            $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-            $sendToCometQuery->execute(array(':id' => $taskWorker, ':type' => json_encode($pushData)));
+            $cometPdo->sendLogMessage($taskWorker, $pushData);
         }
     }
 
@@ -467,8 +461,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             'type' => 'task',
             'eventId' => $managerEventId,
         ];
-        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-        $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
+        $cometPdo->sendLogMessage($recipientId, $pushData);
 
         //sendTaskManagerEmailNotification($taskId, 'postpone');
         addMailToQueue('sendTaskManagerEmailNotification', [$taskId, 'postpone'], $recipientId, $managerEventId);
@@ -505,13 +498,12 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             'type' => 'task',
             'eventId' => $workerEventId,
         ];
-        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-        $sendToCometQuery->execute(array(':id' => $taskWorker, ':type' => json_encode($pushData)));
+        $cometPdo->sendLogMessage($taskWorker, $pushData);
     }
 
     if ($action == 'changeworker') {
-        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, view_status) 
-      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :viewStatus)');
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, view_status, comment) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :viewStatus, :comment)');
         $eventDataForAuthor = [
             ':action' => $action,
             ':taskId' => $taskId,
@@ -520,15 +512,17 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             ':companyId' => $idc,
             ':datetime' => time(),
             ':viewStatus' => 1,
+            ':comment' => '',
         ];
         $eventDataForWorker = [
             ':action' => $action,
             ':taskId' => $taskId,
             ':authorId' => $id,
-            ':recipientId' => $taskWorker,
+            ':recipientId' => $recipientId,
             ':companyId' => $idc,
             ':datetime' => time(),
             ':viewStatus' => 1,
+            ':comment' => '',
         ];
         $addEventQuery->execute($eventDataForAuthor);
         if (!$isSelfTask) {
@@ -539,27 +533,31 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
                 'type' => 'task',
                 'eventId' => $workerEventId,
             ];
-            $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-            $sendToCometQuery->execute(array(':id' => $taskWorker, ':type' => json_encode($pushData)));
+            $cometPdo->sendLogMessage($recipientId, $pushData);
         }
         $eventDataForWorker = [
             ':action' => 'createtask',
             ':taskId' => $taskId,
             ':authorId' => $id,
-            ':recipientId' => $recipientId,
+            ':recipientId' => $taskWorker,
             ':companyId' => $idc,
             ':datetime' => time(),
             ':viewStatus' => 0,
+            ':comment' => $comment,
         ];
-        $addEventQuery->execute($eventDataForWorker);
-        $workerEventId = $pdo->lastInsertId();
+        if($taskWorker != $id) {
+            $addEventQuery->execute($eventDataForWorker);
+            $workerEventId = $pdo->lastInsertId();
 
-        $pushData = [
-            'type' => 'task',
-            'eventId' => $workerEventId,
-        ];
-        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-        $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
+            $pushData = [
+                'type' => 'task',
+                'eventId' => $workerEventId,
+            ];
+            $cometPdo->sendLogMessage($taskWorker, $pushData);
+
+            //sendTaskWorkerEmailNotification($taskId, 'createtask');
+            addMailToQueue('sendTaskWorkerEmailNotification', [$taskId, 'createtask'], $taskWorker, $workerEventId);
+        }
 
     }
 
@@ -595,8 +593,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
                 'type' => 'task',
                 'eventId' => $workerEventId,
             ];
-            $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-            $sendToCometQuery->execute(array(':id' => $taskWorker, ':type' => json_encode($pushData)));
+            $cometPdo->sendLogMessage($taskWorker, $pushData);
         }
     }
 
@@ -631,8 +628,7 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             'type' => 'task',
             'eventId' => $workerEventId,
         ];
-        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-        $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
+        $cometPdo->sendLogMessage($recipientId, $pushData);
     }
 
     if ($action == 'newuser') {
@@ -668,7 +664,6 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
         $addEventQuery->execute($eventData);
     }
 
-
     if ($action == 'newcompany') {
         $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime)');
@@ -703,11 +698,57 @@ function addEvent($action, $taskId, $comment, $recipientId = null)
             'type' => 'task',
             'eventId' => $eventId,
         ];
-        $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
-        $sendToCometQuery->execute(array(':id' => $recipientId, ':type' => json_encode($pushData)));
+        $cometPdo->sendLogMessage($recipientId, $pushData);
+
+        //Сообщение в чат
+        $message = getDisplayUserName($id) . ' получил новое достижение - ' . $GLOBALS['_' . $comment] . '!';
+        $addMessageToChatQuery = $pdo->prepare("INSERT INTO chat (text, author_id, datetime, company_id) VALUES (:message, :authorId, :datetime, :companyId)");
+        $addMessageToChatQuery->execute(array(':message' => $message, ':authorId' => 1, ':datetime' => time(), ':companyId' => $idc));
+        $messageId = $pdo->lastInsertId();
+
+        $mesData = [
+            'messageId' => $messageId,
+        ];
+        $cometPdo->sendNewChatMessage(getCometTrackChannelName(), $mesData);
 
         //sendAchievementEmailNotification($id, $comment);
         addMailToQueue('sendAchievementEmailNotification', [$id, $comment], $id, $eventId);
+    }
+
+    if ($action == 'edittask') {
+        $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment, view_status) 
+      VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment, :viewStatus)');
+        $eventDataForAuthor = [
+            ':action' => $action,
+            ':taskId' => $taskId,
+            ':authorId' => 1,
+            ':recipientId' => $id,
+            ':companyId' => $idc,
+            ':datetime' => time(),
+            ':comment' => $comment,
+            ':viewStatus' => 1,
+        ];
+        $eventDataForWorker = [
+            ':action' => $action,
+            ':taskId' => $taskId,
+            ':authorId' => $id,
+            ':recipientId' => $taskWorker,
+            ':companyId' => $idc,
+            ':datetime' => time(),
+            ':comment' => $comment,
+            ':viewStatus' => 0,
+        ];
+        $addEventQuery->execute($eventDataForAuthor);
+        if (!$isSelfTask) {
+            $addEventQuery->execute($eventDataForWorker);
+            $workerEventId = $pdo->lastInsertId();
+
+            $pushData = [
+                'type' => 'task',
+                'eventId' => $workerEventId,
+            ];
+            $cometPdo->sendLogMessage($taskWorker, $pushData);
+        }
     }
 }
 
@@ -745,9 +786,8 @@ function addMassEvent($action, $taskId, $comment)
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
     $datetime = time();
 
-    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
     $type = 'comment';
-
+    $cometData = [];
     foreach ($recipients as $recipient) {
         $eventData = [
             ':action' => $action,
@@ -765,8 +805,9 @@ function addMassEvent($action, $taskId, $comment)
             'type' => $type,
             'eventId' => $eventId,
         ];
-        $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
+        $cometData[$recipient] = $pushData;
     }
+    $cometPdo->multipleSendLogMessage($cometData);
 }
 
 function addMassSystemEvent($action, $comment = '', $companyId = '')
@@ -963,14 +1004,8 @@ function setLastVisit()
 
 function getOnlineUsersList()
 {
-    global $id;
-    global $idc;
-    global $pdo;
     global $cometPdo;
-    $onlineUsersQuery = $cometPdo->prepare('SELECT * FROM users_in_pipes WHERE name = :channelName');
-    $onlineUsersQuery->execute(array(':channelName' => getCometTrackChannelName()));
-    $onlineUsers = $onlineUsersQuery->fetchAll(PDO::FETCH_ASSOC);
-    return array_column($onlineUsers, 'user_id');
+    return $cometPdo->getOnlineUsers(getCometTrackChannelName());
 }
 
 function addCommentEvent($taskId, $commentId, $commentFromSystemUser = false, $delay = 0)
@@ -1007,8 +1042,8 @@ function addCommentEvent($taskId, $commentId, $commentFromSystemUser = false, $d
 
     $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
-    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
     $eventIds = [];
+    $cometData = [];
     foreach ($recipients as $recipient) {
         if ($recipient != $id) {
             $eventData = [
@@ -1030,8 +1065,9 @@ function addCommentEvent($taskId, $commentId, $commentFromSystemUser = false, $d
                 'type' => 'comment',
                 'eventId' => $eventId,
             ];
-            $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
+            $cometData[$recipient] = $pushData;
         }
+        $cometPdo->multipleSendLogMessage($cometData);
     }
 
     //sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
@@ -1072,8 +1108,8 @@ function addNewSubTaskEvent($parentTaskId, $subTaskId)
 
     $addEventQuery = $pdo->prepare('INSERT INTO events(action, task_id, author_id, recipient_id, company_id, datetime, comment) 
       VALUES(:action, :taskId, :authorId, :recipientId, :companyId, :datetime, :comment)');
-    $sendToCometQuery = $cometPdo->prepare("INSERT INTO `users_messages` (id, event, message) VALUES (:id, 'newLog', :type)");
     $eventIds = [];
+    $cometData = [];
     foreach ($recipients as $recipient) {
         if ($recipient != $id) {
             $eventData = [
@@ -1092,8 +1128,9 @@ function addNewSubTaskEvent($parentTaskId, $subTaskId)
                 'type' => 'task',
                 'eventId' => $eventId,
             ];
-            $sendToCometQuery->execute(array(':id' => $recipient, ':type' => json_encode($pushData)));
+            $cometData[$recipient] = $pushData;
         }
+        $cometPdo->multipleSendLogMessage($cometData);
     }
 }
 
@@ -1182,6 +1219,10 @@ function sendTaskWorkerEmailNotification($taskId, $action)
     $workerMailQuery->execute(array(':taskId' => $taskId));
     $workerMail = $workerMailQuery->fetch(PDO::FETCH_COLUMN);
 
+    $workerIdQuery = $pdo->prepare("SELECT u.id FROM tasks t LEFT JOIN users u ON t.worker = u.id WHERE t.id = :taskId");
+    $workerIdQuery->execute(array(':taskId' => $taskId));
+    $workerId = $workerIdQuery->fetch(PDO::FETCH_COLUMN);
+
     $managerNameQuery = $pdo->prepare("SELECT u.name, u.surname FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE t.id = :taskId");
     $managerNameQuery->execute(array(':taskId' => $taskId));
     $managerNameResult = $managerNameQuery->fetch(PDO::FETCH_ASSOC);
@@ -1192,12 +1233,14 @@ function sendTaskWorkerEmailNotification($taskId, $action)
     try {
         $mail->addAddress($workerMail);
         $mail->isHTML();
-
+        $unsubscribeCode = generateUnsubscribeCode($workerId);
+        $unsubscribeLink = $workerId . '/' . $unsubscribeCode . '/';
         $args = [
             'companyName' => $companyName,
             'taskId' => $taskId,
             'managerName' => $managerName,
             'taskName' => $taskName,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
 
         if ($action == 'createtask') {
@@ -1241,6 +1284,9 @@ function sendTaskManagerEmailNotification($taskId, $action)
     $managerMailQuery = $pdo->prepare("SELECT u.email FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE t.id = :taskId");
     $managerMailQuery->execute(array(':taskId' => $taskId));
     $managerMail = $managerMailQuery->fetch(PDO::FETCH_COLUMN);
+    $managerIdQuery = $pdo->prepare("SELECT u.id FROM tasks t LEFT JOIN users u ON t.manager = u.id WHERE t.id = :taskId");
+    $managerIdQuery->execute(array(':taskId' => $taskId));
+    $managerId = $managerIdQuery->fetch(PDO::FETCH_COLUMN);
 
     $workerIdQuery = $pdo->prepare("SELECT t.worker FROM tasks t WHERE t.id = :taskId");
     $workerIdQuery->execute(array(':taskId' => $taskId));
@@ -1251,12 +1297,14 @@ function sendTaskManagerEmailNotification($taskId, $action)
     try {
         $mail->addAddress($managerMail);
         $mail->isHTML();
-
+        $unsubscribeCode = generateUnsubscribeCode($managerId);
+        $unsubscribeLink = $managerId . '/' . $unsubscribeCode . '/';
         $args = [
             'companyName' => $companyName,
             'taskId' => $taskId,
             'workerName' => $workerName,
             'taskName' => $taskName,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
 
         if ($action == 'review') {
@@ -1376,10 +1424,13 @@ function sendMessageEmailNotification($userId, $authorId, $messageId)
         $mail->addAddress($userMail);
         $mail->isHTML();
         $mail->Subject = "Вам отправили личное сообщение в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($userId);
+        $unsubscribeLink = $userId . '/' . $unsubscribeCode . '/';
         $args = [
             'companyName' => $companyName,
             'authorName' => $authorName,
             'messageText' => $messageText,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('message', $args);
         $mail->send();
@@ -1415,10 +1466,13 @@ function sendAchievementEmailNotification($userId, $achievementName)
         $mail->addAddress($userMail);
         $mail->isHTML();
         $mail->Subject = "Вы получили новое достижение в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($userId);
+        $unsubscribeLink = $userId . '/' . $unsubscribeCode . '/';
         $args = [
             'companyName' => $companyName,
             'achievementName' => $GLOBALS['_' . $achievementName],
             'achievementText' => $GLOBALS['_' . $achievementName . '_text'],
+            '$unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('achievement', $args);
         $mail->send();
@@ -1697,10 +1751,13 @@ function sendSubscribePremiumEmailNotification($companyId, $tariffName, $subscri
         $mail->addAddress($seoMail);
         $mail->isHTML();
         $mail->Subject = "Успешная оплата подписки в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
+        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
         $args = [
             'tariffName' => $tariffName,
             'subscribeUntil' => $subscribeUntil,
             'nextChargeDate' => $nextChargeDate,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         if ($freePeriod) {
             $mail->setMessageContent('subscribe-premium-free', $args);
@@ -1734,9 +1791,12 @@ function sendSubscribePromoEmailNotification($companyId, $tariffName, $promocode
         $mail->addAddress($seoMail);
         $mail->isHTML();
         $mail->Subject = "Подключение тарифа в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
+        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
         $args = [
             'tariffName' => $tariffName,
-            '$freeDays' => $promocodeInfo['days_to_add'],
+            'freeDays' => $promocodeInfo['days_to_add'],
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('subscribe-promo-free', $args);
         $mail->send();
@@ -1762,9 +1822,12 @@ function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffNam
         $mail->addAddress($seoMail);
         $mail->isHTML();
         $mail->Subject = "Успешная оплата подписки в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
+        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
         $args = [
             'tariffName' => $tariffName,
             'cardDigits' => $cardDigits,
+            'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('premium-prolongation-failed.php', $args);
         $mail->send();
@@ -1779,11 +1842,14 @@ function sendActivationLink($companyId, $password = null)
     $activationCode = createActivationCode($companyId);
     require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
     $seoMail = getCeoMail($companyId);
+    $seoId = getCeoId($companyId);
+
     require_once __ROOT__ . '/engine/phpmailer/Exception.php';
     $mail = new \PHPMailer\PHPMailer\LusyMailer();
     try {
         $mail->addAddress($seoMail);
         $mail->isHTML();
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
         $args = [
             'activationLink' => 'https://s.lusy.io/activate/' . $companyId . '/' . $activationCode . '/',
         ];
@@ -1882,6 +1948,21 @@ function sanitizeCloudUploads($googleFiles, $dropboxFiles) {
     return $cloudFiles;
 }
 
+function generateRandomString($numberOfWords) {
+    $characters = 'abcdefghijklmnopqrstuvwxyz';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($n = 0; $n < $numberOfWords; $n++) {
+        $word = '';
+        $length = rand(2,14);
+        for ($i = 0; $i < $length; $i++) {
+            $word .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $randomString .= ucfirst($word) . ' ';
+    }
+    return $randomString;
+}
+
 function encodeTextTags($text) {
     //<code>code</code></p>
     $encoder = [
@@ -1964,4 +2045,24 @@ function decodeTextTags($text) {
     $replacements = array_keys($encoder);
     $result = preg_replace($needles, $replacements, $text);
     return $result;
+}
+
+function generateUnsubscribeCode($userId)
+{
+    $code = md5($userId . 'unsub');
+    return $code;
+}
+function unsubscribeEmail($userId, $code)
+{
+    global $pdo;
+
+    if (generateUnsubscribeCode($userId) != $code) {
+        return false;
+    } else {
+        $unsubscribeQuery = $pdo->prepare("UPDATE user_notifications SET task_create = 0, task_overdue = 0,
+            comment = 0, task_review = 0, task_postpone = 0, message = 0, achievement = 0, payment = 0
+            WHERE user_id = :userId");
+        $status = $unsubscribeQuery->execute([':userId' => $userId]);
+        return $status;
+    }
 }

@@ -11,7 +11,7 @@ if (empty($title)) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/custom.css?ver=20">
+    <link rel="stylesheet" href="/assets/css/custom.css?ver=32">
     <link rel="stylesheet" href="/assets/css/all.min.css">
     <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="/assets/js/popper.min.js"></script>
@@ -54,12 +54,10 @@ if (empty($title)) {
         var userId = <?= $id ?>;
         cometApi.start({dev_id: 2553, user_id: userId, user_key: '<?= $cometHash ?>', node: "app.comet-server.ru"});
         cometApi.onAuthSuccess(function(){
-            console.log("Подключились и авторизовались успешно")
         });
 
 // Добавление callBack функции на уведомление об не успешной авторизации
         cometApi.onAuthFalill(function(){
-            console.log("Подключились успешно но не авторизовались")
         });
         getCounters(function (data) {
             setCounters(data);
@@ -71,7 +69,6 @@ if (empty($title)) {
 
         $('#search').on('keyup', function () {
             var request = $('#search').val();
-            console.log(request);
             if (request) {
                 var fd = new FormData();
                 fd.append('ajax', 'search');
@@ -85,7 +82,6 @@ if (empty($title)) {
                     contentType: false,
                     data: fd,
                     success: function (data) {
-                        console.log(JSON.parse(data));
                     },
                 });
             }

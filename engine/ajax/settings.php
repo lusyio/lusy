@@ -58,21 +58,16 @@ if ($_POST['module'] == 'changeData') {
     }
 }
 if ($_POST['module'] == 'changePassword') {
-    if (isset($_POST['password'])) {
-        $password = trim($_POST['password']);
-        $password = filter_var($password, FILTER_SANITIZE_STRING);
-        $hash = DBOnce('password', 'users', 'id=' . $id);
-        if (password_verify($password, $hash)) {
-            if (isset($_POST['newPassword']) && trim($_POST['newPassword']) != '') {
-                $newPassword = trim($_POST['newPassword']);
-                $newPassword = filter_var($newPassword, FILTER_SANITIZE_STRING);
-                $passwordRule = '~^[\w\~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/<>?]{6,64}$~';
-                if (!preg_match($passwordRule, $newPassword)) {
-                    exit('Incorrect new password');
-                }
-                setNewPassword($newPassword);
-            }
+    if (isset($_POST['newPassword']) && trim($_POST['newPassword']) != '') {
+        $newPassword = trim($_POST['newPassword']);
+        $newPassword = filter_var($newPassword, FILTER_SANITIZE_STRING);
+        $passwordRule = '~^[\w\~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/<>?]{6,64}$~';
+        if (!preg_match($passwordRule, $newPassword)) {
+            exit('Incorrect new password');
         }
+        setNewPassword($newPassword);
+    } else {
+        exit('unknown error');
     }
 }
 

@@ -149,9 +149,8 @@ if (isset($_POST['it'])) {
         //Обработка прикрепленных из облака файлов
         $unsafeGoogleFiles = json_decode($_POST['googleAttach'], true);
         $unsafeDropboxFiles = json_decode($_POST['dropboxAttach'], true);
-
         $cloudFiles = sanitizeCloudUploads($unsafeGoogleFiles, $unsafeDropboxFiles);
-        $task->workReturn($datePostpone, $report, $cloudFiles, $cloudPremiumType);
+        $task->workReturn($datePostpone, $text, $cloudFiles, $cloudPremiumType);
 
     }
 
@@ -248,6 +247,7 @@ if (isset($_POST['it'])) {
         $newName = trim($_POST['name']);
         $newName = filter_var($newName, FILTER_SANITIZE_SPECIAL_CHARS);
         $newDescription = trim($_POST['description']);
+        $newDescription = encodeTextTags($newDescription);
         $newDescription = filter_var($newDescription, FILTER_SANITIZE_SPECIAL_CHARS);
         $isNameAndDescriptionEdited = $task->updateTaskNameAndDescription($newName, $newDescription);
         if ($isNameAndDescriptionEdited) {
@@ -301,11 +301,21 @@ if (isset($_POST['it'])) {
         }
 
 // Перезапись чеклиста
+        $newCheckList = [];
         if (isset($_POST['checklist'])) {
             $newCheckList = Task::createSanitizedCheckList($_POST['checklist']);
-            if ($taskPremiumType >= 0 || $isTaskWithPremium)
-                $isCheckListChanged = $task->updateCheckList($newCheckList);
         }
+        $oldChecklistRows = [];
+        if (isset($_POST['oldChecklistRows'])) {
+            $unsafeOldChecklistRows = json_decode($_POST['oldChecklistRows']);
+            foreach ($unsafeOldChecklistRows as $row) {
+                $oldChecklistRows[] = filter_var($row, FILTER_SANITIZE_NUMBER_INT);
+            }
+        }
+        if ($taskPremiumType >= 0 || $isTaskWithPremium) {
+            $isCheckListChanged = $task->updateCheckList($newCheckList, $oldChecklistRows);
+        }
+
         if ($isCheckListChanged) {
             $isEditUsed = true;
             $usePremiumTask = true;

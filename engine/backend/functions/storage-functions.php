@@ -7,25 +7,48 @@
  * [author] [surname] [name] - ID, фамилия и имя пользователя, загрузившего файл, [taskName] - имя задачи,
  * [uploadDate] - дата загрузки файла
  */
-function getFileList()
+function getFileList($availableTasks = [0], $isCeo = false)
 {
+    if ($isCeo) {
+        return getCompanyFileList();
+    }
     global $id;
     global $idc;
     global $pdo;
+    $availableTasksString = implode(', ', $availableTasks);
 
     $query = "SELECT u.file_id, u.file_name, u.file_size, u.file_path, u.comment_type, u.comment_id, u.cloud,
        IF(c.idtask IS NULL AND u.comment_type='task', u.comment_id, c.idtask) AS idtask, 
        u.author, us.surname, us.name, t.name AS taskName, 
-       IF(c.datetime IS NULL, IF(t.datecreate IS NULL, m.datetime, t.datecreate), c.datetime) AS uploadDate
+       IF(c.datetime IS NULL, IF(t.datecreate IS NULL, IF(m.datetime IS NULL, ch.datetime ,  m.datetime), t.datecreate), c.datetime) AS uploadDate
 FROM `uploads` u
        LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment'
        LEFT JOIN users us ON u.author = us.id
-       LEFT JOIN tasks t ON (t.id = u.comment_id AND u.comment_type='task') OR (t.id = c.idtask AND u.comment_type='comment')
+       LEFT JOIN tasks t ON (t.id = u.comment_id AND u.comment_type='task' AND (t.status <> 'planned' OR t.manager = :userId)) OR (t.id = c.idtask AND u.comment_type='comment')
        LEFT JOIN mail m ON m.message_id = u.comment_id AND u.comment_type='conversation'
-WHERE u.company_id = :companyId AND u.author = :userId AND u.is_deleted = 0";
+       LEFT JOIN chat ch ON (u.comment_type='chat' AND ch.message_id = u.comment_id)
+WHERE u.company_id = :companyId AND (u.author = :userId OR t.id IN (" . $availableTasksString . ") OR u.comment_type='chat') AND u.is_deleted = 0 ORDER BY uploadDate DESC, u.file_id DESC";
     $dbh = $pdo->prepare($query);
     $dbh->execute(array('userId' => $id,':companyId' => $idc));
     return $dbh->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getFileIdList($availableTasks = [0])
+{
+    global $id;
+    global $idc;
+    global $pdo;
+    $availableTasksString = implode(', ', $availableTasks);
+
+    $query = "SELECT u.file_id FROM `uploads` u
+       LEFT JOIN comments c on u.comment_id=c.id AND u.comment_type='comment'
+       LEFT JOIN users us ON u.author = us.id
+       LEFT JOIN tasks t ON (t.id = u.comment_id AND u.comment_type='task' AND (t.status <> 'planned' OR t.manager = :userId)) OR (t.id = c.idtask AND u.comment_type='comment')
+       LEFT JOIN mail m ON m.message_id = u.comment_id AND u.comment_type='conversation'
+WHERE u.company_id = :companyId AND (u.author = :userId OR t.id IN (" . $availableTasksString . ") OR u.comment_type='chat') AND u.is_deleted = 0";
+    $dbh = $pdo->prepare($query);
+    $dbh->execute(array('userId' => $id,':companyId' => $idc));
+    return $dbh->fetchAll(PDO::FETCH_COLUMN);
 }
 
 /**Возвращает список всех файлов, загруженных пользователем
@@ -197,4 +220,3 @@ function getProvidedStorageSpace()
     }
     return $providedSpace;
 }
-

@@ -2,7 +2,11 @@
     <div class="responsible-card">
         <?php
         foreach ($users as $n) { ?>
+            <?php if (((isset($taskEdit) && !$taskEdit) || !isset($taskEdit)) && count($users) == 1): ?>
+            <div val="<?php echo $n['id'] ?>" class="select-responsible d-none">
+            <?php else: ?>
             <div val="<?php echo $n['id'] ?>" class="select-responsible <?=(isset($taskEdit) && $taskEdit && (in_array($n['id'], $taskCoworkers) || $n['id'] == $worker || $n['id'] == $manager)) ? 'd-none' : ''?>">
+            <?php endif; ?>
                 <div class="row">
                     <div class="col-2">
                         <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">

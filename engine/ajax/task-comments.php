@@ -50,6 +50,10 @@ FROM `comments` c LEFT JOIN tasks t on t.id = c.idtask WHERE idtask = :idtask OR
         $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
         $filesQuery->execute(array(':commentId' => $c['id'], ':commentType' => 'comment'));
         $files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($files as $key => $file) {
+            $fileNameParts = explode('.', $file['file_name']);
+            $files[$key]['extension'] = mb_strtolower(array_pop($fileNameParts));
+        }
         $commentViewStatus = json_decode($c['view_status'], true);
         if(is_null($commentViewStatus) || !isset($commentViewStatus[$id]['datetime'])) {
             $commentViewStatus[$id]['datetime'] = time();

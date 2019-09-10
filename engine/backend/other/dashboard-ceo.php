@@ -13,14 +13,16 @@ global $pdo;
 global $cometHash;
 global $cometTrackChannelName;
 global $supportCometHash;
+global $nameu;
 
-$countStatusQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (worker= :userId OR manager= :userId OR tc.worker_id = :userId) and t.status IN ('new', 'inwork', 'returned', 'pending', 'postpone', 'overdue') GROUP BY t.status");
+$countStatusQuery = $pdo->prepare("SELECT COUNT(DISTINCT t.id) AS count, t.status FROM tasks t LEFT JOIN task_coworkers tc ON t.id = tc.task_id WHERE (worker= :userId OR manager= :userId OR tc.worker_id = :userId) and t.status IN ('new', 'inwork', 'returned', 'pending', 'postpone', 'overdue', 'planned') GROUP BY t.status");
 $countStatusQuery->execute([':userId' => $id]);
 $countStatus = $countStatusQuery->fetchAll(PDO::FETCH_ASSOC);
 $inwork = 0;
 $pending = 0;
 $postpone = 0;
 $overdue = 0;
+$planned = 0;
 $all = 0;
 foreach ($countStatus as $group) {
     if (in_array($group['status'], ['new', 'inwork', 'returned' ])) {
@@ -31,16 +33,25 @@ foreach ($countStatus as $group) {
         $postpone = $group['count'];
     } elseif ($group['status'] == 'overdue') {
         $overdue = $group['count'];
+    } elseif ($group['status'] == 'planned') {
+        $planned = $group['count'];
     }
     $all += $group['count'];
 }
 
 require_once __ROOT__ . '/engine/backend/functions/log-functions.php';
 require_once __ROOT__ . '/engine/backend/functions/tasks-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
+require_once __ROOT__ . '/engine/backend/classes/EventList.php';
 
-
-$events = getEventsForUser(21);
-prepareEvents($events);
+$eventList = new EventList($id, $idc);
+$eventList->setViewStatus(0);
+$newEvents = $eventList->getEvents();
+$eventList->setViewStatus(1);
+$eventList->setLimit(21);
+$oldEvents = $eventList->getEvents();
+prepareEvents($newEvents);
+prepareEvents($oldEvents);
 
 $firstDayOfMonth = strtotime(date('1.m.Y'));
 
@@ -136,4 +147,60 @@ if (isset($_SESSION['isFirstLogin']) && $_SESSION['isFirstLogin']) {
     unset($_SESSION['companyName']);
     unset($_SESSION['login']);
     unset($_SESSION['password']);
+}
+
+//Блок данных для мини-игры за промокод
+if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'welcome')) {
+    $showGame = true;
+    $stepProfile = false;
+    $stepTaskCreate = false;
+    $stepTaskDone = false;
+    if (isset($nameu) && $nameu != '') {
+        $stepProfile = true;
+    }
+    $taskGameQuery = $pdo->prepare("SELECT COUNT(DISTINCT id) AS count, status FROM tasks WHERE manager = :userId GROUP BY status");
+    $taskGameQuery->execute([':userId' => $id]);
+    $taskGame = $taskGameQuery->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($taskGame as $taskGroup) {
+        if ($taskGroup['count'] > 0) {
+            $stepTaskCreate = true;
+        }
+        if ($taskGroup['status'] == 'done' && $taskGroup['count'] > 0) {
+            $stepTaskDone = true;
+        }
+    }
+
+    $stepProgress = (int)$stepProfile + (int)$stepTaskCreate + (int)$stepTaskDone;
+    $isGameCompleted = ($stepProgress == 3) ? true : false;
+    $stepProgressBar = 100 * $stepProgress / 3;
+    $stepContent = [
+        'create' => [
+            'link' => '/task/new/',
+            'icon' => 'fas fa-clipboard fa-fw',
+            'text' => 'Создать<br/>задачу',
+            'doneStep' => ($stepTaskCreate)? 'doneStep' : 'not-finished',
+        ],
+        'done' => [
+            'link' => '/tasks/',
+            'icon' => 'fas fa-clipboard-check fa-fw',
+            'text' => 'Завершить задачу',
+            'doneStep' => ($stepTaskDone)? 'doneStep' : 'not-finished',
+        ],
+    ];
+    $stepProfileContent = [
+        'profile' => [
+            'link' => '/settings/',
+            'icon' => 'fas fa-user fa-fw',
+            'text' => 'Заполнить профиль',
+            'doneStep' => ($stepProfile)? 'doneStep' : 'not-finished',
+        ],
+    ];
+
+    if ($stepTaskCreate && !$stepProfile) {
+        $stepOrder = ['create', 'done', 'profile'];
+        $stepContent = $stepContent + $stepProfileContent;
+    } else {
+        $stepOrder = ['profile', 'create', 'done'];
+        $stepContent = $stepProfileContent + $stepContent;
+    }
 }

@@ -21,66 +21,6 @@ $countableAchievementsRules = [
     ],
 ];
 
-function logAction($userId, $action, $taskId = null)
-{
-    global $pdo;
-    global $datetime;
-    global $pointsRules;
-    if (array_key_exists($action, $pointsRules)) {
-        $logQuery = "INSERT INTO log(action, task, sender, datetime) VALUES (:action, :taskId, :userId, :dateTime)";
-        $dbh = $pdo->prepare($logQuery);
-        $dbh->execute(array(':action' => $action, ':taskId' => $taskId, ':userId' => $userId, ':dateTime' => time()));
-    }
-}
-
-function getAllActions($userId)
-{
-    global $pdo;
-    $query = "SELECT id, action, task, datetime FROM log WHERE sender = :userId";
-    $dbh = $pdo->prepare($query);
-    $dbh->execute(array(':userId' => $userId));
-    $actions = $dbh->fetchColumn(0);
-    $actionsCount = $dbh->fetchColumn(1);
-    $result = array_combine($actions, $actionsCount);
-    return $result;
-}
-
-function countActions($userId)
-{
-    global $pdo;
-    $query = "SELECT count(*) AS count, action FROM log WHERE sender = 2 GROUP BY action;";
-    $dbh = $pdo->prepare($query);
-    $dbh->execute(array(':userId' => $userId));
-    $actions = $dbh->fetchAll(PDO::FETCH_ASSOC);
-    return $actions;
-}
-
-function calculateExperience($userId)
-{
-    $actions = countActions($userId);
-    global $pointsRules;
-    $experiencePoints = 0;
-    foreach ($actions as $action => $count) {
-        if (array_key_exists($action, $pointsRules)) {
-            $experiencePoints += $pointsRules[$action['action']] * $count;
-        }
-    }
-    return $experiencePoints;
-}
-
-function getAchievements($userId)
-{
-    $actions = countActions($userId);
-    global $countableAchievementsRules;
-    $userAchievements = [];
-    foreach ($countableAchievementsRules as $ach => $rules) {
-        if (array_key_exists($rules['filter'], $actions) && $actions[$rules['filter']] >= $rules['amount']) {
-            $userAchievements[] = $ach;
-        }
-    }
-    return $userAchievements;
-}
-
 function getEventsForUser($limit = 0, $period = 0)
 {
     global $id;
@@ -92,8 +32,8 @@ function getEventsForUser($limit = 0, $period = 0)
         $limitQuery = ' LIMIT ' . $limit;
     }
     $periodQuery = '';
-    if ($period == 7) {
-        $startTime = strtotime('-7 days midnight');
+    if ($period > 0) {
+        $startTime = strtotime('-' . $period . ' days midnight');
         $periodQuery = ' AND (e.datetime >= ' . $startTime . ' OR e.view_status = 0) ';
     }
     $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment AS comment, c.comment AS commentText, e.datetime, e.view_status, t.worker FROM events e
@@ -122,23 +62,6 @@ function getEventByIdForUser($eventId)
   ORDER BY e.datetime DESC');
 
     $eventsQuery->execute(array(':userId' => $id, ':companyId' => $idc, ':eventId' => $eventId));
-    $events = $eventsQuery->fetchAll(PDO::FETCH_ASSOC);
-    return $events;
-}
-
-function getAllEvents()
-{
-    global $idc;
-    global $pdo;
-
-    $eventsQuery = $pdo->prepare('SELECT e.event_id, e.action, e.task_id, t.name AS taskName, e.author_id, u.name, u.surname, e.comment, c.comment AS commentText, e.datetime, e.view_status, t.name AS taskName FROM events e
-  LEFT JOIN tasks t ON t.id = e.task_id
-  LEFT JOIN users u on u.id = e.author_id
-  LEFT JOIN comments c on c.id = e.comment                                                                              
-  WHERE e.company_id = :companyId
-  ORDER BY e.datetime DESC');
-
-    $eventsQuery->execute(array(':companyId' => $idc));
     $events = $eventsQuery->fetchAll(PDO::FETCH_ASSOC);
     return $events;
 }
