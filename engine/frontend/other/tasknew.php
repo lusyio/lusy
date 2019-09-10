@@ -62,13 +62,19 @@ $borderColor = [
             </label>
             <div class="container container-responsible border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
                 <div class="placeholder-responsible"
-                     style="<?= ($taskEdit) ? 'display: none;' : '' ?>"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
+                     style="<?= ($taskEdit || count($users) == 1) ? 'display: none;' : '' ?>"><?= $GLOBALS['_placeholderresponsiblenewtask'] ?></div>
                 <?php foreach ($users as $n): ?>
+                <?php if (!$taskEdit && count($users) == 1): ?>
+                <div val="<?php echo $n['id'] ?>"
+                     class="add-responsible responsible-selected">
+                <?php else: ?>
                 <div val="<?php echo $n['id'] ?>"
                      class="add-responsible <?= ($taskEdit && $n['id'] == $worker) ? 'responsible-selected' : 'd-none' ?>">
+                    <?php endif; ?>
                     <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
                 <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
                 </div>
+
                 <?php endforeach; ?>
             <div class="position-absolute icon-newtask icon-newtask-change-responsible">
                 <i class="fas fa-caret-down"></i>
