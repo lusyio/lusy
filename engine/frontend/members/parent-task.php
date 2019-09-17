@@ -3,9 +3,6 @@
         <div class="empty-list-subtask text-muted text-center">
             Список пуст
         </div>
-        <div class="search-subtask">
-            <input id="searchSubtask" class="form-control" placeholder="Поиск..." autocomplete="off" type="text">
-        </div>
         <?php foreach ($parentTasks as $parentTaskItem): ?>
         <div val="<?php echo $parentTaskItem['id']; ?>" class="select-subtask <?= ($taskEdit && $parentTaskItem['id'] == $parentTask) ? 'd-none' : '' ?>">
             <div class="row">

@@ -141,6 +141,9 @@ $borderColor = [
                                 <div class="placeholder-subtask" style="<?= ($taskEdit && !is_null($parentTask)) ? 'display: none;' : '' ?>">
                                     Не выбрана
                                 </div>
+                                <div class="search-subtask">
+                                    <input id="searchSubtask" class="form-control" placeholder="Поиск..." autocomplete="off" type="text">
+                                </div>
                                 <?php foreach ($parentTasks as $parentTaskItem): ?>
                                 <div val="<?php echo $parentTaskItem['id']; ?>"
                                      class="add-subtask text-area-message <?= ($taskEdit && $parentTaskItem['id'] == $parentTask) ? 'subtask-selected' : 'd-none' ?> border-left-tasks <?= $borderColor[$parentTaskItem['status']] ?>">
@@ -446,7 +449,7 @@ $borderColor = [
         </div>
     </div>
 </div>
-<script src="/assets/js/createtask.js?n=4"></script>
+<script src="/assets/js/createtask.js?n=5"></script>
 <?php if (($tariff == 1 || $tryPremiumLimits['cloud'] < 3) || ($taskEdit && $hasCloudUploads)): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================

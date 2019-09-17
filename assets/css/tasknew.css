@@ -156,14 +156,31 @@
     color: #5d95db;
 }
 
+.empty-list-subtask{
+    padding: 7px 0;
+}
+
 #searchSubtask{
     background-color: #ffffff;
     box-shadow: rgba(197, 197, 201, 0.15) 0px 3px 5px 0px;
     border: none !important;
     color: #6c757d;
     font-size: 14px;
-    padding: 10px 22px;
-    height: 38px;
+    padding: 10px 30px;
+    height: 50px;
+    border-radius: 12px !important;
+}
+
+.search-subtask{
+    display: none;
+    z-index: 2;
+    position: absolute;
+    border-radius: 12px !important;
+    color: #c2c2c4;
+    height: 50px;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 .add-subtask{

@@ -161,7 +161,12 @@ $(document).ready(function () {
 
     $(".container-subtask").on('click', function () {
         $(".subtask").fadeToggle(200);
+        if ($('.add-subtask').is(':visible')){
+        } else {
+        $('.search-subtask').show();
         $('#searchSubtask').focus();
+        filterSubasks();
+        }
         subtaskListEmpty();
     });
 
@@ -169,12 +174,13 @@ $(document).ready(function () {
         if (!$(e.target).closest(".search-subtask").length) {
             if (!$(e.target).closest(".container-subtask").length) {
                 $('.subtask').fadeOut(300);
+                $('.search-subtask').hide();
+                $('#searchSubtask').val('');
             }
         }
     });
 
     function filterSubasks() {
-        $(".load-archive-page").hide();
         var text = $('#searchSubtask').val();
         var textRegex = new RegExp(text, 'i');
         $('.select-subtask:not(.d-none)').each(function () {
@@ -189,9 +195,15 @@ $(document).ready(function () {
                 $el.hide();
             }
         });
+        if ($('.select-subtask').is(':visible')){
+            $('.empty-list-subtask').hide();
+        } else {
+            $('.empty-list-subtask').show();
+        }
     }
 
     $('#searchSubtask').on('keyup', function () {
+        $(".subtask").fadeIn(200);
         filterSubasks();
     });
 
@@ -205,16 +217,21 @@ $(document).ready(function () {
         $(this).addClass('d-none');
         $('.add-subtask').addClass('d-none').removeClass('subtask-selected');
         $('.container-subtask').find("[val = " + idSubtask + "]").removeClass('d-none').addClass('subtask-selected');
+        $('.search-subtask').hide();
+        $('#searchSubtask').val('');
         subtaskListEmpty();
     });
 
     $('.container-subtask').on('click', '.subtask-selected', function () {
         $(this).addClass('d-none').removeClass('subtask-selected');
         $('.placeholder-subtask').show();
-        setTimeout(function () {
-            $('.subtask').fadeOut();
-
-        }, 100);
+        $('.search-subtask').show();
+        $('#searchSubtask').focus();
+        filterSubasks();
+        // setTimeout(function () {
+        //     $('.subtask').fadeOut();
+        //
+        // }, 100);
     });
 
 //работа с ответственными
