@@ -717,7 +717,7 @@ $statusColor = [
                             $('#newEventsTitle').addClass('d-none');
                         }
                     }
-                }, 2000);
+                }, 950);
             });
         });
 

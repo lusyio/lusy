@@ -3775,10 +3775,10 @@ span.date {
     -webkit-animation: event-animation;
     -o-animation: event-animation;
     animation: event-animation;
-    -webkit-animation-delay: 1500ms;
-    -moz-animation-delay: 1500ms;
-    -o-animation-delay: 1500ms;
-    animation-delay: 1500ms;
+    -webkit-animation-delay: 450ms;
+    -moz-animation-delay: 450ms;
+    -o-animation-delay: 450ms;
+    animation-delay: 450ms;
     -webkit-animation-duration: 500ms;
     -moz-animation-duration: 500ms;
     -o-animation-duration: 500ms;
