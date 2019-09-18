@@ -184,17 +184,17 @@ $statusColor = [
             <div class="row ">
                 <?php foreach ($stepContent as $step): ?>
                     <div class="col-4 col-lg-3">
-                    <a href="<?= $step['link'] ?>">
-                        <div class="d-flex <?=$step['doneStep']?>">
-                            <div class="iconDiv">
-                                <i class="<?= $step['icon'] ?>"></i>
+                        <a href="<?= $step['link'] ?>">
+                            <div class="d-flex <?= $step['doneStep'] ?>">
+                                <div class="iconDiv">
+                                    <i class="<?= $step['icon'] ?>"></i>
+                                </div>
+                                <p class="mb-0 small text-game-step"><?= $step['text'] ?></p>
                             </div>
-                            <p class="mb-0 small text-game-step"><?= $step['text'] ?></p>
-                        </div>
-                    </a>
-                </div>
-            <?php endforeach; ?>
-                <div class="col-12 col-lg-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : ''?>">
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+                <div class="col-12 col-lg-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : '' ?>">
                     <button id="finishSteps" class="btn btn-outline-light">
                         Активировать Premium-аккаунт
                     </button>
@@ -203,7 +203,8 @@ $statusColor = [
             <div class="row">
                 <div class="col-12 col-lg-9">
                     <div class="progress mt-0">
-                        <div class="progress-bar" role="progressbar" style="width: <?= $stepProgressBar ?>%" aria-valuenow="<?= $stepProgressBar ?>"
+                        <div class="progress-bar" role="progressbar" style="width: <?= $stepProgressBar ?>%"
+                             aria-valuenow="<?= $stepProgressBar ?>"
                              aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
@@ -387,14 +388,15 @@ $statusColor = [
 <div class="mt-1 pb-0">
     <span class="font-weight-bold d-none"><?= _('History') ?></span>
     <div id="logDashBoard">
-        <div id="newEventsTitle" class="text-center other-func text-secondary position-relative mt-3 mb-4 <?= (count($newEvents) > 0) ? '' : 'd-none' ?>">
+        <div id="newEventsTitle"
+             class="text-center other-func text-secondary position-relative mt-3 mb-4 <?= (count($newEvents) > 0) ? '' : 'd-none' ?>">
             <div class="additional-func">
                 <span>Новые события</i></span>
             </div>
         </div>
         <ul id="newEventsTimeline" class="timeline">
             <?php foreach ($newEvents as $event): ?>
-                <?php  renderEvent($event); ?>
+                <?php renderEvent($event); ?>
             <?php endforeach; ?>
         </ul>
         <div class="row mt-25-tasknew">
@@ -699,18 +701,23 @@ $statusColor = [
             $(this).removeClass('new-event');
             var eventId = $(this).data('event-id');
             markAsRead(eventId);
-            $(this).on('mouseleave', function () {
-                var el = $(this);
-                el.css("transform", "translateX(1000px)");
-                setTimeout(function () {
-                    $('#oldEventTimeline').prepend(el);
-                    el.css("transform", "");
-                    if ($('.new-event').length === 0) {
-                        $('#newEventsTitle').addClass('d-none');
-                    }
-                }, 500);
-                $(this).off('mouseleave')
+            var el = $(this);
 
+            $(this).on('mouseenter', function () {
+                el.removeClass('animate-event');
+            });
+
+            $(this).on('mouseleave', function () {
+                el.addClass('animate-event');
+                setTimeout(function () {
+                    if ($(el).hasClass('animate-event')) {
+                        $('#oldEventTimeline').prepend(el);
+                        el.removeClass('animate-event');
+                        if ($('.new-event').length === 0) {
+                            $('#newEventsTitle').addClass('d-none');
+                        }
+                    }
+                }, 2000);
             });
         });
 
@@ -741,214 +748,215 @@ $statusColor = [
                 var fd = new FormData();
                 fd.append('module', 'gamePromo');
                 fd.append('ajax', 'payments');
-                    $.ajax({
-                        url: '/ajax.php',
-                        type: 'POST',
-                        cache: false,
-                        processData: false,
-                        contentType: false,
-                        data: fd,
-                        success: function () {
-                            window.location.href = '/payment/';
-                        },
-                    });
-                }
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function () {
+                        window.location.href = '/payment/';
+                    },
+                });
+            }
         })
-    });
+    })
+    ;
 </script>
 <?php if ($isFirstLogin): ?>
-<script>
-    $(document).ready(function () {
-        $('#afterRegModal').modal('show');
+    <script>
+        $(document).ready(function () {
+            $('#afterRegModal').modal('show');
 
-        var security = 0;
-        var securityMail = 0;
-        var securityPass = 0;
+            var security = 0;
+            var securityMail = 0;
+            var securityPass = 0;
 
-        var email = $('#afterRegEmail').val();
-        var regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
-        var checkMail = regMail.exec(email);
+            var email = $('#afterRegEmail').val();
+            var regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
+            var checkMail = regMail.exec(email);
 
-        var password = $('#afterRegPassword').val();
-        var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
-        var checkPass = reg.exec(password);
+            var password = $('#afterRegPassword').val();
+            var reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+            var checkPass = reg.exec(password);
 
-        if ($('#afterRegCompanyname').val() != ''){
-            $('#afterRegCompanyname').css({
-                'border': '1px solid #ccc',
-                'color': '#495057'
-            });
-            $('#companynameOK').show();
-        } else {
-            $('#companynameOK').hide();
-        }
-
-        if (checkMail == null) {
-            securityMail = 0;
-            $('#emailOK').hide();
-        } else {
-            securityMail = 1;
-            $('#emailOK').show();
-        }
-
-        if (checkPass == null) {
-            $('.info-reg').show();
-            $('#passwordOK').hide();
-        } else {
-            securityPass = 1;
-            $('.info-reg').hide();
-            $('#passwordOK').show();
-        }
-
-        security = securityMail + securityPass;
-
-        if (security != 2) {
-            $('#saveAfterReg').prop('disabled', true);
-        } else {
-            $('#saveAfterReg').prop('disabled', false);
-        }
-
-        $('#afterRegCompanyname').on('change', function () {
-           var $this = $(this);
-
-           if ($this.val() != ''){
-               $this.css({
-                   'border': '1px solid #ccc',
-                   'color': '#495057'
-               });
-               $('#companynameOK').show();
-           } else {
-               $('#companynameOK').hide();
-           }
-        });
-
-
-        $('#afterRegEmail').on('keyup', function () {
-            var $this = $(this);
-
-            email = $this.val();
-            regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
-            checkMail = regMail.exec(email);
+            if ($('#afterRegCompanyname').val() != '') {
+                $('#afterRegCompanyname').css({
+                    'border': '1px solid #ccc',
+                    'color': '#495057'
+                });
+                $('#companynameOK').show();
+            } else {
+                $('#companynameOK').hide();
+            }
 
             if (checkMail == null) {
-                $this.css({
-                    'border': '1px solid #fbc2c4',
-                    'color': '#8a1f11'
-                });
                 securityMail = 0;
                 $('#emailOK').hide();
             } else {
-                $this.css({
-                    'border': '1px solid #ccc',
-                    'color': '#495057'
-                });
                 securityMail = 1;
                 $('#emailOK').show();
             }
-            security = securityMail + securityPass;
-            if (security == 2) {
-                $("#saveAfterReg").prop('disabled', false);
-            } else {
-                $("#saveAfterReg").prop('disabled', true);
-            }
-        });
-
-        $('#afterRegPassword').on('keyup', function () {
-            var $this = $(this);
-            password = $this.val();
-            reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
-            checkPass = reg.exec(password);
 
             if (checkPass == null) {
-                $this.css({
-                    'border': '1px solid #fbc2c4',
-                    'color': '#8a1f11'
-                });
-                securityPass = 0;
                 $('.info-reg').show();
                 $('#passwordOK').hide();
             } else {
-                $this.css({
-                    'border': '1px solid #ccc',
-                    'color': '#495057'
-                });
                 securityPass = 1;
                 $('.info-reg').hide();
                 $('#passwordOK').show();
             }
+
             security = securityMail + securityPass;
-            if (security == 2) {
-                $("#saveAfterReg").prop('disabled', false);
+
+            if (security != 2) {
+                $('#saveAfterReg').prop('disabled', true);
             } else {
-                $("#saveAfterReg").prop('disabled', true);
+                $('#saveAfterReg').prop('disabled', false);
             }
 
-        });
+            $('#afterRegCompanyname').on('change', function () {
+                var $this = $(this);
 
-        $('#saveAfterReg').on('click', function () {
-            var email = $('#afterRegEmail').val();
-            var password = $('#afterRegPassword').val();
-            var currentPassword = $('#currentPassword').val();
-            var companyName = $('#afterRegCompanyname').val();
-
-            var fd = new FormData();
-            fd.append('email', email);
-            fd.append('newPassword', password);
-            fd.append('password', currentPassword);
-            fd.append('companyName', companyName);
-            fd.append('module', 'initChange');
-            fd.append('ajax', 'settings');
-            if (companyName != ''){
-            $('.spinner-after-reg').show();
-            $.ajax({
-                url: '/ajax.php',
-                type: 'POST',
-                dataType: 'json',
-                cache: false,
-                processData: false,
-                contentType: false,
-                data: fd,
-                success: function (response) {
-                    if (response.error == '') {
-                        location.reload();
-                    }
-                    if (response.error == 'email'){
-                        $('#afterRegEmail').css({
-                            'border': '1px solid #fbc2c4',
-                            'color': '#8a1f11'
-                        });
-                        $('#emailOK').hide()
-                    }
-                    if (response.error == 'password'){
-                        $('#afterRegPassword').css({
-                            'border': '1px solid #fbc2c4',
-                            'color': '#8a1f11'
-                        });
-                        $('#passwordOK').hide()
-                    }
-                    if (response.error == 'company'){
-                        $('#afterRegCompanyname').css({
-                            'border': '1px solid #fbc2c4',
-                            'color': '#8a1f11'
-                        });
-                        $('#companynameOK').hide()
-                    }
-                },
-                complete: function () {
-                    $('.spinner-after-reg').hide();
+                if ($this.val() != '') {
+                    $this.css({
+                        'border': '1px solid #ccc',
+                        'color': '#495057'
+                    });
+                    $('#companynameOK').show();
+                } else {
+                    $('#companynameOK').hide();
                 }
             });
-            } else {
-                $('#afterRegCompanyname').css({
-                    'border': '1px solid #fbc2c4',
-                    'color': '#8a1f11'
-                });
-            }
-        });
 
-        $('.carousel').carousel({
-            interval: 10000
+
+            $('#afterRegEmail').on('keyup', function () {
+                var $this = $(this);
+
+                email = $this.val();
+                regMail = /^[0-9a-z-\.]+\@[0-9a-z-]{1,}\.[a-z]{2,}$/i;
+                checkMail = regMail.exec(email);
+
+                if (checkMail == null) {
+                    $this.css({
+                        'border': '1px solid #fbc2c4',
+                        'color': '#8a1f11'
+                    });
+                    securityMail = 0;
+                    $('#emailOK').hide();
+                } else {
+                    $this.css({
+                        'border': '1px solid #ccc',
+                        'color': '#495057'
+                    });
+                    securityMail = 1;
+                    $('#emailOK').show();
+                }
+                security = securityMail + securityPass;
+                if (security == 2) {
+                    $("#saveAfterReg").prop('disabled', false);
+                } else {
+                    $("#saveAfterReg").prop('disabled', true);
+                }
+            });
+
+            $('#afterRegPassword').on('keyup', function () {
+                var $this = $(this);
+                password = $this.val();
+                reg = /^[\w~!@#$%^&*()_+`\-={}|\[\]\\\\;\':",.\/?]{6,64}$/;
+                checkPass = reg.exec(password);
+
+                if (checkPass == null) {
+                    $this.css({
+                        'border': '1px solid #fbc2c4',
+                        'color': '#8a1f11'
+                    });
+                    securityPass = 0;
+                    $('.info-reg').show();
+                    $('#passwordOK').hide();
+                } else {
+                    $this.css({
+                        'border': '1px solid #ccc',
+                        'color': '#495057'
+                    });
+                    securityPass = 1;
+                    $('.info-reg').hide();
+                    $('#passwordOK').show();
+                }
+                security = securityMail + securityPass;
+                if (security == 2) {
+                    $("#saveAfterReg").prop('disabled', false);
+                } else {
+                    $("#saveAfterReg").prop('disabled', true);
+                }
+
+            });
+
+            $('#saveAfterReg').on('click', function () {
+                var email = $('#afterRegEmail').val();
+                var password = $('#afterRegPassword').val();
+                var currentPassword = $('#currentPassword').val();
+                var companyName = $('#afterRegCompanyname').val();
+
+                var fd = new FormData();
+                fd.append('email', email);
+                fd.append('newPassword', password);
+                fd.append('password', currentPassword);
+                fd.append('companyName', companyName);
+                fd.append('module', 'initChange');
+                fd.append('ajax', 'settings');
+                if (companyName != '') {
+                    $('.spinner-after-reg').show();
+                    $.ajax({
+                        url: '/ajax.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        data: fd,
+                        success: function (response) {
+                            if (response.error == '') {
+                                location.reload();
+                            }
+                            if (response.error == 'email') {
+                                $('#afterRegEmail').css({
+                                    'border': '1px solid #fbc2c4',
+                                    'color': '#8a1f11'
+                                });
+                                $('#emailOK').hide()
+                            }
+                            if (response.error == 'password') {
+                                $('#afterRegPassword').css({
+                                    'border': '1px solid #fbc2c4',
+                                    'color': '#8a1f11'
+                                });
+                                $('#passwordOK').hide()
+                            }
+                            if (response.error == 'company') {
+                                $('#afterRegCompanyname').css({
+                                    'border': '1px solid #fbc2c4',
+                                    'color': '#8a1f11'
+                                });
+                                $('#companynameOK').hide()
+                            }
+                        },
+                        complete: function () {
+                            $('.spinner-after-reg').hide();
+                        }
+                    });
+                } else {
+                    $('#afterRegCompanyname').css({
+                        'border': '1px solid #fbc2c4',
+                        'color': '#8a1f11'
+                    });
+                }
+            });
+
+            $('.carousel').carousel({
+                interval: 10000
+            });
         });
-    });
-</script>
+    </script>
 <?php endif; ?>
