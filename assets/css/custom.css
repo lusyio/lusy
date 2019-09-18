@@ -3954,6 +3954,12 @@ button.sort-task:not(.active):after {
     }
 }
 
+@media (max-width: 991px) {
+    .sort-company {
+        display: none;
+    }
+}
+
 @media (min-width: 768px) {
     .navbar-vertical.navbar-expand-md {
         position: fixed;
