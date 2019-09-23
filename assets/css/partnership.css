@@ -65,10 +65,16 @@
 }
 
 .partner-hr{
-    margin: 0;
+    width: 100%;
+}
+
+.partner-hr .progress{
+    margin: auto;
     position: absolute;
     top: 25%;
-    width: 100%;
+    left: 0;
+    right: 0;
+    width: 75%;
     background-color: #6d6bf5 !important;
     height: 2px;
 }
@@ -87,4 +93,18 @@
 
 .partner-progress-description{
     color: #28416b;
+}
+
+.partner-mt{
+    margin-top: 25%;
+}
+
+@media screen
+and (max-width: 768px){
+    .partner-card{
+        padding: 0;
+    }
+    .partner-mt{
+        margin-top: 0;
+    }
 }

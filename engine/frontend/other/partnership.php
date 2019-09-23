@@ -34,23 +34,23 @@
             </span>
         </div>
         <div class="row mt-5">
-            <div class="col text-center">
+            <div class="col-12 col-sm-4 text-center">
                 <span class="partner-icon">
                     <i class="fas fa-ad"></i>
                 </span>
-                <a class="text-decoration-none" href="https://lusy.io/ru/partners/#waystab">Способы продвижения</a>
+                <a class="text-decoration-none" target="_blank" href="https://lusy.io/ru/partners/#waystab">Способы продвижения</a>
             </div>
-            <div class="col text-center">
+            <div class="col-12 col-sm-4 text-center">
                 <span class="partner-icon">
                     <i class="fas fa-bullhorn"></i>
                 </span>
-                <a class="text-decoration-none" href="https://lusy.io/ru/partners/#marketingtab">Рекламные материалы</a>
+                <a class="text-decoration-none" target="_blank" href="https://lusy.io/ru/partners/#marketingtab">Рекламные материалы</a>
             </div>
-            <div class="col text-center">
+            <div class="col-12 col-sm-4 text-center">
                 <span class="partner-icon">
                     <i class="fas fa-book-reader"></i>
                 </span>
-                <a class="text-decoration-none" href="https://lusy.io/ru/partners/#rulestab">Правила программы</a>
+                <a class="text-decoration-none" target="_blank" href="https://lusy.io/ru/partners/#rulestab">Правила программы</a>
             </div>
         </div>
     </div>
@@ -62,7 +62,7 @@
             Статистика:
         </h5>
         <div class="row mt-5">
-            <div class="col text-center">
+            <div class="col-12 col-sm-4 text-center">
                 <p class="text-success partner-stat-number">
                     30
                 </p>
@@ -70,7 +70,7 @@
                     Всего зарегистрировано
                 </p>
             </div>
-            <div class="col text-center">
+            <div class="col-12 col-sm-4 text-center">
                 <p class="partner-stat-number">
                     <span class="badge badge-warning">15</span>
                     <span class="badge badge-success">30</span>
@@ -79,9 +79,9 @@
                     Ожидает подтверждение/Одобренные
                 </p>
             </div>
-            <div class="col text-center">
+            <div class="col-12 col-sm-4  text-center">
                 <p class="partner-stat-bonus partner-stat-number">
-                    30 дней
+                    +30 дней
                 </p>
                 <p class="partner-stat-name">
                     Ожидаемый бонус
@@ -99,9 +99,12 @@
                 <div class="card partner-progress mt-4">
                     <div class="card-body">
                         <div class="row text-center text-white position-relative">
-                            <div class="partner-hr progress">
-                                <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50%"
-                                     aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="partner-hr">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="50%"
+                                         aria-valuemin="0" aria-valuemax="80"></div>
+                                </div>
+
                             </div>
                             <div class="col">
                                 <i class="fas fa-dot-circle dot-partner"></i>
@@ -134,12 +137,12 @@
 <div class="card partner-card mt-4">
     <div class="card-body">
         <div class="row">
-            <div class="col-5">
-                <h5 class="mt-5 pt-5">
+            <div class="col-12 col-md-5">
+                <h5 class="partner-mt">
                     Подзравляем! Вам доступна бесконечная подписка
                 </h5>
             </div>
-            <div class="col-7">
+            <div class="col-12 col-md-7">
                 <img src="/upload/winner-partner.jpg" alt="">
             </div>
         </div>
@@ -151,18 +154,18 @@
 </h5>
 <div class="card mb-1 payment-card partner-card pt-1 pb-1">
     <div class="card-body row">
-        <div class=" col-1">
+        <div class="col-2 col-sm-2 col-lg-1">
             <i class="fas fa-check text-success paymentIcon"></i>
         </div>
-        <div class="col">
-            <div class="row m-0">
+        <div class="col-10 col-sm-5 col-lg-9">
+            <p class="m-0">
                 Рога и копыта
-            </div>
-            <div class="row m-0 text-secondary">
+            </p>
+            <p class="m-0 text-secondary">
                 31.07.2019 18:58
-            </div>
+            </p>
         </div>
-        <div class="text-success col-2 text-center">
+        <div class="text-success d-none d-sm-block col-12 col-sm-4 col-lg-2 text-center">
             Успешно
         </div>
     </div>
