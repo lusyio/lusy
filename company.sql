@@ -1,0 +1,1 @@
+alter table company add personal_promo text null;
