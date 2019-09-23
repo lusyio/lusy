@@ -125,7 +125,7 @@ function generatePersonalPromocode()
     $usedCodes = $usedCodesQuery->fetchAll(PDO::FETCH_COLUMN);
     $chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     do {
-        $code = '';
+        $code = 'LIO';
         for ($i=0;$i<5;$i++) {
             $code .= $chars[rand(0,mb_strlen($chars) - 1)];
         }

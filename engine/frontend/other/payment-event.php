@@ -42,6 +42,11 @@ if ($event['event'] == 'promocode') {
     $icon = 'fas fa-percentage text-success';
     $text = 'Промокод  на ' . $promocodeInfo['days_to_add'] . ' ' . ngettext('day', 'days', $promocodeInfo['days_to_add']) .  ' активирован';
 }
+if ($event['event'] == 'invite') {
+    $companyName = DBOnce('idcompany', 'company', 'id = ' . $event['comment']);
+    $icon = 'fas fa-percentage text-success';
+    $text = 'Активирован промокод от компании "' . $companyName . '" на 14 дней';
+}
 ?>
 <div class="card mb-1 payment-card" data-fin-event-id="<?= $event['fin_event_id']; ?>">
     <div class="card-body payment-event-card d-flex">

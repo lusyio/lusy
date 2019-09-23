@@ -1,1 +1,1 @@
-alter table company add personal_promo text null;
+alter table company add reg_from int null;
