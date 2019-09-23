@@ -64,11 +64,7 @@
     box-shadow: rgba(125, 122, 239, 0.58) 0px 25px 30px -15px !important;
 }
 
-.partner-hr{
-    width: 100%;
-}
-
-.partner-hr .progress{
+.partner-hr {
     margin: auto;
     position: absolute;
     top: 25%;
