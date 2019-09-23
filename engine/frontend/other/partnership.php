@@ -1,37 +1,29 @@
 <div class="card partner-card">
     <div class="card-body">
-        <h5>
-            Ваша реферальная ссылка:
-        </h5>
+        <h5>Ваша реферальная ссылка:</h5>
         <div class="partner-link">
             <span>
-                <i data-clipboard-text="https://lusy.io/reflink"
+                <i data-clipboard-text="<?= $personalPromocodeLink ?>"
                    class="fas fa-link copy-partner-link" data-toggle="tooltip" data-placement="bottom" title=""
                    data-original-title="Скопировать ссылку">
                 </i>
             </span>
-            <a class="text-decoration-none" href="#">
-                https://lusy.io/reflink
-            </a>
+            <a class="text-decoration-none" href="#"><?= $personalPromocodeLink ?></a>
         </div>
     </div>
 </div>
 
 <div class="card partner-card mt-4">
     <div class="card-body">
-        <h5>
-            Ваш промокод для друзей:
-        </h5>
+        <h5>Ваш промокод для друзей:</h5>
         <div class="partner-link">
             <span>
-                <i data-clipboard-text="refpromocode"
+                <i data-clipboard-text="<?= $personalPromocode ?>"
                    class="far fa-copy copy-partner-link" data-toggle="tooltip" data-placement="bottom" title=""
                    data-original-title="Скопировать промокод">
                 </i>
             </span>
-            <span>
-               refpromocode
-            </span>
+            <span><?= $personalPromocode ?></span>
         </div>
         <div class="row mt-5">
             <div class="col-12 col-sm-4 text-center">
@@ -64,7 +56,7 @@
         <div class="row mt-5">
             <div class="col-12 col-sm-4 text-center">
                 <p class="text-success partner-stat-number">
-                    30
+                    <?= count($invitedCompanies) ?>
                 </p>
                 <p class="partner-stat-name">
                     Всего зарегистрировано
@@ -72,8 +64,8 @@
             </div>
             <div class="col-12 col-sm-4 text-center">
                 <p class="partner-stat-number">
-                    <span class="badge badge-warning">15</span>
-                    <span class="badge badge-success">30</span>
+                    <span class="badge badge-warning"><?= $waitingForApprove; ?></span>
+                    <span class="badge badge-success"><?= $approved; ?></span>
                 </p>
                 <p class="partner-stat-name">
                     Ожидает подтверждение/Одобренные
@@ -81,13 +73,14 @@
             </div>
             <div class="col-12 col-sm-4  text-center">
                 <p class="partner-stat-bonus partner-stat-number">
-                    +30 дней
+                    +<?= $waitingForApprove * 14 . ' ' . ngettext('day', 'days', $waitingForApprove * 14) ?>
                 </p>
                 <p class="partner-stat-name">
                     Ожидаемый бонус
                 </p>
             </div>
         </div>
+        <?php if (!$infinitePremium): ?>
         <div class="row mt-5">
             <div class="col">
                 <h5 class="text-center">
@@ -101,7 +94,7 @@
                         <div class="row text-center text-white position-relative">
                             <div class="partner-hr">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="50%"
+                                    <div class="progress-bar" role="progressbar" style="width: <?= $progressBarValue ?>%" aria-valuenow="<?= $progressBarValue ?>%"
                                          aria-valuemin="0" aria-valuemax="80"></div>
                                 </div>
 
@@ -111,15 +104,15 @@
                                 <p class="mb-0 mt-2 small">0 компаний</p>
                             </div>
                             <div class="col">
-                                <i class="far fa-dot-circle dot-partner"></i>
+                                <i class="<?= ($approved >= 5) ? 'fas' : 'far'?> fa-dot-circle dot-partner"></i>
                                 <p class="mb-0 mt-2 small">5 компаний</p>
                             </div>
                             <div class="col">
-                                <i class="far fa-dot-circle dot-partner"></i>
+                                <i class="<?= ($approved >= 10) ? 'fas' : 'far'?>  fa-dot-circle dot-partner"></i>
                                 <p class="mb-0 mt-2 small">10 компаний</p>
                             </div>
                             <div class="col">
-                                <i class="far fa-dot-circle dot-partner"></i>
+                                <i class="<?= ($approved >= 20) ? 'fas' : 'far'?>  fa-dot-circle dot-partner"></i>
                                 <p class="mb-0 mt-2 small">20 компаний</p>
                             </div>
                             <div class="col">
@@ -131,9 +124,10 @@
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 </div>
-
+<?php if ($infinitePremium): ?>
 <div class="card partner-card mt-4">
     <div class="card-body">
         <div class="row">
@@ -148,10 +142,13 @@
         </div>
     </div>
 </div>
-
+<?php endif; ?>
+<?php if (count($invitedCompanies) > 0 ): ?>
 <h5 class="mt-3 mb-3">
     Привлеченные компании:
 </h5>
+<?php endif; ?>
+<?php foreach ($invitedCompanies as $company): ?>
 <div class="card mb-1 payment-card partner-card pt-1 pb-1">
     <div class="card-body row">
         <div class="col-2 col-sm-2 col-lg-1">
@@ -159,10 +156,10 @@
         </div>
         <div class="col-10 col-sm-5 col-lg-9">
             <p class="m-0">
-                Рога и копыта
+                <?= $company['idcompany'] ?>
             </p>
             <p class="m-0 text-secondary">
-                31.07.2019 18:58
+                <?= date('d.m.Y H:i',$company['datareg']) ?>
             </p>
         </div>
         <div class="text-success d-none d-sm-block col-12 col-sm-4 col-lg-2 text-center">
@@ -170,6 +167,7 @@
         </div>
     </div>
 </div>
+<?php endforeach; ?>
 <script src="/assets/js/clipboard.min.js"></script>
 <script>
     new ClipboardJS('.copy-partner-link');
