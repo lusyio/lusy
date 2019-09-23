@@ -99,12 +99,9 @@
                 <div class="card partner-progress mt-4">
                     <div class="card-body">
                         <div class="row text-center text-white position-relative">
-                            <div class="partner-hr">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="50%"
-                                         aria-valuemin="0" aria-valuemax="80"></div>
-                                </div>
-
+                            <div class="partner-hr progress">
+                                <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="50%"
+                                     aria-valuemin="0" aria-valuemax="80"></div>
                             </div>
                             <div class="col">
                                 <i class="fas fa-dot-circle dot-partner"></i>
