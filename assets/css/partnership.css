@@ -65,18 +65,26 @@
 }
 
 .partner-hr{
-    border-color: #ffffff;
     margin: 0;
     position: absolute;
     top: 25%;
     width: 100%;
+    background-color: #6d6bf5 !important;
+    height: 2px;
+}
+
+.partner-hr .progress-bar{
+    background: #ffffff;
 }
 
 .dot-partner{
-
     font-size: 30px;
     z-index: 2;
     padding-left: 5px;
     padding-right: 5px;
-    background: linear-gradient(180deg, rgba(112,133,254,1) 0%, rgba(126,123,252,1) 100%);
+    background: #7382fc;
+}
+
+.partner-progress-description{
+    color: #28416b;
 }

@@ -93,12 +93,22 @@
                 <h5 class="text-center">
                     Получи Premium навсегда!
                 </h5>
+                <p class="partner-progress-description">
+                    Привлеки 30 друзей в систему, и мы отблагодарим Вашу компанию вечным Premium-тарифом
+                </p>
                 <div class="card partner-progress mt-4">
                     <div class="card-body">
                         <div class="row text-center text-white position-relative">
-                            <hr class="partner-hr">
+                            <div class="partner-hr progress">
+                                <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50%"
+                                     aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                             <div class="col">
                                 <i class="fas fa-dot-circle dot-partner"></i>
+                                <p class="mb-0 mt-2 small">0 компаний</p>
+                            </div>
+                            <div class="col">
+                                <i class="far fa-dot-circle dot-partner"></i>
                                 <p class="mb-0 mt-2 small">5 компаний</p>
                             </div>
                             <div class="col">
@@ -110,12 +120,8 @@
                                 <p class="mb-0 mt-2 small">20 компаний</p>
                             </div>
                             <div class="col">
-                                <i class="far fa-dot-circle dot-partner"></i>
-                                <p class="mb-0 mt-2 small">30 компаний</p>
-                            </div>
-                            <div class="col">
                                 <i class="fas fa-crown dot-partner"></i>
-                                <p class="mb-0 mt-2 small">40 компаний</p>
+                                <p class="mb-0 mt-2 small">30 компаний</p>
                             </div>
                         </div>
                     </div>
