@@ -42,7 +42,7 @@ if (isset($_GET['folder']) && $_GET['folder'] == 'unsubscribe') {
 
 if (isset($_GET['promo'])) {
     if (preg_match('~^LIO[A-Z0-9]{5,8}$~i', $_GET['promo'])) {
-        setcookie('promo', $_GET['promo'], time() + 3600 * 24 * 30, '/', '');
+        setcookie('promo', $_GET['promo'], time() + 3600 * 24 * 30, '/', '.lusy.io');
     }
 }
 
