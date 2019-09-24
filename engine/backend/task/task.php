@@ -49,7 +49,7 @@ $report = $task->get('report');
 $idtask = $task->get('id');
 $nametask = $task->get('name');
 $status = $task->get('status');
-if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
+if ($status == 'new' || $status == 'returned') {
     $status = 'inwork';
 }
 $enableComments = true;
