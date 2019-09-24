@@ -80,47 +80,51 @@
                 </p>
             </div>
         </div>
+    </div>
+</div>
+<div class="card partner-card partner-progress text-white mt-4">
+    <div class="card-body">
         <?php if (!$infinitePremium): ?>
-        <div class="row mt-5">
-            <div class="col">
-                <h5 class="text-center">
-                    Получи Premium навсегда!
-                </h5>
-                <p class="partner-progress-description">
-                    Привлеки 30 друзей в систему, и мы отблагодарим Вашу компанию вечным Premium-тарифом
-                </p>
-                <div class="card partner-progress mt-4">
-                    <div class="card-body">
-                        <div class="row text-center text-white position-relative">
-                            <div class="partner-hr progress">
-                                <div class="progress-bar" role="progressbar" style="width: <?= $progressBarValue ?>%" aria-valuenow="<?= $progressBarValue ?>%"
-                                     aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="col">
-                                <i class="fas fa-dot-circle dot-partner"></i>
-                                <p class="mb-0 mt-2 small">0 компаний</p>
-                            </div>
-                            <div class="col">
-                                <i class="<?= ($approved >= 5) ? 'fas' : 'far'?> fa-dot-circle dot-partner"></i>
-                                <p class="mb-0 mt-2 small">5 компаний</p>
-                            </div>
-                            <div class="col">
-                                <i class="<?= ($approved >= 10) ? 'fas' : 'far'?>  fa-dot-circle dot-partner"></i>
-                                <p class="mb-0 mt-2 small">10 компаний</p>
-                            </div>
-                            <div class="col">
-                                <i class="<?= ($approved >= 20) ? 'fas' : 'far'?>  fa-dot-circle dot-partner"></i>
-                                <p class="mb-0 mt-2 small">20 компаний</p>
-                            </div>
-                            <div class="col">
-                                <i class="fas fa-crown dot-partner"></i>
-                                <p class="mb-0 mt-2 small">30 компаний</p>
+            <div class="row">
+                <div class="col">
+                    <h5 class="text-center text-white">
+                        Получи Premium навсегда!
+                    </h5>
+                    <p class="partner-progress-description">
+                        Привлеки 30 друзей в систему, и мы отблагодарим Вашу компанию вечным Premium-тарифом
+                    </p>
+                    <div class="mt-4">
+                        <div class="card-body">
+                            <div class="row row-hr-partner text-center text-white position-relative">
+                                <div class="partner-hr progress">
+                                    <div class="progress-bar" role="progressbar" style="width: <?= $progressBarValue ?>%" aria-valuenow="<?= $progressBarValue ?>%"
+                                         aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="col">
+                                    <i class="fas fa-dot-circle dot-partner"></i>
+                                    <p class="mb-0 mt-2 small">0 компаний</p>
+                                </div>
+                                <div class="col">
+                                    <i class="<?= ($approved >= 5) ? 'fas' : 'far'?> fa-dot-circle dot-partner"></i>
+                                    <p class="mb-0 mt-2 small">5 компаний</p>
+                                </div>
+                                <div class="col">
+                                    <i class="<?= ($approved >= 10) ? 'fas' : 'far'?>  fa-dot-circle dot-partner"></i>
+                                    <p class="mb-0 mt-2 small">10 компаний</p>
+                                </div>
+                                <div class="col">
+                                    <i class="<?= ($approved >= 20) ? 'fas' : 'far'?>  fa-dot-circle dot-partner"></i>
+                                    <p class="mb-0 mt-2 small">20 компаний</p>
+                                </div>
+                                <div class="col">
+                                    <i class="fas fa-crown dot-partner"></i>
+                                    <p class="mb-0 mt-2 small">30 компаний</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <?php endif; ?>
     </div>
 </div>
@@ -128,13 +132,14 @@
 <div class="card partner-card mt-4">
     <div class="card-body">
         <div class="row">
-            <div class="col-12 col-md-5">
-                <h5 class="partner-mt">
-                    Подзравляем! Вам доступна бесконечная подписка
+            <div class="col-12">
+                <h5 class="text-center">
+                    Подзравляем!<br>
+                    У вас теперь бесконечная подписка
                 </h5>
             </div>
-            <div class="col-12 col-md-7">
-                <img src="/upload/winner-partner.jpg" alt="">
+            <div class="col-12">
+                <img src="/upload/undraw_winners.svg" alt="">
             </div>
         </div>
     </div>
