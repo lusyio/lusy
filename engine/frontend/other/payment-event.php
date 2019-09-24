@@ -47,6 +47,11 @@ if ($event['event'] == 'invite') {
     $icon = 'fas fa-percentage text-success';
     $text = 'Активирован промокод от компании "' . $companyName . '" на 14 дней';
 }
+if ($event['event'] == 'refcheck') {
+    $companyName = DBOnce('idcompany', 'company', 'id = ' . $event['comment']);
+    $icon = 'fas fa-percentage text-success';
+    $text = 'Бесплатный премиум на 14 дней за приглашенную компанию "' . $companyName . '"';
+}
 ?>
 <div class="card mb-1 payment-card" data-fin-event-id="<?= $event['fin_event_id']; ?>">
     <div class="card-body payment-event-card d-flex">
