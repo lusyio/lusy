@@ -17,6 +17,7 @@ class Task
         if (is_null($taskData)) {
             $taskQuery = $pdo->prepare("SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, 
           t.idcompany, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, t.checklist, t.with_premium,
+          t.repeat_type,
           (SELECT COUNT(*) FROM comments c WHERE c.status='comment' AND c.idtask = t.id) AS countComments,
           (SELECT COUNT(*) FROM events e WHERE e.action='comment' AND e.task_id = t.id AND recipient_id = :userId AND e.view_status = 0) AS countNewComments,
           (SELECT COUNT(DISTINCT u.file_id) FROM uploads u LEFT JOIN events e ON u.comment_id = e.comment WHERE u.comment_type='comment' AND (e.action='comment' OR e.action='review') AND e.task_id = t.id AND recipient_id = :userId AND e.view_status = 0) AS countNewFiles,
@@ -412,7 +413,7 @@ class Task
         }
     }
 
-    public static function createTask($name, $description, $dateCreate, $manager, $worker, $coworkers, $dateDone, $checkList, $parentTaskId, $taskPremiumType)
+    public static function createTask($name, $description, $dateCreate, $manager, $worker, $coworkers, $dateDone, $checkList, $parentTaskId, $taskPremiumType, $repeatType)
     {
         global $pdo;
         global $id;
@@ -445,6 +446,7 @@ class Task
             ':checkList' => json_encode($checkList),
             ':parentTask' => null,
             ':withPremium' => 0,
+            ':repeatType' => $repeatType,
         ];
 
         if ($parentTaskId != 0 && ($taskPremiumType >= 0)) {
@@ -464,7 +466,7 @@ class Task
             $taskCreateQueryData[':status'] = 'planned';
             $usePremiumTask = true;
         }
-        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, with_premium, checklist) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :withPremium, :checkList)");
+        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, with_premium, checklist, repeat_type) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :withPremium, :checkList, :repeatType)");
         $taskCreateQuery->execute($taskCreateQueryData);
         if ($taskCreateQuery) {
             $taskId = $pdo->lastInsertId();
@@ -659,5 +661,13 @@ class Task
         $query->execute([':taskId' => $taskId]);
         $companyId = $query->fetch(PDO::FETCH_COLUMN);
         return $companyId;
+    }
+
+    public function changeRepeatType($repeatType)
+    {
+        global $pdo;
+        $addParentTaskQuery = $pdo->prepare("UPDATE tasks SET repeat_type = :repeatType WHERE id = :taskId");
+        $addParentTaskQuery->execute([':taskId' => $this->get('id'), ':repeatType' => $repeatType]);
+        return true;
     }
 }

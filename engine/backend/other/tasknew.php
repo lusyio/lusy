@@ -61,6 +61,7 @@ if (isset($_GET['edit']) && $_GET['edit'] == 1) {
     }
     $taskStatus = $task->get('status');
     $withPremium = $task->get('with_premium');
+    $repeatType = $task->get('repeat_type');
     $taskEdit = true;
     $hasSubTasks = false;
     if (count($task->get('subTasks')) > 0) {

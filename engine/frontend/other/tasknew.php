@@ -130,13 +130,13 @@ $borderColor = [
                                         '7' => 'Раз в неделю',
                                     ];
                                     include __ROOT__ . '/engine/frontend/members/repeat.php'; ?>
-                                    <div class="container container-repeat border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled">
-                                        <div class="placeholder-repeat" style="">
+                                    <div class="container container-repeat border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew<?= ($taskEdit && $repeatType != 0) ? '' : ' disabled' ?>">
+                                        <div class="placeholder-repeat" style="<?= ($taskEdit && $repeatType != 0) ? 'display:none;' : '' ?>">
                                             Не повторять
                                         </div>
                                         <?php foreach ($repeatOptions as $key => $name): ?>
                                             <div val="<?= $key ?>"
-                                                 class="add-repeat text-area-message d-none">
+                                                 class="add-repeat text-area-message <?= ($taskEdit && $repeatType == $key) ? 'repeat-selected' : 'd-none' ?>">
                                                 <span class="card-coworker"><?= $name ?></span><i class="fas fa-times remove-parenttask"></i>
                                             </div>
                                         <?php endforeach; ?>

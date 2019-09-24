@@ -134,6 +134,12 @@ if ($id == $worker and $view == 0) {
                                                                     class="badge badge-info"><i
                                         class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
                     <?php endif; ?>
+                    <?php if ($repeatType > 0): ?>
+                        <a href="#"><span data-toggle="tooltip" data-placement="bottom"
+                                                                    title="Нажмите для отмены создания новых задач"
+                                                                    class="badge badge-info"><i
+                                        class="fas fa-clipboard mr-2"></i>Повторяющаяся</span></a>
+                    <?php endif; ?>
                 </div>
                 <div class="col-8 col-lg-8">
                     <span class="badge <?= $statusBar[$status]['bg'] ?>"><?= $GLOBALS["_{$status}"] ?></span>
@@ -143,6 +149,13 @@ if ($id == $worker and $view == 0) {
                                                                                                   title="Перейти к надзадаче"
                                                                                                   class="badge badge-info"><i
                                         class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
+                    <?php endif; ?>
+                    <?php if ($repeatType > 0): ?>
+                        <a class="subtask-badge-desktop" href="#"><span data-toggle="tooltip"
+                                                                                                  data-placement="bottom"
+                                                                                                  title="Нажмите для отмены создания новых задач"
+                                                                                                  class="badge badge-info"><i
+                                        class="fas fa-clipboard mr-2"></i>Повторяющаяся</span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-lg-4">

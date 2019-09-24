@@ -126,3 +126,5 @@ if (!is_null($parentTaskId)) {
     $parentTaskName = DBOnce('name', 'tasks', 'id= ' . $parentTaskId);
 }
 
+$repeatType = $task->get('repeat_type');
+
