@@ -149,9 +149,9 @@
 <div class="card mb-1 payment-card partner-card pt-1 pb-1">
     <div class="card-body row">
         <div class="col-2 col-sm-2 col-lg-1">
-            <i class="fas fa-check text-success paymentIcon"></i>
+            <i class="<?= ($company['promo_status'] == 1) ? 'fas fa-check text-success' : 'fas fa-clock text-warning' ?> paymentIcon"></i>
         </div>
-        <div class="col-10 col-sm-5 col-lg-9">
+        <div class="col-10 col-sm-5 col-lg-8">
             <p class="m-0">
                 <?= $company['idcompany'] ?>
             </p>
@@ -159,8 +159,8 @@
                 <?= date('d.m.Y H:i',$company['datareg']) ?>
             </p>
         </div>
-        <div class="text-success d-none d-sm-block col-12 col-sm-4 col-lg-2 text-center">
-            Успешно
+        <div class="<?= ($company['promo_status'] == 1) ? 'text-success' : 'text-warning' ?> d-none d-sm-block col-12 col-sm-4 col-lg-3 text-center">
+            <?= ($company['promo_status'] == 1) ? 'Успешно' : 'Ожидает подтверждения' ?>
         </div>
     </div>
 </div>

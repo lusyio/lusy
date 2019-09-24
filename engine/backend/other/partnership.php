@@ -11,8 +11,16 @@ $invitedCompaniesQuery->execute([':companyId' => $idc]);
 $invitedCompanies = $invitedCompaniesQuery->fetchAll(PDO::FETCH_ASSOC);
 
 //тестовые данные!!!
-$waitingForApprove = 3; //тестовые данные!!!
-$approved = 15;//тестовые данные!!!
+$waitingForApprove = 0;
+$approved = 0;
+
+foreach ($invitedCompanies as $company) {
+    if ($company['promo_status'] == 1) {
+        $approved++;
+    } else {
+        $waitingForApprove++;
+    }
+}
 
 if ($approved <= 10) {
     $progressBarValue = round($approved / 20 * 100);
