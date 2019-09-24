@@ -66,10 +66,10 @@ $borderColor = [
                 <?php foreach ($users as $n): ?>
                 <?php if (!$taskEdit && count($users) == 1): ?>
                 <div val="<?php echo $n['id'] ?>"
-                     class="add-responsible responsible-selected">
+                     class="add-responsible<?= ($n['id'] == $id) ? ' self-user' : '' ?> responsible-selected">
                 <?php else: ?>
                 <div val="<?php echo $n['id'] ?>"
-                     class="add-responsible <?= ($taskEdit && $n['id'] == $worker) ? 'responsible-selected' : 'd-none' ?>">
+                     class="add-responsible<?= ($n['id'] == $id) ? ' self-user' : '' ?> <?= ($taskEdit && $n['id'] == $worker) ? 'responsible-selected' : 'd-none' ?>">
                     <?php endif; ?>
                     <img src="/<?= getAvatarLink($n["id"]) ?>" class="avatar-added mr-1">
                 <span class="card-coworker"><?= (trim($n['name'] . ' ' . $n['surname']) == '') ? $n['email'] : trim($n['name'] . ' ' . $n['surname']) ?></span>
@@ -107,7 +107,49 @@ $borderColor = [
 
 </div>
 </div>
-
+    <div class="row mt-25-tasknew">
+        <div class="col-12 text-center position-relative">
+                <div class="mt-25-tasknew">
+                    <div class="row top-block-tasknew">
+                        <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
+                            <div class="label-tasknew text-left">
+                                Повторение задачи
+                                    <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
+                                          title="Доступно только для задач, назначенных самому себе"><i
+                                                class="fas fa-info-circle"></i></span>
+                            </div>
+                            <div class="card card-tasknew">
+                                    <?php
+                                    $repeatOptions = [
+                                        '1' => 'Каждый день',
+                                        '2' => 'Через день',
+                                        '3' => 'Раз в 3 дня',
+                                        '4' => 'Раз в 4 дня',
+                                        '5' => 'Раз в 5 дней',
+                                        '6' => 'Раз в 6 дней',
+                                        '7' => 'Раз в неделю',
+                                    ];
+                                    include __ROOT__ . '/engine/frontend/members/repeat.php'; ?>
+                                    <div class="container container-repeat border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew disabled">
+                                        <div class="placeholder-repeat" style="">
+                                            Не повторять
+                                        </div>
+                                        <?php foreach ($repeatOptions as $key => $name): ?>
+                                            <div val="<?= $key ?>"
+                                                 class="add-repeat text-area-message d-none">
+                                                <span class="card-coworker"><?= $name ?></span><i class="fas fa-times remove-parenttask"></i>
+                                            </div>
+                                        <?php endforeach; ?>
+                                        <div class="position-absolute icon-newtask icon-newtask-change-repeat">
+                                            <i class="fas fa-caret-down"></i>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
 <div class="row mt-25-tasknew">
     <div class="col-12 text-center position-relative">
         <div class="other-func text-center position-relative">
