@@ -16,7 +16,6 @@
     padding: 24px 25px 24px 35px;
     letter-spacing: 0.04em;
     position: relative;
-    text-align: center;
     height: 72px;
 }
 
@@ -112,6 +111,11 @@
 
 .partner-progress-description {
     color: #ffffff;
+    text-align: center;
+}
+
+.partners-buttons-block-m{
+    display: none;
 }
 
 .partner-mt {
@@ -133,6 +137,14 @@ and (max-width: 768px) {
 
     .partner-mt {
         margin-top: 0;
+    }
+
+    .partners-buttons-block{
+        display: none;
+    }
+
+    .partners-buttons-block-m{
+        display: block;
     }
 }
 
