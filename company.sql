@@ -1,1 +1,1 @@
-alter table company add reg_from int null;
+alter table company add promo_status int default 0 null;
