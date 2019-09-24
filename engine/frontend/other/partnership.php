@@ -195,12 +195,12 @@
     </div>
 <?php endif; ?>
 <?php if (count($invitedCompanies) > 0): ?>
-    <h5 class="mt-3 mb-3">
+    <h5 class="mt-4 mb-4">
         Привлеченные компании:
     </h5>
 <?php endif; ?>
 <?php foreach ($invitedCompanies as $company): ?>
-    <div class="card mb-1 payment-card partner-card pt-1 pb-1">
+    <div class="card mb-2 payment-card partner-card pt-1 pb-1">
         <div class="card-body row">
             <div class="col-2 col-sm-2 col-lg-1">
                 <i class="<?= ($company['promo_status'] == 1) ? 'fas fa-check text-success' : 'fas fa-clock text-warning' ?> paymentIcon"></i>
@@ -213,7 +213,7 @@
                     <?= date('d.m.Y H:i', $company['datareg']) ?>
                 </p>
             </div>
-            <div class="<?= ($company['promo_status'] == 1) ? 'text-success' : 'text-warning' ?> d-none d-sm-block col-12 col-sm-4 col-lg-3 text-center">
+            <div class="<?= ($company['promo_status'] == 1) ? 'text-success' : 'text-warning' ?> d-none d-sm-block col-12 col-sm-5 col-lg-3 text-center">
                 <?= ($company['promo_status'] == 1) ? 'Успешно' : 'Ожидает подтверждения' ?>
             </div>
         </div>
