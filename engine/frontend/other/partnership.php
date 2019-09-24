@@ -132,13 +132,14 @@
 <div class="card partner-card mt-4">
     <div class="card-body">
         <div class="row">
-            <div class="col-12 col-md-5">
-                <h5 class="partner-mt">
-                    Подзравляем! Вам доступна бесконечная подписка
+            <div class="col-12">
+                <h5 class="text-center">
+                    Подзравляем!<br>
+                    У вас теперь бесконечная подписка
                 </h5>
             </div>
-            <div class="col-12 col-md-7">
-                <img src="/upload/winner-partner.jpg" alt="">
+            <div class="col-12">
+                <img src="/upload/undraw_winners.svg" alt="">
             </div>
         </div>
     </div>
