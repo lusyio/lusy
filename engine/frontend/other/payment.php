@@ -166,7 +166,8 @@
     подтверждаете, что
     ознакомились с понятием "автоплатеж" и с <a
             href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf" class="btn-link"
-            target="_blank">Офертой рекуррентных платежей</a>.</p>
+            target="_blank">Офертой рекуррентных платежей</a>.
+</p>
 
 <h5 class="mb-3 mt-5">Операции</h5>
 <?php foreach ($financeEvents as $event):

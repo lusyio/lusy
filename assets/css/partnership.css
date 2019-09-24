@@ -17,6 +17,7 @@
     letter-spacing: 0.04em;
     position: relative;
     text-align: center;
+    height: 72px;
 }
 
 .partner-stat-name {
@@ -88,10 +89,6 @@
     border-bottom: 2px solid #ffffff;
 }
 
-.row-hr-partner .col{
-    z-index: 1;
-}
-
 .row-hr-partner:after {
     content: '';
     width: 50px;
@@ -99,6 +96,10 @@
     top: 25%;
     right: 0;
     border-bottom: 2px solid #6d6bf5;
+}
+
+.row-hr-partner .col {
+    z-index: 1;
 }
 
 .dot-partner {
@@ -118,6 +119,13 @@
 }
 
 @media screen
+and (max-width: 991px){
+    .row-hr-partner .small span{
+        display: none;
+    }
+}
+
+@media screen
 and (max-width: 768px) {
     .partner-card {
         padding: 0;
@@ -125,5 +133,12 @@ and (max-width: 768px) {
 
     .partner-mt {
         margin-top: 0;
+    }
+}
+
+@media screen
+and (max-width: 576px){
+    .row-hr-partner .col {
+        padding: 0;
     }
 }

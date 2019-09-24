@@ -102,23 +102,23 @@
                                 </div>
                                 <div class="col">
                                     <i class="fas fa-dot-circle dot-partner"></i>
-                                    <p class="mb-0 mt-2 small">0 компаний</p>
+                                    <p class="mb-0 mt-2 small">0 <span>компаний</span></p>
                                 </div>
                                 <div class="col">
                                     <i class="<?= ($approved >= 5) ? 'fas' : 'far'?> fa-dot-circle dot-partner"></i>
-                                    <p class="mb-0 mt-2 small">5 компаний</p>
+                                    <p class="mb-0 mt-2 small">5 <span>компаний</span></p>
                                 </div>
                                 <div class="col">
                                     <i class="<?= ($approved >= 10) ? 'fas' : 'far'?>  fa-dot-circle dot-partner"></i>
-                                    <p class="mb-0 mt-2 small">10 компаний</p>
+                                    <p class="mb-0 mt-2 small">10 <span>компаний</span></p>
                                 </div>
                                 <div class="col">
                                     <i class="<?= ($approved >= 20) ? 'fas' : 'far'?>  fa-dot-circle dot-partner"></i>
-                                    <p class="mb-0 mt-2 small">20 компаний</p>
+                                    <p class="mb-0 mt-2 small">20 <span>компаний</span></p>
                                 </div>
                                 <div class="col">
                                     <i class="fas fa-crown dot-partner"></i>
-                                    <p class="mb-0 mt-2 small">30 компаний</p>
+                                    <p class="mb-0 mt-2 small">30 <span>компаний</span></p>
                                 </div>
                             </div>
                         </div>
