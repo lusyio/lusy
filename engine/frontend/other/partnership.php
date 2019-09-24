@@ -130,9 +130,9 @@
         </div>
     </div>
 </div>
-<div class="card partner-card partner-progress text-white mt-4">
-    <div class="card-body">
-        <?php if (!$infinitePremium): ?>
+<?php if (!$infinitePremium): ?>
+    <div class="card partner-card partner-progress text-white mt-4">
+        <div class="card-body">
             <div class="row">
                 <div class="col">
                     <h5 class="text-center text-white">
@@ -175,10 +175,9 @@
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
+        </div>
     </div>
-</div>
-<?php if ($infinitePremium): ?>
+<?php else: ?>
     <div class="card partner-card mt-4">
         <div class="card-body">
             <div class="row">
