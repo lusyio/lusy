@@ -41,7 +41,7 @@ if (isset($_GET['folder']) && $_GET['folder'] == 'unsubscribe') {
 // Установка cookie реферала
 
 if (isset($_GET['promo'])) {
-    if (preg_match('~^LIO[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{5,8}$~i', $_GET['promo'])) {
+    if (preg_match('~^LIO[A-Z0-9]{5,8}$~i', $_GET['promo'])) {
         setcookie('promo', $_GET['promo'], time() + 3600 * 24 * 30, '/', '');
     }
 }

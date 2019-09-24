@@ -258,7 +258,7 @@ if($_POST['module'] == 'usePromocode' && !empty($_POST['promocode'])) {
         'errorText' => '',
         'successText' => '',
     ];
-    if (preg_match('~^LIO[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{5,8}$~i', $_POST['promocode'])) {
+    if (preg_match('~^LIO[A-Z0-9]{5,8}$~i', $_POST['promocode'])) {
         $refPromocodeStatus = activateRefPromocode($idc, $_POST['promocode']);
         if ($refPromocodeStatus === true) {
             echo json_encode($result);

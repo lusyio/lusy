@@ -123,7 +123,7 @@ function generatePersonalPromocode()
     $usedCodesQuery = $pdo->prepare("SELECT personal_promo FROM company");
     $usedCodesQuery->execute();
     $usedCodes = $usedCodesQuery->fetchAll(PDO::FETCH_COLUMN);
-    $chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    $chars = 'A-Z0-9';
     do {
         $code = 'LIO';
         for ($i=0;$i<5;$i++) {

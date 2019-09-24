@@ -41,7 +41,7 @@ if (isset($_POST['email'])) {
             addEvent('newcompany', '', $companyId, $ceoId);
             createInitTask($ceoId, $companyId, true);
             addMailToQueue('sendActivationLink', [$companyId], $ceoId);
-            if (isset($_COOKIE['promo']) && preg_match('~^LIO[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{5,8}$~i', $_COOKIE['promo'])) {
+            if (isset($_COOKIE['promo']) && preg_match('~^LIO[A-Z0-9]{5,8}$~i', $_COOKIE['promo'])) {
                 activateRefPromocode($companyId, $_COOKIE['promo']);
             }
             header('location: /login/');
