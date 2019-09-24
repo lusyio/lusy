@@ -1814,9 +1814,6 @@ function sendSubscribeInviteEmailNotification($companyId, $tariffName, $daysToAd
         return;
     }
 
-    require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
-    $promocodeInfo = getPromocodeInfo($promocode);
-
     require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
     require_once __ROOT__ . '/engine/phpmailer/Exception.php';
 
@@ -1834,6 +1831,38 @@ function sendSubscribeInviteEmailNotification($companyId, $tariffName, $daysToAd
             'unsubscribeLink' => $unsubscribeLink,
         ];
         $mail->setMessageContent('subscribe-invite-free', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendSubscribeRefCheckEmailNotification($companyId, $tariffName, $daysToAdd)
+{
+    $seoMail = getCeoMail($companyId);
+    $seoId = getCeoId($companyId);
+    $notifications = getNotificationSettings($seoId);
+    if (!$notifications['payment']) {
+        return;
+    }
+
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($seoMail);
+        $mail->isHTML();
+        $mail->Subject = "Подключение тарифа в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
+        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
+        $args = [
+            'tariffName' => $tariffName,
+            'freeDays' => $daysToAdd,
+            'unsubscribeLink' => $unsubscribeLink,
+        ];
+        $mail->setMessageContent('subscribe-ref-check-free', $args);
         $mail->send();
     } catch (Exception $e) {
         return;
