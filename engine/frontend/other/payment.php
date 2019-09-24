@@ -172,7 +172,7 @@
         <div class="row">
             <div class="col-12">
                 <h5 class="text-center">
-                    Подзравляем!<br>
+                    Зачем платить?<br>
                     У вас теперь бесконечная подписка на Premium
                 </h5>
             </div>
