@@ -134,7 +134,7 @@ if ($id == $worker and $view == 0) {
                                                                     class="badge badge-info"><i
                                         class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
                     <?php endif; ?>
-                    <?php if ($repeatType > 0): ?>
+                    <?php if (!is_null($repeatType) && $repeatType > 0): ?>
                         <a href="#"><span data-toggle="tooltip" data-placement="bottom"
                                                                     title="Нажмите для отмены создания новых задач"
                                                                     class="badge badge-info"><i
