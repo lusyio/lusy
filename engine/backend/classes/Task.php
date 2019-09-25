@@ -670,4 +670,128 @@ class Task
         $addParentTaskQuery->execute([':taskId' => $this->get('id'), ':repeatType' => $repeatType]);
         return true;
     }
+
+    public static function repeatTask($originTaskId, $dateCreate, $dateDone, $repeatTask, $repeatType)
+    {
+        global $pdo;
+
+        $originTask = new Task($originTaskId);
+
+        $tryPremiumLimits = getFreePremiumLimits($originTask->get('idcompany'));
+// Возможность премиум: 1 - премиум-тариф, 0 - бесплатный тариф, есть бесплатные попытки,
+// -1 - бесплатный тариф, нет бесплатных попыток
+        $tariffQuery = $pdo->prepare("SELECT tariff FROM company WHERE id = :companyId");
+        $tariffQuery->execute([':companyId' => $originTask->get('idcompany')]);
+        $tariff = $tariffQuery->fetch(PDO::FETCH_COLUMN);
+        if ($tariff == 1) {
+            $cloudPremiumType = 1;
+            $taskPremiumType = 1;
+        } else {
+            // Прикрепление из облака
+            if ($tryPremiumLimits['cloud'] < 3) {
+                $cloudPremiumType = 0;
+            } else {
+                $cloudPremiumType = -1;
+            }
+            // Дополнительные функции задачи
+            if ($tryPremiumLimits['task'] < 3) {
+                $taskPremiumType = 0;
+            } else {
+                $taskPremiumType = -1;
+            }
+        }
+
+        // Проверяем, что сотрудник не уволен
+        $companyUsersQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND is_fired = 0");
+        $companyUsersQuery->execute([':companyId' => $originTask->get('idcompany')]);
+        $companyUsers = $companyUsersQuery->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array($originTask->get('manager'), $companyUsers)) {
+            return false;
+        }
+
+        $usePremiumTask = false;
+        $taskCreateQueryData = [
+            ':name' => $originTask->get('name'),
+            ':description' => $originTask->get('description'),
+            ':dateCreate' => $dateCreate,
+            ':author' => $originTask->get('manager'),
+            ':manager' => $originTask->get('manager'),
+            ':worker' => $originTask->get('manager'),
+            ':companyId' => $originTask->get('idcompany'),
+            ':datedone' => $dateDone,
+            ':status' => 'new',
+            ':parentTask' => null,
+            ':withPremium' => 0,
+            ':repeatType' => $repeatType,
+            ':repeatTask' => $repeatTask,
+        ];
+
+        if (count(json_decode($originTask->get('checklist'), true)) > 0 && $taskPremiumType >= 0) {
+            $taskCreateQueryData[':checkList'] = $originTask->get('checklist');
+            $taskCreateQueryData[':withPremium'] = 1;
+            $usePremiumTask = true;
+        } else {
+            $taskCreateQueryData[':checkList'] = json_encode([]);
+        }
+
+        $roleu = DBOnce('role', 'users', 'id = ' . $originTask->get('manager'));
+        if ($originTask->get('parent_task') != 0 && $taskPremiumType >= 0) {
+            $parentTask = new Task($originTask->get('parent_task'));
+            if (in_array($originTask->get('manager'), [$parentTask->get('manager'), $parentTask->get('worker')]) || ($roleu == 'ceo' && $parentTask->get('idcompany') == $originTask->get('idcompany'))) {
+                if (is_null($parentTask->get('parent_task')) && !in_array($parentTask->get('status'), ['done', 'canceled'])) {
+                    $taskCreateQueryData[':parentTask'] = $parentTask->get('id');
+                    $taskCreateQueryData[':withPremium'] = 1;
+                    $usePremiumTask = true;
+                }
+            }
+        }
+        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, with_premium, checklist, repeat_type, repeat_task) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :withPremium, :checkList, :repeatType, :repeatTask)");
+        $taskCreateQuery->execute($taskCreateQueryData);
+        if ($taskCreateQuery) {
+            $taskId = $pdo->lastInsertId();
+//            resetViewStatus($taskId); // Если раскомментировать, то повторяющиеся задачи будут помечены как прочитанные
+            $GLOBALS['id'] = $originTask->get('manager');
+            $GLOBALS['idc'] = $originTask->get('idcompany');
+            addTaskCreateComments($taskId, $originTask->get('manager'), []);
+            addEvent('createtask', $taskId, $dateDone, $originTask->get('manager'));
+
+            if (!is_null($taskCreateQueryData[':parentTask'])) {
+                addSubTaskComment($taskCreateQueryData[':parentTask'], $taskId);
+                addNewSubTaskEvent($taskCreateQueryData[':parentTask'], $taskId);
+            }
+
+            if ($taskPremiumType == 0 && $usePremiumTask) {
+                updateFreePremiumLimits($originTask->get('idcompany'), 'task');
+            }
+            unset($GLOBALS['id']);
+            unset($GLOBALS['idc']);
+            return new Task($taskId);
+        } else {
+            return false;
+        }
+    }
+
+    public static function cancelRepeat($taskId)
+    {
+        global $id;
+        global $idc;
+        global $pdo;
+        global $roleu;
+
+        $task = new Task($taskId);
+        if ($task->get('manager') != $id && $task->get('worker') != $id && $task->get('idcompany') != $idc && $roleu != 'ceo') {
+            return false;
+        }
+        $setRepeatTypeForPrimaryTaskQuery = $pdo->prepare("UPDATE tasks SET repeat_type = 0 WHERE id = :taskId");
+        $setRepeatTypeForSecondaryTasksQuery = $pdo->prepare("UPDATE tasks SET repeat_type = 0 WHERE repeat_task = :taskId");
+
+        if (is_null($task->get('repeat_task'))) {
+            $primaryTask = $task->get('id');
+        } else {
+            $primaryTask = $task->get('repeat_task');
+        }
+        $setRepeatTypeForPrimaryTaskQuery->execute([':taskId' => $primaryTask]);
+        $setRepeatTypeForSecondaryTasksQuery->execute([':taskId' => $primaryTask]);
+        return true;
+    }
 }
