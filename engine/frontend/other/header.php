@@ -22,7 +22,7 @@ if (empty($title)) {
 <?php inc('nav', 'top-sidebar'); ?>
 <div class="container">
     <div class="row">
-        <div class="col-sm-3 navblock pt-3">
+        <div class="col-sm-3 navblock pt-0 pt-sm-3">
             <?php
             inc('nav', 'main-nav');
             ?>
