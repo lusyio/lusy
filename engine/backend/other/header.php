@@ -109,6 +109,9 @@ if ($isAuthorized) {
     if (isset($_GET['folder']) && $_GET['folder'] == 'knowledge') {
         $title = 'База знаний';
     }
+    if (isset($_GET['folder']) && $_GET['folder'] == 'partnership') {
+        $title = _('Partnership');
+    }
     require_once __ROOT__ . '/engine/backend/functions/achievement-functions.php';
     checkAchievements($id);
 } else {

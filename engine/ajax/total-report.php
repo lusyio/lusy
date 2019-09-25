@@ -141,7 +141,7 @@ $statusColor = [
                         <div class="row">
                             <div class="col-lg-8 col-12 left-report">
                                 <div class="row" style="padding-top: 20px;">
-                                    <div class="col-6 col-lg-6 col-xlg-5">
+                                    <div class="col-6 col-lg-6 col-xl-5">
                                         <div class="mb-2">
                                             <div class="text-primary text-statistic font-weight-bold"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></div>
                                             <span class="text-reports">Создали</span>
@@ -152,7 +152,7 @@ $statusColor = [
                                                 class="text-reports">Выполнили</span>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-lg-6 col-xlg-5">
+                                    <div class="col-6 col-lg-6 col-xl-5">
                                         <div class="mb-2">
                                             <div class="text-danger text-statistic font-weight-bold"><?= ($countOverdue) ? $countOverdue : 0 ?></div>
                                             <span

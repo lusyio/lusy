@@ -303,6 +303,9 @@ if ($id == $worker and $view == 0) {
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
                     <?php
+                    if ($status == 'overdue') {
+                        $status = 'inwork';
+                    }
                     include __ROOT__ . '/engine/backend/task/task/control/' . $role . '/' . $status . '.php';
                     include __ROOT__ . '/engine/frontend/task/control/' . $role . '/' . $status . '.php';
                     ?>

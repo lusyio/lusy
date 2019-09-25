@@ -258,6 +258,18 @@ if($_POST['module'] == 'usePromocode' && !empty($_POST['promocode'])) {
         'errorText' => '',
         'successText' => '',
     ];
+    if (preg_match('~^LIO[A-Z0-9]{5,8}$~i', $_POST['promocode'])) {
+        $refPromocodeStatus = activateRefPromocode($idc, $_POST['promocode']);
+        if ($refPromocodeStatus === true) {
+            echo json_encode($result);
+        } else {
+            $result['error'] = 'does not exist';
+            $result['errorText'] = 'Promocode does not exist';
+            echo json_encode($result);
+        }
+        exit;
+    }
+
     $promocode = filter_var($_POST['promocode'], FILTER_SANITIZE_STRING);
     $promocode = trim($promocode);
     $promocode = mb_strtolower($promocode);

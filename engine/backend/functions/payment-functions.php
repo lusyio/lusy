@@ -622,6 +622,70 @@ function activatePromocode($companyId, $promocodeName)
     return true;
 }
 
+function activateRefPromocode($companyId, $refPromocode)
+{
+    global $pdo;
+    $daysToAdd = 14;
+    $ceoId = getCeoId($companyId);
+    $invitorId = DBOnce('id', 'company', 'personal_promo = "' . $refPromocode . '"');
+    if (is_null($invitorId)) {
+        return false;
+    }
+    $regFrom = DBOnce('reg_from', 'company', 'id = ' . $companyId);
+    if (!is_null($regFrom)) {
+        return false;
+    }
+    $companyTariff = getCompanyTariff($companyId);
+    if ($companyTariff['tariff'] == 0) {
+        $newTariff = 1;
+        changeTariff($companyId, $newTariff);
+        $newTariffInfo = getTariffInfo($newTariff);
+        $payday = strtotime('+' . $daysToAdd . ' days midnight');
+        $mailData = [$companyId, $newTariffInfo['tariff_name'], $daysToAdd];
+        addMailToQueue('sendSubscribeInviteEmailNotification', $mailData, $ceoId);
+    } else {
+        $payday = strtotime('+' . $daysToAdd . ' days midnight', $companyTariff['payday']);
+
+    }
+    setPayday($companyId, $payday);
+    addActivateInviteEvent($companyId, $invitorId);
+    setInvitor($companyId, $invitorId);
+    return true;
+}
+
+function activateRefCheck($refId)
+{
+    global $pdo;
+    $daysToAdd = 14;
+    $regFrom = DBOnce('reg_from', 'company', 'id = ' . $refId);
+    if (is_null($regFrom)) {
+        return false;
+    }
+    $ceoId = getCeoId($regFrom);
+    $companyTariff = getCompanyTariff($regFrom);
+    if ($companyTariff['tariff'] == 0) {
+        $newTariff = 1;
+        changeTariff($regFrom, $newTariff);
+        $newTariffInfo = getTariffInfo($newTariff);
+        $payday = strtotime('+' . $daysToAdd . ' days midnight');
+        $mailData = [$regFrom, $newTariffInfo['tariff_name'], $daysToAdd];
+        addMailToQueue('sendSubscribeRefCheckEmailNotification', $mailData, $ceoId);
+    } else {
+        $payday = strtotime('+' . $daysToAdd . ' days midnight', $companyTariff['payday']);
+
+    }
+    setPayday($regFrom, $payday);
+    addActivateRefCheckEvent($regFrom, $refId);
+    return true;
+}
+
+function setInvitor($companyId, $invitorId)
+{
+    global $pdo;
+    $setInvitorQuery = $pdo->prepare("UPDATE company SET reg_from = :invitorId WHERE id = :companyId");
+    $setInvitorQuery->execute([':companyId' => $companyId, ':invitorId' => $invitorId]);
+}
+
 function addActivatePromocodeEvent($companyId, $promocodeName)
 {
     global $pdo;
@@ -633,6 +697,36 @@ function addActivatePromocodeEvent($companyId, $promocodeName)
         ':datetime' => time(),
         ':companyId' => $companyId,
         ':comment' => $promocodeName,
+    ];
+    $addEventQuery->execute($queryData);
+}
+
+function addActivateInviteEvent($companyId, $invitorId)
+{
+    global $pdo;
+
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, comment) VALUES 
+(:event, :datetime, :companyId, :comment)");
+    $queryData = [
+        ':event' => 'invite',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+        ':comment' => $invitorId,
+    ];
+    $addEventQuery->execute($queryData);
+}
+
+function addActivateRefCheckEvent($companyId, $refId)
+{
+    global $pdo;
+
+    $addEventQuery = $pdo->prepare("INSERT INTO finance_events (event, event_datetime, company_id, comment) VALUES 
+(:event, :datetime, :companyId, :comment)");
+    $queryData = [
+        ':event' => 'refcheck',
+        ':datetime' => time(),
+        ':companyId' => $companyId,
+        ':comment' => $refId,
     ];
     $addEventQuery->execute($queryData);
 }

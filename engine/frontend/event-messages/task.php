@@ -239,7 +239,7 @@
                         <i class="<?= $icon ?> "></i>
                     </div>
                 </div>
-                <div class="col-7 col-lg-5 col-xlg-5">
+                <div class="col-6 col-sm-7 pr-sm-3 pr-md-0 col-lg-5 col-xl-5">
                     <p class="mb-0 font-weight-bold text-area-message"><?= $event['taskname']; ?></p>
                     <div class="text-area-message">
                         <?php if ($event['author_id'] == 1): ?>
