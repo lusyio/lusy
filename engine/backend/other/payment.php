@@ -3,6 +3,13 @@
 global $id;
 global $idc;
 global $pdo;
+global $roleu;
+
+if ($roleu != 'ceo') {
+    header('location:/');
+    ob_flush();
+    die;
+}
 
 require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
 

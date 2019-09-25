@@ -167,11 +167,9 @@
             </span>
             </div>
             <div class="modal-footer border-0">
-                <?php if ($isCeo): ?>
                     <a href="/payment/" id="goToPay" class="btn text-white border-0">
                         Перейти к тарифам
                     </a>
-                <?php endif; ?>
             </div>
             <span class="icon-close-modal">
             <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
