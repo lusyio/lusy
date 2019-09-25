@@ -13,7 +13,7 @@ require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
 
 $personalPromocode = DBOnce('personal_promo', 'company', 'id = ' . $idc);
 $personalPromocodeLink = 'https://lusy.io/?promo=' . $personalPromocode;
-$invitedCompaniesQuery = $pdo->prepare("SELECT * FROM company WHERE reg_from = :companyId");
+$invitedCompaniesQuery = $pdo->prepare("SELECT * FROM company WHERE reg_from = :companyId ORDER BY promo_status ASC, datareg DESC");
 $invitedCompaniesQuery->execute([':companyId' => $idc]);
 $invitedCompanies = $invitedCompaniesQuery->fetchAll(PDO::FETCH_ASSOC);
 
