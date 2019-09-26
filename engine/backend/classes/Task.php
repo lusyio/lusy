@@ -17,7 +17,7 @@ class Task
         if (is_null($taskData)) {
             $taskQuery = $pdo->prepare("SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, 
           t.idcompany, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, t.checklist, t.with_premium,
-          t.repeat_type,
+          t.repeat_type, t.repeat_task,
           (SELECT COUNT(*) FROM comments c WHERE c.status='comment' AND c.idtask = t.id) AS countComments,
           (SELECT COUNT(*) FROM events e WHERE e.action='comment' AND e.task_id = t.id AND recipient_id = :userId AND e.view_status = 0) AS countNewComments,
           (SELECT COUNT(DISTINCT u.file_id) FROM uploads u LEFT JOIN events e ON u.comment_id = e.comment WHERE u.comment_type='comment' AND (e.action='comment' OR e.action='review') AND e.task_id = t.id AND recipient_id = :userId AND e.view_status = 0) AS countNewFiles,
@@ -452,7 +452,7 @@ class Task
         if ($parentTaskId != 0 && ($taskPremiumType >= 0)) {
             $parentTask = new Task($parentTaskId);
             if (in_array($id, [$parentTask->get('manager'), $parentTask->get('worker')]) || ($roleu == 'ceo' && $parentTask->get('idcompany') == $idc)) {
-                if (is_null($parentTask->get('parent_task'))) {
+                if (is_null($parentTask->get('parent_task')) && $parentTask->get('repeat_type') < 1) {
                     $taskCreateQueryData[':parentTask'] = $parentTask->get('id');
                     $taskCreateQueryData[':withPremium'] = 1;
                     $usePremiumTask = true;
@@ -633,7 +633,7 @@ class Task
         global $idc;
         global $pdo;
         $parentTask = new Task($parentTaskId);
-        if ($parentTask->get('idcompany') == $idc && $parentTaskId != $this->get('parent_task') && is_null($parentTask->get('parent_task')) && count($this->get('subTasks')) == 0) {
+        if ($parentTask->get('idcompany') == $idc && $parentTaskId != $this->get('parent_task') && is_null($parentTask->get('parent_task')) && count($this->get('subTasks')) == 0 && $parentTask->get('repeat_type') < 1) {
             $addParentTaskQuery = $pdo->prepare("UPDATE tasks SET parent_task = :parentTaskId WHERE id = :taskId");
             $addParentTaskQuery->execute([':taskId' => $this->get('id'), ':parentTaskId' => $parentTaskId]);
             addSubTaskComment($parentTaskId, $this->get('id'));
