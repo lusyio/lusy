@@ -163,6 +163,14 @@ if (isset($_POST['it'])) {
         $unfinishedSubTasks = $task->checkSubTasksForFinish();
         if ($unfinishedSubTasks['status']) {
             $task->workDone();
+            $subTasks = $task->get('subTasks');
+            if (count($subTasks) > 0) {
+                foreach ($subTasks as $subTask) {
+                    if ($subTask->get('repeat_type') > 0) {
+                        Task::cancelRepeat($subTask->get('id'));
+                    }
+                }
+            }
         }
         echo json_encode($unfinishedSubTasks);
     }
@@ -175,6 +183,14 @@ if (isset($_POST['it'])) {
         $unfinishedSubTasks = $task->checkSubTasksForFinish();
         if ($unfinishedSubTasks['status']) {
             $task->cancelTask();
+            $subTasks = $task->get('subTasks');
+            if (count($subTasks) > 0) {
+                foreach ($subTasks as $subTask) {
+                    if ($subTask->get('repeat_type') > 0) {
+                        Task::cancelRepeat($subTask->get('id'));
+                    }
+                }
+            }
         }
         echo json_encode($unfinishedSubTasks);
     }
