@@ -20,7 +20,14 @@ if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
     $firstDay = strtotime('first day of this month midnight');
     $lastDay = strtotime('+1 day midnight') - 1;
 }
-$countInworkTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT td.taskId) FROM (SELECT t.id AS taskId, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate FROM tasks t LEFT JOIN events e ON e.task_id = t.id WHERE e.action IN ('workdone', 'canceltask')) td WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
+$countInworkTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT td.taskId) 
+                                FROM 
+                                    (SELECT t.id AS taskId, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate 
+                                    FROM tasks t 
+                                    LEFT JOIN events e ON e.task_id = t.id 
+                                    WHERE e.action IN ('workdone', 'canceltask')
+                                    OR (e.action = 'createtask' AND t.status IN ('new', 'inwork', 'overdue', 'returned', 'pending', 'postpone'))) td 
+                                WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
 $countInworkTasksQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
 $countInworkTasks = $countInworkTasksQuery->fetch(PDO::FETCH_COLUMN);
 
@@ -42,7 +49,15 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
 
 $allEvents = $countInworkTasks + $countTaskDone + $countOverdue + $countChangeDate + $countCancel;
 
-$inworkTasksQuery = $pdo->prepare("SELECT DISTINCT td.taskId, td.taskStatus, td.taskName, td.workerName, td.workerSurname, td.workerEmail, td.workerId FROM (SELECT t.id AS taskId, t.name AS taskName, t.worker AS workerId, u.name AS workerName, u.surname AS workerSurname, u.email AS workerEmail, t.status AS taskStatus, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate FROM tasks t LEFT JOIN users u ON t.worker = u.id LEFT JOIN events e ON e.task_id = t.id WHERE e.action IN ('workdone', 'canceltask')) td WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
+$inworkTasksQuery = $pdo->prepare("SELECT DISTINCT td.taskId, td.taskStatus, td.taskName, td.workerName, td.workerSurname, td.workerEmail, td.workerId 
+                        FROM 
+                            (SELECT t.id AS taskId, t.name AS taskName, t.worker AS workerId, u.name AS workerName, u.surname AS workerSurname, u.email AS workerEmail, t.status AS taskStatus, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate 
+                            FROM tasks t 
+                            LEFT JOIN users u ON t.worker = u.id 
+                            LEFT JOIN events e ON e.task_id = t.id 
+                            WHERE e.action IN ('workdone', 'canceltask')
+                            OR (e.action = 'createtask' AND t.status IN ('new', 'inwork', 'overdue', 'returned', 'pending', 'postpone'))) td 
+                        WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
 $inworkTasksQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
 $inworkTasks = $inworkTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 

@@ -72,6 +72,7 @@
     <div class="row mt-25-tasknew display-none" id="workerBlockReports">
         <div class="col-12 col-lg-6 top-block-tasknew">
             <?php
+            $reportPage = true;
             include __ROOT__ . '/engine/frontend/members/responsible.php';
             ?>
             <div class="card card-tasknew" id="selectWorkerReports">
