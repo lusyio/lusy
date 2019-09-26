@@ -151,11 +151,8 @@ if ($id == $worker and $view == 0) {
                                         class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
                     <?php endif; ?>
                     <?php if ($repeatType > 0): ?>
-                        <a class="subtask-badge-desktop" href="#"><span data-toggle="tooltip"
-                                                                                                  data-placement="bottom"
-                                                                                                  title="Нажмите для отмены создания новых задач"
-                                                                                                  class="badge badge-info"><i
-                                        class="fas fa-clipboard mr-2"></i>Повторяющаяся</span></a>
+                        <a class="subtask-badge-desktop" href="#"><span class="badge badge-info">
+                                <i class="fas fa-calendar-alt mr-2"></i>Повторяющаяся</span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-lg-4">

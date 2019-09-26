@@ -20,4 +20,8 @@
     <button id="cancelTask" type="button" class="btn btn-outline-danger mb-3 w-10<?= ($hasUnfinishedSubTask) ? ' continue-none' : ''?>"
         <?= ($hasUnfinishedSubTask) ? 'data-toggle="tooltip" data-placement="bottom" title="Нельзя отменить задачу - есть незавершенные подзадачи"' : ''; ?>
     ><i class="fas fa-times cancel mr-2" id="cancel-icon-button"></i> <?=$GLOBALS["_cancel"]?></button>
+    <?php if ($task->get('repeat_type') > 0): ?>
+    <button id="cancelRepeat" type="button" class="btn btn-outline-secondary border-0 mb-3 w-10">
+        <i class="fas fa-calendar-times cancel mr-2" id="cancel-icon-button"></i>Отменить повторение</button>
+    <?php endif; ?>
 </div>

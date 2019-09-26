@@ -666,8 +666,12 @@ class Task
     public function changeRepeatType($repeatType)
     {
         global $pdo;
-        $addParentTaskQuery = $pdo->prepare("UPDATE tasks SET repeat_type = :repeatType WHERE id = :taskId");
-        $addParentTaskQuery->execute([':taskId' => $this->get('id'), ':repeatType' => $repeatType]);
+        if ($repeatType == 0) {
+            Task::cancelRepeat($this->get('id'));
+        } else {
+            $addParentTaskQuery = $pdo->prepare("UPDATE tasks SET repeat_type = :repeatType WHERE id = :taskId");
+            $addParentTaskQuery->execute([':taskId' => $this->get('id'), ':repeatType' => $repeatType]);
+        }
         return true;
     }
 
