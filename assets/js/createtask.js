@@ -239,7 +239,9 @@ $(document).ready(function () {
 
 //работа с ответственными
     $(".container-responsible").on('click', function () {
-        $(".responsible").fadeToggle(200);
+        if (checkForRepeat()) {
+            $(".responsible").fadeToggle(200);
+        }
     });
 
     $(document).on('click', function (e) {
@@ -264,9 +266,11 @@ $(document).ready(function () {
 
 //работа с соисполнителями
     $(".container-coworker ").on('click', function () {
-        $(".coworkers").fadeToggle(200);
-        coworkersListEmpty();
-        toggleRepeat();
+        if (checkForRepeat()) {
+            $(".coworkers").fadeToggle(200);
+            coworkersListEmpty();
+            toggleRepeat();
+        }
     });
 
     $(document).on('click', function (e) { // событие клика по веб-документу
@@ -515,5 +519,22 @@ $(document).ready(function () {
         } else {
             $('.container-repeat').addClass('disabled')
         }
+    }
+
+    function checkForRepeat() {
+        if ($('.add-repeat.repeat-selected').length > 0) {
+            $('.container-repeat').css({
+                'background-color': 'rgba(255, 242, 242, 1)',
+                'transition': '1000ms'
+            });
+            setTimeout(function () {
+                $('.container-repeat').css('background-color', '#fff');
+            }, 1000);
+            $('html, body').animate({
+                scrollTop: $(".container-repeat").offset().top
+            }, 500);
+            return false;
+        }
+        return true;
     }
 });
