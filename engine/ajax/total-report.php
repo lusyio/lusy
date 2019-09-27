@@ -275,7 +275,7 @@ $statusColor = [
         <?php endforeach; ?>
     </div>
 </div>
-
+<?php if (count($inworkTasks) > 0): ?>
 <div class="row tasks-reports-container" style="margin-top: 60px; ">
     <div class="col-12">
         <label class="label-tasknew">
@@ -323,7 +323,7 @@ $statusColor = [
         </div>
     </div>
 </div>
-
+<?php endif; ?>
 <script>
     var ctx = $("#myDoughnutChart");
     var myDoughnutChart = new Chart(ctx, {
