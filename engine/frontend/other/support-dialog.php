@@ -130,7 +130,6 @@
                 if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
                     var gFiles = data[google.picker.Response.DOCUMENTS];
                     gFiles.forEach(function (file) {
-                        console.log(file);
                         addFileToList(file.name, file.url, file.sizeBytes, 'google-drive', 'fab fa-google-drive');
                     });
                 }
@@ -186,6 +185,9 @@
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs"
             data-app-key="pjjm32k7twiooo2"></script>
 <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
     $("#mes").keypress(function (e) {
         var str = $('#mes').val().trim();
         if (str !== '' && typeof str !== undefined) {
@@ -200,9 +202,6 @@
                 }, 300);
             }
         }
-    });
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
     });
     (function (b) {
         if (screen.width <= 375){
@@ -251,7 +250,6 @@
         cometApi.start({dev_id: 2553, user_id: $userId, user_key: '<?= $supportCometHash; ?>', node: "app.comet-server.ru"});
 
         cometApi.subscription("msg.new", function (e) {
-            console.log(e);
             if (e.data.senderId == $recipientId && e.data.recipientId == $userId || e.data.senderId == $userId && e.data.recipientId == $recipientId) {
                 var fd = new FormData();
                 fd.append('messageId', e.data.messageId);
@@ -267,7 +265,6 @@
                     contentType: false,
                     data: fd,
                     success: function (response) {
-                        console.log(response);
                         if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }
@@ -300,7 +297,6 @@
         dropZone.on('drop', function(e) {
             $('#chatBox').removeClass('dragover');
             var files = e.originalEvent.dataTransfer.files;
-            console.log(files);
             sendFiles(files);
         });
 
@@ -368,6 +364,7 @@
             marker = false;
         }
 
+        $("#mes").tooltip('disable');
 
         $('#sendBtn').on('click', function () {
             var mes = $("#mes").val();
@@ -412,15 +409,14 @@
                         var xhr = new XMLHttpRequest();
 
                         xhr.upload.onprogress = function () {
+                            $('#sendMesName').hide();
                             $('.spinner-border-sm').removeClass('display-none');
-                            $('.spinner-border-sm').show();
                         };
 
                         return xhr;
                     },
 
                     success: function (data) {
-                        console.log(data);
                         if ($('#chatBox').find($('.no-messages')).length) {
                             $('.no-messages').remove();
                         }

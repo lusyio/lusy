@@ -7,10 +7,10 @@ global $roleu;
 global $tariff;
 
 
-if ($roleu == 'ceo') {
-    $isCeo = true;
-} else {
-    $isCeo = false;
+if ($roleu != 'ceo') {
+    header('location:/');
+    ob_flush();
+    die;
 }
 
 require_once __ROOT__ . '/engine/backend/functions/common-functions.php';

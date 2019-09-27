@@ -7,25 +7,25 @@ $(document).ready(function () {
 
     var dropZone = $('.anim-show');
 
-    dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function(){
+    dropZone.on('drag dragstart dragend dragover dragenter dragleave drop', function () {
         return false;
     });
 
-    dropZone.on('dragover dragenter', function() {
+    dropZone.on('dragover dragenter', function () {
         $('.dragover-box').addClass('dragover');
     });
 
-    dropZone.on('dragleave', function(e) {
+    dropZone.on('dragleave', function (e) {
         $('.dragover-box').removeClass('dragover');
     });
 
-    dropZone.on('drop', function(e) {
+    dropZone.on('drop', function (e) {
         $('.dragover-box').removeClass('dragover');
         var files = e.originalEvent.dataTransfer.files;
         sendFiles(files);
     });
 
-    function sendFiles (files){
+    function sendFiles(files) {
         $(files).each(function () {
             names = this.name;
             size = this.size;
@@ -121,7 +121,7 @@ $(document).ready(function () {
 
     var numberCheckList = 0;
     var existingCheckList = $('.checklist-selected');
-    if (existingCheckList.length > 0){
+    if (existingCheckList.length > 0) {
         numberCheckList = $($(existingCheckList)[existingCheckList.length - 1]).data('id');
     }
 
@@ -134,14 +134,14 @@ $(document).ready(function () {
     });
 
     $("#checklistInput").keypress(function (e) {
-            if (e.which == 13) {
-                $('#addChecklistBtn').trigger('click')
-            }
+        if (e.which == 13) {
+            $('#addChecklistBtn').trigger('click')
+        }
     });
 
     $('#addChecklistBtn').on('click', function () {
         var checkName = $('#checklistInput').val();
-        if (checkName != ''){
+        if (checkName != '') {
             numberCheckList++;
             $('.check-list-container').show();
             $('#checkListExample').clone().attr('data-id', numberCheckList).attr('data-row-id', 0).removeClass('d-none').addClass('checklist-selected').appendTo('.check-list-container');
@@ -161,13 +161,50 @@ $(document).ready(function () {
 
     $(".container-subtask").on('click', function () {
         $(".subtask").fadeToggle(200);
+        if ($('.add-subtask').is(':visible')){
+        } else {
+        $('.search-subtask').show();
+        $('#searchSubtask').focus();
+        filterSubasks();
+        }
         subtaskListEmpty();
     });
 
     $(document).on('click', function (e) {
-        if (!$(e.target).closest(".container-subtask").length) {
-            $('.subtask').fadeOut(300);
+        if (!$(e.target).closest(".search-subtask").length) {
+            if (!$(e.target).closest(".container-subtask").length) {
+                $('.subtask').fadeOut(300);
+                $('.search-subtask').hide();
+                $('#searchSubtask').val('');
+            }
         }
+    });
+
+    function filterSubasks() {
+        var text = $('#searchSubtask').val();
+        var textRegex = new RegExp(text, 'i');
+        $('.select-subtask:not(.d-none)').each(function () {
+            var $el = $(this);
+            var $hasText = false;
+            if ($el.find('span').text().search(textRegex) !== -1) {
+                $hasText = true;
+            }
+            if ($hasText) {
+                $el.show()
+            } else {
+                $el.hide();
+            }
+        });
+        if ($('.select-subtask').is(':visible')){
+            $('.empty-list-subtask').hide();
+        } else {
+            $('.empty-list-subtask').show();
+        }
+    }
+
+    $('#searchSubtask').on('keyup', function () {
+        $(".subtask").fadeIn(200);
+        filterSubasks();
     });
 
     var idSubtask;
@@ -180,16 +217,22 @@ $(document).ready(function () {
         $(this).addClass('d-none');
         $('.add-subtask').addClass('d-none').removeClass('subtask-selected');
         $('.container-subtask').find("[val = " + idSubtask + "]").removeClass('d-none').addClass('subtask-selected');
+        $('.search-subtask').hide();
+        $('#searchSubtask').val('');
         subtaskListEmpty();
     });
 
     $('.container-subtask').on('click', '.subtask-selected', function () {
         $(this).addClass('d-none').removeClass('subtask-selected');
         $('.placeholder-subtask').show();
-        setTimeout(function () {
-            $('.subtask').fadeOut();
-
-        }, 100);
+        $('.search-subtask').show();
+        $('#searchSubtask').focus();
+        $('.select-subtask').removeClass('d-none');
+        filterSubasks();
+        // setTimeout(function () {
+        //     $('.subtask').fadeOut();
+        //
+        // }, 100);
     });
 
 //работа с ответственными

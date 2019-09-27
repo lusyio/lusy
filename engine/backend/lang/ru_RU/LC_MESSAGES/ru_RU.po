@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-08-29 17:43+0300\n"
-"PO-Revision-Date: 2019-08-29 17:43+0300\n"
+"POT-Creation-Date: 2019-09-25 13:51+0300\n"
+"PO-Revision-Date: 2019-09-25 13:51+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -21,13 +21,17 @@ msgid "The task description was edited"
 msgstr "Изменено описание задачи"
 
 #: engine/ajax/payments.php:148
-#: engine/backend/functions/payment-functions.php:719
-#: engine/frontend/other/payment.php:396
+#: engine/backend/functions/payment-functions.php:813
+#: engine/frontend/other/payment.php:412
 msgid "month"
 msgid_plural "months"
 msgstr[0] "месяц"
 msgstr[1] "месяца"
 msgstr[2] "месяцев"
+
+#: engine/backend/other/header.php:113 engine/frontend/nav/top-sidebar.php:105
+msgid "Partnership"
+msgstr "Партнерство"
 
 #: engine/frontend/event-messages/comment.php:2
 #: engine/frontend/event-messages/system.php:70
@@ -333,20 +337,20 @@ msgstr "Поиск"
 msgid "Payment"
 msgstr "Оплата"
 
-#: engine/frontend/nav/top-sidebar.php:107
+#: engine/frontend/nav/top-sidebar.php:110
 msgid "Profile"
 msgstr "Профиль"
 
-#: engine/frontend/nav/top-sidebar.php:108
+#: engine/frontend/nav/top-sidebar.php:111
 #: engine/frontend/other/dashboard-ceo.php:388
 msgid "History"
 msgstr "Журнал"
 
-#: engine/frontend/nav/top-sidebar.php:110
+#: engine/frontend/nav/top-sidebar.php:113
 msgid "Settings"
 msgstr "Настройки"
 
-#: engine/frontend/nav/top-sidebar.php:111
+#: engine/frontend/nav/top-sidebar.php:114
 msgid "Log Out"
 msgstr "Выход"
 
@@ -354,7 +358,7 @@ msgstr "Выход"
 msgid "today at"
 msgstr "сегодня в"
 
-#: engine/frontend/other/dashboard-ceo.php:166
+#: engine/frontend/other/dashboard-ceo.php:165
 #: engine/frontend/other/dashboard-ceo.php:268
 msgid "You have no tasks yet, create the first task."
 msgstr "У вас пока нет задач, создайте первую задачу."
@@ -381,7 +385,7 @@ msgid "Postpone requested"
 msgstr "Запрошен перенос срока"
 
 #: engine/frontend/other/dashboard-ceo.php:310
-#: engine/frontend/other/godmode.php:102 engine/frontend/other/payment.php:77
+#: engine/frontend/other/godmode.php:102 engine/frontend/other/payment.php:75
 msgid "task"
 msgid_plural "tasks"
 msgstr[0] "задача"
@@ -444,22 +448,23 @@ msgstr[1] "сообщения"
 msgstr[2] "сообщений"
 
 #: engine/frontend/other/godmode.php:324
+#: engine/frontend/other/partnership.php:124
 #: engine/frontend/other/payment-event.php:43
-#: engine/frontend/other/payment.php:25 engine/frontend/other/payment.php:29
+#: engine/frontend/other/payment.php:23 engine/frontend/other/payment.php:27
 msgid "day"
 msgid_plural "days"
 msgstr[0] "день"
 msgstr[1] "дня"
 msgstr[2] "дней"
 
-#: engine/frontend/other/payment.php:87
+#: engine/frontend/other/payment.php:85
 msgid "report"
 msgid_plural "reports"
 msgstr[0] "отчет"
 msgstr[1] "отчета"
 msgstr[2] "отчетов"
 
-#: engine/frontend/other/payment.php:96
+#: engine/frontend/other/payment.php:94
 msgid "time"
 msgid_plural "times"
 msgstr[0] "раз"

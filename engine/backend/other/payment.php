@@ -3,6 +3,13 @@
 global $id;
 global $idc;
 global $pdo;
+global $roleu;
+
+if ($roleu != 'ceo') {
+    header('location:/');
+    ob_flush();
+    die;
+}
 
 require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
 
@@ -41,4 +48,7 @@ $tryPremiumLimits = getFreePremiumLimits($idc);
 $countReports = 3 - $tryPremiumLimits['report']; // доступно отчетов
 $countTaskEdit = 3 - $tryPremiumLimits['task']; // доступно раз расширенного функционала задач
 
-
+$infinitePremium = false;
+if ($companyTariff['payday'] > strtotime('1.1.2030')) {
+    $infinitePremium = true;
+}

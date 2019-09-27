@@ -101,6 +101,10 @@
                             <a href="/payment/">
                                 <img class="svg-icon mr-3" src="/assets/svg/credit-card.svg"><?= _('Payment') ?>
                             </a>
+                            <hr class="mt-0 mb-0">
+                            <a href="/partnership/">
+                                <img class="svg-icon mr-3" src="/assets/svg/add-contact.svg"><?= _('Partnership') ?>
+                            </a>
                         <?php endif; ?>
                         <hr class="mt-0 mb-0">
                         <a href="/profile/<?= $id ?>/"><img class="svg-icon mr-3"

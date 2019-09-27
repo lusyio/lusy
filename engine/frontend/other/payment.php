@@ -1,6 +1,4 @@
-<?php
-
-?>
+<?php if (!$infinitePremium): ?>
 <div class="card mb-5 premiumCard">
     <div class="card-body">
         <div class="row">
@@ -166,7 +164,25 @@
     подтверждаете, что
     ознакомились с понятием "автоплатеж" и с <a
             href="https://lusy.io/licenzionnoe-soglashenie-dogovor-publichnoj-oferty.pdf" class="btn-link"
-            target="_blank">Офертой рекуррентных платежей</a>.</p>
+            target="_blank">Офертой рекуррентных платежей</a>.
+</p>
+<?php else: ?>
+<div class="card partner-card mt-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <h5 class="text-center">
+                    Зачем платить?<br>
+                    У вас теперь бесконечная подписка на Premium
+                </h5>
+            </div>
+            <div class="col-12">
+                <img src="/upload/undraw_winners.svg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
 
 <h5 class="mb-3 mt-5">Операции</h5>
 <?php foreach ($financeEvents as $event):

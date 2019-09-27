@@ -76,9 +76,11 @@ $borderColor = [
                 </div>
 
                 <?php endforeach; ?>
+                    <?php if (count($users) > 1): ?>
             <div class="position-absolute icon-newtask icon-newtask-change-responsible">
                 <i class="fas fa-caret-down"></i>
             </div>
+                    <?php endif; ?>
         </div>
 
 
@@ -95,10 +97,15 @@ $borderColor = [
                 </div>
             <?php endforeach; ?>
             <div class="placeholder-coworkers position-relative">
-                Добавить
+                <?php if (count($users) > 1): ?>
+                    Добавить
                 <div class="position-absolute icon-newtask icon-newtask-add-coworker">
                     <i class="fas fa-caret-down"></i>
                 </div>
+                <?php else: ?>
+                    <span class="d-block w-100" data-toggle="tooltip" data-placement="bottom"
+                          title="Пока вы один в компании, эта функция недоступна">Добавить</span>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -140,6 +147,9 @@ $borderColor = [
                             <div class="container container-subtask border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew">
                                 <div class="placeholder-subtask" style="<?= ($taskEdit && !is_null($parentTask)) ? 'display: none;' : '' ?>">
                                     Не выбрана
+                                </div>
+                                <div class="search-subtask">
+                                    <input id="searchSubtask" class="form-control" placeholder="Поиск..." autocomplete="off" type="text">
                                 </div>
                                 <?php foreach ($parentTasks as $parentTaskItem): ?>
                                 <div val="<?php echo $parentTaskItem['id']; ?>"
@@ -446,7 +456,7 @@ $borderColor = [
         </div>
     </div>
 </div>
-<script src="/assets/js/createtask.js?n=4"></script>
+<script src="/assets/js/createtask.js?n=7"></script>
 <?php if (($tariff == 1 || $tryPremiumLimits['cloud'] < 3) || ($taskEdit && $hasCloudUploads)): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================

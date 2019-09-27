@@ -1,0 +1,1 @@
+alter table company add promo_status int default 0 null;
