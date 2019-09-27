@@ -209,7 +209,7 @@ if (isset($_POST['it'])) {
 
 // Изменение исполнителя и соисполнителей - есть метод в классе
     if ($_POST['module'] == 'addCoworker') {
-        if (!$task->hasEditAccess) {
+        if (!$task->hasEditAccess || $task->get('repeat_type') > 0) {
             exit;
         }
         $unsafeCoworkers = json_decode($_POST['coworkers']);

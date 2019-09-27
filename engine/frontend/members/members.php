@@ -18,7 +18,7 @@
                     <div class="col text-left">
                         <span class="text-muted">Ответственный</span>
                     </div>
-                    <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'coworker')): ?>
+                    <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'coworker') && $repeatType < 1): ?>
                         <div class="col-2 text-right">
                             <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
                                data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="members-coworkers">
-            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager') && $manager != 1): ?>
+            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager') && $manager != 1 && $repeatType < 1): ?>
                 <div class="row p-5px">
                     <div class="col text-justify">
                         <span class="text-muted">Соисполнители</span>
@@ -127,7 +127,7 @@
                 </div>
                 <?php endforeach; ?>
             </div>
-            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager')): ?>
+            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager') && $repeatType < 1): ?>
             <div class="mt-3 text-center">
                 <button class="btn btn-primary btn-sm" id="confirmMembers" type="button">Сохранить</button>
             </div>
