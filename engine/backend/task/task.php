@@ -127,4 +127,4 @@ if (!is_null($parentTaskId)) {
 }
 
 $repeatType = $task->get('repeat_type');
-
+$repeatTask = $task->get('repeat_task');

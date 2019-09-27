@@ -307,6 +307,11 @@ if ($id == $worker and $view == 0) {
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
+                <?php if (!is_null($repeatTask)): ?>
+                <div>
+                    <p class="text-muted-new small">Файлы прикреплены к <a href="/task/<?= $repeatTask?>/">оригиналу задачи</a></p>
+                </div>
+                <?php endif; ?>
             <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">

@@ -76,7 +76,11 @@ class Task
         }
 
         $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
-        $filesQuery->execute(array(':commentId' => $taskId, ':commentType' => 'task'));
+        if (!is_null($this->taskData['repeat_task']) || $this->taskData['repeat_type'] > 0) {
+            $filesQuery->execute(array(':commentId' => $this->taskData['repeat_task'], ':commentType' => 'task'));
+        } else {
+            $filesQuery->execute(array(':commentId' => $taskId, ':commentType' => 'task'));
+        }
         $this->taskData['files'] = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
         foreach ($this->taskData['files'] as $key => $file) {
             $fileNameParts = explode('.', $file['file_name']);
@@ -560,11 +564,19 @@ class Task
     {
         $usePremiumCloud = false;
         if (count($files['google']) > 0 && ($cloudPremiumType >= 0)) {
-            addGoogleFiles('task', $this->get('id'), $files['google']);
+            if (!is_null($this->get('repeat_task') && $this->get('repeat_type') > 0)) {
+                addGoogleFiles('task', $this->get('repeat_task'), $files['google']);
+            } else {
+                addGoogleFiles('task', $this->get('id'), $files['google']);
+            }
             $usePremiumCloud = true;
         }
         if (count($files['dropbox']) > 0 && ($cloudPremiumType >= 0)) {
-            addDropboxFiles('task', $this->get('id'), $files['dropbox']);
+            if (!is_null($this->get('repeat_task') && $this->get('repeat_type') > 0)) {
+                addDropboxFiles('task', $this->get('repeat_task'), $files['dropbox']);
+            } else {
+                addDropboxFiles('task', $this->get('id'), $files['dropbox']);
+            }
             $usePremiumCloud = true;
         }
         if ($cloudPremiumType == 0 && $usePremiumCloud) {
@@ -575,7 +587,11 @@ class Task
     public function attachDeviceFilesToTask()
     {
         if (count($_FILES) > 0) {
-            uploadAttachedFiles('task', $this->get('id'));
+            if (!is_null($this->get('repeat_task') && $this->get('repeat_type') > 0)) {
+                uploadAttachedFiles('task', $this->get('repeat_task'));
+            } else {
+                uploadAttachedFiles('task', $this->get('id'));
+            }
         }
     }
 

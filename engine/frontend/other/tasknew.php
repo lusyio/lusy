@@ -330,6 +330,11 @@ $borderColor = [
         <label class="label-tasknew">
             Прикрепленные файлы
         </label>
+        <?php if ($taskEdit && !is_null($repeatTask)): ?>
+            <div>
+                <p class="text-muted-new small">Файлы будут прикреплены к <a href="/task/<?= $repeatTask?>/">оригиналу задачи</a></p>
+            </div>
+        <?php endif; ?>
         <div class="file-name container-files <?= ($taskEdit && count($taskUploads) > 0) ? '' : 'display-none' ?>">
             <div id="filenamesExampleCloud" class='filenames attached-source-file d-none' data-name='name' data-link='link'
                  data-file-size='size' data-file-id="">
