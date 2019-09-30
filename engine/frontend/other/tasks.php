@@ -101,6 +101,13 @@
             </div>
         </div>
     <?php endif; ?>
+    <div id="searchEmptyResult" class="d-none">
+        <div class="card">
+            <div class="card-body search-empty">
+                <p>По запросу ничего не найдено.</p>
+            </div>
+        </div>
+    </div>
     <div class="card mb-2  d-none" id="emptyTasksFilter">
         <div class="card-body taskbox-padding">
             <div class="row">

@@ -394,6 +394,11 @@ $(document).ready(function () {
 
     $('#searchInput').on('keyup', function () {
         filterTasks();
+        if ($('.tasks:visible').length > 0) {
+            $('#searchEmptyResult').addClass('d-none');
+        } else {
+            $('#searchEmptyResult').removeClass('d-none');
+        }
     });
 
     $('#clearAllFilters').on('click', function (e) {
