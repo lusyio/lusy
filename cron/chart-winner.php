@@ -13,6 +13,10 @@ include __ROOT__ . '/engine/backend/lang/'.$langc.'.php';
 
 require_once __ROOT__ . '/engine/backend/functions/common-functions.php';
 
+if (date('m') == date('m', strtotime('+1 day'))) {
+    exit();
+}
+
 $stats = [];
 $firstDay = strtotime('first day of this month midnight');
 $companies = DB('id', 'company', 'id > 0');
