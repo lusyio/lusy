@@ -85,7 +85,11 @@ if ($comment[0] == 'addsubtask') {
 if ($comment[0] == 'edittask') {
     $text = _('The task description was edited');
 }
-$date = date('d.m H:i' ,$c['datetime']);
+if (date('Y-m-d') == date('Y-m-d', $c['datetime'])) {
+    $date = date('H:i' ,$c['datetime']);
+} else {
+   $date = date('d.m H:i' ,$c['datetime']);
+}
 ?>
 <div class="mt-3 mb-3 system text-center text-secondary position-relative" id="<?= $c['id'] ?>">
     <div class="system-text pt-3 pb-3">
