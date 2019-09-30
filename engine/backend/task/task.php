@@ -58,7 +58,7 @@ if ($status == 'done' || $status == 'canceled') {
 }
 $description = nl2br($task->get('description'));
 $description = htmlspecialchars_decode($description);
-$description = htmlspecialchars($description);
+//$description = htmlspecialchars($description); // Закомментировал, чтобы доработать, если что-то пойдет не так, можно удалить после 5 октября
 $description = decodeTextTags($description);
 
 $tryPremiumLimits = getFreePremiumLimits($idc);
