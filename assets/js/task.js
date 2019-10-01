@@ -805,4 +805,15 @@ $(document).ready(function () {
         }, 3000)
     }
 
+    $('#comments').on('click', '.system-text', function () {
+        $(this).parent('.system').find('.system-date').css("transition-delay", "0s");
+        $(this).find('.system-date').css("transform", "scaleX(1)");
+    });
+    $('#comments').on('mouseover', '.system-text', function () {
+        $(this).parent('.system').find('.system-date').css("transform", "scaleX(1)");
+    })
+    $('#comments').on('mouseleave', '.system-text', function () {
+        $(this).parent('.system').find('.system-date').css("transform", "scaleX(0)");
+    })
+
 });

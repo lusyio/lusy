@@ -26,14 +26,13 @@
         </div>
     </div>
 </div>
-
 <?php foreach ($lastTenCompanyes as $n) : ?>
     <button class="btn btn-light bg-white w-100 text-left mb-2" type="button" data-toggle="collapse"
             data-target="#collapseCompany<?= $n['id']; ?>" aria-expanded="false"
             aria-controls="collapseCompany<?= $n['id']; ?>">
         <div class="row companyesList">
             <div class="col-sm-7 col-6 font-weight-bold">
-                <?= $n['idcompany']; ?>
+                <?= $n['idcompany']; ?><?= (!is_null($n['reg_from'])) ? '<span class="badge badge-primary ml-2">' . $n['fromName'] . '</span>' : ''; ?>
             </div>
             <div class="col-sm-1 text-secondary">
                 <i class="fas fa-users mr-2"></i><?=countUsers($n['id']);?>
@@ -323,6 +322,7 @@
                 <p>Зарегистрирована: <?= date('d.m.Y', $company['datareg']); ?>
                     (<?= floor((time() - $company['datareg']) / (3600 * 24)) ?> <?= ngettext('day', 'days', floor((time() - $company['datareg']) / (3600 * 24))) ?>
                     )</p>
+                <?= (!is_null($company['reg_from'])) ? '<p>Приглашен компанией ' . $company['fromName'] . '</p>' : ''; ?>
                 <p>Задач создано: <?= $company['allTasks']; ?></p>
                 <p>Задач в работе: <?= $company['activeTasks']; ?></p>
                 <p>Сотрудников: <?= $company['activeUsers']; ?></p>
