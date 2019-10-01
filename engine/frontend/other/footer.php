@@ -32,10 +32,10 @@
             </div>
             <div class="modal-body text-white pb-5 pt-5 bottom-modal-body position-relative">
                 <div class="like-modal">
-                    <img src="/upload/like-modal.png" alt="">
+                    <img src="/assets/svg/like.svg" alt="">
                 </div>
                 <div class="dislike-modal">
-                    <img src="/upload/like-modal.png" alt="">
+                    <img src="/assets/svg/dislike.svg" alt="">
                 </div>
             </div>
         </div>

@@ -3764,6 +3764,7 @@ span.date {
     z-index: 3;
 }
 
+
 .like-modal img:hover, .dislike-modal img:hover  {
     transition: 150ms;
     transform: scale(1.05);
@@ -3772,13 +3773,13 @@ span.date {
 
 .dislike-modal{
     position: absolute;
-    right: 6%;
+    right: 25%;
     top: -75px;
     z-index: 3;
 }
 
 .like-modal img, .dislike-modal img{
-    width: 50%;
+    width: 100%;
 }
 
 .sort-task::after {
