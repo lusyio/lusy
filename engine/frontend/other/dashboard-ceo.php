@@ -180,6 +180,7 @@ $statusColor = [
 <?php if (isset($showGame) && $showGame) : ?>
     <div class="card premiumCard mb-3 mt-3 progressBlock">
         <div class="card-body">
+            <p style=" text-align: center; font-weight: 900; margin-bottom: 30px; ">Завершите 3 шага и получите 14 дней<br/>Premium-доступа бесплатно</p>
             <div class="row ">
                 <?php foreach ($stepContent as $step): ?>
                     <div class="col-4 col-lg-3">
@@ -194,8 +195,8 @@ $statusColor = [
                     </div>
                 <?php endforeach; ?>
                 <div class="col-12 col-lg-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : '' ?>">
-                    <button id="finishSteps" class="btn btn-outline-light">
-                        Активировать Premium-аккаунт
+                    <button id="finishSteps" class="btn btn-outline-light w-100">
+                        Активировать<br/>бонус
                     </button>
                 </div>
             </div>
