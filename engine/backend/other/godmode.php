@@ -17,7 +17,7 @@ for ($i = 0; $i <= 6; $i++) {
     $countCompaniesReg = DBOnce('count(*)', 'company', 'datareg > ' . $newdayStart . ' and datareg < ' . $newdayEnd);
     array_push($companyRegsDays, ['date' => $dateShow, 'count' => $countCompaniesReg,]);
 }
-$lastTenCompanyes = DB('c1.id, c1.idcompany, c1.datareg, c1.reg_from, c2.idcompany AS fromName', 'company c1 LEFT JOIN company c2 ON c1.reg_from = c2.id', 'c1.id != "3" order by c1.datareg DESC limit 10');
+$lastTwentyCompanies = DB('c1.id, c1.idcompany, c1.datareg, c1.reg_from, c2.idcompany AS fromName', 'company c1 LEFT JOIN company c2 ON c1.reg_from = c2.id', 'c1.id != "3" order by c1.datareg DESC limit 10');
 $countUsers = DBOnce('count(*)', 'users', '');
 $countTasks = DBOnce('count(*)', 'tasks', '');
 $countComments = DBOnce('count(*)', 'comments', 'status="comment"');
@@ -146,7 +146,7 @@ function countTasks($idc)
 function getUsersFromCompany($idc)
 {
     $users = [];
-    $getUsers = DB('name,surname,email,activity', 'users', 'idcompany=' . $idc . ' order by activity DESC');
+    $getUsers = DB('name, surname, email, activity, id', 'users', 'idcompany=' . $idc . ' order by activity DESC');
     foreach ($getUsers as $u) :
 
         if (!empty($u['name']) or !empty($u['surname'])) {
@@ -156,7 +156,16 @@ function getUsersFromCompany($idc)
         }
         $activityDate = date("d.m в H:i", $u['activity']);
 
-        array_push($users, ['name' => $name, 'activity' => $activityDate,]);
+        array_push($users, ['name' => $name, 'activity' => $activityDate, 'id' => $u['id']]);
     endforeach;
     return $users;
+}
+
+function getVisitsHistory($userId)
+{
+    global $pdo;
+    $visitsQuery = $pdo->prepare("SELECT * FROM visits_analytics WHERE user_id = :userId ORDER BY visit_time DESC");
+    $visitsQuery->execute([':userId' => $userId]);
+    $result = $visitsQuery->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
 }

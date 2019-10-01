@@ -26,7 +26,7 @@
         </div>
     </div>
 </div>
-<?php foreach ($lastTenCompanyes as $n) : ?>
+<?php foreach ($lastTwentyCompanies as $n) : ?>
     <button class="btn btn-light bg-white w-100 text-left mb-2" type="button" data-toggle="collapse"
             data-target="#collapseCompany<?= $n['id']; ?>" aria-expanded="false"
             aria-controls="collapseCompany<?= $n['id']; ?>">
@@ -47,25 +47,47 @@
     </button>
     <div class="collapse mb-3" id="collapseCompany<?= $n['id']; ?>">
         <div class="card card-body">
-            <?php $users = getUsersFromCompany($n['id']);
-            foreach ($users as $u) :?>
-            <div class="row">
-                <div class="col-6">
-                    <p><i class="fas fa-user mr-2"></i><?=$u['name'];?></p>
-                </div>
-                <div class="col-6 text-right text-secondary small">
-                    был в сети <?=$u['activity'];?>
-                </div>
-            </div>
-            <?php endforeach;?>
             <div class="pl-4">
                 <div class="vertical-line">
                     <?php $events = lastEvents($n['id']);
                     foreach ($events as $e) :?>
-                    <p><span class="bullet"><i class="far fa-dot-circle icon-not-complete text-secondary"></i></span><?=$e['action'];?><span class="text-secondary small ml-3"><?=$e['date'];?></span></p>
+                        <p><span class="bullet"><i class="far fa-dot-circle icon-not-complete text-secondary"></i></span><?=$e['action'];?><span class="text-secondary small ml-3"><?=$e['date'];?></span></p>
                     <?php endforeach; ?>
                 </div>
             </div>
+            <hr>
+            <?php $users = getUsersFromCompany($n['id']);
+            foreach ($users as $u) :?>
+
+            <button class="btn btn-light bg-white w-100 text-left mb-2" type="button" data-toggle="collapse"
+                    data-target="#collapseUserHistory<?= $u['id']; ?>" aria-expanded="false"
+                    aria-controls="collapseUserHistory<?= $u['id']; ?>">
+                <div class="row">
+                    <div class="col-6">
+                        <span><i class="fas fa-user mr-2"></i><?=$u['name'];?></span>
+                    </div>
+                    <div class="col-6 text-right text-secondary small">
+                        был в сети <?=$u['activity'];?>
+                    </div>
+                </div>
+            </button>
+            <div class="collapse mb-3" id="collapseUserHistory<?= $u['id']; ?>">
+                <div class="pl-4">
+                    <div class="vertical-line">
+                        <?php
+                        $visitsHistory = getVisitsHistory($u['id']);
+                        if (count($visitsHistory) == 0): ?>
+                            <p>Нет истории переходов</p>
+
+                        <?php
+                        endif;
+                        foreach ($visitsHistory as $visit) :?>
+                            <p><span class="bullet"><i class="far fa-dot-circle icon-not-complete text-secondary"></i></span><?= $visit['previous_page']; ?> <i class="fas fa-arrow-right"></i> <?= $visit['current_page']; ?><span class="text-secondary small ml-3"><?= date('d.m H:i:s',$visit['visit_time']); ?></span></p>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach;?>
         </div>
     </div>
 <?php endforeach; ?>
