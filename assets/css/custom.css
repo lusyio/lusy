@@ -3764,11 +3764,14 @@ span.date {
     z-index: 3;
 }
 
+.like-modal:hover, .dislike-modal:hover{
+    cursor: pointer;
+}
+
 
 .like-modal img:hover, .dislike-modal img:hover  {
     transition: 150ms;
     transform: scale(1.05);
-    cursor: pointer;
 }
 
 .dislike-modal{
