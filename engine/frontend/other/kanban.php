@@ -7,6 +7,16 @@
     .bg-kanban {
         background-color: #f3f3f3;
     }
+    .navblock {
+        position: absolute;
+        left: 75px;
+    }
+    .col-sm-9 {
+        width: 100% !important;
+        flex: 100% !important;
+        max-width: 100%;
+        background: #fafafa;
+    }
 </style>
 <div style="overflow-x: scroll;min-height: 600px">
 
