@@ -44,6 +44,48 @@
 <script>
     $(document).ready(function () {
         $('#rateModal').modal('show');
+        $('.like-modal').on('click', function () {
+            var fd = new FormData();
+            fd.append('module', 'rateModal');
+            fd.append('ajax', 'like');
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function () {
+                    $.when($('#rateModal h2').fadeOut(150)).done(function () {
+                        $('#rateModal h2').text('Спасибо за оценку!').fadeIn(200);
+                    });
+                    setTimeout(function () {
+                        $('#rateModal').modal('hide');
+                    }, 900);
+                },
+            });
+        });
+        $('.dislike-modal').on('click', function () {
+            var fd = new FormData();
+            fd.append('module', 'rateModal');
+            fd.append('ajax', 'dislike');
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function () {
+                    $.when($('#rateModal h2').fadeOut(150)).done(function () {
+                        $('#rateModal h2').text('Спасибо за оценку!').fadeIn(200);
+                    });
+                    setTimeout(function () {
+                        $('#rateModal').modal('hide');
+                    }, 900);
+                },
+            });
+        });
     });
 </script>
 <script src="/assets/js/bootstrap.min.js"></script>
