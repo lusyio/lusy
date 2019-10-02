@@ -162,7 +162,14 @@ if (isset($_POST['it'])) {
         $unfinishedSubTasks = $task->checkSubTasksForFinish();
         if ($unfinishedSubTasks['status']) {
             $task->workDone();
+            if ($idTaskManager == 1 && $roleu == 'ceo') {
+                $count = DBOnce('COUNT(DISTINCT id)', 'tasks', "status IN ('done', 'canceled') AND manager = 1 AND worker = " . $id);
+                if ($count > 1) {
+                    $_SESSION['showRateModal'] = true;
+                }
+            }
         }
+
         echo json_encode($unfinishedSubTasks);
     }
 
@@ -174,6 +181,12 @@ if (isset($_POST['it'])) {
         $unfinishedSubTasks = $task->checkSubTasksForFinish();
         if ($unfinishedSubTasks['status']) {
             $task->cancelTask();
+            if ($idTaskManager == 1 && $roleu == 'ceo') {
+                $count = DBOnce('COUNT(DISTINCT id)', 'tasks', "status IN ('done', 'canceled') AND manager = 1 AND worker = " . $id);
+                if ($count > 1) {
+                    $_SESSION['showRateModal'] = true;
+                }
+            }
         }
         echo json_encode($unfinishedSubTasks);
     }
