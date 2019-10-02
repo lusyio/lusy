@@ -613,7 +613,73 @@ if ($id == $worker and $view == 0) {
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs"
             data-app-key="pjjm32k7twiooo2"></script>
 <?php endif; ?>
-
+<?php if ($manager == 1 && isset($_SESSION['showRateModal'])): ?>
+<?php unset($_SESSION['showRateModal']) ?>
+<div class="modal fade" id="rateModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-rate" role="document">
+        <div class="modal-content border-0">
+            <div class="modal-body pt-5 top-modal-body bg-white text-center position-relative">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>
+                                Как вы оцениваете систему Lusy.io?
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <span class="icon-close-modal">
+            <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
+                        class="fas fa-times text-muted"></i></button>
+            </span>
+            </div>
+            <div class="modal-body text-white pb-5 pt-5 bottom-modal-body position-relative">
+                <div class="like-modal answer">
+                    <img src="/assets/svg/like.svg" alt="">
+                </div>
+                <div class="dislike-modal answer">
+                    <img src="/assets/svg/dislike.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#rateModal').modal('show');
+        $('.answer').on('click', function () {
+            var answer = '';
+            if ($(this).hasClass('like-modal')) {
+                answer = '1';
+            } else if ($(this).hasClass('dislike-modal')) {
+                answer = '-1';
+            }
+            var fd = new FormData();
+            fd.append('ajax', 'rate');
+            fd.append('module', 'rateModal');
+            fd.append('answer', answer);
+            $.ajax({
+                url: '/ajax.php',
+                type: 'POST',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: fd,
+                success: function () {
+                    $.when($('#rateModal h2').fadeOut(150)).done(function () {
+                        $('#rateModal h2').text('Спасибо за оценку!').fadeIn(200);
+                    });
+                    setTimeout(function () {
+                        $('#rateModal').modal('hide');
+                    }, 900);
+                },
+            });
+        });
+    });
+</script>
+<?php endif; ?>
 <script>
     var $it = '<?=$idtask?>';
 </script>
