@@ -3746,6 +3746,7 @@ span.date {
     border-radius: 10px;
     padding-bottom: 100px;
     z-index: 2;
+    min-height: 194px;
 }
 
 .bottom-modal-body{
