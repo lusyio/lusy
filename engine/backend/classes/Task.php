@@ -41,7 +41,7 @@ class Task
         } else {
             $isCeo = false;
         }
-        if ($isCeo || $this->get('manager') == $id) {
+        if ($isCeo || $this->get('manager') == $id || $this->get('worker') == $id) {
             $subTasksQueryString = "SELECT t.id FROM tasks t WHERE t.parent_task = :taskId";
             $subTasksQueryData = [
                 ':taskId' => $this->get('id')
