@@ -98,9 +98,9 @@ if (!is_null($viewStatus) && isset($viewStatus[$manager]['datetime'])) {
     $viewStatusTitleManager = 'Не просмотрено';
 }
 
-if ($idc == $task->get('idcompany') && ($id == $manager || $isCeo  || $parentTask->get('manager') == $id ||$manager == 1)) {
+if ($idc == $task->get('idcompany') && ($id == $manager || $isCeo  || (isset($parentTask) && $parentTask->get('manager') == $id) || $manager == 1)) {
     $role = 'manager';
-} elseif ((in_array($id, $coworkersId) || $worker == $id || $hasOwnSubTask || $parentTask->get('worker') == $id) && $status != 'planned') {
+} elseif ((in_array($id, $coworkersId) || $worker == $id || $hasOwnSubTask || (isset($parentTask) && $parentTask->get('worker') == $id)) && $status != 'planned') {
     $role = 'worker';
 } else {
     header('Location: /tasks/');
