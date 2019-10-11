@@ -503,7 +503,7 @@ $borderColor = [
         </div>
     </div>
 </div>
-<script src="/assets/js/createtask.js?n=7"></script>
+<script src="/assets/js/createtask.js?n=8"></script>
 <?php if (($tariff == 1 || $tryPremiumLimits['cloud'] < 3) || ($taskEdit && $hasCloudUploads)): ?>
     <script type="text/javascript">
         //=======================Google Drive==========================
