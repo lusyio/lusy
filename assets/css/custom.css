@@ -2611,25 +2611,35 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 .progressBlock .d-flex {
-    opacity: 0.7;
+    opacity: 0.5;
     transition: 0.1s all;
 }
 
 .progressBlock .d-flex:hover {
+    cursor: pointer;
     opacity: 1;
     transition: 0.2s all;
 }
 
 .progressBlock .iconDiv {
-    border: 1px solid white;
-    border-radius: 8px;
-    padding: 7px;
+    opacity: 0.7;
+    border: 0;
+    padding: 0;
     display: inline-block;
-    margin-right: 1rem;
+    margin-right: 0.6rem;
+}
+
+.iconDiv img {
+    width: 66px;
 }
 
 .text-game-step {
+    font-size: 1rem;
+    color: rgb(255, 255, 255);
+    line-height: 1.2;
     display: block;
+    font-weight: 300;
+    margin: auto;
 }
 
 .progressBlock i {
@@ -2646,12 +2656,7 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 .progressBlock .doneStep .iconDiv {
-    background: white;
-    color: #797efe;
-}
-
-.progressBlock .doneStep p {
-    font-weight: bold;
+    opacity: 1;
 }
 
 .progressBlock .plusBlock::before {
@@ -2659,8 +2664,19 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 .progressBlock .progress {
-    background-color: #6d6bf5;
-    height: 2px;
+    background-color: #b8bbff;
+    height: 20px;
+    border-radius: 50px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 101%;
+}
+
+.progressBlock {
+    border-radius: 12px;
+    background: -moz-linear-gradient(90deg, rgb(128, 121, 252) 0%, rgb(112, 133, 255) 100%);
+    background: -webkit-linear-gradient(90deg, rgb(128, 121, 252) 0%, rgb(112, 133, 255) 100%);
+    background: -ms-linear-gradient(90deg, rgb(128, 121, 252) 0%, rgb(112, 133, 255) 100%);
 }
 
 .progressBlock .progress-bar {
@@ -2668,10 +2684,16 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 .premiumAcountActivate .btn-outline-light {
-    border-radius: 20px;
+    border-radius: 23px;
     font-size: 14px;
-    opacity: 0.7;
     transition: 0.1s all;
+    color: rgb(162, 166, 255);
+    line-height: 2.125;
+    text-align: center;
+    border: 0;
+    background: #b8bbff;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .doneStep .btn-outline-light {
@@ -3760,6 +3782,39 @@ span.date {
     background-color: #f1f3f4;
 }
 
+.progressBlock .card-body {
+    padding: 2.5rem 4.4rem;
+}
+
+.progress-block-p {
+    font-weight: 300;
+    font-size: 1.75rem;
+    color: rgb(255, 255, 255);
+    line-height: 1.429;
+    text-align: left;
+}
+
+.bonus-step-remaining {
+    font-weight: 300;
+    font-size: 1.25rem;
+    color: rgb(255, 255, 255);
+    line-height: 1.2;
+}
+
+.progress-block-p span {
+    position: relative;
+}
+
+.progress-block-p span:after {
+    content: '';
+    border-bottom: 1px solid white;
+    position: absolute;
+    display: block;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+}
+
 @keyframes event-animation {
     0% {
 
@@ -3956,9 +4011,28 @@ button.sort-task:not(.active):after {
     }
 }
 
-@media (max-width: 991px) {
+@media screen
+and (max-width: 991px) {
     .sort-company {
         display: none;
+    }
+
+    .text-game-step {
+        display: none;
+    }
+
+    .progressBlock .iconDiv {
+        margin: 0;
+        width: 100%;
+    }
+
+    .iconDiv img {
+        display: block;
+        margin: auto;
+    }
+
+    .progressBlock .progress {
+        border-radius: 50px;
     }
 }
 
@@ -4055,23 +4129,18 @@ button.sort-task:not(.active):after {
         display: none;
     }
 
-    .top-sidebar{
+    .top-sidebar {
         margin-top: 0;
     }
 
-    .premiumAcountActivate{
+    .premiumAcountActivate {
         margin-top: 1rem;
         margin-bottom: 1rem;
         text-align: center;
     }
 
     .progressBlock .progress {
-        width: 50%;
         margin: auto;
-    }
-
-    .progressBlock .d-flex {
-        justify-content: center;
     }
 
     .photo-preview-container-messages {
@@ -4986,6 +5055,22 @@ and (max-width: 1366px) {
     }
 }
 
+@media screen
+and (max-width: 991px)
+and (min-width: 576px) {
+
+    .progressBlock .d-flex {
+        flex-direction: column;
+    }
+
+    .text-game-step {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+}
+
 @media only screen
 and (max-width: 991px)
 and (min-width: 768px) {
@@ -5709,6 +5794,46 @@ and (min-width: 576px) {
         -ms-flex: unset;
         flex: unset;
         max-width: unset;
+    }
+}
+
+@media screen
+and (max-width: 375px) {
+    .progress-block-p {
+        font-size: 18px;
+    }
+
+    .bonus-step-remaining {
+        font-size: 16px;
+    }
+}
+
+@media screen
+and (max-width: 575px) {
+    .text-game-step {
+        display: block;
+        margin: unset;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .progressBlock .iconDiv {
+        margin: 0;
+        margin-right: 10px;
+        width: unset;
+    }
+
+    .iconDiv img {
+        display: unset;
+        margin: unset;
+    }
+
+    .progressBlock .progress {
+        display: none;
+    }
+
+    .progressBlock .card-body {
+        padding: 2.5rem 2.4rem;
     }
 }
 
