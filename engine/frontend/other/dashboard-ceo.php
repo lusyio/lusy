@@ -180,7 +180,7 @@ $statusColor = [
 <?php if (isset($showGame) && $showGame) : ?>
     <div class="card premiumCard mb-3 mt-3 progressBlock">
         <div class="card-body">
-            <p class="progress-block-p">Завершите <span>3 задания</span> и получите 14 дней<br/>Premium-доступа
+            <p class="progress-block-p">Выполните <span>3 задания</span> и получите 14 дней<br/>Premium-доступа
                 бесплатно</p>
             <div class="row mt-4">
                 <?php foreach ($stepContent as $step): ?>

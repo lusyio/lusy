@@ -2616,6 +2616,7 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 .progressBlock .d-flex:hover {
+    cursor: pointer;
     opacity: 1;
     transition: 0.2s all;
 }
@@ -3793,18 +3794,18 @@ span.date {
     text-align: left;
 }
 
-.bonus-step-remaining{
+.bonus-step-remaining {
     font-weight: 300;
     font-size: 1.25rem;
     color: rgb(255, 255, 255);
     line-height: 1.2;
 }
 
-.progress-block-p span{
+.progress-block-p span {
     position: relative;
 }
 
-.progress-block-p span:after{
+.progress-block-p span:after {
     content: '';
     border-bottom: 1px solid white;
     position: absolute;
@@ -4016,21 +4017,21 @@ and (max-width: 991px) {
         display: none;
     }
 
-    .text-game-step{
+    .text-game-step {
         display: none;
     }
 
-    .progressBlock .iconDiv{
+    .progressBlock .iconDiv {
         margin: 0;
         width: 100%;
     }
 
-    .iconDiv img{
+    .iconDiv img {
         display: block;
         margin: auto;
     }
 
-    .progressBlock .progress{
+    .progressBlock .progress {
         border-radius: 50px;
     }
 }
@@ -5054,6 +5055,22 @@ and (max-width: 1366px) {
     }
 }
 
+@media screen
+and (max-width: 991px)
+and (min-width: 576px) {
+
+    .progressBlock .d-flex {
+        flex-direction: column;
+    }
+
+    .text-game-step {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+}
+
 @media only screen
 and (max-width: 991px)
 and (min-width: 768px) {
@@ -5781,30 +5798,41 @@ and (min-width: 576px) {
 }
 
 @media screen
-and (max-width: 575px){
-    .text-game-step{
+and (max-width: 375px) {
+    .progress-block-p {
+        font-size: 18px;
+    }
+
+    .bonus-step-remaining {
+        font-size: 16px;
+    }
+}
+
+@media screen
+and (max-width: 575px) {
+    .text-game-step {
         display: block;
         margin: unset;
         margin-top: auto;
         margin-bottom: auto;
     }
 
-    .progressBlock .iconDiv{
+    .progressBlock .iconDiv {
         margin: 0;
         margin-right: 10px;
         width: unset;
     }
 
-    .iconDiv img{
+    .iconDiv img {
         display: unset;
         margin: unset;
     }
 
-    .progressBlock .progress{
+    .progressBlock .progress {
         display: none;
     }
 
-    .progressBlock .card-body{
+    .progressBlock .card-body {
         padding: 2.5rem 2.4rem;
     }
 }
