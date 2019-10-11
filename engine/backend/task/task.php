@@ -22,7 +22,10 @@ if ($roleu == 'ceo') {
 $id_task = filter_var($_GET['task'], FILTER_SANITIZE_NUMBER_INT);
 
 $task = new Task($id_task);
-
+$parentTaskId = $task->get('parent_task');
+if (!is_null($parentTaskId)) {
+    $parentTask = new Task($parentTaskId);
+}
 $author = $task->get('author');
 $manager = $task->get('manager');
 $worker = $task->get('worker');
@@ -49,7 +52,7 @@ $report = $task->get('report');
 $idtask = $task->get('id');
 $nametask = $task->get('name');
 $status = $task->get('status');
-if ($status == 'overdue' || $status == 'new' || $status == 'returned') {
+if ($status == 'new' || $status == 'returned') {
     $status = 'inwork';
 }
 $enableComments = true;
@@ -58,7 +61,7 @@ if ($status == 'done' || $status == 'canceled') {
 }
 $description = nl2br($task->get('description'));
 $description = htmlspecialchars_decode($description);
-$description = htmlspecialchars($description);
+//$description = htmlspecialchars($description); // Закомментировал, чтобы доработать, если что-то пойдет не так, можно удалить после 5 октября
 $description = decodeTextTags($description);
 
 $tryPremiumLimits = getFreePremiumLimits($idc);
@@ -95,9 +98,9 @@ if (!is_null($viewStatus) && isset($viewStatus[$manager]['datetime'])) {
     $viewStatusTitleManager = 'Не просмотрено';
 }
 
-if ($idc == $task->get('idcompany') && ($id == $manager || $isCeo || $manager == 1)) {
+if ($idc == $task->get('idcompany') && ($id == $manager || $isCeo  || (isset($parentTask) && $parentTask->get('manager') == $id) || $manager == 1)) {
     $role = 'manager';
-} elseif ((in_array($id, $coworkersId) || $worker == $id || $hasOwnSubTask) && $status != 'planned') {
+} elseif ((in_array($id, $coworkersId) || $worker == $id || $hasOwnSubTask || (isset($parentTask) && $parentTask->get('worker') == $id)) && $status != 'planned') {
     $role = 'worker';
 } else {
     header('Location: /tasks/');
@@ -121,9 +124,9 @@ $emptySpace = $remainingLimits['space'];
 
 $enableEdit = ($isCeo || $manager == $id) && !in_array($status, ['done', 'canceled']) && $manager != 1;
 
-$parentTaskId = $task->get('parent_task');
+
 if (!is_null($parentTaskId)) {
-    $parentTaskName = DBOnce('name', 'tasks', 'id= ' . $parentTaskId);
+    $parentTaskName = $parentTask->get('name');
 }
 
 $repeatType = $task->get('repeat_type');

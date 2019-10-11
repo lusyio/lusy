@@ -20,7 +20,14 @@ if (isset($_POST['startDate']) && isset($_POST['endDate'])) {
     $firstDay = strtotime('first day of this month midnight');
     $lastDay = strtotime('+1 day midnight') - 1;
 }
-$countInworkTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT td.taskId) FROM (SELECT t.id AS taskId, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate FROM tasks t LEFT JOIN events e ON e.task_id = t.id WHERE e.action IN ('workdone', 'canceltask')) td WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
+$countInworkTasksQuery = $pdo->prepare("SELECT COUNT(DISTINCT td.taskId) 
+                                FROM 
+                                    (SELECT t.id AS taskId, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate 
+                                    FROM tasks t 
+                                    LEFT JOIN events e ON e.task_id = t.id 
+                                    WHERE e.action IN ('workdone', 'canceltask')
+                                    OR (e.action = 'createtask' AND t.status IN ('new', 'inwork', 'overdue', 'returned', 'pending', 'postpone'))) td 
+                                WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
 $countInworkTasksQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
 $countInworkTasks = $countInworkTasksQuery->fetch(PDO::FETCH_COLUMN);
 
@@ -42,7 +49,15 @@ $countCancel = $countCancelQuery->fetch(PDO::FETCH_COLUMN);
 
 $allEvents = $countInworkTasks + $countTaskDone + $countOverdue + $countChangeDate + $countCancel;
 
-$inworkTasksQuery = $pdo->prepare("SELECT DISTINCT td.taskId, td.taskStatus, td.taskName, td.workerName, td.workerSurname, td.workerEmail, td.workerId FROM (SELECT t.id AS taskId, t.name AS taskName, t.worker AS workerId, u.name AS workerName, u.surname AS workerSurname, u.email AS workerEmail, t.status AS taskStatus, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate FROM tasks t LEFT JOIN users u ON t.worker = u.id LEFT JOIN events e ON e.task_id = t.id WHERE e.action IN ('workdone', 'canceltask')) td WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
+$inworkTasksQuery = $pdo->prepare("SELECT DISTINCT td.taskId, td.taskStatus, td.taskName, td.workerName, td.workerSurname, td.workerEmail, td.workerId 
+                        FROM 
+                            (SELECT t.id AS taskId, t.name AS taskName, t.worker AS workerId, u.name AS workerName, u.surname AS workerSurname, u.email AS workerEmail, t.status AS taskStatus, t.idcompany AS companyId, t.datecreate AS taskStartDate, e.datetime AS taskEndDate 
+                            FROM tasks t 
+                            LEFT JOIN users u ON t.worker = u.id 
+                            LEFT JOIN events e ON e.task_id = t.id 
+                            WHERE e.action IN ('workdone', 'canceltask')
+                            OR (e.action = 'createtask' AND t.status IN ('new', 'inwork', 'overdue', 'returned', 'pending', 'postpone'))) td 
+                        WHERE td.taskStartDate < :lastDay AND (td.taskEndDate > :firstDay OR td.taskEndDate IS NULL) AND td.companyId = :companyId");
 $inworkTasksQuery->execute([':companyId' => $idc, ':firstDay' => $firstDay, ':lastDay' => $lastDay]);
 $inworkTasks = $inworkTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 
@@ -141,7 +156,7 @@ $statusColor = [
                         <div class="row">
                             <div class="col-lg-8 col-12 left-report">
                                 <div class="row" style="padding-top: 20px;">
-                                    <div class="col-6 col-lg-6 col-xlg-5">
+                                    <div class="col-6 col-lg-6 col-xl-5">
                                         <div class="mb-2">
                                             <div class="text-primary text-statistic font-weight-bold"><?= ($countInworkTasks) ? $countInworkTasks : 0 ?></div>
                                             <span class="text-reports">Создали</span>
@@ -152,7 +167,7 @@ $statusColor = [
                                                 class="text-reports">Выполнили</span>
                                         </div>
                                     </div>
-                                    <div class="col-6 col-lg-6 col-xlg-5">
+                                    <div class="col-6 col-lg-6 col-xl-5">
                                         <div class="mb-2">
                                             <div class="text-danger text-statistic font-weight-bold"><?= ($countOverdue) ? $countOverdue : 0 ?></div>
                                             <span
@@ -260,7 +275,7 @@ $statusColor = [
         <?php endforeach; ?>
     </div>
 </div>
-
+<?php if (count($inworkTasks) > 0): ?>
 <div class="row tasks-reports-container" style="margin-top: 60px; ">
     <div class="col-12">
         <label class="label-tasknew">
@@ -308,7 +323,7 @@ $statusColor = [
         </div>
     </div>
 </div>
-
+<?php endif; ?>
 <script>
     var ctx = $("#myDoughnutChart");
     var myDoughnutChart = new Chart(ctx, {

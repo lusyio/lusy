@@ -3,6 +3,7 @@
 global $pdo;
 
 require_once __ROOT__ . '/engine/backend/functions/reg-functions.php';
+require_once __ROOT__ . '/engine/backend/functions/payment-functions.php';
 
 $login = '';
 $userLanguage = getUserLanguage();
@@ -40,6 +41,9 @@ if (isset($_POST['email'])) {
             addEvent('newcompany', '', $companyId, $ceoId);
             createInitTask($ceoId, $companyId, true);
             addMailToQueue('sendActivationLink', [$companyId], $ceoId);
+            if (isset($_COOKIE['promo']) && preg_match('~^LIO[A-Z0-9]{5,8}$~i', $_COOKIE['promo'])) {
+                activateRefPromocode($companyId, $_COOKIE['promo']);
+            }
             header('location: /login/');
             ob_flush();
             die;

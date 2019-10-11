@@ -71,7 +71,12 @@ $statusColor = [
             </div>
             <canvas class="d-none" id="canvas"></canvas>
             <div class="chart">
-                <?php if (!is_null($taskDoneDelta)): ?>
+                <?php if ($taskDoneCountOverall == 0): ?>
+                    <span class="percent-chart" data-toggle="tooltip" data-placement="bottom"
+                          title="Пока что на графике представлены случайные значения">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+                <?php elseif (!is_null($taskDoneDelta)): ?>
                     <span class="percent-chart" data-toggle="tooltip" data-placement="bottom"
                           title="Разница за аналогичный период в прошлом месяце">
                     <?= $taskDoneDelta; ?>
@@ -79,12 +84,6 @@ $statusColor = [
                 <?php else: ?>
                     <span class="percent-chart" data-toggle="tooltip" data-placement="bottom"
                           title="По мере выполнения задач будет доступна разница за периоды">
-                    <i class="fas fa-info-circle"></i>
-                </span>
-                <?php endif; ?>
-                <?php if ($taskDoneCountOverall == 0): ?>
-                    <span class="percent-chart" data-toggle="tooltip" data-placement="bottom"
-                          title="Пока что на графике представлены случайные значения">
                     <i class="fas fa-info-circle"></i>
                 </span>
                 <?php endif; ?>
@@ -112,7 +111,7 @@ $statusColor = [
                                     <i class="<?= $iconTask[$task['status']] ?>"></i>
                                 </div>
                             </div>
-                            <div class="col-7 col-lg-4 col-xlg-5 p-0 pl-2">
+                            <div class="col-7 col-lg-4 col-xl-5 p-0 pl-2">
                                 <p class="mb-0 font-weight-bold text-area-message"> <?= $task['name']; ?></p>
                                 <p class="mb-0 text-muted small text-area-message"><?= $task['managerName'] . ' ' . $task['managerSurname'] ?></p>
                             </div>
@@ -181,6 +180,7 @@ $statusColor = [
 <?php if (isset($showGame) && $showGame) : ?>
     <div class="card premiumCard mb-3 mt-3 progressBlock">
         <div class="card-body">
+            <p style=" text-align: center; font-weight: 900; margin-bottom: 30px; ">Завершите 3 шага и получите 14 дней<br/>Premium-доступа бесплатно</p>
             <div class="row ">
                 <?php foreach ($stepContent as $step): ?>
                     <div class="col-4 col-lg-3">
@@ -195,8 +195,8 @@ $statusColor = [
                     </div>
                 <?php endforeach; ?>
                 <div class="col-12 col-lg-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : '' ?>">
-                    <button id="finishSteps" class="btn btn-outline-light">
-                        Активировать Premium-аккаунт
+                    <button id="finishSteps" class="btn btn-outline-light w-100">
+                        Активировать<br/>бонус
                     </button>
                 </div>
             </div>

@@ -230,6 +230,7 @@ $(document).ready(function () {
         $('.placeholder-subtask').show();
         $('.search-subtask').show();
         $('#searchSubtask').focus();
+        $('.select-subtask').removeClass('d-none');
         filterSubasks();
         // setTimeout(function () {
         //     $('.subtask').fadeOut();

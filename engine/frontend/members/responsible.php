@@ -2,7 +2,7 @@
     <div class="responsible-card">
         <?php
         foreach ($users as $n) { ?>
-            <?php if (((isset($taskEdit) && !$taskEdit) || !isset($taskEdit)) && count($users) == 1): ?>
+            <?php if (((isset($taskEdit) && !$taskEdit) || !isset($taskEdit)) && count($users) == 1 && !isset($reportPage)): ?>
             <div val="<?php echo $n['id'] ?>" class="select-responsible<?= ($n['id'] == $id) ? ' self-user' : '' ?> d-none">
             <?php else: ?>
             <div val="<?php echo $n['id'] ?>" class="select-responsible<?= ($n['id'] == $id) ? ' self-user' : '' ?> <?=(isset($taskEdit) && $taskEdit && (in_array($n['id'], $taskCoworkers) || $n['id'] == $worker || $n['id'] == $manager)) ? 'd-none' : ''?>">

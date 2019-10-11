@@ -72,6 +72,7 @@
     <div class="row mt-25-tasknew display-none" id="workerBlockReports">
         <div class="col-12 col-lg-6 top-block-tasknew">
             <?php
+            $reportPage = true;
             include __ROOT__ . '/engine/frontend/members/responsible.php';
             ?>
             <div class="card card-tasknew" id="selectWorkerReports">
@@ -167,11 +168,9 @@
             </span>
             </div>
             <div class="modal-footer border-0">
-                <?php if ($isCeo): ?>
                     <a href="/payment/" id="goToPay" class="btn text-white border-0">
                         Перейти к тарифам
                     </a>
-                <?php endif; ?>
             </div>
             <span class="icon-close-modal">
             <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i

@@ -64,7 +64,8 @@ function addUser($email, $password, $companyId, $position, $name = '', $surname 
 function addCompany($companyName, $companyLanguage, $companyTimeZone)
 {
     global $pdo;
-    $addCompanyQuery = $pdo->prepare('INSERT INTO company(idcompany, lang, tariff, datareg, activated, timezone) VALUES (:companyName, :language, :premium, :registerDate, :activated, :companyTimeZone)');
+    $addCompanyQuery = $pdo->prepare('INSERT INTO company(idcompany, lang, tariff, datareg, activated, timezone, personal_promo) VALUES (:companyName, :language, :premium, :registerDate, :activated, :companyTimeZone, :personalPromo)');
+    $personalPromocode = generatePersonalPromocode();
     $queryData = [
         ':companyName' => $companyName,
         ':language' => $companyLanguage,
@@ -72,6 +73,7 @@ function addCompany($companyName, $companyLanguage, $companyTimeZone)
         ':registerDate' => time(),
         ':activated' => 0,
         ':companyTimeZone' => $companyTimeZone,
+        ':personalPromo' => $personalPromocode,
     ];
     $addCompanyQuery->execute($queryData);
     $companyId = $pdo->lastInsertId();
@@ -112,5 +114,21 @@ function getActivationCode($companyId)
     $codeQuery = $pdo->prepare('SELECT code FROM company_activation WHERE company_id = :companyId');
     $codeQuery->execute(array(':companyId' => $companyId));
     $code = $codeQuery->fetch(PDO::FETCH_COLUMN);
+    return $code;
+}
+
+function generatePersonalPromocode()
+{
+    global $pdo;
+    $usedCodesQuery = $pdo->prepare("SELECT personal_promo FROM company");
+    $usedCodesQuery->execute();
+    $usedCodes = $usedCodesQuery->fetchAll(PDO::FETCH_COLUMN);
+    $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    do {
+        $code = 'LIO';
+        for ($i=0;$i<5;$i++) {
+            $code .= $chars[rand(0,mb_strlen($chars) - 1)];
+        }
+    } while (in_array($code, $usedCodes));
     return $code;
 }

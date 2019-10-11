@@ -312,8 +312,9 @@ function checkTaskOverduePerMonthInCompany($companyId, $firstDay, $lastDay)
     $companyUsersQuery->execute(array(':companyId' => $companyId));
     $companyUsers = $companyUsersQuery->fetchAll(PDO::FETCH_COLUMN);
     $overdueWorkers = getMonthlyOverdueWorkersInCompany($companyId, $firstDay, $lastDay);
+    $doneCount = getMonthlyTaskDoneByWorkerOrManagerInCompany($companyId, $firstDay, $lastDay);
     foreach ($companyUsers as $user) {
-        if (!in_array($user, $overdueWorkers)) {
+        if (!in_array($user, $overdueWorkers) && key_exists($user, $doneCount) && $doneCount[$user] >= 5) {
             addAchievement('taskOverduePerMonth_0', $user);
         }
     }
@@ -360,4 +361,17 @@ function getNonPathAchievements()
     $achievements = $achievementsQuery->fetchAll(PDO::FETCH_COLUMN);
     $result = array_diff($achievements, $pathAchievements);
     return $result;
+}
+
+function getMonthlyTaskDoneByWorkerOrManagerInCompany($companyId, $firstDay, $lastDay = null)
+{
+    global $pdo;
+    if (is_null($lastDay)) {
+        $lastDay = time();
+    }
+
+    $taskDonePerMonthQuery = $pdo->prepare("SELECT e.recipient_id, COUNT(DISTINCT e.task_id) AS count FROM events e LEFT JOIN users u ON u.id = e.recipient_id WHERE u.idcompany = :companyId AND e.action = 'workdone' AND e.datetime > :firstDay AND e.datetime < :lastDay GROUP BY e.recipient_id");
+    $taskDonePerMonthQuery->execute(array(':companyId' => $companyId, ':firstDay' => $firstDay, ':lastDay' => $lastDay));
+    $taskDoneCount = $taskDonePerMonthQuery->fetchAll(PDO::FETCH_KEY_PAIR);
+    return $taskDoneCount;
 }

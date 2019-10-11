@@ -393,3 +393,16 @@
     border-color: transparent;
     background-color: currentColor;
 }
+
+.system-date {
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: all ease-in;
+    transition-delay: 200ms;
+    transition-duration: 0.2s;
+    position: absolute!important;
+    right: 0;
+    top: 2px!important;
+    background-color: #ffffff;
+    z-index: 10;
+}

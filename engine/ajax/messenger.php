@@ -39,6 +39,9 @@ if ($_POST['module'] == 'sendMessage') {
         ];
     }
     if (!empty($mes)) {
+        $unreadMessagesQuery = $pdo->prepare("SELECT COUNT(DISTINCT message_id) FROM mail WHERE sender = :sender AND recipient = :recipient AND view_status = 0");
+        $unreadMessagesQuery->execute(['mes' => $mes, 'sender' => $id, 'recipient' => $recipientId, 'datetime' => $messageTime]);
+        $unreadMessages = $unreadMessagesQuery->fetch(PDO::FETCH_COLUMN);
         $dbh = "INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:mes, :sender, :recipient, :datetime) ";
         $sql = $pdo->prepare($dbh);
         $sql->execute(array('mes' => $mes, 'sender' => $id, 'recipient' => $recipientId, 'datetime' => $messageTime));
@@ -78,7 +81,15 @@ if ($_POST['module'] == 'sendMessage') {
         $cometPdo->multipleSendNewMailMessage($cometData);
 
         //@sendMessageEmailNotification($recipientId, $id);
-        addMailToQueue('sendMessageEmailNotification', [$recipientId, $id, $messageId], $recipientId, $messageId);
+        $onlineUsers = getOnlineUsersList();
+        $lastRecipientActivity = DBOnce('activity', 'users', 'id = ' . $recipientId);
+            $isRecipientOnline = false;
+            if (in_array($recipientId, $onlineUsers) || $lastRecipientActivity > time() - 60) {
+                $isRecipientOnline = true;
+            }
+        if ($unreadMessagesQuery == 0 && !$isRecipientOnline) {
+            addMailToQueue('sendMessageEmailNotification', [$recipientId, $id, $messageId], $recipientId, $messageId);
+        }
         if (!$cometPdo->getStatus()) {
             echo 'reload';
         }

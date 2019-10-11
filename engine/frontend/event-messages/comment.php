@@ -20,7 +20,7 @@ $eventText = _('Wrote comment');
                         <i class="fas fa-comment"></i>
                     </div>
                 </div>
-                <div class="col-7 col-lg-5 col-xlg-5">
+                <div class="col-7 col-lg-5 col-xl-5">
                     <p class="mb-0 text-area-message font-weight-bold"><?= $event['taskname']; ?></p>
                     <div class="text-area-message">
                         <span class="text-secondary"><?= (is_null($event['commentText'])) ? 'Комментарий удалён' : $event['commentText']; ?></span>

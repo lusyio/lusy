@@ -38,6 +38,14 @@ if (isset($_GET['folder']) && $_GET['folder'] == 'unsubscribe') {
 //makeTimeStampInActivityUsers();
 //makeTimeStampInTasks();
 
+// Установка cookie реферала
+
+if (isset($_GET['promo'])) {
+    if (preg_match('~^LIO[A-Z0-9]{5,8}$~i', $_GET['promo'])) {
+        setcookie('promo', $_GET['promo'], time() + 3600 * 24 * 30, '/', '.lusy.io');
+    }
+}
+
 include __ROOT__ . '/engine/backend/other/header.php';
 include __ROOT__ . '/engine/frontend/other/header.php';
 

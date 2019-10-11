@@ -7,6 +7,7 @@
 @import "profile.css";
 @import "reports.css";
 @import "payment.css";
+@import "partnership.css";
 
 /*
 
@@ -1073,8 +1074,9 @@ input:checked[type="checkbox"].new-checkbox::before {
 }
 
 .navbar-toggler {
-    margin-top: 10px;
+    margin-top: 15px;
     padding: 5px;
+    padding-bottom: 0;
 }
 
 .status-icon.rounded-circle.noty-m {
@@ -4053,7 +4055,11 @@ button.sort-task:not(.active):after {
         display: none;
     }
 
-    .premiumAcountActivate {
+    .top-sidebar{
+        margin-top: 0;
+    }
+
+    .premiumAcountActivate{
         margin-top: 1rem;
         margin-bottom: 1rem;
         text-align: center;

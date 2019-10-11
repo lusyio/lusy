@@ -1804,6 +1804,71 @@ function sendSubscribePromoEmailNotification($companyId, $tariffName, $promocode
         return;
     }
 }
+
+function sendSubscribeInviteEmailNotification($companyId, $tariffName, $daysToAdd)
+{
+    $seoMail = getCeoMail($companyId);
+    $seoId = getCeoId($companyId);
+    $notifications = getNotificationSettings($seoId);
+    if (!$notifications['payment']) {
+        return;
+    }
+
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($seoMail);
+        $mail->isHTML();
+        $mail->Subject = "Подключение тарифа в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
+        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
+        $args = [
+            'tariffName' => $tariffName,
+            'freeDays' => $daysToAdd,
+            'unsubscribeLink' => $unsubscribeLink,
+        ];
+        $mail->setMessageContent('subscribe-invite-free', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
+function sendSubscribeRefCheckEmailNotification($companyId, $tariffName, $daysToAdd)
+{
+    $seoMail = getCeoMail($companyId);
+    $seoId = getCeoId($companyId);
+    $notifications = getNotificationSettings($seoId);
+    if (!$notifications['payment']) {
+        return;
+    }
+
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($seoMail);
+        $mail->isHTML();
+        $mail->Subject = "Подключение тарифа в Lusy.io";
+        $unsubscribeCode = generateUnsubscribeCode($seoId);
+        $unsubscribeLink = $seoId . '/' . $unsubscribeCode . '/';
+        $args = [
+            'tariffName' => $tariffName,
+            'freeDays' => $daysToAdd,
+            'unsubscribeLink' => $unsubscribeLink,
+        ];
+        $mail->setMessageContent('subscribe-ref-check-free', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
+    }
+}
+
 function sendSubscribeProlongationFailedEmailNotification($companyId, $tariffName, $cardDigits)
 {
     $seoMail = getCeoMail($companyId);
@@ -2064,5 +2129,30 @@ function unsubscribeEmail($userId, $code)
             WHERE user_id = :userId");
         $status = $unsubscribeQuery->execute([':userId' => $userId]);
         return $status;
+    }
+}
+
+function sendMultipleEventsEmailNotification($userId)
+{
+    global $pdo;
+
+    $userMailQuery = $pdo->prepare("SELECT email FROM users WHERE id = :userId");
+    $userMailQuery->execute(array(':userId' => $userId));
+    $userMail = $userMailQuery->fetch(PDO::FETCH_COLUMN);
+
+    require_once __ROOT__ . '/engine/phpmailer/LusyMailer.php';
+    require_once __ROOT__ . '/engine/phpmailer/Exception.php';
+
+    $mail = new \PHPMailer\PHPMailer\LusyMailer();
+
+    try {
+        $mail->addAddress($userMail);
+        $mail->isHTML();
+        $mail->Subject = "У вас произошло несколько событий в Lusy.io";
+        $args = [];
+        $mail->setMessageContent('multiple-events', $args);
+        $mail->send();
+    } catch (Exception $e) {
+        return;
     }
 }
