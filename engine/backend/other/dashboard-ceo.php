@@ -176,13 +176,13 @@ if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'welcome')) {
     $stepContent = [
         'create' => [
             'link' => '/task/new/',
-            'icon' => 'fas fa-clipboard fa-fw',
-            'text' => 'Создать<br/>задачу',
+            'icon' => '/assets/svg/organize.svg',
+            'text' => 'Создать задачу',
             'doneStep' => ($stepTaskCreate)? 'doneStep' : 'not-finished',
         ],
         'done' => [
             'link' => '/tasks/',
-            'icon' => 'fas fa-clipboard-check fa-fw',
+            'icon' => '/assets/svg/list.svg',
             'text' => 'Завершить задачу',
             'doneStep' => ($stepTaskDone)? 'doneStep' : 'not-finished',
         ],
@@ -190,7 +190,7 @@ if ($roleu == 'ceo' && !checkPromocodeForUsedByCompany($idc, 'welcome')) {
     $stepProfileContent = [
         'profile' => [
             'link' => '/settings/',
-            'icon' => 'fas fa-user fa-fw',
+            'icon' => '/assets/svg/resume.svg',
             'text' => 'Заполнить профиль',
             'doneStep' => ($stepProfile)? 'doneStep' : 'not-finished',
         ],

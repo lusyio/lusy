@@ -180,35 +180,47 @@ $statusColor = [
 <?php if (isset($showGame) && $showGame) : ?>
     <div class="card premiumCard mb-3 mt-3 progressBlock">
         <div class="card-body">
-            <p style=" text-align: center; font-weight: 900; margin-bottom: 30px; ">Завершите 3 шага и получите 14 дней<br/>Premium-доступа бесплатно</p>
-            <div class="row ">
+            <p class="progress-block-p">Завершите <span>3 задания</span> и получите 14 дней<br/>Premium-доступа
+                бесплатно</p>
+            <div class="row mt-4">
                 <?php foreach ($stepContent as $step): ?>
-                    <div class="col-4 col-lg-3">
+                    <div class="col-12 col-sm mb-sm-0 mb-4">
                         <a href="<?= $step['link'] ?>">
                             <div class="d-flex <?= $step['doneStep'] ?>">
                                 <div class="iconDiv">
-                                    <i class="<?= $step['icon'] ?>"></i>
+                                    <img src="<?= $step['icon'] ?>" alt="">
                                 </div>
-                                <p class="mb-0 small text-game-step"><?= $step['text'] ?></p>
+                                <p class="text-game-step"><?= $step['text'] ?></p>
                             </div>
                         </a>
                     </div>
                 <?php endforeach; ?>
-                <div class="col-12 col-lg-3 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : '' ?>">
-                    <button id="finishSteps" class="btn btn-outline-light w-100">
-                        Активировать<br/>бонус
-                    </button>
+                <div class="offset-lg-2">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-lg-9">
+            <div class="mt-0 mt-sm-3 row">
+                <div class="col-12 col-lg-8 col-xl-9 m-lg-auto mt-lg-0 pr-unset pr-lg-0">
                     <div class="progress mt-0">
                         <div class="progress-bar" role="progressbar" style="width: <?= $stepProgressBar ?>%"
                              aria-valuenow="<?= $stepProgressBar ?>"
                              aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
+                <div class="col-12 col-lg-4 col-xl-3 p-unset p-lg-0 premiumAcountActivate <?= ($isGameCompleted) ? 'doneStep' : '' ?>">
+                    <button id="finishSteps" class="btn btn-outline-light w-100">
+                        Активировать бонус
+                    </button>
+                </div>
             </div>
+            <?php if ($stepProgress != 3): ?>
+                <p class="bonus-step-remaining mb-0 mt-3">
+                    До бонуса осталось <?= 3 - $stepProgress ?> <?= ($stepProgress == 2) ? 'шаг' : 'шага' ?>
+                </p>
+            <?php else: ?>
+                <p class="bonus-step-remaining mb-0 mt-3">
+                    Все задачи выполнены! Активируйте бонус
+                </p>
+            <?php endif; ?>
         </div>
     </div>
 <?php endif; ?>
