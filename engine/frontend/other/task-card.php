@@ -114,7 +114,7 @@ if ($manager == $id) {
                                     <div class="col-sm-2 col-lg-2 col-md-5 col-5">
                                         <?= $taskStatusText[$subMainRole][$subStatus] ?>
                                     </div>
-                                    <div class="col-sm-2 col-lg-2 col-md-3 col-3 <?= ($subStatus == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subStatus, ['inwork', 'new', 'returned']) && date("Y-m-d", $subDatedone) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
+                                    <div class="col-sm-2 col-lg-2 col-md-3 col-3 text-area-message <?= ($subStatus == 'overdue') ? 'text-danger font-weight-bold' : ''; ?> <?= (in_array($subStatus, ['inwork', 'new', 'returned']) && date("Y-m-d", $subDatedone) == $now) ? 'text-warning font-weight-bold' : ''; ?>">
                                         <?= date('j', $subDatedone) ?> <?= $_months[date('n', $subDatedone) - 1] ?>
                                     </div>
                                     <div class="col-sm-2 col-lg-2 col-md-4 col-4 avatars avatars-big">
