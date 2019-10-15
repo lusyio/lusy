@@ -4100,11 +4100,8 @@ button.sort-task:not(.active):after {
     }
 }
 
-@media (max-width: 768px) {
-    .count-company-tasks {
-        color: black !important;
-    }
-
+@media screen
+and (max-width: 576px){
     .like-modal img, .dislike-modal img{
         width: 70%;
         display: block;
@@ -4124,6 +4121,12 @@ button.sort-task:not(.active):after {
     .like-modal{
         left: 0;
         top: -60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .count-company-tasks {
+        color: black !important;
     }
 
     .searchDiv {
