@@ -613,6 +613,8 @@ if ($id == $worker and $view == 0) {
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs"
             data-app-key="pjjm32k7twiooo2"></script>
 <?php endif; ?>
+<?php if ($manager == 1 && isset($_SESSION['showRateModal'])): ?>
+<?php unset($_SESSION['showRateModal']) ?>
 <div class="modal fade" id="rateModal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -677,6 +679,7 @@ if ($id == $worker and $view == 0) {
         });
     });
 </script>
+<?php endif; ?>
 <script>
     var $it = '<?=$idtask?>';
 </script>
