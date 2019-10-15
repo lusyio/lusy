@@ -65,6 +65,7 @@ if ($_POST['module'] == 'sendMessage') {
             foreach ($supportAdmins as $admin) {
                 $cometData[$admin] = $mesData;
             }
+            $cometData[$recipientId] = $mesData;
         } elseif ($recipientId == 1) {
             foreach ($supportAdmins as $admin) {
                 $cometData[$admin] = $mesData;
