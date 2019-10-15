@@ -4105,6 +4105,27 @@ button.sort-task:not(.active):after {
         color: black !important;
     }
 
+    .like-modal img, .dislike-modal img{
+        width: 70%;
+        display: block;
+        margin: auto;
+    }
+
+    #rateModal .icon-close-modal{
+        right: 25px;
+        top: -20px;
+    }
+
+    .dislike-modal{
+        right: 0;
+        top: -60px;
+    }
+
+    .like-modal{
+        left: 0;
+        top: -60px;
+    }
+
     .searchDiv {
         display: none;
     }
