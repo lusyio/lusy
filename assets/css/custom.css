@@ -3784,6 +3784,7 @@ span.date {
 
 .like-modal img, .dislike-modal img{
     width: 100%;
+    max-width: 150px;
 }
 
 .sort-task::after {
