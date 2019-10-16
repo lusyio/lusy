@@ -2890,7 +2890,7 @@ table.dataTable thead .sorting_desc_disabled:before {
     display: none;
 }
 
-#sendBtn:hover ~ .send-mes-tooltip {
+#sendBtn:hover ~ .send-mes-tooltip, #comment:hover ~ .send-mes-tooltip {
     display: block;
 }
 
@@ -2910,6 +2910,15 @@ table.dataTable thead .sorting_desc_disabled:before {
 
 #sendMesName {
     font-size: 20px;
+}
+
+.send-mes-tooltip__comments{
+    position: absolute;
+    opacity: 1;
+    top: -85px;
+    left: -85px;
+    z-index: 10;
+    display: none;
 }
 
 .send-mes-tooltip-body {

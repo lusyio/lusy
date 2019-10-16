@@ -267,6 +267,22 @@ $(document).ready(function () {
 
     $("#comin").tooltip('disable');
 
+    $("#comin").keypress(function (e) {
+        var str = $('#comin').val().trim();
+        if (str !== '' && typeof str !== undefined) {
+            if (e.which == 13 && e.ctrlKey) {
+                $('#comin').val($('#comin').val() + "\n");
+            } else if (e.which == 13) {
+                e.preventDefault();
+                $("#comment").click();
+                $("#comin").val('');
+                setTimeout(function () {
+                    $("#comin").css('height', '38px');
+                }, 300);
+            }
+        }
+    });
+
     $("#comment").on('click', function () {
         var text = $("#comin").val();
         var fd = new FormData();
