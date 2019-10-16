@@ -235,7 +235,7 @@ $(document).ready(function () {
             size = this.size;
             var sizeLimit = $('.dropdown').attr('empty-space');
             if (size <= sizeLimit) {
-                fileList.set(n, $(this)[0]);
+                fileList2.set(n, $(this)[0]);
                 $(".file-name-review").show().append("<div val='" + n + "' class='filenames mt-1'>" +
                     "<i class='fas fa-paperclip mr-1'></i>" + names +
                     "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
