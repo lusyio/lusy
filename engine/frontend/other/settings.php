@@ -642,6 +642,28 @@
             }
         });
 
+        $('#settingsEmail').on('keyup', function () {
+            var $this = $(this);
+            var email = $this.val();
+            var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            var checkEmail = reg.exec(email);
+
+            if (checkEmail == null){
+                $this.css({
+                    'border': '1px solid #dc3545',
+                    'color': '#dc3545'
+                });
+                $('#sendChanges').prop('disabled', true)
+            } else {
+                $this.css({
+                    'border': '1px solid #ced4da',
+                    'color': '#495057'
+                });
+                $('#sendChanges').prop('disabled', false)
+            }
+            
+        });
+
         $("#sendChanges").on('click', function () {
             var social = {};
             var socialVk = "vk";
