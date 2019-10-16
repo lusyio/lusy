@@ -285,13 +285,17 @@ if (isset($_POST['it'])) {
 // Редактирование надзадачи
         $isParentTaskChanged = false;
         $newParentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
-        if (is_null($parentTask) && $newParentTask != 0 && ($taskPremiumType >= 0 || $isTaskWithPremium)) {
+        $isNewParentTaskValid = true;
+        if ($newParentTask == $idtask) {
+            $isNewParentTaskValid = false;
+        }
+        if ($isNewParentTaskValid && is_null($parentTask) && $newParentTask != 0 && ($taskPremiumType >= 0 || $isTaskWithPremium)) {
             // Назначение надзадачи
             $isParentTaskChanged = $task->addParentTask($newParentTask);
-        } elseif (!is_null($parentTask) && $newParentTask == 0) {
+        } elseif ($isNewParentTaskValid && !is_null($parentTask) && $newParentTask == 0) {
             // Снятие надзадачи
             $isParentTaskChanged = $task->removeParentTask();
-        } elseif (!is_null($parentTask) && $newParentTask != 0) {
+        } elseif ($isNewParentTaskValid && !is_null($parentTask) && $newParentTask != 0) {
             // Смена надзадачи
             $isParentTaskChanged = $task->addParentTask($newParentTask);
         }

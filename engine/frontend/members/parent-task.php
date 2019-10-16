@@ -4,6 +4,9 @@
             Список пуст
         </div>
         <?php foreach ($parentTasks as $parentTaskItem): ?>
+        <?php if ($taskEdit && $parentTaskItem['id'] == $taskId) {
+            continue;
+            } ?>
         <div val="<?php echo $parentTaskItem['id']; ?>" class="select-subtask <?= ($taskEdit && $parentTaskItem['id'] == $parentTask) ? 'd-none' : '' ?>">
             <div class="row">
                 <div class="col pr-0 text-left text-area-message ml-2 border-left-tasks <?= $borderColor[$parentTaskItem['status']] ?>">
