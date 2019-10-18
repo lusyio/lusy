@@ -6111,7 +6111,11 @@ label.error {
 
 .ripple {
     background-position: center !important;
-    transition: background 0.4s !important;
+    transition: background 0.4s;
+}
+
+.google-icon-btn.ripple{
+    transition: background 0.4s, box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
 }
 
 .ripple:hover {
