@@ -201,8 +201,8 @@ $statusColor = [
             <div class="mt-0 mt-sm-3 row">
                 <div class="col-12 col-lg-8 col-xl-9 m-lg-auto mt-lg-0 pr-unset pr-lg-0">
                     <div class="progress mt-0">
-                        <div class="progress-bar" role="progressbar" style="width: <?= $stepProgressBar ?>%"
-                             aria-valuenow="<?= $stepProgressBar ?>"
+                        <div class="progress-bar" role="progressbar" style="width: <?= round($stepProgressBar) ?>%"
+                             aria-valuenow="<?= round($stepProgressBar) ?>"
                              aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
