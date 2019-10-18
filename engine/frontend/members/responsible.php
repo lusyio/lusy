@@ -1,4 +1,4 @@
-<div class="responsible">
+<div class="responsible" self-id="<?= $id ?>">
     <div class="responsible-card">
         <?php
         foreach ($users as $n) { ?>
