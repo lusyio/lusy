@@ -365,6 +365,11 @@ h5, .ns {
     width: 210px;
 }
 
+.help-link-tooltip-body__content{
+    font-weight: 500;
+    color: #353b41;
+}
+
 .help-link-tooltip-body__content, .help-link-tooltip-body__link {
     font-size: 13px;
     position: relative;
