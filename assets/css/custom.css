@@ -365,6 +365,17 @@ h5, .ns {
     width: 210px;
 }
 
+.help-link-tooltip__reports{
+    bottom: unset;
+    top: 10px;
+    position: absolute;
+    padding: 18px;
+    opacity: 1;
+    right: -207px;
+    z-index: 10;
+    display: none;
+}
+
 .help-link-tooltip-body__content{
     font-weight: 500;
     color: #353b41;
@@ -404,7 +415,7 @@ h5, .ns {
     display: none;
 }
 
-.help-link:hover > .help-link-tooltip {
+.help-link:hover > .help-link-tooltip, .help-link:hover > .help-link-tooltip__reports {
     display: block;
 }
 
