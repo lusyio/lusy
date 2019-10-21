@@ -5,8 +5,22 @@
 <form>
     <div class="row">
         <div class="col-12 col-lg-6 top-block-tasknew">
-            <label class="label-tasknew">
+            <label class="label-tasknew label-help">
                 Тип отчета
+                <span class="help-link"><i class="fas fa-info-circle"></i>
+                     <div class="help-link-tooltip">
+                        <div class="card">
+                            <div class="help-link-tooltip-body">
+                                <div>
+                                    <p class="help-link-tooltip-body__content">
+                                       Статистика по компании или сотруднику за определенный период
+                                    </p>
+                                    <a class="help-link-tooltip-body__link" href="https://lusy.io/ru/help/ceo/#report">Подробнее</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </span>
             </label>
             <div class="card card-tasknew" id="selectTypeReport">
                 <div class="report-select">
