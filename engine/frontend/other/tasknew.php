@@ -122,10 +122,23 @@ $borderColor = [
                     <div class="row top-block-tasknew">
                         <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                             <div class="label-tasknew text-left">
-                                Повторение задачи
-                                <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
-                                      title="Доступно только для задач, назначенных самому себе"><i
-                                            class="fas fa-info-circle"></i></span>
+                                <span class="link-help-underline">Повторение задачи
+                                         <span class="help-link"><i class="fas fa-info-circle"></i>
+                                             <div class="help-link-tooltip">
+                                                <div class="card">
+                                                    <div class="help-link-tooltip-body">
+                                                        <div>
+                                                            <p class="help-link-tooltip-body__content">
+                                                               Доступно только для задач, назначенных самому себе
+                                                            </p>
+                                                            <a class="help-link-tooltip-body__link"
+                                                               href="https://lusy.io/ru/help/tasks/#repeat">Подробнее</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
                             </div>
                             <div class="card card-tasknew">
                                 <?php
