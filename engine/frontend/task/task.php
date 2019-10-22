@@ -134,6 +134,10 @@ if ($id == $worker and $view == 0) {
                                                                     class="badge badge-info"><i
                                         class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
                     <?php endif; ?>
+                    <?php if (!is_null($repeatType) && $repeatType > 0): ?>
+                        <a href="#"><span class="badge badge-info">
+                                <i class="fas fa-calendar-alt mr-2"></i>Повторяющаяся</span></a>
+                    <?php endif; ?>
                 </div>
                 <div class="col-8 col-lg-8">
                     <span class="badge <?= $statusBar[$status]['bg'] ?>"><?= $GLOBALS["_{$status}"] ?></span>
@@ -143,6 +147,10 @@ if ($id == $worker and $view == 0) {
                                                                                                   title="Перейти к надзадаче"
                                                                                                   class="badge badge-info"><i
                                         class="fas fa-clipboard mr-2"></i><?= $parentTaskName ?></span></a>
+                    <?php endif; ?>
+                    <?php if ($repeatType > 0): ?>
+                        <a class="subtask-badge-desktop" href="#"><span class="badge badge-info">
+                                <i class="fas fa-calendar-alt mr-2"></i>Повторяющаяся</span></a>
                     <?php endif; ?>
                 </div>
                 <div class="col-4 col-lg-4">
@@ -299,6 +307,11 @@ if ($id == $worker and $view == 0) {
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
+                <?php if (!is_null($repeatTask)): ?>
+                <div>
+                    <p class="text-muted-new small">Файлы прикреплены к <a href="/task/<?= $repeatTask?>/">оригиналу задачи</a></p>
+                </div>
+                <?php endif; ?>
             <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
@@ -683,7 +696,7 @@ if ($id == $worker and $view == 0) {
 <script>
     var $it = '<?=$idtask?>';
 </script>
-<script src="/assets/js/task.js?3"></script>
+<script src="/assets/js/task.js?4"></script>
 <script src="/assets/js/datepicker.js"></script>
 <script>
     $(function () {

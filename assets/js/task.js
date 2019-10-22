@@ -534,6 +534,7 @@ $(document).ready(function () {
         } else {
             $(this).prop('disabled', true);
             $("#cancelTask").prop('disabled', true);
+            $('#cancelRepeat').prop('disabled', true);
             $.ajax({
                 url: '/ajax.php',
                 type: 'POST',
@@ -549,6 +550,7 @@ $(document).ready(function () {
                     } else {
                         $('#workdone').prop('disabled', false);
                         $("#cancelTask").prop('disabled', false);
+                        $('#cancelRepeat').prop('disabled', false);
                         response.tasks.forEach(function (e) {
                             highlightUnfinishedTasksById(e.id)
                         });
@@ -632,6 +634,7 @@ $(document).ready(function () {
             highlightUnfinishedTasks();
         } else {
             $(this).prop('disabled', true);
+            $('#cancelRepeat').prop('disabled', true);
             $("#workdone").prop('disabled', true);
             $.ajax({
                 url: '/ajax.php',
@@ -648,6 +651,7 @@ $(document).ready(function () {
                     } else {
                         $('#workdone').prop('disabled', false);
                         $("#cancelTask").prop('disabled', false);
+                        $('#cancelRepeat').prop('disabled', false);
                         response.tasks.forEach(function (e) {
                             highlightUnfinishedTasksById(e.id);
                         });
@@ -655,6 +659,34 @@ $(document).ready(function () {
                 },
             });
         }
+    });
+
+    // Отмена повторения задачи
+
+    $("#cancelRepeat").click(function () {
+        $(this).prop('disabled', true);
+        $("#workdone").prop('disabled', true);
+        $("#cancelTask").prop('disabled', true);
+
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                module: 'cancelRepeat',
+                it: $it,
+                ajax: 'task-control'
+            },
+            success: function (response) {
+                if (response.status) {
+                    controlUpdate()
+                } else {
+                    $(this).prop('disabled', false);
+                    $('#workdone').prop('disabled', false);
+                    $("#cancelTask").prop('disabled', false);
+                }
+            },
+        });
     });
 
 

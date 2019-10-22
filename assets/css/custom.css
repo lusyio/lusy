@@ -356,7 +356,7 @@ h5, .ns {
 
 #control .btn {
     border-radius: 20px;
-    padding: 10px 35px;
+    padding: 10px 30px;
     height: 46px;
 }
 
@@ -3228,12 +3228,12 @@ span.date {
     transition: 200ms;
 }
 
-.select-subtask {
+.select-subtask, .select-repeat {
     padding: 7px;
     transition: 200ms;
 }
 
-.select-subtask:hover {
+.select-subtask:hover, .select-repeat:hover {
     color: #444;
     background-color: #f2f2f2;
     cursor: pointer;

@@ -71,9 +71,11 @@ if (isset($_POST['it'])) {
         $isWorker = true;
     }
     $taskStatus = $task->get('status');
-    if (in_array($taskStatus, ['done', 'canceled'])) {
+
+    if (in_array($taskStatus, ['done', 'canceled']) && (!isset($_POST['module']) || $_POST['module'] != 'cancelRepeat')) {
         exit;
     }
+    $repeatType = $task->get('repeat_type');
 
 // Перенос старта задачи - есть метод в классе
     if ($_POST['module'] == 'changeStartDate') {
@@ -168,8 +170,15 @@ if (isset($_POST['it'])) {
                     $_SESSION['showRateModal'] = true;
                 }
             }
+            $subTasks = $task->get('subTasks');
+            if (count($subTasks) > 0) {
+                foreach ($subTasks as $subTask) {
+                    if ($subTask->get('repeat_type') > 0) {
+                        Task::cancelRepeat($subTask->get('id'));
+                    }
+                }
+            }
         }
-
         echo json_encode($unfinishedSubTasks);
     }
 
@@ -185,6 +194,14 @@ if (isset($_POST['it'])) {
                 $count = DBOnce('COUNT(DISTINCT id)', 'tasks', "status IN ('done', 'canceled') AND manager = 1 AND worker = " . $id);
                 if ($count > 1) {
                     $_SESSION['showRateModal'] = true;
+                }
+            }
+            $subTasks = $task->get('subTasks');
+            if (count($subTasks) > 0) {
+                foreach ($subTasks as $subTask) {
+                    if ($subTask->get('repeat_type') > 0) {
+                        Task::cancelRepeat($subTask->get('id'));
+                    }
                 }
             }
         }

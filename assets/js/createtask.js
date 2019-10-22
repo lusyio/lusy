@@ -178,6 +178,9 @@ $(document).ready(function () {
                 $('#searchSubtask').val('');
             }
         }
+        if (!$(e.target).closest(".container-repeat").length) {
+            $('.repeat').fadeOut(300);
+        }
     });
 
     function filterSubasks() {
@@ -237,7 +240,9 @@ $(document).ready(function () {
 
 //работа с ответственными
     $(".container-responsible").on('click', function () {
-        $(".responsible").fadeToggle(200);
+        if (checkForRepeat()) {
+            $(".responsible").fadeToggle(200);
+        }
     });
 
     $(document).on('click', function (e) {
@@ -257,12 +262,16 @@ $(document).ready(function () {
         $('.container-coworker').find("[val = " + id + "]").addClass('d-none');
         $('.container-responsible').find("[val = " + id + "]").removeClass('d-none').addClass('responsible-selected');
         updateCoworkers();
+        toggleRepeat();
     });
 
 //работа с соисполнителями
     $(".container-coworker ").on('click', function () {
-        $(".coworkers").fadeToggle(200);
-        coworkersListEmpty();
+        if (checkForRepeat()) {
+            $(".coworkers").fadeToggle(200);
+            coworkersListEmpty();
+            toggleRepeat();
+        }
     });
 
     $(document).on('click', function (e) { // событие клика по веб-документу
@@ -282,6 +291,7 @@ $(document).ready(function () {
         updateResponsible();
         checkPlaceholderCoworkers();
         coworkersListEmpty();
+        toggleRepeat();
     });
 
     $(".select-coworker").on('click', function () {
@@ -292,6 +302,7 @@ $(document).ready(function () {
         $('.container-coworker').find("[val = " + id + "]").removeClass('d-none');
         updateResponsible();
         coworkersListEmpty();
+        toggleRepeat();
     });
 
 //создание новой задачи
@@ -318,6 +329,11 @@ $(document).ready(function () {
         $('.add-worker:visible').each(function () {
             coworkers.push($(this).attr('val'));
         });
+        var selectedRepeat = $('.add-repeat.repeat-selected');
+        var taskRepeatType = 0;
+        if (selectedRepeat.length > 0) {
+            taskRepeatType = selectedRepeat.attr('val');
+        }
         var checkList = [];
         var oldChecklistRows = [];
         $('.check-list-new.checklist-selected').each(function () {
@@ -362,6 +378,7 @@ $(document).ready(function () {
         fd.append('startdate', startdate);
         fd.append('worker', responsible);
         fd.append('coworkers', JSON.stringify(coworkers));
+        fd.append('repeatType', taskRepeatType);
         fd.append('checklist', JSON.stringify(checkList));
         fd.append('googleAttach', JSON.stringify(attachedGoogleFiles));
         fd.append('dropboxAttach', JSON.stringify(attachedDropboxFiles));
@@ -466,5 +483,59 @@ $(document).ready(function () {
         } else if ($(this).attr('button-action') == 'remove') {
             $(this).parents('.coworker-item').remove();
         }
-    })
+    });
+
+    //Работа с повторением задачи
+
+    $(".container-repeat").on('click', function () {
+        if (!$('.container-repeat').hasClass('disabled')) {
+            $(".repeat").fadeToggle(200);
+        }
+    });
+
+    var repeatType;
+    $(".select-repeat").on('click', function () {
+        $('.placeholder-repeat').hide();
+        repeatType = $(this).attr('val');
+        var selected = $('.add-repeat:visible').attr('val');
+        $('.repeat-card').find("[val = " + selected + "]").removeClass('d-none');
+        $(this).addClass('d-none');
+        $('.add-repeat').addClass('d-none').removeClass('repeat-selected');
+        $('.container-repeat').find("[val = " + repeatType + "]").removeClass('d-none').addClass('repeat-selected');
+        $(".repeat").fadeOut(200);
+    });
+
+    $('.container-repeat').on('click', '.repeat-selected', function () {
+        if (!$('.container-repeat').hasClass('disabled')) {
+            $(this).addClass('d-none').removeClass('repeat-selected');
+            $('.placeholder-repeat').show();
+            $('.select-repeat').removeClass('d-none');
+            $(".repeat").fadeOut(200);
+        }
+    });
+
+    function toggleRepeat() {
+        if ($('.add-responsible.responsible-selected').hasClass('self-user') && $('.add-worker:visible').length === 0) {
+            $('.container-repeat').removeClass('disabled')
+        } else {
+            $('.container-repeat').addClass('disabled')
+        }
+    }
+
+    function checkForRepeat() {
+        if ($('.add-repeat.repeat-selected').length > 0) {
+            $('.container-repeat').css({
+                'background-color': 'rgba(255, 242, 242, 1)',
+                'transition': '1000ms'
+            });
+            setTimeout(function () {
+                $('.container-repeat').css('background-color', '#fff');
+            }, 1000);
+            $('html, body').animate({
+                scrollTop: $(".container-repeat").offset().top
+            }, 500);
+            return false;
+        }
+        return true;
+    }
 });

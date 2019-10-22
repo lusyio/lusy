@@ -21,7 +21,7 @@ $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                     <div class="col text-left">
                         <span class="text-muted">Ответственный</span>
                     </div>
-                    <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'coworker') && count($users) > 1): ?>
+                    <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'coworker') && count($users) > 1 && $repeatType < 1): ?>
                         <div class="col-2 text-right">
                             <i class="fas fa-pencil-alt icon-members-change-responsible" data-toggle="collapse"
                                data-target="#responsibleList" aria-expanded="false" aria-controls="responsibleList"></i>
@@ -57,7 +57,7 @@ $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                 </div>
             </div>
             <div class="members-coworkers">
-            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager') && $manager != 1 && count($users) > 1): ?>
+            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager') && $manager != 1 && count($users) > 1 && $repeatType < 1): ?>
                 <div class="row p-5px">
                     <div class="col text-justify">
                         <span class="text-muted">Соисполнители</span>
@@ -128,7 +128,7 @@ $users = DB('*', 'users', 'idcompany=' . $GLOBALS["idc"] . ' AND is_fired = 0');
                 </div>
                 <?php endforeach; ?>
             </div>
-            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager') && count($users) > 1): ?>
+            <?php if (($status != 'done' && $status != 'canceled') && ($isCeo || $role == 'manager') && count($users) > 1 && $repeatType < 1): ?>
             <div class="mt-3 text-center">
                 <button class="btn btn-primary btn-sm" id="confirmMembers" type="button">Сохранить</button>
             </div>

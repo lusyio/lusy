@@ -17,6 +17,7 @@ class Task
         if (is_null($taskData)) {
             $taskQuery = $pdo->prepare("SELECT t.id, t.name, t.status, t.description, t.author, t.manager, t.worker, 
           t.idcompany, t.view, t.datecreate, t.datedone, t.report, t.view_status, t.parent_task, t.checklist, t.with_premium,
+          t.repeat_type, t.repeat_task,
           (SELECT COUNT(*) FROM comments c WHERE c.status='comment' AND c.idtask = t.id) AS countComments,
           (SELECT COUNT(*) FROM events e WHERE e.action='comment' AND e.task_id = t.id AND recipient_id = :userId AND e.view_status = 0) AS countNewComments,
           (SELECT COUNT(DISTINCT u.file_id) FROM uploads u LEFT JOIN events e ON u.comment_id = e.comment WHERE u.comment_type='comment' AND (e.action='comment' OR e.action='review') AND e.task_id = t.id AND recipient_id = :userId AND e.view_status = 0) AS countNewFiles,
@@ -75,7 +76,11 @@ class Task
         }
 
         $filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, is_deleted, cloud FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
-        $filesQuery->execute(array(':commentId' => $taskId, ':commentType' => 'task'));
+        if (!is_null($this->taskData['repeat_task']) || $this->taskData['repeat_type'] > 0) {
+            $filesQuery->execute(array(':commentId' => $this->taskData['repeat_task'], ':commentType' => 'task'));
+        } else {
+            $filesQuery->execute(array(':commentId' => $taskId, ':commentType' => 'task'));
+        }
         $this->taskData['files'] = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
         foreach ($this->taskData['files'] as $key => $file) {
             $fileNameParts = explode('.', $file['file_name']);
@@ -412,7 +417,7 @@ class Task
         }
     }
 
-    public static function createTask($name, $description, $dateCreate, $manager, $worker, $coworkers, $dateDone, $checkList, $parentTaskId, $taskPremiumType)
+    public static function createTask($name, $description, $dateCreate, $manager, $worker, $coworkers, $dateDone, $checkList, $parentTaskId, $taskPremiumType, $repeatType)
     {
         global $pdo;
         global $id;
@@ -445,12 +450,13 @@ class Task
             ':checkList' => json_encode($checkList),
             ':parentTask' => null,
             ':withPremium' => 0,
+            ':repeatType' => $repeatType,
         ];
 
         if ($parentTaskId != 0 && ($taskPremiumType >= 0)) {
             $parentTask = new Task($parentTaskId);
             if (in_array($id, [$parentTask->get('manager'), $parentTask->get('worker')]) || ($roleu == 'ceo' && $parentTask->get('idcompany') == $idc)) {
-                if (is_null($parentTask->get('parent_task'))) {
+                if (is_null($parentTask->get('parent_task')) && $parentTask->get('repeat_type') < 1) {
                     $taskCreateQueryData[':parentTask'] = $parentTask->get('id');
                     $taskCreateQueryData[':withPremium'] = 1;
                     $usePremiumTask = true;
@@ -464,7 +470,7 @@ class Task
             $taskCreateQueryData[':status'] = 'planned';
             $usePremiumTask = true;
         }
-        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, with_premium, checklist) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :withPremium, :checkList)");
+        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, with_premium, checklist, repeat_type) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :withPremium, :checkList, :repeatType)");
         $taskCreateQuery->execute($taskCreateQueryData);
         if ($taskCreateQuery) {
             $taskId = $pdo->lastInsertId();
@@ -558,11 +564,19 @@ class Task
     {
         $usePremiumCloud = false;
         if (count($files['google']) > 0 && ($cloudPremiumType >= 0)) {
-            addGoogleFiles('task', $this->get('id'), $files['google']);
+            if (!is_null($this->get('repeat_task') && $this->get('repeat_type') > 0)) {
+                addGoogleFiles('task', $this->get('repeat_task'), $files['google']);
+            } else {
+                addGoogleFiles('task', $this->get('id'), $files['google']);
+            }
             $usePremiumCloud = true;
         }
         if (count($files['dropbox']) > 0 && ($cloudPremiumType >= 0)) {
-            addDropboxFiles('task', $this->get('id'), $files['dropbox']);
+            if (!is_null($this->get('repeat_task') && $this->get('repeat_type') > 0)) {
+                addDropboxFiles('task', $this->get('repeat_task'), $files['dropbox']);
+            } else {
+                addDropboxFiles('task', $this->get('id'), $files['dropbox']);
+            }
             $usePremiumCloud = true;
         }
         if ($cloudPremiumType == 0 && $usePremiumCloud) {
@@ -573,7 +587,11 @@ class Task
     public function attachDeviceFilesToTask()
     {
         if (count($_FILES) > 0) {
-            uploadAttachedFiles('task', $this->get('id'));
+            if (!is_null($this->get('repeat_task') && $this->get('repeat_type') > 0)) {
+                uploadAttachedFiles('task', $this->get('repeat_task'));
+            } else {
+                uploadAttachedFiles('task', $this->get('id'));
+            }
         }
     }
 
@@ -631,7 +649,7 @@ class Task
         global $idc;
         global $pdo;
         $parentTask = new Task($parentTaskId);
-        if ($parentTask->get('idcompany') == $idc && $parentTaskId != $this->get('parent_task') && is_null($parentTask->get('parent_task')) && count($this->get('subTasks')) == 0) {
+        if ($parentTask->get('idcompany') == $idc && $parentTaskId != $this->get('parent_task') && is_null($parentTask->get('parent_task')) && count($this->get('subTasks')) == 0 && $parentTask->get('repeat_type') < 1) {
             $addParentTaskQuery = $pdo->prepare("UPDATE tasks SET parent_task = :parentTaskId WHERE id = :taskId");
             $addParentTaskQuery->execute([':taskId' => $this->get('id'), ':parentTaskId' => $parentTaskId]);
             addSubTaskComment($parentTaskId, $this->get('id'));
@@ -659,5 +677,141 @@ class Task
         $query->execute([':taskId' => $taskId]);
         $companyId = $query->fetch(PDO::FETCH_COLUMN);
         return $companyId;
+    }
+
+    public function changeRepeatType($repeatType)
+    {
+        global $pdo;
+        if ($repeatType == 0) {
+            Task::cancelRepeat($this->get('id'));
+        } else {
+            $addParentTaskQuery = $pdo->prepare("UPDATE tasks SET repeat_type = :repeatType WHERE id = :taskId");
+            $addParentTaskQuery->execute([':taskId' => $this->get('id'), ':repeatType' => $repeatType]);
+        }
+        return true;
+    }
+
+    public static function repeatTask($originTaskId, $dateCreate, $dateDone, $repeatTask, $repeatType)
+    {
+        global $pdo;
+
+        $originTask = new Task($originTaskId);
+
+        $tryPremiumLimits = getFreePremiumLimits($originTask->get('idcompany'));
+// Возможность премиум: 1 - премиум-тариф, 0 - бесплатный тариф, есть бесплатные попытки,
+// -1 - бесплатный тариф, нет бесплатных попыток
+        $tariffQuery = $pdo->prepare("SELECT tariff FROM company WHERE id = :companyId");
+        $tariffQuery->execute([':companyId' => $originTask->get('idcompany')]);
+        $tariff = $tariffQuery->fetch(PDO::FETCH_COLUMN);
+        if ($tariff == 1) {
+            $cloudPremiumType = 1;
+            $taskPremiumType = 1;
+        } else {
+            // Прикрепление из облака
+            if ($tryPremiumLimits['cloud'] < 3) {
+                $cloudPremiumType = 0;
+            } else {
+                $cloudPremiumType = -1;
+            }
+            // Дополнительные функции задачи
+            if ($tryPremiumLimits['task'] < 3) {
+                $taskPremiumType = 0;
+            } else {
+                $taskPremiumType = -1;
+            }
+        }
+
+        // Проверяем, что сотрудник не уволен
+        $companyUsersQuery = $pdo->prepare("SELECT id FROM users WHERE idcompany = :companyId AND is_fired = 0");
+        $companyUsersQuery->execute([':companyId' => $originTask->get('idcompany')]);
+        $companyUsers = $companyUsersQuery->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array($originTask->get('manager'), $companyUsers)) {
+            return false;
+        }
+
+        $usePremiumTask = false;
+        $taskCreateQueryData = [
+            ':name' => $originTask->get('name'),
+            ':description' => $originTask->get('description'),
+            ':dateCreate' => $dateCreate,
+            ':author' => $originTask->get('manager'),
+            ':manager' => $originTask->get('manager'),
+            ':worker' => $originTask->get('manager'),
+            ':companyId' => $originTask->get('idcompany'),
+            ':datedone' => $dateDone,
+            ':status' => 'new',
+            ':parentTask' => null,
+            ':withPremium' => 0,
+            ':repeatType' => $repeatType,
+            ':repeatTask' => $repeatTask,
+        ];
+
+        if (count(json_decode($originTask->get('checklist'), true)) > 0 && $taskPremiumType >= 0) {
+            $taskCreateQueryData[':checkList'] = $originTask->get('checklist');
+            $taskCreateQueryData[':withPremium'] = 1;
+            $usePremiumTask = true;
+        } else {
+            $taskCreateQueryData[':checkList'] = json_encode([]);
+        }
+
+        $roleu = DBOnce('role', 'users', 'id = ' . $originTask->get('manager'));
+        if ($originTask->get('parent_task') != 0 && $taskPremiumType >= 0) {
+            $parentTask = new Task($originTask->get('parent_task'));
+            if (in_array($originTask->get('manager'), [$parentTask->get('manager'), $parentTask->get('worker')]) || ($roleu == 'ceo' && $parentTask->get('idcompany') == $originTask->get('idcompany'))) {
+                if (is_null($parentTask->get('parent_task')) && !in_array($parentTask->get('status'), ['done', 'canceled'])) {
+                    $taskCreateQueryData[':parentTask'] = $parentTask->get('id');
+                    $taskCreateQueryData[':withPremium'] = 1;
+                    $usePremiumTask = true;
+                }
+            }
+        }
+        $taskCreateQuery = $pdo->prepare("INSERT INTO tasks(name, description, datecreate, datedone, datepostpone, status, author, manager, worker, idcompany, report, view, parent_task, with_premium, checklist, repeat_type, repeat_task) VALUES (:name, :description, :dateCreate, :datedone, NULL, :status, :author, :manager, :worker, :companyId, :description, '0', :parentTask, :withPremium, :checkList, :repeatType, :repeatTask)");
+        $taskCreateQuery->execute($taskCreateQueryData);
+        if ($taskCreateQuery) {
+            $taskId = $pdo->lastInsertId();
+//            resetViewStatus($taskId); // Если раскомментировать, то повторяющиеся задачи будут помечены как прочитанные
+            $GLOBALS['id'] = $originTask->get('manager');
+            $GLOBALS['idc'] = $originTask->get('idcompany');
+            addTaskCreateComments($taskId, $originTask->get('manager'), []);
+            addEvent('createtask', $taskId, $dateDone, $originTask->get('manager'));
+
+            if (!is_null($taskCreateQueryData[':parentTask'])) {
+                addSubTaskComment($taskCreateQueryData[':parentTask'], $taskId);
+                addNewSubTaskEvent($taskCreateQueryData[':parentTask'], $taskId);
+            }
+
+            if ($taskPremiumType == 0 && $usePremiumTask) {
+                updateFreePremiumLimits($originTask->get('idcompany'), 'task');
+            }
+            unset($GLOBALS['id']);
+            unset($GLOBALS['idc']);
+            return new Task($taskId);
+        } else {
+            return false;
+        }
+    }
+
+    public static function cancelRepeat($taskId)
+    {
+        global $id;
+        global $idc;
+        global $pdo;
+        global $roleu;
+
+        $task = new Task($taskId);
+        if ($task->get('manager') != $id && $task->get('worker') != $id && $task->get('idcompany') != $idc && $roleu != 'ceo') {
+            return false;
+        }
+        $setRepeatTypeForPrimaryTaskQuery = $pdo->prepare("UPDATE tasks SET repeat_type = 0 WHERE id = :taskId");
+        $setRepeatTypeForSecondaryTasksQuery = $pdo->prepare("UPDATE tasks SET repeat_type = 0 WHERE repeat_task = :taskId");
+
+        if (is_null($task->get('repeat_task'))) {
+            $primaryTask = $task->get('id');
+        } else {
+            $primaryTask = $task->get('repeat_task');
+        }
+        $setRepeatTypeForPrimaryTaskQuery->execute([':taskId' => $primaryTask]);
+        $setRepeatTypeForSecondaryTasksQuery->execute([':taskId' => $primaryTask]);
+        return true;
     }
 }

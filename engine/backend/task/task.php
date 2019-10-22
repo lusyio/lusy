@@ -129,3 +129,5 @@ if (!is_null($parentTaskId)) {
     $parentTaskName = $parentTask->get('name');
 }
 
+$repeatType = $task->get('repeat_type');
+$repeatTask = $task->get('repeat_task');

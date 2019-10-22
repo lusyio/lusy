@@ -27,7 +27,7 @@ if ($isCeo) {
 } else {
     $parentTasksQuery = $pdo->prepare("SELECT id, name, description, status, manager, worker, idcompany, report, view, view_status, author, datecreate, datepostpone, datedone 
 FROM tasks 
-WHERE (manager = :managerId OR worker = :managerId) AND ((status NOT IN ('done', 'canceled', 'planned')) OR (status = 'planned' AND (manager = :managerId OR worker = :managerId))) AND parent_task IS NULL");
+WHERE (manager = :managerId OR worker = :managerId) AND ((status NOT IN ('done', 'canceled', 'planned')) OR (status = 'planned' AND (manager = :managerId OR worker = :managerId))) AND parent_task IS NULL AND repeat_type < 1");
     $parentTasksQuery->execute([':managerId' => $id]);
     $parentTasks = $parentTasksQuery->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -61,6 +61,8 @@ if (isset($_GET['edit']) && $_GET['edit'] == 1) {
     }
     $taskStatus = $task->get('status');
     $withPremium = $task->get('with_premium');
+    $repeatTask = $task->get('repeat_task');
+    $repeatType = $task->get('repeat_type');
     $taskEdit = true;
     $hasSubTasks = false;
     if (count($task->get('subTasks')) > 0) {
