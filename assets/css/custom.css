@@ -365,7 +365,7 @@ h5, .ns {
     width: 210px;
 }
 
-.help-link-tooltip__reports{
+.help-link-tooltip__reports {
     bottom: unset;
     top: 10px;
     position: absolute;
@@ -376,7 +376,7 @@ h5, .ns {
     display: none;
 }
 
-.help-link-tooltip-body__content{
+.help-link-tooltip-body__content {
     font-weight: 500;
     color: #353b41;
 }
@@ -386,15 +386,15 @@ h5, .ns {
     position: relative;
 }
 
-.edge-right{
+.edge-right {
     right: 0 !important;
 }
 
-.edge-right__mobile{
+.edge-right__mobile {
     right: -6rem !important;
 }
 
-.edge-bottom{
+.edge-bottom {
     bottom: unset !important;
     top: 10px !important;
 }
@@ -421,15 +421,21 @@ h5, .ns {
 .help-link-tooltip {
     position: absolute;
     padding: 18px;
-    opacity: 1;
     bottom: 10px;
     right: -207px;
     z-index: 10;
-    display: none;
+    opacity: 0;
+    -webkit-transition: 200ms ease-in, visibility 0s;
+    -moz-transition: 200ms ease-in, visibility 0s;
+    -ms-transition: 200ms ease-in, visibility 0s;
+    -o-transition: 200ms ease-in, visibility 0s;
+    transition: 200ms ease-in, visibility 0s;
+    visibility: hidden;
 }
 
-.help-link:hover > .help-link-tooltip, .help-link:hover > .help-link-tooltip__reports {
-    display: block;
+.help-link:hover > .help-link-tooltip {
+    opacity: 1;
+    visibility: visible;
 }
 
 #control .btn {
