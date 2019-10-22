@@ -62,7 +62,8 @@ $borderColor = [
                                     <p class="help-link-tooltip-body__content">
                                        Ответственный - пользователь, отвечающий за выполнение задачи
                                     </p>
-                                    <a class="help-link-tooltip-body__link" href="https://lusy.io/ru/help/tasks/#members">Подробнее</a>
+                                    <a class="help-link-tooltip-body__link"
+                                       href="https://lusy.io/ru/help/tasks/#members">Подробнее</a>
                                 </div>
                             </div>
                         </div>
@@ -213,13 +214,13 @@ $borderColor = [
                                     </div>
                                 </span>
                             </span>
-                            <?php if (($taskEdit && $taskStatus == 'planned') || !$taskEdit): ?>
+                                    <?php if (($taskEdit && $taskStatus == 'planned') || !$taskEdit): ?>
 
-                            <?php else: ?>
-                                <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
-                                      title="Задача уже в работе"><i
-                                            class="fas fa-info-circle"></i></span>
-                            <?php endif; ?>
+                                    <?php else: ?>
+                                        <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
+                                              title="Задача уже в работе"><i
+                                                    class="fas fa-info-circle"></i></span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="card card-tasknew">
                                     <?php if ($taskEdit && $taskStatus != 'planned'): ?>
@@ -298,7 +299,23 @@ $borderColor = [
                         <div class="row">
                             <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
                                 <div class="label-tasknew text-left">
-                                    Надзадача
+                                    <span class="link-help-underline">Надзадача
+                                         <span class="help-link"><i class="fas fa-info-circle"></i>
+                                             <div class="help-link-tooltip">
+                                                <div class="card">
+                                                    <div class="help-link-tooltip-body">
+                                                        <div>
+                                                            <p class="help-link-tooltip-body__content">
+                                                               Это создаст вложенную задачу, т.е. текущая задача станет подзадачей для выбранной
+                                                            </p>
+                                                            <a class="help-link-tooltip-body__link"
+                                                               href="https://lusy.io/ru/help/tasks/#parentTask">Подробнее</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </span>
                                 </div>
                                 <div class="card card-tasknew">
                             <span class="position-absolute disabledBtnOptions">
@@ -313,7 +330,23 @@ $borderColor = [
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="label-tasknew text-left">
-                                    Дата старта
+                                    <span class="link-help-underline">Отложенный старт
+                                <span class="help-link"><i class="fas fa-info-circle"></i>
+                                     <div class="help-link-tooltip">
+                                        <div class="card">
+                                            <div class="help-link-tooltip-body">
+                                                <div>
+                                                    <p class="help-link-tooltip-body__content">
+                                                       Дата, в которую задача будет опубликована
+                                                    </p>
+                                                    <a class="help-link-tooltip-body__link"
+                                                       href="https://lusy.io/ru/help/tasks/#plannedTask">Подробнее</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                            </span>
                                 </div>
                                 <div class="card card-tasknew">
                             <span class="position-absolute disabledBtnOptions">
@@ -328,7 +361,23 @@ $borderColor = [
                         <div class="row mt-13px">
                             <div class="col-12 col-lg-8 top-block-tasknew">
                                 <div class="label-tasknew text-left">
-                                    Подпункты
+                                    <span class="link-help-underline">Подпункты
+                                      <span class="help-link"><i class="fas fa-info-circle"></i>
+                                         <div class="help-link-tooltip">
+                                            <div class="card">
+                                                <div class="help-link-tooltip-body">
+                                                    <div>
+                                                        <p class="help-link-tooltip-body__content">
+                                                           По-другому - чеклист - список того, что нужно не забыть выполнить
+                                                        </p>
+                                                        <a class="help-link-tooltip-body__link"
+                                                           href="https://lusy.io/ru/help/tasks/#checkList">Подробнее</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </span>
+                                    </span>
                                 </div>
                                 <div class="mb-2 card card-tasknew">
                             <span class="position-absolute disabledBtnOptions">
@@ -644,8 +693,8 @@ $borderColor = [
     <?php endif; ?>
     <script>
 
-
         $(document).ready(function () {
+
             $('.other-func').on('click', function () {
                 $('#collapseFunctions').collapse('toggle');
             });

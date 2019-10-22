@@ -8,7 +8,7 @@
             <label class="label-tasknew label-help">
                 Тип отчета
                 <span class="help-link"><i class="fas fa-info-circle"></i>
-                     <div class="help-link-tooltip__reports">
+                     <div class="help-link-tooltip">
                         <div class="card">
                             <div class="help-link-tooltip-body">
                                 <div>

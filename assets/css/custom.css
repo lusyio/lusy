@@ -386,6 +386,19 @@ h5, .ns {
     position: relative;
 }
 
+.edge-right{
+    right: 0 !important;
+}
+
+.edge-right__mobile{
+    right: -6rem !important;
+}
+
+.edge-bottom{
+    bottom: unset !important;
+    top: 10px !important;
+}
+
 .help-link-tooltip-body__link:hover {
     text-decoration: none;
     color: #28416b;
