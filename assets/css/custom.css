@@ -425,11 +425,11 @@ h5, .ns {
     right: -207px;
     z-index: 10;
     opacity: 0;
-    -webkit-transition: 200ms ease-in, visibility 0s;
-    -moz-transition: 200ms ease-in, visibility 0s;
-    -ms-transition: 200ms ease-in, visibility 0s;
-    -o-transition: 200ms ease-in, visibility 0s;
-    transition: 200ms ease-in, visibility 0s;
+    -webkit-transition: opacity 200ms ease-in, visibility 0s;
+    -moz-transition: opacity 200ms ease-in, visibility 0s;
+    -ms-transition: opacity 200ms ease-in, visibility 0s;
+    -o-transition: opacity 200ms ease-in, visibility 0s;
+    transition: opacity 200ms ease-in, visibility 0s;
     visibility: hidden;
 }
 
