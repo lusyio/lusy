@@ -150,7 +150,7 @@ $borderColor = [
                                                     <div class="help-link-tooltip-body">
                                                         <div>
                                                             <p class="help-link-tooltip-body__content">
-                                                               Текущая задача станет подзадачей для выбранной задачи
+                                                               Это создаст вложенную задачу, т.е. текущая задача станет подзадачей для выбранной
                                                             </p>
                                                             <a class="help-link-tooltip-body__link"
                                                                href="https://lusy.io/ru/help/tasks/#parentTask">Подробнее</a>
@@ -250,7 +250,7 @@ $borderColor = [
                                                 <div class="help-link-tooltip-body">
                                                     <div>
                                                         <p class="help-link-tooltip-body__content">
-                                                           По-другому - чеклист - список, каждый пункт которого можно отметить
+                                                           По-другому - чеклист - список того, что нужно не забыть выполнить
                                                         </p>
                                                         <a class="help-link-tooltip-body__link"
                                                            href="https://lusy.io/ru/help/tasks/#checkList">Подробнее</a>
