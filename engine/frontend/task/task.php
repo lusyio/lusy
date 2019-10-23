@@ -259,59 +259,68 @@ if ($id == $worker and $view == 0) {
                 </div>
             <?php endif; ?>
             <?php if (count($files) > 0): ?>
-            <div class="d-flex flex-wrap">
-                <?php foreach ($files as $file): ?>
-                    <?php if ($file['is_deleted']): ?>
-                        <div class="deleted-files-container mr-2 mb-2">
-                            <div class="deleted-file-icon text-center">
-                                <i class="far fa-times-circle"></i>
+                <div class="d-flex flex-wrap">
+                    <?php foreach ($files as $file): ?>
+                        <?php if ($file['is_deleted']): ?>
+                            <div class="deleted-files-container mr-2 mb-2">
+                                <div class="deleted-file-icon text-center">
+                                    <i class="far fa-times-circle"></i>
+                                </div>
+                                <p class="photo-preview-area-message m-0 text-center text-muted-new small file">
+                                    <s>
+                                        <?= $file['file_name'] ?>
+                                    </s>
+                                </p>
                             </div>
-                            <p class="photo-preview-area-message m-0 text-center text-muted-new small file">
-                                <s>
-                                    <?= $file['file_name'] ?>
-                                </s>
-                            </p>
-                        </div>
-                    <?php else: ?>
-                    <?php if (in_array($file['extension'],['png', 'jpeg', 'jpg', 'bmp'])): ?>
-                    <div class="photo-preview-container-task-hover mr-2 mb-2">
-                        <div class="text-secondary photo-preview-container photo-preview-container-task clear_fix mb-4">
-                            <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="pointer-events: none;background-image: url('/<?= $file['file_path']; ?>')"
-                                                     href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
-                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
-                            <p class="small text-muted-new text-center photo-preview-area-message m-0">
-                                <?= $file['file_name'] ?>
-                            </p>
-                        </div>
-                        <div class="photo-preview-background text-center" data-target=".bd-example-modal-xl" data-toggle="modal">
-                            <span class="photo-preview-background-icon"><i class="fas fa-search text-white"></i></span>
-                        </div>
-                    </div>
-                    <?php else: ?>
-                    <div class="photo-preview-container-task-hover mr-2 mb-2">
-                        <div class="text-secondary photo-preview-container photo-preview-container-task clear_fix mb-4">
-                            <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview" target="_blank" style="background-size: contain;background-image: url('/upload/file.png')"
-                               href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
-                                        class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
-                            <p class="small text-muted-new text-center photo-preview-area-message m-0">
-                                <?= $file['file_name'] ?>
-                            </p>
-                        </div>
-                        <a target="_blank" href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>">
-                            <div class="photo-preview-background text-center">
-                                <span class="photo-preview-background-icon"><i class="fas fa-external-link-alt text-white"></i></span>
-                            </div>
-                        </a>
-                    </div>
-                    <?php endif; ?>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-                <?php if (!is_null($repeatTask)): ?>
-                <div>
-                    <p class="text-muted-new small">Файлы прикреплены к <a href="/task/<?= $repeatTask?>/">оригиналу задачи</a></p>
+                        <?php else: ?>
+                            <?php if (!is_null($repeatTask)): ?>
+                                <div>
+                                    <p class="text-muted-new small">Файлы прикреплены к <a
+                                                href="/task/<?= $repeatTask ?>/">оригиналу задачи</a></p>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (in_array($file['extension'], ['png', 'jpeg', 'jpg', 'bmp'])): ?>
+                                <div class="photo-preview-container-task-hover mr-2 mb-2">
+                                    <div class="text-secondary photo-preview-container photo-preview-container-task clear_fix mb-4">
+                                        <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview"
+                                           target="_blank"
+                                           style="pointer-events: none;background-image: url('/<?= $file['file_path']; ?>')"
+                                           href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
+                                                    class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
+                                        <p class="small text-muted-new text-center photo-preview-area-message m-0">
+                                            <?= $file['file_name'] ?>
+                                        </p>
+                                    </div>
+                                    <div class="photo-preview-background text-center" data-target=".bd-example-modal-xl"
+                                         data-toggle="modal">
+                                        <span class="photo-preview-background-icon"><i
+                                                    class="fas fa-search text-white"></i></span>
+                                    </div>
+                                </div>
+                            <?php else: ?>
+                                <div class="photo-preview-container-task-hover mr-2 mb-2">
+                                    <div class="text-secondary photo-preview-container photo-preview-container-task clear_fix mb-4">
+                                        <a sizeFile="<?= $file['file_size'] ?>" class="text-secondary photo-preview"
+                                           target="_blank"
+                                           style="background-size: contain;background-image: url('/upload/file.png')"
+                                           href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>"><i
+                                                    class="fas fa-paperclip"></i> <?= $file['file_name'] ?></a>
+                                        <p class="small text-muted-new text-center photo-preview-area-message m-0">
+                                            <?= $file['file_name'] ?>
+                                        </p>
+                                    </div>
+                                    <a target="_blank"
+                                       href="<?= ($file['cloud'] == 1) ? $file['file_path'] : '../../' . $file['file_path']; ?>">
+                                        <div class="photo-preview-background text-center">
+                                            <span class="photo-preview-background-icon"><i
+                                                        class="fas fa-external-link-alt text-white"></i></span>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
-                <?php endif; ?>
             <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
@@ -386,8 +395,24 @@ if ($id == $worker and $view == 0) {
                         <?php $uploadModule = 'chat'; ?>
                         <?php include __ROOT__ . '/engine/frontend/other/upload-module.php'; ?>
 
-                        <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>"><i
-                                    class="fas fa-paper-plane"></i></button>
+                        <div class="position-relative">
+                            <button type="submit" id="comment" class="btn btn-primary" title="<?= $GLOBALS['_send'] ?>">
+                                <i
+                                        class="fas fa-paper-plane"></i></button>
+                            <div class="send-mes-tooltip send-mes-tooltip__comments">
+                                <div class="card">
+                                    <div class="send-mes-tooltip-body">
+                                        <div>
+                                            <b>Enter</b>
+                                            — Отправить сообщение
+                                            <br>
+                                            <b>Ctrl+Enter</b>
+                                            — Новая строка
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="bg-white file-name container-files display-none">
                     </div>
@@ -627,71 +652,71 @@ if ($id == $worker and $view == 0) {
             data-app-key="pjjm32k7twiooo2"></script>
 <?php endif; ?>
 <?php if ($manager == 1 && isset($_SESSION['showRateModal'])): ?>
-<?php unset($_SESSION['showRateModal']) ?>
-<div class="modal fade" id="rateModal" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-rate" role="document">
-        <div class="modal-content border-0">
-            <div class="modal-body pt-5 top-modal-body bg-white text-center position-relative">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <h2>
-                                Как вы оцениваете систему Lusy.io?
-                            </h2>
+    <?php unset($_SESSION['showRateModal']) ?>
+    <div class="modal fade" id="rateModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-rate" role="document">
+            <div class="modal-content border-0">
+                <div class="modal-body pt-5 top-modal-body bg-white text-center position-relative">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <h2>
+                                    Как вы оцениваете систему Lusy.io?
+                                </h2>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <span class="icon-close-modal">
+                    <span class="icon-close-modal">
             <button type="button" class="btn btn-light rounded-circle" data-dismiss="modal"><i
                         class="fas fa-times text-muted"></i></button>
             </span>
-            </div>
-            <div class="modal-body text-white pb-5 pt-5 bottom-modal-body position-relative">
-                <div class="like-modal answer">
-                    <img src="/assets/svg/like.svg" alt="">
                 </div>
-                <div class="dislike-modal answer">
-                    <img src="/assets/svg/dislike.svg" alt="">
+                <div class="modal-body text-white pb-5 pt-5 bottom-modal-body position-relative">
+                    <div class="like-modal answer">
+                        <img src="/assets/svg/like.svg" alt="">
+                    </div>
+                    <div class="dislike-modal answer">
+                        <img src="/assets/svg/dislike.svg" alt="">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $('#rateModal').modal('show');
-        $('.answer').on('click', function () {
-            var answer = '';
-            if ($(this).hasClass('like-modal')) {
-                answer = '1';
-            } else if ($(this).hasClass('dislike-modal')) {
-                answer = '-1';
-            }
-            var fd = new FormData();
-            fd.append('ajax', 'rate');
-            fd.append('module', 'rateModal');
-            fd.append('answer', answer);
-            $.ajax({
-                url: '/ajax.php',
-                type: 'POST',
-                cache: false,
-                processData: false,
-                contentType: false,
-                data: fd,
-                success: function () {
-                    $.when($('#rateModal h2').fadeOut(150)).done(function () {
-                        $('#rateModal h2').text('Спасибо за оценку!').fadeIn(200);
-                    });
-                    setTimeout(function () {
-                        $('#rateModal').modal('hide');
-                    }, 900);
-                },
+    <script>
+        $(document).ready(function () {
+            $('#rateModal').modal('show');
+            $('.answer').on('click', function () {
+                var answer = '';
+                if ($(this).hasClass('like-modal')) {
+                    answer = '1';
+                } else if ($(this).hasClass('dislike-modal')) {
+                    answer = '-1';
+                }
+                var fd = new FormData();
+                fd.append('ajax', 'rate');
+                fd.append('module', 'rateModal');
+                fd.append('answer', answer);
+                $.ajax({
+                    url: '/ajax.php',
+                    type: 'POST',
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function () {
+                        $.when($('#rateModal h2').fadeOut(150)).done(function () {
+                            $('#rateModal h2').text('Спасибо за оценку!').fadeIn(200);
+                        });
+                        setTimeout(function () {
+                            $('#rateModal').modal('hide');
+                        }, 900);
+                    },
+                });
             });
         });
-    });
-</script>
+    </script>
 <?php endif; ?>
 <script>
     var $it = '<?=$idtask?>';

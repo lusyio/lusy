@@ -2890,7 +2890,7 @@ table.dataTable thead .sorting_desc_disabled:before {
     display: none;
 }
 
-#sendBtn:hover ~ .send-mes-tooltip {
+#sendBtn:hover ~ .send-mes-tooltip, #comment:hover ~ .send-mes-tooltip {
     display: block;
 }
 
@@ -2910,6 +2910,15 @@ table.dataTable thead .sorting_desc_disabled:before {
 
 #sendMesName {
     font-size: 20px;
+}
+
+.send-mes-tooltip__comments{
+    position: absolute;
+    opacity: 1;
+    top: -85px;
+    left: -85px;
+    z-index: 10;
+    display: none;
 }
 
 .send-mes-tooltip-body {
@@ -6102,7 +6111,11 @@ label.error {
 
 .ripple {
     background-position: center !important;
-    transition: background 0.4s !important;
+    transition: background 0.4s;
+}
+
+.google-icon-btn.ripple{
+    transition: background 0.4s, box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
 }
 
 .ripple:hover {

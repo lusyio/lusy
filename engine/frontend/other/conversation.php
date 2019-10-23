@@ -196,7 +196,7 @@
     $("#mes").keypress(function (e) {
         var str = $('#mes').val().trim();
         if (str !== '' && typeof str !== undefined) {
-            if (e.which == 13 && e.ctrlKey) {
+            if ((e.which == 13) && (e.ctrlKey == true)) {
                 $('#mes').val($('#mes').val() + "\n");
             } else if (e.which == 13) {
                 e.preventDefault();

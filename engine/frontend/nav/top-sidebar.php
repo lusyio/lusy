@@ -112,6 +112,8 @@
                         <a href="/log/"><img class="svg-icon mr-3" src="/assets/svg/book.svg"><?= _('History') ?></a>
                         <a href="/settings/"><img class="svg-icon mr-3"
                                                   src="/assets/svg/controls.svg"><?= _('Settings') ?></a>
+                        <a href="https://lusy.io/ru/help/"><img class="svg-icon mr-3"
+                                                  src="/assets/svg/info.svg"><?= _('Help') ?></a>
                         <a href="/logout/"><img class="svg-icon mr-3" src="/assets/svg/logout.svg"><?= _('Log Out') ?>
                         </a>
                     </div>

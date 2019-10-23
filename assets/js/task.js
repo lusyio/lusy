@@ -235,7 +235,7 @@ $(document).ready(function () {
             size = this.size;
             var sizeLimit = $('.dropdown').attr('empty-space');
             if (size <= sizeLimit) {
-                fileList.set(n, $(this)[0]);
+                fileList2.set(n, $(this)[0]);
                 $(".file-name-review").show().append("<div val='" + n + "' class='filenames mt-1'>" +
                     "<i class='fas fa-paperclip mr-1'></i>" + names +
                     "<i class='fas fa-times cancel-file ml-1 mr-3 d-inline cancelFile'></i>" +
@@ -266,6 +266,22 @@ $(document).ready(function () {
     });
 
     $("#comin").tooltip('disable');
+
+    $("#comin").keypress(function (e) {
+        var str = $('#comin').val().trim();
+        if (str !== '' && typeof str !== undefined) {
+            if (e.which == 13 && e.ctrlKey) {
+                $('#comin').val($('#comin').val() + "\n");
+            } else if (e.which == 13) {
+                e.preventDefault();
+                $("#comment").click();
+                $("#comin").val('');
+                setTimeout(function () {
+                    $("#comin").css('height', '38px');
+                }, 300);
+            }
+        }
+    });
 
     $("#comment").on('click', function () {
         var text = $("#comin").val();

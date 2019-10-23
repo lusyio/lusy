@@ -16,13 +16,14 @@ $borderColor = [
 
 <div class="dragover-box">
 
+
     <div class="row">
         <div class="col-12 col-lg-8 top-block-tasknew">
             <label class="label-tasknew">
                 Имя задачи
             </label>
             <div class="mb-2 card card-tasknew">
-                <input type="text" id="name" class="form-control border-0 card-body-tasknew"
+                <input type="text" id="name" maxlength="100" class="form-control border-0 card-body-tasknew"
                        placeholder="<?= $GLOBALS['_namenewtask'] ?>"
                        autocomplete="off" value="<?= ($taskEdit) ? $taskName : '' ?>" autofocus required>
             </div>
