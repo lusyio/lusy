@@ -256,30 +256,23 @@ $borderColor = [
                             </div>
                             <div class="col-12 col-lg-4">
                                 <div class="label-tasknew text-left">
-                            <span class="link-help-underline">Отложенный старт
-                                <span class="help-link"><i class="fas fa-info-circle"></i>
-                                     <div class="help-link-tooltip">
-                                        <div class="card">
-                                            <div class="help-link-tooltip-body">
-                                                <div>
-                                                    <p class="help-link-tooltip-body__content">
-                                                       Дата, в которую задача будет опубликована
-                                                    </p>
-                                                    <a class="help-link-tooltip-body__link"
-                                                       href="https://lusy.io/ru/help/tasks/#plannedTask">Подробнее</a>
+                                    <span class="link-help-underline">Отложенный старт
+                                        <span class="help-link"><i class="fas fa-info-circle"></i>
+                                             <div class="help-link-tooltip">
+                                                <div class="card">
+                                                    <div class="help-link-tooltip-body">
+                                                        <div>
+                                                            <p class="help-link-tooltip-body__content">
+                                                               Дата, в которую задача будет опубликована
+                                                            </p>
+                                                            <a class="help-link-tooltip-body__link"
+                                                               href="https://lusy.io/ru/help/tasks/#plannedTask">Подробнее</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </span>
-                            </span>
-                                    <?php if (($taskEdit && $taskStatus == 'planned') || !$taskEdit): ?>
-
-                                    <?php else: ?>
-                                        <span class="tooltip-free" data-toggle="tooltip" data-placement="bottom"
-                                              title="Задача уже в работе"><i
-                                                    class="fas fa-info-circle"></i></span>
-                                    <?php endif; ?>
+                                        </span>
+                                    </span>
                                 </div>
                                 <div class="card card-tasknew">
                                     <?php if ($taskEdit && $taskStatus != 'planned'): ?>
