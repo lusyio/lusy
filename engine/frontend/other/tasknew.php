@@ -422,8 +422,8 @@ $borderColor = [
                                     </span>
                                 </div>
                                 <div class="mb-2 card card-tasknew">
-                            <span class="position-absolute disabledBtnOptions">
-                            </span>
+                                <span class="position-absolute disabledBtnOptions">
+                                </span>
                                     <input type="text" id="checklistInput"
                                            class="form-control border-0 card-body-tasknew disabled"
                                            placeholder="Наименование подпункта"
@@ -435,10 +435,40 @@ $borderColor = [
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-4 top-block-tasknew top-block-tasknew">
+                                <div class="label-tasknew text-left">
+                                <span class="link-help-underline">Повторение задачи
+                                     <span class="help-link"><i class="fas fa-info-circle"></i>
+                                         <div class="help-link-tooltip">
+                                            <div class="card">
+                                                <div class="help-link-tooltip-body">
+                                                    <div>
+                                                        <p class="help-link-tooltip-body__content">
+                                                           Доступно только для задач, назначенных самому себе
+                                                        </p>
+                                                        <a class="help-link-tooltip-body__link"
+                                                           href="https://lusy.io/ru/help/tasks/#repeat">Подробнее</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </span>
+                                </div>
+                                <div class="card card-tasknew">
+                                    <div class="container container-repeat border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew<?= ($taskEdit && $repeatType != 0) ? '' : ' disabled' ?>">
+                                        <div class="placeholder-repeat"
+                                             style="<?= ($taskEdit && $repeatType != 0) ? 'display:none;' : '' ?>">
+                                            Не повторять
+                                        </div>
+                                        <span class="position-absolute disabledBtnOptions">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <?php endif; ?>
-
             </div>
         </div>
 
