@@ -134,65 +134,6 @@ $borderColor = [
 
         <div class="row mt-25-tasknew">
             <div class="col-12 text-center position-relative">
-                <div class="mt-25-tasknew">
-                    <div class="row top-block-tasknew">
-                        <div class="col-12 col-lg-8 top-block-tasknew top-block-tasknew">
-                            <div class="label-tasknew text-left">
-                                <span class="link-help-underline">Повторение задачи
-                                     <span class="help-link"><i class="fas fa-info-circle"></i>
-                                         <div class="help-link-tooltip">
-                                            <div class="card">
-                                                <div class="help-link-tooltip-body">
-                                                    <div>
-                                                        <p class="help-link-tooltip-body__content">
-                                                           Доступно только для задач, назначенных самому себе
-                                                        </p>
-                                                        <a class="help-link-tooltip-body__link"
-                                                           href="https://lusy.io/ru/help/tasks/#repeat">Подробнее</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </span>
-                                </span>
-                            </div>
-                            <div class="card card-tasknew">
-                                <?php
-                                $repeatOptions = [
-                                    '1' => 'Каждый день',
-                                    '2' => 'Через день',
-                                    '3' => 'Раз в 3 дня',
-                                    '4' => 'Раз в 4 дня',
-                                    '5' => 'Раз в 5 дней',
-                                    '6' => 'Раз в 6 дней',
-                                    '7' => 'Раз в неделю',
-                                ];
-                                include __ROOT__ . '/engine/frontend/members/repeat.php'; ?>
-                                <div class="container container-repeat border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew<?= ($taskEdit && $repeatType != 0) ? '' : ' disabled' ?>">
-                                    <div class="placeholder-repeat"
-                                         style="<?= ($taskEdit && $repeatType != 0) ? 'display:none;' : '' ?>">
-                                        Не повторять
-                                    </div>
-                                    <?php foreach ($repeatOptions as $key => $name): ?>
-                                        <div val="<?= $key ?>"
-                                             class="add-repeat text-area-message <?= ($taskEdit && $repeatType == $key) ? 'repeat-selected' : 'd-none' ?>">
-                                            <span class="card-coworker"><?= $name ?></span><i
-                                                    class="fas fa-times remove-parenttask"></i>
-                                        </div>
-                                    <?php endforeach; ?>
-                                    <div class="position-absolute icon-newtask icon-newtask-change-repeat">
-                                        <i class="fas fa-caret-down"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-25-tasknew">
-            <div class="col-12 text-center position-relative">
                 <div class="other-func text-center position-relative">
                     <div class="additional-func">
                         <span>Дополнительные функции <i class="fas fa-caret-down"></i></span>
@@ -341,6 +282,56 @@ $borderColor = [
                                                 </div>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 top-block-tasknew top-block-tasknew">
+                                <div class="label-tasknew text-left">
+                                <span class="link-help-underline">Повторение задачи
+                                     <span class="help-link"><i class="fas fa-info-circle"></i>
+                                         <div class="help-link-tooltip">
+                                            <div class="card">
+                                                <div class="help-link-tooltip-body">
+                                                    <div>
+                                                        <p class="help-link-tooltip-body__content">
+                                                           Доступно только для задач, назначенных самому себе
+                                                        </p>
+                                                        <a class="help-link-tooltip-body__link"
+                                                           href="https://lusy.io/ru/help/tasks/#repeat">Подробнее</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </span>
+                                </div>
+                                <div class="card card-tasknew">
+                                    <?php
+                                    $repeatOptions = [
+                                        '1' => 'Каждый день',
+                                        '2' => 'Через день',
+                                        '3' => 'Раз в 3 дня',
+                                        '4' => 'Раз в 4 дня',
+                                        '5' => 'Раз в 5 дней',
+                                        '6' => 'Раз в 6 дней',
+                                        '7' => 'Раз в неделю',
+                                    ];
+                                    include __ROOT__ . '/engine/frontend/members/repeat.php'; ?>
+                                    <div class="container container-repeat border-0 d-flex flex-wrap align-content-sm-stretch card-body-tasknew<?= ($taskEdit && $repeatType != 0) ? '' : ' disabled' ?>">
+                                        <div class="placeholder-repeat"
+                                             style="<?= ($taskEdit && $repeatType != 0) ? 'display:none;' : '' ?>">
+                                            Не повторять
+                                        </div>
+                                        <?php foreach ($repeatOptions as $key => $name): ?>
+                                            <div val="<?= $key ?>"
+                                                 class="add-repeat text-area-message <?= ($taskEdit && $repeatType == $key) ? 'repeat-selected' : 'd-none' ?>">
+                                                <span class="card-coworker"><?= $name ?></span><i
+                                                        class="fas fa-times remove-parenttask"></i>
+                                            </div>
+                                        <?php endforeach; ?>
+                                        <div class="position-absolute icon-newtask icon-newtask-change-repeat">
+                                            <i class="fas fa-caret-down"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
