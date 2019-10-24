@@ -721,7 +721,7 @@ if ($id == $worker and $view == 0) {
 <script>
     var $it = '<?=$idtask?>';
 </script>
-<script src="/assets/js/task.js?4"></script>
+<script src="/assets/js/task.js?5"></script>
 <script src="/assets/js/datepicker.js"></script>
 <script>
     $(function () {
