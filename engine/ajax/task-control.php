@@ -462,8 +462,11 @@ if ($_POST['module'] == 'createTask') {
     }
     $startDate = strtotime(filter_var($_POST['startdate'], FILTER_SANITIZE_SPECIAL_CHARS));
     $parentTask = filter_var($_POST['parentTask'], FILTER_SANITIZE_NUMBER_INT);
-
-    $task = Task::createTask($name, $description, $startDate, $id, $worker, $coworkers, $datedone, $checklist, $parentTask, $taskPremiumType);
+    $repeatType = filter_var($_POST['repeatType'], FILTER_SANITIZE_NUMBER_INT);
+    if ($repeatType < 0 || $repeatType > 7 || $worker != $id || count($coworkers) > 0) {
+        $repeatType = 0;
+    }
+    $task = Task::createTask($name, $description, $startDate, $id, $worker, $coworkers, $datedone, $checklist, $parentTask, $taskPremiumType, $repeatType);
     if ($task) {
         $task->attachDeviceFilesToTask();
         $task->attachCloudFilesToTask($cloudFiles, $cloudPremiumType);
