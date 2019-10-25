@@ -28,8 +28,16 @@ function setNewUserData($name, $surname, $email, $phone, $socialNetworks, $about
 {
     global $id;
     global $pdo;
-    $setNewDataQuery = $pdo->prepare('UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone, social_networks = :socialNetworks, about = :about, birthdate = :birthdate WHERE id = :userId');
-    $setNewDataQuery->execute(array(':name' => $name, ':surname' => $surname, ':email' => $email, ':phone' => $phone, ':userId' => $id, ':socialNetworks' => $socialNetworks, ':about' => $about, ':birthdate' => $birthdate));
+    $checkEmailQuery = $pdo->prepare("SELECT id FROM users WHERE email = :newEmail");
+    $checkEmailQuery->execute([':newEmail' => $email]);
+    $checkResult = $checkEmailQuery->fetch(PDO::FETCH_COLUMN);
+    if (!$checkResult || $checkResult == $id) {
+        $setNewDataQuery = $pdo->prepare('UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone, social_networks = :socialNetworks, about = :about, birthdate = :birthdate WHERE id = :userId');
+        $setNewDataQuery->execute(array(':name' => $name, ':surname' => $surname, ':email' => $email, ':phone' => $phone, ':userId' => $id, ':socialNetworks' => $socialNetworks, ':about' => $about, ':birthdate' => $birthdate));
+    } else {
+        $setNewDataQuery = $pdo->prepare('UPDATE users SET name = :name, surname = :surname, phone = :phone, social_networks = :socialNetworks, about = :about, birthdate = :birthdate WHERE id = :userId');
+        $setNewDataQuery->execute(array(':name' => $name, ':surname' => $surname, ':phone' => $phone, ':userId' => $id, ':socialNetworks' => $socialNetworks, ':about' => $about, ':birthdate' => $birthdate));
+    }
 }
 
 function setNewPassword($newPassword)
