@@ -587,7 +587,7 @@ class Task
     public function attachDeviceFilesToTask()
     {
         if (count($_FILES) > 0) {
-            if (!is_null($this->get('repeat_task') && $this->get('repeat_type') > 0)) {
+            if (!is_null($this->get('repeat_task')) && $this->get('repeat_type') > 0) {
                 uploadAttachedFiles('task', $this->get('repeat_task'));
             } else {
                 uploadAttachedFiles('task', $this->get('id'));
