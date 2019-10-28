@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2019-09-25 13:51+0300\n"
-"PO-Revision-Date: 2019-09-25 13:51+0300\n"
+"POT-Creation-Date: 2019-10-28 15:59+0300\n"
+"PO-Revision-Date: 2019-10-28 16:00+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-Basepath: ../../../../..\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
@@ -29,7 +29,7 @@ msgstr[0] "месяц"
 msgstr[1] "месяца"
 msgstr[2] "месяцев"
 
-#: engine/backend/other/header.php:113 engine/frontend/nav/top-sidebar.php:105
+#: engine/backend/other/header.php:113 engine/frontend/nav/top-sidebar.php:106
 msgid "Partnership"
 msgstr "Партнерство"
 
@@ -337,20 +337,24 @@ msgstr "Поиск"
 msgid "Payment"
 msgstr "Оплата"
 
-#: engine/frontend/nav/top-sidebar.php:110
+#: engine/frontend/nav/top-sidebar.php:111
 msgid "Profile"
 msgstr "Профиль"
 
-#: engine/frontend/nav/top-sidebar.php:111
-#: engine/frontend/other/dashboard-ceo.php:388
+#: engine/frontend/nav/top-sidebar.php:112
+#: engine/frontend/other/dashboard-ceo.php:401
 msgid "History"
 msgstr "Журнал"
 
-#: engine/frontend/nav/top-sidebar.php:113
+#: engine/frontend/nav/top-sidebar.php:114
 msgid "Settings"
 msgstr "Настройки"
 
-#: engine/frontend/nav/top-sidebar.php:114
+#: engine/frontend/nav/top-sidebar.php:116
+msgid "Help"
+msgstr "Помощь"
+
+#: engine/frontend/nav/top-sidebar.php:117
 msgid "Log Out"
 msgstr "Выход"
 
@@ -359,95 +363,95 @@ msgid "today at"
 msgstr "сегодня в"
 
 #: engine/frontend/other/dashboard-ceo.php:165
-#: engine/frontend/other/dashboard-ceo.php:268
+#: engine/frontend/other/dashboard-ceo.php:281
 msgid "You have no tasks yet, create the first task."
 msgstr "У вас пока нет задач, создайте первую задачу."
 
-#: engine/frontend/other/dashboard-ceo.php:227
-#: engine/frontend/other/dashboard-ceo.php:250
+#: engine/frontend/other/dashboard-ceo.php:240
+#: engine/frontend/other/dashboard-ceo.php:263
 msgid "Done"
 msgstr "Завершено"
 
-#: engine/frontend/other/dashboard-ceo.php:254
+#: engine/frontend/other/dashboard-ceo.php:267
 msgid "Show all tasks"
 msgstr "Показать все задачи"
 
-#: engine/frontend/other/dashboard-ceo.php:282
+#: engine/frontend/other/dashboard-ceo.php:295
 msgid "Completed tasks"
 msgstr "Завершено задач"
 
-#: engine/frontend/other/dashboard-ceo.php:287
+#: engine/frontend/other/dashboard-ceo.php:300
 msgid "Was overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:292
+#: engine/frontend/other/dashboard-ceo.php:305
 msgid "Postpone requested"
 msgstr "Запрошен перенос срока"
 
-#: engine/frontend/other/dashboard-ceo.php:310
-#: engine/frontend/other/godmode.php:102 engine/frontend/other/payment.php:75
+#: engine/frontend/other/dashboard-ceo.php:323
+#: engine/frontend/other/godmode.php:123 engine/frontend/other/payment.php:75
 msgid "task"
 msgid_plural "tasks"
 msgstr[0] "задача"
 msgstr[1] "задачи"
 msgstr[2] "задач"
 
-#: engine/frontend/other/dashboard-ceo.php:323
+#: engine/frontend/other/dashboard-ceo.php:336
 msgid "In work"
 msgstr "В работе"
 
-#: engine/frontend/other/dashboard-ceo.php:337
+#: engine/frontend/other/dashboard-ceo.php:350
 msgid "Overdue"
 msgstr "Просрочено"
 
-#: engine/frontend/other/dashboard-ceo.php:351
+#: engine/frontend/other/dashboard-ceo.php:364
 msgid "Pending"
 msgstr "На рассмотрении"
 
-#: engine/frontend/other/dashboard-ceo.php:365
+#: engine/frontend/other/dashboard-ceo.php:378
 msgid "Postponement"
 msgstr "Перенос срока"
 
-#: engine/frontend/other/dashboard-ceo.php:379
+#: engine/frontend/other/dashboard-ceo.php:392
 msgid "Planned"
 msgstr "Запланировано"
 
-#: engine/frontend/other/godmode.php:82
+#: engine/frontend/other/godmode.php:103
 msgid "active company"
 msgid_plural "active companies"
 msgstr[0] "активная компания"
 msgstr[1] "активных компании"
 msgstr[2] "активных компаний"
 
-#: engine/frontend/other/godmode.php:85
+#: engine/frontend/other/godmode.php:106
 msgid "company"
 msgid_plural "companies"
 msgstr[0] "компания"
 msgstr[1] "компании"
 msgstr[2] "компаний"
 
-#: engine/frontend/other/godmode.php:90
+#: engine/frontend/other/godmode.php:111
 msgid "user"
 msgid_plural "users"
 msgstr[0] "пользователь"
 msgstr[1] "пользователя"
 msgstr[2] "пользователей"
 
-#: engine/frontend/other/godmode.php:110
+#: engine/frontend/other/godmode.php:131
 msgid "comment"
 msgid_plural "comments"
 msgstr[0] "комментарий"
 msgstr[1] "комментария"
 msgstr[2] "комментариев"
 
-#: engine/frontend/other/godmode.php:118
+#: engine/frontend/other/godmode.php:139
 msgid "message"
 msgid_plural "messages"
 msgstr[0] "сообщение"
 msgstr[1] "сообщения"
 msgstr[2] "сообщений"
 
-#: engine/frontend/other/godmode.php:324
+#: engine/frontend/other/godmode.php:345
 #: engine/frontend/other/partnership.php:124
 #: engine/frontend/other/payment-event.php:43
 #: engine/frontend/other/payment.php:23 engine/frontend/other/payment.php:27
