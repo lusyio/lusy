@@ -273,12 +273,6 @@ if ($id == $worker and $view == 0) {
                                 </p>
                             </div>
                         <?php else: ?>
-                            <?php if (!is_null($repeatTask)): ?>
-                                <div>
-                                    <p class="text-muted-new small">Файлы прикреплены к <a
-                                                href="/task/<?= $repeatTask ?>/">оригиналу задачи</a></p>
-                                </div>
-                            <?php endif; ?>
                             <?php if (in_array($file['extension'], ['png', 'jpeg', 'jpg', 'bmp'])): ?>
                                 <div class="photo-preview-container-task-hover mr-2 mb-2">
                                     <div class="text-secondary photo-preview-container photo-preview-container-task clear_fix mb-4">
@@ -321,6 +315,12 @@ if ($id == $worker and $view == 0) {
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
+                <?php if (!is_null($repeatTask)): ?>
+                    <div>
+                        <p class="text-muted-new small">Файлы прикреплены к <a href="/task/<?= $repeatTask ?>/">оригиналу
+                                задачи</a></p>
+                    </div>
+                <?php endif; ?>
             <?php endif; ?>
             <?php if ($isCeo || (!$isCoworker && ($worker == $id || $manager == $id))): ?>
                 <div id="control">
