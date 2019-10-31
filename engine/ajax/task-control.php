@@ -208,6 +208,17 @@ if (isset($_POST['it'])) {
         echo json_encode($unfinishedSubTasks);
     }
 
+// Отмена повторения задачи
+    if ($_POST['module'] == 'cancelRepeat') {
+        $result = [
+            'status' => true,
+        ];
+        if ($task->get('repeat_type') > 0) {
+            Task::cancelRepeat($idtask);
+            echo json_encode($result);
+        }
+    }
+
 // Изменение исполнителя и соисполнителей - есть метод в классе
     if ($_POST['module'] == 'addCoworker') {
         if (!$task->hasEditAccess) {
