@@ -1072,8 +1072,9 @@ function addCommentEvent($taskId, $commentId, $commentFromSystemUser = false, $d
 
     //sendCommentEmailNotification($taskId, $id, $recipients, $commentId);
     foreach ($recipients as $key => $recipient) {
-        addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipient, $commentId], $recipient, $eventIds[$recipient]);
-
+        if (!$commentFromSystemUser) {
+            addMailToQueue('sendCommentEmailNotification', [$taskId, $id, $recipient, $commentId], $recipient, $eventIds[$recipient]);
+        }
     }
 }
 
