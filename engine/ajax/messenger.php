@@ -40,7 +40,7 @@ if ($_POST['module'] == 'sendMessage') {
     }
     if (!empty($mes)) {
         $unreadMessagesQuery = $pdo->prepare("SELECT COUNT(DISTINCT message_id) FROM mail WHERE sender = :sender AND recipient = :recipient AND view_status = 0");
-        $unreadMessagesQuery->execute(['mes' => $mes, 'sender' => $id, 'recipient' => $recipientId, 'datetime' => $messageTime]);
+        $unreadMessagesQuery->execute([':sender' => $id, ':recipient' => $recipientId]);
         $unreadMessages = $unreadMessagesQuery->fetch(PDO::FETCH_COLUMN);
         $dbh = "INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:mes, :sender, :recipient, :datetime) ";
         $sql = $pdo->prepare($dbh);
