@@ -1707,7 +1707,7 @@ function removeMailFromQueueByUserId($userId)
 {
     global $pdo;
     $removeFromQueueQuery = $pdo->prepare("DELETE FROM mail_queue WHERE user_id = :userId");
-    $removeFromQueueQuery->execute(array(':queueId' => $userId));
+    $removeFromQueueQuery->execute(array(':userId' => $userId));
 }
 
 function checkViewStatus($eventId, $isMessage = false)
