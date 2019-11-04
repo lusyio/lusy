@@ -121,5 +121,6 @@ foreach ($mailQueue as $key => $mail) {
 foreach ($multipleEvents as $userId => $eventCount) {
     if ($eventCount > 1 && $userId > 1) {
         sendMultipleEventsEmailNotification($userId);
+        removeMailFromQueueByUserId($userId);
     }
 }

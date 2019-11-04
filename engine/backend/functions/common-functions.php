@@ -1326,7 +1326,7 @@ function sendTaskManagerEmailNotification($taskId, $action)
     }
 }
 
-function sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
+function    sendCommentEmailNotification($taskId, $authorId, $userIds, $commentId)
 {
     global $id;
     global $pdo;
@@ -1701,6 +1701,13 @@ function removeMailFromQueue($queueId)
     global $pdo;
     $removeFromQueueQuery = $pdo->prepare("DELETE FROM mail_queue WHERE queue_id = :queueId");
     $removeFromQueueQuery->execute(array(':queueId' => $queueId));
+}
+
+function removeMailFromQueueByUserId($userId)
+{
+    global $pdo;
+    $removeFromQueueQuery = $pdo->prepare("DELETE FROM mail_queue WHERE user_id = :userId");
+    $removeFromQueueQuery->execute(array(':queueId' => $userId));
 }
 
 function checkViewStatus($eventId, $isMessage = false)
