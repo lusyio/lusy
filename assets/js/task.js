@@ -270,7 +270,7 @@ $(document).ready(function () {
     $("#comin").keypress(function (e) {
         var str = $('#comin').val().trim();
         if (str !== '' && typeof str !== undefined) {
-            if (e.which == 13 && e.which == 17) {
+            if (e.which == 13 && e.ctrlKey) {
                 $('#comin').val($('#comin').val() + "\n");
             } else if (e.which == 13) {
                 e.preventDefault();
