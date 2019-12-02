@@ -22,9 +22,13 @@ if ($request != false) {
 	$showNote = true;
 	if ($messageStatus == 'returned') {
 		$note = 'Причина возврата:';
-		$filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, cloud FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
-		$filesQuery->execute(array(':commentId' => $commentId, ':commentType' => 'task'));
+		$filesQuery = $pdo->prepare('SELECT file_id, file_name, file_size, file_path, comment_id, cloud, is_deleted FROM uploads WHERE comment_id = :commentId and comment_type = :commentType');
+		$filesQuery->execute(array(':commentId' => $commentId, ':commentType' => 'comment'));
 		$files = $filesQuery->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($files as $key => $file) {
+            $fileNameParts = explode('.', $file['file_name']);
+            $files[$key]['extension'] = mb_strtolower(array_pop($fileNameParts));
+        }
 	}
 }
 $request = nl2br($request);
