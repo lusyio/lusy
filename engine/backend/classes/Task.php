@@ -614,7 +614,7 @@ class Task
     private function attachDeviceFilesToComment($commentId)
     {
         if (count($_FILES) > 0) {
-            uploadAttachedFiles('task', $commentId);
+            uploadAttachedFiles('comment', $commentId);
         }
     }
 
