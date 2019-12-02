@@ -184,10 +184,11 @@ if ($_POST['module'] == 'sendToAll' && $idc == 1) {
     $messageText = filter_var($messageText, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $messageTime = time();
     $sendTo = filter_var($_POST['sendTo'], FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $taskCount = filter_var($_POST['taskCount'], FILTER_SANITIZE_NUMBER_INT);
 
     if (!empty($messageText)) {
         if ($sendTo == 'ceo') {
-            sendMessageToAllCeo($messageText);
+            sendMessageToAllCeo($messageText, $taskCount);
         }
         if ($sendTo == 'all') {
             sendMessageToAllUsers($messageText);

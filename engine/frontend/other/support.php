@@ -85,6 +85,8 @@
                 </div>
                 <input type="hidden" id="messageTo" value="">
                 <textarea id="messageText" class="form-control" placeholder="Текст сообщения" rows="7"></textarea>
+                <label for="taskCount" class="text-muted">Минимальное количество задач для получения сообщения (0 - всем):</label>
+                <input type="number" id="taskCount" class="form-control" value="0">
             </div>
             <div class="modal-footer">
                 <button type="button" id="sendMessage" class="btn btn-primary" data-dismiss="modal">Отправить</button>
@@ -138,6 +140,7 @@
         fd.append('module', 'sendToAll');
         fd.append('sendTo', $('#messageTo').val());
         fd.append('message', $('#messageText').val());
+        fd.append('taskCount', $('#taskCount').val());
         if ($('#messageText')) {
             $.ajax({
                 url: '/ajax.php',

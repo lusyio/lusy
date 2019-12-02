@@ -259,12 +259,12 @@ function deleteMessageFromChat($messageId)
     $deleteMessageQuery->execute(array(':messageId' => $messageId));
 }
 
-function sendMessageToAllCeo($messageText)
+function sendMessageToAllCeo($messageText, $taskCount)
 {
     global $pdo;
     global $cometPdo;
-    $ceoListQuery = $pdo->prepare("SELECT id FROM users WHERE role = 'ceo' AND is_fired = 0 AND id > 1");
-    $ceoListQuery->execute();
+    $ceoListQuery = $pdo->prepare("SELECT id FROM users WHERE role = 'ceo' AND is_fired = 0 AND id > 1 AND (SELECT COUNT(*) FROM tasks WHERE tasks.idcompany = users.idcompany) >= :taskCount");
+    $ceoListQuery->execute([':taskCount' => $taskCount]);
     $ceoList = $ceoListQuery->fetchAll(PDO::FETCH_COLUMN);
 
     $sendMessageQuery = $pdo->prepare("INSERT INTO mail (mes, sender, recipient, datetime) VALUES (:message, :sender, :recipient, :datetime)");
