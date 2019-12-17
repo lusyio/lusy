@@ -87,7 +87,7 @@ if ($_POST['module'] == 'sendMessage') {
             if (in_array($recipientId, $onlineUsers) || $lastRecipientActivity > time() - 60) {
                 $isRecipientOnline = true;
             }
-        if ($unreadMessagesQuery == 0 && !$isRecipientOnline) {
+        if ($unreadMessages == 0 && !$isRecipientOnline) {
             addMailToQueue('sendMessageEmailNotification', [$recipientId, $id, $messageId], $recipientId, $messageId);
         }
         if (!$cometPdo->getStatus()) {
