@@ -6,13 +6,18 @@ class CometPDO
 
     public function __construct($dsn, $username, $passwd)
     {
-        try {
-            $this->db = new PDO($dsn, $username, $passwd, [
-                PDO::ATTR_TIMEOUT => 3, // in seconds
-            ]);
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
+        if ($this->isCometOfflineLastMinutes(3)) {
             $this->db = false;
+        } else {
+            try {
+                $this->db = new PDO($dsn, $username, $passwd, [
+                    PDO::ATTR_TIMEOUT => 3, // in seconds
+                ]);
+                $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                $this->db = false;
+                $this->updateCometDownTime();
+            }
         }
     }
 
@@ -82,6 +87,25 @@ class CometPDO
 
     public function getStatus() {
         if (!$this->db) {
+            return false;
+        }
+        return true;
+    }
+
+    private function updateCometDownTime()
+    {
+        $filename = __ROOT__ . '/cometDownTime.ini';
+        file_put_contents($filename, time());
+    }
+
+    private function isCometOfflineLastMinutes($minutes)
+    {
+        $filename = __ROOT__ . '/cometDownTime.ini';
+        if (!file_exists($filename)) {
+            return false;
+        }
+        $time = file_get_contents($filename);
+        if ($time < time() - $minutes * 60) {
             return false;
         }
         return true;
