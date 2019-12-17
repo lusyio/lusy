@@ -7,7 +7,9 @@ class CometPDO
     public function __construct($dsn, $username, $passwd)
     {
         try {
-            $this->db = new PDO($dsn, $username, $passwd);
+            $this->db = new PDO($dsn, $username, $passwd, [
+                PDO::ATTR_TIMEOUT => 3, // in seconds
+            ]);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             $this->db = false;
