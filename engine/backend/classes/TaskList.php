@@ -150,7 +150,7 @@ abstract class TaskList
             if ($a->get('viewStatus') != $b->get('viewStatus')) {
                 return $a->get('viewStatus') - $b->get('viewStatus');
             } else {
-                return $a->get('datedone') - $b->get('datedone');
+                return $b->get('datedone') - $a->get('datedone');
             }
         }
     }
