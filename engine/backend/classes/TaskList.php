@@ -141,8 +141,8 @@ abstract class TaskList
             'new' => 4,
             'inwork' =>4,
             'planned' => 5,
-            'canceled' => 6,
-            'done' => 7,
+            'done' => 6,
+            'canceled' => 7,
         ];
         if ((key_exists($a->get('status'), $statusOrder)) && (key_exists($b->get('status'), $statusOrder)) && $statusOrder[$a->get('status')] != $statusOrder[$b->get('status')]) {
             return $statusOrder[$a->get('status')] - $statusOrder[$b->get('status')];
