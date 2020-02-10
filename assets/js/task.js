@@ -694,6 +694,23 @@ $(document).ready(function () {
         });
     });
 
+    //Возврат удаленной или завершенной задачи в работу
+
+    $("#returnToWork").on('click', function () {
+        $(this).prop('disabled', true);
+        $('#spinnerModal').modal('show');
+        $.ajax({
+            url: '/ajax.php',
+            type: 'POST',
+
+            data: {
+                module: 'returnToWork',
+                it: $it,
+                ajax: 'task-control'
+            },
+            success: controlUpdate,
+        })
+    });
 
     $("#backbutton").click(function () {
         $("#status-block").removeClass('d-none');

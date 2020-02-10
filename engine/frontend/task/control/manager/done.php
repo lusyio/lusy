@@ -1,7 +1,7 @@
 
 <div class="text-center postpone-manager done">
     <h3 class="mt-4 mb-4"><span class="mr-2"><?=$GLOBALS["_donelist"]?></span>   &#x1f389</h3>
-    <p class="text-ligther"> <?=$datedone?></p>
+    <button type="button" class="btn btn-warning text-dark mb-3 w-10" id="returnToWork"><i class="fas fa-fw fa-check mr-2"></i> Вернуть в работу</button>
 </div>
 <div id="status-block" class="mt-3">
     <?php if ($task->get('repeat_type') > 0): ?>

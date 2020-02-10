@@ -814,4 +814,15 @@ class Task
         $setRepeatTypeForSecondaryTasksQuery->execute([':taskId' => $primaryTask]);
         return true;
     }
+
+    public function returnToWork()
+    {
+        setStatus($this->get('id'), 'inwork', strtotime('midnight'));
+        if (!is_null($this->get('parent_task'))) {
+            $parentTask = new Task($this->get('parent_task'));
+            if (in_array($parentTask->get('status'),['done', 'canceled'])) {
+               $parentTask->returnToWork();
+            }
+        }
+    }
 }

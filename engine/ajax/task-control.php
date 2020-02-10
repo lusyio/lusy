@@ -72,7 +72,7 @@ if (isset($_POST['it'])) {
     }
     $taskStatus = $task->get('status');
 
-    if (in_array($taskStatus, ['done', 'canceled']) && (!isset($_POST['module']) || $_POST['module'] != 'cancelRepeat')) {
+    if ((in_array($taskStatus, ['done', 'canceled']) && $_POST['module'] != 'returnToWork') && (!isset($_POST['module']) || $_POST['module'] != 'cancelRepeat')) {
         exit;
     }
     $repeatType = $task->get('repeat_type');
@@ -258,6 +258,15 @@ if (isset($_POST['it'])) {
         }
     }
 
+
+// осстановление завершенной или отмененной задачи
+
+    if ($_POST['module'] == 'returnToWork') {
+        if (!$isManager) {
+            exit;
+        }
+        $task->returnToWork();
+    }
 // Редактирование задачи
 
     if ($_POST['module'] == 'editTask' && $isManager) {
