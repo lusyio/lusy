@@ -182,7 +182,7 @@ $borderColor = [
                                                        autocomplete="off" type="text">
                                             </div>
                                             <?php foreach ($parentTasks as $parentTaskItem): ?>
-                                            <?php if ($taskEdit && $parentTaskItem['id'] == $taskid) continue; ?>
+                                            <?php if ($taskEdit && $parentTaskItem['id'] == $taskId) continue; ?>
                                                 <div val="<?php echo $parentTaskItem['id']; ?>"
                                                      class="add-subtask text-area-message <?= ($taskEdit && $parentTaskItem['id'] == $parentTask) ? 'subtask-selected' : 'd-none' ?> border-left-tasks <?= $borderColor[$parentTaskItem['status']] ?>">
                                                     <span class="card-coworker"><?= $parentTaskItem['name']; ?></span><i
