@@ -1094,11 +1094,15 @@ function addNewSubTaskEvent($parentTaskId, $subTaskId)
     $executorsQuery = $pdo->prepare('SELECT worker, manager FROM tasks WHERE id = :taskId');
     $executorsQuery->execute(array(':taskId' => $parentTaskId));
     $executors = $executorsQuery->fetch(PDO::FETCH_ASSOC);
-    $coworkersQuery = $pdo->prepare('SELECT worker_id FROM task_coworkers WHERE task_id = :taskId');
+    $query = 'SELECT worker_id FROM task_coworkers WHERE task_id = :taskId';
+    $coworkersQuery = $pdo->prepare($query);
     $coworkersQuery->execute(array(':taskId' => $parentTaskId));
     $coworkers = $coworkersQuery->fetchAll(PDO::FETCH_COLUMN);
+    $subtaskCoworkersQuery = $pdo->prepare($query);
+    $subtaskCoworkersQuery->execute(array(':taskId' => $subTaskId));
+    $subtaskCoworkers = $subtaskCoworkersQuery->fetchAll(PDO::FETCH_COLUMN);
 
-    $recipients = $coworkers;
+    $recipients = array_intersect($coworkers, $subtaskCoworkers);
     $recipients[] = $executors['manager'];
     $recipients[] = $executors['worker'];
     array_unique($recipients);
