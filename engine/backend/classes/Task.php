@@ -455,7 +455,7 @@ class Task
 
         if ($parentTaskId != 0 && ($taskPremiumType >= 0)) {
             $parentTask = new Task($parentTaskId);
-            if (in_array($id, [$parentTask->get('manager'), $parentTask->get('worker')]) || ($roleu == 'ceo' && $parentTask->get('idcompany') == $idc)) {
+            if ($parentTask->get('idcompany') == $idc) {
                 if (is_null($parentTask->get('parent_task')) && $parentTask->get('repeat_type') < 1) {
                     $taskCreateQueryData[':parentTask'] = $parentTask->get('id');
                     $taskCreateQueryData[':withPremium'] = 1;
