@@ -31,8 +31,8 @@ if ($_POST['module'] == 'sendActivation' && $roleu == 'ceo') {
         $args = [
             'activationLink' => 'https://' . $_SERVER['HTTP_HOST'] . '/activate/' . $idc . '/' . $activationCode . '/',
         ];
-        $mail->setMessageContent('company-activation', $args);
-        $mail->send();
+//        $mail->setMessageContent('company-activation', $args);
+//        $mail->send();
     } catch (Exception $e) {
 
     }
