@@ -14,12 +14,12 @@ class LusyMailer extends PHPMailer
         $this->isSMTP();
         $this->Host = 'lusy.io';
         $this->SMTPAuth = true;
-        $this->Username = 'info@lusy.io';
-        $this->Password = '~g8#@*2HVne2';
+        $this->Username = 'post@lusy.io';
+        $this->Password = 'Metro2033228';
         $this->SMTPSecure = 'ssl';
         $this->Port = 465;
         $this->CharSet = 'UTF-8';
-        $this->setFrom('info@lusy.io', 'Lusy.io');
+        $this->setFrom('post@lusy.io', 'Lusy.io');
     }
 
     public function setMessageContent($template, $args)
